@@ -5,7 +5,7 @@ version = 1
 pulli = "\u0BCD"
 aytham = "\u0B83"
 # Project tailoring: these sequences are atomic for get_letters, unlike plain UAX 29.
-atomic_letters = ["\u0B95\u0BCD\u0BB7", "\u0BB8\u0BCD\u0BB0\u0BC0"]
+atomic_letters = ["\u0B95\u0BCD\u0BB7", "\u0BB6\u0BCD\u0BB0\u0BC0", "\u0BB8\u0BCD\u0BB0\u0BC0"]
 
 [consonants]
 vallinam = ["\u0B95", "\u0B9A", "\u0B9F", "\u0BA4", "\u0BAA", "\u0BB1"]

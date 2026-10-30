@@ -1,0 +1,2 @@
+# Reference digests cover upstream bytes; disable checkout newline conversion.
+tests/reference/unicode-17.0.0/* -text

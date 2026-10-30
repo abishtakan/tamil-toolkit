@@ -15,7 +15,7 @@ const manifest = JSON.parse(readFileSync(join(root, "manifest.json"), "utf8"));
 if (manifest.version !== 1) throw new Error("Unsupported golden manifest");
 const ids = new Set<string>();
 const files = new Set<string>();
-const cases: (Request & { id: string; expected: unknown })[] = [];
+const cases: (Request & { id: string; expected?: unknown; expected_error?: string })[] = [];
 for (const suite of manifest.suites) {
   if (files.has(suite.file)) throw new Error(`Duplicate suite: ${suite.file}`);
   files.add(suite.file);
@@ -30,6 +30,8 @@ for (const suite of manifest.suites) {
     if (!rows.length) throw new Error(`Empty active suite: ${suite.file}`);
     for (const row of rows) {
       if (!suite.operations.includes(row.op)) throw new Error(`Undeclared operation: ${row.op}`);
+      if (Number("expected" in row) + Number("expected_error" in row) !== 1) throw new Error(`Invalid outcome: ${row.id}`);
+      if ("expected_error" in row && (typeof row.expected_error !== "string" || !row.expected_error)) throw new Error(`Invalid error: ${row.id}`);
       cases.push(row);
     }
   } else console.info(`PLANNED ${suite.file}: ${suite.reason}`);
@@ -40,8 +42,16 @@ if (!cases.length) throw new Error("No active golden vectors");
 
 describe("shared golden vectors through real WASM", () => {
   for (const row of cases) test(row.id, () => {
-    expect(execute(row)).toEqual(row.expected);
-    expect(executeWeb(row)).toEqual(row.expected);
+    for (const invoke of [execute, executeWeb]) {
+      if ("expected_error" in row) {
+        let failure: unknown;
+        try { invoke(row); } catch (error) { failure = error; }
+        expect(failure).toBeInstanceOf(Error);
+        expect((failure as Error).message).toBe(row.expected_error);
+      } else {
+        expect(invoke(row)).toEqual(row.expected);
+      }
+    }
   });
 });
 test("unsupported operations and invalid inputs throw across WASM", () => {

@@ -37,9 +37,22 @@ fn all_active_golden_vectors() {
                 .as_array()
                 .unwrap()
                 .contains(&Value::from(operation)));
-            let actual = tamil_toolkit::execute(&case)
-                .unwrap_or_else(|error| panic!("{filename}:{} ({id}): {error}", index + 1));
-            assert_eq!(actual, case["expected"], "{filename}:{} ({id})", index + 1);
+            let actual = tamil_toolkit::execute(&case);
+            match (case.get("expected"), case.get("expected_error")) {
+                (Some(expected), None) => {
+                    let actual = actual
+                        .unwrap_or_else(|error| panic!("{filename}:{} ({id}): {error}", index + 1));
+                    assert_eq!(&actual, expected, "{filename}:{} ({id})", index + 1);
+                }
+                (None, Some(Value::String(expected_error))) => {
+                    let error = actual.expect_err("expected an error, got a successful output");
+                    assert_eq!(&error, expected_error, "{filename}:{} ({id})", index + 1);
+                }
+                _ => panic!(
+                    "{filename}:{} ({id}): require exactly one valid outcome",
+                    index + 1
+                ),
+            }
             count += 1;
             suite_count += 1;
         }

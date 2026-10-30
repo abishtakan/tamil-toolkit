@@ -6,7 +6,14 @@ from tools.harness import load_vectors
 
 @pytest.mark.parametrize("case", load_vectors(), ids=lambda case: case["id"])
 def test_golden(case):
-    assert tamil.execute(case) == case["expected"]
+    if "expected_error" in case:
+        assert "expected" not in case
+        with pytest.raises(ValueError) as failure:
+            tamil.execute(case)
+        assert str(failure.value) == case["expected_error"]
+    else:
+        assert "expected" in case
+        assert tamil.execute(case) == case["expected"]
 
 
 @pytest.mark.parametrize("payload", [

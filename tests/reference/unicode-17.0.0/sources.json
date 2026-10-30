@@ -1,0 +1,33 @@
+{
+  "unicode_version": "17.0.0",
+  "files": [
+    {
+      "file": "NamedSequences.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/NamedSequences.txt",
+      "upstream_sha256": "0cd1c928edac72ea1369187599727c4f0d92367316b4c5ee5140475ab9298be0",
+      "sha256": "0cd1c928edac72ea1369187599727c4f0d92367316b4c5ee5140475ab9298be0",
+      "selection": null
+    },
+    {
+      "file": "UnicodeData-Tamil.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/UnicodeData.txt",
+      "upstream_sha256": "2e1efc1dcb59c575eedf5ccae60f95229f706ee6d031835247d843c11d96470c",
+      "sha256": "79385cd202b825038270bb253b057d83bbaed5a67b776dcfe5cc84684ba9d059",
+      "selection": "Tamil and Tamil Supplement rows, preserved verbatim"
+    },
+    {
+      "file": "GraphemeBreakTest.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/auxiliary/GraphemeBreakTest.txt",
+      "upstream_sha256": "e2d134d2c52919bace503ebb6a551c1855fe1a1faec18478c78fff254a1793ec",
+      "sha256": "e2d134d2c52919bace503ebb6a551c1855fe1a1faec18478c78fff254a1793ec",
+      "selection": null
+    },
+    {
+      "file": "LICENSE.txt",
+      "url": "https://www.unicode.org/license.txt",
+      "upstream_sha256": "e7a93b009565cfce55919a381437ac4db883e9da2126fa28b91d12732bc53d96",
+      "sha256": "e7a93b009565cfce55919a381437ac4db883e9da2126fa28b91d12732bc53d96",
+      "selection": null
+    }
+  ]
+}

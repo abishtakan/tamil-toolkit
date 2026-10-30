@@ -1,0 +1,23 @@
+{
+  "description": "Independent v0.1 acceptance profile, not a runtime table",
+  "classification_source": "https://www.tamilvu.org/courses/degree/c021/c0211/html/c0211331.htm (section 3.1.4)",
+  "unicode_source": "unicode-17.0.0/NamedSequences.txt and UnicodeData-Tamil.txt",
+  "uyir_names": ["A", "AA", "I", "II", "U", "UU", "E", "EE", "AI", "O", "OO", "AU"],
+  "native_groups": {
+    "vallinam": ["K", "C", "TT", "T", "P", "RR"],
+    "mellinam": ["NG", "NY", "NN", "N", "M", "NNN"],
+    "idaiyinam": ["Y", "R", "L", "V", "LLL", "LL"]
+  },
+  "grantha_names": ["J", "SH", "SS", "S", "H", "KSS"],
+  "legacy_shri": ["0BB8", "0BCD", "0BB0", "0BC0"],
+  "modern_shri_name": "TAMIL SYLLABLE SHRII",
+  "regional_invariance": [
+    {"dialect": "TN", "region": "TN"},
+    {"dialect": "TN", "region": "KONGU"},
+    {"dialect": "TN", "region": "CHENNAI"},
+    {"dialect": "SL", "region": "JAFFNA"},
+    {"dialect": "SL", "region": "BATTICALOA"},
+    {"dialect": "SL", "region": "VANNI"},
+    {"dialect": "SL", "region": "UP_COUNTRY"}
+  ]
+}

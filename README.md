@@ -34,7 +34,11 @@ the host; mobile library bundling is future work.
 - `normalize_nfc` / `normalize_nfd`: canonical normalization preserving joiners.
 - `inspect_tamil_string`: normalization, letter count, and phonetic classification.
 - Local MCP tools for scalar inspection, scalar diffs, and fixture validation.
-- **34 active golden vectors** shared by Rust, Python, WASM, and host Dart.
+- **2,454 active golden vectors**, including 96 shared error cases, across Rust,
+  Python, Node/browser-target WASM, and host Dart.
+- Independent Unicode 17 fixtures cover all 247 traditional letters, the full
+  288-form supported consonant/vowel matrix, both Shri spellings, and 766 UAX 29
+  boundary cases. Reference files include source digests and licensing.
 - Two core properties with **10,000 cases each**, plus invalid-input checks.
 
 ```python
@@ -52,13 +56,15 @@ const letters = get_letters("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd");
 
 See [the bootstrap specification](docs/specs/bootstrap.md) for exact behavior,
 allocation guarantees, Unicode sources, and unsupported inputs.
+The [core v0.1 plan and acceptance results](docs/specs/core-v0.1.md) record its
+completed engineering criteria and local-verification limits.
 
 ## Package map
 
 | Package | State | Responsibility |
 | --- | --- | --- |
 | `tamil-toolkit` | Working bootstrap | Rust umbrella and common JSON dispatcher; Python/npm distribution name |
-| `tamil-core` | Working bootstrap | Ezhuthu segmentation, Mei/Uyir, Unicode inspection |
+| `tamil-core` | v0.1 contract verified locally | Ezhuthu segmentation, Mei/Uyir, Unicode inspection |
 | `tamil-norm` | Working facade | Re-export core normalization for SDK/PostgreSQL consumers |
 | `tamil-collate` | Planned | Agara Varisai sorting and search keys |
 | `tamil-numerals` | Planned | Words, fractions, dates, LKR/INR formatting |
@@ -85,6 +91,7 @@ AGENTS.md / CLAUDE.md       cross-agent constitution and entry point
 tools/mcp-tamil-oracle/     deterministic inspection, diffs, Unicode check
 tests/golden/              JSON schema, manifest, shared JSONL vectors
 tests/harness/             validation, hook, and real MCP protocol tests
+tests/reference/           pinned independent Unicode evidence and acceptance profile
 lexicon/                   declarative TOML/CSV only
 crates/tamil-*/             algorithms, umbrella, and planned module scaffolds
 bindings/                  thin PyO3, WASM, and Dart FFI adapters

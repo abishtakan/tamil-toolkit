@@ -24,8 +24,18 @@ void main() {
       if (!ids.add(row['id'] as String)) throw StateError('Duplicate golden ID');
       if (suite['status'] == 'planned') continue;
       if (!(suite['operations'] as List).contains(row['op'])) throw StateError('Undeclared operation');
+      if (row.containsKey('expected') == row.containsKey('expected_error')) throw StateError('Require exactly one outcome');
+      if (row.containsKey('expected_error') && (row['expected_error'] is! String || (row['expected_error'] as String).isEmpty)) throw StateError('Invalid expected error');
       count++;
-      test(row['id'] as String, () => expect(tamil.execute(row), equals(row['expected'])));
+      test(row['id'] as String, () {
+        if (row.containsKey('expected_error')) {
+          expect(() => tamil.execute(row), throwsA(isA<ArgumentError>().having(
+            (error) => error.message, 'message', row['expected_error'],
+          )));
+        } else {
+          expect(tamil.execute(row), equals(row['expected']));
+        }
+      });
     }
   }
   final onDisk = Directory(golden).listSync().whereType<File>()

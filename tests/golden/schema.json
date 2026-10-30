@@ -2,13 +2,15 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "tamil-toolkit golden vector",
   "type": "object",
-  "required": ["id", "op", "input", "expected", "dialect", "tags", "source"],
+  "required": ["id", "op", "input", "dialect", "tags", "source"],
+  "oneOf": [{"required": ["expected"], "not": {"required": ["expected_error"]}}, {"required": ["expected_error"], "not": {"required": ["expected"]}}],
   "additionalProperties": false,
   "properties": {
     "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"},
     "op": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"},
     "input": {},
     "expected": {},
+    "expected_error": {"type": "string", "minLength": 1},
     "dialect": {"enum": ["COMMON", "TN", "SL"]},
     "locale": {"enum": ["TN", "SL"]},
     "region": {"enum": ["TN", "JAFFNA", "BATTICALOA", "VANNI", "UP_COUNTRY", "KONGU", "CHENNAI"]},
@@ -28,7 +30,7 @@
   },
   "allOf": [
     {
-      "if": {"properties": {"op": {"enum": ["get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "inspect_tamil_string"]}}},
+      "if": {"properties": {"op": {"enum": ["get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "inspect_tamil_string"]}}, "not": {"required": ["expected_error"]}},
       "then": {"properties": {"input": {"type": "string"}}}
     },
     {
@@ -44,7 +46,7 @@
       "then": {"properties": {"expected": {"$ref": "#/$defs/parts"}}}
     },
     {
-      "if": {"properties": {"op": {"const": "compose_uyirmei"}}},
+      "if": {"properties": {"op": {"const": "compose_uyirmei"}}, "not": {"required": ["expected_error"]}},
       "then": {"properties": {"input": {"$ref": "#/$defs/parts"}}}
     }
   ],

@@ -2,6 +2,10 @@
   "version": 1,
   "suites": [
     {"file": "core_graphemes.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string"]},
+    {"file": "core_alphabet.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string"]},
+    {"file": "core_normalization.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string"]},
+    {"file": "core_boundaries.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string"]},
+    {"file": "core_errors.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string", "unknown_core_operation"]},
     {"file": "collate_agara_varisai.jsonl", "status": "planned", "reason": "Agara Varisai tailoring needs sourced linguistic review."},
     {"file": "numerals_lkr_inr.jsonl", "status": "planned", "reason": "Prompt examples only; currency and regional rules need sourced review."},
     {"file": "codec_bamini.jsonl", "status": "planned", "reason": "A licensed, versioned Bamini mapping and ambiguity policy are required."},

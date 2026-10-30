@@ -33,7 +33,10 @@ features must add sourced TN and SL cases, including relevant regional variation
 
 `tests/golden/schema.json` defines each row. `dialect` is mandatory and is one of
 `COMMON`, `TN`, or `SL`; `tags` never substitutes for that field. IDs are globally
-unique. `source` records evidence. JSONL stores Tamil as escapes so codepoints
+unique. A row requires exactly one of `expected` or `expected_error`. The latter
+asserts an exact Rust error message through each runtime's native exception.
+Wrong-type inputs are permitted only in error vectors. `source` records evidence.
+JSONL stores Tamil as escapes so codepoints
 are reviewable. Required intentional non-NFC/joiner values must have an exact
 JSON Pointer, kind, and reason in `unicode_exceptions`. Unused exceptions fail.
 
@@ -52,6 +55,11 @@ examples come from the brief and still require review.
 
 The oracle shares `tamil-toolkit`'s Rust dispatcher. Python implements Unicode
 scalar display/diff and schema validation only, not Tamil linguistic algorithms.
+
+The [core v0.1 acceptance plan](core-v0.1.md) defines independent inventory,
+normalization, boundary, and shared-error coverage. Its corpus is compiled offline
+from pinned Unicode 17 data and separately sourced phonetic groups. Both Shri
+spellings are atomic; canonical normalization preserves their distinct scalars.
 
 ## Evidence
 

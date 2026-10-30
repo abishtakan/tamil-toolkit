@@ -9,10 +9,12 @@ mod tables {
     include!(concat!(env!("OUT_DIR"), "/core_tables.rs"));
 }
 
+/// Canonical NFC normalization. Preserves joiners and never folds Shri spellings.
 pub fn normalize_nfc(text: &str) -> String {
     text.nfc().collect()
 }
 
+/// Canonical NFD normalization. Preserves non-Tamil text and invisible joiners.
 pub fn normalize_nfd(text: &str) -> String {
     text.nfd().collect()
 }
@@ -56,6 +58,8 @@ impl<'a> Iterator for Letters<'a> {
     }
 }
 
+/// Normalize to NFC and return tailored clusters, including non-Tamil clusters.
+/// KSHA and both Shri spellings are atomic; malformed text is preserved.
 pub fn get_letters(text: &str) -> Vec<String> {
     let normalized = normalize_nfc(text);
     Letters::new(&normalized).map(str::to_owned).collect()
@@ -67,6 +71,10 @@ pub struct Uyirmei {
     pub uyir: String,
 }
 
+/// Split exactly one NFC-normalized consonant/vowel form into Mei and Uyir.
+///
+/// Returns an error for pure Mei, independent Uyir, Shri, multiple letters,
+/// joiners, and malformed vowel sequences. See the v0.1 golden error contract.
 pub fn split_uyirmei(text: &str) -> Result<Uyirmei, String> {
     let normalized = normalize_nfc(text);
     for &(base, _) in tables::CONSONANTS {
@@ -82,6 +90,10 @@ pub fn split_uyirmei(text: &str) -> Result<Uyirmei, String> {
     Err("expected exactly one Uyirmei letter".to_owned())
 }
 
+/// Compose one valid Mei and independent Uyir into its NFC vowel form.
+///
+/// Canonically equivalent inputs are accepted. Invalid letters and extra marks
+/// return an error rather than being stripped or repaired.
 pub fn compose_uyirmei(mei: &str, uyir: &str) -> Result<String, String> {
     let mei = normalize_nfc(mei);
     let uyir = normalize_nfc(uyir);
@@ -136,6 +148,9 @@ pub struct Inspection {
     pub letters: Vec<InspectedLetter>,
 }
 
+/// Inspect normalization and valid Tamil letter classes without repairing input.
+/// `grapheme_count` counts project-tailored clusters, including non-Tamil text;
+/// it is not the untailored UAX 29 grapheme count. `ezhuthu_count` excludes `other`.
 pub fn inspect_tamil_string(text: &str) -> Inspection {
     let nfc = normalize_nfc(text);
     let nfd = normalize_nfd(text);
@@ -168,6 +183,13 @@ mod tests {
         #![proptest_config(ProptestConfig::with_cases(10_000))]
         #[test]
         fn arbitrary_unicode_preserves_normalized_content(text in ".{0,64}") {
+            let borrowed: Vec<_> = Letters::new(&text).collect();
+            prop_assert_eq!(borrowed.concat(), text.as_str());
+            for letter in borrowed {
+                let start = letter.as_ptr() as usize;
+                let input_start = text.as_ptr() as usize;
+                prop_assert!(start >= input_start && start + letter.len() <= input_start + text.len());
+            }
             let nfc = normalize_nfc(&text);
             prop_assert_eq!(get_letters(&text).concat(), nfc.as_str());
             prop_assert_eq!(normalize_nfc(&nfc), nfc.as_str());
