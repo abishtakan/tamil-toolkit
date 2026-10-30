@@ -1,0 +1,19 @@
+[package]
+name = "tamil-wasm"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Thin WASM bindings for tamil-toolkit"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+tamil-toolkit.workspace = true
+wasm-bindgen = "0.2"
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
+
+[lints]
+workspace = true

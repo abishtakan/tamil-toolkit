@@ -1,0 +1,10 @@
+packages:
+  - bindings/js-wasm
+
+allowBuilds:
+  wasm-pack: true
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - wasm-pack@0.15.1
+

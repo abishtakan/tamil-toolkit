@@ -1,0 +1,9 @@
+[package]
+name = "tamil-dialect"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Pluricentric spoken-to-literary Tamil normalization"
+
+[lints]
+workspace = true

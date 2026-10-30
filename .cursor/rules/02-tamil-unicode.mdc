@@ -1,0 +1,9 @@
+---
+description: Inspect Tamil scalars and normalization, not rendered glyphs.
+alwaysApply: true
+---
+
+Never trust visual Tamil glyph inspection. Use mcp-tamil-oracle tools or explicit
+hex escapes. NFC is required unless a golden value has an exact, reasoned Unicode
+exception. Inspect decoded JSON escapes too. Never silently delete ZWJ/ZWNJ or
+change intentionally decomposed tests. Run just check-unicode after edits.

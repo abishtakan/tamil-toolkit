@@ -1,0 +1,18 @@
+[project]
+name = "tamil-toolkit-dev"
+version = "0.1.0"
+description = "Development harness and local Unicode oracle for tamil-toolkit"
+requires-python = ">=3.11"
+dependencies = ["mcp>=2.3,<3", "jsonschema>=4.23,<5"]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "maturin>=1.8,<2"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+addopts = "--basetemp=target/pytest"
+testpaths = ["tests/harness", "bindings/python/tests"]
+pythonpath = ["."]
+

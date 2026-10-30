@@ -1,0 +1,12 @@
+[package]
+name = "tamil-norm"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Shared normalization facade for SDKs and future PostgreSQL integration"
+
+[dependencies]
+tamil-core.workspace = true
+
+[lints]
+workspace = true

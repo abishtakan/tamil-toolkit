@@ -1,0 +1,35 @@
+[workspace]
+resolver = "2"
+members = ["crates/*", "bindings/python", "bindings/js-wasm", "bindings/dart-flutter/rust"]
+exclude = ["extensions/pg_tamil"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+publish = false
+
+[workspace.dependencies]
+tamil-core = { path = "crates/tamil-core", version = "0.1.0" }
+tamil-norm = { path = "crates/tamil-norm", version = "0.1.0" }
+tamil-collate = { path = "crates/tamil-collate", version = "0.1.0" }
+tamil-numerals = { path = "crates/tamil-numerals", version = "0.1.0" }
+tamil-codec = { path = "crates/tamil-codec", version = "0.1.0" }
+tamil-punarchi = { path = "crates/tamil-punarchi", version = "0.1.0" }
+tamil-morph = { path = "crates/tamil-morph", version = "0.1.0" }
+tamil-dialect = { path = "crates/tamil-dialect", version = "0.1.0" }
+tamil-hyphen = { path = "crates/tamil-hyphen", version = "0.1.0" }
+tamil-yaappu = { path = "crates/tamil-yaappu", version = "0.1.0" }
+tamil-toolkit = { path = "crates/tamil-toolkit", version = "0.1.0" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+unicode-normalization = "0.1"
+unicode-segmentation = "1.13"
+toml = "0.8"
+proptest = "1"
+
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+
+[workspace.lints.clippy]
+undocumented_unsafe_blocks = "deny"

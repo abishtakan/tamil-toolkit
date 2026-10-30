@@ -1,0 +1,49 @@
+import 'dart:convert';
+import 'dart:ffi';
+import 'package:ffi/ffi.dart';
+
+typedef _NativeCall = Pointer<Utf8> Function(Pointer<Utf8>);
+typedef _NativeFree = Void Function(Pointer<Utf8>);
+
+/// Thin JSON marshalling around the Rust C ABI. Supply the built library path.
+class TamilToolkit {
+  final Pointer<Utf8> Function(Pointer<Utf8>) _call;
+  final void Function(Pointer<Utf8>) _free;
+
+  TamilToolkit(String libraryPath) : this._(DynamicLibrary.open(libraryPath));
+
+  TamilToolkit._(DynamicLibrary library)
+      : _call = library.lookupFunction<_NativeCall,
+            Pointer<Utf8> Function(Pointer<Utf8>)>('tamil_toolkit_call'),
+        _free = library.lookupFunction<_NativeFree,
+            void Function(Pointer<Utf8>)>('tamil_toolkit_free');
+
+  Object? execute(Map<String, Object?> request) {
+    final input = jsonEncode(request).toNativeUtf8();
+    try {
+      final output = _call(input);
+      if (output == nullptr) throw StateError('Rust returned a null response');
+      try {
+        final result = jsonDecode(output.toDartString()) as Map<String, dynamic>;
+        if (result.containsKey('error')) throw ArgumentError(result['error']);
+        return result['ok'];
+      } finally {
+        _free(output);
+      }
+    } finally {
+      malloc.free(input);
+    }
+  }
+
+  List<String> getLetters(String text) =>
+      (execute({'op': 'get_letters', 'input': text}) as List).cast<String>();
+  String normalizeNfc(String text) =>
+      execute({'op': 'normalize_nfc', 'input': text}) as String;
+  String normalizeNfd(String text) =>
+      execute({'op': 'normalize_nfd', 'input': text}) as String;
+  Map<String, dynamic> splitUyirmei(String text) =>
+      execute({'op': 'split_uyirmei', 'input': text}) as Map<String, dynamic>;
+  String composeUyirmei(String mei, String uyir) => execute({
+    'op': 'compose_uyirmei', 'input': {'mei': mei, 'uyir': uyir},
+  }) as String;
+}

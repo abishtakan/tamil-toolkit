@@ -1,0 +1,9 @@
+[package]
+name = "tamil-yaappu"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Tamil prosody and meter analysis"
+
+[lints]
+workspace = true

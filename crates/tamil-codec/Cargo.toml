@@ -1,0 +1,9 @@
+[package]
+name = "tamil-codec"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Versioned legacy encodings and orthography conversion"
+
+[lints]
+workspace = true

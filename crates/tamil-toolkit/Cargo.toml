@@ -1,0 +1,22 @@
+[package]
+name = "tamil-toolkit"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Unified Tamil linguistic toolkit and shared FFI dispatcher"
+
+[dependencies]
+tamil-core.workspace = true
+tamil-norm.workspace = true
+tamil-collate.workspace = true
+tamil-numerals.workspace = true
+tamil-codec.workspace = true
+tamil-punarchi.workspace = true
+tamil-morph.workspace = true
+tamil-dialect.workspace = true
+tamil-hyphen.workspace = true
+tamil-yaappu.workspace = true
+serde_json.workspace = true
+
+[lints]
+workspace = true

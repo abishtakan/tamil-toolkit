@@ -1,0 +1,7 @@
+{
+  "name": "tamil-toolkit-workspace",
+  "private": true,
+  "packageManager": "pnpm@11.5.0",
+  "scripts": {"test": "pnpm --filter tamil-toolkit test"},
+  "devDependencies": {"wasm-pack": "0.15.1"}
+}

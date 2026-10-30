@@ -1,0 +1,5 @@
+comment = 'Tamil toolkit integration scaffold; full-text search is not implemented'
+default_version = '0.1.0'
+module_pathname = '$libdir/pg_tamil'
+relocatable = false
+superuser = true

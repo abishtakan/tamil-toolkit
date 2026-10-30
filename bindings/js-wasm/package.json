@@ -1,0 +1,17 @@
+{
+  "name": "tamil-toolkit",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Thin TypeScript/WASM bindings for the Rust Tamil toolkit",
+  "exports": {
+    ".": {
+      "node": {"types": "./dist/index.d.ts", "default": "./dist/index.js"},
+      "default": {"types": "./dist/web.d.ts", "default": "./dist/web.js"}
+    },
+    "./web": {"types": "./dist/web.d.ts", "default": "./dist/web.js"}
+  },
+  "files": ["dist", "pkg-node", "pkg-web", "README.md"],
+  "scripts": {"build": "tsc", "test": "vitest run"},
+  "devDependencies": {"@types/node": "^24.0.0", "typescript": "7.0.2", "vitest": "5.0.5"}
+}

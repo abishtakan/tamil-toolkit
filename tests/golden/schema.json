@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "tamil-toolkit golden vector",
+  "type": "object",
+  "required": ["id", "op", "input", "expected", "dialect", "tags", "source"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"},
+    "op": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"},
+    "input": {},
+    "expected": {},
+    "dialect": {"enum": ["COMMON", "TN", "SL"]},
+    "locale": {"enum": ["TN", "SL"]},
+    "region": {"enum": ["TN", "JAFFNA", "BATTICALOA", "VANNI", "UP_COUNTRY", "KONGU", "CHENNAI"]},
+    "tags": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "source": {"type": "string", "minLength": 1},
+    "unicode_exceptions": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["path", "kind", "reason"], "additionalProperties": false,
+        "properties": {
+          "path": {"type": "string", "pattern": "^/(input|expected)(/.*)?$"},
+          "kind": {"enum": ["non_nfc", "joiner"]},
+          "reason": {"type": "string", "minLength": 12}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"op": {"enum": ["get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "inspect_tamil_string"]}}},
+      "then": {"properties": {"input": {"type": "string"}}}
+    },
+    {
+      "if": {"properties": {"op": {"const": "get_letters"}}},
+      "then": {"properties": {"expected": {"type": "array", "items": {"type": "string"}}}}
+    },
+    {
+      "if": {"properties": {"op": {"enum": ["normalize_nfc", "normalize_nfd", "compose_uyirmei"]}}},
+      "then": {"properties": {"expected": {"type": "string"}}}
+    },
+    {
+      "if": {"properties": {"op": {"const": "split_uyirmei"}}},
+      "then": {"properties": {"expected": {"$ref": "#/$defs/parts"}}}
+    },
+    {
+      "if": {"properties": {"op": {"const": "compose_uyirmei"}}},
+      "then": {"properties": {"input": {"$ref": "#/$defs/parts"}}}
+    }
+  ],
+  "$defs": {
+    "parts": {
+      "type": "object", "required": ["mei", "uyir"], "additionalProperties": false,
+      "properties": {"mei": {"type": "string", "minLength": 1}, "uyir": {"type": "string", "minLength": 1}}
+    }
+  }
+}

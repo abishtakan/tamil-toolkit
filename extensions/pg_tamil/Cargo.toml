@@ -1,0 +1,24 @@
+[package]
+name = "pg_tamil"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "Planned PostgreSQL integration for tamil-toolkit"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[[bin]]
+name = "pgrx_embed_pg_tamil"
+path = "src/bin/pgrx_embed.rs"
+
+[features]
+default = ["pg18"]
+pg17 = ["pgrx/pg17"]
+pg18 = ["pgrx/pg18"]
+pg_test = []
+
+[dependencies]
+pgrx = "=0.19.3"
+tamil-norm = { path = "../../crates/tamil-norm" }
+tamil-morph = { path = "../../crates/tamil-morph" }

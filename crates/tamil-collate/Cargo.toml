@@ -1,0 +1,9 @@
+[package]
+name = "tamil-collate"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Agara Varisai collation and search keys"
+
+[lints]
+workspace = true

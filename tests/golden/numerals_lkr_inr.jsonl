@@ -1,0 +1,2 @@
+{"id":"num_001","op":"to_words","input":1000,"locale":"SL","expected":"\u0b86\u0baf\u0bbf\u0bb0\u0bae\u0bcd","dialect":"SL","tags":["cardinal","unreviewed"],"source":"User brief; planned example awaiting linguistic review"}
+{"id":"num_014","op":"to_words","input":1025,"locale":"SL","expected":"\u0b86\u0baf\u0bbf\u0bb0\u0ba4\u0bcd\u0ba4\u0bc1 \u0b87\u0bb0\u0bc1\u0baa\u0ba4\u0bcd\u0ba4\u0bc1 \u0b90\u0ba8\u0bcd\u0ba4\u0bc1","dialect":"SL","tags":["cardinal","unreviewed"],"source":"User brief; planned example awaiting linguistic review"}

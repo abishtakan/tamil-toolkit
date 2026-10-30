@@ -1,0 +1,9 @@
+[package]
+name = "tamil-hyphen"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Syllable and morpheme boundary hyphenation"
+
+[lints]
+workspace = true

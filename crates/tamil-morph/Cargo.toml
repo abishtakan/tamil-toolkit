@@ -1,0 +1,9 @@
+[package]
+name = "tamil-morph"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "FST morphology, lemmatization, and case analysis"
+
+[lints]
+workspace = true

@@ -1,0 +1,21 @@
+[package]
+name = "tamil-python"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[lib]
+name = "_native"
+crate-type = ["cdylib"]
+test = false
+doctest = false
+
+[features]
+extension-module = ["pyo3/extension-module"]
+
+[dependencies]
+tamil-toolkit.workspace = true
+pyo3 = "0.30"
+
+[lints]
+workspace = true

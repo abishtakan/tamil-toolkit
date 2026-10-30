@@ -1,0 +1,9 @@
+[package]
+name = "tamil-numerals"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+description = "Tamil numerals, fractions, dates, and LKR/INR currencies"
+
+[lints]
+workspace = true

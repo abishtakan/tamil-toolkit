@@ -1,0 +1,58 @@
+# Bootstrap contract
+
+This setup implements only the operations in the active golden suite. It does
+not claim to implement collation, numerals, legacy encodings, sandhi, morphology,
+dialect normalization, hyphenation, prosody, or PostgreSQL full-text search.
+
+## Unicode operations
+
+- `normalize_nfc` / `normalize_nfd`: Unicode canonical normalization. Preserve
+  joiners, whitespace, punctuation, and other scripts; never silently sanitize.
+- `get_letters`: normalize to NFC, then return all extended grapheme clusters,
+  with project tailoring that treats Sri and KSHA sequences as atomic Tamil
+  letters. Preserve non-Tamil clusters. This is a specified Ezhuthu convention,
+  not a claim that UAX 29 alone implements all Tamil linguistic segmentation.
+- `split_uyirmei`: accept exactly one consonant with an inherent or dependent
+  vowel, including the Grantha consonants in `lexicon/core.toml`. Normalize input
+  to NFC. Reject a pure Mei, independent vowel, Sri ligature, or multiple letters.
+- `compose_uyirmei`: accept exactly a valid Mei and independent Uyir; return NFC.
+- `inspect_tamil_string`: preserve original scalars, report normalization and
+  per-letter phonetic classes using Rust. Ezhuthu count includes recognized
+  Tamil letters only; `grapheme_count` also includes non-Tamil clusters. Invalid
+  orthographic sequences are preserved as clusters with class `other`.
+
+`Letters` borrows NFC input and yields borrowed slices without allocation. Public
+normalizing functions, JSON adapters, and FFI necessarily allocate. No blanket
+zero-allocation claim applies to these APIs.
+
+Core Unicode behavior is region independent. Fixtures label TN, Jaffna,
+Batticaloa, Vanni, Up-Country, Kongu, and Chennai explicitly. Future linguistic
+features must add sourced TN and SL cases, including relevant regional variation.
+
+## Golden-vector lifecycle
+
+`tests/golden/schema.json` defines each row. `dialect` is mandatory and is one of
+`COMMON`, `TN`, or `SL`; `tags` never substitutes for that field. IDs are globally
+unique. `source` records evidence. JSONL stores Tamil as escapes so codepoints
+are reviewable. Required intentional non-NFC/joiner values must have an exact
+JSON Pointer, kind, and reason in `unicode_exceptions`. Unused exceptions fail.
+
+`manifest.json` lists every JSONL suite with status `active` or `planned`.
+All runtimes execute every row of every active suite; unknown operations fail.
+Planned suites are validated and reported, but never counted as passing tests.
+Only the owner reviewing the specification may activate a planned suite. Empty
+planned suites deliberately avoid fabricated linguistic facts. The numeral
+examples come from the brief and still require review.
+
+The oracle shares `tamil-toolkit`'s Rust dispatcher. Python implements Unicode
+scalar display/diff and schema validation only, not Tamil linguistic algorithms.
+
+## Evidence
+
+- [Unicode Tamil FAQ](https://unicode.org/faq/tamil.html)
+- [Unicode Tamil script chapter](https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-12/)
+- [Unicode named sequences](https://www.unicode.org/Public/17.0.0/ucd/NamedSequences.txt)
+- [UAX 29](https://www.unicode.org/reports/tr29/)
+
+The golden examples in this bootstrap are engineering fixtures. Expert review
+remains necessary for linguistic rules; agents must never invent Nannool rules.

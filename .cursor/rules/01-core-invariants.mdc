@@ -1,0 +1,10 @@
+---
+description: Rust-first algorithms, declarative data, golden vectors, and runtime parity.
+alwaysApply: true
+---
+
+Read AGENTS.md and docs/specs/bootstrap.md. Linguistic algorithms belong only in
+crates/tamil-*. Bindings only marshal calls. Golden JSONL and sourced declarative
+data precede implementation. Never hardcode lexicons/suffix/font mappings in
+Rust. Cover TN and SL explicitly. Never count planned modules as implemented.
+Run just agent-pre-stop-gate and relevant Dart verification before completion.

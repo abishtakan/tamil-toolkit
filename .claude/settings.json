@@ -1,0 +1,39 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import os,runpy; runpy.run_path(os.path.join(os.environ['CLAUDE_PROJECT_DIR'],'tools','agent_hook.py'),run_name='__main__')\" pre-tool",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import os,runpy; runpy.run_path(os.path.join(os.environ['CLAUDE_PROJECT_DIR'],'tools','agent_hook.py'),run_name='__main__')\" post-edit",
+            "timeout": 180
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import os,runpy; runpy.run_path(os.path.join(os.environ['CLAUDE_PROJECT_DIR'],'tools','agent_hook.py'),run_name='__main__')\" stop",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  }
+}

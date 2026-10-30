@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "tamil-oracle": {
+      "type": "stdio",
+      "command": "uv",
+      "args": ["run", "--locked", "python", "tools/mcp-tamil-oracle/server.py"]
+    }
+  }
+}
