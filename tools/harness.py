@@ -12,28 +12,32 @@ JOINERS = frozenset(map(chr, (0x200C, 0x200D)))
 
 
 def strings(value, path=""):
-    """Yield leaf strings with RFC 6901 JSON Pointers."""
+    """Yield (member JSON Pointer, text, is_key) for strings and object keys."""
     if isinstance(value, str):
-        yield path, value
+        yield path, value, False
     elif isinstance(value, list):
         for index, item in enumerate(value):
             yield from strings(item, f"{path}/{index}")
     elif isinstance(value, dict):
         for key, item in value.items():
             escaped = str(key).replace("~", "~0").replace("/", "~1")
-            yield from strings(item, f"{path}/{escaped}")
+            member = f"{path}/{escaped}"
+            yield member, str(key), True
+            yield from strings(item, member)
 
 
 def unicode_issues(value):
     """Check decoded strings, including escapes hidden in JSON source."""
     issues = set()
-    for path, text in strings(value):
+    for path, text, is_key in strings(value):
+        # Key issues are deliberately outside the schema's value-only exceptions.
+        prefix = "key_" if is_key else ""
         if any(0xD800 <= ord(char) <= 0xDFFF for char in text):
-            issues.add((path, "surrogate"))
+            issues.add((path, prefix + "surrogate"))
         if not unicodedata.is_normalized("NFC", text):
-            issues.add((path, "non_nfc"))
+            issues.add((path, prefix + "non_nfc"))
         if JOINERS.intersection(text):
-            issues.add((path, "joiner"))
+            issues.add((path, prefix + "joiner"))
     return issues
 
 
@@ -57,7 +61,7 @@ def validate_rows(path: Path, seen=None):
             raise ValueError(f"{path}:{line_number}: duplicate Unicode exception")
         actual = unicode_issues(row)
         if actual != allowed:
-            raise ValueError(f"{path}:{line_number}: unexpected Unicode issues {sorted(actual - allowed)}; unused exceptions {sorted(allowed - actual)}")
+            raise ValueError(f"{path}:{line_number}: unexpected Unicode issues {sorted(actual - allowed)!a}; unused exceptions {sorted(allowed - actual)!a}")
         if row.get("locale") and row["dialect"] != row["locale"]:
             raise ValueError(f"{path}:{line_number}: locale/dialect mismatch")
         if row.get("region") in {"JAFFNA", "BATTICALOA", "VANNI", "UP_COUNTRY"} and row["dialect"] != "SL":

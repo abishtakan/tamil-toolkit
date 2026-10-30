@@ -37,6 +37,12 @@ unique. `source` records evidence. JSONL stores Tamil as escapes so codepoints
 are reviewable. Required intentional non-NFC/joiner values must have an exact
 JSON Pointer, kind, and reason in `unicode_exceptions`. Unused exceptions fail.
 
+Object keys are checked recursively, including inside arrays. Keys must contain
+valid Unicode scalars, be NFC, and contain no ZWJ/ZWNJ. Unicode exceptions apply
+only to values and cannot waive invalid keys. Key diagnostics identify the
+member's escaped JSON Pointer and use `key_non_nfc`, `key_joiner`, or
+`key_surrogate` to distinguish a key from its value.
+
 `manifest.json` lists every JSONL suite with status `active` or `planned`.
 All runtimes execute every row of every active suite; unknown operations fail.
 Planned suites are validated and reported, but never counted as passing tests.

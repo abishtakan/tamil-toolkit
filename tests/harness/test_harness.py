@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from tools.harness import GOLDEN, ROOT, load_vectors, validate_golden_schema, validate_rows
+from tools.harness import GOLDEN, ROOT, load_vectors, unicode_issues, validate_golden_schema, validate_rows
 
 
 def oracle_module():
@@ -43,6 +43,52 @@ def test_invalid_fixture_is_rejected(tmp_path, mutation):
     row = seed()
     mutation(row)
     with pytest.raises(ValueError):
+        validate_rows(write_row(tmp_path, row))
+
+
+@pytest.mark.parametrize("key,kind", [
+    pytest.param("hidden" + chr(0x200C), "key_joiner", id="zwnj"),
+    pytest.param("hidden" + chr(0x200D), "key_joiner", id="zwj"),
+    pytest.param(chr(0x0065) + chr(0x0301), "key_non_nfc", id="non-nfc"),
+    pytest.param(chr(0xD800), "key_surrogate", id="high-surrogate"),
+    pytest.param(chr(0xDFFF), "key_surrogate", id="low-surrogate"),
+])
+@pytest.mark.parametrize("nested", [False, True], ids=["object", "nested-array"])
+def test_invalid_unicode_object_keys_are_rejected(tmp_path, key, kind, nested):
+    row = copy.deepcopy(next(case for case in load_vectors() if case["op"] == "inspect_tamil_string"))
+    payload = {key: "clean value"}
+    row["expected"] = {"outer": [payload]} if nested else payload
+    with pytest.raises(ValueError, match=kind):
+        validate_rows(write_row(tmp_path, row))
+
+
+def test_key_diagnostics_escape_json_pointer_tokens():
+    key = "slash/tilde~" + chr(0x200C)
+    assert unicode_issues({"expected": [{key: "clean"}]}) == {
+        ("/expected/0/slash~1tilde~0" + chr(0x200C), "key_joiner"),
+    }
+
+
+def test_unicode_keys_and_value_exceptions_remain_valid(tmp_path):
+    normalized = next(case for case in load_vectors() if case["id"] == "core_008")["expected"]
+    # Cover non-ASCII keys, astral scalars, and escaped JSON Pointer tokens.
+    key = normalized + "/~" + chr(0x1F4BB)
+    row = copy.deepcopy(next(case for case in load_vectors() if case["op"] == "inspect_tamil_string"))
+    row["expected"] = {key: ["value" + chr(0x200C)]}
+    row["unicode_exceptions"] = [{
+        "path": "/expected/" + key.replace("~", "~0").replace("/", "~1") + "/0",
+        "kind": "joiner",
+        "reason": "Intentional value joiner verifies that key checks preserve scoped exceptions.",
+    }]
+    assert validate_rows(write_row(tmp_path, row)) == [row]
+
+
+def test_value_exceptions_do_not_cover_object_keys(tmp_path):
+    row = copy.deepcopy(next(case for case in load_vectors() if case["id"] == "core_010"))
+    row["op"] = "inspect_tamil_string"
+    row["expected"] = {"hidden" + chr(0x200C): "clean"}
+    row["unicode_exceptions"] = [exception for exception in row["unicode_exceptions"] if exception["path"] == "/input"]
+    with pytest.raises(ValueError, match="key_joiner"):
         validate_rows(write_row(tmp_path, row))
 
 
