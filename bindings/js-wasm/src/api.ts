@@ -17,5 +17,9 @@ export function createApi(nativeExecute: (request: string) => string) {
     split_uyirmei: (text: string) => execute({ op: "split_uyirmei", input: text }) as Uyirmei,
     compose_uyirmei: (mei: string, uyir: string) => execute({ op: "compose_uyirmei", input: { mei, uyir } }) as string,
     inspect_tamil_string: (text: string) => execute({ op: "inspect_tamil_string", input: text }) as Inspection,
+    compare: (left: string, right: string) => execute({ op: "compare", input: { left, right } }) as -1 | 0 | 1,
+    sort_words: (words: string[]) => execute({ op: "sort_words", input: words }) as string[],
+    sort_key: (text: string) => execute({ op: "sort_key", input: text }) as number[],
+    search_key: (text: string) => execute({ op: "search_key", input: text }) as number[],
   };
 }

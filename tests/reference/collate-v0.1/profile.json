@@ -1,0 +1,71 @@
+{
+  "profile": "agara-v1",
+  "key_version": 1,
+  "source": "Unicode 17 traditional Tamil table; CLDR 48 ta.xml Mei-first tailoring; docs/specs/collate-v0.1.md",
+  "consonants": [
+    "K",
+    "NG",
+    "C",
+    "NY",
+    "TT",
+    "NN",
+    "T",
+    "N",
+    "P",
+    "M",
+    "Y",
+    "R",
+    "L",
+    "V",
+    "LLL",
+    "LL",
+    "RR",
+    "NNN",
+    "J",
+    "SH",
+    "SS",
+    "S",
+    "H",
+    "KSS"
+  ],
+  "vowels": [
+    "A",
+    "AA",
+    "I",
+    "II",
+    "U",
+    "UU",
+    "E",
+    "EE",
+    "AI",
+    "O",
+    "OO",
+    "AU"
+  ],
+  "shri_expansions": [
+    {
+      "codes": [
+        "0BB6",
+        "0BCD",
+        "0BB0",
+        "0BC0"
+      ],
+      "elements": [
+        "TAMIL CONSONANT SH",
+        "TAMIL SYLLABLE RII"
+      ]
+    },
+    {
+      "codes": [
+        "0BB8",
+        "0BCD",
+        "0BB0",
+        "0BC0"
+      ],
+      "elements": [
+        "TAMIL CONSONANT S",
+        "TAMIL SYLLABLE RII"
+      ]
+    }
+  ]
+}

@@ -21,3 +21,9 @@ this is evidence preparation, not a second public Tamil implementation.
 Regenerate deliberately with `uv run --locked python tools/generate_core_golden.py`.
 Check without writing with the same command plus `--check`. Updating a reference,
 profile, or generated fixture requires reviewing the v0.1 acceptance specification.
+
+`collate-v0.1/` freezes CLDR 48's Tamil tailoring and the independently declared
+Agara profile. Its source digest and Unicode license are recorded in sources.json.
+`tools/generate_collate_golden.py` compiles its expected keys and ordering from
+that profile and Unicode named sequences without reading lexicon/collate.toml.
+Run it with `--check` to verify offline regeneration.

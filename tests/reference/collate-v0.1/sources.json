@@ -1,0 +1,7 @@
+{
+  "cldr_version": "48",
+  "file": "ta.xml",
+  "url": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/collation/ta.xml",
+  "sha256": "8be5b114a73efe93ebf04b8ada2da38feefe1cf6b795aa3a05d72c90c814dd25",
+  "license": "../unicode-17.0.0/LICENSE.txt"
+}

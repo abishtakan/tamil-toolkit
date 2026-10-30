@@ -33,19 +33,24 @@ the host; mobile library bundling is future work.
 - `split_uyirmei` / `compose_uyirmei`: consonant/vowel decomposition and assembly.
 - `normalize_nfc` / `normalize_nfd`: canonical normalization preserving joiners.
 - `inspect_tamil_string`: normalization, letter count, and phonetic classification.
+- `compare` / `sort_words`: traditional Mei-first Agara comparison and stable
+  sorting, preserving original spellings and duplicates.
+- `sort_key` / `search_key`: versioned canonical numeric keys for ordering and
+  exact normalized matching; see the explicit Agara/fallback profile below.
 - Local MCP tools for scalar inspection, scalar diffs, and fixture validation.
-- **2,454 active golden vectors**, including 96 shared error cases, across Rust,
+- **5,545 active golden vectors**, including 146 shared error cases, across Rust,
   Python, Node/browser-target WASM, and host Dart.
 - Independent Unicode 17 fixtures cover all 247 traditional letters, the full
   288-form supported consonant/vowel matrix, both Shri spellings, and 766 UAX 29
   boundary cases. Reference files include source digests and licensing.
-- Two core properties with **10,000 cases each**, plus invalid-input checks.
+- Five core/collation properties with **10,000 cases each**, plus invalid-input checks.
 
 ```python
 import tamil_toolkit as tamil
 
 letters = tamil.get_letters("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd")
 assert letters == ["\u0ba4", "\u0bae\u0bbf", "\u0bb4\u0bcd"]
+assert tamil.compare("\u0b95\u0bcd", "\u0b95") == -1  # Mei sorts before its vowel forms.
 ```
 
 ```ts
@@ -58,6 +63,10 @@ See [the bootstrap specification](docs/specs/bootstrap.md) for exact behavior,
 allocation guarantees, Unicode sources, and unsupported inputs.
 The [core v0.1 plan and acceptance results](docs/specs/core-v0.1.md) record its
 completed engineering criteria and local-verification limits.
+The [collation v0.1 plan and contract](docs/specs/collate-v0.1.md) define
+`agara-v1`, stable NFC/NFD ties, Grantha handling, scalar fallback, and key
+versioning. Search keys provide canonical exact matching. The profile does not
+implement full ICU/UCA collation or fuzzy linguistic search.
 
 ## Package map
 
@@ -66,7 +75,7 @@ completed engineering criteria and local-verification limits.
 | `tamil-toolkit` | Working bootstrap | Rust umbrella and common JSON dispatcher; Python/npm distribution name |
 | `tamil-core` | v0.1 contract verified locally | Ezhuthu segmentation, Mei/Uyir, Unicode inspection |
 | `tamil-norm` | Working facade | Re-export core normalization for SDK/PostgreSQL consumers |
-| `tamil-collate` | Planned | Agara Varisai sorting and search keys |
+| `tamil-collate` | agara-v1 verified locally | Mei-first Agara sorting and canonical sort/search keys |
 | `tamil-numerals` | Planned | Words, fractions, dates, LKR/INR formatting |
 | `tamil-codec` | Planned | Bamini, TSCII, Anjal, Vanavil, TAB, TAM, historic orthography |
 | `tamil-punarchi` | Planned | Sourced Nannool sandhi and compound splitting |

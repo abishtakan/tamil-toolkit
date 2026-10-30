@@ -14,6 +14,8 @@ void main() {
   final ids = <String>{};
   final files = <String>{};
   var count = 0;
+  Map<String, dynamic>? wordCase;
+  Map<String, dynamic>? keyCase;
   for (final suite in manifest['suites']) {
     if (!files.add(suite['file'] as String)) throw StateError('Duplicate suite');
     if (!['active', 'planned'].contains(suite['status'])) throw StateError('Unknown status');
@@ -21,6 +23,8 @@ void main() {
     if (suite['status'] == 'active' && lines.isEmpty) throw StateError('Empty active suite');
     for (final line in lines) {
       final row = jsonDecode(line) as Map<String, dynamic>;
+      if (row['id'] == 'collate_words_basic') wordCase = row;
+      if (row['id'] == 'collate_key_001') keyCase = row;
       if (!ids.add(row['id'] as String)) throw StateError('Duplicate golden ID');
       if (suite['status'] == 'planned') continue;
       if (!(suite['operations'] as List).contains(row['op'])) throw StateError('Undeclared operation');
@@ -44,5 +48,13 @@ void main() {
   if (count == 0) throw StateError('No active golden vectors');
   test('invalid operation crosses C ABI as an error', () {
     expect(() => tamil.execute({'op': 'unknown', 'input': ''}), throwsArgumentError);
+  });
+  test('collation convenience APIs', () {
+    final words = wordCase!;
+    final key = keyCase!;
+    expect(tamil.sortWords((words['input'] as List).cast<String>()), equals(words['expected']));
+    expect(tamil.sortKey(key['input'] as String), equals(key['expected']));
+    expect(tamil.searchKey(key['input'] as String), equals(key['expected']));
+    expect(tamil.compare(key['input'] as String, key['input'] as String), 0);
   });
 }

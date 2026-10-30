@@ -21,6 +21,10 @@ pub const OPERATIONS: &[&str] = &[
     "split_uyirmei",
     "compose_uyirmei",
     "inspect_tamil_string",
+    "compare",
+    "sort_words",
+    "sort_key",
+    "search_key",
 ];
 
 fn string(value: &Value) -> Result<&str, String> {
@@ -45,6 +49,25 @@ pub fn execute(request: &Value) -> Result<Value, String> {
             core::compose_uyirmei(string(&input["mei"])?, string(&input["uyir"])?).map(|s| json!(s))
         }
         "inspect_tamil_string" => Ok(json!(core::inspect_tamil_string(string(input)?))),
+        "compare" => {
+            let order = collate::compare(string(&input["left"])?, string(&input["right"])?);
+            Ok(json!(match order {
+                std::cmp::Ordering::Less => -1,
+                std::cmp::Ordering::Equal => 0,
+                std::cmp::Ordering::Greater => 1,
+            }))
+        }
+        "sort_words" => {
+            let words = input
+                .as_array()
+                .ok_or("expected an array of strings")?
+                .iter()
+                .map(|value| string(value).map(str::to_owned))
+                .collect::<Result<Vec<_>, _>>()?;
+            Ok(json!(collate::sort_words(&words)))
+        }
+        "sort_key" => Ok(json!(collate::sort_key(string(input)?))),
+        "search_key" => Ok(json!(collate::search_key(string(input)?))),
         op => Err(format!("unsupported operation: {op}")),
     }
 }

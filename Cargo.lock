@@ -462,6 +462,13 @@ version = "0.1.0"
 [[package]]
 name = "tamil-collate"
 version = "0.1.0"
+dependencies = [
+ "proptest",
+ "serde",
+ "tamil-core",
+ "toml",
+ "unicode-normalization",
+]
 
 [[package]]
 name = "tamil-core"

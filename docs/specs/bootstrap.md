@@ -1,7 +1,7 @@
 # Bootstrap contract
 
 This setup implements only the operations in the active golden suite. It does
-not claim to implement collation, numerals, legacy encodings, sandhi, morphology,
+not claim to implement numerals, legacy encodings, sandhi, morphology,
 dialect normalization, hyphenation, prosody, or PostgreSQL full-text search.
 
 ## Unicode operations
@@ -60,6 +60,10 @@ The [core v0.1 acceptance plan](core-v0.1.md) defines independent inventory,
 normalization, boundary, and shared-error coverage. Its corpus is compiled offline
 from pinned Unicode 17 data and separately sourced phonetic groups. Both Shri
 spellings are atomic; canonical normalization preserves their distinct scalars.
+
+The [collation v0.1 contract](collate-v0.1.md) adds Mei-first Agara comparison,
+stable sorting, and canonical sort/search keys using declarative ordering tables.
+Mixed-script fallback and the profile's limits are specified explicitly there.
 
 ## Evidence
 

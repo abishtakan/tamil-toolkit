@@ -4,6 +4,8 @@ import { join } from "node:path";
 import { beforeAll, describe, expect, test } from "vitest";
 import { execute, type Request } from "../src/index.js";
 import { init, execute as executeWeb } from "../src/web.js";
+import * as nodeApi from "../src/index.js";
+import * as webApi from "../src/web.js";
 
 beforeAll(async () => {
   const bytes = readFileSync(new URL("../pkg-web/tamil_toolkit_bg.wasm", import.meta.url));
@@ -57,4 +59,15 @@ describe("shared golden vectors through real WASM", () => {
 test("unsupported operations and invalid inputs throw across WASM", () => {
   expect(() => execute({ op: "unknown", input: "" })).toThrow();
   expect(() => execute({ op: "get_letters", input: 1 })).toThrow();
+});
+
+test("collation convenience APIs on both WASM targets", () => {
+  const words = cases.find((row) => row.id === "collate_words_basic")!;
+  const key = cases.find((row) => row.id === "collate_key_001")!;
+  for (const api of [nodeApi, webApi]) {
+    expect(api.sort_words(words.input as string[])).toEqual(words.expected);
+    expect(api.sort_key(key.input as string)).toEqual(key.expected);
+    expect(api.search_key(key.input as string)).toEqual(key.expected);
+    expect(api.compare(key.input as string, key.input as string)).toBe(0);
+  }
 });

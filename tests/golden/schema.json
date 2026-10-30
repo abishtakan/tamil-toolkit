@@ -30,7 +30,7 @@
   },
   "allOf": [
     {
-      "if": {"properties": {"op": {"enum": ["get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "inspect_tamil_string"]}}, "not": {"required": ["expected_error"]}},
+      "if": {"properties": {"op": {"enum": ["get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "inspect_tamil_string", "sort_key", "search_key"]}}, "not": {"required": ["expected_error"]}},
       "then": {"properties": {"input": {"type": "string"}}}
     },
     {
@@ -48,6 +48,26 @@
     {
       "if": {"properties": {"op": {"const": "compose_uyirmei"}}, "not": {"required": ["expected_error"]}},
       "then": {"properties": {"input": {"$ref": "#/$defs/parts"}}}
+    },
+    {
+      "if": {"properties": {"op": {"enum": ["sort_key", "search_key"]}}},
+      "then": {"properties": {"expected": {"type": "array", "minItems": 1, "prefixItems": [{"const": 1}], "items": {"type": "integer", "minimum": 0, "maximum": 1114111}}}}
+    },
+    {
+      "if": {"properties": {"op": {"const": "compare"}}, "not": {"required": ["expected_error"]}},
+      "then": {"properties": {"input": {"type": "object", "required": ["left", "right"], "additionalProperties": false, "properties": {"left": {"type": "string"}, "right": {"type": "string"}}}}}
+    },
+    {
+      "if": {"properties": {"op": {"const": "compare"}}},
+      "then": {"properties": {"expected": {"enum": [-1, 0, 1]}}}
+    },
+    {
+      "if": {"properties": {"op": {"const": "sort_words"}}, "not": {"required": ["expected_error"]}},
+      "then": {"properties": {"input": {"type": "array", "items": {"type": "string"}}}}
+    },
+    {
+      "if": {"properties": {"op": {"const": "sort_words"}}},
+      "then": {"properties": {"expected": {"type": "array", "items": {"type": "string"}}}}
     }
   ],
   "$defs": {

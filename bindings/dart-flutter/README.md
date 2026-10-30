@@ -10,3 +10,7 @@ are released in `finally` blocks and errors cross the ABI as JSON envelopes.
 Mobile/desktop app bundling and cross-compilation are future packaging work;
 this scaffold supports a locally built host shared library. Flutter web uses the
 JavaScript/WASM package instead. Publication is disabled.
+
+Collation convenience methods are `compare`, `sortWords`, `sortKey`, and
+`searchKey`. They marshal directly to Rust. Keys are versioned numeric arrays;
+use lexicographic numeric comparison and the documented `agara-v1` profile.

@@ -5,7 +5,7 @@ from typing import Any
 
 from . import _native
 
-__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string"]
+__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key"]
 
 
 def execute(request: dict[str, Any]) -> Any:
@@ -34,3 +34,19 @@ def compose_uyirmei(mei: str, uyir: str) -> str:
 
 def inspect_tamil_string(text: str) -> dict[str, Any]:
     return execute({"op": "inspect_tamil_string", "input": text})
+
+
+def compare(left: str, right: str) -> int:
+    return execute({"op": "compare", "input": {"left": left, "right": right}})
+
+
+def sort_words(words: list[str]) -> list[str]:
+    return execute({"op": "sort_words", "input": words})
+
+
+def sort_key(text: str) -> list[int]:
+    return execute({"op": "sort_key", "input": text})
+
+
+def search_key(text: str) -> list[int]:
+    return execute({"op": "search_key", "input": text})

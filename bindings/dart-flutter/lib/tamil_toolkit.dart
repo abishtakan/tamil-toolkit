@@ -46,4 +46,12 @@ class TamilToolkit {
   String composeUyirmei(String mei, String uyir) => execute({
     'op': 'compose_uyirmei', 'input': {'mei': mei, 'uyir': uyir},
   }) as String;
+  int compare(String left, String right) =>
+      execute({'op': 'compare', 'input': {'left': left, 'right': right}}) as int;
+  List<String> sortWords(List<String> words) =>
+      (execute({'op': 'sort_words', 'input': words}) as List).cast<String>();
+  List<int> sortKey(String text) =>
+      (execute({'op': 'sort_key', 'input': text}) as List).cast<int>();
+  List<int> searchKey(String text) =>
+      (execute({'op': 'search_key', 'input': text}) as List).cast<int>();
 }
