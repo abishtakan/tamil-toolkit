@@ -2,7 +2,8 @@
 
 Status: PyPI `0.1.0a1` is published and verified from a fresh consumer. The six
 public Rust crates are configured for guarded crates.io publishing; uploads
-remain pending. npm publication remains pending.
+remain pending because the crates.io account email needs verification. npm
+publication remains pending.
 
 Repository: https://github.com/abishtakan/tamil-toolkit
 

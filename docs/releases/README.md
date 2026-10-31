@@ -30,7 +30,10 @@ The six public Rust crate manifests now allow crates.io publishing. The guarded
 `publish-crate.yml` workflow publishes one selected crate per manual run after
 validating its successful `master` artifact run and archive digest. The
 `CARGO_REGISTRY_TOKEN` Actions secret is configured. No Rust crate has been
-uploaded yet. The npm package remains private pending its registry setup.
+uploaded yet. The first `tamil-core` upload attempt was rejected because the
+crates.io account email is not verified; see [workflow run 41211746892](https://github.com/abishtakan/tamil-toolkit/actions/runs/41211746892).
+Verify the account email at [crates.io profile settings](https://crates.io/settings/profile)
+before retrying. The npm package remains private pending its registry setup.
 
 ## Build and review
 
@@ -80,7 +83,9 @@ After concrete artifact review and explicit authorization to publish:
    bootstrap its first upload using the maintainer's authenticated npm CLI,
    then configure the workflow. The repository Actions secret
    `CARGO_REGISTRY_TOKEN` is configured for crates.io. Never put credentials in
-   this repository or ask for them in plaintext chat.
+   this repository or ask for them in plaintext chat. Verify the crates.io
+   account email at https://crates.io/settings/profile before the first upload;
+   the initial `tamil-core` attempt was rejected until that is done.
 2. Remove `private: true` only from `bindings/js-wasm/package.json` when npm is
    ready. All placeholder crates, FFI support crates, the workspace root npm
    package, and the workbench remain private. The npm package stays private
