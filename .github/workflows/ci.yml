@@ -31,7 +31,19 @@ jobs:
           enable-cache: true
       - uses: taiki-e/install-action@v2
         with:
-          tool: just,cargo-nextest,actionlint
+          tool: just,cargo-nextest
+      - name: Install actionlint
+        run: |
+          set -euo pipefail
+          version=1.7.12
+          asset="actionlint_${version}_linux_amd64.tar.gz"
+          curl --fail --location --silent --show-error \
+            "https://github.com/rhysd/actionlint/releases/download/v${version}/${asset}" \
+            --output "$RUNNER_TEMP/${asset}"
+          echo "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8  ${asset}" \
+            | (cd "$RUNNER_TEMP" && sha256sum --check --strict)
+          tar -xzf "$RUNNER_TEMP/${asset}" -C "$RUNNER_TEMP" actionlint
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
       - uses: Swatinem/rust-cache@v2
       - run: uv sync --locked --python 3.13
       - run: just agent-post-edit
