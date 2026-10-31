@@ -1,7 +1,7 @@
 # First public alpha: 0.1.0-alpha.1
 
-Status: PyPI `0.1.0a1` and all six finished Rust crates at `0.1.0-alpha.1` are
-published. The npm package remains unpublished.
+Status: PyPI `0.1.0a1`, all six finished Rust crates, and npm
+`tamil-toolkit 0.1.0-alpha.1` are published.
 
 Repository: https://github.com/abishtakan/tamil-toolkit
 
@@ -65,7 +65,8 @@ or a network dependency in build scripts. Never edit the generated copies.
    Publishing is a separate explicit action using a reviewed release tag and
    registry credentials or trusted publisher configuration. No secret is stored
    in source, artifacts, or logs. PyPI and the six finished Rust crates are
-   published. npm's reviewed alpha upload remains pending.
+   published. The reviewed npm alpha upload is published and its registry
+   consumer passed all active golden rows.
    Each registry's archives must pass consumer checks before upload.
 
 ## Release review and handoff
@@ -74,11 +75,11 @@ Record commands, artifact digests, local/CI evidence, supported platforms, and
 incomplete registry/account configuration in the [release runbook](README.md).
 Local Windows proof does not imply Linux/macOS CI; the alpha artifact run linked
 below passed those platform builds and consumers. PyPI and crates.io project
-ownership are confirmed. The npm name is available but has not been registered.
+ownership are confirmed. The npm package is registered; its trusted publisher
+is not configured yet for future releases.
 
-The release tag, PyPI upload, and six crates.io uploads are complete. The npm
-tarball still needs its first authenticated upload, followed by trusted-publisher
-configuration for future releases.
+The release tag and uploads to PyPI, crates.io, and npm are complete. npm's
+trusted publisher remains to be configured before a future OIDC release.
 
 ## Primary references
 
@@ -134,6 +135,11 @@ passed Linux/Windows/macOS wheels, CPython 3.11/3.14 consumers, Node 22/24, Rust
 archive packaging, and Rust 1.85 from source commit
 `60765b24e5d7826460dc3be3836ebdcc71816461`. PyPI and the six finished Rust
 crates are live; their registry records and digests are in the
-[release runbook](README.md). npm still needs its first authenticated upload and
-trusted-publisher setup. Dart distribution packaging and PostgreSQL remain
-excluded from this alpha.
+[release runbook](README.md). The [npm alpha](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.1)
+was published from artifact run
+[41213495093](https://github.com/abishtakan/tamil-toolkit/actions/runs/41213495093).
+Its reviewed tarball SHA-256 is
+`0018c5451da8330e5fa2f45b54112e2dc832138c963523b34c7229c31b51d1d9`; a fresh
+public install passed all 21,277 active rows through Node and browser-target
+WASM. Dart distribution packaging and PostgreSQL remain excluded from this
+alpha.

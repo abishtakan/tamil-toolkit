@@ -3,8 +3,8 @@
 `just sync-bindings` produces Node and browser WASM builds and TypeScript
 declarations. Node: `import * as tamil from 'tamil-toolkit'`. Browser:
 `import { init, get_letters } from 'tamil-toolkit/web'; await init();`.
-The experimental MIT-licensed `0.1.0-alpha.1` is being prepared; no registry upload
-has occurred. Once published, install with `npm install tamil-toolkit@alpha`.
+The experimental MIT-licensed `0.1.0-alpha.1` is published on npm. Install it
+with `npm install tamil-toolkit@alpha`.
 These adapters serialize calls into the shared Rust dispatcher. Planned modules
 are excluded. APIs may change before stability. Node 22+ is supported; browser
 consumers must initialize the WASM module before calling its functions.

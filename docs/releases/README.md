@@ -2,8 +2,8 @@
 
 The first alpha release record for https://github.com/abishtakan/tamil-toolkit.
 See [scope and acceptance](alpha-1.md). Nothing in `just release-check` uploads,
-tags, pushes, or creates accounts. Registry publication is partial: Python and
-Rust are published; npm remains unpublished.
+tags, pushes, or creates accounts. The Python, Rust, and npm alpha packages are
+published.
 
 ## Alpha 1 publication status
 
@@ -32,8 +32,7 @@ workflow runs and registry checksums are recorded below. The local artifact
 archives were built with temporary `[patch.crates-io]` entries for package
 verification; Cargo regenerated the upload archives without those local
 patches. Comparison with crates.io downloads showed that only the embedded
-`Cargo.lock` differs. The npm package name is available, but its first upload
-and trusted-publisher setup are pending.
+`Cargo.lock` differs.
 
 | Crate | crates.io | Publish run | Registry archive SHA-256 |
 | --- | --- | --- | --- |
@@ -44,15 +43,18 @@ and trusted-publisher setup are pending.
 | `tamil-codec` | [0.1.0-alpha.1](https://crates.io/crates/tamil-codec/0.1.0-alpha.1) | [41212174436](https://github.com/abishtakan/tamil-toolkit/actions/runs/41212174436) | `0b851e13bcd786280c6f7b1e70187d5cc4baa192fdf787aee6bf963217bb7812` |
 | `tamil-toolkit` | [0.1.0-alpha.1](https://crates.io/crates/tamil-toolkit/0.1.0-alpha.1) | [41212755732](https://github.com/abishtakan/tamil-toolkit/actions/runs/41212755732) | `a63cb34afa8dbb411c313eb498897adf61b7bd739170ea685dfb31490e8cfdbf` |
 
-The npm candidate was built from source commit `403bcfca0b312d1c9a2188e271c1dc760d9725f6`
-in [artifact run 41213495093](https://github.com/abishtakan/tamil-toolkit/actions/runs/41213495093).
-Node 22 and Node 24 produced byte-identical tarballs; the reviewed SHA-256 is
-`0018c5451da8330e5fa2f45b54112e2dc832138c963523b34c7229c31b51d1d9`. The
-tarball passed the release consumer, contains both WASM targets and license
-notices, and is not marked private. The npm name is available, but this local
-CLI is authenticated as `abishtakan`. Its first `npm publish` attempt returned
-`EOTP`, so the package is still unpublished and needs an interactive one-time
-password during the initial upload.
+The npm package [`tamil-toolkit 0.1.0-alpha.1`](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.1)
+was published on 2026-10-31. Its tarball was built from source commit
+`403bcfca0b312d1c9a2188e271c1dc760d9725f6` in [artifact run
+41213495093](https://github.com/abishtakan/tamil-toolkit/actions/runs/41213495093).
+Node 22 and Node 24 produced byte-identical tarballs; the reviewed and registry
+tarball SHA-256 is
+`0018c5451da8330e5fa2f45b54112e2dc832138c963523b34c7229c31b51d1d9`. A fresh
+consumer installed the public version and passed all 21,277 active golden rows
+through both Node and browser-target WASM entry points. The current `alpha` and
+`latest` dist-tags both resolve to `0.1.0-alpha.1`. The initial publication used
+an authenticated maintainer CLI and interactive OTP; npm trusted publishing is
+not yet configured for future releases.
 
 ## Build and review
 
@@ -85,7 +87,7 @@ versions/checksums still match Cargo.lock. Binary dependency notices come from
 that locked Cargo graph. Development/build dependencies can appear in the
 notice file conservatively; no test tooling is a Python/npm runtime dependency.
 
-## Registry setup and first upload
+## Registry setup and release workflow
 
 After concrete artifact review and explicit authorization to publish:
 
@@ -98,12 +100,10 @@ After concrete artifact review and explicit authorization to publish:
    successful `Alpha distribution artifacts` run whose source manifest matches
    the `v0.1.0-alpha.1` tag. The GitHub `pypi` environment has a required
    reviewer.
-   The npm name `tamil-toolkit` is available but has no package settings yet.
-   Make its first upload from an authenticated maintainer CLI; npm requires
-   account 2FA or a granular access token with 2FA bypass. The current CLI
-   session is authenticated, but the initial publish still needs the
-   maintainer's one-time password in an interactive terminal. After the package
-   exists, configure its trusted publisher for GitHub Actions, owner
+   The npm package now exists. Its first upload used an authenticated
+   maintainer CLI with an interactive OTP; no npm token is stored in GitHub.
+   Configure its trusted publisher for GitHub Actions before the next npm
+   release, with owner
    `abishtakan`, repository `tamil-toolkit`, workflow filename
    `publish-npm.yml`, no environment, and permission to run `npm publish`.
    Configure it when the next version is ready and complete its first OIDC
@@ -125,20 +125,19 @@ After concrete artifact review and explicit authorization to publish:
    `tamil-codec`, `tamil-toolkit`; allow each crate to appear in the registry
    before publishing dependents. The workflow validates source identity and the
    artifact digest, and publishes only one allowlisted crate per run.
-5. PyPI and crates.io publication are complete. For npm's first upload, use the
-   reviewed tarball from step 3 with the authenticated maintainer CLI:
-   `npm publish PATH.tgz --tag alpha`. Unscoped npm packages are public by
-   default. Configure the package's `publish-npm.yml` trusted publisher for the
-   next version when it is ready. Keep stable/default install channels free of
-   this experimental npm alpha. Enter the one-time password only at the
-   interactive CLI prompt; do not share OTPs or npm credentials in chat.
+5. PyPI, crates.io, and npm publication are complete for this alpha. For future
+   npm releases, use the guarded `publish-npm.yml` OIDC workflow after
+   configuring the package's trusted publisher. The initial manual upload used
+   the reviewed tarball and an interactive OTP; do not share OTPs or npm
+   credentials in chat.
 6. From a fresh consumer, install the exact public versions and run the same
-   golden consumer suite. Update the changelog/status only after those installs
-   succeed. Record registry links, tag, artifact digests, and CI evidence here.
+   golden consumer suite. Record registry links, tags, artifact digests, and CI
+   evidence here.
 
 Public publication cannot be validated solely with local dry runs. Registry
 ownership, publisher configuration, and successful remote CI remain separate
-requirements. This preparation does not request credentials or perform uploads.
+requirements. This release's registry uploads and public consumer checks are
+recorded above; future uploads still require an explicit release action.
 
 ## References
 
