@@ -23,6 +23,22 @@ dependencies and builds a real editable PyO3 extension plus Node/browser WASM.
 `cargo-nextest` is optional: `test-rust` uses it when available, otherwise clearly
 reports its fallback to Cargo's test runner. Both execute the same properties.
 
+## Local package workbench
+
+Run `pnpm dev` from the repository root and open `http://127.0.0.1:5173/`.
+The Vite app, configuration, package manifest, and TypeScript config live in
+`workbench/`; root commands delegate to that package. The dev command builds
+browser WASM first. UI and style edits use Vite hot reload;
+Rust or lexicon edits rebuild the browser WASM and refresh the page. Select any
+implemented package to enter values and see its operations update live as you
+type. Results show the returned text or JSON plus Unicode scalar values. Python
+and Dart selections call their native adapters from the local dev server. The
+`tamil-codec` workbench supports live Bamini → Unicode and Unicode → Bamini
+conversion. Planned packages remain visibly unimplemented. Golden vectors and native test suites are
+available in a collapsed optional section below the manual controls.
+`pnpm run check:workbench` type-checks the app; `pnpm run build:workbench`
+verifies a production bundle.
+
 For Dart, install a Dart SDK compatible with `bindings/dart-flutter/pubspec.lock`
 (3.11+ for this lock) and run `just test-dart`. The shared library is built for
 the host; mobile library bundling is future work.
