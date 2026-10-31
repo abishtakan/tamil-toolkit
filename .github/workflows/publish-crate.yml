@@ -1,0 +1,115 @@
+name: Publish Rust crate to crates.io
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_run_id:
+        description: Successful Alpha distribution artifacts run built from master
+        required: true
+        type: string
+      package:
+        description: Publish one crate (follow the dependency order in the release runbook)
+        required: true
+        type: choice
+        options:
+          - tamil-core
+          - tamil-norm
+          - tamil-collate
+          - tamil-numerals
+          - tamil-codec
+          - tamil-toolkit
+      confirm_publish:
+        description: Choose publish only after reviewing the crate artifact
+        required: true
+        type: choice
+        options:
+          - no
+          - publish
+        default: no
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  publish:
+    if: ${{ inputs.confirm_publish == 'publish' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download release artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: alpha-rust
+          path: ${{ runner.temp }}/alpha-rust
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Validate artifact run and reviewed source
+        id: validate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.artifact_run_id }}
+        run: |
+          set -euo pipefail
+          run_json="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}")"
+          test "$(jq -r '.name' <<< "$run_json")" = "Alpha distribution artifacts"
+          test "$(jq -r '.conclusion' <<< "$run_json")" = "success"
+          workflow_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/alpha-artifacts.yml" --jq '.id')"
+          test "$(jq -r '.workflow_id' <<< "$run_json")" = "$workflow_id"
+          test "$(jq -r '.event' <<< "$run_json")" = "workflow_dispatch"
+          test "$(jq -r '.head_branch' <<< "$run_json")" = "master"
+
+          manifest="${RUNNER_TEMP}/alpha-rust/release-source.json"
+          test "$(jq -r '.source_ref' "$manifest")" = "master"
+          source_sha="$(jq -r '.source_sha' "$manifest")"
+          test "$source_sha" = "$(jq -r '.head_sha' <<< "$run_json")"
+          echo "source_sha=$source_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Verify selected crate digest
+        env:
+          PACKAGE: ${{ inputs.package }}
+          ARTIFACT_DIR: ${{ runner.temp }}/alpha-rust
+        run: |
+          set -euo pipefail
+          case "$PACKAGE" in
+            tamil-core|tamil-norm|tamil-collate|tamil-numerals|tamil-codec|tamil-toolkit) ;;
+            *) echo "Package is not on the public alpha allowlist" >&2; exit 1 ;;
+          esac
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          package = os.environ["PACKAGE"]
+          root = Path(os.environ["ARTIFACT_DIR"])
+          archive_name = f"{package}-0.1.0-alpha.1.crate"
+          archive = root / "rust" / archive_name
+          records = json.loads((root / "SHA256SUMS.json").read_text(encoding="utf-8"))
+          relative_name = f"rust/{archive_name}"
+          expected = records.get(relative_name)
+          actual = hashlib.sha256(archive.read_bytes()).hexdigest()
+          if expected != actual:
+              raise SystemExit(f"Digest mismatch for {relative_name}")
+          print(f"Verified {relative_name}: {actual}")
+          PY
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.validate.outputs.source_sha }}
+
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.95.0
+
+      - name: Publish selected crate
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+          PACKAGE: ${{ inputs.package }}
+        run: |
+          set -euo pipefail
+          test -n "$CARGO_REGISTRY_TOKEN" || {
+            echo "CARGO_REGISTRY_TOKEN is not configured in GitHub Actions" >&2
+            exit 1
+          }
+          cargo publish --locked --package "$PACKAGE"

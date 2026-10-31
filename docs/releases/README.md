@@ -2,8 +2,8 @@
 
 The first alpha is prepared for https://github.com/abishtakan/tamil-toolkit.
 See [scope and acceptance](alpha-1.md). Nothing in `just release-check` uploads,
-tags, pushes, or creates accounts. Registry publication is partial: the Python
-package is on PyPI, while Rust and npm publication remain pending.
+tags, pushes, or creates accounts. Registry publication is partial: Python is
+on PyPI; Rust and npm packages remain unpublished.
 
 ## Alpha 1 publication status
 
@@ -26,9 +26,11 @@ package is on PyPI, while Rust and npm publication remain pending.
   | `tamil_toolkit-0.1.0a1-cp311-abi3-macosx_11_0_arm64.whl` | `aa96211e50dd460eba50b626dd3591a34ebeb380957e6efa0363029c6ea173ce` |
   | `tamil_toolkit-0.1.0a1.tar.gz` | `601974e24b3c3c45fe1160d8187a473ec30c0696b7c8cb621f2edc14611a7d5d` |
 
-Rust crates.io publication and the npm alpha remain pending. The Rust crate
-manifests still disable publishing, and the npm package remains private until
-those registry steps are reviewed and enabled.
+The six public Rust crate manifests now allow crates.io publishing. The guarded
+`publish-crate.yml` workflow publishes one selected crate per manual run after
+validating its successful `master` artifact run and archive digest. The
+`CARGO_REGISTRY_TOKEN` Actions secret is configured. No Rust crate has been
+uploaded yet. The npm package remains private pending its registry setup.
 
 ## Build and review
 
@@ -76,21 +78,24 @@ After concrete artifact review and explicit authorization to publish:
    reviewer.
    npm trusted publishing is configured in an existing package's settings, so
    bootstrap its first upload using the maintainer's authenticated npm CLI,
-   then configure the workflow. Configure crates.io authentication for the
-   maintainer as well. Never put credentials in this repository or ask for
-   them in plaintext chat.
-2. Enable publishing only in the six public Rust manifests from `alpha-1.md`
-   (`publish = ["crates-io"]`, overriding the workspace default). Remove
-   `private: true` only from `bindings/js-wasm/package.json`. All placeholder
-   crates, FFI support crates, the workspace root npm package, and the workbench
-   remain private. These switches are deliberately still off in preparation.
-3. Rebuild and review artifacts from that exact committed source. Create the
-   `v0.1.0-alpha.1` tag only for the reviewed commit and require its CI checks.
-4. Publish Rust packages in order: `tamil-core`, `tamil-norm`, `tamil-collate`,
-   `tamil-numerals`, `tamil-codec`, `tamil-toolkit`. Run `cargo publish --locked
-   -p NAME` for each without local patches; wait for registry availability
-   before publishing dependents. The local alpha archive patches only bootstrap
-   pre-publication checks and must not be used for the actual registry upload.
+   then configure the workflow. The repository Actions secret
+   `CARGO_REGISTRY_TOKEN` is configured for crates.io. Never put credentials in
+   this repository or ask for them in plaintext chat.
+2. Remove `private: true` only from `bindings/js-wasm/package.json` when npm is
+   ready. All placeholder crates, FFI support crates, the workspace root npm
+   package, and the workbench remain private. The npm package stays private
+   until its upload is reviewed.
+3. The `v0.1.0-alpha.1` tag is already used by the PyPI release and must not be
+   moved. Rebuild Rust artifacts by dispatching **Alpha distribution artifacts**
+   from `master` with `source_ref=master`; the workflow records the exact commit
+   used by the crate publisher.
+4. Dispatch **Publish Rust crate to crates.io** once per crate from `master`,
+   using a successful artifact run from step 3. Review its digest and choose
+   `publish`. Publish in order: `tamil-core`, `tamil-norm`, `tamil-collate`,
+   `tamil-numerals`, `tamil-codec`, `tamil-toolkit`; allow each crate to appear
+   in the registry before publishing dependents. The workflow validates the
+   source identity and archive digest and publishes only one allowlisted crate
+   per run.
 5. PyPI upload is complete (see the status record above). Upload the reviewed
    npm tarball using `npm publish PATH.tgz --tag alpha --access public`. Keep
    stable/default install channels free of this experimental npm alpha.

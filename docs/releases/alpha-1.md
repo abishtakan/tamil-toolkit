@@ -1,7 +1,8 @@
 # First public alpha: 0.1.0-alpha.1
 
-Status: PyPI `0.1.0a1` is published and verified from a fresh consumer. Rust
-crates.io and npm publication remain pending.
+Status: PyPI `0.1.0a1` is published and verified from a fresh consumer. The six
+public Rust crates are configured for guarded crates.io publishing; uploads
+remain pending. npm publication remains pending.
 
 Repository: https://github.com/abishtakan/tamil-toolkit
 
@@ -131,7 +132,7 @@ the remote consumer jobs linked above.
 The [Alpha distribution artifacts run](https://github.com/abishtakan/tamil-toolkit/actions/runs/41210386284)
 passed Linux/Windows/macOS wheels, CPython 3.11/3.14 consumers, Node 22/24, Rust
 archive consumption, and Rust 1.85. PyPI's pending trusted publisher is
-configured and the Python distribution is live. Rust crates.io publishing
-remains disabled in the manifests; npm still needs its first authenticated upload
-and later trusted-publisher setup. Dart distribution packaging and PostgreSQL
-remain excluded from this alpha.
+configured and the Python distribution is live. The guarded crates.io workflow
+is configured, but no Rust crate has been uploaded yet. npm still needs its
+first authenticated upload and later trusted-publisher setup. Dart distribution
+packaging and PostgreSQL remain excluded from this alpha.
