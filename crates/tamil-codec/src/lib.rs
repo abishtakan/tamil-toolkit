@@ -8,6 +8,7 @@ use tamil_core::normalize_nfc;
 enum Terminal {
     Text(&'static str),
     Ambiguous,
+    Bytes(&'static [u8]),
 }
 struct Node {
     edges: &'static [(u8, usize)],
@@ -82,6 +83,42 @@ pub fn tscii_bytes_to_unicode(bytes: &[u8]) -> Result<String, String> {
     Ok(normalize_nfc(&output))
 }
 
+/// Encode Unicode to the canonical bounded TSCII byte profile.
+/// Successful results decode back to NFC; unsupported scalars are rejected.
+pub fn unicode_to_tscii_bytes(text: &str) -> Result<Vec<u8>, String> {
+    let normalized = normalize_nfc(text);
+    let mut position = 0;
+    let mut output = Vec::with_capacity(normalized.len());
+    while position < normalized.len() {
+        let tail = &normalized[position..];
+        if let Some((length, Terminal::Bytes(value))) = longest_match(
+            tail.as_bytes(),
+            tscii_tables::ENCODE_NODES,
+            tscii_tables::MAX_UNICODE_KEY_BYTES,
+        ) {
+            output.extend_from_slice(value);
+            position += length;
+        } else {
+            let scalar = tail
+                .chars()
+                .next()
+                .expect("non-empty normalized UTF-8 tail");
+            if !scalar.is_ascii() {
+                return Err(format!(
+                    "unsupported Unicode scalar for TSCII at NFC byte {position}: U+{:04X}",
+                    u32::from(scalar)
+                ));
+            }
+            output.push(scalar as u8);
+            position += 1;
+        }
+    }
+    match tscii_bytes_to_unicode(&output) {
+        Ok(decoded) if decoded == normalized => Ok(output),
+        _ => Err("TSCII encoding is not reversible for this input".into()),
+    }
+}
+
 /// Convert explicitly selected Bamini text. Allocates and normalizes output to NFC.
 /// Latin/English text shares the encoding's character codes and is not detected.
 pub fn bamini_to_unicode(text: &str, errors: ErrorPolicy) -> Result<String, String> {
@@ -105,6 +142,7 @@ pub fn bamini_to_unicode(text: &str, errors: ErrorPolicy) -> Result<String, Stri
                 output.push_str(&tail[..length]);
                 position += length;
             }
+            Some((_, Terminal::Bytes(_))) => unreachable!("Bamini trie contains only text"),
             None => {
                 let scalar = tail.chars().next().expect("non-empty UTF-8 tail");
                 if errors == ErrorPolicy::Strict && !tables::PASSTHROUGH.contains(scalar) {
@@ -172,6 +210,12 @@ mod tests {
         #[test]
         fn arbitrary_tscii_bytes_never_panic(bytes in prop::collection::vec(any::<u8>(), 0..128)) {
             let _ = tscii_bytes_to_unicode(&bytes);
+        }
+        #[test]
+        fn arbitrary_tscii_encoding_roundtrips(text in ".{0,96}") {
+            if let Ok(bytes) = unicode_to_tscii_bytes(&text) {
+                prop_assert_eq!(tscii_bytes_to_unicode(&bytes).unwrap(), normalize_nfc(&text));
+            }
         }
         #[test]
         fn preserve_output_is_nfc_and_keeps_joiners(text in ".{0,96}", zwj in any::<bool>()) {

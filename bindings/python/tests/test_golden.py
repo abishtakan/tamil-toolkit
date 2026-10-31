@@ -75,6 +75,7 @@ def test_encoder_convenience_api():
 
 def test_tscii_byte_convenience_api():
     assert tamil.tscii_bytes_to_unicode(bytes([0xba, 0xa2, 0xc5, 0xfd])) == "\u0b9a\u0bbf\u0bb5\u0ba9\u0bcd"
+    assert tamil.unicode_to_tscii_bytes("\u0b87") == bytes([0xfe])
     with pytest.raises(ValueError, match="unsupported TSCII byte at offset 1: 0xFF"):
         tamil.tscii_bytes_to_unicode([65, 255])
 

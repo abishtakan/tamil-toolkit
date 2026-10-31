@@ -63,7 +63,7 @@ const packages: PackageInfo[] = [
   { id: "tamil-norm", state: "facade", description: "NFC/NFD normalization facade re-exported from tamil-core.", suiteFiles: ["core_normalization.jsonl"], operations: ["normalize_nfc", "normalize_nfd"] },
   { id: "tamil-collate", state: "active", description: "Agara Varisai comparison, ordering, and canonical search keys.", suiteFiles: ["collate_agara_varisai.jsonl"] },
   { id: "tamil-numerals", state: "active", description: "TN/SL number words, currencies, exact fractions, and Gregorian dates.", suiteFiles: ["numerals_lkr_inr.jsonl", "numerals_fractions_dates.jsonl"] },
-  { id: "tamil-codec", state: "active", description: "Explicit Bamini conversion and TSCII byte decoding.", suiteFiles: ["codec_bamini.jsonl", "codec_unicode_to_bamini.jsonl", "codec_tscii_bytes.jsonl", "codec_tscii_iana.jsonl"] },
+  { id: "tamil-codec", state: "active", description: "Explicit Bamini conversion and TSCII byte decoding.", suiteFiles: ["codec_bamini.jsonl", "codec_unicode_to_bamini.jsonl", "codec_tscii_bytes.jsonl", "codec_tscii_iana.jsonl", "codec_unicode_to_tscii.jsonl"] },
   { id: "tamil-toolkit", state: "dispatcher", description: "Shared Rust dispatcher used by bindings and the local oracle." },
   { id: "tamil-wasm", state: "wasm", description: "Browser WASM binding calling the shared Rust dispatcher." },
   { id: "tamil-python", state: "native", description: "PyO3 adapter, run directly in the Python runtime." },
@@ -172,10 +172,10 @@ const operations: OperationSpec[] = [
     ],
     build: (v) => ({ op: "to_words", input: { value: Number(v.value), locale: v.locale } }),
     examples: [
-      { label: "Zero · TN", values: { value: "0", locale: "TN" } },
-      { label: "Negative · SL", values: { value: "-12345", locale: "SL" } },
+      { label: "Zero Â· TN", values: { value: "0", locale: "TN" } },
+      { label: "Negative Â· SL", values: { value: "-12345", locale: "SL" } },
       { label: "Maximum supported", values: { value: "999999999", locale: "TN" } },
-      { label: "Above maximum · error", values: { value: "1000000000", locale: "TN" } },
+      { label: "Above maximum Â· error", values: { value: "1000000000", locale: "TN" } },
     ],
   },
   {
@@ -187,10 +187,10 @@ const operations: OperationSpec[] = [
     ],
     build: (v) => ({ op: "format_currency", input: { amount_minor: parseCurrencyAmount(v.amount), currency: v.currency, locale: v.locale } }),
     examples: [
-      { label: "LKR · 1,025.50 · SL", values: { amount: "1025.50", currency: "LKR", locale: "SL" } },
-      { label: "INR · 0.99 · TN", values: { amount: "0.99", currency: "INR", locale: "TN" } },
+      { label: "LKR Â· 1,025.50 Â· SL", values: { amount: "1025.50", currency: "LKR", locale: "SL" } },
+      { label: "INR Â· 0.99 Â· TN", values: { amount: "0.99", currency: "INR", locale: "TN" } },
       { label: "Negative amount", values: { amount: "-1.05", currency: "LKR", locale: "TN" } },
-      { label: "Above maximum · error", values: { amount: "1000000000.00", currency: "INR", locale: "TN" } },
+      { label: "Above maximum Â· error", values: { amount: "1000000000.00", currency: "INR", locale: "TN" } },
     ],
   },
   {
@@ -202,10 +202,10 @@ const operations: OperationSpec[] = [
     ],
     build: (v) => ({ op: "currency_to_words", input: { amount_minor: parseCurrencyAmount(v.amount), currency: v.currency, locale: v.locale } }),
     examples: [
-      { label: "LKR · 1,025.50 · SL", values: { amount: "1025.50", currency: "LKR", locale: "SL" } },
-      { label: "INR · 0.99 · TN", values: { amount: "0.99", currency: "INR", locale: "TN" } },
+      { label: "LKR Â· 1,025.50 Â· SL", values: { amount: "1025.50", currency: "LKR", locale: "SL" } },
+      { label: "INR Â· 0.99 Â· TN", values: { amount: "0.99", currency: "INR", locale: "TN" } },
       { label: "Negative amount", values: { amount: "-1.05", currency: "LKR", locale: "TN" } },
-      { label: "Above maximum · error", values: { amount: "1000000000.00", currency: "INR", locale: "TN" } },
+      { label: "Above maximum Â· error", values: { amount: "1000000000.00", currency: "INR", locale: "TN" } },
     ],
   },
   {
@@ -213,14 +213,14 @@ const operations: OperationSpec[] = [
     fields: [
       { key: "numerator", label: "Numerator", kind: "number", initial: "2", help: "Signed whole number; magnitude up to 999,999,999." },
       { key: "denominator", label: "Denominator", kind: "number", initial: "4", help: "Must not be zero; a negative sign is allowed." },
-      { key: "digits", label: "Digits", kind: "select", initial: "tamil", options: ["latin", "tamil"], help: "Tamil selects positional Tamil digits (௦–௯)." },
+      { key: "digits", label: "Digits", kind: "select", initial: "tamil", options: ["latin", "tamil"], help: "Tamil selects positional Tamil digits (à¯¦â€“à¯¯)." },
     ],
     build: (v) => ({ op: "format_fraction", input: { numerator: Number(v.numerator), denominator: Number(v.denominator), digits: v.digits } }),
     examples: [
-      { label: "Reduce 2/4 · Tamil digits", values: { numerator: "2", denominator: "4", digits: "tamil" } },
-      { label: "Negative · Latin digits", values: { numerator: "-7", denominator: "12", digits: "latin" } },
+      { label: "Reduce 2/4 Â· Tamil digits", values: { numerator: "2", denominator: "4", digits: "tamil" } },
+      { label: "Negative Â· Latin digits", values: { numerator: "-7", denominator: "12", digits: "latin" } },
       { label: "Integral result", values: { numerator: "6", denominator: "3", digits: "latin" } },
-      { label: "Zero denominator · error", values: { numerator: "1", denominator: "0", digits: "latin" } },
+      { label: "Zero denominator Â· error", values: { numerator: "1", denominator: "0", digits: "latin" } },
     ],
   },
   {
@@ -234,7 +234,7 @@ const operations: OperationSpec[] = [
     examples: [
       { label: "Quarter", values: { numerator: "1", denominator: "4", locale: "TN" } },
       { label: "Half", values: { numerator: "1", denominator: "2", locale: "TN" } },
-      { label: "Three quarters · SL", values: { numerator: "3", denominator: "4", locale: "SL" } },
+      { label: "Three quarters Â· SL", values: { numerator: "3", denominator: "4", locale: "SL" } },
       { label: "General fraction", values: { numerator: "5", denominator: "8", locale: "TN" } },
       { label: "Negative fraction", values: { numerator: "-3", denominator: "4", locale: "TN" } },
     ],
@@ -250,13 +250,13 @@ const operations: OperationSpec[] = [
       { label: "One half", values: { numerator: "1", denominator: "2" } },
       { label: "Equivalent input 2/4", values: { numerator: "2", denominator: "4" } },
       { label: "Negative quarter", values: { numerator: "-1", denominator: "4" } },
-      { label: "No symbol · error", values: { numerator: "5", denominator: "7" } },
+      { label: "No symbol Â· error", values: { numerator: "5", denominator: "7" } },
     ],
   },
   {
     op: "format_date", label: "Format Gregorian date", description: "Format a Gregorian civil date in Tamil, for years 1 through 9999.",
     fields: [
-      { key: "year", label: "Year", kind: "number", initial: "2024", help: "Gregorian years 1–9999 (proleptic calendar)." },
+      { key: "year", label: "Year", kind: "number", initial: "2024", help: "Gregorian years 1â€“9999 (proleptic calendar)." },
       { key: "month", label: "Month", kind: "number", initial: "2" },
       { key: "day", label: "Day", kind: "number", initial: "29" },
       { key: "locale", label: "Locale", kind: "select", initial: "TN", options: ["TN", "SL"] },
@@ -265,12 +265,12 @@ const operations: OperationSpec[] = [
     ],
     build: (v) => ({ op: "format_date", input: { year: Number(v.year), month: Number(v.month), day: Number(v.day), locale: v.locale, style: v.style, digits: v.digits } }),
     examples: [
-      { label: "Leap day · full", values: { year: "2024", month: "2", day: "29", locale: "TN", style: "full", digits: "latin" } },
-      { label: "Century non-leap · error", values: { year: "1900", month: "2", day: "29", locale: "TN", style: "full", digits: "latin" } },
-      { label: "Tamil digits · short", values: { year: "2024", month: "3", day: "20", locale: "TN", style: "short", digits: "tamil" } },
-      { label: "Weekday · full · SL", values: { year: "2026", month: "10", day: "31", locale: "SL", style: "full", digits: "latin" } },
-      { label: "Year 1 · short", values: { year: "1", month: "1", day: "1", locale: "TN", style: "short", digits: "latin" } },
-      { label: "Year 9999 · long", values: { year: "9999", month: "12", day: "31", locale: "TN", style: "long", digits: "tamil" } },
+      { label: "Leap day Â· full", values: { year: "2024", month: "2", day: "29", locale: "TN", style: "full", digits: "latin" } },
+      { label: "Century non-leap Â· error", values: { year: "1900", month: "2", day: "29", locale: "TN", style: "full", digits: "latin" } },
+      { label: "Tamil digits Â· short", values: { year: "2024", month: "3", day: "20", locale: "TN", style: "short", digits: "tamil" } },
+      { label: "Weekday Â· full Â· SL", values: { year: "2026", month: "10", day: "31", locale: "SL", style: "full", digits: "latin" } },
+      { label: "Year 1 Â· short", values: { year: "1", month: "1", day: "1", locale: "TN", style: "short", digits: "latin" } },
+      { label: "Year 9999 Â· long", values: { year: "9999", month: "12", day: "31", locale: "TN", style: "long", digits: "tamil" } },
     ],
   },
   {
@@ -285,6 +285,11 @@ const operations: OperationSpec[] = [
     op: "unicode_to_bamini", label: "Unicode to Bamini", description: "Encode canonical Tamil text to Bamini when a safe round-trip mapping exists.",
     fields: [{ key: "text", label: "Unicode Tamil text", kind: "textarea", initial: demoTamil, help: "Try the sample text. Unsupported or non-round-trippable input returns an error." }],
     build: (v) => ({ op: "unicode_to_bamini", input: { text: v.text } }),
+  },
+  {
+    op: "unicode_to_tscii_bytes", label: "Unicode to TSCII bytes", description: "Encode Unicode using the bounded TSCII profile.",
+    fields: [{ key: "text", label: "Unicode Tamil text", kind: "textarea", initial: demoTamil, help: "Unsupported or non-round-trippable input returns an error." }],
+    build: (v) => ({ op: "unicode_to_tscii_bytes", input: { text: v.text } }),
   },
   {
     op: "tscii_bytes_to_unicode", label: "TSCII bytes to Unicode", description: "Decode actual TSCII bytes using the bounded profile.",
@@ -347,7 +352,7 @@ const stateLabel: Record<PackageState, string> = {
   dispatcher: "DISPATCHER",
   wasm: "BROWSER WASM",
   native: "NATIVE ADAPTER",
-  planned: "PLANNED · UNAVAILABLE",
+  planned: "PLANNED Â· UNAVAILABLE",
 };
 
 function packageSuites(info: PackageInfo): Suite[] {
@@ -378,9 +383,9 @@ function runtimeFor(info: PackageInfo): Runtime {
 }
 
 function runtimeLabel(runtime: Runtime): string {
-  if (runtime === "python") return "Python · PyO3 native";
-  if (runtime === "dart") return "Dart · FFI native";
-  if (runtime === "wasm") return "Rust engine · browser WASM";
+  if (runtime === "python") return "Python Â· PyO3 native";
+  if (runtime === "dart") return "Dart Â· FFI native";
+  if (runtime === "wasm") return "Rust engine Â· browser WASM";
   return "No runtime available";
 }
 
@@ -411,7 +416,7 @@ function renderPackages() {
     const foot = document.createElement("span");
     foot.className = "package-card-foot";
     if (info.state === "planned") foot.textContent = "Manual operation unavailable";
-    else if (info.state === "native") foot.textContent = `${operationsFor(info).length} manual operations · native runtime`;
+    else if (info.state === "native") foot.textContent = `${operationsFor(info).length} manual operations Â· native runtime`;
     else foot.textContent = `${operationsFor(info).length} manual operations`;
     card.append(top, description, foot);
     card.addEventListener("click", () => selectPackage(info.id));
@@ -500,11 +505,11 @@ function renderSelected() {
   manualStatus.textContent = !supportsManual
     ? "This package is not implemented yet."
       : manualRunning
-      ? "Updating the live result…"
+      ? "Updating the live resultâ€¦"
       : canRun
         ? "Edit a value; the result updates automatically."
           : runtime === "wasm"
-            ? "Loading Rust WASM…"
+            ? "Loading Rust WASMâ€¦"
             : "Native manual requests require the local Vite development server.";
 
   const canRunVectors = ["active", "facade", "dispatcher", "wasm"].includes(info.state);
@@ -612,7 +617,7 @@ function clearManualResult() {
   resultKind.textContent = "WAITING";
   resultKind.className = "result-kind";
   resultText.textContent = "Your result will appear here.";
-  resultCodepoints.textContent = "Output scalars: —";
+  resultCodepoints.textContent = "Output scalars: â€”";
   resultJson.textContent = "";
 }
 
@@ -646,7 +651,7 @@ function scalarDescription(value: unknown): string {
   ).join(" ") || "(empty)";
   if (typeof value === "string") return scalarCodes(value);
   if (Array.isArray(value) && value.every((item) => typeof item === "string")) {
-    return value.map((text, index) => `${index + 1}: ${scalarCodes(text)}`).join(" · ") || "(empty list)";
+    return value.map((text, index) => `${index + 1}: ${scalarCodes(text)}`).join(" Â· ") || "(empty list)";
   }
   const strings: string[] = [];
   const visit = (item: unknown, path: string) => {
@@ -657,7 +662,7 @@ function scalarDescription(value: unknown): string {
     }
   };
   visit(value, "result");
-  return strings.join(" · ") || "No string scalars in this output";
+  return strings.join(" Â· ") || "No string scalars in this output";
 }
 
 function readManualValues(): Record<string, string> {
@@ -683,7 +688,7 @@ function showManualInputNotice(title: string, message: string) {
   resultKind.textContent = "INPUT";
   resultKind.className = "result-kind";
   resultText.textContent = message;
-  resultCodepoints.textContent = "Output scalars: —";
+  resultCodepoints.textContent = "Output scalars: â€”";
   resultJson.textContent = "";
 }
 
@@ -695,7 +700,7 @@ function scheduleManualRun(delay = 220) {
     manualStatus.textContent = "This package has no implemented runtime operation.";
     return;
   }
-  manualStatus.textContent = delay === 0 ? "Updating live result…" : "Typing… result will update shortly.";
+  manualStatus.textContent = delay === 0 ? "Updating live resultâ€¦" : "Typingâ€¦ result will update shortly.";
   manualTimer = setTimeout(() => {
     manualTimer = undefined;
     void runManual();
@@ -723,7 +728,7 @@ async function runManual() {
   }
   const runtime = runtimeFor(info);
   if (runtime === "wasm" && !wasmReady) {
-    manualStatus.textContent = "Loading Rust WASM…";
+    manualStatus.textContent = "Loading Rust WASMâ€¦";
     return;
   }
   if ((runtime === "python" || runtime === "dart") && !import.meta.env.DEV) {
@@ -733,7 +738,7 @@ async function runManual() {
   manualRunning = true;
   resultKind.textContent = "UPDATING";
   resultKind.className = "result-kind updating";
-  manualStatus.textContent = `Updating through ${runtimeLabel(runtime)}…`;
+  manualStatus.textContent = `Updating through ${runtimeLabel(runtime)}â€¦`;
   let succeeded = false;
   try {
     const request = operation.build(readManualValues());
@@ -817,7 +822,7 @@ function resultTextForCase(result: CaseResult, key: "actual" | "expected"): stri
   if (key === "actual" && result.error && result.actual === null) return `Error: ${result.error}`;
   const value = key === "expected" ? result.row.expected : result.actual;
   const text = JSON.stringify(value, null, 2);
-  return text.length > 1200 ? `${text.slice(0, 1200)}\n… truncated` : text;
+  return text.length > 1200 ? `${text.slice(0, 1200)}\nâ€¦ truncated` : text;
 }
 
 function renderVectorResults(results: CaseResult[], title: string) {
@@ -829,7 +834,7 @@ function renderVectorResults(results: CaseResult[], title: string) {
   const headline = document.createElement("strong");
   headline.textContent = failed ? `${failed.toLocaleString()} failed` : `${passed.toLocaleString()} passed`;
   const detail = document.createElement("span");
-  detail.textContent = `${title} · ${results.length.toLocaleString()} active cases`;
+  detail.textContent = `${title} Â· ${results.length.toLocaleString()} active cases`;
   summary.append(headline, detail);
   summaryPanel.append(summary);
 
@@ -875,7 +880,7 @@ async function runVectors(loadRows: () => Promise<Outcome[]>, title: string) {
   summaryPanel.textContent = "";
   resultPanel.textContent = "";
   progressBar.style.width = "0%";
-  progressLabel.textContent = "Loading fixtures…";
+  progressLabel.textContent = "Loading fixturesâ€¦";
   try {
     const rows = await loadRows();
     const results: CaseResult[] = [];
@@ -915,7 +920,7 @@ runNativeButton.addEventListener("click", async () => {
   const info = packages.find((item) => item.id === selectedId)!;
   nativeTestPanel.hidden = false;
   nativeTestOutput.textContent = `$ ${info.id} native tests\n`;
-  nativeTestState.textContent = "Running…";
+  nativeTestState.textContent = "Runningâ€¦";
   renderSelected();
   const append = (text: string) => {
     const combined = nativeTestOutput.textContent + text;
@@ -978,26 +983,26 @@ requestButton.addEventListener("click", async () => {
 
 if (import.meta.hot) {
   import.meta.hot.on("workbench:wasm-build", (event: { state: string; message?: string }) => {
-    if (event.state === "building") wasmState.textContent = "Rust changed · rebuilding WASM…";
-    else if (event.state === "failed") wasmState.textContent = `WASM rebuild failed · ${event.message ?? "see terminal"}`;
+    if (event.state === "building") wasmState.textContent = "Rust changed Â· rebuilding WASMâ€¦";
+    else if (event.state === "failed") wasmState.textContent = `WASM rebuild failed Â· ${event.message ?? "see terminal"}`;
   });
 }
 
-$("#fixture-count").textContent = `${operations.length} interactive operations · ${packages.length} packages listed`;
+$("#fixture-count").textContent = `${operations.length} interactive operations Â· ${packages.length} packages listed`;
 renderPackages();
 renderSelected();
 
 try {
   await init({ module_or_path: wasmUrl });
   wasmReady = true;
-  wasmState.textContent = import.meta.env.DEV ? "Rust WASM ready · hot reload on" : "Rust WASM ready · production build";
+  wasmState.textContent = import.meta.env.DEV ? "Rust WASM ready Â· hot reload on" : "Rust WASM ready Â· production build";
   $("#hmr-note").textContent = import.meta.env.DEV
-    ? "UI edits hot reload · Rust or lexicon edits rebuild WASM"
-    : "Local workbench build · native adapter requests are available in dev mode";
+    ? "UI edits hot reload Â· Rust or lexicon edits rebuild WASM"
+    : "Local workbench build Â· native adapter requests are available in dev mode";
   runAllButton.disabled = false;
   renderSelected();
   scheduleManualRun(0);
 } catch (error) {
-  wasmState.textContent = `WASM failed to load · ${error instanceof Error ? error.message : String(error)}`;
+  wasmState.textContent = `WASM failed to load Â· ${error instanceof Error ? error.message : String(error)}`;
   manualStatus.textContent = wasmState.textContent;
 }

@@ -17,8 +17,8 @@ SUMMARIES = {
     "tamil-norm": "Normalization facade for the Rust-owned Tamil toolkit.",
     "tamil-collate": "Versioned Mei-first Agara dictionary ordering and canonical sort/search keys.",
     "tamil-numerals": "Bounded TN/SL integers, exact INR/LKR amounts, rational fractions and Gregorian date formatting.",
-    "tamil-codec": "Explicit Bamini conversion and bounded TSCII byte decoding.",
-    "tamil-toolkit": "Unified entry point for the implemented core, normalization, collation, numerals, Bamini and bounded TSCII decoding.",
+    "tamil-codec": "Explicit Bamini conversion and bounded TSCII byte conversion.",
+    "tamil-toolkit": "Unified entry point for the implemented core, normalization, collation, numerals, Bamini and bounded TSCII conversion.",
 }
 
 

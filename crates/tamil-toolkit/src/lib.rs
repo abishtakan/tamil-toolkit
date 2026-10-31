@@ -26,6 +26,7 @@ pub const OPERATIONS: &[&str] = &[
     "bamini_to_unicode",
     "unicode_to_bamini",
     "tscii_bytes_to_unicode",
+    "unicode_to_tscii_bytes",
     "format_fraction",
     "fraction_to_words",
     "fraction_symbol",
@@ -134,6 +135,9 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         }
         "unicode_to_bamini" => {
             codec::unicode_to_bamini(string(&input["text"])?).map(|text| json!(text))
+        }
+        "unicode_to_tscii_bytes" => {
+            codec::unicode_to_tscii_bytes(string(&input["text"])?).map(|bytes| json!(bytes))
         }
         "tscii_bytes_to_unicode" => {
             let error = || "expected TSCII byte array".to_owned();

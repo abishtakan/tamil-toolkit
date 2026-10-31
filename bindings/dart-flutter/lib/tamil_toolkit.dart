@@ -72,6 +72,8 @@ class TamilToolkit {
   String tsciiBytesToUnicode(List<int> bytes) => execute({
     'op': 'tscii_bytes_to_unicode', 'input': {'bytes': bytes},
   }) as String;
+  List<int> unicodeToTsciiBytes(String text) =>
+      (execute({'op': 'unicode_to_tscii_bytes', 'input': {'text': text}}) as List).cast<int>();
   String formatFraction(int numerator, int denominator, {String digits = 'latin'}) => execute({
     'op': 'format_fraction', 'input': {'numerator': numerator, 'denominator': denominator, 'digits': digits},
   }) as String;

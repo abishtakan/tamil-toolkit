@@ -58,7 +58,7 @@ implemented package to enter values and see its operations update live as you
 type. Results show the returned text or JSON plus Unicode scalar values. Python
 and Dart selections call their native adapters from the local dev server. The
 `tamil-codec` workbench supports live Bamini conversion in both directions and
-bounded TSCII byte decoding. Planned packages remain visibly unimplemented. Golden vectors and native test suites are
+bounded TSCII byte conversion in both directions. Planned packages remain visibly unimplemented. Golden vectors and native test suites are
 available in a collapsed optional section below the manual controls.
 `pnpm run check:workbench` type-checks the app; `pnpm run build:workbench`
 verifies a production bundle.
@@ -87,15 +87,16 @@ the host; mobile library bundling is future work.
   strict/preserve policies, and NFC output.
 - `unicode_to_bamini`: canonical strict encoding that returns ASCII only after
   decoding it reproduces the NFC input.
+- `unicode_to_tscii_bytes`: strict bounded TSCII encoding with round-trip validation.
 - `tscii_bytes_to_unicode`: bounded TSCII byte decoding with explicit errors
   for unsupported bytes and NFC output.
 - Local MCP tools for scalar inspection, scalar diffs, and fixture validation.
-- **21,947 active golden vectors**, including 1,633 shared error cases, across Rust,
+- **22,585 active golden vectors**, including 1,637 shared error cases, across Rust,
   Python, Node/browser-target WASM, and host Dart.
 - Independent Unicode 17 fixtures cover all 247 traditional letters, the full
   288-form supported consonant/vowel matrix, both Shri spellings, and 766 UAX 29
   boundary cases. Reference files include source digests and licensing.
-- Eighteen core/collation/numeral/codec properties with **10,000 cases each**, plus invalid-input checks.
+- Nineteen core/collation/numeral/codec properties with **10,000 cases each**, plus invalid-input checks.
 
 ```python
 import tamil_toolkit as tamil
@@ -144,7 +145,7 @@ joiners. Callers must select Bamini text runs: English shares the same character
 codes. Automatic detection, other encodings, and five
 ambiguous Tamil forms remain outside this milestone.
 The [reverse encoding contract](docs/specs/codec-reverse-v0.1.md) adds strict
-Unicode → Bamini with canonical aliases and NFC input. It rejects unsupported
+Unicode â†’ Bamini with canonical aliases and NFC input. It rejects unsupported
 scalars and letter combinations whose legacy keys would change the text when
 decoded. Every accepted input round-trips to its NFC spelling.
 The [TSCII decoder contract](docs/specs/codec-tscii-draft.md) defines a bounded
@@ -160,7 +161,7 @@ errors. It does not yet provide reverse conversion or automatic detection.
 | `tamil-norm` | Working facade | Re-export core normalization for SDK/PostgreSQL consumers |
 | `tamil-collate` | agara-v1 verified locally | Mei-first Agara sorting and canonical sort/search keys |
 | `tamil-numerals` | v0.2 feature families verified locally | Integer words, exact INR/LKR amounts, fractions, Gregorian dates |
-| `tamil-codec` | bounded profiles | Bamini ↔ Unicode and TSCII bytes → Unicode; unsupported input is rejected |
+| `tamil-codec` | bounded profiles | Bamini â†” Unicode and TSCII bytes â†’ Unicode; unsupported input is rejected |
 | `tamil-punarchi` | Planned | Sourced Nannool sandhi and compound splitting |
 | `tamil-morph` | Planned | FST stemming, lemmatization, suffix/case analysis |
 | `tamil-dialect` | Planned | TN/SL regional spoken-to-literary normalization |
@@ -212,5 +213,5 @@ preserved in [third-party notices](THIRD_PARTY_NOTICES.md). Contributions are
 welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). The PyPI, Rust, and npm alpha
 packages are live.
 
-The TSCII byte decoder is available in the current source tree and is planned for
+The TSCII byte conversion is available in the current source tree and is planned for
 the next release; it is not included in the published 0.1.0 alpha packages.

@@ -30,3 +30,5 @@ its mixed-script fallback are specified at
 https://github.com/abishtakan/tamil-toolkit/tree/HEAD/docs/specs/collate-v0.1.md.
 
 Current development source adds `tscii_bytes_to_unicode(new Uint8Array([0xba, 0xa2, 0xc5, 0xfd]))`; it is not in the published alpha.
+
+The unreleased `unicode_to_tscii_bytes(text)` returns an array of byte values.

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add strict bounded Unicode to TSCII byte encoding and cross-runtime bindings.
+
 - Add bounded TSCII byte decoding, shared fixtures, and Python, WASM, and Dart adapters.
 - Remove stale generated Python extensions before rebuilding bindings.
 

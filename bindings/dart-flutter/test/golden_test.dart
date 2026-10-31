@@ -111,6 +111,7 @@ void main() {
   });
   test('TSCII byte convenience API', () {
     expect(tamil.tsciiBytesToUnicode([0xba, 0xa2, 0xc5, 0xfd]), '\u0b9a\u0bbf\u0bb5\u0ba9\u0bcd');
+    expect(tamil.unicodeToTsciiBytes('\u0b87'), [0xfe]);
     expect(() => tamil.tsciiBytesToUnicode([65, 255]), throwsArgumentError);
   });
   test('fraction and date convenience APIs', () {

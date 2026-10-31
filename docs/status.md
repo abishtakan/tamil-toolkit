@@ -6,18 +6,17 @@ and local, awaiting commit/push; inspect `git status` for their current state.
 
 ## Current objective
 
-The first bounded TSCII byte-decoding milestone is implemented locally and is
-unreleased. See [the decoder contract](specs/codec-tscii-draft.md) and
-[codec roadmap](specs/codec-roadmap.md). The current source has 21,947 active
-golden vectors, including 670 TSCII vectors. Published alpha packages do not
-include this decoder. No version bump or registry upload was performed.
+The bounded TSCII byte decoder and strict reverse encoder are implemented in
+the local development tree and remain unreleased. They share 22,585 active
+vectors across the toolkit; 638 cover the new encoder. The previously published
+alpha packages do not contain TSCII conversion. No version bump or registry
+upload was performed. Contracts: [decoder](specs/codec-tscii-draft.md),
+[encoder](specs/codec-tscii-encode.md), and [roadmap](specs/codec-roadmap.md).
 
-Verification: Rust workspace, Clippy, release/Unicode gates, 104 harness tests,
-Dart, and Rust/Python/WASM parity passed. The first full gate exposed a stale
-Python native extension; its rebuild cleanup and focused regression test passed,
-then `just test-parity` passed on the corrected build. Workbench TypeScript check
-passed. Logs: `target/tscii-final-gate.log`, `target/tscii-final-parity.log`,
-and `target/tscii-dart.log`.
+Verification: `just agent-pre-stop-gate` passed including 105 harness tests
+and the complete Rust, Python and WASM parity suite; `just test-dart` and the
+workbench TypeScript check passed. Logs: `target/tscii-encode-gate.log` and
+`target/tscii-encode-dart.log`.
 
 ## Published and implemented
 
@@ -48,12 +47,10 @@ Actions secret. Never copy secret values here.
 ## Codec development handoff
 
 The current tree supports explicit Bamini conversion both ways and a bounded
-313-key TSCII byte decoder, with ASCII passthrough, longest matching and strict
-errors. TSCII reverse conversion, detection, Anjal, Vanavil, TAB, TAM and
-historical orthography remain future milestones. Source provenance and profile
-limits are in the codec specifications. Next, define and source a bounded reverse
-TSCII contract and fixtures before implementation; ambiguous byte aliases must
-have an explicit canonical encoding choice.
+313-key TSCII byte decoder and a 312-key strict reverse encoder, with ASCII
+passthrough, longest matching, and explicit canonical byte aliases. Detection,
+Anjal, Vanavil, TAB, TAM and historical orthography remain future milestones.
+Choose and source the next bounded codec profile before implementation.
 
 After codec coverage is scoped, return to Punarchi, morphology, dialect
 normalization, hyphenation, prosody, and PostgreSQL search. Each begins with a

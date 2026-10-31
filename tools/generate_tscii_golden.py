@@ -95,6 +95,7 @@ def lexicon(table):
     lines = ['profile = "tscii-tamilutil-bounded-v1"', 'source = "TamilUtil 1f659e70; IANA registration draft"', ""]
     for key, value in table.items():
         lines.extend(["[[mappings]]", f'hex = "{key.hex()}"', "unicode = " + json.dumps(value, ensure_ascii=True), ""])
+    lines.extend(["[[encoding_preferences]]", 'hex = "fe"', 'unicode = "\\u0b87"', ""])
     return "\n".join(lines)
 
 

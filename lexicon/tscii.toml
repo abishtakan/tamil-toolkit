@@ -1252,3 +1252,7 @@ unicode = "\u0ba9\u0bcd"
 [[mappings]]
 hex = "fe"
 unicode = "\u0b87"
+
+[[encoding_preferences]]
+hex = "fe"
+unicode = "\u0b87"

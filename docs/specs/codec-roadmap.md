@@ -1,7 +1,8 @@
 # tamil-codec expansion: plan and source inventory
 
-Status: source investigation started; additional encoding profiles are not yet
-implemented. The published `bamini-v1` contract is documented separately.
+Status: the unreleased source includes a bounded TSCII decoder and strict
+encoder alongside the published `bamini-v1` profile. Further profiles are not
+yet implemented. See the TSCII decoder and encoder contracts for their limits.
 
 ## Delivery order
 

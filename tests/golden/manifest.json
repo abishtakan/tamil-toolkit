@@ -13,6 +13,7 @@
     {"file": "numerals_fractions_dates.jsonl", "status": "active", "operations": ["format_fraction", "fraction_to_words", "fraction_symbol", "format_date"]},
     {"file": "punarchi_nannool.jsonl", "status": "planned", "reason": "Nannool rule citations and a licensed lexicon are required."},
     {"file": "codec_tscii_bytes.jsonl", "status": "active", "operations": ["tscii_bytes_to_unicode"]},
-    {"file": "codec_tscii_iana.jsonl", "status": "active", "operations": ["tscii_bytes_to_unicode"]}
+    {"file": "codec_tscii_iana.jsonl", "status": "active", "operations": ["tscii_bytes_to_unicode"]},
+    {"file": "codec_unicode_to_tscii.jsonl", "status": "active", "operations": ["unicode_to_tscii_bytes"]}
   ]
 }

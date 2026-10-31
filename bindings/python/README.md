@@ -30,3 +30,5 @@ profile; compare arrays lexicographically and retain the version with indexes.
 Sorting preserves original text and canonical ties. See the linked specifications.
 
 Current development source adds `tscii_bytes_to_unicode(bytes([0xba, 0xa2, 0xc5, 0xfd]))`; it is not in the published alpha.
+
+The unreleased `unicode_to_tscii_bytes(text)` returns Python `bytes`.
