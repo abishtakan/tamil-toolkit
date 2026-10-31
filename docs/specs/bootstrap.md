@@ -1,7 +1,7 @@
 # Bootstrap contract
 
 This setup implements only the operations in the active golden suite. It does
-not claim to implement numerals, legacy encodings, sandhi, morphology,
+not claim to implement legacy encodings, sandhi, morphology,
 dialect normalization, hyphenation, prosody, or PostgreSQL full-text search.
 
 ## Unicode operations
@@ -51,7 +51,7 @@ All runtimes execute every row of every active suite; unknown operations fail.
 Planned suites are validated and reported, but never counted as passing tests.
 Only the owner reviewing the specification may activate a planned suite. Empty
 planned suites deliberately avoid fabricated linguistic facts. The numeral
-examples come from the brief and still require review.
+suite now uses the reviewed CLDR/ICU evidence specified below.
 
 The oracle shares `tamil-toolkit`'s Rust dispatcher. Python implements Unicode
 scalar display/diff and schema validation only, not Tamil linguistic algorithms.
@@ -64,6 +64,11 @@ spellings are atomic; canonical normalization preserves their distinct scalars.
 The [collation v0.1 contract](collate-v0.1.md) adds Mei-first Agara comparison,
 stable sorting, and canonical sort/search keys using declarative ordering tables.
 Mixed-script fallback and the profile's limits are specified explicitly there.
+
+The [numerals v0.1 contract](numerals-v0.1.md) adds bounded CLDR 49 integer
+spellings and exact INR/LKR minor-unit formatting. Fractions and dates remain
+unimplemented. The declared SL lakh spelling and invariant unit-label template
+have explicit sources and limits; no general regional speech support is implied.
 
 ## Evidence
 

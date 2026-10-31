@@ -54,4 +54,13 @@ class TamilToolkit {
       (execute({'op': 'sort_key', 'input': text}) as List).cast<int>();
   List<int> searchKey(String text) =>
       (execute({'op': 'search_key', 'input': text}) as List).cast<int>();
+  String toWords(int value, {String locale = 'TN'}) => execute({
+    'op': 'to_words', 'input': {'value': value, 'locale': locale},
+  }) as String;
+  String formatCurrency(int amountMinor, String currency, {String locale = 'TN'}) => execute({
+    'op': 'format_currency', 'input': {'amount_minor': amountMinor, 'currency': currency, 'locale': locale},
+  }) as String;
+  String currencyToWords(int amountMinor, String currency, {String locale = 'TN'}) => execute({
+    'op': 'currency_to_words', 'input': {'amount_minor': amountMinor, 'currency': currency, 'locale': locale},
+  }) as String;
 }

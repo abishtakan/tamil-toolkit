@@ -25,12 +25,39 @@ pub const OPERATIONS: &[&str] = &[
     "sort_words",
     "sort_key",
     "search_key",
+    "to_words",
+    "format_currency",
+    "currency_to_words",
 ];
 
 fn string(value: &Value) -> Result<&str, String> {
     value
         .as_str()
         .ok_or_else(|| "expected a string input".to_owned())
+}
+
+fn integer(value: &Value, maximum: i64) -> Result<i64, String> {
+    // JSON.stringify emits 1 for 1.0, while other serializers keep the .0.
+    // Parse whole values identically without floating-point money arithmetic.
+    let error = || numerals::INTEGER_ERROR.to_owned();
+    let number = value.as_number().ok_or_else(error)?.to_string();
+    let parsed = number
+        .strip_suffix(".0")
+        .unwrap_or(&number)
+        .parse::<i64>()
+        .map_err(|_| error())?;
+    if parsed.unsigned_abs() > maximum as u64 {
+        Err(error())
+    } else {
+        Ok(parsed)
+    }
+}
+
+fn locale(input: &Value) -> Result<numerals::Locale, String> {
+    match input.get("locale") {
+        None => Ok(numerals::Locale::TN),
+        Some(value) => numerals::Locale::parse(value.as_str().ok_or("unsupported locale")?),
+    }
 }
 
 /// Shared dispatcher used by every binding and the oracle CLI.
@@ -68,6 +95,22 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         }
         "sort_key" => Ok(json!(collate::sort_key(string(input)?))),
         "search_key" => Ok(json!(collate::search_key(string(input)?))),
+        "to_words" => {
+            let value = integer(&input["value"], numerals::MAX_INTEGER)?;
+            numerals::to_words(value, locale(input)?).map(|words| json!(words))
+        }
+        "format_currency" | "currency_to_words" => {
+            let value = integer(&input["amount_minor"], numerals::MAX_MINOR)?;
+            let locale = locale(input)?;
+            let currency = numerals::Currency::parse(
+                input["currency"].as_str().ok_or("unsupported currency")?,
+            )?;
+            if request["op"] == "format_currency" {
+                numerals::format_currency(value, currency, locale).map(|s| json!(s))
+            } else {
+                numerals::currency_to_words(value, currency, locale).map(|s| json!(s))
+            }
+        }
         op => Err(format!("unsupported operation: {op}")),
     }
 }

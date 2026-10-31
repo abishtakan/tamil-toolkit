@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import { beforeAll, describe, expect, test } from "vitest";
-import { execute, type Request } from "../src/index.js";
+import { execute, type Request, type Currency, type Locale } from "../src/index.js";
 import { init, execute as executeWeb } from "../src/web.js";
 import * as nodeApi from "../src/index.js";
 import * as webApi from "../src/web.js";
@@ -69,5 +69,21 @@ test("collation convenience APIs on both WASM targets", () => {
     expect(api.sort_key(key.input as string)).toEqual(key.expected);
     expect(api.search_key(key.input as string)).toEqual(key.expected);
     expect(api.compare(key.input as string, key.input as string)).toBe(0);
+  }
+});
+
+test("numeral convenience APIs on both WASM targets", () => {
+  const number = cases.find((row) => row.id === "num_014")!;
+  const defaultNumber = cases.find((row) => row.id === "number_default_locale")!;
+  for (const api of [nodeApi, webApi]) {
+    expect(api.to_words(1025, "SL")).toBe(number.expected);
+    expect(api.to_words(100000)).toBe(defaultNumber.expected);
+    for (const row of cases) {
+      if ((row.op === "format_currency" || row.op === "currency_to_words") && "expected" in row) {
+        const input = row.input as { amount_minor: number; currency: Currency; locale?: Locale };
+        expect(api[row.op](input.amount_minor, input.currency, input.locale)).toBe(row.expected);
+      }
+    }
+    expect(() => api.format_currency(1, "USD" as Currency)).toThrow("unsupported currency");
   }
 });

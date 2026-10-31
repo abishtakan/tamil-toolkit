@@ -511,6 +511,13 @@ dependencies = [
 [[package]]
 name = "tamil-numerals"
 version = "0.1.0"
+dependencies = [
+ "proptest",
+ "serde",
+ "tamil-core",
+ "toml",
+ "unicode-normalization",
+]
 
 [[package]]
 name = "tamil-punarchi"

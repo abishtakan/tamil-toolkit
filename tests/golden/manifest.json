@@ -7,7 +7,7 @@
     {"file": "core_boundaries.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string"]},
     {"file": "core_errors.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string", "unknown_core_operation"]},
     {"file": "collate_agara_varisai.jsonl", "status": "active", "operations": ["compare", "sort_words", "sort_key", "search_key"]},
-    {"file": "numerals_lkr_inr.jsonl", "status": "planned", "reason": "Prompt examples only; currency and regional rules need sourced review."},
+    {"file": "numerals_lkr_inr.jsonl", "status": "active", "operations": ["to_words", "format_currency", "currency_to_words"]},
     {"file": "codec_bamini.jsonl", "status": "planned", "reason": "A licensed, versioned Bamini mapping and ambiguity policy are required."},
     {"file": "punarchi_nannool.jsonl", "status": "planned", "reason": "Nannool rule citations and a licensed lexicon are required."}
   ]

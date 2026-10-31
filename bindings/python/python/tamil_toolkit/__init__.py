@@ -5,7 +5,7 @@ from typing import Any
 
 from . import _native
 
-__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key"]
+__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words"]
 
 
 def execute(request: dict[str, Any]) -> Any:
@@ -50,3 +50,15 @@ def sort_key(text: str) -> list[int]:
 
 def search_key(text: str) -> list[int]:
     return execute({"op": "search_key", "input": text})
+
+
+def to_words(value: int, locale: str = "TN") -> str:
+    return execute({"op": "to_words", "input": {"value": value, "locale": locale}})
+
+
+def format_currency(amount_minor: int, currency: str, locale: str = "TN") -> str:
+    return execute({"op": "format_currency", "input": {"amount_minor": amount_minor, "currency": currency, "locale": locale}})
+
+
+def currency_to_words(amount_minor: int, currency: str, locale: str = "TN") -> str:
+    return execute({"op": "currency_to_words", "input": {"amount_minor": amount_minor, "currency": currency, "locale": locale}})

@@ -1,0 +1,9 @@
+{
+  "currency_fractions": [
+    {
+      "iso4217": "DEFAULT",
+      "digits": "2",
+      "rounding": "0"
+    }
+  ]
+}

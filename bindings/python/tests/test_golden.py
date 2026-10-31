@@ -34,3 +34,14 @@ def test_collation_convenience_apis():
     assert tamil.sort_key(key_case["input"]) == key_case["expected"]
     assert tamil.search_key(key_case["input"]) == key_case["expected"]
     assert tamil.compare(key_case["input"], key_case["input"]) == 0
+
+
+def test_numeral_convenience_apis():
+    cases = {case["id"]: case for case in load_vectors()}
+    assert tamil.to_words(1025, "SL") == cases["num_014"]["expected"]
+    assert tamil.to_words(100000) == cases["number_default_locale"]["expected"]
+    for case in cases.values():
+        if case["op"] in ("format_currency", "currency_to_words") and "expected" in case:
+            assert getattr(tamil, case["op"])(**case["input"]) == case["expected"]
+    with pytest.raises(ValueError, match="unsupported currency"):
+        tamil.format_currency(1, "USD")

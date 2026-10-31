@@ -37,13 +37,16 @@ the host; mobile library bundling is future work.
   sorting, preserving original spellings and duplicates.
 - `sort_key` / `search_key`: versioned canonical numeric keys for ordering and
   exact normalized matching; see the explicit Agara/fallback profile below.
+- `to_words`: signed integer spellings with formal TN/SL lexical profiles.
+- `format_currency` / `currency_to_words`: exact INR/LKR minor-unit amounts,
+  grouped numeric display, and cardinal words with denomination labels.
 - Local MCP tools for scalar inspection, scalar diffs, and fixture validation.
-- **5,545 active golden vectors**, including 146 shared error cases, across Rust,
+- **13,073 active golden vectors**, including 280 shared error cases, across Rust,
   Python, Node/browser-target WASM, and host Dart.
 - Independent Unicode 17 fixtures cover all 247 traditional letters, the full
   288-form supported consonant/vowel matrix, both Shri spellings, and 766 UAX 29
   boundary cases. Reference files include source digests and licensing.
-- Five core/collation properties with **10,000 cases each**, plus invalid-input checks.
+- Eight core/collation/numeral properties with **10,000 cases each**, plus invalid-input checks.
 
 ```python
 import tamil_toolkit as tamil
@@ -51,6 +54,8 @@ import tamil_toolkit as tamil
 letters = tamil.get_letters("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd")
 assert letters == ["\u0ba4", "\u0bae\u0bbf", "\u0bb4\u0bcd"]
 assert tamil.compare("\u0b95\u0bcd", "\u0b95") == -1  # Mei sorts before its vowel forms.
+assert tamil.format_currency(102550, "LKR", "SL") == "LKR 1,025.50"
+words = tamil.to_words(1025, "SL")
 ```
 
 ```ts
@@ -67,6 +72,11 @@ The [collation v0.1 plan and contract](docs/specs/collate-v0.1.md) define
 `agara-v1`, stable NFC/NFD ties, Grantha handling, scalar fallback, and key
 versioning. Search keys provide canonical exact matching. The profile does not
 implement full ICU/UCA collation or fuzzy linguistic search.
+The [numerals v0.1 contract](docs/specs/numerals-v0.1.md) defines CLDR 49
+integer spellings through +/-999,999,999 and money through +/-99,999,999,999
+minor units. Money APIs take integers (100 minor units per rupee); they apply
+no rounding. TN/SL share Tamil 3-2 digit grouping. Fractions, dates, and broader
+regional spoken forms remain future work.
 
 ## Package map
 
@@ -76,7 +86,7 @@ implement full ICU/UCA collation or fuzzy linguistic search.
 | `tamil-core` | v0.1 contract verified locally | Ezhuthu segmentation, Mei/Uyir, Unicode inspection |
 | `tamil-norm` | Working facade | Re-export core normalization for SDK/PostgreSQL consumers |
 | `tamil-collate` | agara-v1 verified locally | Mei-first Agara sorting and canonical sort/search keys |
-| `tamil-numerals` | Planned | Words, fractions, dates, LKR/INR formatting |
+| `tamil-numerals` | numerals-v1 verified locally | Bounded integer words and exact LKR/INR formatting; fractions/dates planned |
 | `tamil-codec` | Planned | Bamini, TSCII, Anjal, Vanavil, TAB, TAM, historic orthography |
 | `tamil-punarchi` | Planned | Sourced Nannool sandhi and compound splitting |
 | `tamil-morph` | Planned | FST stemming, lemmatization, suffix/case analysis |

@@ -16,6 +16,8 @@ void main() {
   var count = 0;
   Map<String, dynamic>? wordCase;
   Map<String, dynamic>? keyCase;
+  Map<String, dynamic>? numeralCase;
+  final moneyCases = <Map<String, dynamic>>[];
   for (final suite in manifest['suites']) {
     if (!files.add(suite['file'] as String)) throw StateError('Duplicate suite');
     if (!['active', 'planned'].contains(suite['status'])) throw StateError('Unknown status');
@@ -25,6 +27,8 @@ void main() {
       final row = jsonDecode(line) as Map<String, dynamic>;
       if (row['id'] == 'collate_words_basic') wordCase = row;
       if (row['id'] == 'collate_key_001') keyCase = row;
+      if (row['id'] == 'num_014') numeralCase = row;
+      if (['format_currency', 'currency_to_words'].contains(row['op']) && row.containsKey('expected')) moneyCases.add(row);
       if (!ids.add(row['id'] as String)) throw StateError('Duplicate golden ID');
       if (suite['status'] == 'planned') continue;
       if (!(suite['operations'] as List).contains(row['op'])) throw StateError('Undeclared operation');
@@ -56,5 +60,19 @@ void main() {
     expect(tamil.sortKey(key['input'] as String), equals(key['expected']));
     expect(tamil.searchKey(key['input'] as String), equals(key['expected']));
     expect(tamil.compare(key['input'] as String, key['input'] as String), 0);
+  });
+  test('numeral convenience APIs', () {
+    expect(tamil.toWords(1025, locale: 'SL'), numeralCase!['expected']);
+    for (final row in moneyCases) {
+      final input = row['input'] as Map<String, dynamic>;
+      final amount = (input['amount_minor'] as num).toInt();
+      final currency = input['currency'] as String;
+      final locale = input['locale'] as String? ?? 'TN';
+      final result = row['op'] == 'format_currency'
+          ? tamil.formatCurrency(amount, currency, locale: locale)
+          : tamil.currencyToWords(amount, currency, locale: locale);
+      expect(result, row['expected']);
+    }
+    expect(() => tamil.formatCurrency(1, 'USD'), throwsArgumentError);
   });
 }

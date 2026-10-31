@@ -1,5 +1,7 @@
 export interface Uyirmei { mei: string; uyir: string }
 export interface Request { op: string; input: unknown }
+export type Locale = "TN" | "SL";
+export type Currency = "INR" | "LKR";
 export interface Inspection {
   nfc: string; nfd: string; is_nfc: boolean; is_nfd: boolean;
   ezhuthu_count: number; grapheme_count: number;
@@ -21,5 +23,8 @@ export function createApi(nativeExecute: (request: string) => string) {
     sort_words: (words: string[]) => execute({ op: "sort_words", input: words }) as string[],
     sort_key: (text: string) => execute({ op: "sort_key", input: text }) as number[],
     search_key: (text: string) => execute({ op: "search_key", input: text }) as number[],
+    to_words: (value: number, locale: Locale = "TN") => execute({ op: "to_words", input: { value, locale } }) as string,
+    format_currency: (amount_minor: number, currency: Currency, locale: Locale = "TN") => execute({ op: "format_currency", input: { amount_minor, currency, locale } }) as string,
+    currency_to_words: (amount_minor: number, currency: Currency, locale: Locale = "TN") => execute({ op: "currency_to_words", input: { amount_minor, currency, locale } }) as string,
   };
 }

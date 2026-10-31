@@ -1,0 +1,50 @@
+{
+  "cldr_version": "49",
+  "files": [
+    {
+      "file": "ta-rbnf.xml",
+      "url": "https://raw.githubusercontent.com/unicode-org/cldr/release-49/common/rbnf/ta.xml",
+      "sha256": "f826ec4815c3d60d6bb7c9365dc152a9c7a1a1da99b883a0b648e9da451fadc5",
+      "upstream_sha256": "f826ec4815c3d60d6bb7c9365dc152a9c7a1a1da99b883a0b648e9da451fadc5"
+    },
+    {
+      "file": "ta-number-facts.json",
+      "url": "https://raw.githubusercontent.com/unicode-org/cldr/release-49/common/main/ta.xml",
+      "sha256": "a5f4bed4cc4b2d8e8ccac24fc18a087eb2a2e5115ae59a2d9f266bff7419af8f",
+      "upstream_sha256": "69ca3f6a2792ed1ce1cc01a708462ae30d5fc25e25e026b73c1fa3b1fb63c626"
+    },
+    {
+      "file": "ta-LK.xml",
+      "url": "https://raw.githubusercontent.com/unicode-org/cldr/release-49/common/main/ta_LK.xml",
+      "sha256": "ef7d21c26b76be06e632e2f0d62a711d651f3d69ff449dae3e2baeca05835fc2",
+      "upstream_sha256": "ef7d21c26b76be06e632e2f0d62a711d651f3d69ff449dae3e2baeca05835fc2"
+    },
+    {
+      "file": "currency-fractions.json",
+      "url": "https://raw.githubusercontent.com/unicode-org/cldr/release-49/common/supplemental/supplementalData.xml",
+      "sha256": "f6521c9ba26f549997c30cd09faa47750e1d69c018dd10daace2d19d9e692de8",
+      "upstream_sha256": "745150ec1408d50e1a272b65654a5dd645f3e60f5cc2898b576f725b28538d1a"
+    },
+    {
+      "file": "icu-integers.jsonl",
+      "source": "ICU4J 79.1 interpreting frozen CLDR 49 rules with declared SL lakh override",
+      "sha256": "58e3bcfa525440a05ea1d800802b110ebf41ef8768f9fbfe3ba115f10ade3e5d"
+    },
+    {
+      "file": "icu-money.jsonl",
+      "source": "ICU4J 79.1 interpreting frozen CLDR 49 rules with declared SL lakh override",
+      "sha256": "a27bf35881091859249dfaecb351f30230b34feb8c88242264062790c7a36e04"
+    },
+    {
+      "file": "profile.json",
+      "source": "Declared bounded profile; government/textbook sources in docs/specs/numerals-v0.1.md",
+      "sha256": "0a1650310992a3680bea9cce3bfb7a9627407923ad5346d97dadb6cb84b3b44d"
+    }
+  ],
+  "icu4j": {
+    "version": "79.1",
+    "url": "https://repo.maven.apache.org/maven2/com/ibm/icu/icu4j/79.1/icu4j-79.1.jar",
+    "sha256": "28b292e60d0d00c496bae88a15b2615f89f781be13670aeac9dc90f189570e07"
+  },
+  "license": "../unicode-17.0.0/LICENSE.txt"
+}
