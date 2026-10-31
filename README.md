@@ -2,7 +2,21 @@
 
 A Rust-first Tamil linguistic toolkit monorepo with thin Python, TypeScript/WASM,
 and Dart bindings, deterministic Unicode inspection, and shared golden fixtures.
-This repository is an unpublished bootstrap, not a complete linguistic SDK.
+The first MIT-licensed public alpha is being prepared. Implemented modules have
+bounded, verified contracts; planned modules are excluded from the alpha SDK.
+
+## Alpha release preparation
+
+The candidate is `0.1.0-alpha.1` for Rust/npm and `0.1.0a1` for Python.
+It has not been uploaded to a registry. See the [release plan and acceptance
+criteria](docs/releases/alpha-1.md) and [release runbook](docs/releases/README.md).
+
+`just release-check` builds six Cargo archives, an abi3 Python wheel and source
+distribution, and an npm package containing Node/browser WASM and types. It
+installs the artifacts in isolated consumers and executes every active golden
+row. Artifacts and SHA-256 digests are written under `target/alpha/`.
+The alpha artifact workflow also prepares Linux, Windows, and macOS wheel jobs;
+local verification alone does not establish support on those remote platforms.
 
 ## Start here
 
@@ -165,8 +179,8 @@ justfile                   shared developer and agent commands
 exceptions, required dialect metadata, globally unique IDs, and suite inventory.
 `just test-parity` rebuilds bindings first and executes every active fixture;
 missing bindings and unknown operations fail. Planned suites are validated and
-reported separately. The seeded numeral examples are unreviewed brief examples,
-not validated currency rules.
+reported separately. Numeral suites use the pinned evidence described in their
+module contracts.
 
 Claude's Stop adapter turns failures into blocking exit 2. Specialist role hooks
 restrict edits and shell commands through Claude's tool interface; they are not
@@ -174,5 +188,7 @@ OS permissions. See [agent harness details](docs/agent-harness.md). Cold checks
 can take minutes. CI config runs the gate on Ubuntu and Windows and includes
 Dart; those remote jobs run after this repository is pushed.
 
-The directory was initialized without an existing Git repository. No remote,
-registry publication, release license, or deployment is configured here.
+Original code is [MIT licensed](LICENSE); upstream data and mapping notices are
+preserved in [third-party notices](THIRD_PARTY_NOTICES.md). Contributions are
+welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). Registry publication remains
+disabled while the alpha artifacts undergo release review.

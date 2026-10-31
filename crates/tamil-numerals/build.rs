@@ -107,7 +107,7 @@ fn compile(pattern: &str, current: usize, names: &BTreeMap<&str, usize>) -> Stri
 
 fn main() {
     build_formats::compile();
-    let path = "../../lexicon/numerals.toml";
+    let path = "lexicon/numerals.toml";
     println!("cargo:rerun-if-changed={path}");
     let profile: Profile = toml::from_str(&fs::read_to_string(path).expect("read numerals.toml"))
         .expect("valid numerals.toml");

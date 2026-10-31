@@ -88,7 +88,7 @@ fn pattern(text: &str) -> String {
     format!("&[{}]", result.join(","))
 }
 pub fn compile() {
-    let path = "../../lexicon/numerals-formats.toml";
+    let path = "lexicon/numerals-formats.toml";
     println!("cargo:rerun-if-changed={path}");
     let data: Formats = toml::from_str(&fs::read_to_string(path).expect("read numeral formats"))
         .expect("valid numeral formats");

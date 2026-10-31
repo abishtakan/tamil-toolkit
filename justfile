@@ -10,6 +10,17 @@ bootstrap:
 doctor:
     uv run --locked python tools/tasks.py doctor
 
+# Refresh checked distribution copies from canonical lexicon/license sources.
+sync-release-files:
+    uv run --locked python tools/release_files.py
+
+check-release-files:
+    uv run --locked python tools/release_files.py --check
+
+# Actual archives and isolated consumers; does not upload to any registry.
+release-check:
+    uv run --locked python tools/release.py all
+
 check-unicode:
     uv run --locked python tools/tasks.py check-unicode
 

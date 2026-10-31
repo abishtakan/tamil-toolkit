@@ -1,0 +1,1205 @@
+# bamini-v1; MIT source tables, license notices and choices: docs/specs/codec-v0.1.md
+profile = "bamini-v1"
+max_key_bytes = 3
+passthrough = " \t\r\n0123456789!\"'()-.:?"
+
+[[mappings]]
+legacy = "$"
+unicode = "\u0b95\u0bc2"
+
+[[mappings]]
+legacy = "%"
+unicode = "\u0bae\u0bc2"
+
+[[mappings]]
+legacy = "&"
+unicode = "\u0bb0\u0bc2"
+
+[[mappings]]
+legacy = ","
+unicode = "\u0b87"
+
+[[mappings]]
+legacy = "/"
+unicode = "\u0b83"
+
+[[mappings]]
+legacy = "<"
+unicode = "\u0b88"
+
+[[mappings]]
+legacy = "="
+unicode = "\u0bb8\u0bcd\u0bb0\u0bc0"
+
+[[mappings]]
+legacy = ">"
+unicode = ","
+
+[[mappings]]
+legacy = "A"
+unicode = "\u0baf\u0bc1"
+
+[[mappings]]
+legacy = "A+"
+unicode = "\u0baf\u0bc2"
+
+[[mappings]]
+legacy = "B"
+unicode = "\u0b9f\u0bc0"
+
+[[mappings]]
+legacy = "C"
+unicode = "\u0b8a"
+
+[[mappings]]
+legacy = "D"
+unicode = "\u0ba9\u0bc1"
+
+[[mappings]]
+legacy = "D}"
+unicode = "\u0ba9\u0bc2"
+
+[[mappings]]
+legacy = "E"
+unicode = "\u0ba8\u0bc1"
+
+[[mappings]]
+legacy = "E}"
+unicode = "\u0ba8\u0bc2"
+
+[[mappings]]
+legacy = "F"
+unicode = "\u0b95\u0bc1"
+
+[[mappings]]
+legacy = "G"
+unicode = "\u0baa\u0bc1"
+
+[[mappings]]
+legacy = "G+"
+unicode = "\u0baa\u0bc2"
+
+[[mappings]]
+legacy = "H"
+unicode = "\u0bb0\u0bcd"
+
+[[mappings]]
+legacy = "I"
+unicode = "\u0b90"
+
+[[mappings]]
+legacy = "J"
+unicode = "\u0ba4\u0bc1"
+
+[[mappings]]
+legacy = "J}"
+unicode = "\u0ba4\u0bc2"
+
+[[mappings]]
+legacy = "K"
+unicode = "\u0bae\u0bc1"
+
+[[mappings]]
+legacy = "L"
+unicode = "\u0b9f\u0bc1"
+
+[[mappings]]
+legacy = "M"
+unicode = "\u0b86"
+
+[[mappings]]
+legacy = "NQ"
+unicode = "\u0b9e\u0bc7"
+
+[[mappings]]
+legacy = "NQh"
+unicode = "\u0b9e\u0bcb"
+
+[[mappings]]
+legacy = "N["
+unicode = "\u0b9c\u0bc7"
+
+[[mappings]]
+legacy = "N[h"
+unicode = "\u0b9c\u0bcb"
+
+[[mappings]]
+legacy = "N\\"
+unicode = "\u0bb7\u0bc7"
+
+[[mappings]]
+legacy = "N\\h"
+unicode = "\u0bb7\u0bcb"
+
+[[mappings]]
+legacy = "N]"
+unicode = "\u0bb8\u0bc7"
+
+[[mappings]]
+legacy = "N]h"
+unicode = "\u0bb8\u0bcb"
+
+[[mappings]]
+legacy = "N`"
+unicode = "\u0bb9\u0bc7"
+
+[[mappings]]
+legacy = "N`h"
+unicode = "\u0bb9\u0bcb"
+
+[[mappings]]
+legacy = "Na"
+unicode = "\u0baf\u0bc7"
+
+[[mappings]]
+legacy = "Nah"
+unicode = "\u0baf\u0bcb"
+
+[[mappings]]
+legacy = "Nd"
+unicode = "\u0ba9\u0bc7"
+
+[[mappings]]
+legacy = "Ndh"
+unicode = "\u0ba9\u0bcb"
+
+[[mappings]]
+legacy = "Ne"
+unicode = "\u0ba8\u0bc7"
+
+[[mappings]]
+legacy = "Neh"
+unicode = "\u0ba8\u0bcb"
+
+[[mappings]]
+legacy = "Nf"
+unicode = "\u0b95\u0bc7"
+
+[[mappings]]
+legacy = "Nfh"
+unicode = "\u0b95\u0bcb"
+
+[[mappings]]
+legacy = "Ng"
+unicode = "\u0baa\u0bc7"
+
+[[mappings]]
+legacy = "Ngh"
+unicode = "\u0baa\u0bcb"
+
+[[mappings]]
+legacy = "Nj"
+unicode = "\u0ba4\u0bc7"
+
+[[mappings]]
+legacy = "Njh"
+unicode = "\u0ba4\u0bcb"
+
+[[mappings]]
+legacy = "Nk"
+unicode = "\u0bae\u0bc7"
+
+[[mappings]]
+legacy = "Nkh"
+unicode = "\u0bae\u0bcb"
+
+[[mappings]]
+legacy = "Nl"
+unicode = "\u0b9f\u0bc7"
+
+[[mappings]]
+legacy = "Nlh"
+unicode = "\u0b9f\u0bcb"
+
+[[mappings]]
+legacy = "No"
+unicode = "\u0bb4\u0bc7"
+
+[[mappings]]
+legacy = "Noh"
+unicode = "\u0bb4\u0bcb"
+
+[[mappings]]
+legacy = "Nq"
+unicode = "\u0b99\u0bc7"
+
+[[mappings]]
+legacy = "Nqh"
+unicode = "\u0b99\u0bcb"
+
+[[mappings]]
+legacy = "Nr"
+unicode = "\u0b9a\u0bc7"
+
+[[mappings]]
+legacy = "Nrh"
+unicode = "\u0b9a\u0bcb"
+
+[[mappings]]
+legacy = "Ns"
+unicode = "\u0bb3\u0bc7"
+
+[[mappings]]
+legacy = "Nsh"
+unicode = "\u0bb3\u0bcb"
+
+[[mappings]]
+legacy = "Nt"
+unicode = "\u0bb5\u0bc7"
+
+[[mappings]]
+legacy = "Nth"
+unicode = "\u0bb5\u0bcb"
+
+[[mappings]]
+legacy = "Nu"
+unicode = "\u0bb0\u0bc7"
+
+[[mappings]]
+legacy = "Nuh"
+unicode = "\u0bb0\u0bcb"
+
+[[mappings]]
+legacy = "Nw"
+unicode = "\u0bb1\u0bc7"
+
+[[mappings]]
+legacy = "Nwh"
+unicode = "\u0bb1\u0bcb"
+
+[[mappings]]
+legacy = "Ny"
+unicode = "\u0bb2\u0bc7"
+
+[[mappings]]
+legacy = "Nyh"
+unicode = "\u0bb2\u0bcb"
+
+[[mappings]]
+legacy = "Nz"
+unicode = "\u0ba3\u0bc7"
+
+[[mappings]]
+legacy = "Nzh"
+unicode = "\u0ba3\u0bcb"
+
+[[mappings]]
+legacy = "O"
+unicode = "\u0bb4\u0bc1"
+
+[[mappings]]
+legacy = "Q"
+unicode = "\u0b9e"
+
+[[mappings]]
+legacy = "Q;"
+unicode = "\u0b9e\u0bcd"
+
+[[mappings]]
+legacy = "QP"
+unicode = "\u0b9e\u0bc0"
+
+[[mappings]]
+legacy = "Qh"
+unicode = "\u0b9e\u0bbe"
+
+[[mappings]]
+legacy = "Qp"
+unicode = "\u0b9e\u0bbf"
+
+[[mappings]]
+legacy = "R"
+unicode = "\u0b9a\u0bc1"
+
+[[mappings]]
+legacy = "R+"
+unicode = "\u0b9a\u0bc2"
+
+[[mappings]]
+legacy = "S"
+unicode = "\u0bb3\u0bc1"
+
+[[mappings]]
+legacy = "Sh"
+unicode = "\u0bb3\u0bc2"
+
+[[mappings]]
+legacy = "T"
+unicode = "\u0bb5\u0bc1"
+
+[[mappings]]
+legacy = "T+"
+unicode = "\u0bb5\u0bc2"
+
+[[mappings]]
+legacy = "U"
+unicode = "\u0bb0\u0bc1"
+
+[[mappings]]
+legacy = "V"
+unicode = "\u0b8f"
+
+[[mappings]]
+legacy = "W"
+unicode = "\u0bb1\u0bc1"
+
+[[mappings]]
+legacy = "W}"
+unicode = "\u0bb1\u0bc2"
+
+[[mappings]]
+legacy = "X"
+unicode = "\u0b93"
+
+[[mappings]]
+legacy = "Y"
+unicode = "\u0bb2\u0bc1"
+
+[[mappings]]
+legacy = "Y}"
+unicode = "\u0bb2\u0bc2"
+
+[[mappings]]
+legacy = "Z"
+unicode = "\u0ba3\u0bc1"
+
+[[mappings]]
+legacy = "Z}"
+unicode = "\u0ba3\u0bc2"
+
+[[mappings]]
+legacy = "["
+unicode = "\u0b9c"
+
+[[mappings]]
+legacy = "[;"
+unicode = "\u0b9c\u0bcd"
+
+[[mappings]]
+legacy = "[P"
+unicode = "\u0b9c\u0bc0"
+
+[[mappings]]
+legacy = "[_"
+unicode = "\u0b9c\u0bc2"
+
+[[mappings]]
+legacy = "[h"
+unicode = "\u0b9c\u0bbe"
+
+[[mappings]]
+legacy = "[p"
+unicode = "\u0b9c\u0bbf"
+
+[[mappings]]
+legacy = "[{"
+unicode = "\u0b9c\u0bc1"
+
+[[mappings]]
+legacy = "\\"
+unicode = "\u0bb7"
+
+[[mappings]]
+legacy = "\\;"
+unicode = "\u0bb7\u0bcd"
+
+[[mappings]]
+legacy = "\\P"
+unicode = "\u0bb7\u0bc0"
+
+[[mappings]]
+legacy = "\\_"
+unicode = "\u0bb7\u0bc2"
+
+[[mappings]]
+legacy = "\\h"
+unicode = "\u0bb7\u0bbe"
+
+[[mappings]]
+legacy = "\\p"
+unicode = "\u0bb7\u0bbf"
+
+[[mappings]]
+legacy = "\\{"
+unicode = "\u0bb7\u0bc1"
+
+[[mappings]]
+legacy = "]"
+unicode = "\u0bb8"
+
+[[mappings]]
+legacy = "];"
+unicode = "\u0bb8\u0bcd"
+
+[[mappings]]
+legacy = "]P"
+unicode = "\u0bb8\u0bc0"
+
+[[mappings]]
+legacy = "]_"
+unicode = "\u0bb8\u0bc2"
+
+[[mappings]]
+legacy = "]h"
+unicode = "\u0bb8\u0bbe"
+
+[[mappings]]
+legacy = "]p"
+unicode = "\u0bb8\u0bbf"
+
+[[mappings]]
+legacy = "]{"
+unicode = "\u0bb8\u0bc1"
+
+[[mappings]]
+legacy = "^"
+unicode = "\u0b9f\u0bc2"
+
+[[mappings]]
+legacy = "`"
+unicode = "\u0bb9"
+
+[[mappings]]
+legacy = "`;"
+unicode = "\u0bb9\u0bcd"
+
+[[mappings]]
+legacy = "`P"
+unicode = "\u0bb9\u0bc0"
+
+[[mappings]]
+legacy = "`_"
+unicode = "\u0bb9\u0bc2"
+
+[[mappings]]
+legacy = "`h"
+unicode = "\u0bb9\u0bbe"
+
+[[mappings]]
+legacy = "`p"
+unicode = "\u0bb9\u0bbf"
+
+[[mappings]]
+legacy = "`{"
+unicode = "\u0bb9\u0bc1"
+
+[[mappings]]
+legacy = "a"
+unicode = "\u0baf"
+
+[[mappings]]
+legacy = "a;"
+unicode = "\u0baf\u0bcd"
+
+[[mappings]]
+legacy = "aP"
+unicode = "\u0baf\u0bc0"
+
+[[mappings]]
+legacy = "ah"
+unicode = "\u0baf\u0bbe"
+
+[[mappings]]
+legacy = "ap"
+unicode = "\u0baf\u0bbf"
+
+[[mappings]]
+legacy = "b"
+unicode = "\u0b9f\u0bbf"
+
+[[mappings]]
+legacy = "c"
+unicode = "\u0b89"
+
+[[mappings]]
+legacy = "d"
+unicode = "\u0ba9"
+
+[[mappings]]
+legacy = "d;"
+unicode = "\u0ba9\u0bcd"
+
+[[mappings]]
+legacy = "dP"
+unicode = "\u0ba9\u0bc0"
+
+[[mappings]]
+legacy = "dh"
+unicode = "\u0ba9\u0bbe"
+
+[[mappings]]
+legacy = "dp"
+unicode = "\u0ba9\u0bbf"
+
+[[mappings]]
+legacy = "e"
+unicode = "\u0ba8"
+
+[[mappings]]
+legacy = "e;"
+unicode = "\u0ba8\u0bcd"
+
+[[mappings]]
+legacy = "eP"
+unicode = "\u0ba8\u0bc0"
+
+[[mappings]]
+legacy = "eh"
+unicode = "\u0ba8\u0bbe"
+
+[[mappings]]
+legacy = "ep"
+unicode = "\u0ba8\u0bbf"
+
+[[mappings]]
+legacy = "f"
+unicode = "\u0b95"
+
+[[mappings]]
+legacy = "f;"
+unicode = "\u0b95\u0bcd"
+
+[[mappings]]
+legacy = "fP"
+unicode = "\u0b95\u0bc0"
+
+[[mappings]]
+legacy = "fh"
+unicode = "\u0b95\u0bbe"
+
+[[mappings]]
+legacy = "fp"
+unicode = "\u0b95\u0bbf"
+
+[[mappings]]
+legacy = "g"
+unicode = "\u0baa"
+
+[[mappings]]
+legacy = "g;"
+unicode = "\u0baa\u0bcd"
+
+[[mappings]]
+legacy = "gP"
+unicode = "\u0baa\u0bc0"
+
+[[mappings]]
+legacy = "gh"
+unicode = "\u0baa\u0bbe"
+
+[[mappings]]
+legacy = "gp"
+unicode = "\u0baa\u0bbf"
+
+[[mappings]]
+legacy = "h;"
+unicode = "\u0bb0\u0bcd"
+
+[[mappings]]
+legacy = "iQ"
+unicode = "\u0b9e\u0bc8"
+
+[[mappings]]
+legacy = "i["
+unicode = "\u0b9c\u0bc8"
+
+[[mappings]]
+legacy = "i\\"
+unicode = "\u0bb7\u0bc8"
+
+[[mappings]]
+legacy = "i]"
+unicode = "\u0bb8\u0bc8"
+
+[[mappings]]
+legacy = "i`"
+unicode = "\u0bb9\u0bc8"
+
+[[mappings]]
+legacy = "ia"
+unicode = "\u0baf\u0bc8"
+
+[[mappings]]
+legacy = "id"
+unicode = "\u0ba9\u0bc8"
+
+[[mappings]]
+legacy = "ie"
+unicode = "\u0ba8\u0bc8"
+
+[[mappings]]
+legacy = "if"
+unicode = "\u0b95\u0bc8"
+
+[[mappings]]
+legacy = "ig"
+unicode = "\u0baa\u0bc8"
+
+[[mappings]]
+legacy = "ij"
+unicode = "\u0ba4\u0bc8"
+
+[[mappings]]
+legacy = "ik"
+unicode = "\u0bae\u0bc8"
+
+[[mappings]]
+legacy = "il"
+unicode = "\u0b9f\u0bc8"
+
+[[mappings]]
+legacy = "io"
+unicode = "\u0bb4\u0bc8"
+
+[[mappings]]
+legacy = "iq"
+unicode = "\u0b99\u0bc8"
+
+[[mappings]]
+legacy = "ir"
+unicode = "\u0b9a\u0bc8"
+
+[[mappings]]
+legacy = "is"
+unicode = "\u0bb3\u0bc8"
+
+[[mappings]]
+legacy = "it"
+unicode = "\u0bb5\u0bc8"
+
+[[mappings]]
+legacy = "iu"
+unicode = "\u0bb0\u0bc8"
+
+[[mappings]]
+legacy = "iw"
+unicode = "\u0bb1\u0bc8"
+
+[[mappings]]
+legacy = "iy"
+unicode = "\u0bb2\u0bc8"
+
+[[mappings]]
+legacy = "iz"
+unicode = "\u0ba3\u0bc8"
+
+[[mappings]]
+legacy = "j"
+unicode = "\u0ba4"
+
+[[mappings]]
+legacy = "j;"
+unicode = "\u0ba4\u0bcd"
+
+[[mappings]]
+legacy = "jP"
+unicode = "\u0ba4\u0bc0"
+
+[[mappings]]
+legacy = "jh"
+unicode = "\u0ba4\u0bbe"
+
+[[mappings]]
+legacy = "jp"
+unicode = "\u0ba4\u0bbf"
+
+[[mappings]]
+legacy = "k"
+unicode = "\u0bae"
+
+[[mappings]]
+legacy = "k;"
+unicode = "\u0bae\u0bcd"
+
+[[mappings]]
+legacy = "kP"
+unicode = "\u0bae\u0bc0"
+
+[[mappings]]
+legacy = "kh"
+unicode = "\u0bae\u0bbe"
+
+[[mappings]]
+legacy = "kp"
+unicode = "\u0bae\u0bbf"
+
+[[mappings]]
+legacy = "l"
+unicode = "\u0b9f"
+
+[[mappings]]
+legacy = "l;"
+unicode = "\u0b9f\u0bcd"
+
+[[mappings]]
+legacy = "lh"
+unicode = "\u0b9f\u0bbe"
+
+[[mappings]]
+legacy = "m"
+unicode = "\u0b85"
+
+[[mappings]]
+legacy = "nQ"
+unicode = "\u0b9e\u0bc6"
+
+[[mappings]]
+legacy = "nQh"
+unicode = "\u0b9e\u0bca"
+
+[[mappings]]
+legacy = "nQs"
+unicode = "\u0b9e\u0bcc"
+
+[[mappings]]
+legacy = "n["
+unicode = "\u0b9c\u0bc6"
+
+[[mappings]]
+legacy = "n[h"
+unicode = "\u0b9c\u0bca"
+
+[[mappings]]
+legacy = "n[s"
+unicode = "\u0b9c\u0bcc"
+
+[[mappings]]
+legacy = "n\\"
+unicode = "\u0bb7\u0bc6"
+
+[[mappings]]
+legacy = "n\\h"
+unicode = "\u0bb7\u0bca"
+
+[[mappings]]
+legacy = "n\\s"
+unicode = "\u0bb7\u0bcc"
+
+[[mappings]]
+legacy = "n]"
+unicode = "\u0bb8\u0bc6"
+
+[[mappings]]
+legacy = "n]h"
+unicode = "\u0bb8\u0bca"
+
+[[mappings]]
+legacy = "n]s"
+unicode = "\u0bb8\u0bcc"
+
+[[mappings]]
+legacy = "n`"
+unicode = "\u0bb9\u0bc6"
+
+[[mappings]]
+legacy = "n`h"
+unicode = "\u0bb9\u0bca"
+
+[[mappings]]
+legacy = "n`s"
+unicode = "\u0bb9\u0bcc"
+
+[[mappings]]
+legacy = "na"
+unicode = "\u0baf\u0bc6"
+
+[[mappings]]
+legacy = "nah"
+unicode = "\u0baf\u0bca"
+
+[[mappings]]
+legacy = "nas"
+unicode = "\u0baf\u0bcc"
+
+[[mappings]]
+legacy = "nd"
+unicode = "\u0ba9\u0bc6"
+
+[[mappings]]
+legacy = "ndh"
+unicode = "\u0ba9\u0bca"
+
+[[mappings]]
+legacy = "nds"
+unicode = "\u0ba9\u0bcc"
+
+[[mappings]]
+legacy = "ne"
+unicode = "\u0ba8\u0bc6"
+
+[[mappings]]
+legacy = "neh"
+unicode = "\u0ba8\u0bca"
+
+[[mappings]]
+legacy = "nes"
+unicode = "\u0ba8\u0bcc"
+
+[[mappings]]
+legacy = "nf"
+unicode = "\u0b95\u0bc6"
+
+[[mappings]]
+legacy = "nfh"
+unicode = "\u0b95\u0bca"
+
+[[mappings]]
+legacy = "nfs"
+unicode = "\u0b95\u0bcc"
+
+[[mappings]]
+legacy = "ng"
+unicode = "\u0baa\u0bc6"
+
+[[mappings]]
+legacy = "ngh"
+unicode = "\u0baa\u0bca"
+
+[[mappings]]
+legacy = "ngs"
+unicode = "\u0baa\u0bcc"
+
+[[mappings]]
+legacy = "nj"
+unicode = "\u0ba4\u0bc6"
+
+[[mappings]]
+legacy = "njh"
+unicode = "\u0ba4\u0bca"
+
+[[mappings]]
+legacy = "njs"
+unicode = "\u0ba4\u0bcc"
+
+[[mappings]]
+legacy = "nk"
+unicode = "\u0bae\u0bc6"
+
+[[mappings]]
+legacy = "nkh"
+unicode = "\u0bae\u0bca"
+
+[[mappings]]
+legacy = "nks"
+unicode = "\u0bae\u0bcc"
+
+[[mappings]]
+legacy = "nl"
+unicode = "\u0b9f\u0bc6"
+
+[[mappings]]
+legacy = "nlh"
+unicode = "\u0b9f\u0bca"
+
+[[mappings]]
+legacy = "nls"
+unicode = "\u0b9f\u0bcc"
+
+[[mappings]]
+legacy = "no"
+unicode = "\u0bb4\u0bc6"
+
+[[mappings]]
+legacy = "noh"
+unicode = "\u0bb4\u0bca"
+
+[[mappings]]
+legacy = "nos"
+unicode = "\u0bb4\u0bcc"
+
+[[mappings]]
+legacy = "nq"
+unicode = "\u0b99\u0bc6"
+
+[[mappings]]
+legacy = "nqh"
+unicode = "\u0b99\u0bca"
+
+[[mappings]]
+legacy = "nqs"
+unicode = "\u0b99\u0bcc"
+
+[[mappings]]
+legacy = "nr"
+unicode = "\u0b9a\u0bc6"
+
+[[mappings]]
+legacy = "nrh"
+unicode = "\u0b9a\u0bca"
+
+[[mappings]]
+legacy = "nrs"
+unicode = "\u0b9a\u0bcc"
+
+[[mappings]]
+legacy = "ns"
+unicode = "\u0bb3\u0bc6"
+
+[[mappings]]
+legacy = "nsh"
+unicode = "\u0bb3\u0bca"
+
+[[mappings]]
+legacy = "nss"
+unicode = "\u0bb3\u0bcc"
+
+[[mappings]]
+legacy = "nt"
+unicode = "\u0bb5\u0bc6"
+
+[[mappings]]
+legacy = "nth"
+unicode = "\u0bb5\u0bca"
+
+[[mappings]]
+legacy = "nts"
+unicode = "\u0bb5\u0bcc"
+
+[[mappings]]
+legacy = "nu"
+unicode = "\u0bb0\u0bc6"
+
+[[mappings]]
+legacy = "nuh"
+unicode = "\u0bb0\u0bca"
+
+[[mappings]]
+legacy = "nus"
+unicode = "\u0bb0\u0bcc"
+
+[[mappings]]
+legacy = "nw"
+unicode = "\u0bb1\u0bc6"
+
+[[mappings]]
+legacy = "nwh"
+unicode = "\u0bb1\u0bca"
+
+[[mappings]]
+legacy = "nws"
+unicode = "\u0bb1\u0bcc"
+
+[[mappings]]
+legacy = "ny"
+unicode = "\u0bb2\u0bc6"
+
+[[mappings]]
+legacy = "nyh"
+unicode = "\u0bb2\u0bca"
+
+[[mappings]]
+legacy = "nys"
+unicode = "\u0bb2\u0bcc"
+
+[[mappings]]
+legacy = "nz"
+unicode = "\u0ba3\u0bc6"
+
+[[mappings]]
+legacy = "nzh"
+unicode = "\u0ba3\u0bca"
+
+[[mappings]]
+legacy = "nzs"
+unicode = "\u0ba3\u0bcc"
+
+[[mappings]]
+legacy = "o"
+unicode = "\u0bb4"
+
+[[mappings]]
+legacy = "o;"
+unicode = "\u0bb4\u0bcd"
+
+[[mappings]]
+legacy = "oP"
+unicode = "\u0bb4\u0bc0"
+
+[[mappings]]
+legacy = "oh"
+unicode = "\u0bb4\u0bbe"
+
+[[mappings]]
+legacy = "op"
+unicode = "\u0bb4\u0bbf"
+
+[[mappings]]
+legacy = "q"
+unicode = "\u0b99"
+
+[[mappings]]
+legacy = "q;"
+unicode = "\u0b99\u0bcd"
+
+[[mappings]]
+legacy = "qP"
+unicode = "\u0b99\u0bc0"
+
+[[mappings]]
+legacy = "qh"
+unicode = "\u0b99\u0bbe"
+
+[[mappings]]
+legacy = "qp"
+unicode = "\u0b99\u0bbf"
+
+[[mappings]]
+legacy = "r"
+unicode = "\u0b9a"
+
+[[mappings]]
+legacy = "r;"
+unicode = "\u0b9a\u0bcd"
+
+[[mappings]]
+legacy = "rP"
+unicode = "\u0b9a\u0bc0"
+
+[[mappings]]
+legacy = "rh"
+unicode = "\u0b9a\u0bbe"
+
+[[mappings]]
+legacy = "rp"
+unicode = "\u0b9a\u0bbf"
+
+[[mappings]]
+legacy = "s"
+unicode = "\u0bb3"
+
+[[mappings]]
+legacy = "s;"
+unicode = "\u0bb3\u0bcd"
+
+[[mappings]]
+legacy = "sP"
+unicode = "\u0bb3\u0bc0"
+
+[[mappings]]
+legacy = "sh"
+unicode = "\u0bb3\u0bbe"
+
+[[mappings]]
+legacy = "sp"
+unicode = "\u0bb3\u0bbf"
+
+[[mappings]]
+legacy = "t"
+unicode = "\u0bb5"
+
+[[mappings]]
+legacy = "t;"
+unicode = "\u0bb5\u0bcd"
+
+[[mappings]]
+legacy = "tP"
+unicode = "\u0bb5\u0bc0"
+
+[[mappings]]
+legacy = "th"
+unicode = "\u0bb5\u0bbe"
+
+[[mappings]]
+legacy = "tp"
+unicode = "\u0bb5\u0bbf"
+
+[[mappings]]
+legacy = "u"
+unicode = "\u0bb0"
+
+[[mappings]]
+legacy = "u;"
+unicode = "\u0bb0\u0bcd"
+
+[[mappings]]
+legacy = "uP"
+unicode = "\u0bb0\u0bc0"
+
+[[mappings]]
+legacy = "uh"
+unicode = "\u0bb0\u0bbe"
+
+[[mappings]]
+legacy = "up"
+unicode = "\u0bb0\u0bbf"
+
+[[mappings]]
+legacy = "v"
+unicode = "\u0b8e"
+
+[[mappings]]
+legacy = "w"
+unicode = "\u0bb1"
+
+[[mappings]]
+legacy = "w;"
+unicode = "\u0bb1\u0bcd"
+
+[[mappings]]
+legacy = "wP"
+unicode = "\u0bb1\u0bc0"
+
+[[mappings]]
+legacy = "wh"
+unicode = "\u0bb1\u0bbe"
+
+[[mappings]]
+legacy = "wp"
+unicode = "\u0bb1\u0bbf"
+
+[[mappings]]
+legacy = "x"
+unicode = "\u0b92"
+
+[[mappings]]
+legacy = "xs"
+unicode = "\u0b94"
+
+[[mappings]]
+legacy = "y"
+unicode = "\u0bb2"
+
+[[mappings]]
+legacy = "y;"
+unicode = "\u0bb2\u0bcd"
+
+[[mappings]]
+legacy = "yP"
+unicode = "\u0bb2\u0bc0"
+
+[[mappings]]
+legacy = "yh"
+unicode = "\u0bb2\u0bbe"
+
+[[mappings]]
+legacy = "yp"
+unicode = "\u0bb2\u0bbf"
+
+[[mappings]]
+legacy = "z"
+unicode = "\u0ba3"
+
+[[mappings]]
+legacy = "z;"
+unicode = "\u0ba3\u0bcd"
+
+[[mappings]]
+legacy = "zP"
+unicode = "\u0ba3\u0bc0"
+
+[[mappings]]
+legacy = "zh"
+unicode = "\u0ba3\u0bbe"
+
+[[mappings]]
+legacy = "zp"
+unicode = "\u0ba3\u0bbf"
+
+[[ambiguous]]
+legacy = "*"
+candidates = ["\u0b99\u0bc1", "\u0b99\u0bc2", "\u0b9e\u0bc1", "\u0b9e\u0bc2", "\u0bb4\u0bc2"]
+
+# Primary source first alias; other spellings remain valid for decoding.
+[[encoding_preferences]]
+unicode = "\u0bb0\u0bcd"
+legacy = "u;"

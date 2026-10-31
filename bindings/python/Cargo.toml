@@ -1,8 +1,12 @@
 [package]
 name = "tamil-python"
+description = "Private Rust support crate for the tamil-toolkit Python distribution"
 version.workspace = true
 edition.workspace = true
 publish.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
 
 [lib]
 name = "_native"
@@ -15,7 +19,7 @@ extension-module = ["pyo3/extension-module"]
 
 [dependencies]
 tamil-toolkit.workspace = true
-pyo3 = "0.30"
+pyo3 = { version = "0.30", features = ["abi3-py311"] }
 
 [lints]
 workspace = true

@@ -6,8 +6,7 @@ import { defineConfig, type Plugin } from "vite";
 const workbenchRoot = fileURLToPath(new URL(".", import.meta.url));
 const root = fileURLToPath(new URL("../", import.meta.url));
 const wasmBuildArgs = [
-  "--dir", "workbench", "exec", "wasm-pack", "build", "../bindings/js-wasm", "--dev", "--target", "web",
-  "--out-dir", "pkg-web", "--out-name", "tamil_toolkit", "--locked",
+  "--dir", "workbench", "run", "build:wasm:web",
 ];
 
 type TestStep = { label: string; command: string; args: string[]; cwd?: string };
@@ -31,6 +30,11 @@ const nativeTestPlans: Record<string, TestStep[]> = Object.fromEntries([
     },
   ]],
   ["tamil-python", [
+    {
+      label: "Prepare dependency license notices",
+      command: "uv",
+      args: ["run", "--locked", "python", "tools/release.py", "licenses"],
+    },
     {
       label: "Build the PyO3 extension",
       command: "uv",
@@ -135,6 +139,8 @@ function rustWasmHotReload(): Plugin {
         if (cached) return cached;
         const preparation = (async () => {
           if (packageId === "tamil-python") {
+            const notices = await runCommand("uv", ["run", "--locked", "python", "tools/release.py", "licenses"], root);
+            if (notices.code !== 0) return commandFailure("Dependency license notices", notices);
             const result = await runCommand("uv", ["run", "--locked", "maturin", "develop", "--locked", "--manifest-path", "bindings/python/Cargo.toml"], root);
             return result.code === 0 ? undefined : commandFailure("PyO3 build", result);
           }

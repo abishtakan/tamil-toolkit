@@ -94,7 +94,7 @@ fn render_nodes(nodes: &[Node]) -> String {
 }
 
 fn main() {
-    let path = "../../lexicon/bamini.toml";
+    let path = "lexicon/bamini.toml";
     println!("cargo:rerun-if-changed={path}");
     let profile: Profile = toml::from_str(&fs::read_to_string(path).expect("read bamini.toml"))
         .expect("valid bamini.toml");

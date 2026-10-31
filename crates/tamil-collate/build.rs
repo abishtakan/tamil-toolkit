@@ -27,7 +27,7 @@ fn literal(value: &str) -> String {
 }
 
 fn main() {
-    let source = "../../lexicon/collate.toml";
+    let source = "lexicon/collate.toml";
     println!("cargo:rerun-if-changed={source}");
     let profile: Profile = toml::from_str(&fs::read_to_string(source).expect("read collate.toml"))
         .expect("valid collate.toml");

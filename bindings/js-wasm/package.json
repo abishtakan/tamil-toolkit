@@ -1,7 +1,14 @@
 {
   "name": "tamil-toolkit",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "private": true,
+  "license": "MIT",
+  "repository": {"type": "git", "url": "https://github.com/abishtakan/tamil-toolkit.git", "directory": "bindings/js-wasm"},
+  "homepage": "https://github.com/abishtakan/tamil-toolkit#readme",
+  "bugs": "https://github.com/abishtakan/tamil-toolkit/issues",
+  "keywords": ["tamil", "unicode", "wasm", "collation", "numerals", "bamini"],
+  "engines": {"node": ">=22"},
+  "publishConfig": {"access": "public", "tag": "alpha"},
   "type": "module",
   "description": "Thin TypeScript/WASM bindings for the Rust Tamil toolkit",
   "exports": {
@@ -11,7 +18,7 @@
     },
     "./web": {"types": "./dist/web.d.ts", "default": "./dist/web.js"}
   },
-  "files": ["dist", "pkg-node", "pkg-web", "README.md"],
+  "files": ["dist", "pkg-node", "pkg-web", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "THIRD_PARTY_LICENSES.txt"],
   "scripts": {"build": "tsc", "test": "vitest run"},
   "devDependencies": {"@types/node": "^24.0.0", "typescript": "7.0.2", "vitest": "5.0.5", "wasm-pack": "0.15.1"}
 }

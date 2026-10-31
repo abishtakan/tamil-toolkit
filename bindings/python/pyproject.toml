@@ -1,16 +1,25 @@
 [build-system]
-requires = ["maturin>=1.8,<2"]
+requires = ["maturin>=1.16,<2"]
 build-backend = "maturin"
 
 [project]
 name = "tamil-toolkit"
-version = "0.1.0"
+version = "0.1.0a1"
 requires-python = ">=3.11"
 description = "Thin Python bindings for the Rust Tamil toolkit"
 readme = "README.md"
-classifiers = ["Development Status :: 2 - Pre-Alpha", "Programming Language :: Rust"]
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md", "THIRD_PARTY_LICENSES.txt"]
+classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Rust", "Programming Language :: Python :: 3 :: Only", "Programming Language :: Python :: Implementation :: CPython"]
+keywords = ["tamil", "unicode", "collation", "numerals", "bamini"]
+
+[project.urls]
+Repository = "https://github.com/abishtakan/tamil-toolkit"
+Documentation = "https://github.com/abishtakan/tamil-toolkit#readme"
+Issues = "https://github.com/abishtakan/tamil-toolkit/issues"
 
 [tool.maturin]
 features = ["extension-module"]
 python-source = "python"
 module-name = "tamil_toolkit._native"
+include = [{ path = "THIRD_PARTY_LICENSES.txt", format = "sdist" }]

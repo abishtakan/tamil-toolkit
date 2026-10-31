@@ -1,0 +1,129 @@
+# CLDR 49 / Unicode 17 facts; sources and licenses: docs/specs/numerals-v0.2.md
+profile = "numerals-formats-v1"
+division = "\u0BB5\u0B95\u0BC1\u0BA4\u0BCD\u0BA4\u0BB2\u0BCD"
+latin_digits = "0123456789"
+tamil_digits = "\u0BE6\u0BE7\u0BE8\u0BE9\u0BEA\u0BEB\u0BEC\u0BED\u0BEE\u0BEF"
+months = ["\u0B9C\u0BA9\u0BB5\u0BB0\u0BBF", "\u0BAA\u0BBF\u0BAA\u0BCD\u0BB0\u0BB5\u0BB0\u0BBF", "\u0BAE\u0BBE\u0BB0\u0BCD\u0B9A\u0BCD", "\u0B8F\u0BAA\u0BCD\u0BB0\u0BB2\u0BCD", "\u0BAE\u0BC7", "\u0B9C\u0BC2\u0BA9\u0BCD", "\u0B9C\u0BC2\u0BB2\u0BC8", "\u0B86\u0B95\u0BB8\u0BCD\u0B9F\u0BCD", "\u0B9A\u0BC6\u0BAA\u0BCD\u0B9F\u0BAE\u0BCD\u0BAA\u0BB0\u0BCD", "\u0B85\u0B95\u0BCD\u0B9F\u0BCB\u0BAA\u0BB0\u0BCD", "\u0BA8\u0BB5\u0BAE\u0BCD\u0BAA\u0BB0\u0BCD", "\u0B9F\u0BBF\u0B9A\u0BAE\u0BCD\u0BAA\u0BB0\u0BCD"]
+abbreviated_months = ["\u0B9C\u0BA9.", "\u0BAA\u0BBF\u0BAA\u0BCD.", "\u0BAE\u0BBE\u0BB0\u0BCD.", "\u0B8F\u0BAA\u0BCD.", "\u0BAE\u0BC7", "\u0B9C\u0BC2\u0BA9\u0BCD", "\u0B9C\u0BC2\u0BB2\u0BC8", "\u0B86\u0B95.", "\u0B9A\u0BC6\u0BAA\u0BCD.", "\u0B85\u0B95\u0BCD.", "\u0BA8\u0BB5.", "\u0B9F\u0BBF\u0B9A."]
+weekdays = ["\u0B9E\u0BBE\u0BAF\u0BBF\u0BB1\u0BC1", "\u0BA4\u0BBF\u0B99\u0BCD\u0B95\u0BB3\u0BCD", "\u0B9A\u0BC6\u0BB5\u0BCD\u0BB5\u0BBE\u0BAF\u0BCD", "\u0BAA\u0BC1\u0BA4\u0BA9\u0BCD", "\u0BB5\u0BBF\u0BAF\u0BBE\u0BB4\u0BA9\u0BCD", "\u0BB5\u0BC6\u0BB3\u0BCD\u0BB3\u0BBF", "\u0B9A\u0BA9\u0BBF"]
+
+[[common_fractions]]
+numerator = 1
+denominator = 4
+words = "\u0B95\u0BBE\u0BB2\u0BCD"
+
+[[common_fractions]]
+numerator = 1
+denominator = 2
+words = "\u0B85\u0BB0\u0BC8"
+
+[[common_fractions]]
+numerator = 3
+denominator = 4
+words = "\u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BB2\u0BCD"
+
+[[symbols]]
+numerator = 1
+denominator = 320
+symbol = "\U00011FC0"
+
+[[symbols]]
+numerator = 1
+denominator = 160
+symbol = "\U00011FC1"
+
+[[symbols]]
+numerator = 1
+denominator = 80
+symbol = "\U00011FC2"
+
+[[symbols]]
+numerator = 1
+denominator = 64
+symbol = "\U00011FC3"
+
+[[symbols]]
+numerator = 1
+denominator = 40
+symbol = "\U00011FC4"
+
+[[symbols]]
+numerator = 1
+denominator = 32
+symbol = "\U00011FC5"
+
+[[symbols]]
+numerator = 3
+denominator = 80
+symbol = "\U00011FC6"
+
+[[symbols]]
+numerator = 3
+denominator = 64
+symbol = "\U00011FC7"
+
+[[symbols]]
+numerator = 1
+denominator = 20
+symbol = "\U00011FC8"
+
+[[symbols]]
+numerator = 1
+denominator = 16
+symbol = "\U00011FC9"
+
+[[symbols]]
+numerator = 1
+denominator = 10
+symbol = "\U00011FCB"
+
+[[symbols]]
+numerator = 1
+denominator = 8
+symbol = "\U00011FCC"
+
+[[symbols]]
+numerator = 3
+denominator = 20
+symbol = "\U00011FCD"
+
+[[symbols]]
+numerator = 3
+denominator = 16
+symbol = "\U00011FCE"
+
+[[symbols]]
+numerator = 1
+denominator = 5
+symbol = "\U00011FCF"
+
+[[symbols]]
+numerator = 1
+denominator = 4
+symbol = "\U00011FD0"
+
+[[symbols]]
+numerator = 1
+denominator = 2
+symbol = "\U00011FD1"
+
+[[symbols]]
+numerator = 3
+denominator = 4
+symbol = "\U00011FD3"
+
+[[date_styles]]
+name = "short"
+pattern = "d/M/yy"
+
+[[date_styles]]
+name = "medium"
+pattern = "d MMM, y"
+
+[[date_styles]]
+name = "long"
+pattern = "d MMMM, y"
+
+[[date_styles]]
+name = "full"
+pattern = "EEEE, d MMMM, y"

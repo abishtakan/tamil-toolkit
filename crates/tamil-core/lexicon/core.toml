@@ -1,0 +1,52 @@
+# Declarative Unicode facts, not a vocabulary lexicon.
+# Sources: https://www.unicode.org/versions/Unicode17.0.0/core-spec/chapter-12/
+#          https://www.unicode.org/Public/17.0.0/ucd/NamedSequences.txt
+version = 1
+pulli = "\u0BCD"
+aytham = "\u0B83"
+# Project tailoring: these sequences are atomic for get_letters, unlike plain UAX 29.
+atomic_letters = ["\u0B95\u0BCD\u0BB7", "\u0BB6\u0BCD\u0BB0\u0BC0", "\u0BB8\u0BCD\u0BB0\u0BC0"]
+
+[consonants]
+vallinam = ["\u0B95", "\u0B9A", "\u0B9F", "\u0BA4", "\u0BAA", "\u0BB1"]
+mellinam = ["\u0B99", "\u0B9E", "\u0BA3", "\u0BA8", "\u0BAE", "\u0BA9"]
+idaiyinam = ["\u0BAF", "\u0BB0", "\u0BB2", "\u0BB5", "\u0BB4", "\u0BB3"]
+grantha = ["\u0B9C", "\u0BB6", "\u0BB7", "\u0BB8", "\u0BB9", "\u0B95\u0BCD\u0BB7"]
+
+# Each pair is [independent vowel, dependent vowel sign]; empty means inherent A.
+[[vowels]]
+uyir = "\u0B85"
+sign = ""
+[[vowels]]
+uyir = "\u0B86"
+sign = "\u0BBE"
+[[vowels]]
+uyir = "\u0B87"
+sign = "\u0BBF"
+[[vowels]]
+uyir = "\u0B88"
+sign = "\u0BC0"
+[[vowels]]
+uyir = "\u0B89"
+sign = "\u0BC1"
+[[vowels]]
+uyir = "\u0B8A"
+sign = "\u0BC2"
+[[vowels]]
+uyir = "\u0B8E"
+sign = "\u0BC6"
+[[vowels]]
+uyir = "\u0B8F"
+sign = "\u0BC7"
+[[vowels]]
+uyir = "\u0B90"
+sign = "\u0BC8"
+[[vowels]]
+uyir = "\u0B92"
+sign = "\u0BCA"
+[[vowels]]
+uyir = "\u0B93"
+sign = "\u0BCB"
+[[vowels]]
+uyir = "\u0B94"
+sign = "\u0BCC"

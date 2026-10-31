@@ -33,6 +33,11 @@
 
 - `just check-unicode`: validate source Unicode, decoded JSONL, schema, global
   IDs, manifest coverage, and exact, reasoned Unicode exceptions.
+- `just sync-release-files`: regenerate public crate data/license copies from
+  canonical sources after changes. Never edit distribution copies directly.
+- `just check-release-files`: fail on any stale distribution data/license copy.
+- `just release-check`: build and test actual alpha archives in isolated
+  consumers; no registry upload. See `docs/releases/alpha-1.md` for release scope.
 - `just test-rust`: locked workspace tests and 10,000 cases per core property.
   Uses nextest if installed; explicitly falls back to `cargo test` otherwise.
 - `just sync-bindings`: rebuild PyO3 and both Node/browser WASM packages, then

@@ -1,0 +1,154 @@
+name: Alpha distribution artifacts
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v0.1.0-alpha.1']
+  pull_request:
+    paths:
+      - 'Cargo*'
+      - 'crates/**'
+      - 'lexicon/**'
+      - 'bindings/**'
+      - 'tools/release*'
+      - 'tools/release_smoke/**'
+      - 'tests/golden/**'
+      - 'pnpm-lock.yaml'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - 'README.md'
+      - 'docs/releases/**'
+      - 'LICENSE'
+      - 'THIRD_PARTY_NOTICES.md'
+      - '.github/workflows/alpha-artifacts.yml'
+
+# Build-only workflow: no registry credentials and no publishing permission.
+permissions:
+  contents: read
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.95.0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python tools/release.py rust
+      - uses: actions/upload-artifact@v4
+        with:
+          name: alpha-rust
+          path: |
+            target/alpha/rust/*.crate
+            target/alpha/SHA256SUMS.json
+          if-no-files-found: error
+
+  rust-minimum:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.85.0
+      - run: cargo check --locked -p tamil-toolkit --lib
+
+  npm:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['22', '24']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.95.0
+          targets: wasm32-unknown-unknown
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.5.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: python tools/release.py npm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: alpha-npm-node${{ matrix.node }}
+          path: |
+            target/alpha/npm/*.tgz
+            target/alpha/SHA256SUMS.json
+          if-no-files-found: error
+
+  python:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            manylinux: '2014'
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            manylinux: 'off'
+          - os: macos-14
+            target: aarch64-apple-darwin
+            manylinux: 'off'
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.95.0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python tools/release.py stage-python
+      - uses: PyO3/maturin-action@v1
+        with:
+          command: build
+          maturin-version: v1.16.0
+          rust-toolchain: 1.95.0
+          target: ${{ matrix.target }}
+          manylinux: ${{ matrix.manylinux }}
+          working-directory: target/alpha/python-source/bindings/python
+          args: --release --locked --sdist --out dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: alpha-python-${{ matrix.target }}
+          path: target/alpha/python-source/bindings/python/dist/*
+          if-no-files-found: error
+
+  python-consumers:
+    needs: python
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-latest, macos-14]
+        python: ['3.11', '3.14']
+        include:
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+          - os: macos-14
+            target: aarch64-apple-darwin
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-python-${{ matrix.target }}
+          path: wheel-artifacts
+      - name: Test the installed wheel, without editable bindings
+        shell: bash
+        run: python tools/release.py verify-wheel --wheel wheel-artifacts/*.whl

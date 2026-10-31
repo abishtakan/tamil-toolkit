@@ -4,6 +4,11 @@ version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
 publish.workspace = true
+license.workspace = true
+repository.workspace = true
+readme = "README.md"
+documentation = "https://docs.rs/tamil-core/0.1.0-alpha.1"
+include = ["src/**", "build*.rs", "lexicon/*.toml", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"]
 description = "Tamil Unicode primitives, driven by declarative tables"
 
 [dependencies]

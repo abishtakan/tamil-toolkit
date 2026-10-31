@@ -1,16 +1,11 @@
-//! Unified entry point. Planned modules expose no invented algorithms.
+//! Experimental unified entry point for the implemented Tamil modules.
 #![forbid(unsafe_code)]
 
 pub use tamil_codec as codec;
 pub use tamil_collate as collate;
 pub use tamil_core as core;
-pub use tamil_dialect as dialect;
-pub use tamil_hyphen as hyphen;
-pub use tamil_morph as morph;
 pub use tamil_norm as norm;
 pub use tamil_numerals as numerals;
-pub use tamil_punarchi as punarchi;
-pub use tamil_yaappu as yaappu;
 
 use serde_json::{json, Value};
 

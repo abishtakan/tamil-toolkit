@@ -28,7 +28,7 @@ fn literal(value: &str) -> String {
 }
 
 fn main() {
-    let source = "../../lexicon/core.toml";
+    let source = "lexicon/core.toml";
     println!("cargo:rerun-if-changed={source}");
     let rules: Rules = toml::from_str(&fs::read_to_string(source).expect("read core.toml"))
         .expect("valid core.toml");

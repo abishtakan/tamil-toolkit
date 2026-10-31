@@ -4,6 +4,11 @@ Only TOML, CSV, and documentation belong here. No executable code. Every future
 word list, suffix table, encoding map, or sandhi rule needs provenance, licensing,
 versioning, and explicit regional coverage before implementation.
 
+This directory is canonical. `just sync-release-files` generates checked copies
+inside each public crate's `lexicon/` directory so standalone Cargo builds need
+no files outside their archives. Never edit those copies. `just check-unicode`
+also checks their exact bytes. Run the sync command after canonical data edits.
+
 `core.toml` contains Unicode vowel/consonant facts and the project's documented
 Sri/KSHA atomic-letter tailoring. `tamil-core/build.rs` validates the table and
 compiles it into static Rust lookup slices. Larger reviewed word lists should

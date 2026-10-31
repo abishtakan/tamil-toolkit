@@ -3,6 +3,9 @@ name = "tamil-hyphen"
 version.workspace = true
 edition.workspace = true
 publish.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
 description = "Syllable and morpheme boundary hyphenation"
 
 [lints]

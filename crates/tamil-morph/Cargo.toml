@@ -3,6 +3,9 @@ name = "tamil-morph"
 version.workspace = true
 edition.workspace = true
 publish.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
 description = "FST morphology, lemmatization, and case analysis"
 
 [lints]

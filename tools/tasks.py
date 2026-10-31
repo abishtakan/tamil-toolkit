@@ -20,6 +20,7 @@ def run(*args, cwd=ROOT):
 
 def check_unicode():
     run(sys.executable, "tools/mcp-tamil-oracle/check_source_unicode.py")
+    run(sys.executable, "tools/release_files.py", "--check")
 
 
 def test_rust():
@@ -32,6 +33,7 @@ def test_rust():
 
 
 def sync_bindings():
+    run(sys.executable, "tools/release.py", "licenses")
     run("maturin", "develop", "--locked", cwd=ROOT / "bindings/python")
     for target, directory in [("nodejs", "pkg-node"), ("web", "pkg-web")]:
         run("pnpm", "--filter", "tamil-toolkit", "exec", "wasm-pack", "build", ".", "--dev", "--target", target,
