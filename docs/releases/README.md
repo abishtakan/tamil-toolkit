@@ -15,9 +15,12 @@ tags, pushes, or creates accounts. Package publication is still disabled.
    is not implied. These local candidate artifacts may describe a dirty tree.
 3. Review metadata, licensing, archive contents, supported platforms and changes.
    Commit the reviewed source. Push only when explicitly authorized, then run
-   the **Alpha distribution artifacts** workflow using `workflow_dispatch`.
-   Its jobs need no registry credentials. It also runs for matching release
-   tags and relevant pull requests.
+   the **Alpha distribution artifacts** workflow with `workflow_dispatch` from
+   `master`, setting `source_ref` to `v0.1.0-alpha.1`. It checks out that exact
+   tag and records its commit in the Rust artifact. This lets the current
+   workflow use supported runners without moving the public release tag. Its
+   jobs need no registry credentials. It also runs for matching release tags
+   and relevant pull requests.
 4. Require the normal CI gate, Rust archive consumer, Rust 1.85 minimum check,
    Node 22/24 archive consumers, and Linux x64/Windows x64/macOS arm64 Python
    artifact jobs and CPython 3.11/3.14 wheel consumers to pass. Linux wheels use
@@ -42,7 +45,8 @@ After concrete artifact review and explicit authorization to publish:
    `publish-pypi.yml`, and environment `pypi`. The matching workflow is
    `.github/workflows/publish-pypi.yml`; dispatch it from `master`. It is
    manual-only, defaults to no publication, and accepts only artifacts from a
-   successful `Alpha distribution artifacts` run for `v0.1.0-alpha.1`.
+   successful `Alpha distribution artifacts` run whose source manifest matches
+   the `v0.1.0-alpha.1` tag.
    Configure the GitHub `pypi` environment with required reviewers before
    publishing.
    npm trusted publishing is configured in an existing package's settings, so

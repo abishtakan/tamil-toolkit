@@ -31,6 +31,14 @@ jobs:
       contents: read
       id-token: write
     steps:
+      - name: Download release source manifest
+        uses: actions/download-artifact@v4
+        with:
+          name: alpha-rust
+          path: artifacts/release-source
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
       - name: Validate source artifact run
         env:
           GH_TOKEN: ${{ github.token }}
@@ -39,8 +47,24 @@ jobs:
           set -euo pipefail
           run_json="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}")"
           test "$(jq -r '.name' <<< "$run_json")" = "Alpha distribution artifacts"
-          test "$(jq -r '.head_branch' <<< "$run_json")" = "v0.1.0-alpha.1"
           test "$(jq -r '.conclusion' <<< "$run_json")" = "success"
+          workflow_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/alpha-artifacts.yml" --jq '.id')"
+          test "$(jq -r '.workflow_id' <<< "$run_json")" = "$workflow_id"
+          case "$(jq -r '.event' <<< "$run_json"):$(jq -r '.head_branch' <<< "$run_json")" in
+            push:v0.1.0-alpha.1|workflow_dispatch:master) ;;
+            *) echo "Artifact run must be a tag push or a master dispatch" >&2; exit 1 ;;
+          esac
+
+          tag_ref="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/v0.1.0-alpha.1")"
+          tag_object_type="$(jq -r '.object.type' <<< "$tag_ref")"
+          tag_object_sha="$(jq -r '.object.sha' <<< "$tag_ref")"
+          if [[ "$tag_object_type" == "tag" ]]; then
+            tag_commit_sha="$(gh api "repos/${GITHUB_REPOSITORY}/git/tags/${tag_object_sha}" --jq '.object.sha')"
+          else
+            tag_commit_sha="$tag_object_sha"
+          fi
+          test "$(jq -r '.source_ref' artifacts/release-source/release-source.json)" = "v0.1.0-alpha.1"
+          test "$(jq -r '.source_sha' artifacts/release-source/release-source.json)" = "$tag_commit_sha"
 
       - name: Download Linux x64 Python artifacts
         uses: actions/download-artifact@v4
