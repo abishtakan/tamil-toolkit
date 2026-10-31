@@ -1,13 +1,14 @@
 # tamil-toolkit for Python
 
-The experimental MIT-licensed `0.1.0a1` alpha is published. Install with
-`python -m pip install tamil-toolkit==0.1.0a1`, then import as
+Install the experimental MIT-licensed alpha with
+`python -m pip install --pre tamil-toolkit`, then import as
 `import tamil_toolkit as tamil`. Development builds use `just sync-bindings`.
 The package delegates all linguistic behavior to Rust through PyO3.
 
 The SDK includes Unicode normalization and tailored Ezhuthu segmentation,
 Mei/Uyir composition, Agara collation, bounded TN/SL integer/currency words,
-exact fractions, Gregorian dates, and explicit Bamini conversion. Other
+exact fractions, Gregorian dates, Bamini, and bounded TSCII, TAB, TAM and Anjal
+byte conversion. Other
 linguistic modules remain planned. Read the bounded contracts at
 https://github.com/abishtakan/tamil-toolkit/tree/HEAD/docs/specs.
 
@@ -29,12 +30,12 @@ and `search_key(text)`. Keys are numeric arrays for the versioned `agara-v1`
 profile; compare arrays lexicographically and retain the version with indexes.
 Sorting preserves original text and canonical ties. See the linked specifications.
 
-Current development source adds `tscii_bytes_to_unicode(bytes([0xba, 0xa2, 0xc5, 0xfd]))`; it is not in the published alpha.
+This distribution provides `tscii_bytes_to_unicode(bytes([0xba, 0xa2, 0xc5, 0xfd]))`.
 
-The unreleased `unicode_to_tscii_bytes(text)` returns Python `bytes`.
+`unicode_to_tscii_bytes(text)` returns Python `bytes`.
 
-Unreleased development source provides `tab_bytes_to_unicode(data)` and `unicode_to_tab_bytes(text)`.
+This distribution provides `tab_bytes_to_unicode(data)` and `unicode_to_tab_bytes(text)`.
 
-Unreleased development source provides `tam_bytes_to_unicode(data)` and `unicode_to_tam_bytes(text)`; TAM bytes do not preserve Latin letters.
+This distribution provides `tam_bytes_to_unicode(data)` and `unicode_to_tam_bytes(text)`; TAM bytes do not preserve Latin letters.
 
-Unreleased development source provides `anjal_bytes_to_unicode(data)` and `unicode_to_anjal_bytes(text)`; ambiguous legacy bytes raise an error.
+This distribution provides `anjal_bytes_to_unicode(data)` and `unicode_to_anjal_bytes(text)`; ambiguous legacy bytes raise an error.

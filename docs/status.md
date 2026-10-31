@@ -6,29 +6,20 @@ and local, awaiting commit/push; inspect `git status` for their current state.
 
 ## Current objective
 
-The unreleased Anjal milestone adds a 309-key byte decoder and 302-value strict
-reverse encoder, with 1,250 shared Anjal cases. Four conflicting byte values
-(E5–E8) are explicit errors unless a longer unambiguous sequence matches; a
-source U+2212 glyph is not representable as a byte and is excluded. Across the
-source tree there are 26,957 active vectors. The [Anjal contract](specs/codec-anjal.md)
-records representation and limits. TAB and TAM work remains preserved. The
-published alpha does not contain these codec additions; no version bump or upload
-occurred. The next alpha must use a new synchronized version; the existing
-`0.1.0-alpha.1` has already been published and must not be reused.
+Prepare the second public alpha, `0.1.0-alpha.2` (Python `0.1.0a2`), including
+bounded TSCII, TAB, TAM and Anjal byte conversion. The release scope and
+compatibility notes are in [alpha-2.md](releases/alpha-2.md). Anjal implementation
+is committed as `3cbcb5c`. Versions are synchronized locally; the target versions
+were checked absent on all six crates, PyPI and npm on 2026-11-01. No alpha.2
+package has been published.
 
-Verification: `just agent-pre-stop-gate` passed, including 115 harness tests
-and Rust/Python/Node/browser WASM parity. `just test-dart`, workbench checking,
-and `just release-check` passed; installed Python and Node/browser WASM archives
-each consumed all 26,957 active vectors. These archives were built from a dirty
-working tree with the existing version and are local preparation evidence, not
-publishable release evidence. Logs: `target/anjal-final-gate.log`,
-`target/anjal-final-dart.log` and `target/anjal-release-check.log`.
-
-Release candidate version: `0.1.0-alpha.2` (Python `0.1.0a2`). On 2026-11-01
-the six crates, PyPI and npm showed only the previously recorded alpha release
-(and npm stage version); recheck availability when preparing a release. Bump and
-regenerate versions in a dedicated release batch, then verify artifacts from the
-reviewed committed source according to `docs/releases/policy.md`.
+The versioned source passed the full gate, Dart, workbench and local archive
+checks; each isolated consumer passed all 26,957 vectors. The workspace lockfile
+has no third-party dependency changes. Commit the reviewed release source, push,
+and dispatch the immutable artifact matrix.
+Only reviewed successful artifacts from that matrix are eligible for manual
+publishing workflows. npm trusted-publisher setup requires npm authentication;
+see [publishing policy](releases/policy.md).
 
 ## Published and implemented
 

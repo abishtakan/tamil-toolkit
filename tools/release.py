@@ -166,7 +166,7 @@ def verify_python(wheel, temp):
     interpreter = environment / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
     run(interpreter, "-m", "pip", "install", "--no-deps", wheel)
     shutil.copy2(SMOKE / "python_consumer.py", temp / "consumer.py")
-    run(interpreter, "-I", temp / "consumer.py", fixtures(temp), cwd=temp)
+    run(interpreter, "-I", temp / "consumer.py", fixtures(temp), load()["python_version"], cwd=temp)
 
 
 def npm():

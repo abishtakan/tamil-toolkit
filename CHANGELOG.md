@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.0-alpha.2 / Python 0.1.0a2 - 2026-11-01
+
 - Add bounded bidirectional Anjal byte conversion with explicit ambiguity errors.
 
 - Add bounded bidirectional TAM byte conversion with monolingual byte handling.

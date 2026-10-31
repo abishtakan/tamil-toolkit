@@ -8,7 +8,8 @@ excluded from the alpha SDK.
 
 ## Alpha release status
 
-The published version is `0.1.0-alpha.1` for Rust/npm and `0.1.0a1` for Python.
+This source prepares `0.1.0-alpha.2` for Rust/npm and `0.1.0a2` for Python.
+The last published version is `0.1.0-alpha.1` for Rust/npm and `0.1.0a1` for Python.
 The Python umbrella package is published on
 [PyPI](https://pypi.org/project/tamil-toolkit/0.1.0a1/), and the six finished
 Rust crates are on [crates.io](https://crates.io/crates/tamil-toolkit). The
@@ -216,5 +217,5 @@ preserved in [third-party notices](THIRD_PARTY_NOTICES.md). Contributions are
 welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). The PyPI, Rust, and npm alpha
 packages are live.
 
-The TSCII, TAB, TAM and Anjal byte conversions are available in the current source tree and is planned for
-the next release; it is not included in the published 0.1.0 alpha packages.
+The TSCII, TAB, TAM and Anjal byte conversions are included in the prepared
+alpha.2 release and are not present in the published alpha.1 packages.

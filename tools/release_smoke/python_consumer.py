@@ -7,7 +7,7 @@ from pathlib import Path
 import tamil_toolkit as tamil
 
 package = Path(tamil.__file__).parent
-assert version("tamil-toolkit") == "0.1.0a1"
+assert version("tamil-toolkit") == sys.argv[2]
 assert (package / "py.typed").is_file()
 assert (package / "__init__.pyi").is_file()
 count = 0

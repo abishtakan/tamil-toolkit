@@ -2,13 +2,13 @@
 
 Unicode normalization, tailored Ezhuthu iteration, Mei/Uyir composition and scalar inspection.
 
-Experimental alpha `0.1.0-alpha.1`. APIs may change before stability. This package
+Experimental alpha `0.1.0-alpha.2`. APIs may change before stability. This package
 does not implement all Tamil linguistic conventions. Read the bounded module
 contracts and examples in the [project documentation](https://github.com/abishtakan/tamil-toolkit#readme).
 
 ```toml
 [dependencies]
-tamil-core = "=0.1.0-alpha.1"
+tamil-core = "=0.1.0-alpha.2"
 ```
 
 Original code is MIT licensed; see LICENSE and THIRD_PARTY_NOTICES.md.
