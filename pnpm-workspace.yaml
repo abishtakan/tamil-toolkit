@@ -1,5 +1,6 @@
 packages:
   - bindings/js-wasm
+  - workbench
 
 allowBuilds:
   wasm-pack: true

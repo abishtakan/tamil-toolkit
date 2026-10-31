@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#102a30" />
+    <title>Tamil Toolkit Workbench</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Tamil Toolkit Workbench home"><span class="brand-mark">TT</span><span>Tamil Toolkit <small>WORKBENCH</small></span></a>
+        <div class="live-state"><span class="live-dot"></span><span id="wasm-state">Starting Rust WASM…</span></div>
+      </header>
+      <main>
+        <section class="intro">
+          <div>
+            <p class="eyebrow">Local manual workbench</p>
+            <h1>Try each package,<br /><span>by hand.</span></h1>
+            <p class="intro-copy">Choose a package and type into its fields. The result updates as you edit, with Unicode scalars shown alongside it. Python and Dart selections call their native adapters.</p>
+          </div>
+          <div class="scope-card">
+            <span class="scope-label">MANUAL TARGET</span>
+            <strong>Rust dispatcher</strong>
+            <span id="fixture-count">Loading package list…</span>
+          </div>
+        </section>
+
+        <section class="package-section" aria-labelledby="packages-title">
+          <div class="section-heading">
+            <div><p class="eyebrow">Workspace map</p><h2 id="packages-title">Choose a package</h2></div>
+          </div>
+          <p class="section-note">Implemented packages open a manual control panel. Planned packages are shown as unavailable.</p>
+          <div id="package-grid" class="package-grid"></div>
+        </section>
+
+        <section class="manual-section" aria-labelledby="selected-title">
+          <div id="selected-package" class="selected-package"></div>
+          <div class="manual-toolbar">
+            <label class="manual-select-label" for="manual-operation">Operation<select id="manual-operation" disabled></select></label>
+            <div class="runtime-chip"><span class="scope-label">RUNTIME</span><strong id="manual-runtime">Browser WASM</strong></div>
+          </div>
+          <p id="manual-description" class="section-note"></p>
+          <form id="manual-form" class="manual-form">
+            <div id="manual-fields" class="manual-fields"></div>
+            <div class="manual-buttons"><button id="run-manual" class="button button-primary" type="submit" disabled>Run now</button><button id="reset-manual" class="button button-secondary" type="button" disabled>Reset example</button><span id="manual-status" role="status">Loading Rust WASM…</span></div>
+          </form>
+          <div id="bamini-directions" class="bamini-directions" hidden>
+            <div class="direction-card supported"><span class="direction-status">AVAILABLE</span><strong>Bamini <span>→</span> Unicode</strong><p>Enter selected Bamini-font text above to update the Unicode result as you type.</p></div>
+            <div class="direction-card supported"><span class="direction-status">AVAILABLE</span><strong>Unicode <span>→</span> Bamini</strong><p>Select “Unicode to Bamini” above and edit Tamil text to see its encoded output.</p></div>
+          </div>
+          <div class="manual-result-panel">
+            <div class="manual-result-heading"><div><p class="eyebrow">Live result</p><h3 id="result-title">Run an operation</h3></div><span id="result-kind" class="result-kind">WAITING</span></div>
+            <div id="manual-result-text" class="manual-result-text" aria-live="polite">Your result will appear here.</div>
+            <p id="manual-codepoints" class="manual-codepoints">Output scalars: —</p>
+            <details class="result-json"><summary>Raw JSON result</summary><pre id="manual-result-json"></pre></details>
+          </div>
+        </section>
+
+        <details class="automation-section">
+          <summary>Automated golden and native package checks</summary>
+          <p class="section-note">These automated checks are optional. The manual operation panels above can be used without running the suites.</p>
+          <section class="test-section" aria-label="Golden vector checks">
+            <div class="test-actions">
+              <button id="run-package" class="button button-primary" disabled>Run selected package vectors</button>
+              <button id="run-all" class="button button-secondary" disabled>Run all active vectors</button>
+              <button id="run-native" class="button button-secondary" hidden>Run native package tests</button>
+              <div class="progress-wrap"><div id="progress-bar" class="progress-bar"></div></div>
+              <span id="progress-label" class="progress-label">Ready</span>
+            </div>
+            <div id="run-summary" class="run-summary" aria-live="polite"></div>
+            <div id="case-results" class="case-results"></div>
+            <div id="native-test-panel" class="native-test-panel" hidden>
+              <div class="native-test-heading"><strong>Native package test output</strong><span id="native-test-state">Ready</span></div>
+              <pre id="native-test-output"></pre>
+            </div>
+          </section>
+          <section class="request-section" aria-labelledby="request-title">
+            <div class="section-heading compact"><div><p class="eyebrow">Advanced</p><h2 id="request-title">Raw dispatcher request</h2></div></div>
+            <div class="request-grid">
+              <label for="request-json">Request JSON<textarea id="request-json" spellcheck="false" disabled></textarea></label>
+              <div class="response-column"><div class="response-heading"><span>Response</span><button id="run-request" class="button button-secondary" disabled>Run request</button></div><pre id="request-response">Choose an implemented package to load an example request.</pre></div>
+            </div>
+          </section>
+        </details>
+
+        <footer><span>Rust owns linguistic behavior · WASM is a thin adapter</span><span id="hmr-note">HMR refreshes UI edits and rebuilds WASM after Rust or lexicon edits</span></footer>
+      </main>
+    </div>
+    <script type="module" src="/main.ts"></script>
+  </body>
+</html>
