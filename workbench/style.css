@@ -84,6 +84,10 @@ h1 span { color: #7f9996; }
 .manual-field input, .manual-field textarea, .manual-field select { font-size: .9rem; }
 .manual-field textarea { min-height: 104px; resize: vertical; font-family: "Noto Sans Tamil", "Nirmala UI", Latha, sans-serif; line-height: 1.7; }
 .manual-field-help { color: #718487; font-size: .68rem; line-height: 1.45; }
+.manual-examples { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 17px; }
+.manual-examples-label { margin-right: 3px; color: #718487; font-family: var(--mono); font-size: .63rem; letter-spacing: .06em; text-transform: uppercase; }
+.example-chip { min-height: 32px; padding: 0 10px; border: 1px solid #d5e2dc; border-radius: 999px; background: #f7faf8; color: #42615e; font-size: .68rem; font-weight: 650; }
+.example-chip:hover { border-color: #8bb6a7; background: #eef7f2; color: #176d5d; }
 .manual-buttons { display: flex; align-items: center; flex-wrap: wrap; gap: 11px; margin-top: 18px; }
 .manual-status { color: var(--muted); font-family: var(--mono); font-size: .68rem; }
 .bamini-directions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }

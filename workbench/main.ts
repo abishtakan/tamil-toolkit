@@ -23,12 +23,14 @@ type FieldSpec = {
   options?: string[];
   help?: string;
 };
+type QuickExample = { label: string; values: Record<string, string> };
 type OperationSpec = {
   op: string;
   label: string;
   description: string;
   fields: FieldSpec[];
   build: (values: Record<string, string>) => Request;
+  examples?: QuickExample[];
 };
 type CaseResult = { row: Outcome; passed: boolean; actual: unknown; error?: string };
 type Runtime = "wasm" | "python" | "dart" | "unavailable";
@@ -133,37 +135,61 @@ const operations: OperationSpec[] = [
   {
     op: "to_words", label: "Number to words", description: "Spell a supported signed integer using the selected regional profile.",
     fields: [
-      { key: "value", label: "Integer", kind: "number", initial: "1025" },
+      { key: "value", label: "Integer", kind: "number", initial: "1025", help: "Signed whole number from -999,999,999 to 999,999,999." },
       { key: "locale", label: "Locale", kind: "select", initial: "TN", options: ["TN", "SL"] },
     ],
     build: (v) => ({ op: "to_words", input: { value: Number(v.value), locale: v.locale } }),
+    examples: [
+      { label: "Zero · TN", values: { value: "0", locale: "TN" } },
+      { label: "Negative · SL", values: { value: "-12345", locale: "SL" } },
+      { label: "Maximum supported", values: { value: "999999999", locale: "TN" } },
+      { label: "Above maximum · error", values: { value: "1000000000", locale: "TN" } },
+    ],
   },
   {
     op: "format_currency", label: "Format currency", description: "Format an exact amount in minor units (100 minor units per rupee).",
     fields: [
-      { key: "amount_minor", label: "Amount in minor units", kind: "number", initial: "102550" },
+      { key: "amount_minor", label: "Amount in minor units", kind: "number", initial: "102550", help: "Enter whole minor units: 102550 means 1,025.50. Range ±99,999,999,999." },
       { key: "currency", label: "Currency", kind: "select", initial: "LKR", options: ["INR", "LKR"] },
       { key: "locale", label: "Locale", kind: "select", initial: "SL", options: ["TN", "SL"] },
     ],
     build: (v) => ({ op: "format_currency", input: { amount_minor: Number(v.amount_minor), currency: v.currency, locale: v.locale } }),
+    examples: [
+      { label: "LKR · 1,025.50 · SL", values: { amount_minor: "102550", currency: "LKR", locale: "SL" } },
+      { label: "INR · 0.99 · TN", values: { amount_minor: "99", currency: "INR", locale: "TN" } },
+      { label: "Negative amount", values: { amount_minor: "-105", currency: "LKR", locale: "TN" } },
+      { label: "Above maximum · error", values: { amount_minor: "100000000000", currency: "INR", locale: "TN" } },
+    ],
   },
   {
     op: "currency_to_words", label: "Currency to words", description: "Spell an exact INR/LKR amount in words.",
     fields: [
-      { key: "amount_minor", label: "Amount in minor units", kind: "number", initial: "102550" },
+      { key: "amount_minor", label: "Amount in minor units", kind: "number", initial: "102550", help: "Enter whole minor units: 102550 means 1,025.50. Range ±99,999,999,999." },
       { key: "currency", label: "Currency", kind: "select", initial: "LKR", options: ["INR", "LKR"] },
       { key: "locale", label: "Locale", kind: "select", initial: "SL", options: ["TN", "SL"] },
     ],
     build: (v) => ({ op: "currency_to_words", input: { amount_minor: Number(v.amount_minor), currency: v.currency, locale: v.locale } }),
+    examples: [
+      { label: "LKR · 1,025.50 · SL", values: { amount_minor: "102550", currency: "LKR", locale: "SL" } },
+      { label: "INR · 0.99 · TN", values: { amount_minor: "99", currency: "INR", locale: "TN" } },
+      { label: "Negative amount", values: { amount_minor: "-105", currency: "LKR", locale: "TN" } },
+      { label: "Above maximum · error", values: { amount_minor: "100000000000", currency: "INR", locale: "TN" } },
+    ],
   },
   {
     op: "format_fraction", label: "Format fraction", description: "Reduce an exact fraction and render its digits.",
     fields: [
-      { key: "numerator", label: "Numerator", kind: "number", initial: "2" },
-      { key: "denominator", label: "Denominator", kind: "number", initial: "4" },
-      { key: "digits", label: "Digits", kind: "select", initial: "tamil", options: ["latin", "tamil"] },
+      { key: "numerator", label: "Numerator", kind: "number", initial: "2", help: "Signed whole number; magnitude up to 999,999,999." },
+      { key: "denominator", label: "Denominator", kind: "number", initial: "4", help: "Must not be zero; a negative sign is allowed." },
+      { key: "digits", label: "Digits", kind: "select", initial: "tamil", options: ["latin", "tamil"], help: "Tamil selects positional Tamil digits (௦–௯)." },
     ],
     build: (v) => ({ op: "format_fraction", input: { numerator: Number(v.numerator), denominator: Number(v.denominator), digits: v.digits } }),
+    examples: [
+      { label: "Reduce 2/4 · Tamil digits", values: { numerator: "2", denominator: "4", digits: "tamil" } },
+      { label: "Negative · Latin digits", values: { numerator: "-7", denominator: "12", digits: "latin" } },
+      { label: "Integral result", values: { numerator: "6", denominator: "3", digits: "latin" } },
+      { label: "Zero denominator · error", values: { numerator: "1", denominator: "0", digits: "latin" } },
+    ],
   },
   {
     op: "fraction_to_words", label: "Fraction to words", description: "Use common fraction names or an exact division expression.",
@@ -173,6 +199,13 @@ const operations: OperationSpec[] = [
       { key: "locale", label: "Locale", kind: "select", initial: "TN", options: ["TN", "SL"] },
     ],
     build: (v) => ({ op: "fraction_to_words", input: { numerator: Number(v.numerator), denominator: Number(v.denominator), locale: v.locale } }),
+    examples: [
+      { label: "Quarter", values: { numerator: "1", denominator: "4", locale: "TN" } },
+      { label: "Half", values: { numerator: "1", denominator: "2", locale: "TN" } },
+      { label: "Three quarters · SL", values: { numerator: "3", denominator: "4", locale: "SL" } },
+      { label: "General fraction", values: { numerator: "5", denominator: "8", locale: "TN" } },
+      { label: "Negative fraction", values: { numerator: "-3", denominator: "4", locale: "TN" } },
+    ],
   },
   {
     op: "fraction_symbol", label: "Fraction symbol", description: "Return a traditional Unicode fraction symbol when one exists.",
@@ -181,11 +214,17 @@ const operations: OperationSpec[] = [
       { key: "denominator", label: "Denominator", kind: "number", initial: "2" },
     ],
     build: (v) => ({ op: "fraction_symbol", input: { numerator: Number(v.numerator), denominator: Number(v.denominator) } }),
+    examples: [
+      { label: "One half", values: { numerator: "1", denominator: "2" } },
+      { label: "Equivalent input 2/4", values: { numerator: "2", denominator: "4" } },
+      { label: "Negative quarter", values: { numerator: "-1", denominator: "4" } },
+      { label: "No symbol · error", values: { numerator: "5", denominator: "7" } },
+    ],
   },
   {
     op: "format_date", label: "Format Gregorian date", description: "Format a Gregorian civil date in Tamil, for years 1 through 9999.",
     fields: [
-      { key: "year", label: "Year", kind: "number", initial: "2024" },
+      { key: "year", label: "Year", kind: "number", initial: "2024", help: "Gregorian years 1–9999 (proleptic calendar)." },
       { key: "month", label: "Month", kind: "number", initial: "2" },
       { key: "day", label: "Day", kind: "number", initial: "29" },
       { key: "locale", label: "Locale", kind: "select", initial: "TN", options: ["TN", "SL"] },
@@ -193,6 +232,14 @@ const operations: OperationSpec[] = [
       { key: "digits", label: "Digits", kind: "select", initial: "latin", options: ["latin", "tamil"] },
     ],
     build: (v) => ({ op: "format_date", input: { year: Number(v.year), month: Number(v.month), day: Number(v.day), locale: v.locale, style: v.style, digits: v.digits } }),
+    examples: [
+      { label: "Leap day · full", values: { year: "2024", month: "2", day: "29", locale: "TN", style: "full", digits: "latin" } },
+      { label: "Century non-leap · error", values: { year: "1900", month: "2", day: "29", locale: "TN", style: "full", digits: "latin" } },
+      { label: "Tamil digits · short", values: { year: "2024", month: "3", day: "20", locale: "TN", style: "short", digits: "tamil" } },
+      { label: "Weekday · full · SL", values: { year: "2026", month: "10", day: "31", locale: "SL", style: "full", digits: "latin" } },
+      { label: "Year 1 · short", values: { year: "1", month: "1", day: "1", locale: "TN", style: "short", digits: "latin" } },
+      { label: "Year 9999 · long", values: { year: "9999", month: "12", day: "31", locale: "TN", style: "long", digits: "tamil" } },
+    ],
   },
   {
     op: "bamini_to_unicode", label: "Bamini to Unicode", description: "Decode a selected Bamini text run with the bamini-v1 profile.",
@@ -221,6 +268,7 @@ const manualRuntime = $("#manual-runtime");
 const manualDescription = $("#manual-description");
 const manualForm = $("#manual-form") as HTMLFormElement;
 const manualFields = $("#manual-fields");
+const manualExamples = $("#manual-examples");
 const runManualButton = $("#run-manual") as HTMLButtonElement;
 const resetManualButton = $("#reset-manual") as HTMLButtonElement;
 const manualStatus = $("#manual-status");
@@ -245,8 +293,8 @@ const progressBar = $("#progress-bar");
 const progressLabel = $("#progress-label");
 const wasmState = $("#wasm-state");
 const api = createApi(nativeExecute);
-let selectedId = "tamil-codec";
-let selectedOperation = "bamini_to_unicode";
+let selectedId = "tamil-numerals";
+let selectedOperation = "format_fraction";
 let running = false;
 let nativeTesting = false;
 let manualRunning = false;
@@ -443,6 +491,8 @@ function renderSelected() {
 
 function renderFields(operation?: OperationSpec) {
   manualFields.replaceChildren();
+  manualExamples.replaceChildren();
+  manualExamples.hidden = !operation?.examples?.length;
   if (!operation) return;
   for (const field of operation.fields) {
     const wrapper = document.createElement("label");
@@ -483,12 +533,36 @@ function renderFields(operation?: OperationSpec) {
     }
     manualFields.append(wrapper);
   }
+
+  if (operation.examples?.length) {
+    const label = document.createElement("span");
+    label.className = "manual-examples-label";
+    label.textContent = "Quick inputs";
+    manualExamples.append(label);
+    for (const example of operation.examples) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "example-chip";
+      button.textContent = example.label;
+      button.addEventListener("click", () => {
+        for (const [key, value] of Object.entries(example.values)) {
+          const control = [...manualFields.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>("[data-field]")]
+            .find((candidate) => candidate.dataset.field === key);
+          if (control) control.value = value;
+        }
+        clearManualResult();
+        scheduleManualRun(0);
+      });
+      manualExamples.append(button);
+    }
+  }
 }
 
 function selectPackage(id: string) {
   if (id === selectedId) return;
   selectedId = id;
-  selectedOperation = operationsFor(packages.find((item) => item.id === id)!)[0]?.op ?? "";
+  const defaultOperation = id === "tamil-numerals" ? "format_fraction" : undefined;
+  selectedOperation = defaultOperation ?? operationsFor(packages.find((item) => item.id === id)!)[0]?.op ?? "";
   renderPackages();
   renderSelected();
   clearManualResult();
