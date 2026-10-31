@@ -1,6 +1,6 @@
 # tamil-codec
 
-Explicit Bamini conversion and bounded TSCII, TAB and TAM byte conversion.
+Explicit Bamini conversion and bounded TSCII, TAB, TAM and Anjal byte conversion.
 
 Experimental alpha `0.1.0-alpha.1`. APIs may change before stability. This package
 does not implement all Tamil linguistic conventions. Read the bounded module

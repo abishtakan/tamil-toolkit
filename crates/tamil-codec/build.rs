@@ -36,6 +36,8 @@ struct TsciiProfile {
     source: String,
     mappings: Vec<TsciiMapping>,
     encoding_preferences: Vec<TsciiMapping>,
+    #[serde(default)]
+    ambiguous: Vec<ByteAmbiguous>,
 }
 
 #[derive(Deserialize)]
@@ -43,6 +45,13 @@ struct TsciiProfile {
 struct TsciiMapping {
     hex: String,
     unicode: String,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct ByteAmbiguous {
+    hex: String,
+    candidates: Vec<String>,
 }
 
 #[derive(Default)]
@@ -244,6 +253,7 @@ fn main() {
         ("tscii", "tscii-tamilutil-bounded-v1", 341, 340),
         ("tab", "tab-tamilutil-bounded-v1", 332, 323),
         ("tam", "tam-utn18-bounded-v1", 407, 331),
+        ("anjal", "anjal-tamilutil-bounded-v1", 309, 302),
     ] {
         let path = format!("lexicon/{name}.toml");
         println!("cargo:rerun-if-changed={path}");
@@ -277,6 +287,20 @@ fn main() {
                 format!("Terminal::Text({})", literal(&mapping.unicode)),
                 3,
             );
+        }
+        assert_eq!(profile.ambiguous.len(), if name == "anjal" { 4 } else { 0 });
+        for item in &profile.ambiguous {
+            assert_eq!(
+                item.hex.len(),
+                2,
+                "ambiguous byte keys must be single bytes"
+            );
+            let byte = u8::from_str_radix(&item.hex, 16).expect("valid ambiguous hex");
+            assert!(byte >= 0x80);
+            let unique: BTreeSet<_> = item.candidates.iter().collect();
+            assert!(unique.len() >= 2 && unique.len() == item.candidates.len());
+            assert!(unique.iter().all(|value| valid_output(value)));
+            insert(&mut nodes, &[byte], "Terminal::Ambiguous".to_owned(), 1);
         }
         let mut preferences = BTreeMap::new();
         for item in &profile.encoding_preferences {

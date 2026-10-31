@@ -63,7 +63,7 @@ const packages: PackageInfo[] = [
   { id: "tamil-norm", state: "facade", description: "NFC/NFD normalization facade re-exported from tamil-core.", suiteFiles: ["core_normalization.jsonl"], operations: ["normalize_nfc", "normalize_nfd"] },
   { id: "tamil-collate", state: "active", description: "Agara Varisai comparison, ordering, and canonical search keys.", suiteFiles: ["collate_agara_varisai.jsonl"] },
   { id: "tamil-numerals", state: "active", description: "TN/SL number words, currencies, exact fractions, and Gregorian dates.", suiteFiles: ["numerals_lkr_inr.jsonl", "numerals_fractions_dates.jsonl"] },
-  { id: "tamil-codec", state: "active", description: "Bamini conversion and TSCII/TAB/TAM byte conversion.", suiteFiles: ["codec_bamini.jsonl", "codec_unicode_to_bamini.jsonl", "codec_tscii_bytes.jsonl", "codec_tscii_iana.jsonl", "codec_unicode_to_tscii.jsonl", "codec_tscii_iana_audit.jsonl", "codec_tab.jsonl", "codec_tab_utn.jsonl", "codec_tam.jsonl", "codec_tam_utn.jsonl"] },
+  { id: "tamil-codec", state: "active", description: "Bamini and bounded legacy byte conversion.", suiteFiles: ["codec_bamini.jsonl", "codec_unicode_to_bamini.jsonl", "codec_tscii_bytes.jsonl", "codec_tscii_iana.jsonl", "codec_unicode_to_tscii.jsonl", "codec_tscii_iana_audit.jsonl", "codec_tab.jsonl", "codec_tab_utn.jsonl", "codec_tam.jsonl", "codec_tam_utn.jsonl", "codec_anjal.jsonl"] },
   { id: "tamil-toolkit", state: "dispatcher", description: "Shared Rust dispatcher used by bindings and the local oracle." },
   { id: "tamil-wasm", state: "wasm", description: "Browser WASM binding calling the shared Rust dispatcher." },
   { id: "tamil-python", state: "native", description: "PyO3 adapter, run directly in the Python runtime." },
@@ -290,6 +290,16 @@ const operations: OperationSpec[] = [
     op: "unicode_to_tscii_bytes", label: "Unicode to TSCII bytes", description: "Encode Unicode using the bounded TSCII profile.",
     fields: [{ key: "text", label: "Unicode Tamil text", kind: "textarea", initial: demoTamil, help: "Unsupported or non-round-trippable input returns an error." }],
     build: (v) => ({ op: "unicode_to_tscii_bytes", input: { text: v.text } }),
+  },
+  {
+    op: "anjal_bytes_to_unicode", label: "Anjal bytes to Unicode", description: "Decode a selected legacy Anjal byte run using the bounded profile.",
+    fields: [{ key: "bytes", label: "Anjal bytes (hex)", kind: "text", initial: "8D", help: "Enter two-digit hexadecimal bytes. Ambiguous bytes return an error." }],
+    build: (v) => ({ op: "anjal_bytes_to_unicode", input: { bytes: parseHexBytes(v.bytes) } }),
+  },
+  {
+    op: "unicode_to_anjal_bytes", label: "Unicode to Anjal bytes", description: "Encode Unicode using the bounded legacy Anjal profile.",
+    fields: [{ key: "text", label: "Unicode Tamil text", kind: "textarea", initial: demoTamil, help: "Unsupported or non-round-trippable input returns an error." }],
+    build: (v) => ({ op: "unicode_to_anjal_bytes", input: { text: v.text } }),
   },
   {
     op: "tam_bytes_to_unicode", label: "TAM bytes to Unicode", description: "Decode raw monolingual TAM bytes using the bounded profile.",

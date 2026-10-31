@@ -156,3 +156,12 @@ test("TAM byte convenience APIs on both WASM targets", () => {
     expect(() => api.unicode_to_tam_bytes("A")).toThrow("unsupported Unicode scalar for TAM");
   }
 });
+
+
+test("Anjal byte convenience APIs on both WASM targets", () => {
+  for (const api of [nodeApi, webApi]) {
+    expect(api.anjal_bytes_to_unicode(new Uint8Array([0x8d]))).toBe("\u0b95");
+    expect(api.unicode_to_anjal_bytes("\u0b95")).toEqual([0x8d]);
+    expect(() => api.anjal_bytes_to_unicode([0xe5])).toThrow("ambiguous ANJAL byte");
+  }
+});

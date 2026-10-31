@@ -22,3 +22,5 @@ The host adapter exposes `unicodeToTsciiBytes(text)` returning a byte list.
 The host adapter provides `tabBytesToUnicode(bytes)` and `unicodeToTabBytes(text)`.
 
 The host adapter provides `tamBytesToUnicode(bytes)` and `unicodeToTamBytes(text)` for monolingual TAM.
+
+The host adapter provides `anjalBytesToUnicode(bytes)` and `unicodeToAnjalBytes(text)` for bounded legacy Anjal.

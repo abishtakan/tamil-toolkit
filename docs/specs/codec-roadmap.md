@@ -1,6 +1,6 @@
 # tamil-codec expansion: plan and source inventory
 
-Status: the unreleased source includes bounded TSCII, TAB and TAM byte conversion
+Status: the unreleased source includes bounded TSCII, TAB, TAM and Anjal byte conversion
 alongside the published `bamini-v1` profile. Further profiles remain planned.
 See the codec contracts for limits and the TAB mapping-source conflicts.
 

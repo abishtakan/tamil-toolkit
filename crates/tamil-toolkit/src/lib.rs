@@ -25,6 +25,8 @@ pub const OPERATIONS: &[&str] = &[
     "currency_to_words",
     "bamini_to_unicode",
     "unicode_to_bamini",
+    "anjal_bytes_to_unicode",
+    "unicode_to_anjal_bytes",
     "tam_bytes_to_unicode",
     "unicode_to_tam_bytes",
     "tab_bytes_to_unicode",
@@ -140,6 +142,9 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         "unicode_to_bamini" => {
             codec::unicode_to_bamini(string(&input["text"])?).map(|text| json!(text))
         }
+        "unicode_to_anjal_bytes" => {
+            codec::unicode_to_anjal_bytes(string(&input["text"])?).map(|bytes| json!(bytes))
+        }
         "unicode_to_tam_bytes" => {
             codec::unicode_to_tam_bytes(string(&input["text"])?).map(|bytes| json!(bytes))
         }
@@ -149,12 +154,16 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         "unicode_to_tscii_bytes" => {
             codec::unicode_to_tscii_bytes(string(&input["text"])?).map(|bytes| json!(bytes))
         }
-        "tscii_bytes_to_unicode" | "tab_bytes_to_unicode" | "tam_bytes_to_unicode" => {
+        "tscii_bytes_to_unicode"
+        | "tab_bytes_to_unicode"
+        | "tam_bytes_to_unicode"
+        | "anjal_bytes_to_unicode" => {
             let operation = request["op"].as_str().expect("validated op");
             let error = || {
                 match operation {
                     "tab_bytes_to_unicode" => "expected TAB byte array",
                     "tam_bytes_to_unicode" => "expected TAM byte array",
+                    "anjal_bytes_to_unicode" => "expected ANJAL byte array",
                     _ => "expected TSCII byte array",
                 }
                 .to_owned()
@@ -177,6 +186,7 @@ pub fn execute(request: &Value) -> Result<Value, String> {
             match operation {
                 "tab_bytes_to_unicode" => codec::tab_bytes_to_unicode(&bytes),
                 "tam_bytes_to_unicode" => codec::tam_bytes_to_unicode(&bytes),
+                "anjal_bytes_to_unicode" => codec::anjal_bytes_to_unicode(&bytes),
                 _ => codec::tscii_bytes_to_unicode(&bytes),
             }
             .map(|text| json!(text))

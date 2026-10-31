@@ -109,6 +109,11 @@ void main() {
       (error) => error.message, 'message', collision['expected_error'],
     )));
   });
+  test('Anjal byte convenience APIs', () {
+    expect(tamil.anjalBytesToUnicode([0x8d]), '\u0b95');
+    expect(tamil.unicodeToAnjalBytes('\u0b95'), [0x8d]);
+    expect(() => tamil.anjalBytesToUnicode([0xe5]), throwsArgumentError);
+  });
   test('TAM byte convenience APIs', () {
     expect(tamil.tamBytesToUnicode([0x41]), '\u0b95\u0bbf');
     expect(tamil.unicodeToTamBytes('\u0b95\u0bbf'), [0x41]);

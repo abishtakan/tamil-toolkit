@@ -36,3 +36,5 @@ The unreleased `unicode_to_tscii_bytes(text)` returns Python `bytes`.
 Unreleased development source provides `tab_bytes_to_unicode(data)` and `unicode_to_tab_bytes(text)`.
 
 Unreleased development source provides `tam_bytes_to_unicode(data)` and `unicode_to_tam_bytes(text)`; TAM bytes do not preserve Latin letters.
+
+Unreleased development source provides `anjal_bytes_to_unicode(data)` and `unicode_to_anjal_bytes(text)`; ambiguous legacy bytes raise an error.

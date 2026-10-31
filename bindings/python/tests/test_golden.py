@@ -102,3 +102,10 @@ def test_tam_byte_convenience_apis():
     assert tamil.unicode_to_tam_bytes("\u0b95\u0bbf") == bytes([0x41])
     with pytest.raises(ValueError, match="unsupported Unicode scalar for TAM"):
         tamil.unicode_to_tam_bytes("A")
+
+
+def test_anjal_byte_convenience_apis():
+    assert tamil.anjal_bytes_to_unicode(bytes([0x8d])) == "\u0b95"
+    assert tamil.unicode_to_anjal_bytes("\u0b95") == bytes([0x8d])
+    with pytest.raises(ValueError, match="ambiguous ANJAL byte"):
+        tamil.anjal_bytes_to_unicode([0xe5])

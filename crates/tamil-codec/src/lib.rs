@@ -30,6 +30,11 @@ mod tam_tables {
     use super::{Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/tam_tables.rs"));
 }
+mod anjal_tables {
+    use super::{Node, Terminal};
+    include!(concat!(env!("OUT_DIR"), "/anjal_tables.rs"));
+}
+pub use anjal_tables::PROFILE as ANJAL_PROFILE;
 pub use tab_tables::PROFILE as TAB_PROFILE;
 pub use tables::PROFILE;
 pub use tam_tables::PROFILE as TAM_PROFILE;
@@ -74,16 +79,26 @@ fn decode_legacy_bytes(bytes: &[u8], nodes: &[Node], name: &str) -> Result<Strin
     let mut output = String::with_capacity(bytes.len());
     while position < bytes.len() {
         let byte = bytes[position];
-        if let Some((length, Terminal::Text(value))) = longest_match(&bytes[position..], nodes, 3) {
-            output.push_str(value);
-            position += length;
-        } else if byte < 0x80 {
-            output.push(char::from(byte));
-            position += 1;
-        } else {
-            return Err(format!(
-                "unsupported {name} byte at offset {position}: 0x{byte:02X}"
-            ));
+        match longest_match(&bytes[position..], nodes, 3) {
+            Some((length, Terminal::Text(value))) => {
+                output.push_str(value);
+                position += length;
+            }
+            Some((_, Terminal::Ambiguous)) => {
+                return Err(format!(
+                    "ambiguous {name} byte at offset {position}: 0x{byte:02X}"
+                ));
+            }
+            Some((_, Terminal::Bytes(_))) => unreachable!("decoder trie contains only text"),
+            None if byte < 0x80 => {
+                output.push(char::from(byte));
+                position += 1;
+            }
+            None => {
+                return Err(format!(
+                    "unsupported {name} byte at offset {position}: 0x{byte:02X}"
+                ))
+            }
         }
     }
     Ok(normalize_nfc(&output))
@@ -102,6 +117,11 @@ pub fn tab_bytes_to_unicode(bytes: &[u8]) -> Result<String, String> {
 /// Decode the monolingual TAM byte profile to NFC Unicode.
 pub fn tam_bytes_to_unicode(bytes: &[u8]) -> Result<String, String> {
     decode_legacy_bytes(bytes, tam_tables::NODES, "TAM")
+}
+
+/// Decode the bounded Anjal byte profile to NFC Unicode.
+pub fn anjal_bytes_to_unicode(bytes: &[u8]) -> Result<String, String> {
+    decode_legacy_bytes(bytes, anjal_tables::NODES, "ANJAL")
 }
 
 fn encode_legacy_bytes(
@@ -174,6 +194,17 @@ pub fn unicode_to_tam_bytes(text: &str) -> Result<Vec<u8>, String> {
         tam_tables::MAX_UNICODE_KEY_BYTES,
         "TAM",
         tam_bytes_to_unicode,
+    )
+}
+
+/// Encode Unicode to the bounded Anjal profile with a round-trip guarantee.
+pub fn unicode_to_anjal_bytes(text: &str) -> Result<Vec<u8>, String> {
+    encode_legacy_bytes(
+        text,
+        anjal_tables::ENCODE_NODES,
+        anjal_tables::MAX_UNICODE_KEY_BYTES,
+        "ANJAL",
+        anjal_bytes_to_unicode,
     )
 }
 
@@ -270,6 +301,7 @@ mod tests {
             let _ = tscii_bytes_to_unicode(&bytes);
             let _ = tab_bytes_to_unicode(&bytes);
             let _ = tam_bytes_to_unicode(&bytes);
+            let _ = anjal_bytes_to_unicode(&bytes);
         }
         #[test]
         fn arbitrary_tscii_encoding_roundtrips(text in ".{0,96}") {
@@ -281,6 +313,9 @@ mod tests {
             }
             if let Ok(bytes) = unicode_to_tam_bytes(&text) {
                 prop_assert_eq!(tam_bytes_to_unicode(&bytes).unwrap(), normalize_nfc(&text));
+            }
+            if let Ok(bytes) = unicode_to_anjal_bytes(&text) {
+                prop_assert_eq!(anjal_bytes_to_unicode(&bytes).unwrap(), normalize_nfc(&text));
             }
         }
         #[test]

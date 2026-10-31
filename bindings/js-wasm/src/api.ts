@@ -31,6 +31,8 @@ export function createApi(nativeExecute: (request: string) => string) {
     currency_to_words: (amount_minor: number, currency: Currency, locale: Locale = "TN") => execute({ op: "currency_to_words", input: { amount_minor, currency, locale } }) as string,
     bamini_to_unicode: (text: string, errors: CodecErrorPolicy = "strict") => execute({ op: "bamini_to_unicode", input: { text, errors } }) as string,
     unicode_to_bamini: (text: string) => execute({ op: "unicode_to_bamini", input: { text } }) as string,
+    anjal_bytes_to_unicode: (bytes: Uint8Array | number[]) => execute({ op: "anjal_bytes_to_unicode", input: { bytes: Array.from(bytes) } }) as string,
+    unicode_to_anjal_bytes: (text: string) => execute({ op: "unicode_to_anjal_bytes", input: { text } }) as number[],
     tam_bytes_to_unicode: (bytes: Uint8Array | number[]) => execute({ op: "tam_bytes_to_unicode", input: { bytes: Array.from(bytes) } }) as string,
     unicode_to_tam_bytes: (text: string) => execute({ op: "unicode_to_tam_bytes", input: { text } }) as number[],
     tab_bytes_to_unicode: (bytes: Uint8Array | number[]) => execute({ op: "tab_bytes_to_unicode", input: { bytes: Array.from(bytes) } }) as string,

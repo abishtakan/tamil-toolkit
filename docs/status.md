@@ -6,17 +6,29 @@ and local, awaiting commit/push; inspect `git status` for their current state.
 
 ## Current objective
 
-The unreleased TAM milestone adds a 407-key byte decoder and a 331-value strict
-reverse encoder, with 1,545 shared TAM cases. Across the source tree there are
-25,707 active golden vectors. TAM is monolingual: byte 41 maps to a Tamil glyph,
-not Latin A. The [TAM contract](specs/codec-tam.md) describes its scope and the
-TAB-compatible aliases. TAB work remains local and is preserved. The published
-alpha does not include TAM, TAB or TSCII. No version bump or upload occurred.
+The unreleased Anjal milestone adds a 309-key byte decoder and 302-value strict
+reverse encoder, with 1,250 shared Anjal cases. Four conflicting byte values
+(E5–E8) are explicit errors unless a longer unambiguous sequence matches; a
+source U+2212 glyph is not representable as a byte and is excluded. Across the
+source tree there are 26,957 active vectors. The [Anjal contract](specs/codec-anjal.md)
+records representation and limits. TAB and TAM work remains preserved. The
+published alpha does not contain these codec additions; no version bump or upload
+occurred. The next alpha must use a new synchronized version; the existing
+`0.1.0-alpha.1` has already been published and must not be reused.
 
-Verification: `just agent-pre-stop-gate` passed, including 112 harness tests
-and shared Rust, Python and Node/browser WASM parity. `just test-dart` and the
-workbench TypeScript check passed on the same 25,707 vectors. Logs:
-`target/tam-final-gate.log` and `target/tam-final-dart.log`.
+Verification: `just agent-pre-stop-gate` passed, including 115 harness tests
+and Rust/Python/Node/browser WASM parity. `just test-dart`, workbench checking,
+and `just release-check` passed; installed Python and Node/browser WASM archives
+each consumed all 26,957 active vectors. These archives were built from a dirty
+working tree with the existing version and are local preparation evidence, not
+publishable release evidence. Logs: `target/anjal-final-gate.log`,
+`target/anjal-final-dart.log` and `target/anjal-release-check.log`.
+
+Release candidate version: `0.1.0-alpha.2` (Python `0.1.0a2`). On 2026-11-01
+the six crates, PyPI and npm showed only the previously recorded alpha release
+(and npm stage version); recheck availability when preparing a release. Bump and
+regenerate versions in a dedicated release batch, then verify artifacts from the
+reviewed committed source according to `docs/releases/policy.md`.
 
 ## Published and implemented
 
@@ -49,7 +61,8 @@ Actions secret. Never copy secret values here.
 The current tree supports explicit Bamini conversion both ways and a bounded
 341-key TSCII byte decoder and a 340-key strict reverse encoder, with ASCII
 passthrough, longest matching, and explicit canonical byte aliases. The unreleased TAB and TAM profiles provide conversion in both directions.
-Detection, Anjal, Vanavil and historical orthography remain future milestones.
+The unreleased Anjal profile supports bounded bidirectional conversion. Detection,
+Vanavil and historical orthography remain future milestones.
 Choose and source the next bounded codec profile before implementation.
 
 After codec coverage is scoped, return to Punarchi, morphology, dialect

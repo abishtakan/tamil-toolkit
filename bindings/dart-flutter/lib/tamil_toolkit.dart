@@ -69,6 +69,11 @@ class TamilToolkit {
   String unicodeToBamini(String text) => execute({
     'op': 'unicode_to_bamini', 'input': {'text': text},
   }) as String;
+  String anjalBytesToUnicode(List<int> bytes) => execute({
+    'op': 'anjal_bytes_to_unicode', 'input': {'bytes': bytes},
+  }) as String;
+  List<int> unicodeToAnjalBytes(String text) =>
+      (execute({'op': 'unicode_to_anjal_bytes', 'input': {'text': text}}) as List).cast<int>();
   String tamBytesToUnicode(List<int> bytes) => execute({
     'op': 'tam_bytes_to_unicode', 'input': {'bytes': bytes},
   }) as String;
