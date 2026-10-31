@@ -83,6 +83,9 @@ jobs:
         run: |
           set -euo pipefail
           cargo publish --locked --package "$PACKAGE" --dry-run
+          # Cargo 1.93+ removes the tarball produced by publish, so package once more
+          # to retain the archive for byte-for-byte comparison with the reviewed one.
+          cargo package --locked --package "$PACKAGE" --no-verify
           python tools/release_policy.py compare-crate --reviewed "$REVIEWED" --built "target/package/${PACKAGE}-${VERSION}.crate"
 
       - name: Publish selected reviewed crate
