@@ -1,0 +1,95 @@
+name: Publish Python package to PyPI
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_run_id:
+        description: Successful Alpha distribution artifacts run ID for v0.1.0-alpha.1
+        required: true
+        type: string
+      confirm_publish:
+        description: Choose publish only after reviewing the release artifacts
+        required: true
+        type: choice
+        options:
+          - no
+          - publish
+        default: no
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  publish:
+    if: ${{ inputs.confirm_publish == 'publish' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+    steps:
+      - name: Validate source artifact run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.artifact_run_id }}
+        run: |
+          set -euo pipefail
+          run_json="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}")"
+          test "$(jq -r '.name' <<< "$run_json")" = "Alpha distribution artifacts"
+          test "$(jq -r '.head_branch' <<< "$run_json")" = "v0.1.0-alpha.1"
+          test "$(jq -r '.conclusion' <<< "$run_json")" = "success"
+
+      - name: Download Linux x64 Python artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: alpha-python-x86_64-unknown-linux-gnu
+          path: artifacts/linux
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Download Windows x64 Python artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: alpha-python-x86_64-pc-windows-msvc
+          path: artifacts/windows
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Download macOS arm64 Python artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: alpha-python-aarch64-apple-darwin
+          path: artifacts/macos
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Prepare distribution files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          cp artifacts/linux/*.whl dist/
+          cp artifacts/linux/*.tar.gz dist/
+          cp artifacts/windows/*.whl dist/
+          cp artifacts/macos/*.whl dist/
+          python - <<'PY'
+          from pathlib import Path
+
+          wheels = list(Path("dist").glob("*.whl"))
+          sdists = list(Path("dist").glob("*.tar.gz"))
+          if len(wheels) != 3 or len(sdists) != 1:
+              raise SystemExit(
+                  f"Expected 3 platform wheels and 1 source archive; "
+                  f"found {len(wheels)} wheels and {len(sdists)} source archives"
+              )
+          for path in sorted([*wheels, *sdists]):
+              print(path)
+          PY
+
+      - name: Publish reviewed distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/

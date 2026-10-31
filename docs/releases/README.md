@@ -37,12 +37,19 @@ notice file conservatively; no test tooling is a Python/npm runtime dependency.
 After concrete artifact review and explicit authorization to publish:
 
 1. Confirm the intended registry accounts can publish the requested names.
-   Configure PyPI's pending trusted publisher for owner `abishtakan`, repository
-   `tamil-toolkit`, and the chosen upload workflow/environment. npm trusted
-   publishing is configured in an existing package's settings, so bootstrap its
-   first upload using the maintainer's authenticated npm CLI, then configure
-   the workflow. Configure crates.io authentication for the maintainer as well.
-   Never put credentials in this repository or ask for them in plaintext chat.
+   Configure PyPI's pending trusted publisher with project name
+   `tamil-toolkit`, owner `abishtakan`, repository `tamil-toolkit`, workflow
+   `publish-pypi.yml`, and environment `pypi`. The matching workflow is
+   `.github/workflows/publish-pypi.yml`; dispatch it from `master`. It is
+   manual-only, defaults to no publication, and accepts only artifacts from a
+   successful `Alpha distribution artifacts` run for `v0.1.0-alpha.1`.
+   Configure the GitHub `pypi` environment with required reviewers before
+   publishing.
+   npm trusted publishing is configured in an existing package's settings, so
+   bootstrap its first upload using the maintainer's authenticated npm CLI,
+   then configure the workflow. Configure crates.io authentication for the
+   maintainer as well. Never put credentials in this repository or ask for
+   them in plaintext chat.
 2. Enable publishing only in the six public Rust manifests from `alpha-1.md`
    (`publish = ["crates-io"]`, overriding the workspace default). Remove
    `private: true` only from `bindings/js-wasm/package.json`. All placeholder
