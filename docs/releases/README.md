@@ -44,6 +44,15 @@ and trusted-publisher setup are pending.
 | `tamil-codec` | [0.1.0-alpha.1](https://crates.io/crates/tamil-codec/0.1.0-alpha.1) | [41212174436](https://github.com/abishtakan/tamil-toolkit/actions/runs/41212174436) | `0b851e13bcd786280c6f7b1e70187d5cc4baa192fdf787aee6bf963217bb7812` |
 | `tamil-toolkit` | [0.1.0-alpha.1](https://crates.io/crates/tamil-toolkit/0.1.0-alpha.1) | [41212755732](https://github.com/abishtakan/tamil-toolkit/actions/runs/41212755732) | `a63cb34afa8dbb411c313eb498897adf61b7bd739170ea685dfb31490e8cfdbf` |
 
+The npm candidate was built from source commit `403bcfca0b312d1c9a2188e271c1dc760d9725f6`
+in [artifact run 41213495093](https://github.com/abishtakan/tamil-toolkit/actions/runs/41213495093).
+Node 22 and Node 24 produced byte-identical tarballs; the reviewed SHA-256 is
+`0018c5451da8330e5fa2f45b54112e2dc832138c963523b34c7229c31b51d1d9`. The
+tarball passed the release consumer, contains both WASM targets and license
+notices, and is not marked private. The npm name is available, but this local
+CLI is not authenticated (`npm whoami` returns `ENEEDAUTH`); no npm upload has
+occurred.
+
 ## Build and review
 
 1. Run `just sync-release-files` after canonical lexicon/license changes, then
@@ -117,8 +126,8 @@ After concrete artifact review and explicit authorization to publish:
    reviewed tarball from step 3 with the authenticated maintainer CLI:
    `npm publish PATH.tgz --tag alpha`. Unscoped npm packages are public by
    default. Configure the package's `publish-npm.yml` trusted publisher for the
-   next version when it is ready. Keep
-   stable/default install channels free of this experimental npm alpha.
+   next version when it is ready. Keep stable/default install channels free of
+   this experimental npm alpha.
 6. From a fresh consumer, install the exact public versions and run the same
    golden consumer suite. Update the changelog/status only after those installs
    succeed. Record registry links, tag, artifact digests, and CI evidence here.
