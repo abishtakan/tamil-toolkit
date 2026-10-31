@@ -1,8 +1,8 @@
 # Alpha 2 release
 
-Status: crates.io and npm are published; PyPI is waiting for the required GitHub
-`pypi` environment reviewer. Do not tag this release until PyPI publication and
-the public Python consumer check succeed.
+Status: published to crates.io, PyPI and npm. Immutable tag
+[`v0.1.0-alpha.2`](https://github.com/abishtakan/tamil-toolkit/tree/v0.1.0-alpha.2)
+points to the reviewed source commit below.
 
 ## Reviewed source and artifacts
 
@@ -61,13 +61,21 @@ both Node and browser-target WASM entry points. The `alpha` tag points to
 
 ### PyPI
 
-Upload run [41237423572](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237423572)
-is waiting for approval of the repository's required `pypi` environment
-reviewer. `0.1.0a2` is not yet public. After approval, confirm the three wheels
-and Linux source archive are visible, compare their registry digests to the
-artifacts above, then run the isolated public Python consumer against all
-26,957 active golden rows. The workflow uploads three cp311-abi3 wheels and
-the Linux-built source archive.
+[`tamil-toolkit 0.1.0a2`](https://pypi.org/project/tamil-toolkit/0.1.0a2/)
+was published by [run 41237423572](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237423572)
+through the configured OIDC publisher and required `pypi` reviewer. All four
+published files match the reviewed artifacts:
+
+| File | SHA-256 |
+| --- | --- |
+| Linux wheel `tamil_toolkit-0.1.0a2-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl` | `71438ea9893d24ea28b9e16e201c0c4ce5f372f440e7a5a12ac2f37b1e146e91` |
+| Windows wheel `tamil_toolkit-0.1.0a2-cp311-abi3-win_amd64.whl` | `55c05a6c827dbfb2225c0c2b1b86bf0ee3f73afd676fea8ee4c75034c13198a7` |
+| macOS wheel `tamil_toolkit-0.1.0a2-cp311-abi3-macosx_11_0_arm64.whl` | `c7ae1eb2491548b3cbd567fb73c1082945c2125b0df83fcae5856b54ddfbfd78` |
+| Source archive `tamil_toolkit-0.1.0a2.tar.gz` | `1fddee0519ff65a89790b4de08332f7719d3500d5468e1cb5c90a0cf5bb53292` |
+
+A fresh Windows CPython 3.13.7 environment installed the package from PyPI and
+passed all 26,957 active golden rows with
+[`python_consumer.py`](../../tools/release_smoke/python_consumer.py).
 
 ## Compatibility and scope
 
@@ -79,6 +87,4 @@ claim complete support for historical font variants or automatic detection.
 No prior public Bamini behavior was intentionally changed.
 
 Dart/Pub.dev, PostgreSQL, and unfinished crates remain outside this release.
-The release is not tagged yet. Once PyPI publication and the public Python
-consumer pass, tag `v0.1.0-alpha.2` at the reviewed source commit above, then
-update this record and `docs/status.md` to mark the release complete.
+Tag `v0.1.0-alpha.2` is pushed and points at the reviewed source commit above.

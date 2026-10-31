@@ -5,11 +5,13 @@ Updated: 2026-11-01. Branch: `master`. Current release source:
 workflow fixes are on master after that source commit; release artifacts remain
 bound to the reviewed source SHA. See [alpha-2 release record](releases/alpha-2.md).
 
-## Current objective: finish alpha 2 publication
+## Current status: alpha 2 released
 
 The immutable artifact build passed in
 [run 41237000066](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237000066).
-The six approved crates and npm package are published:
+The reviewed release is published on crates.io, npm and PyPI, and tag
+[`v0.1.0-alpha.2`](https://github.com/abishtakan/tamil-toolkit/tree/v0.1.0-alpha.2)
+points to the release source.
 
 - crates.io: `tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`,
   `tamil-codec`, and `tamil-toolkit`, all `0.1.0-alpha.2`.
@@ -18,22 +20,20 @@ The six approved crates and npm package are published:
   installation passed all 26,957 active golden rows through Node and
   browser-target WASM. The `alpha` tag points at alpha 2; `latest` remains alpha 1.
 
-PyPI run [41237423572](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237423572)
-is waiting for the required `pypi` environment reviewer. The user must approve
-the deployment in GitHub. Once the run succeeds, verify public PyPI digests,
-install `tamil-toolkit==0.1.0a2` in a fresh interpreter, and run
-`tools/release_smoke/python_consumer.py` against all active rows. Then create
-and push immutable tag `v0.1.0-alpha.2` at the reviewed source SHA and finalize
-the release record and handoff. Do not tag before PyPI and its public consumer
-pass.
+- PyPI: `tamil-toolkit 0.1.0a2`. OIDC publisher run
+  [41237423572](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237423572)
+  passed the configured `pypi` reviewer gate. Public artifact digests matched
+  the reviewed wheels/source archive; a fresh Windows CPython 3.13.7 install
+  passed all 26,957 active golden rows.
 
 Publisher run links, registry checksums, and the full artifact inventory are
 recorded in [releases/alpha-2.md](releases/alpha-2.md). Earlier publisher
 workflow run 41237404162 failed before upload because Cargo 1.95 removed the
 dry-run crate archive. The workflow now runs `cargo package` to retain an
 archive for comparison. The retry passed; the failed run published nothing.
-The follow-up Core Rust CI run 41237811990 succeeded after pinning actionlint's
-official release and verifying its SHA-256.
+The final Core Rust CI run
+[41238338654](https://github.com/abishtakan/tamil-toolkit/actions/runs/41238338654)
+passed after pinning actionlint's official release and verifying its SHA-256.
 
 The local shell does not have Cargo on `PATH`, so its `just agent-post-edit`
 attempt stopped with “Missing cargo”. The release source itself previously
@@ -47,9 +47,9 @@ do not claim automatic detection or complete historical font coverage. The
 current active golden suite contains 26,957 rows; planned Punarchi remains
 inactive until sourced Nannool rules and a licensed lexicon exist.
 
-Pub.dev/Dart distribution and PostgreSQL packaging remain deferred. After the
-alpha 2 release is complete, choose and source the next codec profile or begin
-Punarchi specification work. Continue to follow [development workflow](development.md),
+Pub.dev/Dart distribution and PostgreSQL packaging remain deferred. Next, choose
+and source the next codec profile or begin Punarchi specification work. Continue
+to follow [development workflow](development.md),
 [publishing policy](releases/policy.md), and the agent constitution.
 
 Never put registry credentials in the handoff, repository, build artifacts, or

@@ -8,13 +8,14 @@ excluded from the alpha SDK.
 
 ## Alpha release status
 
-The `0.1.0-alpha.2` release is partially published: all six finished Rust
-crates and the [npm package](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.2)
-are live. PyPI remains at
-[`0.1.0a1`](https://pypi.org/project/tamil-toolkit/0.1.0a1/) while the alpha 2
-upload awaits the configured GitHub environment reviewer. npm's `alpha` tag
-points to alpha 2; `latest` remains alpha 1. See the [alpha 2 release record
-and acceptance status](docs/releases/alpha-2.md) and [release runbook](docs/releases/README.md).
+The `0.1.0-alpha.2` release is published on all three registries. The six
+finished Rust crates are on [crates.io](https://crates.io/crates/tamil-toolkit),
+the [npm package](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.2)
+and [PyPI package](https://pypi.org/project/tamil-toolkit/0.1.0a2/) are live,
+and tag [`v0.1.0-alpha.2`](https://github.com/abishtakan/tamil-toolkit/tree/v0.1.0-alpha.2)
+points at the reviewed source. npm's `alpha` tag points to alpha 2; `latest`
+remains alpha 1. See the [alpha 2 release record](docs/releases/alpha-2.md)
+and [release runbook](docs/releases/README.md).
 
 `just release-check` builds six Cargo archives, an abi3 Python wheel and source
 distribution, and an npm package containing Node/browser WASM and types. It
@@ -216,6 +217,5 @@ preserved in [third-party notices](THIRD_PARTY_NOTICES.md). Contributions are
 welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). The PyPI, Rust, and npm alpha
 packages are live.
 
-The TSCII, TAB, TAM and Anjal byte conversions are included in the published
-Rust and npm alpha.2 packages. Python alpha.2 publication is pending; these
-conversions are not in the currently published Python alpha.1 package.
+The TSCII, TAB, TAM and Anjal byte conversions are included in all alpha.2
+packages. The published Python alpha.1 package does not include them.

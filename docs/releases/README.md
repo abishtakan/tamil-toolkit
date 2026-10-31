@@ -60,14 +60,11 @@ now configured and was used for alpha 2.
 
 Release source `af11c96ddacd0fedda0cc8c346130a71f924c0b6` passed the successful
 [artifact matrix run 41237000066](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237000066).
-All six approved crates and npm `0.1.0-alpha.2` are published. Public registry
-checksums, publisher runs, and Node consumer results are in
-[alpha-2.md](alpha-2.md).
-
-PyPI upload [run 41237423572](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237423572)
-is waiting for the configured `pypi` environment reviewer. The alpha 2 tag is
-not created yet; finish PyPI publication, compare its archive hashes, pass the
-public Python consumer, then tag the reviewed source SHA and update the handoff.
+All six approved crates, npm `0.1.0-alpha.2`, and PyPI `0.1.0a2` are published.
+Registry checksums, publisher runs, and fresh Python/Node consumer results are
+in [alpha-2.md](alpha-2.md). Tag
+[`v0.1.0-alpha.2`](https://github.com/abishtakan/tamil-toolkit/tree/v0.1.0-alpha.2)
+points to the reviewed source commit.
 
 
 ## Future releases
