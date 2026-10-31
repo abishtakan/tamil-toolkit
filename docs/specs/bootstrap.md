@@ -66,9 +66,12 @@ stable sorting, and canonical sort/search keys using declarative ordering tables
 Mixed-script fallback and the profile's limits are specified explicitly there.
 
 The [numerals v0.1 contract](numerals-v0.1.md) adds bounded CLDR 49 integer
-spellings and exact INR/LKR minor-unit formatting. Fractions and dates remain
-unimplemented. The declared SL lakh spelling and invariant unit-label template
+spellings and exact INR/LKR minor-unit formatting. The declared SL lakh spelling and invariant unit-label template
 have explicit sources and limits; no general regional speech support is implied.
+The [numeral completion contract](numerals-v0.2.md) adds exact reduced fractions,
+traditional symbols, common-name/division readings, and Gregorian date formats
+with Latin/Tamil decimal digits. This completes the numeral feature families
+within their explicit component and calendar bounds.
 
 The [codec v0.1 contract](codec-v0.1.md) adds explicit-profile Bamini decoding
 with a build-time static trie, longest matching, strict/preserve policies, and

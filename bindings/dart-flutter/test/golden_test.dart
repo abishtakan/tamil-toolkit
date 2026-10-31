@@ -23,6 +23,7 @@ void main() {
   Map<String, dynamic>? encoderNfd;
   Map<String, dynamic>? encoderCollision;
   final moneyCases = <Map<String, dynamic>>[];
+  final formatCases = <Map<String, dynamic>>[];
   for (final suite in manifest['suites']) {
     if (!files.add(suite['file'] as String)) throw StateError('Duplicate suite');
     if (!['active', 'planned'].contains(suite['status'])) throw StateError('Unknown status');
@@ -39,6 +40,7 @@ void main() {
       if (row['id'] == 'encode_collision_000_tn') encoderCollision = row;
       if (encoderNfd == null && (row['id'] as String).startsWith('encode_mapping_') && (row['id'] as String).endsWith('_tn_nfd')) encoderNfd = row;
       if (['format_currency', 'currency_to_words'].contains(row['op']) && row.containsKey('expected')) moneyCases.add(row);
+      if (['format_fraction', 'fraction_to_words', 'fraction_symbol', 'format_date'].contains(row['op']) && row.containsKey('expected')) formatCases.add(row);
       if (!ids.add(row['id'] as String)) throw StateError('Duplicate golden ID');
       if (suite['status'] == 'planned') continue;
       if (!(suite['operations'] as List).contains(row['op'])) throw StateError('Undeclared operation');
@@ -106,5 +108,22 @@ void main() {
     expect(() => tamil.unicodeToBamini((collision['input'] as Map)['text'] as String), throwsA(isA<ArgumentError>().having(
       (error) => error.message, 'message', collision['expected_error'],
     )));
+  });
+  test('fraction and date convenience APIs', () {
+    for (final row in formatCases) {
+      final input = row['input'] as Map<String, dynamic>;
+      final locale = input['locale'] as String? ?? 'TN';
+      final digits = input['digits'] as String? ?? 'latin';
+      final result = switch (row['op']) {
+        'format_fraction' => tamil.formatFraction((input['numerator'] as num).toInt(), (input['denominator'] as num).toInt(), digits: digits),
+        'fraction_to_words' => tamil.fractionToWords((input['numerator'] as num).toInt(), (input['denominator'] as num).toInt(), locale: locale),
+        'fraction_symbol' => tamil.fractionSymbol((input['numerator'] as num).toInt(), (input['denominator'] as num).toInt()),
+        'format_date' => tamil.formatDate((input['year'] as num).toInt(), (input['month'] as num).toInt(), (input['day'] as num).toInt(), locale: locale, style: input['style'] as String? ?? 'long', digits: digits),
+        _ => throw StateError('Undeclared format API'),
+      };
+      expect(result, row['expected']);
+    }
+    expect(() => tamil.formatFraction(1, 0), throwsArgumentError);
+    expect(() => tamil.formatDate(2023, 2, 29), throwsArgumentError);
   });
 }

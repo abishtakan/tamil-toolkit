@@ -2,6 +2,8 @@
 
 Status: v0.1 engineering acceptance passed locally. Profile: `numerals-v1`,
 based on CLDR 49 Tamil spellout.
+The [completion contract](numerals-v0.2.md) adds fractions and Gregorian dates
+without changing this integer/currency behavior.
 
 ## Plan and scope
 
@@ -145,4 +147,4 @@ Verification is local; remote CI has not run. Browser-target WASM was loaded in
 Node rather than an interactive browser. Dart coverage is for the host shared
 library, without mobile packaging. These are bounded formal lexical profiles,
 not comprehensive regional speech or cheque-writing grammar. Fractions and
-dates remain unimplemented, and publication remains disabled.
+dates are covered separately by the completion contract. Publication remains disabled.

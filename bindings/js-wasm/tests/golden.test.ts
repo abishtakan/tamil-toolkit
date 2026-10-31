@@ -2,7 +2,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import { beforeAll, describe, expect, test } from "vitest";
-import { execute, type Request, type Currency, type Locale, type CodecErrorPolicy } from "../src/index.js";
+import { execute, type Request, type Currency, type Locale, type CodecErrorPolicy, type DigitStyle, type DateStyle } from "../src/index.js";
 import { init, execute as executeWeb } from "../src/web.js";
 import * as nodeApi from "../src/index.js";
 import * as webApi from "../src/web.js";
@@ -111,5 +111,22 @@ test("encoder convenience API on both WASM targets", () => {
     expect(api.bamini_to_unicode(encoded)).toBe(api.normalize_nfc(text));
     expect(api.unicode_to_bamini((nfd.input as { text: string }).text)).toBe(nfd.expected);
     expect(() => api.unicode_to_bamini((collision.input as { text: string }).text)).toThrow(collision.expected_error);
+  }
+});
+
+test("fraction and date convenience APIs on both WASM targets", () => {
+  for (const api of [nodeApi, webApi]) {
+    for (const row of cases) {
+      if (!("expected" in row)) continue;
+      const input = row.input as { numerator: number; denominator: number; year: number; month: number; day: number; digits?: DigitStyle; locale?: Locale; style?: DateStyle };
+      switch (row.op) {
+        case "format_fraction": expect(api.format_fraction(input.numerator, input.denominator, input.digits)).toBe(row.expected); break;
+        case "fraction_to_words": expect(api.fraction_to_words(input.numerator, input.denominator, input.locale)).toBe(row.expected); break;
+        case "fraction_symbol": expect(api.fraction_symbol(input.numerator, input.denominator)).toBe(row.expected); break;
+        case "format_date": expect(api.format_date(input.year, input.month, input.day, input.locale, input.style, input.digits)).toBe(row.expected); break;
+      }
+    }
+    expect(() => api.format_fraction(1, 0)).toThrow("fraction denominator must not be zero");
+    expect(() => api.format_date(2023, 2, 29)).toThrow("invalid Gregorian date");
   }
 });

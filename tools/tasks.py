@@ -34,7 +34,7 @@ def test_rust():
 def sync_bindings():
     run("maturin", "develop", "--locked", cwd=ROOT / "bindings/python")
     for target, directory in [("nodejs", "pkg-node"), ("web", "pkg-web")]:
-        run("pnpm", "exec", "wasm-pack", "build", "bindings/js-wasm", "--dev", "--target", target,
+        run("pnpm", "--filter", "tamil-toolkit", "exec", "wasm-pack", "build", ".", "--dev", "--target", target,
             "--out-dir", directory, "--out-name", "tamil_toolkit", "--locked")
     run("pnpm", "--filter", "tamil-toolkit", "build")
 

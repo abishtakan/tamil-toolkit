@@ -10,6 +10,7 @@
     {"file": "numerals_lkr_inr.jsonl", "status": "active", "operations": ["to_words", "format_currency", "currency_to_words"]},
     {"file": "codec_bamini.jsonl", "status": "active", "operations": ["bamini_to_unicode"]},
     {"file": "codec_unicode_to_bamini.jsonl", "status": "active", "operations": ["unicode_to_bamini"]},
+    {"file": "numerals_fractions_dates.jsonl", "status": "active", "operations": ["format_fraction", "fraction_to_words", "fraction_symbol", "format_date"]},
     {"file": "punarchi_nannool.jsonl", "status": "planned", "reason": "Nannool rule citations and a licensed lexicon are required."}
   ]
 }

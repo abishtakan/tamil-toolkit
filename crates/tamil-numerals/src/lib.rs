@@ -3,6 +3,11 @@
 #![forbid(unsafe_code)]
 
 use tamil_core::normalize_nfc;
+mod formats;
+pub use formats::{
+    format_date, format_fraction, fraction_symbol, fraction_to_words, DateStyle, DigitStyle,
+    Fraction, GregorianDate, FORMAT_PROFILE, INVALID_DATE,
+};
 
 #[derive(Clone, Copy)]
 enum Operand {

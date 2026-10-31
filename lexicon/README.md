@@ -21,6 +21,12 @@ override. Sources, Unicode licensing, and regional limits are recorded in
 syntax and compiles static operations for both profiles. Frozen independent
 ICU4J results test those operations; Java/ICU are not runtime dependencies.
 
+`numerals-formats.toml` supplies Unicode fraction symbols, common lexical names,
+the division-reading label, CLDR date symbols/patterns, and decimal digit sets.
+The format build helper validates these facts and compiles the required date
+tokens and static lookup tables. Exact rational and Gregorian calendar behavior
+remains in Rust; evidence is frozen under `tests/reference/numerals-v0.2`.
+
 `bamini.toml` stores the pinned MIT-sourced `bamini-v1` mappings, explicit
 ambiguity candidates, and pass-through characters. `tamil-codec/build.rs`
 validates them and compiles static decoder/encoder tries. Its canonical alias

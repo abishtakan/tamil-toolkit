@@ -1,0 +1,12 @@
+{
+  "latn": {
+    "id": "latn",
+    "type": "numeric",
+    "digits": "0123456789"
+  },
+  "tamldec": {
+    "id": "tamldec",
+    "type": "numeric",
+    "digits": "\u0be6\u0be7\u0be8\u0be9\u0bea\u0beb\u0bec\u0bed\u0bee\u0bef"
+  }
+}

@@ -40,17 +40,20 @@ the host; mobile library bundling is future work.
 - `to_words`: signed integer spellings with formal TN/SL lexical profiles.
 - `format_currency` / `currency_to_words`: exact INR/LKR minor-unit amounts,
   grouped numeric display, and cardinal words with denomination labels.
+- `format_fraction` / `fraction_to_words` / `fraction_symbol`: exact reduced
+  rationals, common names/division readings, and traditional Unicode symbols.
+- `format_date`: Tamil Gregorian dates in four styles with Latin/Tamil digits.
 - `bamini_to_unicode`: explicit `bamini-v1` decoding with longest matching,
   strict/preserve policies, and NFC output.
 - `unicode_to_bamini`: canonical strict encoding that returns ASCII only after
   decoding it reproduces the NFC input.
 - Local MCP tools for scalar inspection, scalar diffs, and fixture validation.
-- **16,831 active golden vectors**, including 1,088 shared error cases, across Rust,
+- **21,277 active golden vectors**, including 1,625 shared error cases, across Rust,
   Python, Node/browser-target WASM, and host Dart.
 - Independent Unicode 17 fixtures cover all 247 traditional letters, the full
   288-form supported consonant/vowel matrix, both Shri spellings, and 766 UAX 29
   boundary cases. Reference files include source digests and licensing.
-- Thirteen core/collation/numeral/codec properties with **10,000 cases each**, plus invalid-input checks.
+- Seventeen core/collation/numeral/codec properties with **10,000 cases each**, plus invalid-input checks.
 
 ```python
 import tamil_toolkit as tamil
@@ -60,6 +63,8 @@ assert letters == ["\u0ba4", "\u0bae\u0bbf", "\u0bb4\u0bcd"]
 assert tamil.compare("\u0b95\u0bcd", "\u0b95") == -1  # Mei sorts before its vowel forms.
 assert tamil.format_currency(102550, "LKR", "SL") == "LKR 1,025.50"
 words = tamil.to_words(1025, "SL")
+assert tamil.format_fraction(2, 4) == "1/2"
+date = tamil.format_date(2024, 2, 29, "SL", "full", "tamil")
 assert tamil.bamini_to_unicode("jkpo;") == "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd"
 assert tamil.unicode_to_bamini("".join(letters)) == "jkpo;"
 ```
@@ -81,8 +86,14 @@ implement full ICU/UCA collation or fuzzy linguistic search.
 The [numerals v0.1 contract](docs/specs/numerals-v0.1.md) defines CLDR 49
 integer spellings through +/-999,999,999 and money through +/-99,999,999,999
 minor units. Money APIs take integers (100 minor units per rupee); they apply
-no rounding. TN/SL share Tamil 3-2 digit grouping. Fractions, dates, and broader
-regional spoken forms remain future work.
+no rounding. TN/SL share Tamil 3-2 digit grouping.
+The [numeral completion contract](docs/specs/numerals-v0.2.md) covers reduced
+fractions with exact bounded components, three common fraction names and a
+general division-expression reading, all 18 Unicode Tamil fraction values,
+and Gregorian civil dates for years 1..9999. Date formatting supports four
+CLDR styles and Latin/Tamil decimal digits. This completes the documented
+numeral feature families; Tamil solar-calendar conversion and broader spoken
+regional morphology are outside that contract.
 The [codec v0.1 contract](docs/specs/codec-v0.1.md) defines a pinned Bamini
 profile with 298 unambiguous keys. Strict mode rejects unsupported input and the
 source table's ambiguous `*`; `errors="preserve"` retains them and preserves
@@ -90,7 +101,7 @@ joiners. Callers must select Bamini text runs: English shares the same character
 codes. Automatic detection, other encodings, and five
 ambiguous Tamil forms remain outside this milestone.
 The [reverse encoding contract](docs/specs/codec-reverse-v0.1.md) adds strict
-Unicode â†’ Bamini with canonical aliases and NFC input. It rejects unsupported
+Unicode → Bamini with canonical aliases and NFC input. It rejects unsupported
 scalars and letter combinations whose legacy keys would change the text when
 decoded. Every accepted input round-trips to its NFC spelling.
 
@@ -102,8 +113,8 @@ decoded. Every accepted input round-trips to its NFC spelling.
 | `tamil-core` | v0.1 contract verified locally | Ezhuthu segmentation, Mei/Uyir, Unicode inspection |
 | `tamil-norm` | Working facade | Re-export core normalization for SDK/PostgreSQL consumers |
 | `tamil-collate` | agara-v1 verified locally | Mei-first Agara sorting and canonical sort/search keys |
-| `tamil-numerals` | numerals-v1 verified locally | Bounded integer words and exact LKR/INR formatting; fractions/dates planned |
-| `tamil-codec` | bamini-v1 verified locally | Bounded Bamini â†” Unicode; unsupported and non-round-trippable input is rejected |
+| `tamil-numerals` | v0.2 feature families verified locally | Integer words, exact INR/LKR amounts, fractions, Gregorian dates |
+| `tamil-codec` | bamini-v1 verified locally | Bounded Bamini ↔ Unicode; unsupported and non-round-trippable input is rejected |
 | `tamil-punarchi` | Planned | Sourced Nannool sandhi and compound splitting |
 | `tamil-morph` | Planned | FST stemming, lemmatization, suffix/case analysis |
 | `tamil-dialect` | Planned | TN/SL regional spoken-to-literary normalization |

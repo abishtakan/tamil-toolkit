@@ -1,0 +1,67 @@
+{
+  "profile": "numerals-formats-v1",
+  "files": [
+    {
+      "file": "calendar-ta.xml",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-49/common/main/ta.xml",
+      "sha256": "8982775e9173560f212bb37d13513480db1ea7b229c6f64315efc77769df5209",
+      "upstream_sha256": "69ca3f6a2792ed1ce1cc01a708462ae30d5fc25e25e026b73c1fa3b1fb63c626"
+    },
+    {
+      "file": "calendar-root.xml",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-49/common/main/root.xml",
+      "sha256": "1af553a0dfc23348cfe3c1404b097bdf390c7cfe1b778999e49591a92817acfc",
+      "upstream_sha256": "7447cc014ec93a1425a2ab51e3d2b5cc48e6865c95350caa0fca36cbebcc93e6"
+    },
+    {
+      "file": "calendar-ta-LK.xml",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-49/common/main/ta_LK.xml",
+      "sha256": "8e86acdf8918be81b1ee0581b3d2b2fe1a741086e1e5ebb6054644897dd4fa1a",
+      "upstream_sha256": "ef7d21c26b76be06e632e2f0d62a711d651f3d69ff449dae3e2baeca05835fc2"
+    },
+    {
+      "file": "UnicodeData-fractions.txt",
+      "source": "https://www.unicode.org/Public/17.0.0/ucd/UnicodeData.txt",
+      "sha256": "aaa7132a55eb2e1dbb7afb5afd0849d8f68f4b66be4dae65b6789f38a4a41476",
+      "upstream_sha256": "2e1efc1dcb59c575eedf5ccae60f95229f706ee6d031835247d843c11d96470c"
+    },
+    {
+      "file": "numbering-systems.json",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-49/common/supplemental/numberingSystems.xml",
+      "sha256": "02cf8ea0103dc00b79e3228fa5687398b50aba86ed50a812a68b0947eefc0caa",
+      "upstream_sha256": "c5b9b208c6fe7bd3ce4e1c6cbb8f3337480aca620c9cf703ef3b6c74d4258c16"
+    },
+    {
+      "file": "profile.json",
+      "source": "Declared format contract and attributed lexical facts; no third-party prose copied",
+      "sha256": "31828ed484a65161869922541ec64d01635e26455665fb6200a7dc2c417864c3"
+    },
+    {
+      "file": "calendar-data.json",
+      "source": "ICU4J 79.1, bundled CLDR 49: resolved ta_IN / ta_LK Gregorian symbols and patterns",
+      "sha256": "f72416bcf8c761a57200ecbea994806a9704910fe6109e5f55b6156ef791186d"
+    },
+    {
+      "file": "icu-dates.jsonl",
+      "source": "ICU4J 79.1, CLDR 49: strict proleptic Gregorian, UTC, Latin/tamldec digits",
+      "sha256": "3d1e0c67ea13ac6d1354576249f378881e2653c81f39d310c14392a14d93cb17"
+    },
+    {
+      "file": "fraction-inputs.json",
+      "source": "Deterministic exact-rational acceptance domain; docs/specs/numerals-v0.2.md",
+      "sha256": "b76243b34eec816a3c16dee9ea6e043bb051167014bd2e344315614ef891b920"
+    },
+    {
+      "file": "icu-components.jsonl",
+      "source": "ICU4J 79.1 interpreting the frozen CLDR 49 TN/SL spellout rules",
+      "sha256": "7331c1704b52e4642be3be3063ddb1817d3bd608be0333d96c6aa066e30ff315"
+    }
+  ],
+  "icu4j": {
+    "version": "79.1",
+    "url": "https://repo.maven.apache.org/maven2/com/ibm/icu/icu4j/79.1/icu4j-79.1.jar",
+    "sha256": "28b292e60d0d00c496bae88a15b2615f89f781be13670aeac9dc90f189570e07"
+  },
+  "license": "../unicode-17.0.0/LICENSE.txt",
+  "lexical_note": "Only lexical facts extracted, no source prose or images redistributed."
+}

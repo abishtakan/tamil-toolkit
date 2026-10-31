@@ -1,6 +1,7 @@
 use serde::Deserialize;
 use std::{collections::BTreeMap, env, fs, path::PathBuf};
 use unicode_normalization::is_nfc;
+mod build_formats;
 
 #[derive(Deserialize)]
 struct Profile {
@@ -105,6 +106,7 @@ fn compile(pattern: &str, current: usize, names: &BTreeMap<&str, usize>) -> Stri
 }
 
 fn main() {
+    build_formats::compile();
     let path = "../../lexicon/numerals.toml";
     println!("cargo:rerun-if-changed={path}");
     let profile: Profile = toml::from_str(&fs::read_to_string(path).expect("read numerals.toml"))

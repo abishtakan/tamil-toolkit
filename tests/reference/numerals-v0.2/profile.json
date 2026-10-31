@@ -1,0 +1,30 @@
+{
+  "profile": "numerals-formats-v1",
+  "digits": {
+    "latn": "0123456789",
+    "tamldec": "\u0be6\u0be7\u0be8\u0be9\u0bea\u0beb\u0bec\u0bed\u0bee\u0bef"
+  },
+  "division": "\u0bb5\u0b95\u0bc1\u0ba4\u0bcd\u0ba4\u0bb2\u0bcd",
+  "common_fractions": [
+    {
+      "numerator": 1,
+      "denominator": 4,
+      "words": "\u0b95\u0bbe\u0bb2\u0bcd"
+    },
+    {
+      "numerator": 1,
+      "denominator": 2,
+      "words": "\u0b85\u0bb0\u0bc8"
+    },
+    {
+      "numerator": 3,
+      "denominator": 4,
+      "words": "\u0bae\u0bc1\u0b95\u0bcd\u0b95\u0bbe\u0bb2\u0bcd"
+    }
+  ],
+  "lexical_sources": [
+    "https://www.unicode.org/wg2/docs/n4822-tamil-frac.pdf",
+    "https://tamildigitallibrary.in/assets/docs/uploads/catalogue_article_file/BOK/upload/2025/09/TVA_TVA_BOK_062711/upload_primary_20250901053922978_20250901045915.pdf",
+    "https://help.libreoffice.org/latest/ta/text/smath/01/03090100.html"
+  ]
+}

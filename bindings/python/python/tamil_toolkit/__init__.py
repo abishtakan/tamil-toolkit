@@ -5,7 +5,7 @@ from typing import Any
 
 from . import _native
 
-__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini"]
+__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date"]
 
 
 def execute(request: dict[str, Any]) -> Any:
@@ -70,3 +70,19 @@ def bamini_to_unicode(text: str, errors: str = "strict") -> str:
 
 def unicode_to_bamini(text: str) -> str:
     return execute({"op": "unicode_to_bamini", "input": {"text": text}})
+
+
+def format_fraction(numerator: int, denominator: int, digits: str = "latin") -> str:
+    return execute({"op": "format_fraction", "input": {"numerator": numerator, "denominator": denominator, "digits": digits}})
+
+
+def fraction_to_words(numerator: int, denominator: int, locale: str = "TN") -> str:
+    return execute({"op": "fraction_to_words", "input": {"numerator": numerator, "denominator": denominator, "locale": locale}})
+
+
+def fraction_symbol(numerator: int, denominator: int) -> str:
+    return execute({"op": "fraction_symbol", "input": {"numerator": numerator, "denominator": denominator}})
+
+
+def format_date(year: int, month: int, day: int, locale: str = "TN", style: str = "long", digits: str = "latin") -> str:
+    return execute({"op": "format_date", "input": {"year": year, "month": month, "day": day, "locale": locale, "style": style, "digits": digits}})

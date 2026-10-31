@@ -2,4 +2,5 @@
 tests/reference/unicode-17.0.0/* -text
 tests/reference/collate-v0.1/ta.xml -text
 tests/reference/numerals-v0.1/* -text
+tests/reference/numerals-v0.2/* -text
 tests/reference/codec-v0.1/* -text

@@ -69,4 +69,16 @@ class TamilToolkit {
   String unicodeToBamini(String text) => execute({
     'op': 'unicode_to_bamini', 'input': {'text': text},
   }) as String;
+  String formatFraction(int numerator, int denominator, {String digits = 'latin'}) => execute({
+    'op': 'format_fraction', 'input': {'numerator': numerator, 'denominator': denominator, 'digits': digits},
+  }) as String;
+  String fractionToWords(int numerator, int denominator, {String locale = 'TN'}) => execute({
+    'op': 'fraction_to_words', 'input': {'numerator': numerator, 'denominator': denominator, 'locale': locale},
+  }) as String;
+  String fractionSymbol(int numerator, int denominator) => execute({
+    'op': 'fraction_symbol', 'input': {'numerator': numerator, 'denominator': denominator},
+  }) as String;
+  String formatDate(int year, int month, int day, {String locale = 'TN', String style = 'long', String digits = 'latin'}) => execute({
+    'op': 'format_date', 'input': {'year': year, 'month': month, 'day': day, 'locale': locale, 'style': style, 'digits': digits},
+  }) as String;
 }

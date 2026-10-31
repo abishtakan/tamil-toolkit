@@ -30,6 +30,10 @@ pub const OPERATIONS: &[&str] = &[
     "currency_to_words",
     "bamini_to_unicode",
     "unicode_to_bamini",
+    "format_fraction",
+    "fraction_to_words",
+    "fraction_symbol",
+    "format_date",
 ];
 
 fn string(value: &Value) -> Result<&str, String> {
@@ -59,6 +63,15 @@ fn locale(input: &Value) -> Result<numerals::Locale, String> {
     match input.get("locale") {
         None => Ok(numerals::Locale::TN),
         Some(value) => numerals::Locale::parse(value.as_str().ok_or("unsupported locale")?),
+    }
+}
+
+fn digit_style(input: &Value) -> Result<numerals::DigitStyle, String> {
+    match input.get("digits") {
+        None => Ok(numerals::DigitStyle::Latin),
+        Some(value) => {
+            numerals::DigitStyle::parse(value.as_str().ok_or("unsupported digit style")?)
+        }
     }
 }
 
@@ -125,6 +138,44 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         }
         "unicode_to_bamini" => {
             codec::unicode_to_bamini(string(&input["text"])?).map(|text| json!(text))
+        }
+        "format_fraction" | "fraction_to_words" | "fraction_symbol" => {
+            let value = numerals::Fraction::new(
+                integer(&input["numerator"], numerals::MAX_INTEGER)?,
+                integer(&input["denominator"], numerals::MAX_INTEGER)?,
+            )?;
+            match request["op"].as_str().expect("validated op") {
+                "format_fraction" => {
+                    Ok(json!(numerals::format_fraction(value, digit_style(input)?)))
+                }
+                "fraction_to_words" => {
+                    numerals::fraction_to_words(value, locale(input)?).map(|text| json!(text))
+                }
+                _ => numerals::fraction_symbol(value).map(|text| json!(text)),
+            }
+        }
+        "format_date" => {
+            let component = |key: &str| {
+                integer(&input[key], 9999).map_err(|_| numerals::INVALID_DATE.to_owned())
+            };
+            let date = numerals::GregorianDate::new(
+                component("year")?,
+                component("month")?,
+                component("day")?,
+            )?;
+            let locale = locale(input)?;
+            let style = match input.get("style") {
+                None => numerals::DateStyle::Long,
+                Some(value) => {
+                    numerals::DateStyle::parse(value.as_str().ok_or("unsupported date style")?)?
+                }
+            };
+            Ok(json!(numerals::format_date(
+                date,
+                locale,
+                style,
+                digit_style(input)?
+            )))
         }
         op => Err(format!("unsupported operation: {op}")),
     }

@@ -71,3 +71,13 @@ def test_encoder_convenience_api():
     with pytest.raises(ValueError) as failure:
         tamil.unicode_to_bamini(collision["input"]["text"])
     assert str(failure.value) == collision["expected_error"]
+
+
+def test_fraction_and_date_convenience_apis():
+    for case in load_vectors():
+        if case["op"] in ("format_fraction", "fraction_to_words", "fraction_symbol", "format_date") and "expected" in case:
+            assert getattr(tamil, case["op"])(**case["input"]) == case["expected"]
+    with pytest.raises(ValueError, match="fraction denominator must not be zero"):
+        tamil.format_fraction(1, 0)
+    with pytest.raises(ValueError, match="invalid Gregorian date"):
+        tamil.format_date(2023, 2, 29)

@@ -58,7 +58,7 @@ const packages: PackageInfo[] = [
   { id: "tamil-core", state: "active", description: "Unicode primitives, letter boundaries, and scalar inspection.", suiteFiles: ["core_graphemes.jsonl", "core_alphabet.jsonl", "core_normalization.jsonl", "core_boundaries.jsonl", "core_errors.jsonl"] },
   { id: "tamil-norm", state: "facade", description: "NFC/NFD normalization facade re-exported from tamil-core.", suiteFiles: ["core_normalization.jsonl"], operations: ["normalize_nfc", "normalize_nfd"] },
   { id: "tamil-collate", state: "active", description: "Agara Varisai comparison, ordering, and canonical search keys.", suiteFiles: ["collate_agara_varisai.jsonl"] },
-  { id: "tamil-numerals", state: "active", description: "Bounded TN/SL number words and INR/LKR currency formatting.", suiteFiles: ["numerals_lkr_inr.jsonl"] },
+  { id: "tamil-numerals", state: "active", description: "TN/SL number words, currencies, exact fractions, and Gregorian dates.", suiteFiles: ["numerals_lkr_inr.jsonl", "numerals_fractions_dates.jsonl"] },
   { id: "tamil-codec", state: "active", description: "Explicit-profile Bamini ↔ Unicode conversion.", suiteFiles: ["codec_bamini.jsonl", "codec_unicode_to_bamini.jsonl"] },
   { id: "tamil-toolkit", state: "dispatcher", description: "Shared Rust dispatcher used by bindings and the local oracle." },
   { id: "tamil-wasm", state: "wasm", description: "Browser WASM binding calling the shared Rust dispatcher." },
@@ -155,6 +155,44 @@ const operations: OperationSpec[] = [
       { key: "locale", label: "Locale", kind: "select", initial: "SL", options: ["TN", "SL"] },
     ],
     build: (v) => ({ op: "currency_to_words", input: { amount_minor: Number(v.amount_minor), currency: v.currency, locale: v.locale } }),
+  },
+  {
+    op: "format_fraction", label: "Format fraction", description: "Reduce an exact fraction and render its digits.",
+    fields: [
+      { key: "numerator", label: "Numerator", kind: "number", initial: "2" },
+      { key: "denominator", label: "Denominator", kind: "number", initial: "4" },
+      { key: "digits", label: "Digits", kind: "select", initial: "tamil", options: ["latin", "tamil"] },
+    ],
+    build: (v) => ({ op: "format_fraction", input: { numerator: Number(v.numerator), denominator: Number(v.denominator), digits: v.digits } }),
+  },
+  {
+    op: "fraction_to_words", label: "Fraction to words", description: "Use common fraction names or an exact division expression.",
+    fields: [
+      { key: "numerator", label: "Numerator", kind: "number", initial: "3" },
+      { key: "denominator", label: "Denominator", kind: "number", initial: "4" },
+      { key: "locale", label: "Locale", kind: "select", initial: "TN", options: ["TN", "SL"] },
+    ],
+    build: (v) => ({ op: "fraction_to_words", input: { numerator: Number(v.numerator), denominator: Number(v.denominator), locale: v.locale } }),
+  },
+  {
+    op: "fraction_symbol", label: "Fraction symbol", description: "Return a traditional Unicode fraction symbol when one exists.",
+    fields: [
+      { key: "numerator", label: "Numerator", kind: "number", initial: "1" },
+      { key: "denominator", label: "Denominator", kind: "number", initial: "2" },
+    ],
+    build: (v) => ({ op: "fraction_symbol", input: { numerator: Number(v.numerator), denominator: Number(v.denominator) } }),
+  },
+  {
+    op: "format_date", label: "Format Gregorian date", description: "Format a Gregorian civil date in Tamil, for years 1 through 9999.",
+    fields: [
+      { key: "year", label: "Year", kind: "number", initial: "2024" },
+      { key: "month", label: "Month", kind: "number", initial: "2" },
+      { key: "day", label: "Day", kind: "number", initial: "29" },
+      { key: "locale", label: "Locale", kind: "select", initial: "TN", options: ["TN", "SL"] },
+      { key: "style", label: "Style", kind: "select", initial: "full", options: ["short", "medium", "long", "full"] },
+      { key: "digits", label: "Digits", kind: "select", initial: "latin", options: ["latin", "tamil"] },
+    ],
+    build: (v) => ({ op: "format_date", input: { year: Number(v.year), month: Number(v.month), day: Number(v.day), locale: v.locale, style: v.style, digits: v.digits } }),
   },
   {
     op: "bamini_to_unicode", label: "Bamini to Unicode", description: "Decode a selected Bamini text run with the bamini-v1 profile.",
