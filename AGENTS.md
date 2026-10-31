@@ -23,7 +23,10 @@
    invariance where a Unicode operation does not depend on dialect.
 6. **Respect platform naming.** Public Rust/Python/npm distributions use
    `tamil-*`; Python imports and Dart/Pub identifiers use `tamil_*` as required.
-   PostgreSQL uses `pg_tamil`. Publishing remains disabled until release review.
+   PostgreSQL uses `pg_tamil`. `release-policy.toml` controls approved public
+   crates/channel; Cargo's workspace version owns the release number. Follow
+   `docs/releases/policy.md`: only reviewed manual release actions publish.
+   Reuse session authorization; never ask again when it already covers the action.
 7. **State actual guarantees.** Borrowed core iteration can avoid allocations;
    normalization and FFI allocate. Role instructions and hooks are guardrails,
    not an operating-system sandbox. Do not claim complete linguistic support
@@ -31,6 +34,8 @@
 
 ## Required verification
 
+- `just check-release-policy`: reject package scope, dependency, version, and
+  channel drift. `just release-status` prints the dependency-ordered inventory.
 - `just check-unicode`: validate source Unicode, decoded JSONL, schema, global
   IDs, manifest coverage, and exact, reasoned Unicode exceptions.
 - `just sync-release-files`: regenerate public crate data/license copies from
@@ -52,6 +57,9 @@ Use `.claude/agents/linguist-spec.md`, `rust-core-dev.md`, and `bindings-sync.md
 for isolated roles when delegation is requested. Do not weaken another role's
 fixtures to make an implementation pass. See `docs/agent-harness.md` for hook
 scope and enforcement limitations. See `docs/specs/bootstrap.md` before edits.
+Read `docs/status.md` when starting/resuming work and follow `docs/development.md`.
+Update the handoff and `CHANGELOG.md` as work is completed. Preserve unfinished
+acceptance criteria across context loss; no registry credentials belong in notes.
 
 ## Cloudflare
 

@@ -3,10 +3,12 @@
 import json
 import tomllib
 from tools.harness import ROOT
+from tools.release_policy import load
 
 
-PUBLIC = {"tamil-core", "tamil-norm", "tamil-collate", "tamil-numerals", "tamil-codec", "tamil-toolkit"}
-VERSION = "0.1.0-alpha.1"
+POLICY = load()
+PUBLIC = set(POLICY["public_crates"])
+VERSION = POLICY["version"]
 REPOSITORY = "https://github.com/abishtakan/tamil-toolkit"
 
 
@@ -26,7 +28,7 @@ def test_alpha_scope_and_versions():
         if manifest["package"]["name"] not in PUBLIC:
             assert manifest["package"].get("publish") in (False, {"workspace": True})
     assert workspace["workspace"]["package"]["publish"] is False
-    assert read_toml(ROOT / "bindings/python/pyproject.toml")["project"]["version"] == "0.1.0a1"
+    assert read_toml(ROOT / "bindings/python/pyproject.toml")["project"]["version"] == POLICY["python_version"]
     assert json.loads((ROOT / "bindings/js-wasm/package.json").read_text())["version"] == VERSION
 
 
@@ -52,5 +54,5 @@ def test_npm_archive_contract_includes_binary_and_type_outputs():
     package = json.loads((ROOT / "bindings/js-wasm/package.json").read_text())
     assert package["license"] == "MIT"
     assert package["repository"]["url"] == REPOSITORY + ".git"
-    assert package["publishConfig"]["tag"] == "alpha"
+    assert package["publishConfig"]["tag"] == POLICY["npm_tag"]
     assert {"dist", "pkg-node", "pkg-web", "LICENSE", "THIRD_PARTY_NOTICES.md"} <= set(package["files"])

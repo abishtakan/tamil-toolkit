@@ -13,4 +13,8 @@ Run `just bootstrap` and `just agent-pre-stop-gate` before submitting changes.
 For changes to canonical lexicon or license files, run `just sync-release-files`
 to refresh the checked distribution copies, then run the gates. Use
 `just release-check` to verify the first alpha's actual distribution archives.
-See docs/releases/alpha-1.md for scope and platform limits.
+See [development workflow](docs/development.md) for integration and handoff,
+[publishing policy](docs/releases/policy.md) for versions and release gates, and
+[current status](docs/status.md) for completed/deferred work. Record changes in
+CHANGELOG.md. CI stays small; cross-platform distribution checks are dispatched
+explicitly for a reviewed release. Pub.dev and PostgreSQL packaging are deferred.

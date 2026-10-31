@@ -1,11 +1,11 @@
 """Synchronize distributable data/license copies; canonical sources stay at root."""
 
 import argparse
-from pathlib import Path
+from release_policy import ROOT, load
 
-ROOT = Path(__file__).resolve().parents[1]
-VERSION = "0.1.0-alpha.1"
-PUBLIC = ("tamil-core", "tamil-norm", "tamil-collate", "tamil-numerals", "tamil-codec", "tamil-toolkit")
+POLICY = load()
+VERSION = POLICY["version"]
+PUBLIC = tuple(POLICY["public_crates"])
 INPUTS = {
     "tamil-core": ("core.toml",),
     "tamil-collate": ("collate.toml",),
@@ -59,11 +59,14 @@ def expected_files():
         files[destination / "LICENSE"] = license_bytes
         files[destination / "THIRD_PARTY_NOTICES.md"] = notice
     for name in PUBLIC:
+        label = "Release" if POLICY["channel"] == "stable" else "Experimental " + POLICY["channel"]
+        stability = ("Public APIs follow semantic versioning." if POLICY["channel"] == "stable"
+                     else "APIs may change before stability.")
         text = f"""# {name}
 
 {SUMMARIES[name]}
 
-Experimental alpha `{VERSION}`. APIs may change before stability. This package
+{label} `{VERSION}`. {stability} This package
 does not implement all Tamil linguistic conventions. Read the bounded module
 contracts and examples in the [project documentation](https://github.com/abishtakan/tamil-toolkit#readme).
 

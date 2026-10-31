@@ -1,4 +1,4 @@
-"""Build and verify the first alpha artifacts. Never uploads to a registry."""
+"""Build and verify release artifacts. Never uploads to a registry."""
 
 import argparse
 import hashlib
@@ -15,6 +15,7 @@ import zipfile
 from pathlib import Path
 
 from release_files import PUBLIC, ROOT, VERSION, sync
+from release_policy import archive_paths, check, load
 
 OUT = ROOT / "target/alpha"
 SMOKE = ROOT / "tools/release_smoke"
@@ -142,8 +143,8 @@ def python():
         temp = Path(directory)
         project = stage_python(temp / "staged")
         run("maturin", "build", "--release", "--locked", "--sdist", "--out", destination, cwd=project)
-        sdists = list(destination.glob("tamil_toolkit-0.1.0a1.tar.gz"))
-        assert len(sdists) == 1, "Expected exactly the alpha source distribution"
+        sdists = list(destination.glob(f"tamil_toolkit-{load()['python_version']}.tar.gz"))
+        assert len(sdists) == 1, "Expected exactly the selected release source distribution"
         with tarfile.open(sdists[0]) as package:
             package.extractall(temp / "source", filter="data")
         project, = (path.parent for path in (temp / "source").rglob("pyproject.toml"))
@@ -200,8 +201,8 @@ def npm():
 
 
 def hashes():
-    records = {str(path.relative_to(OUT)).replace("\\", "/"): hashlib.sha256(path.read_bytes()).hexdigest()
-               for path in sorted(OUT.rglob("*")) if path.is_file() and path.suffix in (".crate", ".whl", ".gz", ".tgz")}
+    records = {path.relative_to(OUT).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+               for path in archive_paths(OUT)}
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "SHA256SUMS.json").write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
     print(f"Artifact digests recorded for {len(records)} archives in {OUT}.")
@@ -213,6 +214,7 @@ def main():
     parser.add_argument("--wheel", type=Path, help="Exactly one platform wheel to install and verify")
     args = parser.parse_args()
     task = args.task
+    check()
     if task == "verify-wheel":
         if args.wheel is None:
             parser.error("verify-wheel requires --wheel")

@@ -4,21 +4,27 @@ on:
   workflow_dispatch:
     inputs:
       artifact_run_id:
-        description: Successful Alpha distribution artifacts run built from master
+        description: Successful Alpha distribution artifacts dispatch run ID
+        required: true
+        type: string
+      source_sha:
+        description: Full 40-character reviewed source commit from that run
         required: true
         type: string
       confirm_publish:
-        description: Choose publish only after reviewing the npm tarball
+        description: Choose publish after artifact review and release authorization
         required: true
         type: choice
-        options:
-          - no
-          - publish
-        default: no
+        options: ['no', 'publish']
+        default: 'no'
 
 permissions:
   contents: read
   actions: read
+
+concurrency:
+  group: publish-npm
+  cancel-in-progress: false
 
 jobs:
   publish:
@@ -29,120 +35,65 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - name: Download release source manifest
-        uses: actions/download-artifact@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: actions/download-artifact@v4
         with:
           name: alpha-rust
-          path: ${{ runner.temp }}/alpha-source
+          path: ${{ runner.temp }}/release-artifacts/rust
           run-id: ${{ inputs.artifact_run_id }}
           github-token: ${{ github.token }}
 
-      - name: Download Node 22 package artifact
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
           name: alpha-npm-node22
-          path: ${{ runner.temp }}/npm-node22
+          path: ${{ runner.temp }}/release-artifacts/npm-node22
           run-id: ${{ inputs.artifact_run_id }}
           github-token: ${{ github.token }}
 
-      - name: Download Node 24 package artifact
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
           name: alpha-npm-node24
-          path: ${{ runner.temp }}/npm-node24
+          path: ${{ runner.temp }}/release-artifacts/npm-node24
           run-id: ${{ inputs.artifact_run_id }}
           github-token: ${{ github.token }}
 
-      - name: Validate artifact run and source
+      - name: Validate artifact run and reviewed commit
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_ID: ${{ inputs.artifact_run_id }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
         run: |
           set -euo pipefail
-          run_json="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}")"
-          test "$(jq -r '.name' <<< "$run_json")" = "Alpha distribution artifacts"
-          test "$(jq -r '.conclusion' <<< "$run_json")" = "success"
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}" > "$RUNNER_TEMP/artifact-run.json"
           workflow_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/alpha-artifacts.yml" --jq '.id')"
-          test "$(jq -r '.workflow_id' <<< "$run_json")" = "$workflow_id"
-          test "$(jq -r '.event' <<< "$run_json")" = "workflow_dispatch"
-          test "$(jq -r '.head_branch' <<< "$run_json")" = "master"
-
-          manifest="${RUNNER_TEMP}/alpha-source/release-source.json"
-          test "$(jq -r '.source_ref' "$manifest")" = "master"
-          source_sha="$(jq -r '.source_sha' "$manifest")"
-          test "$source_sha" = "$(jq -r '.head_sha' <<< "$run_json")"
-          echo "source_sha=$source_sha" >> "$GITHUB_OUTPUT"
-
-      - name: Verify both npm artifacts and package metadata
-        id: verify
-        env:
-          ARTIFACT_ROOT: ${{ runner.temp }}
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          import hashlib
-          import json
-          import tarfile
-          from pathlib import Path
-
-          root = Path(__import__("os").environ["ARTIFACT_ROOT"])
-          relative = "npm/"
-          archives = []
-          for folder in ("npm-node22", "npm-node24"):
-              matches = list((root / folder).glob("tamil-toolkit-*.tgz"))
-              if len(matches) != 1:
-                  raise SystemExit(f"Expected one npm tarball in {folder}; found {len(matches)}")
-              archives.append(matches[0])
-          digests = []
-          for folder, archive in zip(("npm-node22", "npm-node24"), archives):
-              sums = json.loads((root / folder / "SHA256SUMS.json").read_text(encoding="utf-8"))
-              actual = hashlib.sha256(archive.read_bytes()).hexdigest()
-              if sums.get(relative + archive.name) != actual:
-                  raise SystemExit(f"Digest mismatch for {folder} npm artifact")
-              with tarfile.open(archive, "r:gz") as package:
-                  metadata = json.load(package.extractfile("package/package.json"))
-              if metadata.get("name") != "tamil-toolkit" or not metadata.get("version"):
-                  raise SystemExit(f"Unexpected npm package identity in {folder}")
-              if metadata.get("private", False):
-                  raise SystemExit(f"{folder} npm artifact is marked private")
-              if metadata.get("publishConfig", {}).get("tag") != "alpha":
-                  raise SystemExit(f"{folder} npm artifact is missing the alpha dist-tag")
-              digests.append(actual)
-              print(f"Verified {folder}: {actual}")
-          if digests[0] != digests[1]:
-              raise SystemExit("Node 22 and Node 24 npm artifacts differ")
-          if archives[0].name != archives[1].name:
-              raise SystemExit("Node 22 and Node 24 npm artifact filenames differ")
-          with open(__import__("os").environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"tarball={archives[1]}\n")
-          PY
+          python tools/release_policy.py verify-run --directory "$ARTIFACTS" --source-sha "$SOURCE_SHA" --run-info "$RUNNER_TEMP/artifact-run.json" --workflow-id "$workflow_id"
 
       - uses: actions/checkout@v4
         with:
-          ref: ${{ steps.validate.outputs.source_sha }}
+          ref: ${{ inputs.source_sha }}
+
+      - name: Verify source, versions, scope, and artifact hashes
+        id: verify
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
+        run: python tools/release_policy.py verify --registry npm --directory "$ARTIFACTS" --source-sha "$SOURCE_SHA"
 
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
           registry-url: https://registry.npmjs.org
-          package-manager-cache: false
 
       - name: Ensure npm trusted-publishing support
-        run: |
-          set -euo pipefail
-          npm install --global npm@12.2.0
-          npm --version
+        run: npm install --global npm@12.2.0
 
-      - name: Verify tarball version against the reviewed source
+      - name: Publish the reviewed tarball using OIDC
         env:
           TARBALL: ${{ steps.verify.outputs.tarball }}
-        run: |
-          set -euo pipefail
-          source_version="$(node -p "require('./bindings/js-wasm/package.json').version")"
-          tarball_version="$(tar -xOzf "$TARBALL" package/package.json | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version")"
-          test "$source_version" = "$tarball_version"
-
-      - name: Publish reviewed alpha package with npm trusted publishing
-        env:
-          TARBALL: ${{ steps.verify.outputs.tarball }}
-        run: npm publish "$TARBALL" --tag alpha
+          NPM_TAG: ${{ steps.verify.outputs.npm_tag }}
+        run: npm publish "$TARBALL" --tag "$NPM_TAG"

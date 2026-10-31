@@ -5,6 +5,9 @@ Status: PyPI `0.1.0a1`, all six finished Rust crates, and npm
 
 Repository: https://github.com/abishtakan/tamil-toolkit
 
+This document records the first alpha. Future releases follow the reusable
+[publishing policy](policy.md); the existing versions and tag are immutable.
+
 ## Scope and versions
 
 Publish these Rust packages, in dependency order: `tamil-core`, `tamil-norm`,

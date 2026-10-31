@@ -56,92 +56,42 @@ through both Node and browser-target WASM entry points. The current `alpha` and
 an authenticated maintainer CLI and interactive OTP; npm trusted publishing is
 not yet configured for future releases.
 
-## Build and review
 
-1. Run `just sync-release-files` after canonical lexicon/license changes, then
-   `just agent-pre-stop-gate`, `just test-dart`, and the workbench checks.
-2. Run `just release-check`. It produces six `.crate` archives, one host abi3
-   wheel, a source archive, an npm `.tgz`, and `target/alpha/SHA256SUMS.json`.
-   Real consumers outside the checkout run every active golden row. Node and
-   browser-target WASM are both executed in Node; interactive browser testing
-   is not implied. These local candidate artifacts may describe a dirty tree.
-3. Review metadata, licensing, archive contents, supported platforms and changes.
-   Commit the reviewed source. Push only when explicitly authorized, then run
-   the **Alpha distribution artifacts** workflow with `workflow_dispatch` from
-   `master`, setting `source_ref` to `v0.1.0-alpha.1`. It checks out that exact
-   tag and records its commit in the Rust artifact. This lets the current
-   workflow use supported runners without moving the public release tag. Its
-   jobs need no registry credentials. It also runs for matching release tags
-   and relevant pull requests.
-4. Require the normal CI gate, Rust archive consumer, Rust 1.85 minimum check,
-   Node 22/24 archive consumers, and Linux x64/Windows x64/macOS arm64 Python
-   artifact jobs and CPython 3.11/3.14 wheel consumers to pass. Linux wheels use
-   manylinux2014. Each wheel is built from its own complete source archive.
-   Select one identical-version source archive for PyPI; do not upload three
-   files with the same distribution filename.
+## Future releases
 
-Generated source snapshots are a packaging convenience, not a second Tamil
-engine. `just check-unicode` fails on stale copies. Source staging removes unused
-workspace members from Python's archive and checks that all retained dependency
-versions/checksums still match Cargo.lock. Binary dependency notices come from
-that locked Cargo graph. Development/build dependencies can appear in the
-notice file conservatively; no test tooling is a Python/npm runtime dependency.
+The reusable [publishing policy](policy.md) owns versioning, local and remote
+gates, source review, package allowlists, account configuration, upload order,
+and partial-release recovery. The first-alpha evidence above is historical;
+do not reuse its already published versions or move its existing tag.
 
-## Registry setup and release workflow
+Start with `just release-status` and `just check-release-policy`. Development
+continues at the current version until a release batch is chosen. The expensive
+**Alpha distribution artifacts** workflow is manual-only: dispatch it from
+master with the full reviewed commit as `source_ref`. All jobs resolve that
+same immutable SHA and attach release identity plus SHA-256 inventory.
 
-After concrete artifact review and explicit authorization to publish:
+Future publishers require `artifact_run_id`, the full reviewed `source_sha`,
+and `confirm_publish=publish`; Rust also requires the approved `package`.
+They reject artifacts from failed, PR, fork, or non-master dispatch runs, and
+check source identity, versions, scope, and archive hashes. Artifacts from the
+first-alpha harness lack the new source metadata and cannot be reused by
+these gates. Publishing is an explicit release action under existing session
+authorization; ordinary commits, pushes, and tags do not upload.
 
-1. Confirm the intended registry accounts can publish the requested names.
-   PyPI's pending trusted publisher is configured for project `tamil-toolkit`,
-   owner `abishtakan`, repository `tamil-toolkit`, workflow `publish-pypi.yml`,
-   and environment `pypi`. The matching workflow is
-   `.github/workflows/publish-pypi.yml`; dispatch it from `master`. It is
-   manual-only, defaults to no publication, and accepts only artifacts from a
-   successful `Alpha distribution artifacts` run whose source manifest matches
-   the `v0.1.0-alpha.1` tag. The GitHub `pypi` environment has a required
-   reviewer.
-   The npm package now exists. Its first upload used an authenticated
-   maintainer CLI with an interactive OTP; no npm token is stored in GitHub.
-   Configure its trusted publisher for GitHub Actions before the next npm
-   release, with owner
-   `abishtakan`, repository `tamil-toolkit`, workflow filename
-   `publish-npm.yml`, no environment, and permission to run `npm publish`.
-   Configure it when the next version is ready and complete its first OIDC
-   publish within two days so the publisher does not expire.
-   The repository Actions secret `CARGO_REGISTRY_TOKEN` is configured for
-   crates.io. Never put credentials in this repository or ask for them in
-   plaintext chat. The crates.io account email is verified.
-2. `private` has been removed only from `bindings/js-wasm/package.json`.
-   Placeholder crates, FFI support crates, the workspace root npm package, and
-   the workbench remain private.
-3. The `v0.1.0-alpha.1` tag is already used by the PyPI release and must not be
-   moved. Rebuild Rust artifacts by dispatching **Alpha distribution artifacts**
-   from `master` with `source_ref=master`; the workflow records the exact commit
-   used by the crate publisher.
-4. Rust publication is complete for the six crates listed above. For future
-   releases, dispatch **Publish Rust crate to crates.io** once per crate from
-   `master`, using a successful artifact run from step 3. Publish in dependency
-   order: `tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`,
-   `tamil-codec`, `tamil-toolkit`; allow each crate to appear in the registry
-   before publishing dependents. The workflow validates source identity and the
-   artifact digest, and publishes only one allowlisted crate per run.
-5. PyPI, crates.io, and npm publication are complete for this alpha. For future
-   npm releases, use the guarded `publish-npm.yml` OIDC workflow after
-   configuring the package's trusted publisher. The initial manual upload used
-   the reviewed tarball and an interactive OTP; do not share OTPs or npm
-   credentials in chat.
-6. From a fresh consumer, install the exact public versions and run the same
-   golden consumer suite. Record registry links, tags, artifact digests, and CI
-   evidence here.
+The publishing workflow filenames are durable account configuration:
 
-Public publication cannot be validated solely with local dry runs. Registry
-ownership, publisher configuration, and successful remote CI remain separate
-requirements. This release's registry uploads and public consumer checks are
-recorded above; future uploads still require an explicit release action.
+| Registry | Workflow | Authentication |
+| --- | --- | --- |
+| crates.io | `publish-crate.yml` | Existing Actions secret `CARGO_REGISTRY_TOKEN` |
+| PyPI | `publish-pypi.yml` | Trusted publisher; project `tamil-toolkit`, GitHub owner/repo `abishtakan/tamil-toolkit`, environment `pypi` with required reviewer |
+| npm | `publish-npm.yml` | OIDC workflow prepared; package trusted publisher configuration remains deferred until the next version is ready |
 
-## References
+For npm, select GitHub Actions, owner `abishtakan`, repository `tamil-toolkit`,
+workflow `publish-npm.yml`, blank environment, and permit direct `npm publish`.
+Complete its first successful OIDC publication within two days of setup.
+No npm/PyPI token is required in GitHub. Never place credential values in this
+record, source, logs, or chat.
 
-- [Cargo publishing](https://doc.rust-lang.org/cargo/reference/publishing.html)
-- [Maturin source builds and wheel portability](https://www.maturin.rs/distribution.html)
-- [PyPI pending trusted publishers](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/)
-- [npm trusted publisher setup](https://docs.npmjs.com/trusted-publishers/)
+Pub.dev/Dart distribution and PostgreSQL remain deferred. See
+[current handoff](../status.md) and [development workflow](../development.md)
+before starting the next feature.

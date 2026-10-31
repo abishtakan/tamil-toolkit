@@ -1,0 +1,11 @@
+# Review changes to this file as release-scope changes, before publishing.
+schema = 1
+branch = "master"
+channel = "alpha"
+registries = ["crates.io", "pypi", "npm"]
+# Dependency order. A new module needs a completed specification, active golden
+# parity, packaging evidence, and explicit release review before joining this list.
+public_crates = [
+  "tamil-core", "tamil-norm", "tamil-collate", "tamil-numerals",
+  "tamil-codec", "tamil-toolkit",
+]

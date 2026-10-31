@@ -28,6 +28,16 @@ Post-edit checks are incremental but not guaranteed to finish in two seconds.
 The Stop gate rebuilds bindings before parity and may take minutes from a cold
 cache. Missing tools or build failures block it rather than silently skipping.
 
-CI independently runs the same gate on Ubuntu and Windows, plus host Dart FFI
-verification. PostgreSQL setup remains a separate planned integration because
-it needs a PostgreSQL/pgrx toolchain and reviewed morphology/search semantics.
+Normal CI runs the small Ubuntu Rust/Unicode gate, release-policy regressions,
+and workflow lint. Full harness and cross-runtime/Dart checks remain local;
+the explicit distribution workflow checks release archives on supported
+platforms. A passing normal CI run is not evidence that local parity ran.
+PostgreSQL remains planned because it needs a PostgreSQL/pgrx toolchain and
+reviewed morphology/search semantics.
+
+`just check-release-policy` also runs through the edit gate. It enforces the
+finished-crate allowlist, private support packages, synchronized versions, and
+channel. The publishers use the same helper to validate reviewed source and
+artifact hashes. See [publishing policy](releases/policy.md) and
+[development/handoff workflow](development.md). `/release-readiness` and
+`/handoff` expose these instructions in Claude; other clients read the same docs.

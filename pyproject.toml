@@ -12,7 +12,7 @@ dev = ["pytest>=8,<10", "maturin>=1.8,<2"]
 package = false
 
 [tool.pytest.ini_options]
-addopts = "--basetemp=target/pytest"
+# conftest.py selects numbered workspace temp directories for portable reruns.
 testpaths = ["tests/harness", "bindings/python/tests"]
 pythonpath = ["."]
 

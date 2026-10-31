@@ -4,116 +4,96 @@ on:
   workflow_dispatch:
     inputs:
       artifact_run_id:
-        description: Successful Alpha distribution artifacts run ID for v0.1.0-alpha.1
+        description: Successful Alpha distribution artifacts dispatch run ID
+        required: true
+        type: string
+      source_sha:
+        description: Full 40-character reviewed source commit from that run
         required: true
         type: string
       confirm_publish:
-        description: Choose publish only after reviewing the release artifacts
+        description: Choose publish after artifact review and release authorization
         required: true
         type: choice
-        options:
-          - no
-          - publish
-        default: no
+        options: ['no', 'publish']
+        default: 'no'
 
 permissions:
   contents: read
   actions: read
 
+concurrency:
+  group: publish-pypi
+  cancel-in-progress: false
+
 jobs:
   publish:
     if: ${{ inputs.confirm_publish == 'publish' && github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
+    environment: pypi
     permissions:
       actions: read
       contents: read
       id-token: write
     steps:
-      - name: Download release source manifest
-        uses: actions/download-artifact@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: actions/download-artifact@v4
         with:
           name: alpha-rust
-          path: artifacts/release-source
+          path: ${{ runner.temp }}/release-artifacts/rust
           run-id: ${{ inputs.artifact_run_id }}
           github-token: ${{ github.token }}
 
-      - name: Validate source artifact run
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-python-x86_64-unknown-linux-gnu
+          path: ${{ runner.temp }}/release-artifacts/python-linux
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-python-x86_64-pc-windows-msvc
+          path: ${{ runner.temp }}/release-artifacts/python-windows
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-python-aarch64-apple-darwin
+          path: ${{ runner.temp }}/release-artifacts/python-macos
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Validate artifact run and reviewed commit
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_ID: ${{ inputs.artifact_run_id }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
         run: |
           set -euo pipefail
-          run_json="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}")"
-          test "$(jq -r '.name' <<< "$run_json")" = "Alpha distribution artifacts"
-          test "$(jq -r '.conclusion' <<< "$run_json")" = "success"
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}" > "$RUNNER_TEMP/artifact-run.json"
           workflow_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/alpha-artifacts.yml" --jq '.id')"
-          test "$(jq -r '.workflow_id' <<< "$run_json")" = "$workflow_id"
-          case "$(jq -r '.event' <<< "$run_json"):$(jq -r '.head_branch' <<< "$run_json")" in
-            push:v0.1.0-alpha.1|workflow_dispatch:master) ;;
-            *) echo "Artifact run must be a tag push or a master dispatch" >&2; exit 1 ;;
-          esac
+          python tools/release_policy.py verify-run --directory "$ARTIFACTS" --source-sha "$SOURCE_SHA" --run-info "$RUNNER_TEMP/artifact-run.json" --workflow-id "$workflow_id"
 
-          tag_ref="$(gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/v0.1.0-alpha.1")"
-          tag_object_type="$(jq -r '.object.type' <<< "$tag_ref")"
-          tag_object_sha="$(jq -r '.object.sha' <<< "$tag_ref")"
-          if [[ "$tag_object_type" == "tag" ]]; then
-            tag_commit_sha="$(gh api "repos/${GITHUB_REPOSITORY}/git/tags/${tag_object_sha}" --jq '.object.sha')"
-          else
-            tag_commit_sha="$tag_object_sha"
-          fi
-          test "$(jq -r '.source_ref' artifacts/release-source/release-source.json)" = "v0.1.0-alpha.1"
-          test "$(jq -r '.source_sha' artifacts/release-source/release-source.json)" = "$tag_commit_sha"
-
-      - name: Download Linux x64 Python artifacts
-        uses: actions/download-artifact@v4
+      - uses: actions/checkout@v4
         with:
-          name: alpha-python-x86_64-unknown-linux-gnu
-          path: artifacts/linux
-          run-id: ${{ inputs.artifact_run_id }}
-          github-token: ${{ github.token }}
+          ref: ${{ inputs.source_sha }}
 
-      - name: Download Windows x64 Python artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: alpha-python-x86_64-pc-windows-msvc
-          path: artifacts/windows
-          run-id: ${{ inputs.artifact_run_id }}
-          github-token: ${{ github.token }}
+      - name: Verify source, versions, scope, and artifact hashes
+        id: verify
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
+        run: python tools/release_policy.py verify --registry pypi --directory "$ARTIFACTS" --source-sha "$SOURCE_SHA" --dist "$RUNNER_TEMP/pypi-dist"
 
-      - name: Download macOS arm64 Python artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: alpha-python-aarch64-apple-darwin
-          path: artifacts/macos
-          run-id: ${{ inputs.artifact_run_id }}
-          github-token: ${{ github.token }}
-
-      - name: Prepare distribution files
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p dist
-          cp artifacts/linux/*.whl dist/
-          cp artifacts/linux/*.tar.gz dist/
-          cp artifacts/windows/*.whl dist/
-          cp artifacts/macos/*.whl dist/
-          python - <<'PY'
-          from pathlib import Path
-
-          wheels = list(Path("dist").glob("*.whl"))
-          sdists = list(Path("dist").glob("*.tar.gz"))
-          if len(wheels) != 3 or len(sdists) != 1:
-              raise SystemExit(
-                  f"Expected 3 platform wheels and 1 source archive; "
-                  f"found {len(wheels)} wheels and {len(sdists)} source archives"
-              )
-          for path in sorted([*wheels, *sdists]):
-              print(path)
-          PY
-
-      - name: Publish reviewed distributions to PyPI
+      - name: Publish reviewed distributions using OIDC
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages-dir: dist/
+          packages-dir: ${{ runner.temp }}/pypi-dist/
+          skip-existing: false

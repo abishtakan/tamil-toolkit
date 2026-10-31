@@ -25,6 +25,11 @@ local verification alone does not establish support on those remote platforms.
 
 ## Start here
 
+Read [current status](docs/status.md), [development workflow](docs/development.md),
+and [publishing policy](docs/releases/policy.md) for the next task and release
+rules. `just release-status` lists approved packages; `just check-release-policy`
+checks versions, scope, and channel without building distributions.
+
 Install Rust through rustup (the repository pins 1.95.0), Python 3.11+, uv,
 Node 22.16+, pnpm 11.5.0, and [just](https://just.systems/). Rust host builds on
 Windows require MSVC Build Tools. Ensure Cargo's bin directory is on PATH; for
@@ -194,7 +199,7 @@ OS permissions. See [agent harness details](docs/agent-harness.md). Cold checks
 can take minutes. The fast GitHub push/PR gate runs core Rust and Unicode checks
 on Ubuntu. The full cross-runtime, harness, and Dart gates remain available
 locally; the alpha artifact workflow checks release packages across supported
-platforms.
+platforms on explicit dispatch.
 
 Original code is [MIT licensed](LICENSE); upstream data and mapping notices are
 preserved in [third-party notices](THIRD_PARTY_NOTICES.md). Contributions are

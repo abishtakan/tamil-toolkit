@@ -10,6 +10,13 @@ bootstrap:
 doctor:
     uv run --locked python tools/tasks.py doctor
 
+# Fast package scope/version checks and the dependency-ordered release inventory.
+check-release-policy:
+    uv run --locked python tools/release_policy.py check
+
+release-status:
+    uv run --locked python tools/release_policy.py status
+
 # Refresh checked distribution copies from canonical lexicon/license sources.
 sync-release-files:
     uv run --locked python tools/release_files.py

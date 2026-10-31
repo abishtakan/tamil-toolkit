@@ -4,41 +4,43 @@ on:
   workflow_dispatch:
     inputs:
       source_ref:
-        description: Source tag/ref to package
+        description: Reviewed source ref or full commit to package
         required: true
         type: string
-        default: v0.1.0-alpha.1
-  push:
-    tags: ['v0.1.0-alpha.1']
-  pull_request:
-    paths:
-      - 'Cargo*'
-      - 'crates/**'
-      - 'lexicon/**'
-      - 'bindings/**'
-      - 'tools/release*'
-      - 'tools/release_smoke/**'
-      - 'tests/golden/**'
-      - 'pnpm-lock.yaml'
-      - 'pyproject.toml'
-      - 'uv.lock'
-      - 'README.md'
-      - 'docs/releases/**'
-      - 'LICENSE'
-      - 'THIRD_PARTY_NOTICES.md'
-      - '.github/workflows/alpha-artifacts.yml'
+        default: master
 
-# Build-only workflow: no registry credentials and no publishing permission.
+# Expensive distribution checks are explicit; ordinary pushes use ci.yml.
 permissions:
   contents: read
 
+concurrency:
+  group: alpha-artifacts
+  cancel-in-progress: true
+
 jobs:
+  source:
+    if: ${{ github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.source.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_ref }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python tools/release_policy.py check
+      - id: source
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
   rust:
+    needs: source
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.source_ref || github.ref }}
+          ref: ${{ needs.source.outputs.sha }}
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: 1.95.0
@@ -46,49 +48,27 @@ jobs:
         with:
           python-version: '3.13'
       - run: python tools/release.py rust
-      - name: Record release source
-        env:
-          SOURCE_REF: ${{ inputs.source_ref || github.ref_name }}
-        run: |
-          python - <<'PY'
-          import json
-          import os
-          import subprocess
-          from pathlib import Path
-
-          source_sha = subprocess.check_output(
-              ["git", "rev-parse", "HEAD"], text=True
-          ).strip()
-          Path("target/alpha/release-source.json").write_text(
-              json.dumps(
-                  {"source_ref": os.environ["SOURCE_REF"], "source_sha": source_sha},
-                  sort_keys=True,
-              )
-              + "\n",
-              encoding="utf-8",
-          )
-          PY
+      - run: python tools/release_policy.py record --directory target/alpha
       - uses: actions/upload-artifact@v4
         with:
           name: alpha-rust
-          path: |
-            target/alpha/rust/*.crate
-            target/alpha/SHA256SUMS.json
-            target/alpha/release-source.json
+          path: target/alpha/
           if-no-files-found: error
 
   rust-minimum:
+    needs: source
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.source_ref || github.ref }}
+          ref: ${{ needs.source.outputs.sha }}
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: 1.85.0
       - run: cargo check --locked -p tamil-toolkit --lib
 
   npm:
+    needs: source
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -96,7 +76,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.source_ref || github.ref }}
+          ref: ${{ needs.source.outputs.sha }}
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: 1.95.0
@@ -113,15 +93,15 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: python tools/release.py npm
+      - run: python tools/release_policy.py record --directory target/alpha
       - uses: actions/upload-artifact@v4
         with:
           name: alpha-npm-node${{ matrix.node }}
-          path: |
-            target/alpha/npm/*.tgz
-            target/alpha/SHA256SUMS.json
+          path: target/alpha/
           if-no-files-found: error
 
   python:
+    needs: source
     strategy:
       fail-fast: false
       matrix:
@@ -139,7 +119,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.source_ref || github.ref }}
+          ref: ${{ needs.source.outputs.sha }}
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: 1.95.0
@@ -156,14 +136,15 @@ jobs:
           manylinux: ${{ matrix.manylinux }}
           working-directory: target/alpha/python-source/bindings/python
           args: --release --locked --sdist --out dist
+      - run: python tools/release_policy.py record --directory target/alpha/python-source/bindings/python/dist
       - uses: actions/upload-artifact@v4
         with:
           name: alpha-python-${{ matrix.target }}
-          path: target/alpha/python-source/bindings/python/dist/*
+          path: target/alpha/python-source/bindings/python/dist/
           if-no-files-found: error
 
   python-consumers:
-    needs: python
+    needs: [source, python]
     strategy:
       fail-fast: false
       matrix:
@@ -180,7 +161,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.source_ref || github.ref }}
+          ref: ${{ needs.source.outputs.sha }}
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}

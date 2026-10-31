@@ -19,6 +19,7 @@ def run(*args, cwd=ROOT):
 
 
 def check_unicode():
+    run(sys.executable, "tools/release_policy.py", "check")
     run(sys.executable, "tools/mcp-tamil-oracle/check_source_unicode.py")
     run(sys.executable, "tools/release_files.py", "--check")
 

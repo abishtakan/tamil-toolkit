@@ -1,0 +1,12 @@
+---
+description: Preserve reviewed release scope and durable development handoffs.
+alwaysApply: true
+---
+
+Read AGENTS.md and docs/status.md before work. Follow docs/development.md and
+docs/releases/policy.md. release-policy.toml owns the public crate allowlist and
+channel; Cargo.toml owns the version. Run just check-release-policy for drift.
+Keep planned/FFI packages private and respect the deferred Dart/PostgreSQL scope.
+Only reviewed manual workflows publish; ordinary pushes and tags do not upload.
+Use existing session authorization without asking for it again. Record source,
+checks, limits, and next action in docs/status.md before a context handoff.
