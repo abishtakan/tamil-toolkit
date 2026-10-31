@@ -54,7 +54,20 @@ consumer installed the public version and passed all 21,277 active golden rows
 through both Node and browser-target WASM entry points. The current `alpha` and
 `latest` dist-tags both resolve to `0.1.0-alpha.1`. The initial publication used
 an authenticated maintainer CLI and interactive OTP; npm trusted publishing is
-not yet configured for future releases.
+now configured and was used for alpha 2.
+
+## Alpha 2 publication status
+
+Release source `af11c96ddacd0fedda0cc8c346130a71f924c0b6` passed the successful
+[artifact matrix run 41237000066](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237000066).
+All six approved crates and npm `0.1.0-alpha.2` are published. Public registry
+checksums, publisher runs, and Node consumer results are in
+[alpha-2.md](alpha-2.md).
+
+PyPI upload [run 41237423572](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237423572)
+is waiting for the configured `pypi` environment reviewer. The alpha 2 tag is
+not created yet; finish PyPI publication, compare its archive hashes, pass the
+public Python consumer, then tag the reviewed source SHA and update the handoff.
 
 
 ## Future releases
@@ -84,11 +97,11 @@ The publishing workflow filenames are durable account configuration:
 | --- | --- | --- |
 | crates.io | `publish-crate.yml` | Existing Actions secret `CARGO_REGISTRY_TOKEN` |
 | PyPI | `publish-pypi.yml` | Trusted publisher; project `tamil-toolkit`, GitHub owner/repo `abishtakan/tamil-toolkit`, environment `pypi` with required reviewer |
-| npm | `publish-npm.yml` | OIDC workflow prepared; package trusted publisher configuration remains deferred until the next version is ready |
+| npm | `publish-npm.yml` | Package trusted publisher is configured for GitHub Actions and successfully published alpha 2 using OIDC |
 
-For npm, select GitHub Actions, owner `abishtakan`, repository `tamil-toolkit`,
-workflow `publish-npm.yml`, blank environment, and permit direct `npm publish`.
-Complete its first successful OIDC publication within two days of setup.
+The npm trusted publisher uses owner `abishtakan`, repository `tamil-toolkit`,
+workflow `publish-npm.yml`, a blank environment, and permission for direct
+`npm publish`. Its first OIDC publication succeeded within the setup window.
 No npm/PyPI token is required in GitHub. Never place credential values in this
 record, source, logs, or chat.
 
