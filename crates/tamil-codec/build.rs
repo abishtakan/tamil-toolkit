@@ -246,7 +246,7 @@ fn main() {
         .expect("valid tscii.toml");
     assert_eq!(profile.profile, "tscii-tamilutil-bounded-v1");
     assert!(!profile.source.is_empty());
-    assert_eq!(profile.mappings.len(), 313);
+    assert_eq!(profile.mappings.len(), 341);
     let mut nodes = vec![Node::default()];
     let mut reverse: BTreeMap<&str, Vec<Vec<u8>>> = BTreeMap::new();
     for mapping in &profile.mappings {
@@ -288,7 +288,7 @@ fn main() {
     }
     let mut encode_nodes = vec![Node::default()];
     let mut maximum = 0;
-    assert_eq!(reverse.len(), 312);
+    assert_eq!(reverse.len(), 340);
     for (text, spellings) in reverse {
         let key = match spellings.as_slice() {
             [only] => {

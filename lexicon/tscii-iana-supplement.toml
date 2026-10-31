@@ -1,0 +1,127 @@
+# Independent IANA draft and Unicode Tamil scalar audit.
+source = "IANA TSCII registration draft pages 10-13; Unicode Tamil chart"
+remove_hex = ["8686", "8686a1", "8b8b20"]
+
+[[mappings]]
+hex = "80"
+unicode = "\u0be6"
+
+[[mappings]]
+hex = "86"
+unicode = "\u0bb9"
+
+[[mappings]]
+hex = "86a1"
+unicode = "\u0bb9\u0bbe"
+
+[[mappings]]
+hex = "87"
+unicode = "\u0b95\u0bcd\u0bb7"
+
+[[mappings]]
+hex = "87a1"
+unicode = "\u0b95\u0bcd\u0bb7\u0bbe"
+
+[[mappings]]
+hex = "87a2"
+unicode = "\u0b95\u0bcd\u0bb7\u0bbf"
+
+[[mappings]]
+hex = "87a3"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc0"
+
+[[mappings]]
+hex = "87a4"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc1"
+
+[[mappings]]
+hex = "87a5"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc2"
+
+[[mappings]]
+hex = "8b"
+unicode = "\u0bb9\u0bcd"
+
+[[mappings]]
+hex = "8c"
+unicode = "\u0b95\u0bcd\u0bb7\u0bcd"
+
+[[mappings]]
+hex = "92"
+unicode = "\u2019"
+
+[[mappings]]
+hex = "93"
+unicode = "\u201c"
+
+[[mappings]]
+hex = "94"
+unicode = "\u201d"
+
+[[mappings]]
+hex = "95"
+unicode = "\u0bec"
+
+[[mappings]]
+hex = "a1"
+unicode = "\u0bbe"
+
+[[mappings]]
+hex = "a2"
+unicode = "\u0bbf"
+
+[[mappings]]
+hex = "a3"
+unicode = "\u0bc0"
+
+[[mappings]]
+hex = "a4"
+unicode = "\u0bc1"
+
+[[mappings]]
+hex = "a5"
+unicode = "\u0bc2"
+
+[[mappings]]
+hex = "a6"
+unicode = "\u0bc6"
+
+[[mappings]]
+hex = "a687"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc6"
+
+[[mappings]]
+hex = "a687a1"
+unicode = "\u0b95\u0bcd\u0bb7\u0bca"
+
+[[mappings]]
+hex = "a687aa"
+unicode = "\u0b95\u0bcd\u0bb7\u0bcc"
+
+[[mappings]]
+hex = "a7"
+unicode = "\u0bc7"
+
+[[mappings]]
+hex = "a787"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc7"
+
+[[mappings]]
+hex = "a787a1"
+unicode = "\u0b95\u0bcd\u0bb7\u0bcb"
+
+[[mappings]]
+hex = "a8"
+unicode = "\u0bc8"
+
+[[mappings]]
+hex = "a887"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc8"
+
+[[mappings]]
+hex = "a9"
+unicode = "\u00a9"
+
+[[mappings]]
+hex = "aa"
+unicode = "\u0bd7"

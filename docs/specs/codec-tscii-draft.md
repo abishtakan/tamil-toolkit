@@ -25,7 +25,8 @@ for any future broader profile.
 
 ## Decoder contract
 
-The profile uses the TamilUtil TSCII encoder's unambiguous byte spellings,
+The profile uses the TamilUtil TSCII encoder's byte spellings corrected and
+supplemented using the [IANA byte audit](codec-tscii-audit.md),
 interpreting printable legacy characters through Windows-1252 and C1 controls
 as same-valued bytes. The reference's `0x5C 0x88` spelling for U+0B9C U+0BCD
 contains a literal backslash in a Java `replace` call; use `0x88` as supported
@@ -49,5 +50,6 @@ to NFC; do not guess encodings or remove joiners.
 Reverse conversion, Windows-1252 font strings and automatic detection need
 separate contracts and are outside this draft's initial decoder scope.
 
-The active corpus contains 642 profile-derived and 28 independent IANA seed
-cases. The profile is sourced from TamilUtil; Aril was consulted for comparison.
+All assigned individual bytes in the IANA table now have mappings. This byte
+inventory does not by itself establish complete coverage of every valid TSCII
+sequence or legacy font variant. Aril was consulted for comparison.

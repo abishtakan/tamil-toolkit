@@ -154,20 +154,20 @@ errors. It does not yet provide reverse conversion or automatic detection.
 
 ## Package map
 
-| Package | State | Responsibility |
-| --- | --- | --- |
-| `tamil-toolkit` | Working bootstrap | Rust umbrella and common JSON dispatcher; Python/npm distribution name |
-| `tamil-core` | v0.1 contract verified locally | Ezhuthu segmentation, Mei/Uyir, Unicode inspection |
-| `tamil-norm` | Working facade | Re-export core normalization for SDK/PostgreSQL consumers |
-| `tamil-collate` | agara-v1 verified locally | Mei-first Agara sorting and canonical sort/search keys |
-| `tamil-numerals` | v0.2 feature families verified locally | Integer words, exact INR/LKR amounts, fractions, Gregorian dates |
-| `tamil-codec` | bounded profiles | Bamini â†” Unicode and TSCII bytes â†’ Unicode; unsupported input is rejected |
-| `tamil-punarchi` | Planned | Sourced Nannool sandhi and compound splitting |
-| `tamil-morph` | Planned | FST stemming, lemmatization, suffix/case analysis |
-| `tamil-dialect` | Planned | TN/SL regional spoken-to-literary normalization |
-| `tamil-hyphen` | Planned | Syllable/morpheme boundary hyphenation |
-| `tamil-yaappu` | Planned | Prosody and meter |
-| `pg_tamil` | Integration scaffold | Separate pgrx extension; full-text search waits on morphology |
+| Package          | State                                  | Responsibility                                                                |
+| ---------------- | -------------------------------------- | ----------------------------------------------------------------------------- |
+| `tamil-toolkit`  | Working bootstrap                      | Rust umbrella and common JSON dispatcher; Python/npm distribution name        |
+| `tamil-core`     | v0.1 contract verified locally         | Ezhuthu segmentation, Mei/Uyir, Unicode inspection                            |
+| `tamil-norm`     | Working facade                         | Re-export core normalization for SDK/PostgreSQL consumers                     |
+| `tamil-collate`  | agara-v1 verified locally              | Mei-first Agara sorting and canonical sort/search keys                        |
+| `tamil-numerals` | v0.2 feature families verified locally | Integer words, exact INR/LKR amounts, fractions, Gregorian dates              |
+| `tamil-codec`    | bounded profiles                       | Bamini â†” Unicode and TSCII bytes â†’ Unicode; unsupported input is rejected |
+| `tamil-punarchi` | Planned                                | Sourced Nannool sandhi and compound splitting                                 |
+| `tamil-morph`    | Planned                                | FST stemming, lemmatization, suffix/case analysis                             |
+| `tamil-dialect`  | Planned                                | TN/SL regional spoken-to-literary normalization                               |
+| `tamil-hyphen`   | Planned                                | Syllable/morpheme boundary hyphenation                                        |
+| `tamil-yaappu`   | Planned                                | Prosody and meter                                                             |
+| `pg_tamil`       | Integration scaffold                   | Separate pgrx extension; full-text search waits on morphology                 |
 
 Public distributions use `tamil-*`. Python imports and Pub use `tamil_toolkit`
 because those platforms require identifier-compatible names. Internal Rust FFI

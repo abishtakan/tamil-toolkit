@@ -1,5 +1,9 @@
 profile = "tscii-tamilutil-bounded-v1"
-source = "TamilUtil 1f659e70; IANA registration draft"
+source = "TamilUtil 1f659e70; IANA registration draft and audited supplement"
+
+[[mappings]]
+hex = "80"
+unicode = "\u0be6"
 
 [[mappings]]
 hex = "81"
@@ -82,11 +86,11 @@ hex = "85a5"
 unicode = "\u0bb8\u0bc2"
 
 [[mappings]]
-hex = "8686"
+hex = "86"
 unicode = "\u0bb9"
 
 [[mappings]]
-hex = "8686a1"
+hex = "86a1"
 unicode = "\u0bb9\u0bbe"
 
 [[mappings]]
@@ -106,6 +110,30 @@ hex = "86a5"
 unicode = "\u0bb9\u0bc2"
 
 [[mappings]]
+hex = "87"
+unicode = "\u0b95\u0bcd\u0bb7"
+
+[[mappings]]
+hex = "87a1"
+unicode = "\u0b95\u0bcd\u0bb7\u0bbe"
+
+[[mappings]]
+hex = "87a2"
+unicode = "\u0b95\u0bcd\u0bb7\u0bbf"
+
+[[mappings]]
+hex = "87a3"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc0"
+
+[[mappings]]
+hex = "87a4"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc1"
+
+[[mappings]]
+hex = "87a5"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc2"
+
+[[mappings]]
 hex = "88"
 unicode = "\u0b9c\u0bcd"
 
@@ -118,8 +146,12 @@ hex = "8a"
 unicode = "\u0bb8\u0bcd"
 
 [[mappings]]
-hex = "8b8b20"
+hex = "8b"
 unicode = "\u0bb9\u0bcd"
+
+[[mappings]]
+hex = "8c"
+unicode = "\u0b95\u0bcd\u0bb7\u0bcd"
 
 [[mappings]]
 hex = "8d"
@@ -140,6 +172,22 @@ unicode = "\u0beb"
 [[mappings]]
 hex = "91"
 unicode = "\u2018"
+
+[[mappings]]
+hex = "92"
+unicode = "\u2019"
+
+[[mappings]]
+hex = "93"
+unicode = "\u201c"
+
+[[mappings]]
+hex = "94"
+unicode = "\u201d"
+
+[[mappings]]
+hex = "95"
+unicode = "\u0bec"
 
 [[mappings]]
 hex = "96"
@@ -180,6 +228,30 @@ unicode = "\u0bf1"
 [[mappings]]
 hex = "9f"
 unicode = "\u0bf2"
+
+[[mappings]]
+hex = "a1"
+unicode = "\u0bbe"
+
+[[mappings]]
+hex = "a2"
+unicode = "\u0bbf"
+
+[[mappings]]
+hex = "a3"
+unicode = "\u0bc0"
+
+[[mappings]]
+hex = "a4"
+unicode = "\u0bc1"
+
+[[mappings]]
+hex = "a5"
+unicode = "\u0bc2"
+
+[[mappings]]
+hex = "a6"
+unicode = "\u0bc6"
 
 [[mappings]]
 hex = "a683"
@@ -228,6 +300,18 @@ unicode = "\u0bb9\u0bca"
 [[mappings]]
 hex = "a686aa"
 unicode = "\u0bb9\u0bcc"
+
+[[mappings]]
+hex = "a687"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc6"
+
+[[mappings]]
+hex = "a687a1"
+unicode = "\u0b95\u0bcd\u0bb7\u0bca"
+
+[[mappings]]
+hex = "a687aa"
+unicode = "\u0b95\u0bcd\u0bb7\u0bcc"
 
 [[mappings]]
 hex = "a6b8"
@@ -446,6 +530,10 @@ hex = "a6c9aa"
 unicode = "\u0ba9\u0bcc"
 
 [[mappings]]
+hex = "a7"
+unicode = "\u0bc7"
+
+[[mappings]]
 hex = "a783"
 unicode = "\u0b9c\u0bc7"
 
@@ -476,6 +564,14 @@ unicode = "\u0bb9\u0bc7"
 [[mappings]]
 hex = "a786a1"
 unicode = "\u0bb9\u0bcb"
+
+[[mappings]]
+hex = "a787"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc7"
+
+[[mappings]]
+hex = "a787a1"
+unicode = "\u0b95\u0bcd\u0bb7\u0bcb"
 
 [[mappings]]
 hex = "a7b8"
@@ -622,6 +718,10 @@ hex = "a7c9a1"
 unicode = "\u0ba9\u0bcb"
 
 [[mappings]]
+hex = "a8"
+unicode = "\u0bc8"
+
+[[mappings]]
 hex = "a883"
 unicode = "\u0b9c\u0bc8"
 
@@ -636,6 +736,10 @@ unicode = "\u0bb8\u0bc8"
 [[mappings]]
 hex = "a886"
 unicode = "\u0bb9\u0bc8"
+
+[[mappings]]
+hex = "a887"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc8"
 
 [[mappings]]
 hex = "a8b8"
@@ -708,6 +812,14 @@ unicode = "\u0bb1\u0bc8"
 [[mappings]]
 hex = "a8c9"
 unicode = "\u0ba9\u0bc8"
+
+[[mappings]]
+hex = "a9"
+unicode = "\u00a9"
+
+[[mappings]]
+hex = "aa"
+unicode = "\u0bd7"
 
 [[mappings]]
 hex = "ab"

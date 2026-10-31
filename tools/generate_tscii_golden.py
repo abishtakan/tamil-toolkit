@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import re
+import tomllib
 import unicodedata
 from pathlib import Path
 
@@ -51,19 +52,27 @@ def mappings():
         result[key] = value
     # IANA's draft documents this deprecated alternate byte explicitly.
     result[bytes([0xad])] = "\u0b87"
-    if len(result) != 313:
-        raise ValueError(f"Unexpected TSCII mapping count: {len(result)}")
+    supplement = tomllib.loads((ROOT / "lexicon/tscii-iana-supplement.toml").read_text(encoding="utf-8"))
+    for key in supplement["remove_hex"]:
+        del result[bytes.fromhex(key)]
+    for item in supplement["mappings"]:
+        key = bytes.fromhex(item["hex"])
+        value = unicodedata.normalize("NFC", item["unicode"])
+        if key in result and result[key] != value:
+            raise ValueError(f"Conflicting audited key: {key.hex()}")
+        result[key] = value
     return dict(sorted(result.items()))
 
 
 def fixtures(table):
+    audited = {bytes.fromhex(item["hex"]) for item in tomllib.loads((ROOT / "lexicon/tscii-iana-supplement.toml").read_text(encoding="utf-8"))["mappings"]}
     rows = []
     for dialect in ("TN", "SL"):
         for key, value in table.items():
             rows.append({"id": f"codec_tscii_map_{dialect.lower()}_{key.hex()}", "op": "tscii_bytes_to_unicode",
                          "input": {"bytes": list(key)}, "expected": value, "dialect": dialect,
                          "tags": ["tscii", "mapping"], "source":
-                         (SOURCE_LABEL + "; IANA registration draft byte assignment" if key in (bytes([0xad]), bytes([0x88])) else SOURCE_LABEL)})
+                         ("IANA TSCII registration draft and Unicode Tamil chart; see lexicon/tscii-iana-supplement.toml" if key in audited else SOURCE_LABEL + "; IANA registration draft byte assignment" if key in (bytes([0xad]), bytes([0x88])) else SOURCE_LABEL)})
         rows.append({"id": f"codec_tscii_ascii_{dialect.lower()}", "op": "tscii_bytes_to_unicode",
                      "input": {"bytes": list(range(128))}, "expected": "".join(map(chr, range(128))),
                      "dialect": dialect, "tags": ["tscii", "ascii"], "source": "IANA TSCII registration draft, ASCII range"})
@@ -92,7 +101,7 @@ def fixtures(table):
 
 
 def lexicon(table):
-    lines = ['profile = "tscii-tamilutil-bounded-v1"', 'source = "TamilUtil 1f659e70; IANA registration draft"', ""]
+    lines = ['profile = "tscii-tamilutil-bounded-v1"', 'source = "TamilUtil 1f659e70; IANA registration draft and audited supplement"', ""]
     for key, value in table.items():
         lines.extend(["[[mappings]]", f'hex = "{key.hex()}"', "unicode = " + json.dumps(value, ensure_ascii=True), ""])
     lines.extend(["[[encoding_preferences]]", 'hex = "fe"', 'unicode = "\\u0b87"', ""])

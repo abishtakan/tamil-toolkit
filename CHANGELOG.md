@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Audit TSCII byte assignments, add missing symbols and Grantha forms, and fix repeated HA byte corruption.
+
 - Add strict bounded Unicode to TSCII byte encoding and cross-runtime bindings.
 
 - Add bounded TSCII byte decoding, shared fixtures, and Python, WASM, and Dart adapters.

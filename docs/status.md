@@ -6,17 +6,19 @@ and local, awaiting commit/push; inspect `git status` for their current state.
 
 ## Current objective
 
-The bounded TSCII byte decoder and strict reverse encoder are implemented in
-the local development tree and remain unreleased. They share 22,585 active
-vectors across the toolkit; 638 cover the new encoder. The previously published
-alpha packages do not contain TSCII conversion. No version bump or registry
-upload was performed. Contracts: [decoder](specs/codec-tscii-draft.md),
-[encoder](specs/codec-tscii-encode.md), and [roadmap](specs/codec-roadmap.md).
+The TSCII IANA byte audit expanded the unreleased decoder and encoder to all
+assigned single-byte slots and corrected repeated HA byte errors. The profile has
+341 byte keys and 340 canonical Unicode values. Its 22,791 active toolkit
+vectors include independent audited byte and Grantha sequence cases. All
+possible legacy variants and sequences remain outside the verified claim.
+See [the byte audit](specs/codec-tscii-audit.md), the decoder and encoder
+contracts, and [the roadmap](specs/codec-roadmap.md). The published alpha does
+not contain this work; no version bump or upload was performed.
 
-Verification: `just agent-pre-stop-gate` passed including 105 harness tests
-and the complete Rust, Python and WASM parity suite; `just test-dart` and the
-workbench TypeScript check passed. Logs: `target/tscii-encode-gate.log` and
-`target/tscii-encode-dart.log`.
+Verification: `just agent-pre-stop-gate` passed after a sequential rerun;
+Rust, Python, Node/browser WASM, and Dart passed the shared corpus. The first
+parallel attempt hit a Windows DLL lock. Logs: `target/tscii-audit-final-gate.log`
+and `target/tscii-audit-dart.log`. Workbench TypeScript check passed.
 
 ## Published and implemented
 
@@ -47,7 +49,7 @@ Actions secret. Never copy secret values here.
 ## Codec development handoff
 
 The current tree supports explicit Bamini conversion both ways and a bounded
-313-key TSCII byte decoder and a 312-key strict reverse encoder, with ASCII
+341-key TSCII byte decoder and a 340-key strict reverse encoder, with ASCII
 passthrough, longest matching, and explicit canonical byte aliases. Detection,
 Anjal, Vanavil, TAB, TAM and historical orthography remain future milestones.
 Choose and source the next bounded codec profile before implementation.
