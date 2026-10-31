@@ -20,6 +20,8 @@ type FieldSpec = {
   label: string;
   kind: "text" | "textarea" | "number" | "select";
   initial: string;
+  inputMode?: "decimal" | "numeric";
+  required?: boolean;
   options?: string[];
   help?: string;
 };
@@ -75,6 +77,27 @@ const packages: PackageInfo[] = [
 ];
 
 const demoTamil = "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd";
+const maxCurrencyMinorUnits = 99_999_999_999n;
+
+function parseCurrencyAmount(value: string): number {
+  const match = /^([+-]?)(\d*)(?:\.(\d{0,2}))?$/.exec(value.trim());
+  if (!match || (!match[2] && !match[3])) {
+    throw new Error("Enter an amount with digits and an optional decimal point (up to 2 decimal places). Example: 1025.50");
+  }
+
+  const whole = (match[2] || "0").replace(/^0+(?=\d)/, "");
+  if (whole.length > 9) {
+    throw new Error("Amount is outside the supported range: -999,999,999.99 to 999,999,999.99.");
+  }
+
+  let minorUnits = BigInt(whole) * 100n + BigInt((match[3] || "").padEnd(2, "0") || "0");
+  if (match[1] === "-") minorUnits = -minorUnits;
+  if (minorUnits > maxCurrencyMinorUnits || minorUnits < -maxCurrencyMinorUnits) {
+    throw new Error("Amount is outside the supported range: -999,999,999.99 to 999,999,999.99.");
+  }
+  return Number(minorUnits);
+}
+
 const operations: OperationSpec[] = [
   {
     op: "get_letters", label: "Get letters", description: "Split text into normalized Tamil letters and preserved non-Tamil graphemes.",
@@ -147,33 +170,33 @@ const operations: OperationSpec[] = [
     ],
   },
   {
-    op: "format_currency", label: "Format currency", description: "Format an exact amount in minor units (100 minor units per rupee).",
+    op: "format_currency", label: "Format currency", description: "Format an exact amount entered in rupees, with up to two decimal places.",
     fields: [
-      { key: "amount_minor", label: "Amount in minor units", kind: "number", initial: "102550", help: "Enter whole minor units: 102550 means 1,025.50. Range ±99,999,999,999." },
+      { key: "amount", label: "Amount", kind: "text", inputMode: "decimal", required: true, initial: "1025.50", help: "Type the amount normally, e.g. 1025.50. Use a dot and up to 2 decimal places; no grouping commas." },
       { key: "currency", label: "Currency", kind: "select", initial: "LKR", options: ["INR", "LKR"] },
       { key: "locale", label: "Locale", kind: "select", initial: "SL", options: ["TN", "SL"] },
     ],
-    build: (v) => ({ op: "format_currency", input: { amount_minor: Number(v.amount_minor), currency: v.currency, locale: v.locale } }),
+    build: (v) => ({ op: "format_currency", input: { amount_minor: parseCurrencyAmount(v.amount), currency: v.currency, locale: v.locale } }),
     examples: [
-      { label: "LKR · 1,025.50 · SL", values: { amount_minor: "102550", currency: "LKR", locale: "SL" } },
-      { label: "INR · 0.99 · TN", values: { amount_minor: "99", currency: "INR", locale: "TN" } },
-      { label: "Negative amount", values: { amount_minor: "-105", currency: "LKR", locale: "TN" } },
-      { label: "Above maximum · error", values: { amount_minor: "100000000000", currency: "INR", locale: "TN" } },
+      { label: "LKR · 1,025.50 · SL", values: { amount: "1025.50", currency: "LKR", locale: "SL" } },
+      { label: "INR · 0.99 · TN", values: { amount: "0.99", currency: "INR", locale: "TN" } },
+      { label: "Negative amount", values: { amount: "-1.05", currency: "LKR", locale: "TN" } },
+      { label: "Above maximum · error", values: { amount: "1000000000.00", currency: "INR", locale: "TN" } },
     ],
   },
   {
-    op: "currency_to_words", label: "Currency to words", description: "Spell an exact INR/LKR amount in words.",
+    op: "currency_to_words", label: "Currency to words", description: "Spell an exact amount entered in rupees, with up to two decimal places.",
     fields: [
-      { key: "amount_minor", label: "Amount in minor units", kind: "number", initial: "102550", help: "Enter whole minor units: 102550 means 1,025.50. Range ±99,999,999,999." },
+      { key: "amount", label: "Amount", kind: "text", inputMode: "decimal", required: true, initial: "1025.50", help: "Type the amount normally, e.g. 1025.50. Use a dot and up to 2 decimal places; no grouping commas." },
       { key: "currency", label: "Currency", kind: "select", initial: "LKR", options: ["INR", "LKR"] },
       { key: "locale", label: "Locale", kind: "select", initial: "SL", options: ["TN", "SL"] },
     ],
-    build: (v) => ({ op: "currency_to_words", input: { amount_minor: Number(v.amount_minor), currency: v.currency, locale: v.locale } }),
+    build: (v) => ({ op: "currency_to_words", input: { amount_minor: parseCurrencyAmount(v.amount), currency: v.currency, locale: v.locale } }),
     examples: [
-      { label: "LKR · 1,025.50 · SL", values: { amount_minor: "102550", currency: "LKR", locale: "SL" } },
-      { label: "INR · 0.99 · TN", values: { amount_minor: "99", currency: "INR", locale: "TN" } },
-      { label: "Negative amount", values: { amount_minor: "-105", currency: "LKR", locale: "TN" } },
-      { label: "Above maximum · error", values: { amount_minor: "100000000000", currency: "INR", locale: "TN" } },
+      { label: "LKR · 1,025.50 · SL", values: { amount: "1025.50", currency: "LKR", locale: "SL" } },
+      { label: "INR · 0.99 · TN", values: { amount: "0.99", currency: "INR", locale: "TN" } },
+      { label: "Negative amount", values: { amount: "-1.05", currency: "LKR", locale: "TN" } },
+      { label: "Above maximum · error", values: { amount: "1000000000.00", currency: "INR", locale: "TN" } },
     ],
   },
   {
@@ -518,12 +541,13 @@ function renderFields(operation?: OperationSpec) {
       control = document.createElement("input");
       (control as HTMLInputElement).type = field.kind;
       if (field.kind === "number") (control as HTMLInputElement).step = "1";
+      if (field.inputMode) (control as HTMLInputElement).inputMode = field.inputMode;
     }
     control.id = `field-${field.key}`;
     control.name = field.key;
     control.dataset.field = field.key;
     control.value = field.initial;
-    if (field.kind === "number") control.required = true;
+    if (field.kind === "number" || field.required) control.required = true;
     wrapper.append(title, control);
     if (field.help) {
       const help = document.createElement("small");
@@ -676,8 +700,11 @@ async function runManual() {
   if (!manualForm.checkValidity()) {
     const invalid = manualFields.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(":invalid");
     const label = invalid?.closest("label")?.querySelector(".manual-field-label")?.textContent ?? "This value";
-    showManualInputNotice("Input needed", `${label} needs a valid whole number.`);
-    manualStatus.textContent = "Enter a valid number to update the result.";
+    const message = invalid instanceof HTMLInputElement && invalid.type === "number"
+      ? `${label} needs a valid whole number.`
+      : `${label} is required.`;
+    showManualInputNotice("Input needed", message);
+    manualStatus.textContent = "Enter a valid value to update the result.";
     return;
   }
   const runtime = runtimeFor(info);
