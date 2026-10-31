@@ -109,6 +109,16 @@ void main() {
       (error) => error.message, 'message', collision['expected_error'],
     )));
   });
+  test('TAM byte convenience APIs', () {
+    expect(tamil.tamBytesToUnicode([0x41]), '\u0b95\u0bbf');
+    expect(tamil.unicodeToTamBytes('\u0b95\u0bbf'), [0x41]);
+    expect(() => tamil.unicodeToTamBytes('A'), throwsArgumentError);
+  });
+  test('TAB byte convenience APIs', () {
+    expect(tamil.tabBytesToUnicode([0xe8, 0xa4]), '\u0b95\u0bbf');
+    expect(tamil.unicodeToTabBytes('\u0b95\u0bbf'), [0xe8, 0xa4]);
+    expect(() => tamil.tabBytesToUnicode([0x98]), throwsArgumentError);
+  });
   test('TSCII byte convenience API', () {
     expect(tamil.tsciiBytesToUnicode([0xba, 0xa2, 0xc5, 0xfd]), '\u0b9a\u0bbf\u0bb5\u0ba9\u0bcd');
     expect(tamil.unicodeToTsciiBytes('\u0b87'), [0xfe]);

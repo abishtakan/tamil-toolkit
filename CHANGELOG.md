@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add bounded bidirectional TAM byte conversion with monolingual byte handling.
+
+- Add bounded bidirectional TAB byte conversion and shared cross-runtime fixtures.
+
 - Audit TSCII byte assignments, add missing symbols and Grantha forms, and fix repeated HA byte corruption.
 
 - Add strict bounded Unicode to TSCII byte encoding and cross-runtime bindings.

@@ -32,3 +32,7 @@ Sorting preserves original text and canonical ties. See the linked specification
 Current development source adds `tscii_bytes_to_unicode(bytes([0xba, 0xa2, 0xc5, 0xfd]))`; it is not in the published alpha.
 
 The unreleased `unicode_to_tscii_bytes(text)` returns Python `bytes`.
+
+Unreleased development source provides `tab_bytes_to_unicode(data)` and `unicode_to_tab_bytes(text)`.
+
+Unreleased development source provides `tam_bytes_to_unicode(data)` and `unicode_to_tam_bytes(text)`; TAM bytes do not preserve Latin letters.

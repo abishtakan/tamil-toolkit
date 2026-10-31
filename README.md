@@ -58,7 +58,7 @@ implemented package to enter values and see its operations update live as you
 type. Results show the returned text or JSON plus Unicode scalar values. Python
 and Dart selections call their native adapters from the local dev server. The
 `tamil-codec` workbench supports live Bamini conversion in both directions and
-bounded TSCII byte conversion in both directions. Planned packages remain visibly unimplemented. Golden vectors and native test suites are
+bounded TSCII, TAB and TAM byte conversion in both directions. Planned packages remain visibly unimplemented. Golden vectors and native test suites are
 available in a collapsed optional section below the manual controls.
 `pnpm run check:workbench` type-checks the app; `pnpm run build:workbench`
 verifies a production bundle.
@@ -87,11 +87,13 @@ the host; mobile library bundling is future work.
   strict/preserve policies, and NFC output.
 - `unicode_to_bamini`: canonical strict encoding that returns ASCII only after
   decoding it reproduces the NFC input.
+- `tam_bytes_to_unicode` / `unicode_to_tam_bytes`: bounded monolingual TAM byte conversion.
+- `tab_bytes_to_unicode` / `unicode_to_tab_bytes`: bounded TAB byte conversion.
 - `unicode_to_tscii_bytes`: strict bounded TSCII encoding with round-trip validation.
 - `tscii_bytes_to_unicode`: bounded TSCII byte decoding with explicit errors
   for unsupported bytes and NFC output.
 - Local MCP tools for scalar inspection, scalar diffs, and fixture validation.
-- **22,585 active golden vectors**, including 1,637 shared error cases, across Rust,
+- **22,585 active golden vectors**, including 1,669 shared error cases, across Rust,
   Python, Node/browser-target WASM, and host Dart.
 - Independent Unicode 17 fixtures cover all 247 traditional letters, the full
   288-form supported consonant/vowel matrix, both Shri spellings, and 766 UAX 29
@@ -213,5 +215,5 @@ preserved in [third-party notices](THIRD_PARTY_NOTICES.md). Contributions are
 welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). The PyPI, Rust, and npm alpha
 packages are live.
 
-The TSCII byte conversion is available in the current source tree and is planned for
+The TSCII, TAB and TAM byte conversions are available in the current source tree and is planned for
 the next release; it is not included in the published 0.1.0 alpha packages.

@@ -138,3 +138,21 @@ test("fraction and date convenience APIs on both WASM targets", () => {
     expect(() => api.format_date(2023, 2, 29)).toThrow("invalid Gregorian date");
   }
 });
+
+
+test("TAB byte convenience APIs on both WASM targets", () => {
+  for (const api of [nodeApi, webApi]) {
+    expect(api.tab_bytes_to_unicode(new Uint8Array([0xe8, 0xa4]))).toBe("\u0b95\u0bbf");
+    expect(api.unicode_to_tab_bytes("\u0b95\u0bbf")).toEqual([0xe8, 0xa4]);
+    expect(() => api.tab_bytes_to_unicode([0x98])).toThrow("unsupported TAB byte");
+  }
+});
+
+
+test("TAM byte convenience APIs on both WASM targets", () => {
+  for (const api of [nodeApi, webApi]) {
+    expect(api.tam_bytes_to_unicode(new Uint8Array([0x41]))).toBe("\u0b95\u0bbf");
+    expect(api.unicode_to_tam_bytes("\u0b95\u0bbf")).toEqual([0x41]);
+    expect(() => api.unicode_to_tam_bytes("A")).toThrow("unsupported Unicode scalar for TAM");
+  }
+});

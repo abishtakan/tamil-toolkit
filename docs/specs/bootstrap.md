@@ -4,7 +4,7 @@ This setup implements only the operations in the active golden suite. It does
 not claim to implement general legacy-encoding coverage, sandhi, morphology,
 dialect normalization, hyphenation, prosody, or PostgreSQL full-text search.
 
-The unreleased [TSCII decoder](codec-tscii-draft.md) and [encoder](codec-tscii-encode.md) contracts specify the bounded byte profile.
+The unreleased [TSCII decoder](codec-tscii-draft.md) and [encoder](codec-tscii-encode.md) contracts specify the bounded byte profile. The unreleased [TAB](codec-tab.md) and [TAM](codec-tam.md) contracts define their byte profiles.
 
 ## Unicode operations
 

@@ -6,19 +6,17 @@ and local, awaiting commit/push; inspect `git status` for their current state.
 
 ## Current objective
 
-The TSCII IANA byte audit expanded the unreleased decoder and encoder to all
-assigned single-byte slots and corrected repeated HA byte errors. The profile has
-341 byte keys and 340 canonical Unicode values. Its 22,791 active toolkit
-vectors include independent audited byte and Grantha sequence cases. All
-possible legacy variants and sequences remain outside the verified claim.
-See [the byte audit](specs/codec-tscii-audit.md), the decoder and encoder
-contracts, and [the roadmap](specs/codec-roadmap.md). The published alpha does
-not contain this work; no version bump or upload was performed.
+The unreleased TAM milestone adds a 407-key byte decoder and a 331-value strict
+reverse encoder, with 1,545 shared TAM cases. Across the source tree there are
+25,707 active golden vectors. TAM is monolingual: byte 41 maps to a Tamil glyph,
+not Latin A. The [TAM contract](specs/codec-tam.md) describes its scope and the
+TAB-compatible aliases. TAB work remains local and is preserved. The published
+alpha does not include TAM, TAB or TSCII. No version bump or upload occurred.
 
-Verification: `just agent-pre-stop-gate` passed after a sequential rerun;
-Rust, Python, Node/browser WASM, and Dart passed the shared corpus. The first
-parallel attempt hit a Windows DLL lock. Logs: `target/tscii-audit-final-gate.log`
-and `target/tscii-audit-dart.log`. Workbench TypeScript check passed.
+Verification: `just agent-pre-stop-gate` passed, including 112 harness tests
+and shared Rust, Python and Node/browser WASM parity. `just test-dart` and the
+workbench TypeScript check passed on the same 25,707 vectors. Logs:
+`target/tam-final-gate.log` and `target/tam-final-dart.log`.
 
 ## Published and implemented
 
@@ -50,8 +48,8 @@ Actions secret. Never copy secret values here.
 
 The current tree supports explicit Bamini conversion both ways and a bounded
 341-key TSCII byte decoder and a 340-key strict reverse encoder, with ASCII
-passthrough, longest matching, and explicit canonical byte aliases. Detection,
-Anjal, Vanavil, TAB, TAM and historical orthography remain future milestones.
+passthrough, longest matching, and explicit canonical byte aliases. The unreleased TAB and TAM profiles provide conversion in both directions.
+Detection, Anjal, Vanavil and historical orthography remain future milestones.
 Choose and source the next bounded codec profile before implementation.
 
 After codec coverage is scoped, return to Punarchi, morphology, dialect

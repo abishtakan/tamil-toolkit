@@ -1,0 +1,93 @@
+source = "Unicode TAB conversion note UTN 17, byte inventory"
+
+[[mappings]]
+hex = "91"
+unicode = "\u2018"
+
+[[mappings]]
+hex = "92"
+unicode = "\u2019"
+
+[[mappings]]
+hex = "93"
+unicode = "\u201c"
+
+[[mappings]]
+hex = "94"
+unicode = "\u201d"
+
+[[mappings]]
+hex = "95"
+unicode = "\u2022"
+
+[[mappings]]
+hex = "a0"
+unicode = "\u00a0"
+
+[[mappings]]
+hex = "a2"
+unicode = "\u0bcd"
+
+[[mappings]]
+hex = "a3"
+unicode = "\u0bbe"
+
+[[mappings]]
+hex = "a4"
+unicode = "\u0bbf"
+
+[[mappings]]
+hex = "a5"
+unicode = "\u2022"
+
+[[mappings]]
+hex = "a6"
+unicode = "\u0bc0"
+
+[[mappings]]
+hex = "a7"
+unicode = "\u0bc1"
+
+[[mappings]]
+hex = "a8"
+unicode = "\u0bc2"
+
+[[mappings]]
+hex = "a9"
+unicode = "\u00a9"
+
+[[mappings]]
+hex = "aa"
+unicode = "\u0bc6"
+
+[[mappings]]
+hex = "ab"
+unicode = "\u0bc7"
+
+[[mappings]]
+hex = "ac"
+unicode = "\u0bc8"
+
+[[mappings]]
+hex = "b7"
+unicode = "\u2022"
+
+[[mappings]]
+hex = "ca"
+unicode = "\u00a0"
+
+[[mappings]]
+hex = "d2"
+unicode = "\u201c"
+
+[[mappings]]
+hex = "d3"
+unicode = "\u201d"
+
+[[mappings]]
+hex = "d4"
+unicode = "\u2018"
+
+[[mappings]]
+hex = "d5"
+unicode = "\u2019"

@@ -1,8 +1,8 @@
 # tamil-codec expansion: plan and source inventory
 
-Status: the unreleased source includes a bounded TSCII decoder and strict
-encoder alongside the published `bamini-v1` profile. Further profiles are not
-yet implemented. See the TSCII decoder and encoder contracts for their limits.
+Status: the unreleased source includes bounded TSCII, TAB and TAM byte conversion
+alongside the published `bamini-v1` profile. Further profiles remain planned.
+See the codec contracts for limits and the TAB mapping-source conflicts.
 
 ## Delivery order
 

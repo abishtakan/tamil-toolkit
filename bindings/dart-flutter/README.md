@@ -18,3 +18,7 @@ use lexicographic numeric comparison and the documented `agara-v1` profile.
 The host adapter exposes `tsciiBytesToUnicode([0xba, 0xa2, 0xc5, 0xfd])` for the bounded TSCII byte profile.
 
 The host adapter exposes `unicodeToTsciiBytes(text)` returning a byte list.
+
+The host adapter provides `tabBytesToUnicode(bytes)` and `unicodeToTabBytes(text)`.
+
+The host adapter provides `tamBytesToUnicode(bytes)` and `unicodeToTamBytes(text)` for monolingual TAM.

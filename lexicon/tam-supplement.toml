@@ -1,0 +1,301 @@
+source = "Unicode TAM conversion note UTN 18 and Tamil Unicode chart"
+
+[[mappings]]
+hex = "41"
+unicode = "\u0b95\u0bbf"
+
+[[mappings]]
+hex = "42"
+unicode = "\u0b99\u0bbf"
+
+[[mappings]]
+hex = "43"
+unicode = "\u0b9a\u0bbf"
+
+[[mappings]]
+hex = "44"
+unicode = "\u0b9e\u0bbf"
+
+[[mappings]]
+hex = "45"
+unicode = "\u0ba3\u0bbf"
+
+[[mappings]]
+hex = "46"
+unicode = "\u0ba4\u0bbf"
+
+[[mappings]]
+hex = "47"
+unicode = "\u0ba8\u0bbf"
+
+[[mappings]]
+hex = "48"
+unicode = "\u0baa\u0bbf"
+
+[[mappings]]
+hex = "49"
+unicode = "\u0bae\u0bbf"
+
+[[mappings]]
+hex = "4a"
+unicode = "\u0baf\u0bbf"
+
+[[mappings]]
+hex = "4b"
+unicode = "\u0bb0\u0bbf"
+
+[[mappings]]
+hex = "4c"
+unicode = "\u0bb2\u0bbf"
+
+[[mappings]]
+hex = "4d"
+unicode = "\u0bb5\u0bbf"
+
+[[mappings]]
+hex = "4e"
+unicode = "\u0bb4\u0bbf"
+
+[[mappings]]
+hex = "4f"
+unicode = "\u0bb3\u0bbf"
+
+[[mappings]]
+hex = "50"
+unicode = "\u0bb1\u0bbf"
+
+[[mappings]]
+hex = "51"
+unicode = "\u0ba9\u0bbf"
+
+[[mappings]]
+hex = "52"
+unicode = "\u0bb8\u0bbf"
+
+[[mappings]]
+hex = "53"
+unicode = "\u0bb7\u0bbf"
+
+[[mappings]]
+hex = "54"
+unicode = "\u0b9c\u0bbf"
+
+[[mappings]]
+hex = "55"
+unicode = "\u0bb9\u0bbf"
+
+[[mappings]]
+hex = "56"
+unicode = "\u0b95\u0bcd\u0bb7\u0bbf"
+
+[[mappings]]
+hex = "57"
+unicode = "\u0b95\u0bc0"
+
+[[mappings]]
+hex = "58"
+unicode = "\u0b99\u0bc0"
+
+[[mappings]]
+hex = "59"
+unicode = "\u0b9a\u0bc0"
+
+[[mappings]]
+hex = "5a"
+unicode = "\u0b9e\u0bc0"
+
+[[mappings]]
+hex = "61"
+unicode = "\u0ba3\u0bc0"
+
+[[mappings]]
+hex = "62"
+unicode = "\u0ba4\u0bc0"
+
+[[mappings]]
+hex = "63"
+unicode = "\u0ba8\u0bc0"
+
+[[mappings]]
+hex = "64"
+unicode = "\u0baa\u0bc0"
+
+[[mappings]]
+hex = "65"
+unicode = "\u0bae\u0bc0"
+
+[[mappings]]
+hex = "66"
+unicode = "\u0baf\u0bc0"
+
+[[mappings]]
+hex = "67"
+unicode = "\u0bb0\u0bc0"
+
+[[mappings]]
+hex = "68"
+unicode = "\u0bb2\u0bc0"
+
+[[mappings]]
+hex = "69"
+unicode = "\u0bb5\u0bc0"
+
+[[mappings]]
+hex = "6a"
+unicode = "\u0bb4\u0bc0"
+
+[[mappings]]
+hex = "6b"
+unicode = "\u0bb3\u0bc0"
+
+[[mappings]]
+hex = "6c"
+unicode = "\u0bb1\u0bc0"
+
+[[mappings]]
+hex = "6d"
+unicode = "\u0ba9\u0bc0"
+
+[[mappings]]
+hex = "6e"
+unicode = "\u0bb8\u0bc0"
+
+[[mappings]]
+hex = "6f"
+unicode = "\u0bb7\u0bc0"
+
+[[mappings]]
+hex = "70"
+unicode = "\u0b9c\u0bc0"
+
+[[mappings]]
+hex = "71"
+unicode = "\u0bb9\u0bc0"
+
+[[mappings]]
+hex = "72"
+unicode = "\u0b95\u0bcd\u0bb7\u0bc0"
+
+[[mappings]]
+hex = "73"
+unicode = "\u0bf3"
+
+[[mappings]]
+hex = "74"
+unicode = "\u0bf4"
+
+[[mappings]]
+hex = "75"
+unicode = "\u0bf5"
+
+[[mappings]]
+hex = "76"
+unicode = "\u0bb8\u0bcd"
+
+[[mappings]]
+hex = "77"
+unicode = "\u0bb7\u0bcd"
+
+[[mappings]]
+hex = "78"
+unicode = "\u0b9c\u0bcd"
+
+[[mappings]]
+hex = "79"
+unicode = "\u0bb9\u0bcd"
+
+[[mappings]]
+hex = "7a"
+unicode = "\u0b95\u0bcd\u0bb7\u0bcd"
+
+[[mappings]]
+hex = "82"
+unicode = "\u0b95\u0bcd"
+
+[[mappings]]
+hex = "83"
+unicode = "\u0b99\u0bcd"
+
+[[mappings]]
+hex = "84"
+unicode = "\u0b9a\u0bcd"
+
+[[mappings]]
+hex = "85"
+unicode = "\u0b9e\u0bcd"
+
+[[mappings]]
+hex = "86"
+unicode = "\u0b9f\u0bcd"
+
+[[mappings]]
+hex = "87"
+unicode = "\u0ba3\u0bcd"
+
+[[mappings]]
+hex = "88"
+unicode = "\u0ba4\u0bcd"
+
+[[mappings]]
+hex = "89"
+unicode = "\u0ba8\u0bcd"
+
+[[mappings]]
+hex = "8a"
+unicode = "\u0baa\u0bcd"
+
+[[mappings]]
+hex = "8b"
+unicode = "\u0bae\u0bcd"
+
+[[mappings]]
+hex = "8c"
+unicode = "\u0baf\u0bcd"
+
+[[mappings]]
+hex = "96"
+unicode = "\u0bf9"
+
+[[mappings]]
+hex = "97"
+unicode = "\u0bf8"
+
+[[mappings]]
+hex = "98"
+unicode = "\u0bb0\u0bcd"
+
+[[mappings]]
+hex = "99"
+unicode = "\u0bb2\u0bcd"
+
+[[mappings]]
+hex = "9a"
+unicode = "\u0bb5\u0bcd"
+
+[[mappings]]
+hex = "9b"
+unicode = "\u0bb4\u0bcd"
+
+[[mappings]]
+hex = "9c"
+unicode = "\u0bb3\u0bcd"
+
+[[mappings]]
+hex = "9f"
+unicode = "\u0bb1\u0bcd"
+
+[[mappings]]
+hex = "a1"
+unicode = "\u0ba9\u0bcd"
+
+[[mappings]]
+hex = "ad"
+unicode = "\u0bfa"
+
+[[mappings]]
+hex = "d0"
+unicode = "\u0bf6"
+
+[[mappings]]
+hex = "d1"
+unicode = "\u0bf7"

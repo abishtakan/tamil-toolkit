@@ -25,6 +25,10 @@ pub const OPERATIONS: &[&str] = &[
     "currency_to_words",
     "bamini_to_unicode",
     "unicode_to_bamini",
+    "tam_bytes_to_unicode",
+    "unicode_to_tam_bytes",
+    "tab_bytes_to_unicode",
+    "unicode_to_tab_bytes",
     "tscii_bytes_to_unicode",
     "unicode_to_tscii_bytes",
     "format_fraction",
@@ -136,11 +140,25 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         "unicode_to_bamini" => {
             codec::unicode_to_bamini(string(&input["text"])?).map(|text| json!(text))
         }
+        "unicode_to_tam_bytes" => {
+            codec::unicode_to_tam_bytes(string(&input["text"])?).map(|bytes| json!(bytes))
+        }
+        "unicode_to_tab_bytes" => {
+            codec::unicode_to_tab_bytes(string(&input["text"])?).map(|bytes| json!(bytes))
+        }
         "unicode_to_tscii_bytes" => {
             codec::unicode_to_tscii_bytes(string(&input["text"])?).map(|bytes| json!(bytes))
         }
-        "tscii_bytes_to_unicode" => {
-            let error = || "expected TSCII byte array".to_owned();
+        "tscii_bytes_to_unicode" | "tab_bytes_to_unicode" | "tam_bytes_to_unicode" => {
+            let operation = request["op"].as_str().expect("validated op");
+            let error = || {
+                match operation {
+                    "tab_bytes_to_unicode" => "expected TAB byte array",
+                    "tam_bytes_to_unicode" => "expected TAM byte array",
+                    _ => "expected TSCII byte array",
+                }
+                .to_owned()
+            };
             let bytes = input
                 .get("bytes")
                 .and_then(Value::as_array)
@@ -156,7 +174,12 @@ pub fn execute(request: &Value) -> Result<Value, String> {
                     Ok(value)
                 })
                 .collect::<Result<Vec<_>, String>>()?;
-            codec::tscii_bytes_to_unicode(&bytes).map(|text| json!(text))
+            match operation {
+                "tab_bytes_to_unicode" => codec::tab_bytes_to_unicode(&bytes),
+                "tam_bytes_to_unicode" => codec::tam_bytes_to_unicode(&bytes),
+                _ => codec::tscii_bytes_to_unicode(&bytes),
+            }
+            .map(|text| json!(text))
         }
         "format_fraction" | "fraction_to_words" | "fraction_symbol" => {
             let value = numerals::Fraction::new(

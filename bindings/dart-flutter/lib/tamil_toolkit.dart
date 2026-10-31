@@ -69,6 +69,16 @@ class TamilToolkit {
   String unicodeToBamini(String text) => execute({
     'op': 'unicode_to_bamini', 'input': {'text': text},
   }) as String;
+  String tamBytesToUnicode(List<int> bytes) => execute({
+    'op': 'tam_bytes_to_unicode', 'input': {'bytes': bytes},
+  }) as String;
+  List<int> unicodeToTamBytes(String text) =>
+      (execute({'op': 'unicode_to_tam_bytes', 'input': {'text': text}}) as List).cast<int>();
+  String tabBytesToUnicode(List<int> bytes) => execute({
+    'op': 'tab_bytes_to_unicode', 'input': {'bytes': bytes},
+  }) as String;
+  List<int> unicodeToTabBytes(String text) =>
+      (execute({'op': 'unicode_to_tab_bytes', 'input': {'text': text}}) as List).cast<int>();
   String tsciiBytesToUnicode(List<int> bytes) => execute({
     'op': 'tscii_bytes_to_unicode', 'input': {'bytes': bytes},
   }) as String;

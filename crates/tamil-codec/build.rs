@@ -240,86 +240,94 @@ fn main() {
     )
     .expect("write Bamini trie");
 
-    let path = "lexicon/tscii.toml";
-    println!("cargo:rerun-if-changed={path}");
-    let profile: TsciiProfile = toml::from_str(&fs::read_to_string(path).expect("read tscii.toml"))
-        .expect("valid tscii.toml");
-    assert_eq!(profile.profile, "tscii-tamilutil-bounded-v1");
-    assert!(!profile.source.is_empty());
-    assert_eq!(profile.mappings.len(), 341);
-    let mut nodes = vec![Node::default()];
-    let mut reverse: BTreeMap<&str, Vec<Vec<u8>>> = BTreeMap::new();
-    for mapping in &profile.mappings {
-        assert!(!mapping.hex.is_empty() && mapping.hex.len() % 2 == 0);
-        let key: Vec<u8> = mapping
-            .hex
-            .as_bytes()
-            .chunks_exact(2)
-            .map(|pair| {
-                u8::from_str_radix(std::str::from_utf8(pair).expect("ASCII hex"), 16)
-                    .expect("valid hex byte")
-            })
-            .collect();
-        assert!(key[0] >= 0x80 && valid_output(&mapping.unicode));
-        reverse
-            .entry(&mapping.unicode)
-            .or_default()
-            .push(key.clone());
-        insert(
-            &mut nodes,
-            &key,
-            format!("Terminal::Text({})", literal(&mapping.unicode)),
-            3,
-        );
-    }
-    let mut preferences = BTreeMap::new();
-    for item in &profile.encoding_preferences {
-        let bytes = item
-            .hex
-            .as_bytes()
-            .chunks_exact(2)
-            .map(|pair| {
-                u8::from_str_radix(std::str::from_utf8(pair).expect("ASCII hex"), 16)
-                    .expect("valid hex")
-            })
-            .collect::<Vec<_>>();
-        assert_eq!(item.hex.len(), bytes.len() * 2);
-        assert!(preferences.insert(item.unicode.as_str(), bytes).is_none());
-    }
-    let mut encode_nodes = vec![Node::default()];
-    let mut maximum = 0;
-    assert_eq!(reverse.len(), 340);
-    for (text, spellings) in reverse {
-        let key = match spellings.as_slice() {
-            [only] => {
-                assert!(!preferences.contains_key(text));
-                only.clone()
-            }
-            _ => {
-                let preferred = preferences
-                    .remove(text)
-                    .expect("missing canonical TSCII alias preference");
-                assert!(spellings.contains(&preferred));
-                preferred
-            }
-        };
-        maximum = maximum.max(text.len());
-        let bytes = key.iter().map(u8::to_string).collect::<Vec<_>>().join(",");
-        insert(
-            &mut encode_nodes,
-            text.as_bytes(),
-            format!("Terminal::Bytes(&[{bytes}])"),
-            text.len(),
-        );
-    }
-    assert!(preferences.is_empty(), "unused TSCII alias preference");
-    let code = format!(
+    for (name, expected_profile, expected_keys, expected_values) in [
+        ("tscii", "tscii-tamilutil-bounded-v1", 341, 340),
+        ("tab", "tab-tamilutil-bounded-v1", 332, 323),
+        ("tam", "tam-utn18-bounded-v1", 407, 331),
+    ] {
+        let path = format!("lexicon/{name}.toml");
+        println!("cargo:rerun-if-changed={path}");
+        let profile: TsciiProfile =
+            toml::from_str(&fs::read_to_string(&path).expect("read tscii.toml"))
+                .expect("valid tscii.toml");
+        assert_eq!(profile.profile, expected_profile);
+        assert!(!profile.source.is_empty());
+        assert_eq!(profile.mappings.len(), expected_keys);
+        let mut nodes = vec![Node::default()];
+        let mut reverse: BTreeMap<&str, Vec<Vec<u8>>> = BTreeMap::new();
+        for mapping in &profile.mappings {
+            assert!(!mapping.hex.is_empty() && mapping.hex.len() % 2 == 0);
+            let key: Vec<u8> = mapping
+                .hex
+                .as_bytes()
+                .chunks_exact(2)
+                .map(|pair| {
+                    u8::from_str_radix(std::str::from_utf8(pair).expect("ASCII hex"), 16)
+                        .expect("valid hex byte")
+                })
+                .collect();
+            assert!((name == "tam" || key[0] >= 0x80) && valid_output(&mapping.unicode));
+            reverse
+                .entry(&mapping.unicode)
+                .or_default()
+                .push(key.clone());
+            insert(
+                &mut nodes,
+                &key,
+                format!("Terminal::Text({})", literal(&mapping.unicode)),
+                3,
+            );
+        }
+        let mut preferences = BTreeMap::new();
+        for item in &profile.encoding_preferences {
+            let bytes = item
+                .hex
+                .as_bytes()
+                .chunks_exact(2)
+                .map(|pair| {
+                    u8::from_str_radix(std::str::from_utf8(pair).expect("ASCII hex"), 16)
+                        .expect("valid hex")
+                })
+                .collect::<Vec<_>>();
+            assert_eq!(item.hex.len(), bytes.len() * 2);
+            assert!(preferences.insert(item.unicode.as_str(), bytes).is_none());
+        }
+        let mut encode_nodes = vec![Node::default()];
+        let mut maximum = 0;
+        assert_eq!(reverse.len(), expected_values);
+        for (text, spellings) in reverse {
+            let key = match spellings.as_slice() {
+                [only] => {
+                    assert!(!preferences.contains_key(text));
+                    only.clone()
+                }
+                _ => {
+                    let preferred = preferences
+                        .remove(text)
+                        .expect("missing canonical TSCII alias preference");
+                    assert!(spellings.contains(&preferred));
+                    preferred
+                }
+            };
+            maximum = maximum.max(text.len());
+            let bytes = key.iter().map(u8::to_string).collect::<Vec<_>>().join(",");
+            insert(
+                &mut encode_nodes,
+                text.as_bytes(),
+                format!("Terminal::Bytes(&[{bytes}])"),
+                text.len(),
+            );
+        }
+        assert!(preferences.is_empty(), "unused TSCII alias preference");
+        let code = format!(
         "pub const PROFILE: &str = {};\npub const NODES: &[Node] = &[{}];\npub const ENCODE_NODES: &[Node] = &[{}];\npub const MAX_UNICODE_KEY_BYTES: usize = {maximum};\n",
         literal(&profile.profile), render_nodes(&nodes), render_nodes(&encode_nodes)
     );
-    fs::write(
-        PathBuf::from(env::var_os("OUT_DIR").expect("OUT_DIR")).join("tscii_tables.rs"),
-        code,
-    )
-    .expect("write TSCII trie");
+        fs::write(
+            PathBuf::from(env::var_os("OUT_DIR").expect("OUT_DIR"))
+                .join(format!("{name}_tables.rs")),
+            code,
+        )
+        .expect("write TSCII trie");
+    }
 }

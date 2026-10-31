@@ -10,15 +10,15 @@ INPUTS = {
     "tamil-core": ("core.toml",),
     "tamil-collate": ("collate.toml",),
     "tamil-numerals": ("numerals.toml", "numerals-formats.toml"),
-    "tamil-codec": ("bamini.toml", "tscii.toml"),
+    "tamil-codec": ("bamini.toml", "tscii.toml", "tab.toml", "tam.toml"),
 }
 SUMMARIES = {
     "tamil-core": "Unicode normalization, tailored Ezhuthu iteration, Mei/Uyir composition and scalar inspection.",
     "tamil-norm": "Normalization facade for the Rust-owned Tamil toolkit.",
     "tamil-collate": "Versioned Mei-first Agara dictionary ordering and canonical sort/search keys.",
     "tamil-numerals": "Bounded TN/SL integers, exact INR/LKR amounts, rational fractions and Gregorian date formatting.",
-    "tamil-codec": "Explicit Bamini conversion and bounded TSCII byte conversion.",
-    "tamil-toolkit": "Unified entry point for the implemented core, normalization, collation, numerals, Bamini and bounded TSCII conversion.",
+    "tamil-codec": "Explicit Bamini conversion and bounded TSCII, TAB and TAM byte conversion.",
+    "tamil-toolkit": "Unified entry point for the implemented core, normalization, collation, numerals, Bamini and bounded TSCII, TAB and TAM conversion.",
 }
 
 

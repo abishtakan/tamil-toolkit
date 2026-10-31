@@ -5,7 +5,7 @@ from typing import Any
 
 from . import _native
 
-__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "tscii_bytes_to_unicode", "unicode_to_tscii_bytes", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date"]
+__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "tam_bytes_to_unicode", "unicode_to_tam_bytes", "tab_bytes_to_unicode", "unicode_to_tab_bytes", "tscii_bytes_to_unicode", "unicode_to_tscii_bytes", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date"]
 
 
 def execute(request: dict[str, Any]) -> Any:
@@ -70,6 +70,22 @@ def bamini_to_unicode(text: str, errors: str = "strict") -> str:
 
 def unicode_to_bamini(text: str) -> str:
     return execute({"op": "unicode_to_bamini", "input": {"text": text}})
+
+
+def tam_bytes_to_unicode(data: bytes | list[int]) -> str:
+    return execute({"op": "tam_bytes_to_unicode", "input": {"bytes": list(data)}})
+
+
+def unicode_to_tam_bytes(text: str) -> bytes:
+    return bytes(execute({"op": "unicode_to_tam_bytes", "input": {"text": text}}))
+
+
+def tab_bytes_to_unicode(data: bytes | list[int]) -> str:
+    return execute({"op": "tab_bytes_to_unicode", "input": {"bytes": list(data)}})
+
+
+def unicode_to_tab_bytes(text: str) -> bytes:
+    return bytes(execute({"op": "unicode_to_tab_bytes", "input": {"text": text}}))
 
 
 def tscii_bytes_to_unicode(data: bytes | list[int]) -> str:

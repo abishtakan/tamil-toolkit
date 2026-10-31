@@ -22,7 +22,17 @@ mod tscii_tables {
     use super::{Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/tscii_tables.rs"));
 }
+mod tab_tables {
+    use super::{Node, Terminal};
+    include!(concat!(env!("OUT_DIR"), "/tab_tables.rs"));
+}
+mod tam_tables {
+    use super::{Node, Terminal};
+    include!(concat!(env!("OUT_DIR"), "/tam_tables.rs"));
+}
+pub use tab_tables::PROFILE as TAB_PROFILE;
 pub use tables::PROFILE;
+pub use tam_tables::PROFILE as TAM_PROFILE;
 pub use tscii_tables::PROFILE as TSCII_PROFILE;
 pub const ROUNDTRIP_ERROR: &str = "Bamini encoding is not reversible for this input";
 
@@ -59,43 +69,56 @@ fn longest_match(input: &[u8], nodes: &[Node], maximum: usize) -> Option<(usize,
     found
 }
 
-/// Decode a bounded TSCII byte profile, preserving ASCII and returning NFC.
-/// Unsupported bytes fail with their original byte offset.
-pub fn tscii_bytes_to_unicode(bytes: &[u8]) -> Result<String, String> {
+fn decode_legacy_bytes(bytes: &[u8], nodes: &[Node], name: &str) -> Result<String, String> {
     let mut position = 0;
     let mut output = String::with_capacity(bytes.len());
     while position < bytes.len() {
         let byte = bytes[position];
-        if byte < 0x80 {
-            output.push(char::from(byte));
-            position += 1;
-        } else if let Some((length, Terminal::Text(value))) =
-            longest_match(&bytes[position..], tscii_tables::NODES, 3)
-        {
+        if let Some((length, Terminal::Text(value))) = longest_match(&bytes[position..], nodes, 3) {
             output.push_str(value);
             position += length;
+        } else if byte < 0x80 {
+            output.push(char::from(byte));
+            position += 1;
         } else {
             return Err(format!(
-                "unsupported TSCII byte at offset {position}: 0x{byte:02X}"
+                "unsupported {name} byte at offset {position}: 0x{byte:02X}"
             ));
         }
     }
     Ok(normalize_nfc(&output))
 }
 
-/// Encode Unicode to the canonical bounded TSCII byte profile.
-/// Successful results decode back to NFC; unsupported scalars are rejected.
-pub fn unicode_to_tscii_bytes(text: &str) -> Result<Vec<u8>, String> {
+/// Decode the bounded TSCII byte profile to NFC Unicode.
+pub fn tscii_bytes_to_unicode(bytes: &[u8]) -> Result<String, String> {
+    decode_legacy_bytes(bytes, tscii_tables::NODES, "TSCII")
+}
+
+/// Decode the bounded TAB byte profile to NFC Unicode.
+pub fn tab_bytes_to_unicode(bytes: &[u8]) -> Result<String, String> {
+    decode_legacy_bytes(bytes, tab_tables::NODES, "TAB")
+}
+
+/// Decode the monolingual TAM byte profile to NFC Unicode.
+pub fn tam_bytes_to_unicode(bytes: &[u8]) -> Result<String, String> {
+    decode_legacy_bytes(bytes, tam_tables::NODES, "TAM")
+}
+
+fn encode_legacy_bytes(
+    text: &str,
+    nodes: &[Node],
+    maximum: usize,
+    name: &str,
+    decode: fn(&[u8]) -> Result<String, String>,
+) -> Result<Vec<u8>, String> {
     let normalized = normalize_nfc(text);
     let mut position = 0;
     let mut output = Vec::with_capacity(normalized.len());
     while position < normalized.len() {
         let tail = &normalized[position..];
-        if let Some((length, Terminal::Bytes(value))) = longest_match(
-            tail.as_bytes(),
-            tscii_tables::ENCODE_NODES,
-            tscii_tables::MAX_UNICODE_KEY_BYTES,
-        ) {
+        if let Some((length, Terminal::Bytes(value))) =
+            longest_match(tail.as_bytes(), nodes, maximum)
+        {
             output.extend_from_slice(value);
             position += length;
         } else {
@@ -103,9 +126,11 @@ pub fn unicode_to_tscii_bytes(text: &str) -> Result<Vec<u8>, String> {
                 .chars()
                 .next()
                 .expect("non-empty normalized UTF-8 tail");
-            if !scalar.is_ascii() {
+            if !scalar.is_ascii()
+                || decode(&[scalar as u8]).ok().as_deref() != Some(scalar.to_string().as_str())
+            {
                 return Err(format!(
-                    "unsupported Unicode scalar for TSCII at NFC byte {position}: U+{:04X}",
+                    "unsupported Unicode scalar for {name} at NFC byte {position}: U+{:04X}",
                     u32::from(scalar)
                 ));
             }
@@ -113,10 +138,43 @@ pub fn unicode_to_tscii_bytes(text: &str) -> Result<Vec<u8>, String> {
             position += 1;
         }
     }
-    match tscii_bytes_to_unicode(&output) {
+    match decode(&output) {
         Ok(decoded) if decoded == normalized => Ok(output),
-        _ => Err("TSCII encoding is not reversible for this input".into()),
+        _ => Err(format!("{name} encoding is not reversible for this input")),
     }
+}
+
+/// Encode Unicode to the bounded TSCII profile with a round-trip guarantee.
+pub fn unicode_to_tscii_bytes(text: &str) -> Result<Vec<u8>, String> {
+    encode_legacy_bytes(
+        text,
+        tscii_tables::ENCODE_NODES,
+        tscii_tables::MAX_UNICODE_KEY_BYTES,
+        "TSCII",
+        tscii_bytes_to_unicode,
+    )
+}
+
+/// Encode Unicode to the bounded TAB profile with a round-trip guarantee.
+pub fn unicode_to_tab_bytes(text: &str) -> Result<Vec<u8>, String> {
+    encode_legacy_bytes(
+        text,
+        tab_tables::ENCODE_NODES,
+        tab_tables::MAX_UNICODE_KEY_BYTES,
+        "TAB",
+        tab_bytes_to_unicode,
+    )
+}
+
+/// Encode Unicode to the monolingual TAM profile with a round-trip guarantee.
+pub fn unicode_to_tam_bytes(text: &str) -> Result<Vec<u8>, String> {
+    encode_legacy_bytes(
+        text,
+        tam_tables::ENCODE_NODES,
+        tam_tables::MAX_UNICODE_KEY_BYTES,
+        "TAM",
+        tam_bytes_to_unicode,
+    )
 }
 
 /// Convert explicitly selected Bamini text. Allocates and normalizes output to NFC.
@@ -210,11 +268,19 @@ mod tests {
         #[test]
         fn arbitrary_tscii_bytes_never_panic(bytes in prop::collection::vec(any::<u8>(), 0..128)) {
             let _ = tscii_bytes_to_unicode(&bytes);
+            let _ = tab_bytes_to_unicode(&bytes);
+            let _ = tam_bytes_to_unicode(&bytes);
         }
         #[test]
         fn arbitrary_tscii_encoding_roundtrips(text in ".{0,96}") {
             if let Ok(bytes) = unicode_to_tscii_bytes(&text) {
                 prop_assert_eq!(tscii_bytes_to_unicode(&bytes).unwrap(), normalize_nfc(&text));
+            }
+            if let Ok(bytes) = unicode_to_tab_bytes(&text) {
+                prop_assert_eq!(tab_bytes_to_unicode(&bytes).unwrap(), normalize_nfc(&text));
+            }
+            if let Ok(bytes) = unicode_to_tam_bytes(&text) {
+                prop_assert_eq!(tam_bytes_to_unicode(&bytes).unwrap(), normalize_nfc(&text));
             }
         }
         #[test]

@@ -88,3 +88,17 @@ def test_fraction_and_date_convenience_apis():
         tamil.format_fraction(1, 0)
     with pytest.raises(ValueError, match="invalid Gregorian date"):
         tamil.format_date(2023, 2, 29)
+
+
+def test_tab_byte_convenience_apis():
+    assert tamil.tab_bytes_to_unicode(bytes([0xe8, 0xa4])) == "\u0b95\u0bbf"
+    assert tamil.unicode_to_tab_bytes("\u0b95\u0bbf") == bytes([0xe8, 0xa4])
+    with pytest.raises(ValueError, match="unsupported TAB byte"):
+        tamil.tab_bytes_to_unicode([0x98])
+
+
+def test_tam_byte_convenience_apis():
+    assert tamil.tam_bytes_to_unicode(bytes([0x41])) == "\u0b95\u0bbf"
+    assert tamil.unicode_to_tam_bytes("\u0b95\u0bbf") == bytes([0x41])
+    with pytest.raises(ValueError, match="unsupported Unicode scalar for TAM"):
+        tamil.unicode_to_tam_bytes("A")
