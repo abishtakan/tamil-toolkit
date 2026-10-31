@@ -45,3 +45,29 @@ def test_numeral_convenience_apis():
             assert getattr(tamil, case["op"])(**case["input"]) == case["expected"]
     with pytest.raises(ValueError, match="unsupported currency"):
         tamil.format_currency(1, "USD")
+
+
+def test_codec_convenience_api():
+    cases = {case["id"]: case for case in load_vectors()}
+    word = cases["codec_word_000_tn_strict"]
+    preserved = cases["codec_joiner_boundary_0"]
+    assert tamil.bamini_to_unicode(word["input"]["text"]) == word["expected"]
+    assert tamil.bamini_to_unicode(**preserved["input"]) == preserved["expected"]
+    with pytest.raises(ValueError, match="ambiguous Bamini sequence"):
+        tamil.bamini_to_unicode("*")
+    with pytest.raises(ValueError, match="unsupported codec error policy"):
+        tamil.bamini_to_unicode("f", "ignore")
+
+
+def test_encoder_convenience_api():
+    cases = {case["id"]: case for case in load_vectors()}
+    word = cases["encode_word_000_tn"]
+    encoded = tamil.unicode_to_bamini(word["input"]["text"])
+    assert encoded == word["expected"]
+    assert tamil.bamini_to_unicode(encoded) == tamil.normalize_nfc(word["input"]["text"])
+    decomposed = next(case for case in cases.values() if case["id"].startswith("encode_mapping_") and case["id"].endswith("_tn_nfd"))
+    assert tamil.unicode_to_bamini(decomposed["input"]["text"]) == decomposed["expected"]
+    collision = cases["encode_collision_000_tn"]
+    with pytest.raises(ValueError) as failure:
+        tamil.unicode_to_bamini(collision["input"]["text"])
+    assert str(failure.value) == collision["expected_error"]

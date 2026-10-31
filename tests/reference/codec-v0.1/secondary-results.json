@@ -1,0 +1,1994 @@
+[
+  {
+    "id": "mapping_000",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bcd\u0bb0\u0bc0",
+    "encoded": "="
+  },
+  {
+    "id": "mapping_001",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bcc",
+    "encoded": "n`s"
+  },
+  {
+    "id": "mapping_002",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bcb",
+    "encoded": "N`h"
+  },
+  {
+    "id": "mapping_003",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bca",
+    "encoded": "n`h"
+  },
+  {
+    "id": "mapping_004",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bc8",
+    "encoded": "i`"
+  },
+  {
+    "id": "mapping_005",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bc7",
+    "encoded": "N`"
+  },
+  {
+    "id": "mapping_006",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bc6",
+    "encoded": "n`"
+  },
+  {
+    "id": "mapping_007",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bc2",
+    "encoded": "`_"
+  },
+  {
+    "id": "mapping_008",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bc1",
+    "encoded": "{`"
+  },
+  {
+    "id": "mapping_009",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bc0",
+    "encoded": "`P"
+  },
+  {
+    "id": "mapping_010",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bbf",
+    "encoded": "`p"
+  },
+  {
+    "id": "mapping_011",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bbe",
+    "encoded": "`h"
+  },
+  {
+    "id": "mapping_012",
+    "kind": "mapping",
+    "text": "\u0bb9\u0bcd",
+    "encoded": "`;"
+  },
+  {
+    "id": "mapping_013",
+    "kind": "mapping",
+    "text": "\u0bb9",
+    "encoded": "`"
+  },
+  {
+    "id": "mapping_014",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bcc",
+    "encoded": "n]s"
+  },
+  {
+    "id": "mapping_015",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bcb",
+    "encoded": "N]h"
+  },
+  {
+    "id": "mapping_016",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bca",
+    "encoded": "n]h"
+  },
+  {
+    "id": "mapping_017",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bc8",
+    "encoded": "i]"
+  },
+  {
+    "id": "mapping_018",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bc7",
+    "encoded": "N]"
+  },
+  {
+    "id": "mapping_019",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bc6",
+    "encoded": "n]"
+  },
+  {
+    "id": "mapping_020",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bc2",
+    "encoded": "]_"
+  },
+  {
+    "id": "mapping_021",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bc1",
+    "encoded": "]{"
+  },
+  {
+    "id": "mapping_022",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bc0",
+    "encoded": "]P"
+  },
+  {
+    "id": "mapping_023",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bbf",
+    "encoded": "]p"
+  },
+  {
+    "id": "mapping_024",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bbe",
+    "encoded": "]h"
+  },
+  {
+    "id": "mapping_025",
+    "kind": "mapping",
+    "text": "\u0bb8\u0bcd",
+    "encoded": "];"
+  },
+  {
+    "id": "mapping_026",
+    "kind": "mapping",
+    "text": "\u0bb8",
+    "encoded": "]"
+  },
+  {
+    "id": "mapping_027",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bcc",
+    "encoded": "n[s"
+  },
+  {
+    "id": "mapping_028",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bcb",
+    "encoded": "N[h"
+  },
+  {
+    "id": "mapping_029",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bca",
+    "encoded": "n[h"
+  },
+  {
+    "id": "mapping_030",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bc8",
+    "encoded": "i["
+  },
+  {
+    "id": "mapping_031",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bc7",
+    "encoded": "N["
+  },
+  {
+    "id": "mapping_032",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bc6",
+    "encoded": "n["
+  },
+  {
+    "id": "mapping_033",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bc2",
+    "encoded": "[_"
+  },
+  {
+    "id": "mapping_034",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bc1",
+    "encoded": "[{"
+  },
+  {
+    "id": "mapping_035",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bc0",
+    "encoded": "[P"
+  },
+  {
+    "id": "mapping_036",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bbf",
+    "encoded": "[p"
+  },
+  {
+    "id": "mapping_037",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bbe",
+    "encoded": "[h"
+  },
+  {
+    "id": "mapping_038",
+    "kind": "mapping",
+    "text": "\u0b9c\u0bcd",
+    "encoded": "[;"
+  },
+  {
+    "id": "mapping_039",
+    "kind": "mapping",
+    "text": "\u0b9c",
+    "encoded": "["
+  },
+  {
+    "id": "mapping_040",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bcc",
+    "encoded": "n\\s"
+  },
+  {
+    "id": "mapping_041",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bcb",
+    "encoded": "N\\h"
+  },
+  {
+    "id": "mapping_042",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bca",
+    "encoded": "n\\h"
+  },
+  {
+    "id": "mapping_043",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bc8",
+    "encoded": "i\\"
+  },
+  {
+    "id": "mapping_044",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bc7",
+    "encoded": "N\\"
+  },
+  {
+    "id": "mapping_045",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bc6",
+    "encoded": "n\\"
+  },
+  {
+    "id": "mapping_046",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bc1",
+    "encoded": "{"
+  },
+  {
+    "id": "mapping_047",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bc2",
+    "encoded": "\\_"
+  },
+  {
+    "id": "mapping_048",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bc0",
+    "encoded": "\\P"
+  },
+  {
+    "id": "mapping_049",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bbf",
+    "encoded": "\\p"
+  },
+  {
+    "id": "mapping_050",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bbe",
+    "encoded": "\\h"
+  },
+  {
+    "id": "mapping_051",
+    "kind": "mapping",
+    "text": "\u0bb7\u0bcd",
+    "encoded": "\\;"
+  },
+  {
+    "id": "mapping_052",
+    "kind": "mapping",
+    "text": "\u0bb7",
+    "encoded": "\\"
+  },
+  {
+    "id": "mapping_053",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bcc",
+    "encoded": "nds"
+  },
+  {
+    "id": "mapping_054",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bcb",
+    "encoded": "Ndh"
+  },
+  {
+    "id": "mapping_055",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bca",
+    "encoded": "ndh"
+  },
+  {
+    "id": "mapping_056",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bc8",
+    "encoded": "id"
+  },
+  {
+    "id": "mapping_057",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bc7",
+    "encoded": "Nd"
+  },
+  {
+    "id": "mapping_058",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bc6",
+    "encoded": "nd"
+  },
+  {
+    "id": "mapping_059",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bc2",
+    "encoded": "D}"
+  },
+  {
+    "id": "mapping_060",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bc1",
+    "encoded": "D"
+  },
+  {
+    "id": "mapping_061",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bc0",
+    "encoded": "dP"
+  },
+  {
+    "id": "mapping_062",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bbf",
+    "encoded": "dp"
+  },
+  {
+    "id": "mapping_063",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bbe",
+    "encoded": "dh"
+  },
+  {
+    "id": "mapping_064",
+    "kind": "mapping",
+    "text": "\u0ba9\u0bcd",
+    "encoded": "d;"
+  },
+  {
+    "id": "mapping_065",
+    "kind": "mapping",
+    "text": "\u0ba9",
+    "encoded": "d"
+  },
+  {
+    "id": "mapping_066",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bcc",
+    "encoded": "nws"
+  },
+  {
+    "id": "mapping_067",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bcb",
+    "encoded": "Nwh"
+  },
+  {
+    "id": "mapping_068",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bca",
+    "encoded": "nwh"
+  },
+  {
+    "id": "mapping_069",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bc8",
+    "encoded": "iw"
+  },
+  {
+    "id": "mapping_070",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bc7",
+    "encoded": "Nw"
+  },
+  {
+    "id": "mapping_071",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bc6",
+    "encoded": "nw"
+  },
+  {
+    "id": "mapping_072",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bc2",
+    "encoded": "W}"
+  },
+  {
+    "id": "mapping_073",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bc1",
+    "encoded": "W"
+  },
+  {
+    "id": "mapping_074",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bc0",
+    "encoded": "wP"
+  },
+  {
+    "id": "mapping_075",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bbf",
+    "encoded": "wp"
+  },
+  {
+    "id": "mapping_076",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bbe",
+    "encoded": "wh"
+  },
+  {
+    "id": "mapping_077",
+    "kind": "mapping",
+    "text": "\u0bb1\u0bcd",
+    "encoded": "w;"
+  },
+  {
+    "id": "mapping_078",
+    "kind": "mapping",
+    "text": "\u0bb1",
+    "encoded": "w"
+  },
+  {
+    "id": "mapping_079",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bcc",
+    "encoded": "nss"
+  },
+  {
+    "id": "mapping_080",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bcb",
+    "encoded": "Nsh"
+  },
+  {
+    "id": "mapping_081",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bca",
+    "encoded": "nsh"
+  },
+  {
+    "id": "mapping_082",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bc8",
+    "encoded": "is"
+  },
+  {
+    "id": "mapping_083",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bc7",
+    "encoded": "Ns"
+  },
+  {
+    "id": "mapping_084",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bc6",
+    "encoded": "ns"
+  },
+  {
+    "id": "mapping_085",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bc2",
+    "encoded": "Sh"
+  },
+  {
+    "id": "mapping_086",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bc1",
+    "encoded": "S"
+  },
+  {
+    "id": "mapping_087",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bc0",
+    "encoded": "sP"
+  },
+  {
+    "id": "mapping_088",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bbf",
+    "encoded": "sp"
+  },
+  {
+    "id": "mapping_089",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bbe",
+    "encoded": "sh"
+  },
+  {
+    "id": "mapping_090",
+    "kind": "mapping",
+    "text": "\u0bb3\u0bcd",
+    "encoded": "s;"
+  },
+  {
+    "id": "mapping_091",
+    "kind": "mapping",
+    "text": "\u0bb3",
+    "encoded": "s"
+  },
+  {
+    "id": "mapping_092",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bcc",
+    "encoded": "nos"
+  },
+  {
+    "id": "mapping_093",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bcb",
+    "encoded": "Noh"
+  },
+  {
+    "id": "mapping_094",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bca",
+    "encoded": "noh"
+  },
+  {
+    "id": "mapping_095",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bc8",
+    "encoded": "io"
+  },
+  {
+    "id": "mapping_096",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bc7",
+    "encoded": "No"
+  },
+  {
+    "id": "mapping_097",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bc6",
+    "encoded": "no"
+  },
+  {
+    "id": "mapping_098",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bc2",
+    "encoded": "*"
+  },
+  {
+    "id": "mapping_099",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bc1",
+    "encoded": "O"
+  },
+  {
+    "id": "mapping_100",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bc0",
+    "encoded": "oP"
+  },
+  {
+    "id": "mapping_101",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bbf",
+    "encoded": "op"
+  },
+  {
+    "id": "mapping_102",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bbe",
+    "encoded": "oh"
+  },
+  {
+    "id": "mapping_103",
+    "kind": "mapping",
+    "text": "\u0bb4\u0bcd",
+    "encoded": "o;"
+  },
+  {
+    "id": "mapping_104",
+    "kind": "mapping",
+    "text": "\u0bb4",
+    "encoded": "o"
+  },
+  {
+    "id": "mapping_105",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bcc",
+    "encoded": "nts"
+  },
+  {
+    "id": "mapping_106",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bcb",
+    "encoded": "Nth"
+  },
+  {
+    "id": "mapping_107",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bca",
+    "encoded": "nth"
+  },
+  {
+    "id": "mapping_108",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bc8",
+    "encoded": "it"
+  },
+  {
+    "id": "mapping_109",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bc7",
+    "encoded": "Nt"
+  },
+  {
+    "id": "mapping_110",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bc6",
+    "encoded": "nt"
+  },
+  {
+    "id": "mapping_111",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bc2",
+    "encoded": "T+"
+  },
+  {
+    "id": "mapping_112",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bc1",
+    "encoded": "T"
+  },
+  {
+    "id": "mapping_113",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bc0",
+    "encoded": "tP"
+  },
+  {
+    "id": "mapping_114",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bbf",
+    "encoded": "tp"
+  },
+  {
+    "id": "mapping_115",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bbe",
+    "encoded": "th"
+  },
+  {
+    "id": "mapping_116",
+    "kind": "mapping",
+    "text": "\u0bb5\u0bcd",
+    "encoded": "t;"
+  },
+  {
+    "id": "mapping_117",
+    "kind": "mapping",
+    "text": "\u0bb5",
+    "encoded": "t"
+  },
+  {
+    "id": "mapping_118",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bcc",
+    "encoded": "nys"
+  },
+  {
+    "id": "mapping_119",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bcb",
+    "encoded": "Nyh"
+  },
+  {
+    "id": "mapping_120",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bca",
+    "encoded": "nyh"
+  },
+  {
+    "id": "mapping_121",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bc8",
+    "encoded": "iy"
+  },
+  {
+    "id": "mapping_122",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bc7",
+    "encoded": "Ny"
+  },
+  {
+    "id": "mapping_123",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bc6",
+    "encoded": "ny"
+  },
+  {
+    "id": "mapping_124",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bc2",
+    "encoded": "Y}"
+  },
+  {
+    "id": "mapping_125",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bc1",
+    "encoded": "Y"
+  },
+  {
+    "id": "mapping_126",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bc0",
+    "encoded": "yP"
+  },
+  {
+    "id": "mapping_127",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bbf",
+    "encoded": "yp"
+  },
+  {
+    "id": "mapping_128",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bbe",
+    "encoded": "yh"
+  },
+  {
+    "id": "mapping_129",
+    "kind": "mapping",
+    "text": "\u0bb2\u0bcd",
+    "encoded": "y;"
+  },
+  {
+    "id": "mapping_130",
+    "kind": "mapping",
+    "text": "\u0bb2",
+    "encoded": "y"
+  },
+  {
+    "id": "mapping_131",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bcc",
+    "encoded": "nus"
+  },
+  {
+    "id": "mapping_132",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bcb",
+    "encoded": "Nuh"
+  },
+  {
+    "id": "mapping_133",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bca",
+    "encoded": "nuh"
+  },
+  {
+    "id": "mapping_134",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bc8",
+    "encoded": "iu"
+  },
+  {
+    "id": "mapping_135",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bc7",
+    "encoded": "Nu"
+  },
+  {
+    "id": "mapping_136",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bc6",
+    "encoded": "nu"
+  },
+  {
+    "id": "mapping_137",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bc2",
+    "encoded": "\\&"
+  },
+  {
+    "id": "mapping_138",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bc1",
+    "encoded": "U"
+  },
+  {
+    "id": "mapping_139",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bc0",
+    "encoded": "uP"
+  },
+  {
+    "id": "mapping_140",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bbf",
+    "encoded": "up"
+  },
+  {
+    "id": "mapping_141",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bbe",
+    "encoded": "uh"
+  },
+  {
+    "id": "mapping_142",
+    "kind": "mapping",
+    "text": "\u0bb0\u0bcd",
+    "encoded": "u;"
+  },
+  {
+    "id": "mapping_143",
+    "kind": "mapping",
+    "text": "\u0bb0",
+    "encoded": "u"
+  },
+  {
+    "id": "mapping_144",
+    "kind": "mapping",
+    "text": "\u0baf\u0bcc",
+    "encoded": "nas"
+  },
+  {
+    "id": "mapping_145",
+    "kind": "mapping",
+    "text": "\u0baf\u0bcb",
+    "encoded": "Nah"
+  },
+  {
+    "id": "mapping_146",
+    "kind": "mapping",
+    "text": "\u0baf\u0bca",
+    "encoded": "nah"
+  },
+  {
+    "id": "mapping_147",
+    "kind": "mapping",
+    "text": "\u0baf\u0bc8",
+    "encoded": "ia"
+  },
+  {
+    "id": "mapping_148",
+    "kind": "mapping",
+    "text": "\u0baf\u0bc7",
+    "encoded": "Na"
+  },
+  {
+    "id": "mapping_149",
+    "kind": "mapping",
+    "text": "\u0baf\u0bc6",
+    "encoded": "na"
+  },
+  {
+    "id": "mapping_150",
+    "kind": "mapping",
+    "text": "\u0baf\u0bc2",
+    "encoded": "A+"
+  },
+  {
+    "id": "mapping_151",
+    "kind": "mapping",
+    "text": "\u0baf\u0bc1",
+    "encoded": "A"
+  },
+  {
+    "id": "mapping_152",
+    "kind": "mapping",
+    "text": "\u0baf\u0bc0",
+    "encoded": "aP"
+  },
+  {
+    "id": "mapping_153",
+    "kind": "mapping",
+    "text": "\u0baf\u0bbf",
+    "encoded": "ap"
+  },
+  {
+    "id": "mapping_154",
+    "kind": "mapping",
+    "text": "\u0baf\u0bbe",
+    "encoded": "ah"
+  },
+  {
+    "id": "mapping_155",
+    "kind": "mapping",
+    "text": "\u0baf\u0bcd",
+    "encoded": "a;"
+  },
+  {
+    "id": "mapping_156",
+    "kind": "mapping",
+    "text": "\u0baf",
+    "encoded": "a"
+  },
+  {
+    "id": "mapping_157",
+    "kind": "mapping",
+    "text": "\u0bae\u0bcc",
+    "encoded": "nks"
+  },
+  {
+    "id": "mapping_158",
+    "kind": "mapping",
+    "text": "\u0bae\u0bcb",
+    "encoded": "Nkh"
+  },
+  {
+    "id": "mapping_159",
+    "kind": "mapping",
+    "text": "\u0bae\u0bca",
+    "encoded": "nkh"
+  },
+  {
+    "id": "mapping_160",
+    "kind": "mapping",
+    "text": "\u0bae\u0bc8",
+    "encoded": "ik"
+  },
+  {
+    "id": "mapping_161",
+    "kind": "mapping",
+    "text": "\u0bae\u0bc7",
+    "encoded": "Nk"
+  },
+  {
+    "id": "mapping_162",
+    "kind": "mapping",
+    "text": "\u0bae\u0bc6",
+    "encoded": "nk"
+  },
+  {
+    "id": "mapping_163",
+    "kind": "mapping",
+    "text": "\u0bae\u0bc2",
+    "encoded": "%"
+  },
+  {
+    "id": "mapping_164",
+    "kind": "mapping",
+    "text": "\u0bae\u0bc1",
+    "encoded": "K"
+  },
+  {
+    "id": "mapping_165",
+    "kind": "mapping",
+    "text": "\u0bae\u0bc0",
+    "encoded": "kP"
+  },
+  {
+    "id": "mapping_166",
+    "kind": "mapping",
+    "text": "\u0bae\u0bbf",
+    "encoded": "kp"
+  },
+  {
+    "id": "mapping_167",
+    "kind": "mapping",
+    "text": "\u0bae\u0bbe",
+    "encoded": "kh"
+  },
+  {
+    "id": "mapping_168",
+    "kind": "mapping",
+    "text": "\u0bae\u0bcd",
+    "encoded": "k;"
+  },
+  {
+    "id": "mapping_169",
+    "kind": "mapping",
+    "text": "\u0bae",
+    "encoded": "k"
+  },
+  {
+    "id": "mapping_170",
+    "kind": "mapping",
+    "text": "\u0baa\u0bcc",
+    "encoded": "ngs"
+  },
+  {
+    "id": "mapping_171",
+    "kind": "mapping",
+    "text": "\u0baa\u0bcb",
+    "encoded": "Ngh"
+  },
+  {
+    "id": "mapping_172",
+    "kind": "mapping",
+    "text": "\u0baa\u0bca",
+    "encoded": "ngh"
+  },
+  {
+    "id": "mapping_173",
+    "kind": "mapping",
+    "text": "\u0baa\u0bc8",
+    "encoded": "ig"
+  },
+  {
+    "id": "mapping_174",
+    "kind": "mapping",
+    "text": "\u0baa\u0bc7",
+    "encoded": "Ng"
+  },
+  {
+    "id": "mapping_175",
+    "kind": "mapping",
+    "text": "\u0baa\u0bc6",
+    "encoded": "ng"
+  },
+  {
+    "id": "mapping_176",
+    "kind": "mapping",
+    "text": "\u0baa\u0bc2",
+    "encoded": "G+"
+  },
+  {
+    "id": "mapping_177",
+    "kind": "mapping",
+    "text": "\u0baa\u0bc1",
+    "encoded": "G"
+  },
+  {
+    "id": "mapping_178",
+    "kind": "mapping",
+    "text": "\u0baa\u0bc0",
+    "encoded": "gP"
+  },
+  {
+    "id": "mapping_179",
+    "kind": "mapping",
+    "text": "\u0baa\u0bbf",
+    "encoded": "gp"
+  },
+  {
+    "id": "mapping_180",
+    "kind": "mapping",
+    "text": "\u0baa\u0bbe",
+    "encoded": "gh"
+  },
+  {
+    "id": "mapping_181",
+    "kind": "mapping",
+    "text": "\u0baa\u0bcd",
+    "encoded": "g;"
+  },
+  {
+    "id": "mapping_182",
+    "kind": "mapping",
+    "text": "\u0baa",
+    "encoded": "g"
+  },
+  {
+    "id": "mapping_183",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bcc",
+    "encoded": "nes"
+  },
+  {
+    "id": "mapping_184",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bcb",
+    "encoded": "Neh"
+  },
+  {
+    "id": "mapping_185",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bca",
+    "encoded": "neh"
+  },
+  {
+    "id": "mapping_186",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bc8",
+    "encoded": "ie"
+  },
+  {
+    "id": "mapping_187",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bc7",
+    "encoded": "Ne"
+  },
+  {
+    "id": "mapping_188",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bc6",
+    "encoded": "ne"
+  },
+  {
+    "id": "mapping_189",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bc2",
+    "encoded": "E}"
+  },
+  {
+    "id": "mapping_190",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bc1",
+    "encoded": "E"
+  },
+  {
+    "id": "mapping_191",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bc0",
+    "encoded": "eP"
+  },
+  {
+    "id": "mapping_192",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bbf",
+    "encoded": "ep"
+  },
+  {
+    "id": "mapping_193",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bbe",
+    "encoded": "eh"
+  },
+  {
+    "id": "mapping_194",
+    "kind": "mapping",
+    "text": "\u0ba8\u0bcd",
+    "encoded": "e;"
+  },
+  {
+    "id": "mapping_195",
+    "kind": "mapping",
+    "text": "\u0ba8",
+    "encoded": "e"
+  },
+  {
+    "id": "mapping_196",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bcc",
+    "encoded": "njs"
+  },
+  {
+    "id": "mapping_197",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bcb",
+    "encoded": "Njh"
+  },
+  {
+    "id": "mapping_198",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bca",
+    "encoded": "njh"
+  },
+  {
+    "id": "mapping_199",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bc8",
+    "encoded": "ij"
+  },
+  {
+    "id": "mapping_200",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bc7",
+    "encoded": "Nj"
+  },
+  {
+    "id": "mapping_201",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bc6",
+    "encoded": "nj"
+  },
+  {
+    "id": "mapping_202",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bc2",
+    "encoded": "J}"
+  },
+  {
+    "id": "mapping_203",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bc1",
+    "encoded": "J"
+  },
+  {
+    "id": "mapping_204",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bc0",
+    "encoded": "jP"
+  },
+  {
+    "id": "mapping_205",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bbf",
+    "encoded": "jp"
+  },
+  {
+    "id": "mapping_206",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bbe",
+    "encoded": "jh"
+  },
+  {
+    "id": "mapping_207",
+    "kind": "mapping",
+    "text": "\u0ba4\u0bcd",
+    "encoded": "j;"
+  },
+  {
+    "id": "mapping_208",
+    "kind": "mapping",
+    "text": "\u0ba4",
+    "encoded": "j"
+  },
+  {
+    "id": "mapping_209",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bcc",
+    "encoded": "nzs"
+  },
+  {
+    "id": "mapping_210",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bcb",
+    "encoded": "Nzh"
+  },
+  {
+    "id": "mapping_211",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bca",
+    "encoded": "nzh"
+  },
+  {
+    "id": "mapping_212",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bc8",
+    "encoded": "iz"
+  },
+  {
+    "id": "mapping_213",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bc7",
+    "encoded": "Nz"
+  },
+  {
+    "id": "mapping_214",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bc6",
+    "encoded": "nz"
+  },
+  {
+    "id": "mapping_215",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bc2",
+    "encoded": "Z}"
+  },
+  {
+    "id": "mapping_216",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bc1",
+    "encoded": "Z"
+  },
+  {
+    "id": "mapping_217",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bc0",
+    "encoded": "zP"
+  },
+  {
+    "id": "mapping_218",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bbf",
+    "encoded": "zp"
+  },
+  {
+    "id": "mapping_219",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bbe",
+    "encoded": "zh"
+  },
+  {
+    "id": "mapping_220",
+    "kind": "mapping",
+    "text": "\u0ba3\u0bcd",
+    "encoded": "z;"
+  },
+  {
+    "id": "mapping_221",
+    "kind": "mapping",
+    "text": "\u0ba3",
+    "encoded": "z"
+  },
+  {
+    "id": "mapping_222",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bcc",
+    "encoded": "nls"
+  },
+  {
+    "id": "mapping_223",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bcb",
+    "encoded": "Nlh"
+  },
+  {
+    "id": "mapping_224",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bca",
+    "encoded": "nlh"
+  },
+  {
+    "id": "mapping_225",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bc8",
+    "encoded": "il"
+  },
+  {
+    "id": "mapping_226",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bc7",
+    "encoded": "Nl"
+  },
+  {
+    "id": "mapping_227",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bc6",
+    "encoded": "nl"
+  },
+  {
+    "id": "mapping_228",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bc2",
+    "encoded": "^"
+  },
+  {
+    "id": "mapping_229",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bc1",
+    "encoded": "L"
+  },
+  {
+    "id": "mapping_230",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bc0",
+    "encoded": "B"
+  },
+  {
+    "id": "mapping_231",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bbf",
+    "encoded": "b"
+  },
+  {
+    "id": "mapping_232",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bbe",
+    "encoded": "lh"
+  },
+  {
+    "id": "mapping_233",
+    "kind": "mapping",
+    "text": "\u0b9f\u0bcd",
+    "encoded": "l;"
+  },
+  {
+    "id": "mapping_234",
+    "kind": "mapping",
+    "text": "\u0b9f",
+    "encoded": "l"
+  },
+  {
+    "id": "mapping_235",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bcc",
+    "encoded": "nQs"
+  },
+  {
+    "id": "mapping_236",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bcb",
+    "encoded": "NQh"
+  },
+  {
+    "id": "mapping_237",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bca",
+    "encoded": "nQh"
+  },
+  {
+    "id": "mapping_238",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bc8",
+    "encoded": "iQ"
+  },
+  {
+    "id": "mapping_239",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bc7",
+    "encoded": "NQ"
+  },
+  {
+    "id": "mapping_240",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bc6",
+    "encoded": "nQ"
+  },
+  {
+    "id": "mapping_241",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bc2",
+    "encoded": "*"
+  },
+  {
+    "id": "mapping_242",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bc1",
+    "encoded": "*"
+  },
+  {
+    "id": "mapping_243",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bc0",
+    "encoded": "QP"
+  },
+  {
+    "id": "mapping_244",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bbf",
+    "encoded": "Qp"
+  },
+  {
+    "id": "mapping_245",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bbe",
+    "encoded": "Qh"
+  },
+  {
+    "id": "mapping_246",
+    "kind": "mapping",
+    "text": "\u0b9e\u0bcd",
+    "encoded": "Q;"
+  },
+  {
+    "id": "mapping_247",
+    "kind": "mapping",
+    "text": "\u0b9e",
+    "encoded": "Q"
+  },
+  {
+    "id": "mapping_248",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bcc",
+    "encoded": "nrs"
+  },
+  {
+    "id": "mapping_249",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bcb",
+    "encoded": "Nrh"
+  },
+  {
+    "id": "mapping_250",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bca",
+    "encoded": "nrh"
+  },
+  {
+    "id": "mapping_251",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bc8",
+    "encoded": "ir"
+  },
+  {
+    "id": "mapping_252",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bc7",
+    "encoded": "Nr"
+  },
+  {
+    "id": "mapping_253",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bc6",
+    "encoded": "nr"
+  },
+  {
+    "id": "mapping_254",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bc2",
+    "encoded": "R+"
+  },
+  {
+    "id": "mapping_255",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bc1",
+    "encoded": "R"
+  },
+  {
+    "id": "mapping_256",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bc0",
+    "encoded": "rP"
+  },
+  {
+    "id": "mapping_257",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bbf",
+    "encoded": "rp"
+  },
+  {
+    "id": "mapping_258",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bbe",
+    "encoded": "rh"
+  },
+  {
+    "id": "mapping_259",
+    "kind": "mapping",
+    "text": "\u0b9a\u0bcd",
+    "encoded": "r;"
+  },
+  {
+    "id": "mapping_260",
+    "kind": "mapping",
+    "text": "\u0b9a",
+    "encoded": "r"
+  },
+  {
+    "id": "mapping_261",
+    "kind": "mapping",
+    "text": "\u0b99\u0bcc",
+    "encoded": "nqs"
+  },
+  {
+    "id": "mapping_262",
+    "kind": "mapping",
+    "text": "\u0b99\u0bcb",
+    "encoded": "Nqh"
+  },
+  {
+    "id": "mapping_263",
+    "kind": "mapping",
+    "text": "\u0b99\u0bca",
+    "encoded": "nqh"
+  },
+  {
+    "id": "mapping_264",
+    "kind": "mapping",
+    "text": "\u0b99\u0bc8",
+    "encoded": "iq"
+  },
+  {
+    "id": "mapping_265",
+    "kind": "mapping",
+    "text": "\u0b99\u0bc7",
+    "encoded": "Nq"
+  },
+  {
+    "id": "mapping_266",
+    "kind": "mapping",
+    "text": "\u0b99\u0bc6",
+    "encoded": "nq"
+  },
+  {
+    "id": "mapping_267",
+    "kind": "mapping",
+    "text": "\u0b99\u0bc2",
+    "encoded": "*"
+  },
+  {
+    "id": "mapping_268",
+    "kind": "mapping",
+    "text": "\u0b99\u0bc1",
+    "encoded": "*"
+  },
+  {
+    "id": "mapping_269",
+    "kind": "mapping",
+    "text": "\u0b99\u0bc0",
+    "encoded": "qP"
+  },
+  {
+    "id": "mapping_270",
+    "kind": "mapping",
+    "text": "\u0b99\u0bbf",
+    "encoded": "qp"
+  },
+  {
+    "id": "mapping_271",
+    "kind": "mapping",
+    "text": "\u0b99\u0bbe",
+    "encoded": "qh"
+  },
+  {
+    "id": "mapping_272",
+    "kind": "mapping",
+    "text": "\u0b99\u0bcd",
+    "encoded": "q;"
+  },
+  {
+    "id": "mapping_273",
+    "kind": "mapping",
+    "text": "\u0b99",
+    "encoded": "q"
+  },
+  {
+    "id": "mapping_274",
+    "kind": "mapping",
+    "text": "\u0b95\u0bcc",
+    "encoded": "nfs"
+  },
+  {
+    "id": "mapping_275",
+    "kind": "mapping",
+    "text": "\u0b95\u0bcb",
+    "encoded": "Nfh"
+  },
+  {
+    "id": "mapping_276",
+    "kind": "mapping",
+    "text": "\u0b95\u0bca",
+    "encoded": "nfh"
+  },
+  {
+    "id": "mapping_277",
+    "kind": "mapping",
+    "text": "\u0b95\u0bc8",
+    "encoded": "if"
+  },
+  {
+    "id": "mapping_278",
+    "kind": "mapping",
+    "text": "\u0b95\u0bc7",
+    "encoded": "Nf"
+  },
+  {
+    "id": "mapping_279",
+    "kind": "mapping",
+    "text": "\u0b95\u0bc6",
+    "encoded": "nf"
+  },
+  {
+    "id": "mapping_280",
+    "kind": "mapping",
+    "text": "\u0b95\u0bc2",
+    "encoded": "$"
+  },
+  {
+    "id": "mapping_281",
+    "kind": "mapping",
+    "text": "\u0b95\u0bc1",
+    "encoded": "F"
+  },
+  {
+    "id": "mapping_282",
+    "kind": "mapping",
+    "text": "\u0b95\u0bc0",
+    "encoded": "fP"
+  },
+  {
+    "id": "mapping_283",
+    "kind": "mapping",
+    "text": "\u0b95\u0bbf",
+    "encoded": "fp"
+  },
+  {
+    "id": "mapping_284",
+    "kind": "mapping",
+    "text": "\u0b95\u0bbe",
+    "encoded": "fh"
+  },
+  {
+    "id": "mapping_285",
+    "kind": "mapping",
+    "text": "\u0b95\u0bcd",
+    "encoded": "f;"
+  },
+  {
+    "id": "mapping_286",
+    "kind": "mapping",
+    "text": "\u0b95",
+    "encoded": "f"
+  },
+  {
+    "id": "mapping_287",
+    "kind": "mapping",
+    "text": "\u0b94",
+    "encoded": "xs"
+  },
+  {
+    "id": "mapping_288",
+    "kind": "mapping",
+    "text": "\u0b93",
+    "encoded": "X"
+  },
+  {
+    "id": "mapping_289",
+    "kind": "mapping",
+    "text": "\u0b92",
+    "encoded": "x"
+  },
+  {
+    "id": "mapping_290",
+    "kind": "mapping",
+    "text": "\u0b90",
+    "encoded": "I"
+  },
+  {
+    "id": "mapping_291",
+    "kind": "mapping",
+    "text": "\u0b8f",
+    "encoded": "V"
+  },
+  {
+    "id": "mapping_292",
+    "kind": "mapping",
+    "text": "\u0b8e",
+    "encoded": "v"
+  },
+  {
+    "id": "mapping_293",
+    "kind": "mapping",
+    "text": "\u0b8a",
+    "encoded": "C"
+  },
+  {
+    "id": "mapping_294",
+    "kind": "mapping",
+    "text": "\u0b89",
+    "encoded": "c"
+  },
+  {
+    "id": "mapping_295",
+    "kind": "mapping",
+    "text": "\u0b88",
+    "encoded": "<"
+  },
+  {
+    "id": "mapping_296",
+    "kind": "mapping",
+    "text": "\u0b87",
+    "encoded": ","
+  },
+  {
+    "id": "mapping_297",
+    "kind": "mapping",
+    "text": "\u0b86",
+    "encoded": "M"
+  },
+  {
+    "id": "mapping_298",
+    "kind": "mapping",
+    "text": "\u0b85",
+    "encoded": "m"
+  },
+  {
+    "id": "mapping_299",
+    "kind": "mapping",
+    "text": ",",
+    "encoded": ">"
+  },
+  {
+    "id": "word_000",
+    "kind": "word",
+    "text": "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd",
+    "encoded": "jkpo;"
+  },
+  {
+    "id": "word_001",
+    "kind": "word",
+    "text": "\u0bb8\u0bcd\u0bb0\u0bc0\u0bb2\u0b99\u0bcd\u0b95\u0bbe",
+    "encoded": "=yq;fh"
+  },
+  {
+    "id": "word_002",
+    "kind": "word",
+    "text": "\u0b95\u0bcd\u0bb7\u0bbf",
+    "encoded": "f;\\p"
+  },
+  {
+    "id": "word_003",
+    "kind": "word",
+    "text": "\u0b85\u0bae\u0bcd\u0bae\u0bbe",
+    "encoded": "mk;kh"
+  },
+  {
+    "id": "word_004",
+    "kind": "word",
+    "text": "\u0b85\u0baa\u0bcd\u0baa\u0bbe",
+    "encoded": "mg;gh"
+  },
+  {
+    "id": "word_005",
+    "kind": "word",
+    "text": "\u0bb5\u0ba3\u0b95\u0bcd\u0b95\u0bae\u0bcd",
+    "encoded": "tzf;fk;"
+  },
+  {
+    "id": "word_006",
+    "kind": "word",
+    "text": "\u0b95\u0bc8\u0b95\u0bc2\u0baa\u0bcd\u0baa\u0bbf",
+    "encoded": "if$g;gp"
+  },
+  {
+    "id": "word_007",
+    "kind": "word",
+    "text": "\u0baa\u0bc2 \u0b9a\u0bc2 \u0bb5\u0bc2 \u0baf\u0bc2",
+    "encoded": "G+ R+ T+ A+"
+  },
+  {
+    "id": "word_008",
+    "kind": "word",
+    "text": "\u0b85, \u0b86!",
+    "encoded": "m> M!"
+  },
+  {
+    "id": "word_009",
+    "kind": "word",
+    "text": "\u0b95\u0bcc \u0b95\u0bcb \u0b95\u0bca \u0b95\u0bc8 \u0b95\u0bc7 \u0b95\u0bc6 \u0b95\u0bc2 \u0b95\u0bc1 \u0b95\u0bc0 \u0b95\u0bbf \u0b95\u0bbe \u0b95\u0bcd \u0b95",
+    "encoded": "nfs Nfh nfh if Nf nf $ F fP fp fh f; f"
+  },
+  {
+    "id": "word_010",
+    "kind": "word",
+    "text": "\u0b99\u0bcc \u0b99\u0bcb \u0b99\u0bca \u0b99\u0bc8 \u0b99\u0bc7 \u0b99\u0bc6 \u0b99\u0bc0 \u0b99\u0bbf \u0b99\u0bbe \u0b99\u0bcd \u0b99",
+    "encoded": "nqs Nqh nqh iq Nq nq qP qp qh q; q"
+  },
+  {
+    "id": "word_011",
+    "kind": "word",
+    "text": "\u0b9a\u0bcc \u0b9a\u0bcb \u0b9a\u0bca \u0b9a\u0bc8 \u0b9a\u0bc7 \u0b9a\u0bc6 \u0b9a\u0bc2 \u0b9a\u0bc1 \u0b9a\u0bc0 \u0b9a\u0bbf \u0b9a\u0bbe \u0b9a\u0bcd \u0b9a",
+    "encoded": "nrs Nrh nrh ir Nr nr R+ R rP rp rh r; r"
+  },
+  {
+    "id": "word_012",
+    "kind": "word",
+    "text": "\u0b9c\u0bcc \u0b9c\u0bcb \u0b9c\u0bca \u0b9c\u0bc8 \u0b9c\u0bc7 \u0b9c\u0bc6 \u0b9c\u0bc2 \u0b9c\u0bc1 \u0b9c\u0bc0 \u0b9c\u0bbf \u0b9c\u0bbe \u0b9c\u0bcd \u0b9c",
+    "encoded": "n[s N[h n[h i[ N[ n[ [_ [{ [P [p [h [; ["
+  },
+  {
+    "id": "word_013",
+    "kind": "word",
+    "text": "\u0b9e\u0bcc \u0b9e\u0bcb \u0b9e\u0bca \u0b9e\u0bc8 \u0b9e\u0bc7 \u0b9e\u0bc6 \u0b9e\u0bc0 \u0b9e\u0bbf \u0b9e\u0bbe \u0b9e\u0bcd \u0b9e",
+    "encoded": "nQs NQh nQh iQ NQ nQ QP Qp Qh Q; Q"
+  },
+  {
+    "id": "word_014",
+    "kind": "word",
+    "text": "\u0b9f\u0bcc \u0b9f\u0bcb \u0b9f\u0bca \u0b9f\u0bc8 \u0b9f\u0bc7 \u0b9f\u0bc6 \u0b9f\u0bc2 \u0b9f\u0bc1 \u0b9f\u0bc0 \u0b9f\u0bbf \u0b9f\u0bbe \u0b9f\u0bcd \u0b9f",
+    "encoded": "nls Nlh nlh il Nl nl ^ L B b lh l; l"
+  },
+  {
+    "id": "word_015",
+    "kind": "word",
+    "text": "\u0ba3\u0bcc \u0ba3\u0bcb \u0ba3\u0bca \u0ba3\u0bc8 \u0ba3\u0bc7 \u0ba3\u0bc6 \u0ba3\u0bc2 \u0ba3\u0bc1 \u0ba3\u0bc0 \u0ba3\u0bbf \u0ba3\u0bbe \u0ba3\u0bcd \u0ba3",
+    "encoded": "nzs Nzh nzh iz Nz nz Z} Z zP zp zh z; z"
+  },
+  {
+    "id": "word_016",
+    "kind": "word",
+    "text": "\u0ba4\u0bcc \u0ba4\u0bcb \u0ba4\u0bca \u0ba4\u0bc8 \u0ba4\u0bc7 \u0ba4\u0bc6 \u0ba4\u0bc2 \u0ba4\u0bc1 \u0ba4\u0bc0 \u0ba4\u0bbf \u0ba4\u0bbe \u0ba4\u0bcd \u0ba4",
+    "encoded": "njs Njh njh ij Nj nj J} J jP jp jh j; j"
+  },
+  {
+    "id": "word_017",
+    "kind": "word",
+    "text": "\u0ba8\u0bcc \u0ba8\u0bcb \u0ba8\u0bca \u0ba8\u0bc8 \u0ba8\u0bc7 \u0ba8\u0bc6 \u0ba8\u0bc2 \u0ba8\u0bc1 \u0ba8\u0bc0 \u0ba8\u0bbf \u0ba8\u0bbe \u0ba8\u0bcd \u0ba8",
+    "encoded": "nes Neh neh ie Ne ne E} E eP ep eh e; e"
+  },
+  {
+    "id": "word_018",
+    "kind": "word",
+    "text": "\u0ba9\u0bcc \u0ba9\u0bcb \u0ba9\u0bca \u0ba9\u0bc8 \u0ba9\u0bc7 \u0ba9\u0bc6 \u0ba9\u0bc2 \u0ba9\u0bc1 \u0ba9\u0bc0 \u0ba9\u0bbf \u0ba9\u0bbe \u0ba9\u0bcd \u0ba9",
+    "encoded": "nds Ndh ndh id Nd nd D} D dP dp dh d; d"
+  },
+  {
+    "id": "word_019",
+    "kind": "word",
+    "text": "\u0baa\u0bcc \u0baa\u0bcb \u0baa\u0bca \u0baa\u0bc8 \u0baa\u0bc7 \u0baa\u0bc6 \u0baa\u0bc2 \u0baa\u0bc1 \u0baa\u0bc0 \u0baa\u0bbf \u0baa\u0bbe \u0baa\u0bcd \u0baa",
+    "encoded": "ngs Ngh ngh ig Ng ng G+ G gP gp gh g; g"
+  },
+  {
+    "id": "word_020",
+    "kind": "word",
+    "text": "\u0bae\u0bcc \u0bae\u0bcb \u0bae\u0bca \u0bae\u0bc8 \u0bae\u0bc7 \u0bae\u0bc6 \u0bae\u0bc2 \u0bae\u0bc1 \u0bae\u0bc0 \u0bae\u0bbf \u0bae\u0bbe \u0bae\u0bcd \u0bae",
+    "encoded": "nks Nkh nkh ik Nk nk % K kP kp kh k; k"
+  },
+  {
+    "id": "word_021",
+    "kind": "word",
+    "text": "\u0baf\u0bcc \u0baf\u0bcb \u0baf\u0bca \u0baf\u0bc8 \u0baf\u0bc7 \u0baf\u0bc6 \u0baf\u0bc2 \u0baf\u0bc1 \u0baf\u0bc0 \u0baf\u0bbf \u0baf\u0bbe \u0baf\u0bcd \u0baf",
+    "encoded": "nas Nah nah ia Na na A+ A aP ap ah a; a"
+  },
+  {
+    "id": "word_022",
+    "kind": "word",
+    "text": "\u0bb0\u0bcc \u0bb0\u0bcb \u0bb0\u0bca \u0bb0\u0bc8 \u0bb0\u0bc7 \u0bb0\u0bc6 \u0bb0\u0bc1 \u0bb0\u0bc0 \u0bb0\u0bbf \u0bb0\u0bbe \u0bb0",
+    "encoded": "nus Nuh nuh iu Nu nu U uP up uh u"
+  },
+  {
+    "id": "word_023",
+    "kind": "word",
+    "text": "\u0bb1\u0bcc \u0bb1\u0bcb \u0bb1\u0bca \u0bb1\u0bc8 \u0bb1\u0bc7 \u0bb1\u0bc6 \u0bb1\u0bc2 \u0bb1\u0bc1 \u0bb1\u0bc0 \u0bb1\u0bbf \u0bb1\u0bbe \u0bb1\u0bcd \u0bb1",
+    "encoded": "nws Nwh nwh iw Nw nw W} W wP wp wh w; w"
+  },
+  {
+    "id": "word_024",
+    "kind": "word",
+    "text": "\u0bb2\u0bcc \u0bb2\u0bcb \u0bb2\u0bca \u0bb2\u0bc8 \u0bb2\u0bc7 \u0bb2\u0bc6 \u0bb2\u0bc2 \u0bb2\u0bc1 \u0bb2\u0bc0 \u0bb2\u0bbf \u0bb2\u0bbe \u0bb2\u0bcd \u0bb2",
+    "encoded": "nys Nyh nyh iy Ny ny Y} Y yP yp yh y; y"
+  },
+  {
+    "id": "word_025",
+    "kind": "word",
+    "text": "\u0bb3\u0bcc \u0bb3\u0bcb \u0bb3\u0bca \u0bb3\u0bc8 \u0bb3\u0bc7 \u0bb3\u0bc6 \u0bb3\u0bc2 \u0bb3\u0bc1 \u0bb3\u0bc0 \u0bb3\u0bbf \u0bb3\u0bbe \u0bb3\u0bcd \u0bb3",
+    "encoded": "nss Nsh nsh is Ns ns Sh S sP sp sh s; s"
+  },
+  {
+    "id": "word_026",
+    "kind": "word",
+    "text": "\u0bb4\u0bcc \u0bb4\u0bcb \u0bb4\u0bca \u0bb4\u0bc8 \u0bb4\u0bc7 \u0bb4\u0bc6 \u0bb4\u0bc1 \u0bb4\u0bc0 \u0bb4\u0bbf \u0bb4\u0bbe \u0bb4\u0bcd \u0bb4",
+    "encoded": "nos Noh noh io No no O oP op oh o; o"
+  },
+  {
+    "id": "word_027",
+    "kind": "word",
+    "text": "\u0bb5\u0bcc \u0bb5\u0bcb \u0bb5\u0bca \u0bb5\u0bc8 \u0bb5\u0bc7 \u0bb5\u0bc6 \u0bb5\u0bc2 \u0bb5\u0bc1 \u0bb5\u0bc0 \u0bb5\u0bbf \u0bb5\u0bbe \u0bb5\u0bcd \u0bb5",
+    "encoded": "nts Nth nth it Nt nt T+ T tP tp th t; t"
+  },
+  {
+    "id": "word_028",
+    "kind": "word",
+    "text": "\u0bb7\u0bcc \u0bb7\u0bcb \u0bb7\u0bca \u0bb7\u0bc8 \u0bb7\u0bc7 \u0bb7\u0bc6 \u0bb7\u0bc2 \u0bb7\u0bc0 \u0bb7\u0bbf \u0bb7\u0bbe \u0bb7\u0bcd \u0bb7",
+    "encoded": "n\\s N\\h n\\h i\\ N\\ n\\ \\_ \\P \\p \\h \\; \\"
+  },
+  {
+    "id": "word_029",
+    "kind": "word",
+    "text": "\u0bb8\u0bcc \u0bb8\u0bcb \u0bb8\u0bca \u0bb8\u0bc8 \u0bb8\u0bc7 \u0bb8\u0bc6 \u0bb8\u0bc2 \u0bb8\u0bc1 \u0bb8\u0bc0 \u0bb8\u0bbf \u0bb8\u0bbe \u0bb8\u0bcd \u0bb8",
+    "encoded": "n]s N]h n]h i] N] n] ]_ ]{ ]P ]p ]h ]; ]"
+  },
+  {
+    "id": "word_030",
+    "kind": "word",
+    "text": "\u0bb9\u0bcc \u0bb9\u0bcb \u0bb9\u0bca \u0bb9\u0bc8 \u0bb9\u0bc7 \u0bb9\u0bc6 \u0bb9\u0bc2 \u0bb9\u0bc0 \u0bb9\u0bbf \u0bb9\u0bbe \u0bb9\u0bcd \u0bb9",
+    "encoded": "n`s N`h n`h i` N` n` `_ `P `p `h `; `"
+  },
+  {
+    "id": "extension_aytham",
+    "kind": "mapping",
+    "text": "\u0b83",
+    "encoded": "/"
+  }
+]

@@ -2,8 +2,20 @@
 name = "tamil-codec"
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 publish.workspace = true
 description = "Versioned legacy encodings and orthography conversion"
+
+[dependencies]
+tamil-core.workspace = true
+
+[build-dependencies]
+serde.workspace = true
+toml.workspace = true
+unicode-normalization.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
 
 [lints]
 workspace = true

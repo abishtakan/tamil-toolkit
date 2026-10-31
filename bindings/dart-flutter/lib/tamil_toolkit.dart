@@ -63,4 +63,10 @@ class TamilToolkit {
   String currencyToWords(int amountMinor, String currency, {String locale = 'TN'}) => execute({
     'op': 'currency_to_words', 'input': {'amount_minor': amountMinor, 'currency': currency, 'locale': locale},
   }) as String;
+  String baminiToUnicode(String text, {String errors = 'strict'}) => execute({
+    'op': 'bamini_to_unicode', 'input': {'text': text, 'errors': errors},
+  }) as String;
+  String unicodeToBamini(String text) => execute({
+    'op': 'unicode_to_bamini', 'input': {'text': text},
+  }) as String;
 }

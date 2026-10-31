@@ -28,6 +28,8 @@ pub const OPERATIONS: &[&str] = &[
     "to_words",
     "format_currency",
     "currency_to_words",
+    "bamini_to_unicode",
+    "unicode_to_bamini",
 ];
 
 fn string(value: &Value) -> Result<&str, String> {
@@ -110,6 +112,19 @@ pub fn execute(request: &Value) -> Result<Value, String> {
             } else {
                 numerals::currency_to_words(value, currency, locale).map(|s| json!(s))
             }
+        }
+        "bamini_to_unicode" => {
+            let text = string(&input["text"])?;
+            let policy = match input.get("errors") {
+                None => codec::ErrorPolicy::Strict,
+                Some(value) => codec::ErrorPolicy::parse(
+                    value.as_str().ok_or("unsupported codec error policy")?,
+                )?,
+            };
+            codec::bamini_to_unicode(text, policy).map(|text| json!(text))
+        }
+        "unicode_to_bamini" => {
+            codec::unicode_to_bamini(string(&input["text"])?).map(|text| json!(text))
         }
         op => Err(format!("unsupported operation: {op}")),
     }

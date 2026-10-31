@@ -1,0 +1,49 @@
+{
+  "profile": "bamini-v1",
+  "files": [
+    {
+      "file": "ag-main.js",
+      "url": "https://raw.githubusercontent.com/ag-sanjjeev/app-tamil-fonts-unicode-converter/9faf6226e500b0d1ab2e83132e8f227232d4d05d/src/main.js",
+      "sha256": "d43a306fa1c48c7479bee60da4bcd64e9b140baf3b3c5524e64c615a99c2fffe",
+      "license": "MIT"
+    },
+    {
+      "file": "LICENSE-ag.txt",
+      "url": "https://raw.githubusercontent.com/ag-sanjjeev/app-tamil-fonts-unicode-converter/9faf6226e500b0d1ab2e83132e8f227232d4d05d/LICENSE",
+      "sha256": "40d74d05c4260765bc1f057535108e1cf3a186c6db4d187794c1879a584a5c05",
+      "license": "MIT"
+    },
+    {
+      "file": "pakeetharan-convert.js",
+      "url": "https://raw.githubusercontent.com/Pakeetharan/unicode-bamini-converter/ee08d4360afadebaea4ef373ca1fad42025abb53/convert.js",
+      "sha256": "fedaf9b74a4c13b14da3252e0087eb98f594e985183da07fecb081bb32ef8aa1",
+      "license": "MIT"
+    },
+    {
+      "file": "LICENSE-pakeetharan.txt",
+      "url": "https://raw.githubusercontent.com/Pakeetharan/unicode-bamini-converter/ee08d4360afadebaea4ef373ca1fad42025abb53/LICENSE",
+      "sha256": "a0e3b310dbf00d9f78bfe58f0eadc358c2609e9cf4275512397d2bba710edff4",
+      "license": "MIT"
+    },
+    {
+      "file": "samples.json",
+      "source": "Pinned upstream extraction/reference encoder and declared codec-v0.1 contract",
+      "sha256": "1ae3369304112c2d2ad31ddb72b458b091b7fb7719abab94a6d6f2b4306008ff"
+    },
+    {
+      "file": "primary-table.json",
+      "source": "Pinned upstream extraction/reference encoder and declared codec-v0.1 contract",
+      "sha256": "137b1db421ec062d44efba250604bac705cb2813b7d0aa0383f493fc6a9e2af4"
+    },
+    {
+      "file": "secondary-results.json",
+      "source": "Pinned upstream extraction/reference encoder and declared codec-v0.1 contract",
+      "sha256": "3ecfb4319e05581b33db9f4050ee28813d35d686471d70d20ffee85b65a908da"
+    },
+    {
+      "file": "profile.json",
+      "source": "Pinned upstream extraction/reference encoder and declared codec-v0.1 contract",
+      "sha256": "a9f3110c9b13e64545e0743e70eae57124d166b134e67bdf1c1d366fa35422f4"
+    }
+  ]
+}

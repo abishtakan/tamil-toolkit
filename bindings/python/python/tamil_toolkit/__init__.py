@@ -5,7 +5,7 @@ from typing import Any
 
 from . import _native
 
-__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words"]
+__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini"]
 
 
 def execute(request: dict[str, Any]) -> Any:
@@ -62,3 +62,11 @@ def format_currency(amount_minor: int, currency: str, locale: str = "TN") -> str
 
 def currency_to_words(amount_minor: int, currency: str, locale: str = "TN") -> str:
     return execute({"op": "currency_to_words", "input": {"amount_minor": amount_minor, "currency": currency, "locale": locale}})
+
+
+def bamini_to_unicode(text: str, errors: str = "strict") -> str:
+    return execute({"op": "bamini_to_unicode", "input": {"text": text, "errors": errors}})
+
+
+def unicode_to_bamini(text: str) -> str:
+    return execute({"op": "unicode_to_bamini", "input": {"text": text}})

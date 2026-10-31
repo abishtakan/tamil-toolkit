@@ -17,6 +17,11 @@ void main() {
   Map<String, dynamic>? wordCase;
   Map<String, dynamic>? keyCase;
   Map<String, dynamic>? numeralCase;
+  Map<String, dynamic>? codecWord;
+  Map<String, dynamic>? codecPreserved;
+  Map<String, dynamic>? encoderWord;
+  Map<String, dynamic>? encoderNfd;
+  Map<String, dynamic>? encoderCollision;
   final moneyCases = <Map<String, dynamic>>[];
   for (final suite in manifest['suites']) {
     if (!files.add(suite['file'] as String)) throw StateError('Duplicate suite');
@@ -28,6 +33,11 @@ void main() {
       if (row['id'] == 'collate_words_basic') wordCase = row;
       if (row['id'] == 'collate_key_001') keyCase = row;
       if (row['id'] == 'num_014') numeralCase = row;
+      if (row['id'] == 'codec_word_000_tn_strict') codecWord = row;
+      if (row['id'] == 'codec_joiner_boundary_0') codecPreserved = row;
+      if (row['id'] == 'encode_word_000_tn') encoderWord = row;
+      if (row['id'] == 'encode_collision_000_tn') encoderCollision = row;
+      if (encoderNfd == null && (row['id'] as String).startsWith('encode_mapping_') && (row['id'] as String).endsWith('_tn_nfd')) encoderNfd = row;
       if (['format_currency', 'currency_to_words'].contains(row['op']) && row.containsKey('expected')) moneyCases.add(row);
       if (!ids.add(row['id'] as String)) throw StateError('Duplicate golden ID');
       if (suite['status'] == 'planned') continue;
@@ -74,5 +84,27 @@ void main() {
       expect(result, row['expected']);
     }
     expect(() => tamil.formatCurrency(1, 'USD'), throwsArgumentError);
+  });
+  test('codec convenience API', () {
+    final word = codecWord!;
+    final preserved = codecPreserved!;
+    final input = preserved['input'] as Map<String, dynamic>;
+    expect(tamil.baminiToUnicode((word['input'] as Map)['text'] as String), word['expected']);
+    expect(tamil.baminiToUnicode(input['text'] as String, errors: input['errors'] as String), preserved['expected']);
+    expect(() => tamil.baminiToUnicode('*'), throwsArgumentError);
+    expect(() => tamil.baminiToUnicode('f', errors: 'ignore'), throwsArgumentError);
+  });
+  test('encoder convenience API', () {
+    final word = encoderWord!;
+    final nfd = encoderNfd!;
+    final collision = encoderCollision!;
+    final text = (word['input'] as Map)['text'] as String;
+    final encoded = tamil.unicodeToBamini(text);
+    expect(encoded, word['expected']);
+    expect(tamil.baminiToUnicode(encoded), tamil.normalizeNfc(text));
+    expect(tamil.unicodeToBamini((nfd['input'] as Map)['text'] as String), nfd['expected']);
+    expect(() => tamil.unicodeToBamini((collision['input'] as Map)['text'] as String), throwsA(isA<ArgumentError>().having(
+      (error) => error.message, 'message', collision['expected_error'],
+    )));
   });
 }

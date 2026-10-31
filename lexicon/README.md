@@ -20,3 +20,11 @@ override. Sources, Unicode licensing, and regional limits are recorded in
 `docs/specs/numerals-v0.1.md`. Its build script validates rule references and
 syntax and compiles static operations for both profiles. Frozen independent
 ICU4J results test those operations; Java/ICU are not runtime dependencies.
+
+`bamini.toml` stores the pinned MIT-sourced `bamini-v1` mappings, explicit
+ambiguity candidates, and pass-through characters. `tamil-codec/build.rs`
+validates them and compiles static decoder/encoder tries. Its canonical alias
+preference selects the primary source's first RA+VIRAMA spelling; other aliases
+remain valid decoder inputs. Source/license files and independent
+encoder evidence live under `tests/reference/codec-v0.1`. See the codec
+specification for the five unsupported ambiguous forms and profile differences.

@@ -1,0 +1,42 @@
+{
+  "profile": "bamini-v1",
+  "max_key_bytes": 3,
+  "passthrough": " \t\r\n0123456789!\"'()-.:?",
+  "extensions": [
+    {
+      "legacy": "/",
+      "unicode": "\u0b83",
+      "source": "pakeetharan-convert.js"
+    }
+  ],
+  "regional_invariance": [
+    {
+      "dialect": "TN",
+      "region": "TN"
+    },
+    {
+      "dialect": "TN",
+      "region": "KONGU"
+    },
+    {
+      "dialect": "TN",
+      "region": "CHENNAI"
+    },
+    {
+      "dialect": "SL",
+      "region": "JAFFNA"
+    },
+    {
+      "dialect": "SL",
+      "region": "BATTICALOA"
+    },
+    {
+      "dialect": "SL",
+      "region": "VANNI"
+    },
+    {
+      "dialect": "SL",
+      "region": "UP_COUNTRY"
+    }
+  ]
+}

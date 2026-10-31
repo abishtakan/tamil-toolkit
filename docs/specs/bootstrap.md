@@ -1,7 +1,7 @@
 # Bootstrap contract
 
 This setup implements only the operations in the active golden suite. It does
-not claim to implement legacy encodings, sandhi, morphology,
+not claim to implement general legacy-encoding coverage, sandhi, morphology,
 dialect normalization, hyphenation, prosody, or PostgreSQL full-text search.
 
 ## Unicode operations
@@ -69,6 +69,14 @@ The [numerals v0.1 contract](numerals-v0.1.md) adds bounded CLDR 49 integer
 spellings and exact INR/LKR minor-unit formatting. Fractions and dates remain
 unimplemented. The declared SL lakh spelling and invariant unit-label template
 have explicit sources and limits; no general regional speech support is implied.
+
+The [codec v0.1 contract](codec-v0.1.md) adds explicit-profile Bamini decoding
+with a build-time static trie, longest matching, strict/preserve policies, and
+NFC output. Ambiguous source placeholders are rejected or explicitly preserved;
+no automatic font detection is implied.
+The [reverse codec contract](codec-reverse-v0.1.md) adds a strict canonical
+Unicode encoder with an enforced NFC round trip. Unsupported input and
+non-reversible key combinations fail explicitly.
 
 ## Evidence
 

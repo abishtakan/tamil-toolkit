@@ -70,7 +70,9 @@
       "then": {"properties": {"expected": {"type": "array", "items": {"type": "string"}}}}
     },
     {"if": {"properties": {"op": {"enum": ["to_words"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["value"], "additionalProperties": false, "properties": {"value": {"type": "integer", "minimum": -999999999, "maximum": 999999999}, "locale": {"enum": ["TN", "SL"]}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"enum": ["format_currency", "currency_to_words"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["amount_minor", "currency"], "additionalProperties": false, "properties": {"amount_minor": {"type": "integer", "minimum": -99999999999, "maximum": 99999999999}, "currency": {"enum": ["INR", "LKR"]}, "locale": {"enum": ["TN", "SL"]}}}, "expected": {"type": "string"}}}}
+    {"if": {"properties": {"op": {"enum": ["format_currency", "currency_to_words"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["amount_minor", "currency"], "additionalProperties": false, "properties": {"amount_minor": {"type": "integer", "minimum": -99999999999, "maximum": 99999999999}, "currency": {"enum": ["INR", "LKR"]}, "locale": {"enum": ["TN", "SL"]}}}, "expected": {"type": "string"}}}},
+    {"if": {"properties": {"op": {"const": "bamini_to_unicode"}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["text"], "additionalProperties": false, "properties": {"text": {"type": "string"}, "errors": {"enum": ["strict", "preserve"]}}}, "expected": {"type": "string"}}}},
+    {"if": {"properties": {"op": {"const": "unicode_to_bamini"}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["text"], "additionalProperties": false, "properties": {"text": {"type": "string"}}}, "expected": {"type": "string", "pattern": "^[\\x00-\\x7f]*$"}}}}
   ],
   "$defs": {
     "parts": {

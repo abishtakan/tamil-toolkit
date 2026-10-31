@@ -458,6 +458,13 @@ dependencies = [
 [[package]]
 name = "tamil-codec"
 version = "0.1.0"
+dependencies = [
+ "proptest",
+ "serde",
+ "tamil-core",
+ "toml",
+ "unicode-normalization",
+]
 
 [[package]]
 name = "tamil-collate"
