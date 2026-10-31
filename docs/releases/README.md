@@ -1,9 +1,9 @@
 # Alpha release runbook
 
-The first alpha is prepared for https://github.com/abishtakan/tamil-toolkit.
+The first alpha release record for https://github.com/abishtakan/tamil-toolkit.
 See [scope and acceptance](alpha-1.md). Nothing in `just release-check` uploads,
-tags, pushes, or creates accounts. Registry publication is partial: Python is
-on PyPI; Rust and npm packages remain unpublished.
+tags, pushes, or creates accounts. Registry publication is partial: Python and
+Rust are published; npm remains unpublished.
 
 ## Alpha 1 publication status
 
@@ -26,14 +26,22 @@ on PyPI; Rust and npm packages remain unpublished.
   | `tamil_toolkit-0.1.0a1-cp311-abi3-macosx_11_0_arm64.whl` | `aa96211e50dd460eba50b626dd3591a34ebeb380957e6efa0363029c6ea173ce` |
   | `tamil_toolkit-0.1.0a1.tar.gz` | `601974e24b3c3c45fe1160d8187a473ec30c0696b7c8cb621f2edc14611a7d5d` |
 
-The six public Rust crate manifests now allow crates.io publishing. The guarded
-`publish-crate.yml` workflow publishes one selected crate per manual run after
-validating its successful `master` artifact run and archive digest. The
-`CARGO_REGISTRY_TOKEN` Actions secret is configured. No Rust crate has been
-uploaded yet. The first `tamil-core` upload attempt was rejected because the
-crates.io account email is not verified; see [workflow run 41211746892](https://github.com/abishtakan/tamil-toolkit/actions/runs/41211746892).
-Verify the account email at [crates.io profile settings](https://crates.io/settings/profile)
-before retrying. The npm package remains private pending its registry setup.
+The six finished Rust crates were published on crates.io from reviewed source
+commit `60765b24e5d7826460dc3be3836ebdcc71816461`. Their successful publishing
+workflow runs and registry checksums are recorded below. The local artifact
+archives were built with temporary `[patch.crates-io]` entries for package
+verification; Cargo regenerated the upload archives without those local
+patches. Comparison with crates.io downloads showed that only the embedded
+`Cargo.lock` differs. The npm package remains private pending its registry setup.
+
+| Crate | crates.io | Publish run | Registry archive SHA-256 |
+| --- | --- | --- | --- |
+| `tamil-core` | [0.1.0-alpha.1](https://crates.io/crates/tamil-core/0.1.0-alpha.1) | [41211949196](https://github.com/abishtakan/tamil-toolkit/actions/runs/41211949196) | `3fe1cbc7434b413e0fa30251970e535676dd2bbee487c43295997fd9c672d993` |
+| `tamil-norm` | [0.1.0-alpha.1](https://crates.io/crates/tamil-norm/0.1.0-alpha.1) | [41212014986](https://github.com/abishtakan/tamil-toolkit/actions/runs/41212014986) | `dc96dbe271c7d9506e019db7aa24e977edf84b25162605ba36130bd3315ced69` |
+| `tamil-collate` | [0.1.0-alpha.1](https://crates.io/crates/tamil-collate/0.1.0-alpha.1) | [41212070399](https://github.com/abishtakan/tamil-toolkit/actions/runs/41212070399) | `ac49c38ca09f31972934d9099e9e3efc96990326eae800c563274a586987df3e` |
+| `tamil-numerals` | [0.1.0-alpha.1](https://crates.io/crates/tamil-numerals/0.1.0-alpha.1) | [41212121785](https://github.com/abishtakan/tamil-toolkit/actions/runs/41212121785) | `1d1c1d47ea28928d8f6dd6da5a9fb334176f088182628bc8aa016592b89e0107` |
+| `tamil-codec` | [0.1.0-alpha.1](https://crates.io/crates/tamil-codec/0.1.0-alpha.1) | [41212174436](https://github.com/abishtakan/tamil-toolkit/actions/runs/41212174436) | `0b851e13bcd786280c6f7b1e70187d5cc4baa192fdf787aee6bf963217bb7812` |
+| `tamil-toolkit` | [0.1.0-alpha.1](https://crates.io/crates/tamil-toolkit/0.1.0-alpha.1) | [41212755732](https://github.com/abishtakan/tamil-toolkit/actions/runs/41212755732) | `a63cb34afa8dbb411c313eb498897adf61b7bd739170ea685dfb31490e8cfdbf` |
 
 ## Build and review
 
@@ -83,9 +91,8 @@ After concrete artifact review and explicit authorization to publish:
    bootstrap its first upload using the maintainer's authenticated npm CLI,
    then configure the workflow. The repository Actions secret
    `CARGO_REGISTRY_TOKEN` is configured for crates.io. Never put credentials in
-   this repository or ask for them in plaintext chat. Verify the crates.io
-   account email at https://crates.io/settings/profile before the first upload;
-   the initial `tamil-core` attempt was rejected until that is done.
+   this repository or ask for them in plaintext chat. The crates.io account
+   email is now verified.
 2. Remove `private: true` only from `bindings/js-wasm/package.json` when npm is
    ready. All placeholder crates, FFI support crates, the workspace root npm
    package, and the workbench remain private. The npm package stays private
@@ -94,13 +101,13 @@ After concrete artifact review and explicit authorization to publish:
    moved. Rebuild Rust artifacts by dispatching **Alpha distribution artifacts**
    from `master` with `source_ref=master`; the workflow records the exact commit
    used by the crate publisher.
-4. Dispatch **Publish Rust crate to crates.io** once per crate from `master`,
-   using a successful artifact run from step 3. Review its digest and choose
-   `publish`. Publish in order: `tamil-core`, `tamil-norm`, `tamil-collate`,
-   `tamil-numerals`, `tamil-codec`, `tamil-toolkit`; allow each crate to appear
-   in the registry before publishing dependents. The workflow validates the
-   source identity and archive digest and publishes only one allowlisted crate
-   per run.
+4. Rust publication is complete for the six crates listed above. For future
+   releases, dispatch **Publish Rust crate to crates.io** once per crate from
+   `master`, using a successful artifact run from step 3. Publish in dependency
+   order: `tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`,
+   `tamil-codec`, `tamil-toolkit`; allow each crate to appear in the registry
+   before publishing dependents. The workflow validates source identity and the
+   artifact digest, and publishes only one allowlisted crate per run.
 5. PyPI upload is complete (see the status record above). Upload the reviewed
    npm tarball using `npm publish PATH.tgz --tag alpha --access public`. Keep
    stable/default install channels free of this experimental npm alpha.

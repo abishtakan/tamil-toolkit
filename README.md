@@ -9,8 +9,9 @@ bounded, verified contracts; planned modules are excluded from the alpha SDK.
 
 The candidate is `0.1.0-alpha.1` for Rust/npm and `0.1.0a1` for Python.
 The Python umbrella package is published on
-[PyPI](https://pypi.org/project/tamil-toolkit/0.1.0a1/); the Rust crates and npm
-package remain unpublished. See the [release plan and acceptance
+[PyPI](https://pypi.org/project/tamil-toolkit/0.1.0a1/), and the six finished
+Rust crates are on [crates.io](https://crates.io/crates/tamil-toolkit). The npm
+package remains unpublished. See the [release plan and acceptance
 criteria](docs/releases/alpha-1.md) and [release runbook](docs/releases/README.md).
 
 `just release-check` builds six Cargo archives, an abi3 Python wheel and source
@@ -157,7 +158,8 @@ decoded. Every accepted input round-trips to its NFC spelling.
 Public distributions use `tamil-*`. Python imports and Pub use `tamil_toolkit`
 because those platforms require identifier-compatible names. Internal Rust FFI
 packages are `tamil-python`, `tamil-wasm`, and `tamil-dart`. The Python umbrella
-is published on PyPI; Rust crates.io and npm publication remain pending.
+is on PyPI, and the six finished Rust crates are on crates.io; npm publication
+remains pending.
 
 ## Harness layout
 
@@ -194,5 +196,5 @@ platforms.
 
 Original code is [MIT licensed](LICENSE); upstream data and mapping notices are
 preserved in [third-party notices](THIRD_PARTY_NOTICES.md). Contributions are
-welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). PyPI's alpha is live; Rust and
-npm publication remain disabled pending their release steps.
+welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). The PyPI and Rust alpha packages
+are live; npm publication remains pending.

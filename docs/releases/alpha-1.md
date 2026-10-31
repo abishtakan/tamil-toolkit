@@ -1,9 +1,7 @@
 # First public alpha: 0.1.0-alpha.1
 
-Status: PyPI `0.1.0a1` is published and verified from a fresh consumer. The six
-public Rust crates are configured for guarded crates.io publishing; uploads
-remain pending because the crates.io account email needs verification. npm
-publication remains pending.
+Status: PyPI `0.1.0a1` and all six finished Rust crates at `0.1.0-alpha.1` are
+published. The npm package remains unpublished.
 
 Repository: https://github.com/abishtakan/tamil-toolkit
 
@@ -130,10 +128,11 @@ Detailed local logs are `target/alpha-full-gate.log`, `alpha-dart-gate.log`,
 the public alpha artifacts were rebuilt from the reviewed release tag and passed
 the remote consumer jobs linked above.
 
-The [Alpha distribution artifacts run](https://github.com/abishtakan/tamil-toolkit/actions/runs/41210386284)
+The [Alpha distribution artifacts run](https://github.com/abishtakan/tamil-toolkit/actions/runs/41211524449)
 passed Linux/Windows/macOS wheels, CPython 3.11/3.14 consumers, Node 22/24, Rust
-archive consumption, and Rust 1.85. PyPI's pending trusted publisher is
-configured and the Python distribution is live. The guarded crates.io workflow
-is configured, but no Rust crate has been uploaded yet. npm still needs its
-first authenticated upload and later trusted-publisher setup. Dart distribution
-packaging and PostgreSQL remain excluded from this alpha.
+archive packaging, and Rust 1.85 from source commit
+`60765b24e5d7826460dc3be3836ebdcc71816461`. PyPI and the six finished Rust
+crates are live; their registry records and digests are in the
+[release runbook](README.md). npm still needs its first authenticated upload and
+trusted-publisher setup. Dart distribution packaging and PostgreSQL remain
+excluded from this alpha.
