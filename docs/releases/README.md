@@ -50,8 +50,9 @@ Node 22 and Node 24 produced byte-identical tarballs; the reviewed SHA-256 is
 `0018c5451da8330e5fa2f45b54112e2dc832138c963523b34c7229c31b51d1d9`. The
 tarball passed the release consumer, contains both WASM targets and license
 notices, and is not marked private. The npm name is available, but this local
-CLI is not authenticated (`npm whoami` returns `ENEEDAUTH`); no npm upload has
-occurred.
+CLI is authenticated as `abishtakan`. Its first `npm publish` attempt returned
+`EOTP`, so the package is still unpublished and needs an interactive one-time
+password during the initial upload.
 
 ## Build and review
 
@@ -99,7 +100,9 @@ After concrete artifact review and explicit authorization to publish:
    reviewer.
    The npm name `tamil-toolkit` is available but has no package settings yet.
    Make its first upload from an authenticated maintainer CLI; npm requires
-   account 2FA or a granular access token with 2FA bypass. After the package
+   account 2FA or a granular access token with 2FA bypass. The current CLI
+   session is authenticated, but the initial publish still needs the
+   maintainer's one-time password in an interactive terminal. After the package
    exists, configure its trusted publisher for GitHub Actions, owner
    `abishtakan`, repository `tamil-toolkit`, workflow filename
    `publish-npm.yml`, no environment, and permission to run `npm publish`.
@@ -127,7 +130,8 @@ After concrete artifact review and explicit authorization to publish:
    `npm publish PATH.tgz --tag alpha`. Unscoped npm packages are public by
    default. Configure the package's `publish-npm.yml` trusted publisher for the
    next version when it is ready. Keep stable/default install channels free of
-   this experimental npm alpha.
+   this experimental npm alpha. Enter the one-time password only at the
+   interactive CLI prompt; do not share OTPs or npm credentials in chat.
 6. From a fresh consumer, install the exact public versions and run the same
    golden consumer suite. Update the changelog/status only after those installs
    succeed. Record registry links, tag, artifact digests, and CI evidence here.
