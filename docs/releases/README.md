@@ -2,7 +2,33 @@
 
 The first alpha is prepared for https://github.com/abishtakan/tamil-toolkit.
 See [scope and acceptance](alpha-1.md). Nothing in `just release-check` uploads,
-tags, pushes, or creates accounts. Package publication is still disabled.
+tags, pushes, or creates accounts. Registry publication is partial: the Python
+package is on PyPI, while Rust and npm publication remain pending.
+
+## Alpha 1 publication status
+
+- PyPI: [`tamil-toolkit 0.1.0a1`](https://pypi.org/project/tamil-toolkit/0.1.0a1/)
+  published on 2026-10-31 with three platform wheels and one source archive.
+- Source: tag `v0.1.0-alpha.1`, commit
+  `9cd7ae3494090273bca07ab089d8cca786df5a4a`.
+- Artifact workflow: [run 41210386284](https://github.com/abishtakan/tamil-toolkit/actions/runs/41210386284)
+  passed all Rust, npm, Python wheel, and consumer jobs.
+- PyPI upload: [run 41210795966](https://github.com/abishtakan/tamil-toolkit/actions/runs/41210795966)
+  succeeded through the `pypi` trusted publisher and required-reviewer gate.
+- Public consumer check: CPython 3.13.7 on Windows installed the wheel from
+  PyPI and passed all 21,277 active golden rows.
+- SHA-256 digests from PyPI's simple index:
+
+  | File | SHA-256 |
+  | --- | --- |
+  | `tamil_toolkit-0.1.0a1-cp311-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl` | `f742413074dd2e2b533f934d65c1b95142e47899f88271d95ff064289b75de27` |
+  | `tamil_toolkit-0.1.0a1-cp311-abi3-win_amd64.whl` | `9835cae3e702711e543cc0065958ae70a7f8d89d4987226706e75fd51ac9c477` |
+  | `tamil_toolkit-0.1.0a1-cp311-abi3-macosx_11_0_arm64.whl` | `aa96211e50dd460eba50b626dd3591a34ebeb380957e6efa0363029c6ea173ce` |
+  | `tamil_toolkit-0.1.0a1.tar.gz` | `601974e24b3c3c45fe1160d8187a473ec30c0696b7c8cb621f2edc14611a7d5d` |
+
+Rust crates.io publication and the npm alpha remain pending. The Rust crate
+manifests still disable publishing, and the npm package remains private until
+those registry steps are reviewed and enabled.
 
 ## Build and review
 
@@ -40,15 +66,14 @@ notice file conservatively; no test tooling is a Python/npm runtime dependency.
 After concrete artifact review and explicit authorization to publish:
 
 1. Confirm the intended registry accounts can publish the requested names.
-   Configure PyPI's pending trusted publisher with project name
-   `tamil-toolkit`, owner `abishtakan`, repository `tamil-toolkit`, workflow
-   `publish-pypi.yml`, and environment `pypi`. The matching workflow is
+   PyPI's pending trusted publisher is configured for project `tamil-toolkit`,
+   owner `abishtakan`, repository `tamil-toolkit`, workflow `publish-pypi.yml`,
+   and environment `pypi`. The matching workflow is
    `.github/workflows/publish-pypi.yml`; dispatch it from `master`. It is
    manual-only, defaults to no publication, and accepts only artifacts from a
    successful `Alpha distribution artifacts` run whose source manifest matches
-   the `v0.1.0-alpha.1` tag.
-   Configure the GitHub `pypi` environment with required reviewers before
-   publishing.
+   the `v0.1.0-alpha.1` tag. The GitHub `pypi` environment has a required
+   reviewer.
    npm trusted publishing is configured in an existing package's settings, so
    bootstrap its first upload using the maintainer's authenticated npm CLI,
    then configure the workflow. Configure crates.io authentication for the
@@ -66,9 +91,9 @@ After concrete artifact review and explicit authorization to publish:
    -p NAME` for each without local patches; wait for registry availability
    before publishing dependents. The local alpha archive patches only bootstrap
    pre-publication checks and must not be used for the actual registry upload.
-5. Upload the reviewed Python wheels and one source archive to PyPI. Upload the
-   reviewed npm tarball using `npm publish PATH.tgz --tag alpha --access public`.
-   Keep stable/default install channels free of this experimental npm alpha.
+5. PyPI upload is complete (see the status record above). Upload the reviewed
+   npm tarball using `npm publish PATH.tgz --tag alpha --access public`. Keep
+   stable/default install channels free of this experimental npm alpha.
 6. From a fresh consumer, install the exact public versions and run the same
    golden consumer suite. Update the changelog/status only after those installs
    succeed. Record registry links, tag, artifact digests, and CI evidence here.

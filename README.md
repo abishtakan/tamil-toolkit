@@ -2,13 +2,15 @@
 
 A Rust-first Tamil linguistic toolkit monorepo with thin Python, TypeScript/WASM,
 and Dart bindings, deterministic Unicode inspection, and shared golden fixtures.
-The first MIT-licensed public alpha is being prepared. Implemented modules have
+The MIT-licensed public alpha is partially released. Implemented modules have
 bounded, verified contracts; planned modules are excluded from the alpha SDK.
 
-## Alpha release preparation
+## Alpha release status
 
 The candidate is `0.1.0-alpha.1` for Rust/npm and `0.1.0a1` for Python.
-It has not been uploaded to a registry. See the [release plan and acceptance
+The Python umbrella package is published on
+[PyPI](https://pypi.org/project/tamil-toolkit/0.1.0a1/); the Rust crates and npm
+package remain unpublished. See the [release plan and acceptance
 criteria](docs/releases/alpha-1.md) and [release runbook](docs/releases/README.md).
 
 `just release-check` builds six Cargo archives, an abi3 Python wheel and source
@@ -154,8 +156,8 @@ decoded. Every accepted input round-trips to its NFC spelling.
 
 Public distributions use `tamil-*`. Python imports and Pub use `tamil_toolkit`
 because those platforms require identifier-compatible names. Internal Rust FFI
-packages are `tamil-python`, `tamil-wasm`, and `tamil-dart`. All publication is
-disabled; registry availability, ownership, and licensing remain release tasks.
+packages are `tamil-python`, `tamil-wasm`, and `tamil-dart`. The Python umbrella
+is published on PyPI; Rust crates.io and npm publication remain pending.
 
 ## Harness layout
 
@@ -185,10 +187,12 @@ module contracts.
 Claude's Stop adapter turns failures into blocking exit 2. Specialist role hooks
 restrict edits and shell commands through Claude's tool interface; they are not
 OS permissions. See [agent harness details](docs/agent-harness.md). Cold checks
-can take minutes. CI config runs the gate on Ubuntu and Windows and includes
-Dart; those remote jobs run after this repository is pushed.
+can take minutes. The fast GitHub push/PR gate runs core Rust and Unicode checks
+on Ubuntu. The full cross-runtime, harness, and Dart gates remain available
+locally; the alpha artifact workflow checks release packages across supported
+platforms.
 
 Original code is [MIT licensed](LICENSE); upstream data and mapping notices are
 preserved in [third-party notices](THIRD_PARTY_NOTICES.md). Contributions are
-welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). Registry publication remains
-disabled while the alpha artifacts undergo release review.
+welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). PyPI's alpha is live; Rust and
+npm publication remain disabled pending their release steps.

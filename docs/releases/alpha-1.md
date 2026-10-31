@@ -1,7 +1,7 @@
 # First public alpha: 0.1.0-alpha.1
 
-Status: local preparation verified; remote CI, release review, and registry
-publication remain pending. No registry upload has been performed.
+Status: PyPI `0.1.0a1` is published and verified from a fresh consumer. Rust
+crates.io and npm publication remain pending.
 
 Repository: https://github.com/abishtakan/tamil-toolkit
 
@@ -64,19 +64,20 @@ or a network dependency in build scripts. Never edit the generated copies.
 6. CI builds and uploads reviewable artifacts without registry credentials.
    Publishing is a separate explicit action using a reviewed release tag and
    registry credentials or trusted publisher configuration. No secret is stored
-   in source, artifacts, or logs. Initial uploads are ordered Rust dependencies
-   first, then Python/npm. All archives are tested before any upload.
+   in source, artifacts, or logs. PyPI is published; the remaining Rust crates
+   must publish in dependency order, followed by npm's reviewed alpha upload.
+   Each registry's archives must pass consumer checks before upload.
 
 ## Release review and handoff
 
 Record commands, artifact digests, local/CI evidence, supported platforms, and
-any incomplete registry/account configuration here before the first upload.
-Local Windows proof does not imply that Linux/macOS CI has passed. Public names
-were not found by the initial registry checks; final registry acceptance and
-ownership are only established by successful publication.
+incomplete registry/account configuration in the [release runbook](README.md).
+Local Windows proof does not imply Linux/macOS CI; the alpha artifact run linked
+below passed those platform builds and consumers. PyPI project ownership is
+confirmed by the successful upload; crates.io and npm ownership remain pending.
 
-Release preparation does not create a release tag, push commits, or upload a
-package. The first upload must follow the concrete artifact review.
+The release tag and PyPI upload are complete. Remaining registry uploads must
+follow their respective artifact review and explicit release steps.
 
 ## Primary references
 
@@ -123,12 +124,14 @@ include the complete license texts from the resolved non-dev Cargo graph.
 The generated `target/alpha/SHA256SUMS.json` records all nine candidate digests.
 Detailed local logs are `target/alpha-full-gate.log`, `alpha-dart-gate.log`,
 `alpha-final-release-check.log`, `alpha-python311-consumer.log`, and
-`alpha-msrv-check.log`. Candidate archives were built from the current dirty
-working tree; public release artifacts must be rebuilt from the reviewed commit.
+`alpha-msrv-check.log`. Those local candidate archives came from a dirty tree;
+the public alpha artifacts were rebuilt from the reviewed release tag and passed
+the remote consumer jobs linked above.
 
-The build-only alpha workflow is configured for Linux/Windows/macOS wheels,
-CPython 3.11/3.14 consumers, Node 22/24, a Rust archive consumer, and Rust 1.85.
-Those remote jobs have **not run**. Registry account ownership, initial npm
-bootstrap authentication, PyPI publisher configuration, and actual uploads are
-still pending. Publishing remains disabled in the manifests. Dart distribution
-packaging and PostgreSQL remain excluded from this alpha.
+The [Alpha distribution artifacts run](https://github.com/abishtakan/tamil-toolkit/actions/runs/41210386284)
+passed Linux/Windows/macOS wheels, CPython 3.11/3.14 consumers, Node 22/24, Rust
+archive consumption, and Rust 1.85. PyPI's pending trusted publisher is
+configured and the Python distribution is live. Rust crates.io publishing
+remains disabled in the manifests; npm still needs its first authenticated upload
+and later trusted-publisher setup. Dart distribution packaging and PostgreSQL
+remain excluded from this alpha.
