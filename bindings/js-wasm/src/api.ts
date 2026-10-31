@@ -31,6 +31,7 @@ export function createApi(nativeExecute: (request: string) => string) {
     currency_to_words: (amount_minor: number, currency: Currency, locale: Locale = "TN") => execute({ op: "currency_to_words", input: { amount_minor, currency, locale } }) as string,
     bamini_to_unicode: (text: string, errors: CodecErrorPolicy = "strict") => execute({ op: "bamini_to_unicode", input: { text, errors } }) as string,
     unicode_to_bamini: (text: string) => execute({ op: "unicode_to_bamini", input: { text } }) as string,
+    tscii_bytes_to_unicode: (bytes: Uint8Array | number[]) => execute({ op: "tscii_bytes_to_unicode", input: { bytes: Array.from(bytes) } }) as string,
     format_fraction: (numerator: number, denominator: number, digits: DigitStyle = "latin") => execute({ op: "format_fraction", input: { numerator, denominator, digits } }) as string,
     fraction_to_words: (numerator: number, denominator: number, locale: Locale = "TN") => execute({ op: "fraction_to_words", input: { numerator, denominator, locale } }) as string,
     fraction_symbol: (numerator: number, denominator: number) => execute({ op: "fraction_symbol", input: { numerator, denominator } }) as string,

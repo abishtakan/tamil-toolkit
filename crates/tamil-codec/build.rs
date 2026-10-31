@@ -29,6 +29,21 @@ struct Ambiguous {
     candidates: Vec<String>,
 }
 
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct TsciiProfile {
+    profile: String,
+    source: String,
+    mappings: Vec<TsciiMapping>,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct TsciiMapping {
+    hex: String,
+    unicode: String,
+}
+
 #[derive(Default)]
 struct Node {
     edges: BTreeMap<u8, usize>,
@@ -52,10 +67,10 @@ fn valid_output(text: &str) -> bool {
             .all(|c| !matches!(u32::from(c), 0x200c | 0x200d))
 }
 
-fn insert(nodes: &mut Vec<Node>, key: &str, terminal: String, maximum: usize) {
+fn insert(nodes: &mut Vec<Node>, key: &[u8], terminal: String, maximum: usize) {
     assert!(!key.is_empty() && key.len() <= maximum, "invalid trie key");
     let mut current = 0;
-    for byte in key.bytes() {
+    for &byte in key {
         current = match nodes[current].edges.get(&byte) {
             Some(&next) => next,
             None => {
@@ -116,7 +131,7 @@ fn main() {
         );
         insert(
             &mut nodes,
-            &mapping.legacy,
+            mapping.legacy.as_bytes(),
             format!("Terminal::Text({})", literal(&mapping.unicode)),
             profile.max_key_bytes,
         );
@@ -134,7 +149,7 @@ fn main() {
         assert!(unique.iter().all(|text| valid_output(text)));
         insert(
             &mut nodes,
-            &ambiguous.legacy,
+            ambiguous.legacy.as_bytes(),
             "Terminal::Ambiguous".to_owned(),
             profile.max_key_bytes,
         );
@@ -206,7 +221,7 @@ fn main() {
     for &(text, key) in &canonical {
         insert(
             &mut encode_nodes,
-            text,
+            text.as_bytes(),
             format!("Terminal::Text({})", literal(key)),
             maximum,
         );
@@ -223,4 +238,42 @@ fn main() {
         code,
     )
     .expect("write Bamini trie");
+
+    let path = "lexicon/tscii.toml";
+    println!("cargo:rerun-if-changed={path}");
+    let profile: TsciiProfile = toml::from_str(&fs::read_to_string(path).expect("read tscii.toml"))
+        .expect("valid tscii.toml");
+    assert_eq!(profile.profile, "tscii-tamilutil-bounded-v1");
+    assert!(!profile.source.is_empty());
+    assert_eq!(profile.mappings.len(), 313);
+    let mut nodes = vec![Node::default()];
+    for mapping in &profile.mappings {
+        assert!(!mapping.hex.is_empty() && mapping.hex.len() % 2 == 0);
+        let key: Vec<u8> = mapping
+            .hex
+            .as_bytes()
+            .chunks_exact(2)
+            .map(|pair| {
+                u8::from_str_radix(std::str::from_utf8(pair).expect("ASCII hex"), 16)
+                    .expect("valid hex byte")
+            })
+            .collect();
+        assert!(key[0] >= 0x80 && valid_output(&mapping.unicode));
+        insert(
+            &mut nodes,
+            &key,
+            format!("Terminal::Text({})", literal(&mapping.unicode)),
+            3,
+        );
+    }
+    let code = format!(
+        "pub const PROFILE: &str = {};\npub const NODES: &[Node] = &[{}];\n",
+        literal(&profile.profile),
+        render_nodes(&nodes)
+    );
+    fs::write(
+        PathBuf::from(env::var_os("OUT_DIR").expect("OUT_DIR")).join("tscii_tables.rs"),
+        code,
+    )
+    .expect("write TSCII trie");
 }

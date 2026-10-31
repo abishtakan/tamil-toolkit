@@ -25,6 +25,7 @@ pub const OPERATIONS: &[&str] = &[
     "currency_to_words",
     "bamini_to_unicode",
     "unicode_to_bamini",
+    "tscii_bytes_to_unicode",
     "format_fraction",
     "fraction_to_words",
     "fraction_symbol",
@@ -133,6 +134,25 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         }
         "unicode_to_bamini" => {
             codec::unicode_to_bamini(string(&input["text"])?).map(|text| json!(text))
+        }
+        "tscii_bytes_to_unicode" => {
+            let error = || "expected TSCII byte array".to_owned();
+            let bytes = input
+                .get("bytes")
+                .and_then(Value::as_array)
+                .ok_or_else(error)?
+                .iter()
+                .map(|value| {
+                    let number = value.as_number().ok_or_else(error)?.to_string();
+                    let value = number
+                        .strip_suffix(".0")
+                        .unwrap_or(&number)
+                        .parse::<u8>()
+                        .map_err(|_| error())?;
+                    Ok(value)
+                })
+                .collect::<Result<Vec<_>, String>>()?;
+            codec::tscii_bytes_to_unicode(&bytes).map(|text| json!(text))
         }
         "format_fraction" | "fraction_to_words" | "fraction_symbol" => {
             let value = numerals::Fraction::new(

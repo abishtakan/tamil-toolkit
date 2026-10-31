@@ -73,6 +73,12 @@ def test_encoder_convenience_api():
     assert str(failure.value) == collision["expected_error"]
 
 
+def test_tscii_byte_convenience_api():
+    assert tamil.tscii_bytes_to_unicode(bytes([0xba, 0xa2, 0xc5, 0xfd])) == "\u0b9a\u0bbf\u0bb5\u0ba9\u0bcd"
+    with pytest.raises(ValueError, match="unsupported TSCII byte at offset 1: 0xFF"):
+        tamil.tscii_bytes_to_unicode([65, 255])
+
+
 def test_fraction_and_date_convenience_apis():
     for case in load_vectors():
         if case["op"] in ("format_fraction", "fraction_to_words", "fraction_symbol", "format_date") and "expected" in case:

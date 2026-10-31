@@ -28,3 +28,5 @@ Use the comparison result or numeric-array keys for ordering; comparing their
 JSON string representation is incorrect. The versioned `agara-v1` profile and
 its mixed-script fallback are specified at
 https://github.com/abishtakan/tamil-toolkit/tree/HEAD/docs/specs/collate-v0.1.md.
+
+Current development source adds `tscii_bytes_to_unicode(new Uint8Array([0xba, 0xa2, 0xc5, 0xfd]))`; it is not in the published alpha.

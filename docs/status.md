@@ -6,20 +6,18 @@ and local, awaiting commit/push; inspect `git status` for their current state.
 
 ## Current objective
 
-Finish reusable publishing rules and the development harness before starting
-the next linguistic feature. Acceptance is in
-[release-harness.md](specs/release-harness.md). Shared release-policy checks,
-immutable source selection, artifact verification, and documentation are
-implemented and locally verified. The full `just agent-pre-stop-gate` passed;
-the final release-focused suite passed 37 tests and actionlint validated all
-five workflows. See [acceptance evidence](specs/release-harness.md#acceptance-results-2026-10-31).
-Log: `target/release-harness-full-gate.log`.
+The first bounded TSCII byte-decoding milestone is implemented locally and is
+unreleased. See [the decoder contract](specs/codec-tscii-draft.md) and
+[codec roadmap](specs/codec-roadmap.md). The current source has 21,947 active
+golden vectors, including 670 TSCII vectors. Published alpha packages do not
+include this decoder. No version bump or registry upload was performed.
 
-Next action: commit/push this infrastructure batch when requested, then define
-the next bounded linguistic milestone. The changed workflows have not run on
-GitHub yet; an explicit artifact dispatch is needed to establish remote
-distribution evidence before a future publication. No new version was created
-and no registry upload/account change was performed during this work.
+Verification: Rust workspace, Clippy, release/Unicode gates, 104 harness tests,
+Dart, and Rust/Python/WASM parity passed. The first full gate exposed a stale
+Python native extension; its rebuild cleanup and focused regression test passed,
+then `just test-parity` passed on the corrected build. Workbench TypeScript check
+passed. Logs: `target/tscii-final-gate.log`, `target/tscii-final-parity.log`,
+and `target/tscii-dart.log`.
 
 ## Published and implemented
 
@@ -47,7 +45,16 @@ is required in GitHub. PyPI uses `publish-pypi.yml` with environment `pypi`;
 npm uses `publish-npm.yml`; crates.io uses `publish-crate.yml` and the existing
 Actions secret. Never copy secret values here.
 
-Punarchi, morphology, dialect normalization, hyphenation, prosody, additional
-legacy encodings/detection, and PostgreSQL search remain planned. A next
-linguistic milestone has not been selected. Start with a bounded sourced
-specification and acceptance criteria before algorithms.
+## Codec development handoff
+
+The current tree supports explicit Bamini conversion both ways and a bounded
+313-key TSCII byte decoder, with ASCII passthrough, longest matching and strict
+errors. TSCII reverse conversion, detection, Anjal, Vanavil, TAB, TAM and
+historical orthography remain future milestones. Source provenance and profile
+limits are in the codec specifications. Next, define and source a bounded reverse
+TSCII contract and fixtures before implementation; ambiguous byte aliases must
+have an explicit canonical encoding choice.
+
+After codec coverage is scoped, return to Punarchi, morphology, dialect
+normalization, hyphenation, prosody, and PostgreSQL search. Each begins with a
+sourced specification and golden vectors before algorithms.

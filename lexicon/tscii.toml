@@ -1,0 +1,1254 @@
+profile = "tscii-tamilutil-bounded-v1"
+source = "TamilUtil 1f659e70; IANA registration draft"
+
+[[mappings]]
+hex = "81"
+unicode = "\u0be7"
+
+[[mappings]]
+hex = "82"
+unicode = "\u0bb8\u0bcd\u0bb0\u0bc0"
+
+[[mappings]]
+hex = "83"
+unicode = "\u0b9c"
+
+[[mappings]]
+hex = "83a1"
+unicode = "\u0b9c\u0bbe"
+
+[[mappings]]
+hex = "83a2"
+unicode = "\u0b9c\u0bbf"
+
+[[mappings]]
+hex = "83a3"
+unicode = "\u0b9c\u0bc0"
+
+[[mappings]]
+hex = "83a4"
+unicode = "\u0b9c\u0bc1"
+
+[[mappings]]
+hex = "83a5"
+unicode = "\u0b9c\u0bc2"
+
+[[mappings]]
+hex = "84"
+unicode = "\u0bb7"
+
+[[mappings]]
+hex = "84a1"
+unicode = "\u0bb7\u0bbe"
+
+[[mappings]]
+hex = "84a2"
+unicode = "\u0bb7\u0bbf"
+
+[[mappings]]
+hex = "84a3"
+unicode = "\u0bb7\u0bc0"
+
+[[mappings]]
+hex = "84a4"
+unicode = "\u0bb7\u0bc1"
+
+[[mappings]]
+hex = "84a5"
+unicode = "\u0bb7\u0bc2"
+
+[[mappings]]
+hex = "85"
+unicode = "\u0bb8"
+
+[[mappings]]
+hex = "85a1"
+unicode = "\u0bb8\u0bbe"
+
+[[mappings]]
+hex = "85a2"
+unicode = "\u0bb8\u0bbf"
+
+[[mappings]]
+hex = "85a3"
+unicode = "\u0bb8\u0bc0"
+
+[[mappings]]
+hex = "85a4"
+unicode = "\u0bb8\u0bc1"
+
+[[mappings]]
+hex = "85a5"
+unicode = "\u0bb8\u0bc2"
+
+[[mappings]]
+hex = "8686"
+unicode = "\u0bb9"
+
+[[mappings]]
+hex = "8686a1"
+unicode = "\u0bb9\u0bbe"
+
+[[mappings]]
+hex = "86a2"
+unicode = "\u0bb9\u0bbf"
+
+[[mappings]]
+hex = "86a3"
+unicode = "\u0bb9\u0bc0"
+
+[[mappings]]
+hex = "86a4"
+unicode = "\u0bb9\u0bc1"
+
+[[mappings]]
+hex = "86a5"
+unicode = "\u0bb9\u0bc2"
+
+[[mappings]]
+hex = "88"
+unicode = "\u0b9c\u0bcd"
+
+[[mappings]]
+hex = "89"
+unicode = "\u0bb7\u0bcd"
+
+[[mappings]]
+hex = "8a"
+unicode = "\u0bb8\u0bcd"
+
+[[mappings]]
+hex = "8b8b20"
+unicode = "\u0bb9\u0bcd"
+
+[[mappings]]
+hex = "8d"
+unicode = "\u0be8"
+
+[[mappings]]
+hex = "8e"
+unicode = "\u0be9"
+
+[[mappings]]
+hex = "8f"
+unicode = "\u0bea"
+
+[[mappings]]
+hex = "90"
+unicode = "\u0beb"
+
+[[mappings]]
+hex = "91"
+unicode = "\u2018"
+
+[[mappings]]
+hex = "96"
+unicode = "\u0bed"
+
+[[mappings]]
+hex = "97"
+unicode = "\u0bee"
+
+[[mappings]]
+hex = "98"
+unicode = "\u0bef"
+
+[[mappings]]
+hex = "99"
+unicode = "\u0b99\u0bc1"
+
+[[mappings]]
+hex = "9a"
+unicode = "\u0b9e\u0bc1"
+
+[[mappings]]
+hex = "9b"
+unicode = "\u0b99\u0bc2"
+
+[[mappings]]
+hex = "9c"
+unicode = "\u0b9e\u0bc2"
+
+[[mappings]]
+hex = "9d"
+unicode = "\u0bf0"
+
+[[mappings]]
+hex = "9e"
+unicode = "\u0bf1"
+
+[[mappings]]
+hex = "9f"
+unicode = "\u0bf2"
+
+[[mappings]]
+hex = "a683"
+unicode = "\u0b9c\u0bc6"
+
+[[mappings]]
+hex = "a683a1"
+unicode = "\u0b9c\u0bca"
+
+[[mappings]]
+hex = "a683aa"
+unicode = "\u0b9c\u0bcc"
+
+[[mappings]]
+hex = "a684"
+unicode = "\u0bb7\u0bc6"
+
+[[mappings]]
+hex = "a684a1"
+unicode = "\u0bb7\u0bca"
+
+[[mappings]]
+hex = "a684aa"
+unicode = "\u0bb7\u0bcc"
+
+[[mappings]]
+hex = "a685"
+unicode = "\u0bb8\u0bc6"
+
+[[mappings]]
+hex = "a685a1"
+unicode = "\u0bb8\u0bca"
+
+[[mappings]]
+hex = "a685aa"
+unicode = "\u0bb8\u0bcc"
+
+[[mappings]]
+hex = "a686"
+unicode = "\u0bb9\u0bc6"
+
+[[mappings]]
+hex = "a686a1"
+unicode = "\u0bb9\u0bca"
+
+[[mappings]]
+hex = "a686aa"
+unicode = "\u0bb9\u0bcc"
+
+[[mappings]]
+hex = "a6b8"
+unicode = "\u0b95\u0bc6"
+
+[[mappings]]
+hex = "a6b8a1"
+unicode = "\u0b95\u0bca"
+
+[[mappings]]
+hex = "a6b8aa"
+unicode = "\u0b95\u0bcc"
+
+[[mappings]]
+hex = "a6b9"
+unicode = "\u0b99\u0bc6"
+
+[[mappings]]
+hex = "a6b9a1"
+unicode = "\u0b99\u0bca"
+
+[[mappings]]
+hex = "a6b9aa"
+unicode = "\u0b99\u0bcc"
+
+[[mappings]]
+hex = "a6ba"
+unicode = "\u0b9a\u0bc6"
+
+[[mappings]]
+hex = "a6baa1"
+unicode = "\u0b9a\u0bca"
+
+[[mappings]]
+hex = "a6baaa"
+unicode = "\u0b9a\u0bcc"
+
+[[mappings]]
+hex = "a6bb"
+unicode = "\u0b9e\u0bc6"
+
+[[mappings]]
+hex = "a6bba1"
+unicode = "\u0b9e\u0bca"
+
+[[mappings]]
+hex = "a6bbaa"
+unicode = "\u0b9e\u0bcc"
+
+[[mappings]]
+hex = "a6bc"
+unicode = "\u0b9f\u0bc6"
+
+[[mappings]]
+hex = "a6bca1"
+unicode = "\u0b9f\u0bca"
+
+[[mappings]]
+hex = "a6bcaa"
+unicode = "\u0b9f\u0bcc"
+
+[[mappings]]
+hex = "a6bd"
+unicode = "\u0ba3\u0bc6"
+
+[[mappings]]
+hex = "a6bda1"
+unicode = "\u0ba3\u0bca"
+
+[[mappings]]
+hex = "a6bdaa"
+unicode = "\u0ba3\u0bcc"
+
+[[mappings]]
+hex = "a6be"
+unicode = "\u0ba4\u0bc6"
+
+[[mappings]]
+hex = "a6bea1"
+unicode = "\u0ba4\u0bca"
+
+[[mappings]]
+hex = "a6beaa"
+unicode = "\u0ba4\u0bcc"
+
+[[mappings]]
+hex = "a6bf"
+unicode = "\u0ba8\u0bc6"
+
+[[mappings]]
+hex = "a6bfa1"
+unicode = "\u0ba8\u0bca"
+
+[[mappings]]
+hex = "a6bfaa"
+unicode = "\u0ba8\u0bcc"
+
+[[mappings]]
+hex = "a6c0"
+unicode = "\u0baa\u0bc6"
+
+[[mappings]]
+hex = "a6c0a1"
+unicode = "\u0baa\u0bca"
+
+[[mappings]]
+hex = "a6c0aa"
+unicode = "\u0baa\u0bcc"
+
+[[mappings]]
+hex = "a6c1"
+unicode = "\u0bae\u0bc6"
+
+[[mappings]]
+hex = "a6c1a1"
+unicode = "\u0bae\u0bca"
+
+[[mappings]]
+hex = "a6c1aa"
+unicode = "\u0bae\u0bcc"
+
+[[mappings]]
+hex = "a6c2"
+unicode = "\u0baf\u0bc6"
+
+[[mappings]]
+hex = "a6c2a1"
+unicode = "\u0baf\u0bca"
+
+[[mappings]]
+hex = "a6c2aa"
+unicode = "\u0baf\u0bcc"
+
+[[mappings]]
+hex = "a6c3"
+unicode = "\u0bb0\u0bc6"
+
+[[mappings]]
+hex = "a6c3a1"
+unicode = "\u0bb0\u0bca"
+
+[[mappings]]
+hex = "a6c3aa"
+unicode = "\u0bb0\u0bcc"
+
+[[mappings]]
+hex = "a6c4"
+unicode = "\u0bb2\u0bc6"
+
+[[mappings]]
+hex = "a6c4a1"
+unicode = "\u0bb2\u0bca"
+
+[[mappings]]
+hex = "a6c4aa"
+unicode = "\u0bb2\u0bcc"
+
+[[mappings]]
+hex = "a6c5"
+unicode = "\u0bb5\u0bc6"
+
+[[mappings]]
+hex = "a6c5a1"
+unicode = "\u0bb5\u0bca"
+
+[[mappings]]
+hex = "a6c5aa"
+unicode = "\u0bb5\u0bcc"
+
+[[mappings]]
+hex = "a6c6"
+unicode = "\u0bb4\u0bc6"
+
+[[mappings]]
+hex = "a6c6a1"
+unicode = "\u0bb4\u0bca"
+
+[[mappings]]
+hex = "a6c6aa"
+unicode = "\u0bb4\u0bcc"
+
+[[mappings]]
+hex = "a6c7"
+unicode = "\u0bb3\u0bc6"
+
+[[mappings]]
+hex = "a6c7a1"
+unicode = "\u0bb3\u0bca"
+
+[[mappings]]
+hex = "a6c7aa"
+unicode = "\u0bb3\u0bcc"
+
+[[mappings]]
+hex = "a6c8"
+unicode = "\u0bb1\u0bc6"
+
+[[mappings]]
+hex = "a6c8a1"
+unicode = "\u0bb1\u0bca"
+
+[[mappings]]
+hex = "a6c8aa"
+unicode = "\u0bb1\u0bcc"
+
+[[mappings]]
+hex = "a6c9"
+unicode = "\u0ba9\u0bc6"
+
+[[mappings]]
+hex = "a6c9a1"
+unicode = "\u0ba9\u0bca"
+
+[[mappings]]
+hex = "a6c9aa"
+unicode = "\u0ba9\u0bcc"
+
+[[mappings]]
+hex = "a783"
+unicode = "\u0b9c\u0bc7"
+
+[[mappings]]
+hex = "a783a1"
+unicode = "\u0b9c\u0bcb"
+
+[[mappings]]
+hex = "a784"
+unicode = "\u0bb7\u0bc7"
+
+[[mappings]]
+hex = "a784a1"
+unicode = "\u0bb7\u0bcb"
+
+[[mappings]]
+hex = "a785"
+unicode = "\u0bb8\u0bc7"
+
+[[mappings]]
+hex = "a785a1"
+unicode = "\u0bb8\u0bcb"
+
+[[mappings]]
+hex = "a786"
+unicode = "\u0bb9\u0bc7"
+
+[[mappings]]
+hex = "a786a1"
+unicode = "\u0bb9\u0bcb"
+
+[[mappings]]
+hex = "a7b8"
+unicode = "\u0b95\u0bc7"
+
+[[mappings]]
+hex = "a7b8a1"
+unicode = "\u0b95\u0bcb"
+
+[[mappings]]
+hex = "a7b9"
+unicode = "\u0b99\u0bc7"
+
+[[mappings]]
+hex = "a7b9a1"
+unicode = "\u0b99\u0bcb"
+
+[[mappings]]
+hex = "a7ba"
+unicode = "\u0b9a\u0bc7"
+
+[[mappings]]
+hex = "a7baa1"
+unicode = "\u0b9a\u0bcb"
+
+[[mappings]]
+hex = "a7bb"
+unicode = "\u0b9e\u0bc7"
+
+[[mappings]]
+hex = "a7bba1"
+unicode = "\u0b9e\u0bcb"
+
+[[mappings]]
+hex = "a7bc"
+unicode = "\u0b9f\u0bc7"
+
+[[mappings]]
+hex = "a7bca1"
+unicode = "\u0b9f\u0bcb"
+
+[[mappings]]
+hex = "a7bd"
+unicode = "\u0ba3\u0bc7"
+
+[[mappings]]
+hex = "a7bda1"
+unicode = "\u0ba3\u0bcb"
+
+[[mappings]]
+hex = "a7be"
+unicode = "\u0ba4\u0bc7"
+
+[[mappings]]
+hex = "a7bea1"
+unicode = "\u0ba4\u0bcb"
+
+[[mappings]]
+hex = "a7bf"
+unicode = "\u0ba8\u0bc7"
+
+[[mappings]]
+hex = "a7bfa1"
+unicode = "\u0ba8\u0bcb"
+
+[[mappings]]
+hex = "a7c0"
+unicode = "\u0baa\u0bc7"
+
+[[mappings]]
+hex = "a7c0a1"
+unicode = "\u0baa\u0bcb"
+
+[[mappings]]
+hex = "a7c1"
+unicode = "\u0bae\u0bc7"
+
+[[mappings]]
+hex = "a7c1a1"
+unicode = "\u0bae\u0bcb"
+
+[[mappings]]
+hex = "a7c2"
+unicode = "\u0baf\u0bc7"
+
+[[mappings]]
+hex = "a7c2a1"
+unicode = "\u0baf\u0bcb"
+
+[[mappings]]
+hex = "a7c3"
+unicode = "\u0bb0\u0bc7"
+
+[[mappings]]
+hex = "a7c3a1"
+unicode = "\u0bb0\u0bcb"
+
+[[mappings]]
+hex = "a7c4"
+unicode = "\u0bb2\u0bc7"
+
+[[mappings]]
+hex = "a7c4a1"
+unicode = "\u0bb2\u0bcb"
+
+[[mappings]]
+hex = "a7c5"
+unicode = "\u0bb5\u0bc7"
+
+[[mappings]]
+hex = "a7c5a1"
+unicode = "\u0bb5\u0bcb"
+
+[[mappings]]
+hex = "a7c6"
+unicode = "\u0bb4\u0bc7"
+
+[[mappings]]
+hex = "a7c6a1"
+unicode = "\u0bb4\u0bcb"
+
+[[mappings]]
+hex = "a7c7"
+unicode = "\u0bb3\u0bc7"
+
+[[mappings]]
+hex = "a7c7a1"
+unicode = "\u0bb3\u0bcb"
+
+[[mappings]]
+hex = "a7c8"
+unicode = "\u0bb1\u0bc7"
+
+[[mappings]]
+hex = "a7c8a1"
+unicode = "\u0bb1\u0bcb"
+
+[[mappings]]
+hex = "a7c9"
+unicode = "\u0ba9\u0bc7"
+
+[[mappings]]
+hex = "a7c9a1"
+unicode = "\u0ba9\u0bcb"
+
+[[mappings]]
+hex = "a883"
+unicode = "\u0b9c\u0bc8"
+
+[[mappings]]
+hex = "a884"
+unicode = "\u0bb7\u0bc8"
+
+[[mappings]]
+hex = "a885"
+unicode = "\u0bb8\u0bc8"
+
+[[mappings]]
+hex = "a886"
+unicode = "\u0bb9\u0bc8"
+
+[[mappings]]
+hex = "a8b8"
+unicode = "\u0b95\u0bc8"
+
+[[mappings]]
+hex = "a8b9"
+unicode = "\u0b99\u0bc8"
+
+[[mappings]]
+hex = "a8ba"
+unicode = "\u0b9a\u0bc8"
+
+[[mappings]]
+hex = "a8bb"
+unicode = "\u0b9e\u0bc8"
+
+[[mappings]]
+hex = "a8bc"
+unicode = "\u0b9f\u0bc8"
+
+[[mappings]]
+hex = "a8bd"
+unicode = "\u0ba3\u0bc8"
+
+[[mappings]]
+hex = "a8be"
+unicode = "\u0ba4\u0bc8"
+
+[[mappings]]
+hex = "a8bf"
+unicode = "\u0ba8\u0bc8"
+
+[[mappings]]
+hex = "a8c0"
+unicode = "\u0baa\u0bc8"
+
+[[mappings]]
+hex = "a8c1"
+unicode = "\u0bae\u0bc8"
+
+[[mappings]]
+hex = "a8c2"
+unicode = "\u0baf\u0bc8"
+
+[[mappings]]
+hex = "a8c3"
+unicode = "\u0bb0\u0bc8"
+
+[[mappings]]
+hex = "a8c4"
+unicode = "\u0bb2\u0bc8"
+
+[[mappings]]
+hex = "a8c5"
+unicode = "\u0bb5\u0bc8"
+
+[[mappings]]
+hex = "a8c6"
+unicode = "\u0bb4\u0bc8"
+
+[[mappings]]
+hex = "a8c7"
+unicode = "\u0bb3\u0bc8"
+
+[[mappings]]
+hex = "a8c8"
+unicode = "\u0bb1\u0bc8"
+
+[[mappings]]
+hex = "a8c9"
+unicode = "\u0ba9\u0bc8"
+
+[[mappings]]
+hex = "ab"
+unicode = "\u0b85"
+
+[[mappings]]
+hex = "ac"
+unicode = "\u0b86"
+
+[[mappings]]
+hex = "ad"
+unicode = "\u0b87"
+
+[[mappings]]
+hex = "ae"
+unicode = "\u0b88"
+
+[[mappings]]
+hex = "af"
+unicode = "\u0b89"
+
+[[mappings]]
+hex = "b0"
+unicode = "\u0b8a"
+
+[[mappings]]
+hex = "b1"
+unicode = "\u0b8e"
+
+[[mappings]]
+hex = "b2"
+unicode = "\u0b8f"
+
+[[mappings]]
+hex = "b3"
+unicode = "\u0b90"
+
+[[mappings]]
+hex = "b4"
+unicode = "\u0b92"
+
+[[mappings]]
+hex = "b5"
+unicode = "\u0b93"
+
+[[mappings]]
+hex = "b6"
+unicode = "\u0b94"
+
+[[mappings]]
+hex = "b7"
+unicode = "\u0b83"
+
+[[mappings]]
+hex = "b8"
+unicode = "\u0b95"
+
+[[mappings]]
+hex = "b8a1"
+unicode = "\u0b95\u0bbe"
+
+[[mappings]]
+hex = "b8a2"
+unicode = "\u0b95\u0bbf"
+
+[[mappings]]
+hex = "b8a3"
+unicode = "\u0b95\u0bc0"
+
+[[mappings]]
+hex = "b9"
+unicode = "\u0b99"
+
+[[mappings]]
+hex = "b9a1"
+unicode = "\u0b99\u0bbe"
+
+[[mappings]]
+hex = "b9a2"
+unicode = "\u0b99\u0bbf"
+
+[[mappings]]
+hex = "b9a3"
+unicode = "\u0b99\u0bc0"
+
+[[mappings]]
+hex = "ba"
+unicode = "\u0b9a"
+
+[[mappings]]
+hex = "baa1"
+unicode = "\u0b9a\u0bbe"
+
+[[mappings]]
+hex = "baa2"
+unicode = "\u0b9a\u0bbf"
+
+[[mappings]]
+hex = "baa3"
+unicode = "\u0b9a\u0bc0"
+
+[[mappings]]
+hex = "bb"
+unicode = "\u0b9e"
+
+[[mappings]]
+hex = "bba1"
+unicode = "\u0b9e\u0bbe"
+
+[[mappings]]
+hex = "bba2"
+unicode = "\u0b9e\u0bbf"
+
+[[mappings]]
+hex = "bba3"
+unicode = "\u0b9e\u0bc0"
+
+[[mappings]]
+hex = "bc"
+unicode = "\u0b9f"
+
+[[mappings]]
+hex = "bca1"
+unicode = "\u0b9f\u0bbe"
+
+[[mappings]]
+hex = "bd"
+unicode = "\u0ba3"
+
+[[mappings]]
+hex = "bda1"
+unicode = "\u0ba3\u0bbe"
+
+[[mappings]]
+hex = "bda2"
+unicode = "\u0ba3\u0bbf"
+
+[[mappings]]
+hex = "bda3"
+unicode = "\u0ba3\u0bc0"
+
+[[mappings]]
+hex = "be"
+unicode = "\u0ba4"
+
+[[mappings]]
+hex = "bea1"
+unicode = "\u0ba4\u0bbe"
+
+[[mappings]]
+hex = "bea2"
+unicode = "\u0ba4\u0bbf"
+
+[[mappings]]
+hex = "bea3"
+unicode = "\u0ba4\u0bc0"
+
+[[mappings]]
+hex = "bf"
+unicode = "\u0ba8"
+
+[[mappings]]
+hex = "bfa1"
+unicode = "\u0ba8\u0bbe"
+
+[[mappings]]
+hex = "bfa2"
+unicode = "\u0ba8\u0bbf"
+
+[[mappings]]
+hex = "bfa3"
+unicode = "\u0ba8\u0bc0"
+
+[[mappings]]
+hex = "c0"
+unicode = "\u0baa"
+
+[[mappings]]
+hex = "c0a1"
+unicode = "\u0baa\u0bbe"
+
+[[mappings]]
+hex = "c0a2"
+unicode = "\u0baa\u0bbf"
+
+[[mappings]]
+hex = "c0a3"
+unicode = "\u0baa\u0bc0"
+
+[[mappings]]
+hex = "c1"
+unicode = "\u0bae"
+
+[[mappings]]
+hex = "c1a1"
+unicode = "\u0bae\u0bbe"
+
+[[mappings]]
+hex = "c1a2"
+unicode = "\u0bae\u0bbf"
+
+[[mappings]]
+hex = "c1a3"
+unicode = "\u0bae\u0bc0"
+
+[[mappings]]
+hex = "c2"
+unicode = "\u0baf"
+
+[[mappings]]
+hex = "c2a1"
+unicode = "\u0baf\u0bbe"
+
+[[mappings]]
+hex = "c2a2"
+unicode = "\u0baf\u0bbf"
+
+[[mappings]]
+hex = "c2a3"
+unicode = "\u0baf\u0bc0"
+
+[[mappings]]
+hex = "c3"
+unicode = "\u0bb0"
+
+[[mappings]]
+hex = "c3a1"
+unicode = "\u0bb0\u0bbe"
+
+[[mappings]]
+hex = "c3a2"
+unicode = "\u0bb0\u0bbf"
+
+[[mappings]]
+hex = "c3a3"
+unicode = "\u0bb0\u0bc0"
+
+[[mappings]]
+hex = "c4"
+unicode = "\u0bb2"
+
+[[mappings]]
+hex = "c4a1"
+unicode = "\u0bb2\u0bbe"
+
+[[mappings]]
+hex = "c4a2"
+unicode = "\u0bb2\u0bbf"
+
+[[mappings]]
+hex = "c4a3"
+unicode = "\u0bb2\u0bc0"
+
+[[mappings]]
+hex = "c5"
+unicode = "\u0bb5"
+
+[[mappings]]
+hex = "c5a1"
+unicode = "\u0bb5\u0bbe"
+
+[[mappings]]
+hex = "c5a2"
+unicode = "\u0bb5\u0bbf"
+
+[[mappings]]
+hex = "c5a3"
+unicode = "\u0bb5\u0bc0"
+
+[[mappings]]
+hex = "c6"
+unicode = "\u0bb4"
+
+[[mappings]]
+hex = "c6a1"
+unicode = "\u0bb4\u0bbe"
+
+[[mappings]]
+hex = "c6a2"
+unicode = "\u0bb4\u0bbf"
+
+[[mappings]]
+hex = "c6a3"
+unicode = "\u0bb4\u0bc0"
+
+[[mappings]]
+hex = "c7"
+unicode = "\u0bb3"
+
+[[mappings]]
+hex = "c7a1"
+unicode = "\u0bb3\u0bbe"
+
+[[mappings]]
+hex = "c7a2"
+unicode = "\u0bb3\u0bbf"
+
+[[mappings]]
+hex = "c7a3"
+unicode = "\u0bb3\u0bc0"
+
+[[mappings]]
+hex = "c8"
+unicode = "\u0bb1"
+
+[[mappings]]
+hex = "c8a1"
+unicode = "\u0bb1\u0bbe"
+
+[[mappings]]
+hex = "c8a2"
+unicode = "\u0bb1\u0bbf"
+
+[[mappings]]
+hex = "c8a3"
+unicode = "\u0bb1\u0bc0"
+
+[[mappings]]
+hex = "c9"
+unicode = "\u0ba9"
+
+[[mappings]]
+hex = "c9a1"
+unicode = "\u0ba9\u0bbe"
+
+[[mappings]]
+hex = "c9a2"
+unicode = "\u0ba9\u0bbf"
+
+[[mappings]]
+hex = "c9a3"
+unicode = "\u0ba9\u0bc0"
+
+[[mappings]]
+hex = "ca"
+unicode = "\u0b9f\u0bbf"
+
+[[mappings]]
+hex = "cb"
+unicode = "\u0b9f\u0bc0"
+
+[[mappings]]
+hex = "cc"
+unicode = "\u0b95\u0bc1"
+
+[[mappings]]
+hex = "cd"
+unicode = "\u0b9a\u0bc1"
+
+[[mappings]]
+hex = "ce"
+unicode = "\u0b9f\u0bc1"
+
+[[mappings]]
+hex = "cf"
+unicode = "\u0ba3\u0bc1"
+
+[[mappings]]
+hex = "d0"
+unicode = "\u0ba4\u0bc1"
+
+[[mappings]]
+hex = "d1"
+unicode = "\u0ba8\u0bc1"
+
+[[mappings]]
+hex = "d2"
+unicode = "\u0baa\u0bc1"
+
+[[mappings]]
+hex = "d3"
+unicode = "\u0bae\u0bc1"
+
+[[mappings]]
+hex = "d4"
+unicode = "\u0baf\u0bc1"
+
+[[mappings]]
+hex = "d5"
+unicode = "\u0bb0\u0bc1"
+
+[[mappings]]
+hex = "d6"
+unicode = "\u0bb2\u0bc1"
+
+[[mappings]]
+hex = "d7"
+unicode = "\u0bb5\u0bc1"
+
+[[mappings]]
+hex = "d8"
+unicode = "\u0bb4\u0bc1"
+
+[[mappings]]
+hex = "d9"
+unicode = "\u0bb3\u0bc1"
+
+[[mappings]]
+hex = "da"
+unicode = "\u0bb1\u0bc1"
+
+[[mappings]]
+hex = "db"
+unicode = "\u0ba9\u0bc1"
+
+[[mappings]]
+hex = "dc"
+unicode = "\u0b95\u0bc2"
+
+[[mappings]]
+hex = "dd"
+unicode = "\u0b9a\u0bc2"
+
+[[mappings]]
+hex = "de"
+unicode = "\u0b9f\u0bc2"
+
+[[mappings]]
+hex = "df"
+unicode = "\u0ba3\u0bc2"
+
+[[mappings]]
+hex = "e0"
+unicode = "\u0ba4\u0bc2"
+
+[[mappings]]
+hex = "e1"
+unicode = "\u0ba8\u0bc2"
+
+[[mappings]]
+hex = "e2"
+unicode = "\u0baa\u0bc2"
+
+[[mappings]]
+hex = "e3"
+unicode = "\u0bae\u0bc2"
+
+[[mappings]]
+hex = "e4"
+unicode = "\u0baf\u0bc2"
+
+[[mappings]]
+hex = "e5"
+unicode = "\u0bb0\u0bc2"
+
+[[mappings]]
+hex = "e6"
+unicode = "\u0bb2\u0bc2"
+
+[[mappings]]
+hex = "e7"
+unicode = "\u0bb5\u0bc2"
+
+[[mappings]]
+hex = "e8"
+unicode = "\u0bb4\u0bc2"
+
+[[mappings]]
+hex = "e9"
+unicode = "\u0bb3\u0bc2"
+
+[[mappings]]
+hex = "ea"
+unicode = "\u0bb1\u0bc2"
+
+[[mappings]]
+hex = "eb"
+unicode = "\u0ba9\u0bc2"
+
+[[mappings]]
+hex = "ec"
+unicode = "\u0b95\u0bcd"
+
+[[mappings]]
+hex = "ed"
+unicode = "\u0b99\u0bcd"
+
+[[mappings]]
+hex = "ee"
+unicode = "\u0b9a\u0bcd"
+
+[[mappings]]
+hex = "ef"
+unicode = "\u0b9e\u0bcd"
+
+[[mappings]]
+hex = "f0"
+unicode = "\u0b9f\u0bcd"
+
+[[mappings]]
+hex = "f1"
+unicode = "\u0ba3\u0bcd"
+
+[[mappings]]
+hex = "f2"
+unicode = "\u0ba4\u0bcd"
+
+[[mappings]]
+hex = "f3"
+unicode = "\u0ba8\u0bcd"
+
+[[mappings]]
+hex = "f4"
+unicode = "\u0baa\u0bcd"
+
+[[mappings]]
+hex = "f5"
+unicode = "\u0bae\u0bcd"
+
+[[mappings]]
+hex = "f6"
+unicode = "\u0baf\u0bcd"
+
+[[mappings]]
+hex = "f7"
+unicode = "\u0bb0\u0bcd"
+
+[[mappings]]
+hex = "f8"
+unicode = "\u0bb2\u0bcd"
+
+[[mappings]]
+hex = "f9"
+unicode = "\u0bb5\u0bcd"
+
+[[mappings]]
+hex = "fa"
+unicode = "\u0bb4\u0bcd"
+
+[[mappings]]
+hex = "fb"
+unicode = "\u0bb3\u0bcd"
+
+[[mappings]]
+hex = "fc"
+unicode = "\u0bb1\u0bcd"
+
+[[mappings]]
+hex = "fd"
+unicode = "\u0ba9\u0bcd"
+
+[[mappings]]
+hex = "fe"
+unicode = "\u0b87"

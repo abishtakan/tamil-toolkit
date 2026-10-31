@@ -4,6 +4,8 @@ This setup implements only the operations in the active golden suite. It does
 not claim to implement general legacy-encoding coverage, sandhi, morphology,
 dialect normalization, hyphenation, prosody, or PostgreSQL full-text search.
 
+The unreleased [TSCII decoder contract](codec-tscii-draft.md) specifies the bounded byte profile.
+
 ## Unicode operations
 
 - `normalize_nfc` / `normalize_nfd`: Unicode canonical normalization. Preserve

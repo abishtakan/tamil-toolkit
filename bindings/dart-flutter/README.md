@@ -14,3 +14,5 @@ JavaScript/WASM package instead. Publication is disabled.
 Collation convenience methods are `compare`, `sortWords`, `sortKey`, and
 `searchKey`. They marshal directly to Rust. Keys are versioned numeric arrays;
 use lexicographic numeric comparison and the documented `agara-v1` profile.
+
+The host adapter exposes `tsciiBytesToUnicode([0xba, 0xa2, 0xc5, 0xfd])` for the bounded TSCII byte profile.

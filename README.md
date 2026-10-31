@@ -57,8 +57,8 @@ Rust or lexicon edits rebuild the browser WASM and refresh the page. Select any
 implemented package to enter values and see its operations update live as you
 type. Results show the returned text or JSON plus Unicode scalar values. Python
 and Dart selections call their native adapters from the local dev server. The
-`tamil-codec` workbench supports live Bamini → Unicode and Unicode → Bamini
-conversion. Planned packages remain visibly unimplemented. Golden vectors and native test suites are
+`tamil-codec` workbench supports live Bamini conversion in both directions and
+bounded TSCII byte decoding. Planned packages remain visibly unimplemented. Golden vectors and native test suites are
 available in a collapsed optional section below the manual controls.
 `pnpm run check:workbench` type-checks the app; `pnpm run build:workbench`
 verifies a production bundle.
@@ -87,13 +87,15 @@ the host; mobile library bundling is future work.
   strict/preserve policies, and NFC output.
 - `unicode_to_bamini`: canonical strict encoding that returns ASCII only after
   decoding it reproduces the NFC input.
+- `tscii_bytes_to_unicode`: bounded TSCII byte decoding with explicit errors
+  for unsupported bytes and NFC output.
 - Local MCP tools for scalar inspection, scalar diffs, and fixture validation.
-- **21,277 active golden vectors**, including 1,625 shared error cases, across Rust,
+- **21,947 active golden vectors**, including 1,633 shared error cases, across Rust,
   Python, Node/browser-target WASM, and host Dart.
 - Independent Unicode 17 fixtures cover all 247 traditional letters, the full
   288-form supported consonant/vowel matrix, both Shri spellings, and 766 UAX 29
   boundary cases. Reference files include source digests and licensing.
-- Seventeen core/collation/numeral/codec properties with **10,000 cases each**, plus invalid-input checks.
+- Eighteen core/collation/numeral/codec properties with **10,000 cases each**, plus invalid-input checks.
 
 ```python
 import tamil_toolkit as tamil
@@ -107,6 +109,7 @@ assert tamil.format_fraction(2, 4) == "1/2"
 date = tamil.format_date(2024, 2, 29, "SL", "full", "tamil")
 assert tamil.bamini_to_unicode("jkpo;") == "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd"
 assert tamil.unicode_to_bamini("".join(letters)) == "jkpo;"
+assert tamil.tscii_bytes_to_unicode(bytes([0xba, 0xa2, 0xc5, 0xfd])) == "\u0b9a\u0bbf\u0bb5\u0ba9\u0bcd"
 ```
 
 ```ts
@@ -144,6 +147,9 @@ The [reverse encoding contract](docs/specs/codec-reverse-v0.1.md) adds strict
 Unicode → Bamini with canonical aliases and NFC input. It rejects unsupported
 scalars and letter combinations whose legacy keys would change the text when
 decoded. Every accepted input round-trips to its NFC spelling.
+The [TSCII decoder contract](docs/specs/codec-tscii-draft.md) defines a bounded
+313-key byte profile, ASCII pass-through, longest matching, and explicit byte
+errors. It does not yet provide reverse conversion or automatic detection.
 
 ## Package map
 
@@ -154,7 +160,7 @@ decoded. Every accepted input round-trips to its NFC spelling.
 | `tamil-norm` | Working facade | Re-export core normalization for SDK/PostgreSQL consumers |
 | `tamil-collate` | agara-v1 verified locally | Mei-first Agara sorting and canonical sort/search keys |
 | `tamil-numerals` | v0.2 feature families verified locally | Integer words, exact INR/LKR amounts, fractions, Gregorian dates |
-| `tamil-codec` | bamini-v1 verified locally | Bounded Bamini ↔ Unicode; unsupported and non-round-trippable input is rejected |
+| `tamil-codec` | bounded profiles | Bamini ↔ Unicode and TSCII bytes → Unicode; unsupported input is rejected |
 | `tamil-punarchi` | Planned | Sourced Nannool sandhi and compound splitting |
 | `tamil-morph` | Planned | FST stemming, lemmatization, suffix/case analysis |
 | `tamil-dialect` | Planned | TN/SL regional spoken-to-literary normalization |
@@ -205,3 +211,6 @@ Original code is [MIT licensed](LICENSE); upstream data and mapping notices are
 preserved in [third-party notices](THIRD_PARTY_NOTICES.md). Contributions are
 welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). The PyPI, Rust, and npm alpha
 packages are live.
+
+The TSCII byte decoder is available in the current source tree and is planned for
+the next release; it is not included in the published 0.1.0 alpha packages.

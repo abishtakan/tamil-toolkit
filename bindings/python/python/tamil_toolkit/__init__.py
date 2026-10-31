@@ -5,7 +5,7 @@ from typing import Any
 
 from . import _native
 
-__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date"]
+__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "tscii_bytes_to_unicode", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date"]
 
 
 def execute(request: dict[str, Any]) -> Any:
@@ -70,6 +70,10 @@ def bamini_to_unicode(text: str, errors: str = "strict") -> str:
 
 def unicode_to_bamini(text: str) -> str:
     return execute({"op": "unicode_to_bamini", "input": {"text": text}})
+
+
+def tscii_bytes_to_unicode(data: bytes | list[int]) -> str:
+    return execute({"op": "tscii_bytes_to_unicode", "input": {"bytes": list(data)}})
 
 
 def format_fraction(numerator: int, denominator: int, digits: str = "latin") -> str:

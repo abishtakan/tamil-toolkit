@@ -63,7 +63,7 @@ const packages: PackageInfo[] = [
   { id: "tamil-norm", state: "facade", description: "NFC/NFD normalization facade re-exported from tamil-core.", suiteFiles: ["core_normalization.jsonl"], operations: ["normalize_nfc", "normalize_nfd"] },
   { id: "tamil-collate", state: "active", description: "Agara Varisai comparison, ordering, and canonical search keys.", suiteFiles: ["collate_agara_varisai.jsonl"] },
   { id: "tamil-numerals", state: "active", description: "TN/SL number words, currencies, exact fractions, and Gregorian dates.", suiteFiles: ["numerals_lkr_inr.jsonl", "numerals_fractions_dates.jsonl"] },
-  { id: "tamil-codec", state: "active", description: "Explicit-profile Bamini ↔ Unicode conversion.", suiteFiles: ["codec_bamini.jsonl", "codec_unicode_to_bamini.jsonl"] },
+  { id: "tamil-codec", state: "active", description: "Explicit Bamini conversion and TSCII byte decoding.", suiteFiles: ["codec_bamini.jsonl", "codec_unicode_to_bamini.jsonl", "codec_tscii_bytes.jsonl", "codec_tscii_iana.jsonl"] },
   { id: "tamil-toolkit", state: "dispatcher", description: "Shared Rust dispatcher used by bindings and the local oracle." },
   { id: "tamil-wasm", state: "wasm", description: "Browser WASM binding calling the shared Rust dispatcher." },
   { id: "tamil-python", state: "native", description: "PyO3 adapter, run directly in the Python runtime." },
@@ -78,6 +78,15 @@ const packages: PackageInfo[] = [
 
 const demoTamil = "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd";
 const maxCurrencyMinorUnits = 99_999_999_999n;
+
+function parseHexBytes(value: string): number[] {
+  const text = value.trim();
+  if (!text) return [];
+  return text.split(/\s+/).map((part) => {
+    if (!/^(?:0x)?[0-9a-f]{2}$/i.test(part)) throw new Error("Enter bytes as two-digit hex values separated by spaces, for example BA A2 C5 FD.");
+    return Number.parseInt(part.replace(/^0x/i, ""), 16);
+  });
+}
 
 function parseCurrencyAmount(value: string): number {
   const match = /^([+-]?)(\d*)(?:\.(\d{0,2}))?$/.exec(value.trim());
@@ -276,6 +285,11 @@ const operations: OperationSpec[] = [
     op: "unicode_to_bamini", label: "Unicode to Bamini", description: "Encode canonical Tamil text to Bamini when a safe round-trip mapping exists.",
     fields: [{ key: "text", label: "Unicode Tamil text", kind: "textarea", initial: demoTamil, help: "Try the sample text. Unsupported or non-round-trippable input returns an error." }],
     build: (v) => ({ op: "unicode_to_bamini", input: { text: v.text } }),
+  },
+  {
+    op: "tscii_bytes_to_unicode", label: "TSCII bytes to Unicode", description: "Decode actual TSCII bytes using the bounded profile.",
+    fields: [{ key: "bytes", label: "TSCII bytes (hex)", kind: "text", initial: "BA A2 C5 FD", help: "Enter two-digit hexadecimal bytes separated by spaces." }],
+    build: (v) => ({ op: "tscii_bytes_to_unicode", input: { bytes: parseHexBytes(v.bytes) } }),
   },
 ];
 

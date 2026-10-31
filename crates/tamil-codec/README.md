@@ -1,6 +1,6 @@
 # tamil-codec
 
-Explicit Bamini decoding and strict round-trip-checked Unicode encoding.
+Explicit Bamini conversion and bounded TSCII byte decoding.
 
 Experimental alpha `0.1.0-alpha.1`. APIs may change before stability. This package
 does not implement all Tamil linguistic conventions. Read the bounded module

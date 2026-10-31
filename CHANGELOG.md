@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add bounded TSCII byte decoding, shared fixtures, and Python, WASM, and Dart adapters.
+- Remove stale generated Python extensions before rebuilding bindings.
+
 - Add shared publishing policy checks, reusable source/digest gates, and
   serialized manual uploads for future releases.
 - Resolve distribution source once across platforms; run the expensive

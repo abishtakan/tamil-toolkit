@@ -34,6 +34,12 @@ def test_rust():
 
 
 def sync_bindings():
+    # Old interpreter-tagged builds take import precedence over maturin's new
+    # abi3 extension. Remove only generated native-extension artifacts.
+    package = ROOT / "bindings/python/python/tamil_toolkit"
+    for pattern in ("_native.*.pyd", "_native.*.so"):
+        for artifact in package.glob(pattern):
+            artifact.unlink()
     run(sys.executable, "tools/release.py", "licenses")
     run("maturin", "develop", "--locked", cwd=ROOT / "bindings/python")
     for target, directory in [("nodejs", "pkg-node"), ("web", "pkg-web")]:

@@ -1,5 +1,5 @@
-//! Explicit-profile Bamini decoding and strict canonical Unicode encoding.
-//! See docs/specs/codec-v0.1.md for coverage, ambiguity, and non-reversibility.
+//! Explicit Bamini conversion and bounded TSCII byte decoding.
+//! See the codec specifications for coverage, ambiguity, and non-reversibility.
 #![forbid(unsafe_code)]
 
 use tamil_core::normalize_nfc;
@@ -17,7 +17,12 @@ mod tables {
     use super::{Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/bamini_tables.rs"));
 }
+mod tscii_tables {
+    use super::{Node, Terminal};
+    include!(concat!(env!("OUT_DIR"), "/tscii_tables.rs"));
+}
 pub use tables::PROFILE;
+pub use tscii_tables::PROFILE as TSCII_PROFILE;
 pub const ROUNDTRIP_ERROR: &str = "Bamini encoding is not reversible for this input";
 
 /// Strict fails at the first unsupported/ambiguous scalar. Preserve retains it.
@@ -51,6 +56,30 @@ fn longest_match(input: &[u8], nodes: &[Node], maximum: usize) -> Option<(usize,
         }
     }
     found
+}
+
+/// Decode a bounded TSCII byte profile, preserving ASCII and returning NFC.
+/// Unsupported bytes fail with their original byte offset.
+pub fn tscii_bytes_to_unicode(bytes: &[u8]) -> Result<String, String> {
+    let mut position = 0;
+    let mut output = String::with_capacity(bytes.len());
+    while position < bytes.len() {
+        let byte = bytes[position];
+        if byte < 0x80 {
+            output.push(char::from(byte));
+            position += 1;
+        } else if let Some((length, Terminal::Text(value))) =
+            longest_match(&bytes[position..], tscii_tables::NODES, 3)
+        {
+            output.push_str(value);
+            position += length;
+        } else {
+            return Err(format!(
+                "unsupported TSCII byte at offset {position}: 0x{byte:02X}"
+            ));
+        }
+    }
+    Ok(normalize_nfc(&output))
 }
 
 /// Convert explicitly selected Bamini text. Allocates and normalizes output to NFC.
@@ -139,6 +168,10 @@ mod tests {
         fn arbitrary_utf8_never_panics(text in ".{0,96}") {
             let _ = bamini_to_unicode(&text, ErrorPolicy::Strict);
             prop_assert!(bamini_to_unicode(&text, ErrorPolicy::Preserve).is_ok());
+        }
+        #[test]
+        fn arbitrary_tscii_bytes_never_panic(bytes in prop::collection::vec(any::<u8>(), 0..128)) {
+            let _ = tscii_bytes_to_unicode(&bytes);
         }
         #[test]
         fn preserve_output_is_nfc_and_keeps_joiners(text in ".{0,96}", zwj in any::<bool>()) {

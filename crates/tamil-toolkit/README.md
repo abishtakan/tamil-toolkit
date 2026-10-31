@@ -1,6 +1,6 @@
 # tamil-toolkit
 
-Unified entry point for the implemented core, normalization, collation, numerals and Bamini modules.
+Unified entry point for the implemented core, normalization, collation, numerals, Bamini and bounded TSCII decoding.
 
 Experimental alpha `0.1.0-alpha.1`. APIs may change before stability. This package
 does not implement all Tamil linguistic conventions. Read the bounded module

@@ -1,0 +1,18 @@
+{
+  "source": "Android TamilUtil",
+  "commit": "1f659e70eabed0bcdb0e6e37e10cea99a57f5056",
+  "files": [
+    {
+      "file": "TamilUtil.java",
+      "url": "https://github.com/mayooresan/Android-TamilUtil/blob/1f659e70eabed0bcdb0e6e37e10cea99a57f5056/TamilUtil/src/com/mayuonline/tamilandroidunicodeutil/TamilUtil.java",
+      "sha256": "fbc2e9fc85b83ae9bb617a860629941707711a1de1e23f7233af1bc3178a5753",
+      "license": "MIT"
+    },
+    {
+      "file": "LICENSE.txt",
+      "url": "https://github.com/mayooresan/Android-TamilUtil/blob/1f659e70eabed0bcdb0e6e37e10cea99a57f5056/LICENSE",
+      "sha256": "6848f5cc906ec8c60592fb4d794b4d9393808bc79df70ff09c4f580c5de81ef4",
+      "license": "MIT; example fonts excluded"
+    }
+  ]
+}

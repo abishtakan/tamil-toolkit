@@ -10,15 +10,15 @@ INPUTS = {
     "tamil-core": ("core.toml",),
     "tamil-collate": ("collate.toml",),
     "tamil-numerals": ("numerals.toml", "numerals-formats.toml"),
-    "tamil-codec": ("bamini.toml",),
+    "tamil-codec": ("bamini.toml", "tscii.toml"),
 }
 SUMMARIES = {
     "tamil-core": "Unicode normalization, tailored Ezhuthu iteration, Mei/Uyir composition and scalar inspection.",
     "tamil-norm": "Normalization facade for the Rust-owned Tamil toolkit.",
     "tamil-collate": "Versioned Mei-first Agara dictionary ordering and canonical sort/search keys.",
     "tamil-numerals": "Bounded TN/SL integers, exact INR/LKR amounts, rational fractions and Gregorian date formatting.",
-    "tamil-codec": "Explicit Bamini decoding and strict round-trip-checked Unicode encoding.",
-    "tamil-toolkit": "Unified entry point for the implemented core, normalization, collation, numerals and Bamini modules.",
+    "tamil-codec": "Explicit Bamini conversion and bounded TSCII byte decoding.",
+    "tamil-toolkit": "Unified entry point for the implemented core, normalization, collation, numerals, Bamini and bounded TSCII decoding.",
 }
 
 
@@ -32,6 +32,7 @@ replace them. Generated lexicon copies are checked against the canonical data.
 Unicode 17 and CLDR 49 data: https://www.unicode.org/ and https://cldr.unicode.org/
 Bamini mapping sources: https://github.com/ag-sanjjeev/app-tamil-fonts-unicode-converter
 and https://github.com/Pakeetharan/unicode-bamini-converter
+TSCII mapping source: https://github.com/mayooresan/Android-TamilUtil
 Exact sources, revisions, digests and profile limits are recorded at:
 https://github.com/abishtakan/tamil-toolkit/tree/HEAD/tests/reference
 and https://github.com/abishtakan/tamil-toolkit/tree/HEAD/docs/specs
@@ -44,6 +45,7 @@ locked Rust dependency graph with the complete upstream license texts.
         ("Unicode License V3", "tests/reference/unicode-17.0.0/LICENSE.txt"),
         ("ag-sanjjeev Bamini source (MIT)", "tests/reference/codec-v0.1/LICENSE-ag.txt"),
         ("Pakeetharan Balasubramaniam Bamini reference (MIT)", "tests/reference/codec-v0.1/LICENSE-pakeetharan.txt"),
+        ("Jay Mayu Android TamilUtil reference (MIT)", "tests/reference/codec-tscii/LICENSE.txt"),
     ):
         text += f"## {title}\n\n```text\n{(ROOT / source).read_text(encoding='utf-8').strip()}\n```\n\n"
     return text.encode("utf-8")

@@ -69,6 +69,9 @@ class TamilToolkit {
   String unicodeToBamini(String text) => execute({
     'op': 'unicode_to_bamini', 'input': {'text': text},
   }) as String;
+  String tsciiBytesToUnicode(List<int> bytes) => execute({
+    'op': 'tscii_bytes_to_unicode', 'input': {'bytes': bytes},
+  }) as String;
   String formatFraction(int numerator, int denominator, {String digits = 'latin'}) => execute({
     'op': 'format_fraction', 'input': {'numerator': numerator, 'denominator': denominator, 'digits': digits},
   }) as String;

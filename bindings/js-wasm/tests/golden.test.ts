@@ -114,6 +114,13 @@ test("encoder convenience API on both WASM targets", () => {
   }
 });
 
+test("TSCII byte convenience API on both WASM targets", () => {
+  for (const api of [nodeApi, webApi]) {
+    expect(api.tscii_bytes_to_unicode(new Uint8Array([0xba, 0xa2, 0xc5, 0xfd]))).toBe("\u0b9a\u0bbf\u0bb5\u0ba9\u0bcd");
+    expect(() => api.tscii_bytes_to_unicode([65, 255])).toThrow("unsupported TSCII byte at offset 1: 0xFF");
+  }
+});
+
 test("fraction and date convenience APIs on both WASM targets", () => {
   for (const api of [nodeApi, webApi]) {
     for (const row of cases) {

@@ -109,6 +109,10 @@ void main() {
       (error) => error.message, 'message', collision['expected_error'],
     )));
   });
+  test('TSCII byte convenience API', () {
+    expect(tamil.tsciiBytesToUnicode([0xba, 0xa2, 0xc5, 0xfd]), '\u0b9a\u0bbf\u0bb5\u0ba9\u0bcd');
+    expect(() => tamil.tsciiBytesToUnicode([65, 255]), throwsArgumentError);
+  });
   test('fraction and date convenience APIs', () {
     for (final row in formatCases) {
       final input = row['input'] as Map<String, dynamic>;

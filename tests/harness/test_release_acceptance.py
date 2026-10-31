@@ -36,7 +36,7 @@ def test_public_build_inputs_are_self_contained_and_canonical():
     inputs = {
         "tamil-core": ["core.toml"], "tamil-collate": ["collate.toml"],
         "tamil-numerals": ["numerals.toml", "numerals-formats.toml"],
-        "tamil-codec": ["bamini.toml"],
+        "tamil-codec": ["bamini.toml", "tscii.toml"],
     }
     for name, files in inputs.items():
         for filename in files:

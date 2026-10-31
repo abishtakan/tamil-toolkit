@@ -1,7 +1,6 @@
 # tamil-toolkit for Python
 
-The experimental MIT-licensed `0.1.0a1` alpha is being prepared; no registry
-upload has occurred. Once published, install with
+The experimental MIT-licensed `0.1.0a1` alpha is published. Install with
 `python -m pip install tamil-toolkit==0.1.0a1`, then import as
 `import tamil_toolkit as tamil`. Development builds use `just sync-bindings`.
 The package delegates all linguistic behavior to Rust through PyO3.
@@ -29,3 +28,5 @@ Collation APIs: `compare(left, right)`, `sort_words(words)`, `sort_key(text)`,
 and `search_key(text)`. Keys are numeric arrays for the versioned `agara-v1`
 profile; compare arrays lexicographically and retain the version with indexes.
 Sorting preserves original text and canonical ties. See the linked specifications.
+
+Current development source adds `tscii_bytes_to_unicode(bytes([0xba, 0xa2, 0xc5, 0xfd]))`; it is not in the published alpha.
