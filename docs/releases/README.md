@@ -32,7 +32,8 @@ workflow runs and registry checksums are recorded below. The local artifact
 archives were built with temporary `[patch.crates-io]` entries for package
 verification; Cargo regenerated the upload archives without those local
 patches. Comparison with crates.io downloads showed that only the embedded
-`Cargo.lock` differs. The npm package remains private pending its registry setup.
+`Cargo.lock` differs. The npm package name is available, but its first upload
+and trusted-publisher setup are pending.
 
 | Crate | crates.io | Publish run | Registry archive SHA-256 |
 | --- | --- | --- | --- |
@@ -87,16 +88,20 @@ After concrete artifact review and explicit authorization to publish:
    successful `Alpha distribution artifacts` run whose source manifest matches
    the `v0.1.0-alpha.1` tag. The GitHub `pypi` environment has a required
    reviewer.
-   npm trusted publishing is configured in an existing package's settings, so
-   bootstrap its first upload using the maintainer's authenticated npm CLI,
-   then configure the workflow. The repository Actions secret
-   `CARGO_REGISTRY_TOKEN` is configured for crates.io. Never put credentials in
-   this repository or ask for them in plaintext chat. The crates.io account
-   email is now verified.
-2. Remove `private: true` only from `bindings/js-wasm/package.json` when npm is
-   ready. All placeholder crates, FFI support crates, the workspace root npm
-   package, and the workbench remain private. The npm package stays private
-   until its upload is reviewed.
+   The npm name `tamil-toolkit` is available but has no package settings yet.
+   Make its first upload from an authenticated maintainer CLI; npm requires
+   account 2FA or a granular access token with 2FA bypass. After the package
+   exists, configure its trusted publisher for GitHub Actions, owner
+   `abishtakan`, repository `tamil-toolkit`, workflow filename
+   `publish-npm.yml`, no environment, and permission to run `npm publish`.
+   Configure it when the next version is ready and complete its first OIDC
+   publish within two days so the publisher does not expire.
+   The repository Actions secret `CARGO_REGISTRY_TOKEN` is configured for
+   crates.io. Never put credentials in this repository or ask for them in
+   plaintext chat. The crates.io account email is verified.
+2. `private` has been removed only from `bindings/js-wasm/package.json`.
+   Placeholder crates, FFI support crates, the workspace root npm package, and
+   the workbench remain private.
 3. The `v0.1.0-alpha.1` tag is already used by the PyPI release and must not be
    moved. Rebuild Rust artifacts by dispatching **Alpha distribution artifacts**
    from `master` with `source_ref=master`; the workflow records the exact commit
@@ -108,8 +113,11 @@ After concrete artifact review and explicit authorization to publish:
    `tamil-codec`, `tamil-toolkit`; allow each crate to appear in the registry
    before publishing dependents. The workflow validates source identity and the
    artifact digest, and publishes only one allowlisted crate per run.
-5. PyPI upload is complete (see the status record above). Upload the reviewed
-   npm tarball using `npm publish PATH.tgz --tag alpha --access public`. Keep
+5. PyPI and crates.io publication are complete. For npm's first upload, use the
+   reviewed tarball from step 3 with the authenticated maintainer CLI:
+   `npm publish PATH.tgz --tag alpha`. Unscoped npm packages are public by
+   default. Configure the package's `publish-npm.yml` trusted publisher for the
+   next version when it is ready. Keep
    stable/default install channels free of this experimental npm alpha.
 6. From a fresh consumer, install the exact public versions and run the same
    golden consumer suite. Update the changelog/status only after those installs

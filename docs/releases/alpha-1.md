@@ -64,8 +64,8 @@ or a network dependency in build scripts. Never edit the generated copies.
 6. CI builds and uploads reviewable artifacts without registry credentials.
    Publishing is a separate explicit action using a reviewed release tag and
    registry credentials or trusted publisher configuration. No secret is stored
-   in source, artifacts, or logs. PyPI is published; the remaining Rust crates
-   must publish in dependency order, followed by npm's reviewed alpha upload.
+   in source, artifacts, or logs. PyPI and the six finished Rust crates are
+   published. npm's reviewed alpha upload remains pending.
    Each registry's archives must pass consumer checks before upload.
 
 ## Release review and handoff
@@ -73,11 +73,12 @@ or a network dependency in build scripts. Never edit the generated copies.
 Record commands, artifact digests, local/CI evidence, supported platforms, and
 incomplete registry/account configuration in the [release runbook](README.md).
 Local Windows proof does not imply Linux/macOS CI; the alpha artifact run linked
-below passed those platform builds and consumers. PyPI project ownership is
-confirmed by the successful upload; crates.io and npm ownership remain pending.
+below passed those platform builds and consumers. PyPI and crates.io project
+ownership are confirmed. The npm name is available but has not been registered.
 
-The release tag and PyPI upload are complete. Remaining registry uploads must
-follow their respective artifact review and explicit release steps.
+The release tag, PyPI upload, and six crates.io uploads are complete. The npm
+tarball still needs its first authenticated upload, followed by trusted-publisher
+configuration for future releases.
 
 ## Primary references
 
