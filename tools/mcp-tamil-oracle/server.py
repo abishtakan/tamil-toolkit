@@ -18,15 +18,31 @@ def scalar(char):
     return {"char": char, "hex": f"U+{ord(char):04X}", "name": unicodedata.name(char, "UNNAMED")}
 
 
+def _cargo_executable() -> str:
+    import shutil
+    found = shutil.which("cargo")
+    if found:
+        return found
+    home_cargo = Path.home() / ".cargo" / "bin" / ("cargo.exe" if sys.platform == "win32" else "cargo")
+    if home_cargo.exists():
+        return str(home_cargo)
+    return "cargo"
+
+
 @mcp.tool()
 def inspect_tamil_string(text: str) -> dict:
     """Inspect original Unicode scalars, normalization, Rust Ezhuthu count/classes."""
-    completed = subprocess.run(
-        ["cargo", "run", "--quiet", "--locked", "-p", "tamil-toolkit", "--bin", "tamil-oracle"],
-        input=json.dumps({"op": "inspect_tamil_string", "input": text}, ensure_ascii=True) + "\n",
-        text=True, encoding="utf-8", capture_output=True, cwd=ROOT, check=True,
-    )
-    result = json.loads(completed.stdout)
+    try:
+        import tamil_toolkit as tamil  # noqa: PLC0415
+        result = tamil.execute({"op": "inspect_tamil_string", "input": text})
+    except (ImportError, Exception):
+        cargo = _cargo_executable()
+        completed = subprocess.run(
+            [cargo, "run", "--quiet", "--locked", "-p", "tamil-toolkit", "--bin", "tamil-oracle"],
+            input=json.dumps({"op": "inspect_tamil_string", "input": text}, ensure_ascii=True) + "\n",
+            text=True, encoding="utf-8", capture_output=True, cwd=ROOT, check=True,
+        )
+        result = json.loads(completed.stdout)
     result["scalars"] = [{"index": index, **scalar(char)} for index, char in enumerate(text)]
     result["joiners"] = [index for index, char in enumerate(text) if char in JOINERS]
     return result

@@ -1,5 +1,6 @@
 """Shared fixture validation. No Tamil linguistic algorithms belong here."""
 
+import functools
 import json
 import unicodedata
 from pathlib import Path
@@ -72,6 +73,7 @@ def validate_rows(path: Path, seen=None):
     return rows
 
 
+@functools.lru_cache(maxsize=1)
 def load_vectors(root=GOLDEN):
     root = Path(root)
     manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
