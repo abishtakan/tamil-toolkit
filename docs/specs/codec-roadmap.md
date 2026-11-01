@@ -40,6 +40,7 @@ See the codec contracts for limits and the TAB mapping-source conflicts.
 | TAB | [Unicode Technical Note 17](https://www.unicode.org/notes/tn17/) and [Tamil Nadu standards](https://www.tamilvu.org/ta/Tamilnet99-tabtam-341628) | Review exact reuse terms, mapping version and byte coverage. |
 | TAM | [Unicode Technical Note 18](https://www.unicode.org/notes/tn18/tn18-1.html) and the same Tamil Nadu standards | The note states copyright and permission conditions. Review alternative licensed mapping data before copying. |
 | Anjal / Vanavil | [open-tamil converter inventory](https://github.com/Ezhil-Language-Foundation/open-tamil/blob/main/tamil/txt2unicode/README.md) | Identify each mapping's origin, version, and applicable file-level license; the inventory alone is not a verified mapping source. |
+| LT-TM / IndoWord | [TVA legacy font list](https://www.tamilvu.org/en/tamil-softwares-old), [Azhagi converter inventory](https://www.azhagi.com/tamil-fonts-converter.php) | Identified in the 2003 Tamilmann Tolkāppiyam PDF. Azhagi's public configuration matches a PDF title sequence but its bundled license restricts derivatives; independently derive the map and settle CID input/aliases. See [source assessment](codec-lt-tm.md). |
 
 An additional [Android TamilUtil repository](https://github.com/mayooresan/Android-TamilUtil)
 claims mappings for TSCII, TAB, TAM and Anjal. Its [license](https://github.com/mayooresan/Android-TamilUtil/blob/master/LICENSE)
@@ -83,9 +84,15 @@ interpretation cannot encode. One Android key begins with byte `0x5C` because
 the Java source contains an escaped backslash; it needs independent review.
 These counts are an audit convention, not a chosen API or a complete standard.
 
-TSCII is the first candidate for the next bounded profile because the IANA
+TSCII was the first candidate for a bounded profile because the IANA
 registration draft and two existing implementations provide inspectable
 evidence. The draft identifies both byte `0xAD` and byte `0xFE` as the third
 vowel, with the former deprecated. Pin the intended standard version, settle
 all byte/string representation rules, and review source rights and mismatches
 before marking a complete mapping profile ready for implementation.
+
+The LT-TM / IndoWord profile is the next mapping-derivation candidate. Do not
+merge it with Vanavil, AnuGraphics, or Pallavar until code tables are compared.
+The PDF CID representation and whole-document coverage still need verification;
+no fixtures or decoder are active. Azhagi's configuration is a comparison lead,
+not data to copy into the toolkit.

@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+- Pin Thamodaran's 1999 Nannūl critical edition as the first literary Punarchi
+  profile's root-text/commentary source; verify the three chapter ranges and
+  document provisional Tolkāppiyam comparison areas. Add a page-indexed,
+  paraphrased Markdown digest and per-sūtra viewer-page locator for the TVA HTML
+  edition text, add a provisional subject ledger for sūtras 151–203, and clarify
+  that Project Madurai already provides a searchable Unicode companion e-text.
+  Add provisional subject ledgers for sūtras 204–239 and 240–257. Keep
+  fixtures inactive pending full scan inventory and linguistic review. Record
+  that the earlier CICT 1979 comparison-edition selection was premature. Inspect
+  the 1979 Annamalai scan (second edition, August 1979), 2003 Tamilmann edition,
+  1982 WTRI Puṇariyal Uraivaḷam, and CICT's 1996 textual-variation volume.
+  Document the 1996 volume's explicit limit: it presents collected manuscript
+  and print variants but does not establish a single base reading. Note the
+  1992 third-edition / CICT 1996 catalog discrepancy for Sundaramurthy's later
+  Annamalai edition; its title page remains unverified. Keep 1979 provisional
+  and the 1996 volume as a variant apparatus, not sole authority. Add
+  discovery-only Project Madurai locators for Tokai Marabu 2 and 3. Add provisional
+  TVA HTML root/commentary paraphrases and example citations for Nannūl sūtras
+  151–157; keep them inactive pending print and linguistic review.
+
+- Identify LT-TM / IndoWord as the likely legacy font encoding in the 2003
+  Tamilmann Tolkāppiyam PDF. Record its PDF font/CID behavior and defer codec
+  implementation until the mapping, aliases, input unit, and source terms are
+  independently established.
+
 ## 0.1.0-alpha.2 / Python 0.1.0a2 - 2026-11-01
 
 - Add bounded bidirectional Anjal byte conversion with explicit ambiguity errors.

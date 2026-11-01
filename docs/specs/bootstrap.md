@@ -75,6 +75,13 @@ traditional symbols, common-name/division readings, and Gregorian date formats
 with Latin/Tamil decimal digits. This completes the numeral feature families
 within their explicit component and calendar bounds.
 
+The [Punarchi source and scope contract](punarchi-v0.1.md) selects the Nannūl
+Eḻuttatikāram root text for a named literary merger profile, with Tolkāppiyam
+kept as a separate foundational comparison. The planned first code slice is
+merger-only; its suite remains planned until edition scans, rule review, and
+fixtures are settled. A future splitter requires a separate lexicon
+redistribution review; no Punarchi behavior is implemented.
+
 The [codec v0.1 contract](codec-v0.1.md) adds explicit-profile Bamini decoding
 with a build-time static trie, longest matching, strict/preserve policies, and
 NFC output. Ambiguous source placeholders are rejected or explicitly preserved;
@@ -91,4 +98,4 @@ non-reversible key combinations fail explicitly.
 - [UAX 29](https://www.unicode.org/reports/tr29/)
 
 The golden examples in this bootstrap are engineering fixtures. Expert review
-remains necessary for linguistic rules; agents must never invent Nannool rules.
+remains necessary for linguistic rules; agents must never invent Punarchi rules.
