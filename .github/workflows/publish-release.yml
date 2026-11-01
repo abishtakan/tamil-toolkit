@@ -94,6 +94,7 @@ jobs:
                 echo "Crate $pkg $VERSION is now available on crates.io."
                 break
               fi
+              echo "Waiting for $pkg $VERSION on crates.io (attempt $attempt/12)..."
               sleep 5
             done
           done
