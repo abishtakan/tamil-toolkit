@@ -50,9 +50,6 @@
 - `just test-parity`: rebuild first, then consume every active JSONL row in real
   Rust, Python, and WASM runtimes. Never skip missing bindings or use mocks.
 - `just test-dart`: verify the host C ABI, Dart analysis, and the same fixtures.
-- `just test-pdf-extract`: run the private PDF parser's synthetic font/operator,
-  error-preservation, form-recursion, and image-count tests through the Rust-backed
-  Python binding.
 - `just agent-post-edit`: formatting check, Unicode/schema gate, workspace check.
 - `just agent-pre-stop-gate`: the full clippy, Rust, harness, and parity gate.
 

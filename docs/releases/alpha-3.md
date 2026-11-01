@@ -74,8 +74,8 @@ inputs, fallback, errors, and acceptance limits.
 
 The profile is not an 8-bit decoder. It does not parse PDFs, select PDF font
 runs, detect encodings, or claim that every LT-TM or IndoWord font has the same
-mapping. Vanavil, AnuGraphics, and Pallavar are not aliases. The private PDF
-extraction utility in `tools/tamil-pdf-extract/` is not included in these
+mapping. Vanavil, AnuGraphics, and Pallavar are not aliases. PDF parsing,
+font detection, and document extraction are outside the scope of these
 packages. Other planned linguistic modules and Dart/Pub distribution remain
 outside the alpha release scope.
 

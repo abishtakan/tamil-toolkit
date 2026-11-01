@@ -67,19 +67,6 @@ def test_dart():
     run("dart", "test", cwd=ROOT / "bindings/dart-flutter")
 
 
-def test_pdf_extract():
-    run(
-        "uv",
-        "run",
-        "--project",
-        "tools/tamil-pdf-extract",
-        "--locked",
-        "pytest",
-        "tools/tamil-pdf-extract/tests/test_extract.py",
-        "-q",
-    )
-
-
 def post_edit():
     run("cargo", "fmt", "--all", "--", "--check")
     check_unicode()
@@ -93,7 +80,6 @@ def pre_stop():
     run(sys.executable, "-m", "pytest", "tests/harness", "-q")
     sync_bindings()
     parity_runners()
-    test_pdf_extract()
 
 
 def bootstrap():
@@ -122,7 +108,6 @@ TASKS = {
     "sync-bindings": sync_bindings,
     "test-parity": test_parity,
     "test-dart": test_dart,
-    "test-pdf-extract": test_pdf_extract,
     "test-harness": lambda: run(sys.executable, "-m", "pytest", "tests/harness", "-q"),
     "agent-post-edit": post_edit,
     "agent-pre-stop-gate": pre_stop,

@@ -25,20 +25,8 @@
   TVA HTML root/commentary paraphrases and example citations for Nannūl sūtras
   151–157; keep them inactive pending print and linguistic review.
 
-- Add private `tools/tamil-pdf-extract`, a locked PDF-aware CLI that reads
-  Identity-H text runs, delegates LT-TM decoding to the Rust dispatcher, and
-  preserves unsupported font runs as raw bytes. Restrict automatic decoding to
-  five visually spot-checked PDF face names; add synthetic extraction tests
-  and source-file inventory evidence. Add a Markdown review ledger for all 103
-  decoded runs with raw CIDs and output scalars. Add an optional page-numbered
-  Tesseract OCR Markdown draft path for review when font mappings are
-  unavailable; keep OCR separate from Rust decoding and mark its output
-  unverified. No OCR output or PDF content is bundled in the package.
-
-- Evaluate the standard Tesseract Tamil model on three rendered pages from the
-  2003 PDF at 300 DPI. Record that it is useful for rough prose drafts, but its
-  two-column index output is fragmented and it emits many invisible U+200C
-  scalars. Do not treat it as a verified full-book transcription.
+- Defer PDF extraction and font inspection tooling at user direction; remove
+  private `tools/tamil-pdf-extract` and exploratory test artifacts.
 
 ## 0.1.0-alpha.3 / Python 0.1.0a3 - 2026-11-01
 

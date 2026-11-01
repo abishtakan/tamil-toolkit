@@ -78,10 +78,10 @@ reused. The planned suite remains inactive pending rule-level source review
 and sourced merger fixtures. A lexical splitter is deferred until its own
 lexicon provenance/redistribution review.
 
-Pub.dev/Dart distribution and PostgreSQL packaging remain deferred. The next
-active development action is to inspect the 31 unsupported PDF font names for
-usable Unicode maps, as listed in the PDF extraction handoff below. Punarchi
-remains deferred with no scheduled restart. When resumed, obtain and inspect
+Pub.dev/Dart distribution, PostgreSQL packaging, and PDF font extraction
+remain deferred. The next active codec research is to compare Vanavil
+independently. Punarchi remains deferred with no scheduled restart. When
+resumed, obtain and inspect
 the Annamalai/Sundaramurthy 1992 third edition or the cataloged 1996 copy, then
 compare its title page, preface, and relevant readings with the 1979 witness
 and the 1996 variant apparatus. If no later copy is accessible, explicitly
@@ -170,8 +170,9 @@ Continue to follow
   its digest and bundled terms are recorded in the contract. The toolkit MIT
   license does not replace those terms. This is a bounded profile and does not
   establish that every LT-TM/IndoWord font is equivalent. Vanavil, AnuGraphics,
-  and Pallavar are not aliases. PDF parsing is now handled by the private
-  utility described below; it does not automatically detect fonts.
+  and Pallavar are not aliases. The profile consumes character code arrays and
+  code-valued text directly; PDF document parsing and font detection are outside
+  its scope.
 - Checks completed: `just agent-pre-stop-gate` passed, including Clippy,
   25 Rust tests, doctests, 115 harness tests, and 27,644 Rust golden vectors;
   Python passed 27,656 cases; Vitest passed 27,654; `just test-dart` passed
@@ -183,71 +184,13 @@ Continue to follow
   not claim Vanavil, AnuGraphics, or Pallavar aliases. This work is
   committed as `3255bd4`.
 
-### PDF-aware extraction handoff (2026-11-01)
+### PDF extraction status (2026-11-01; deferred / removed)
 
-- Placement: private developer CLI package `tools/tamil-pdf-extract/`, not a
-  Cargo crate and not in the public release allowlist. The package uses pypdf
-  only for PDF structure and calls the existing Rust dispatcher for all
-  LT-TM decoding. Its locked dependency set is local to the tool.
-- Contract and limits: see [PDF extractor v0.1](specs/pdf-extract-v0.1.md).
-  Decoding requires Type 0 `/Identity-H` plus an exact spot-checked face name:
-  `LT-TM-Nehru`, `LT-TM-Nakkeran`, `LT-TM-Narmada`, `LT-TM-Nila,Bold`, or
-  `LT-TM-Sindhu`; only an optional six-letter uppercase subset prefix is
-  ignored. Other LT-TM styles/families and other font families are reported
-  with original bytes and are not decoded. Default JSONL extraction does not
-  OCR or reflow text.
-- Source run: the local 2003 Tamilmann PDF (digest in the spec) has 351 pages,
-  24,356 text-showing operations and 38 font names. The five allowed families
-  decoded 103 runs with no strict errors. The remaining 24,253 runs across 31
-  font names are retained as unsupported, including unverified LT-TM faces,
-  TTC fonts and Times. The walk found one invoked image XObject, no inline
-  images and no forms. Independent PDFium text-page extraction contained all
-  103 raw CID sequences. Rendered pages 1, 3, 5, 6, 16, 17, 27, 40, 60 and 78
-  were spot-checked; the title and visible decoded headings compared matched.
-  The independent raw-code check does not validate Unicode mappings, and the
-  visual review is not a full audit of every run. This does not establish
-  complete extraction of the PDF or complete code-table validation for the
-  allowed faces. The [Markdown review ledger](specs/codec-lt-tm-pdf-review.md)
-  lists all 103 decoded runs with their raw CIDs and output scalars.
-- Implementation: JSONL CLI records retain page, content/form path, operator,
-  font metadata, raw bytes, Identity-H code units, status, and decoded text or
-  error. Synthetic tests cover `Tj`, `TJ`, `'`, `"`, fragment joining, subset
-  font names, unsupported faces, malformed codes, encrypted/invalid PDFs,
-  forms/cycles, image counting and escaped CLI output.
-- Checks: `just test-pdf-extract` passed (10 tests). The full
-  `just agent-pre-stop-gate` passed: Clippy, 25 Rust tests and doctests,
-  115 harness tests, 27,644 Rust golden vectors, 27,656 Python golden cases,
-  27,654 Vitest cases, and the 10 PDF extractor tests. The locked Python
-  binding, Node/browser WASM packages, and declarations were rebuilt. Dart was
-  not changed by this tool-only work. This private tool is committed on `master`.
-- OCR fallback update (2026-11-01): added an optional `--ocr-markdown` path
-  using pypdfium2/Pillow plus a locally installed Tesseract Tamil model. It
-  renders each page and writes a page-numbered, explicitly unverified OCR draft
-  separately from JSONL. OCR output and joiners are preserved; no OCR text or
-  PDF content is bundled. The Rust dispatcher and five-face decoder are
-  unchanged.
-- Updated checks: `just test-pdf-extract` passed (13 tests). A one-page PDFium
-  render/Tesseract smoke run produced Tamil output and retained ZWNJ scalars.
-  `just check-unicode` passed (27,644 active vectors; release copies
-  verified). `just agent-post-edit` and `just agent-pre-stop-gate` were
-  attempted but stopped immediately because Cargo is missing from this local
-  shell; Clippy, Rust tests, and parity were not rerun.
-- OCR quality spot-check (2026-11-01): used Tesseract 5.4.0.20240606 with its
-  standard `tam` model on PDF pages 1, 81, and 290 rendered at 300 DPI, using
-  page segmentation modes 3 and 6. The cover and one-column prose were mostly
-  readable as drafts, with recognition and spacing errors. The two-column
-  index page had fragmented/misordered lines and a misread heading. Mode 3
-  emitted 15, 86, and 43 U+200C scalars on those pages respectively; mode 6
-  emitted 14, 87, and 45. No verified ground truth was available, so CER/WER
-  were not calculated. Tesseract is not accepted as a verified full-book
-  transcription source; per the user's direction, no alternate OCR engine is
-  being set up in this pass.
-- Remaining: JSONL font decoding still leaves 24,253 runs unsupported; OCR is
-  an unverified reading aid, not validated text. Keep the current Tesseract
-  draft path as-is. Inspect the 31 unsupported
-  font names for any PDF-backed Unicode maps and retain raw codes when none
-  exist. The separate Punarchi source audit is deferred at user direction; its
-  sources and resume criteria are preserved in the handoff above.
+- Per user direction, the private developer utility `tools/tamil-pdf-extract/`
+  and exploratory PDF/OCR test artifacts were removed from the codebase.
+- PDF font inspection and document extraction remain deferred.
+- The LT-TM CID profile in `tamil-codec` remains intact, active, and fully
+  tested with its 687 golden vectors.
 
 Never put registry credentials in the handoff, repository, build artifacts, or
 chat. Do not claim complete linguistic support from the bootstrap suites.
