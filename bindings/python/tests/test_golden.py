@@ -4,16 +4,18 @@ import tamil_toolkit as tamil
 from tools.harness import load_vectors
 
 
-@pytest.mark.parametrize("case", load_vectors(), ids=lambda case: case["id"])
-def test_golden(case):
-    if "expected_error" in case:
-        assert "expected" not in case
-        with pytest.raises(ValueError) as failure:
-            tamil.execute(case)
-        assert str(failure.value) == case["expected_error"]
-    else:
-        assert "expected" in case
-        assert tamil.execute(case) == case["expected"]
+def test_golden():
+    cases = load_vectors()
+    assert cases
+    for case in cases:
+        if "expected_error" in case:
+            assert "expected" not in case, case["id"]
+            with pytest.raises(ValueError) as failure:
+                tamil.execute(case)
+            assert str(failure.value) == case["expected_error"], case["id"]
+        else:
+            assert "expected" in case, case["id"]
+            assert tamil.execute(case) == case["expected"], case["id"]
 
 
 @pytest.mark.parametrize("payload", [

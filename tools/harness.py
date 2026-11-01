@@ -2,6 +2,7 @@
 
 import functools
 import json
+import re
 import unicodedata
 from pathlib import Path
 
@@ -10,6 +11,10 @@ from jsonschema import Draft202012Validator
 ROOT = Path(__file__).resolve().parents[1]
 GOLDEN = ROOT / "tests" / "golden"
 JOINERS = frozenset(map(chr, (0x200C, 0x200D)))
+ZWNJ, ZWJ = chr(0x200C), chr(0x200D)
+
+
+SURROGATE_RE = re.compile(r"[\ud800-\udfff]")
 
 
 def strings(value, path=""):
@@ -33,25 +38,48 @@ def unicode_issues(value):
     for path, text, is_key in strings(value):
         # Key issues are deliberately outside the schema's value-only exceptions.
         prefix = "key_" if is_key else ""
-        if any(0xD800 <= ord(char) <= 0xDFFF for char in text):
+        if SURROGATE_RE.search(text):
             issues.add((path, prefix + "surrogate"))
         if not unicodedata.is_normalized("NFC", text):
             issues.add((path, prefix + "non_nfc"))
-        if JOINERS.intersection(text):
+        if ZWNJ in text or ZWJ in text:
             issues.add((path, prefix + "joiner"))
     return issues
 
 
+@functools.lru_cache(maxsize=1)
+def _get_validators():
+    schema = json.loads((GOLDEN / "schema.json").read_text(encoding="utf-8"))
+    base_schema = {k: v for k, v in schema.items() if k != "allOf"}
+    base_validator = Draft202012Validator(base_schema)
+    full_validator = Draft202012Validator(schema)
+
+    op_branches = {}
+    for branch in schema.get("allOf", []):
+        prop_op = branch.get("if", {}).get("properties", {}).get("op", {})
+        ops = [prop_op["const"]] if "const" in prop_op else prop_op.get("enum", [])
+        for op in ops:
+            op_branches.setdefault(op, []).append(branch)
+
+    op_validators = {
+        op: Draft202012Validator({**base_schema, "allOf": branches})
+        for op, branches in op_branches.items()
+    }
+    return full_validator, base_validator, op_validators
+
+
 def validate_rows(path: Path, seen=None):
     seen = set() if seen is None else seen
-    validator = Draft202012Validator(json.loads((GOLDEN / "schema.json").read_text(encoding="utf-8")))
+    full_validator, base_validator, op_validators = _get_validators()
     rows = []
     for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
         if not line.strip():
             raise ValueError(f"{path}:{line_number}: blank JSONL row")
         row = json.loads(line)
-        errors = sorted(validator.iter_errors(row), key=lambda error: str(error.path))
-        if errors:
+        op = row.get("op") if isinstance(row, dict) else None
+        validator = op_validators.get(op, base_validator if isinstance(op, str) else full_validator)
+        if not validator.is_valid(row):
+            errors = sorted(full_validator.iter_errors(row), key=lambda error: str(error.path))
             raise ValueError(f"{path}:{line_number}: {errors[0].message}")
         if row["id"] in seen:
             raise ValueError(f"{path}:{line_number}: duplicate id {row['id']}")
@@ -85,6 +113,10 @@ def load_vectors(root=GOLDEN):
         if Path(name).name != name or not name.endswith(".jsonl") or name in files:
             raise ValueError(f"invalid or duplicate suite: {name}")
         files.add(name)
+    if files != {path.name for path in root.glob("*.jsonl")}:
+        raise ValueError("every JSONL suite must be registered in manifest.json")
+    for suite in manifest["suites"]:
+        name = suite["file"]
         rows = validate_rows(root / name, seen)
         if suite["status"] == "active":
             operations = suite.get("operations", [])
@@ -93,8 +125,6 @@ def load_vectors(root=GOLDEN):
             active.extend(rows)
         elif suite["status"] != "planned" or not suite.get("reason"):
             raise ValueError(f"unknown status or missing reason: {name}")
-    if files != {path.name for path in root.glob("*.jsonl")}:
-        raise ValueError("every JSONL suite must be registered in manifest.json")
     if not active or {row["dialect"] for row in active} != {"COMMON", "TN", "SL"}:
         raise ValueError("active fixtures must include COMMON, TN, and SL")
     return active

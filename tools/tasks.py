@@ -13,9 +13,17 @@ ROOT = Path(__file__).resolve().parents[1]
 def run(*args, cwd=ROOT):
     executable = shutil.which(args[0])
     if executable is None:
+        home_bin = Path.home() / ".cargo" / "bin" / (f"{args[0]}.exe" if sys.platform == "win32" else args[0])
+        if home_bin.exists():
+            executable = str(home_bin)
+    if executable is None:
         raise RuntimeError(f"Missing {args[0]}; see README.md prerequisites and just doctor")
     print("+ " + " ".join(args), flush=True)
-    subprocess.run([executable, *args[1:]], cwd=cwd, check=True)
+    cargo_bin = Path.home() / ".cargo" / "bin"
+    env = os.environ.copy()
+    if cargo_bin.exists() and str(cargo_bin) not in env.get("PATH", "").split(os.pathsep):
+        env["PATH"] = f"{cargo_bin}{os.pathsep}{env.get('PATH', '')}"
+    subprocess.run([executable, *args[1:]], cwd=cwd, check=True, env=env)
 
 
 def check_unicode():
@@ -25,7 +33,9 @@ def check_unicode():
 
 
 def test_rust():
-    if shutil.which("cargo-nextest"):
+    cargo_bin = Path.home() / ".cargo" / "bin"
+    nextest_bin = cargo_bin / ("cargo-nextest.exe" if sys.platform == "win32" else "cargo-nextest")
+    if shutil.which("cargo-nextest") or nextest_bin.exists():
         run("cargo", "nextest", "run", "--locked", "--workspace")
         run("cargo", "test", "--locked", "--workspace", "--exclude", "tamil-python", "--doc")
     else:
@@ -91,8 +101,13 @@ def bootstrap():
 
 def doctor():
     missing = []
+    cargo_bin = Path.home() / ".cargo" / "bin"
     for tool in ["cargo", "rustup", "uv", "pnpm", "just", "dart", "cargo-nextest"]:
         found = shutil.which(tool)
+        if not found and cargo_bin.exists():
+            candidate = cargo_bin / (f"{tool}.exe" if sys.platform == "win32" else tool)
+            if candidate.exists():
+                found = str(candidate)
         print(f"{tool}: {found or 'MISSING'}")
         if not found and tool not in {"dart", "cargo-nextest"}:
             missing.append(tool)
