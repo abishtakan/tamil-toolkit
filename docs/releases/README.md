@@ -5,6 +5,18 @@ See [scope and acceptance](alpha-1.md). Nothing in `just release-check` uploads,
 tags, pushes, or creates accounts. The Python, Rust, and npm alpha packages are
 published.
 
+## Alpha 3 publication status
+
+Reviewed source commit `9917a761365dafbaa21a8f0bda2923ad71e712c1` passed
+[artifact run 41304156907](https://github.com/abishtakan/tamil-toolkit/actions/runs/41304156907).
+All six approved Rust crates, npm `0.1.0-alpha.3`, and PyPI `0.1.0a3` are
+published. The npm `alpha` tag points to alpha 3; `latest` remains alpha 1.
+Fresh public Rust, Python, Node, and browser-target WASM consumers passed all
+27,644 active golden rows. Registry checksums and publisher runs are in the
+[alpha 3 release record](alpha-3.md). Tag
+[`v0.1.0-alpha.3`](https://github.com/abishtakan/tamil-toolkit/tree/v0.1.0-alpha.3)
+points to the reviewed release source.
+
 ## Alpha 1 publication status
 
 - PyPI: [`tamil-toolkit 0.1.0a1`](https://pypi.org/project/tamil-toolkit/0.1.0a1/)
@@ -98,7 +110,7 @@ The publishing workflow filenames are durable account configuration:
 
 The npm trusted publisher uses owner `abishtakan`, repository `tamil-toolkit`,
 workflow `publish-npm.yml`, a blank environment, and permission for direct
-`npm publish`. Its first OIDC publication succeeded within the setup window.
+`npm publish`. OIDC publication succeeded for alpha 2 and alpha 3.
 No npm/PyPI token is required in GitHub. Never place credential values in this
 record, source, logs, or chat.
 

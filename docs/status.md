@@ -1,49 +1,43 @@
 # Project handoff
 
 Updated: 2026-11-01. Branch: `master`. Current release source:
-`af11c96ddacd0fedda0cc8c346130a71f924c0b6` (`0.1.0-alpha.2`). Operational
-workflow fixes are on master after that source commit; release artifacts remain
-bound to the reviewed source SHA. See [alpha-2 release record](releases/alpha-2.md).
+`9917a761365dafbaa21a8f0bda2923ad71e712c1` (`0.1.0-alpha.3`). This immutable
+source SHA is tagged `v0.1.0-alpha.3`; post-release documentation commits do not
+change the published packages. See the [alpha-3 release record](releases/alpha-3.md).
 
-## Current status: alpha 2 released
+## Current status: alpha 3 released
 
 The immutable artifact build passed in
-[run 41237000066](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237000066).
-The reviewed release is published on crates.io, npm and PyPI, and tag
-[`v0.1.0-alpha.2`](https://github.com/abishtakan/tamil-toolkit/tree/v0.1.0-alpha.2)
+[run 41304156907](https://github.com/abishtakan/tamil-toolkit/actions/runs/41304156907).
+The reviewed release is published on crates.io, npm, and PyPI, and tag
+[`v0.1.0-alpha.3`](https://github.com/abishtakan/tamil-toolkit/tree/v0.1.0-alpha.3)
 points to the release source.
 
 - crates.io: `tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`,
-  `tamil-codec`, and `tamil-toolkit`, all `0.1.0-alpha.2`.
-- npm: [`tamil-toolkit@0.1.0-alpha.2`](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.2)
+  `tamil-codec`, and `tamil-toolkit`, all `0.1.0-alpha.3`.
+- npm: [`tamil-toolkit@0.1.0-alpha.3`](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.3)
   is published using the configured OIDC trusted publisher. A fresh public
-  installation passed all 26,957 active golden rows through Node and
-  browser-target WASM. The `alpha` tag points at alpha 2; `latest` remains alpha 1.
+  installation passed all 27,644 active golden rows through Node and
+  browser-target WASM. The `alpha` tag points at alpha 3; `latest` remains alpha 1.
 
-- PyPI: `tamil-toolkit 0.1.0a2`. OIDC publisher run
-  [41237423572](https://github.com/abishtakan/tamil-toolkit/actions/runs/41237423572)
+- PyPI: `tamil-toolkit 0.1.0a3`. OIDC publisher run
+[41304851700](https://github.com/abishtakan/tamil-toolkit/actions/runs/41304851700)
   passed the configured `pypi` reviewer gate. Public artifact digests matched
   the reviewed wheels/source archive; a fresh Windows CPython 3.13.7 install
-  passed all 26,957 active golden rows.
+  passed all 27,644 active golden rows.
 
 Publisher run links, registry checksums, and the full artifact inventory are
-recorded in [releases/alpha-2.md](releases/alpha-2.md). Earlier publisher
-workflow run 41237404162 failed before upload because Cargo 1.95 removed the
-dry-run crate archive. The workflow now runs `cargo package` to retain an
-archive for comparison. The retry passed; the failed run published nothing.
-The final Core Rust CI run
-[41238338654](https://github.com/abishtakan/tamil-toolkit/actions/runs/41238338654)
-passed after pinning actionlint's official release and verifying its SHA-256.
+recorded in [releases/alpha-3.md](releases/alpha-3.md). The prior
+[alpha-2 release record](releases/alpha-2.md) remains available as history.
 
-The local shell does not have Cargo on `PATH`, so its `just agent-post-edit`
-attempt stopped with “Missing cargo”. The release source itself previously
-passed the complete agent gate, Dart, workbench checks/build, Unicode and
-release-policy checks, and `just release-check`; see `alpha-2.md` for details.
+The alpha 3 source passed the complete agent gate, Dart checks, release-policy
+and Unicode gates, and `just release-check`; see the release record for the
+check results and public consumer verification.
 
 ## Scope and next development
 
-Alpha 2 adds bounded TSCII, TAB, TAM, and Anjal byte conversion. These profiles
-do not claim automatic detection or complete historical font coverage. The
+Alpha 3 adds the bounded LT-TM / IndoWord 16-bit profile. Byte and CID profiles
+do not claim automatic detection or complete historical-font coverage. The
 current active golden suite contains 27,644 rows. Punarchi work is deferred at
 user direction. Preliminary research and its open criteria remain documented
 under [the v0.1 source and scope contract](specs/punarchi-v0.1.md). The
@@ -106,7 +100,7 @@ Continue to follow
 - Scheduling: further Punarchi work is deferred at user direction. Keep the
   research and resume criteria here; do not treat this source audit as the next
   development milestone. No implementation or active fixture exists.
-- Base: `master` at the alpha 2 release source listed above. The source
+- Base: `master` at the alpha 3 release source listed above. The source
   contract and notes preserve the preliminary research; current scheduling
   status and resume criteria are recorded here. No rule engine or activated
   suite exists.
