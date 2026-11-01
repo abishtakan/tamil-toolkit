@@ -111,3 +111,12 @@ def test_anjal_byte_convenience_apis():
     assert tamil.unicode_to_anjal_bytes("\u0b95") == bytes([0x8d])
     with pytest.raises(ValueError, match="ambiguous ANJAL byte"):
         tamil.anjal_bytes_to_unicode([0xe5])
+
+
+def test_vanavil_convenience_apis():
+    assert tamil.vanavil_codes_to_unicode([0x006a, 0x00e4, 0x0153]) == "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd"
+    assert tamil.vanavil_text_to_unicode("j\u00e4\u0153") == "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd"
+    assert tamil.unicode_to_vanavil_codes("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd") == [0x006a, 0x00e4, 0x0153]
+    assert tamil.unicode_to_vanavil_text("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd") == "j\u00e4\u0153"
+    with pytest.raises(ValueError, match="unsupported Unicode scalar for Vanavil"):
+        tamil.unicode_to_vanavil_text("\u0bb6\u0bcd\u0bb0\u0bc0")

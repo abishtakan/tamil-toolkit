@@ -89,6 +89,28 @@ class TamilToolkit {
   }) as String;
   List<int> unicodeToTsciiBytes(String text) =>
       (execute({'op': 'unicode_to_tscii_bytes', 'input': {'text': text}}) as List).cast<int>();
+  String ltTmCodesToUnicode(List<int> codes, {String errors = 'strict'}) => execute({
+    'op': 'lt_tm_codes_to_unicode', 'input': {'codes': codes, 'errors': errors},
+  }) as String;
+  String ltTmTextToUnicode(String text, {String errors = 'strict'}) => execute({
+    'op': 'lt_tm_text_to_unicode', 'input': {'text': text, 'errors': errors},
+  }) as String;
+  List<int> unicodeToLtTmCodes(String text) =>
+      (execute({'op': 'unicode_to_lt_tm_codes', 'input': {'text': text}}) as List).cast<int>();
+  String unicodeToLtTmText(String text) => execute({
+    'op': 'unicode_to_lt_tm_text', 'input': {'text': text},
+  }) as String;
+  String vanavilCodesToUnicode(List<int> codes, {String errors = 'strict'}) => execute({
+    'op': 'vanavil_codes_to_unicode', 'input': {'codes': codes, 'errors': errors},
+  }) as String;
+  String vanavilTextToUnicode(String text, {String errors = 'strict'}) => execute({
+    'op': 'vanavil_text_to_unicode', 'input': {'text': text, 'errors': errors},
+  }) as String;
+  List<int> unicodeToVanavilCodes(String text) =>
+      (execute({'op': 'unicode_to_vanavil_codes', 'input': {'text': text}}) as List).cast<int>();
+  String unicodeToVanavilText(String text) => execute({
+    'op': 'unicode_to_vanavil_text', 'input': {'text': text},
+  }) as String;
   String formatFraction(int numerator, int denominator, {String digits = 'latin'}) => execute({
     'op': 'format_fraction', 'input': {'numerator': numerator, 'denominator': denominator, 'digits': digits},
   }) as String;

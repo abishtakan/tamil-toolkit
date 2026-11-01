@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Add the bounded `Vanavil Avvaiyar` (`vanavil-avvaiyar-cid-v1`) 16-bit
+  code/CID profile (`vanavil_codes_to_unicode`, `vanavil_text_to_unicode`,
+  `unicode_to_vanavil_codes`, `unicode_to_vanavil_text`), its canonical
+  319-entry mapping table, and 661 active golden vectors across Rust, Python,
+  WASM, and Dart.
+
 - Defer further Punarchi source review and implementation at user direction;
   preserve the source contract and incomplete review criteria for later.
 

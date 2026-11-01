@@ -37,6 +37,10 @@ pub const OPERATIONS: &[&str] = &[
     "lt_tm_text_to_unicode",
     "unicode_to_lt_tm_codes",
     "unicode_to_lt_tm_text",
+    "vanavil_codes_to_unicode",
+    "vanavil_text_to_unicode",
+    "unicode_to_vanavil_codes",
+    "unicode_to_vanavil_text",
     "format_fraction",
     "fraction_to_words",
     "fraction_symbol",
@@ -82,8 +86,8 @@ fn digit_style(input: &Value) -> Result<numerals::DigitStyle, String> {
     }
 }
 
-fn lt_tm_codes(input: &Value) -> Result<Vec<u16>, String> {
-    let error = || "expected LT-TM code array".to_owned();
+fn cid_codes(input: &Value, name: &str) -> Result<Vec<u16>, String> {
+    let error = || format!("expected {name} code array");
     input
         .get("codes")
         .and_then(Value::as_array)
@@ -174,7 +178,7 @@ pub fn execute(request: &Value) -> Result<Value, String> {
             codec::unicode_to_bamini(string(&input["text"])?).map(|text| json!(text))
         }
         "lt_tm_codes_to_unicode" => {
-            codec::lt_tm_codes_to_unicode(&lt_tm_codes(input)?, codec_error_policy(input)?)
+            codec::lt_tm_codes_to_unicode(&cid_codes(input, "LT-TM")?, codec_error_policy(input)?)
                 .map(|text| json!(text))
         }
         "lt_tm_text_to_unicode" => {
@@ -186,6 +190,21 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         }
         "unicode_to_lt_tm_text" => {
             codec::unicode_to_lt_tm_text(string(&input["text"])?).map(|text| json!(text))
+        }
+        "vanavil_codes_to_unicode" => codec::vanavil_codes_to_unicode(
+            &cid_codes(input, "Vanavil")?,
+            codec_error_policy(input)?,
+        )
+        .map(|text| json!(text)),
+        "vanavil_text_to_unicode" => {
+            codec::vanavil_text_to_unicode(string(&input["text"])?, codec_error_policy(input)?)
+                .map(|text| json!(text))
+        }
+        "unicode_to_vanavil_codes" => {
+            codec::unicode_to_vanavil_codes(string(&input["text"])?).map(|codes| json!(codes))
+        }
+        "unicode_to_vanavil_text" => {
+            codec::unicode_to_vanavil_text(string(&input["text"])?).map(|text| json!(text))
         }
         "unicode_to_anjal_bytes" => {
             codec::unicode_to_anjal_bytes(string(&input["text"])?).map(|bytes| json!(bytes))

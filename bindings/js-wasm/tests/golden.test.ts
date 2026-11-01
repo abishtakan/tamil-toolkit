@@ -165,3 +165,14 @@ test("Anjal byte convenience APIs on both WASM targets", () => {
     expect(() => api.anjal_bytes_to_unicode([0xe5])).toThrow("ambiguous ANJAL byte");
   }
 });
+
+
+test("Vanavil convenience APIs on both WASM targets", () => {
+  for (const api of [nodeApi, webApi]) {
+    expect(api.vanavil_codes_to_unicode(new Uint16Array([0x006a, 0x00e4, 0x0153]))).toBe("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd");
+    expect(api.vanavil_text_to_unicode("j\u00e4\u0153")).toBe("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd");
+    expect(api.unicode_to_vanavil_codes("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd")).toEqual([0x006a, 0x00e4, 0x0153]);
+    expect(api.unicode_to_vanavil_text("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd")).toBe("j\u00e4\u0153");
+    expect(() => api.unicode_to_vanavil_text("\u0bb6\u0bcd\u0bb0\u0bc0")).toThrow("unsupported Unicode scalar for Vanavil");
+  }
+});

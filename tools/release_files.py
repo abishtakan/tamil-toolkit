@@ -16,14 +16,14 @@ INPUTS = {
     "tamil-core": ("core.toml",),
     "tamil-collate": ("collate.toml",),
     "tamil-numerals": ("numerals.toml", "numerals-formats.toml"),
-    "tamil-codec": ("bamini.toml", "tscii.toml", "tab.toml", "tam.toml", "anjal.toml", "lt_tm.toml"),
+    "tamil-codec": ("bamini.toml", "tscii.toml", "tab.toml", "tam.toml", "anjal.toml", "lt_tm.toml", "vanavil.toml"),
 }
 SUMMARIES = {
     "tamil-core": "Unicode normalization, tailored Ezhuthu iteration, Mei/Uyir composition and scalar inspection.",
     "tamil-norm": "NFC and NFD normalization for Tamil and mixed-script text, with joiners preserved.",
     "tamil-collate": "Versioned Mei-first Agara dictionary ordering and canonical sort/search keys.",
     "tamil-numerals": "Bounded TN/SL integers, exact INR/LKR amounts, rational fractions and Gregorian date formatting.",
-    "tamil-codec": "Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, and LT-TM / IndoWord profiles.",
+    "tamil-codec": "Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles.",
     "tamil-toolkit": "Unified Rust entry point for published Tamil text, ordering, numerals, and bounded legacy conversion APIs.",
 }
 FEATURE_TABLES = {
@@ -49,13 +49,13 @@ FEATURE_TABLES = {
 | --- | --- |
 | **Bamini** | Explicit Unicode conversion using the declared Bamini profile. |
 | **Byte profiles** | Bounded TSCII, TAB, TAM, and Anjal conversion. |
-| **LT-TM / IndoWord** | Selected 16-bit CID/code conversion in both directions. |
+| **LT-TM / IndoWord and Vanavil** | Selected 16-bit CID/code conversion in both directions. |
 | **Limits** | No PDF parsing, automatic detection, or complete historical-font coverage. |""",
     "tamil-toolkit": """| Area | Capabilities |
 | --- | --- |
 | **Text** | Unicode letter operations, normalization, and inspection. |
 | **Ordering and numbers** | Agara sorting, number words, exact amounts, fractions, and dates. |
-| **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, Anjal, and LT-TM / IndoWord profiles. |""",
+| **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles. |""",
 }
 CONTRACTS = {
     "tamil-core": "docs/specs/core-v0.1.md",
@@ -179,9 +179,10 @@ Unicode 17 and CLDR 49 data: https://www.unicode.org/ and https://cldr.unicode.o
 Bamini mapping sources: https://github.com/ag-sanjjeev/app-tamil-fonts-unicode-converter
 and https://github.com/Pakeetharan/unicode-bamini-converter
 TSCII mapping source: https://github.com/mayooresan/Android-TamilUtil
-LT-TM mapping reference: Azhagi+ Portable configuration; source digest and
-scope are recorded in docs/specs/codec-lt-tm.md. Its bundled terms remain
-applicable to the derived mapping table.
+LT-TM and Vanavil mapping references: Azhagi+ Portable configurations; source
+digests and scope are recorded in docs/specs/codec-lt-tm.md and
+docs/specs/codec-vanavil.md. Their bundled terms remain applicable to the
+derived mapping tables.
 Exact sources, revisions, digests and profile limits are recorded at:
 https://github.com/abishtakan/tamil-toolkit/tree/HEAD/tests/reference
 and https://github.com/abishtakan/tamil-toolkit/tree/HEAD/docs/specs

@@ -129,6 +129,13 @@ void main() {
     expect(tamil.unicodeToTsciiBytes('\u0b87'), [0xfe]);
     expect(() => tamil.tsciiBytesToUnicode([65, 255]), throwsArgumentError);
   });
+  test('Vanavil convenience APIs', () {
+    expect(tamil.vanavilCodesToUnicode([0x006a, 0x00e4, 0x0153]), '\u0ba4\u0bae\u0bbf\u0bb4\u0bcd');
+    expect(tamil.vanavilTextToUnicode('j\u00e4\u0153'), '\u0ba4\u0bae\u0bbf\u0bb4\u0bcd');
+    expect(tamil.unicodeToVanavilCodes('\u0ba4\u0bae\u0bbf\u0bb4\u0bcd'), [0x006a, 0x00e4, 0x0153]);
+    expect(tamil.unicodeToVanavilText('\u0ba4\u0bae\u0bbf\u0bb4\u0bcd'), 'j\u00e4\u0153');
+    expect(() => tamil.unicodeToVanavilText('\u0bb6\u0bcd\u0bb0\u0bc0'), throwsArgumentError);
+  });
   test('fraction and date convenience APIs', () {
     for (final row in formatCases) {
       final input = row['input'] as Map<String, dynamic>;

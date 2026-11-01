@@ -46,3 +46,11 @@ and bounded profile scope are recorded in `docs/specs/codec-lt-tm.md`.
 `tamil-codec/build.rs` validates its 332 keys and unique NFC values before
 compiling static CID and reverse-Unicode tries. It does not make every
 LT-TM/IndoWord font or Vanavil variant equivalent.
+
+`vanavil.toml` stores a normalized projection of the documented Azhagi+ Portable
+Vanavil (`Vanavil Avvaiyar`) mapping configuration as 16-bit code sequences,
+cross-checked against `Vanavilavvai.ttf`. The source digest, terms, `0x00C0..0x00CF`
+↔ `0x00E0..0x00EF` block transposition against LT-TM, and bounded profile scope
+are recorded in `docs/specs/codec-vanavil.md`. `tamil-codec/build.rs` validates
+its 319 keys and unique NFC values before compiling static code and
+reverse-Unicode tries.

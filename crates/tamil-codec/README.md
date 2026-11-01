@@ -2,7 +2,7 @@
 
 # tamil-codec
 
-**Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, and LT-TM / IndoWord profiles.**
+**Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles.**
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-codec?style=flat-square)](https://crates.io/crates/tamil-codec)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-codec?style=flat-square&label=downloads)](https://crates.io/crates/tamil-codec)
@@ -20,7 +20,7 @@
 | --- | --- |
 | **Bamini** | Explicit Unicode conversion using the declared Bamini profile. |
 | **Byte profiles** | Bounded TSCII, TAB, TAM, and Anjal conversion. |
-| **LT-TM / IndoWord** | Selected 16-bit CID/code conversion in both directions. |
+| **LT-TM / IndoWord and Vanavil** | Selected 16-bit CID/code conversion in both directions. |
 | **Limits** | No PDF parsing, automatic detection, or complete historical-font coverage. |
 
 Experimental alpha `0.1.0-alpha.3`. APIs may change before stability. This package provides bounded APIs and does not

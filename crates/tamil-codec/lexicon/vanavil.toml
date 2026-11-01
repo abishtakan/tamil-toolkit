@@ -1,0 +1,1281 @@
+profile = "vanavil-avvaiyar-cid-v1"
+source = "Azhagi+ Portable Vanavil mapping configuration, normalized projection; see docs/specs/codec-vanavil.md"
+source_url = "https://www.azhagi.com/any-tamil-font.php"
+source_sha256 = "4948396d50fbbaf251ddfe620ca5d8a0ccdb65b5bef07231065a5d6439754b67"
+max_key_cids = 3
+
+[[mappings]]
+cids = [0x0023]
+unicode = "\u0B9C"
+
+[[mappings]]
+cids = [0x0023, 0x0026]
+unicode = "\u0B9C\u0BC1"
+
+[[mappings]]
+cids = [0x0023, 0x005D]
+unicode = "\u0B9C\u0BC2"
+
+[[mappings]]
+cids = [0x0023, 0x0068]
+unicode = "\u0B9C\u0BBE"
+
+[[mappings]]
+cids = [0x0024]
+unicode = "\u0BB8\u0BCD\u0BB0\u0BC0"
+
+[[mappings]]
+cids = [0x0025]
+unicode = "\u0BB0\u0BC2"
+
+[[mappings]]
+cids = [0x003C]
+unicode = "\u0B88"
+
+[[mappings]]
+cids = [0x003E]
+unicode = "\u0BB4\u0BC2"
+
+[[mappings]]
+cids = [0x0041]
+unicode = "\u0BB9"
+
+[[mappings]]
+cids = [0x0041, 0x0026]
+unicode = "\u0BB9\u0BC1"
+
+[[mappings]]
+cids = [0x0041, 0x005D]
+unicode = "\u0BB9\u0BC2"
+
+[[mappings]]
+cids = [0x0041, 0x0068]
+unicode = "\u0BB9\u0BBE"
+
+[[mappings]]
+cids = [0x0042]
+unicode = "\u0B95\u0BCD\u0BB7"
+
+[[mappings]]
+cids = [0x0042, 0x0026]
+unicode = "\u0B95\u0BCD\u0BB7\u0BC1"
+
+[[mappings]]
+cids = [0x0042, 0x005D]
+unicode = "\u0B95\u0BCD\u0BB7\u0BC2"
+
+[[mappings]]
+cids = [0x0042, 0x0068]
+unicode = "\u0B95\u0BCD\u0BB7\u0BBE"
+
+[[mappings]]
+cids = [0x0043]
+unicode = "\u0B8A"
+
+[[mappings]]
+cids = [0x0044]
+unicode = "\u0BA9\u0BC1"
+
+[[mappings]]
+cids = [0x0045]
+unicode = "\u0BA8\u0BC1"
+
+[[mappings]]
+cids = [0x0046]
+unicode = "\u0B95\u0BC1"
+
+[[mappings]]
+cids = [0x0047]
+unicode = "\u0BB4\u0BC1"
+
+[[mappings]]
+cids = [0x0048]
+unicode = "\u0BB4"
+
+[[mappings]]
+cids = [0x0048, 0x0068]
+unicode = "\u0BB4\u0BBE"
+
+[[mappings]]
+cids = [0x0049]
+unicode = "\u0B90"
+
+[[mappings]]
+cids = [0x004A]
+unicode = "\u0BA4\u0BC1"
+
+[[mappings]]
+cids = [0x004B]
+unicode = "\u0BAE\u0BC1"
+
+[[mappings]]
+cids = [0x004C]
+unicode = "\u0B9F\u0BC1"
+
+[[mappings]]
+cids = [0x004D]
+unicode = "\u0B86"
+
+[[mappings]]
+cids = [0x004E]
+unicode = "\u0B9A\u0BC2"
+
+[[mappings]]
+cids = [0x004F]
+unicode = "\u0B9F\u0BC0"
+
+[[mappings]]
+cids = [0x0050]
+unicode = "\u0B9E"
+
+[[mappings]]
+cids = [0x0050, 0x0068]
+unicode = "\u0B9E\u0BBE"
+
+[[mappings]]
+cids = [0x0051]
+unicode = "\u0BA3\u0BC1"
+
+[[mappings]]
+cids = [0x0052]
+unicode = "\u0B9A\u0BC1"
+
+[[mappings]]
+cids = [0x0053]
+unicode = "\u0BB3\u0BC1"
+
+[[mappings]]
+cids = [0x0054]
+unicode = "\u0B95\u0BC2"
+
+[[mappings]]
+cids = [0x0055]
+unicode = "\u0BB0\u0BC1"
+
+[[mappings]]
+cids = [0x0056]
+unicode = "\u0B8F"
+
+[[mappings]]
+cids = [0x0057]
+unicode = "\u0BB1\u0BC1"
+
+[[mappings]]
+cids = [0x0058]
+unicode = "\u0B93"
+
+[[mappings]]
+cids = [0x0059]
+unicode = "\u0BB2\u0BC1"
+
+[[mappings]]
+cids = [0x005A]
+unicode = "\u0BB7\u0BCD"
+
+[[mappings]]
+cids = [0x005B]
+unicode = "\u0BB8"
+
+[[mappings]]
+cids = [0x005B, 0x0026]
+unicode = "\u0BB8\u0BC1"
+
+[[mappings]]
+cids = [0x005B, 0x005D]
+unicode = "\u0BB8\u0BC2"
+
+[[mappings]]
+cids = [0x005B, 0x0068]
+unicode = "\u0BB8\u0BBE"
+
+[[mappings]]
+cids = [0x005E]
+unicode = "\u0B9F\u0BC2"
+
+[[mappings]]
+cids = [0x005F]
+unicode = "\u0BAE\u0BC2"
+
+[[mappings]]
+cids = [0x0061]
+unicode = "\u0BAF"
+
+[[mappings]]
+cids = [0x0061, 0x0068]
+unicode = "\u0BAF\u0BBE"
+
+[[mappings]]
+cids = [0x0062, 0x0023]
+unicode = "\u0B9C\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0023, 0x0068]
+unicode = "\u0B9C\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0023, 0x0073]
+unicode = "\u0B9C\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0041]
+unicode = "\u0BB9\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0041, 0x0068]
+unicode = "\u0BB9\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0041, 0x0073]
+unicode = "\u0BB9\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0042]
+unicode = "\u0B95\u0BCD\u0BB7\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0042, 0x0068]
+unicode = "\u0B95\u0BCD\u0BB7\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0042, 0x0073]
+unicode = "\u0B95\u0BCD\u0BB7\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0048]
+unicode = "\u0BB4\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0048, 0x0068]
+unicode = "\u0BB4\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0048, 0x0073]
+unicode = "\u0BB4\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0050]
+unicode = "\u0B9E\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0050, 0x0068]
+unicode = "\u0B9E\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0050, 0x0073]
+unicode = "\u0B9E\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x005B]
+unicode = "\u0BB8\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x005B, 0x0068]
+unicode = "\u0BB8\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x005B, 0x0073]
+unicode = "\u0BB8\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0061]
+unicode = "\u0BAF\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0061, 0x0068]
+unicode = "\u0BAF\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0061, 0x0073]
+unicode = "\u0BAF\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0064]
+unicode = "\u0BA9\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0064, 0x0068]
+unicode = "\u0BA9\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0064, 0x0073]
+unicode = "\u0BA9\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0065]
+unicode = "\u0BA8\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0065, 0x0068]
+unicode = "\u0BA8\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0065, 0x0073]
+unicode = "\u0BA8\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0066]
+unicode = "\u0B95\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0066, 0x0068]
+unicode = "\u0B95\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0066, 0x0073]
+unicode = "\u0B95\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0067]
+unicode = "\u0BAA\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0067, 0x0068]
+unicode = "\u0BAA\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0067, 0x0073]
+unicode = "\u0BAA\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x006A]
+unicode = "\u0BA4\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x006A, 0x0068]
+unicode = "\u0BA4\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x006A, 0x0073]
+unicode = "\u0BA4\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x006B]
+unicode = "\u0BAE\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x006B, 0x0068]
+unicode = "\u0BAE\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x006B, 0x0073]
+unicode = "\u0BAE\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x006C]
+unicode = "\u0B9F\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x006C, 0x0068]
+unicode = "\u0B9F\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x006C, 0x0073]
+unicode = "\u0B9F\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0072]
+unicode = "\u0B9A\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0072, 0x0068]
+unicode = "\u0B9A\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0072, 0x0073]
+unicode = "\u0B9A\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0073]
+unicode = "\u0BB3\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0073, 0x0068]
+unicode = "\u0BB3\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0073, 0x0073]
+unicode = "\u0BB3\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0074]
+unicode = "\u0BB5\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0074, 0x0068]
+unicode = "\u0BB5\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0074, 0x0073]
+unicode = "\u0BB5\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0075]
+unicode = "\u0BB0\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0075, 0x0068]
+unicode = "\u0BB0\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0075, 0x0073]
+unicode = "\u0BB0\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0077]
+unicode = "\u0BB1\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0077, 0x0068]
+unicode = "\u0BB1\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0077, 0x0073]
+unicode = "\u0BB1\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x0079]
+unicode = "\u0BB2\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x0079, 0x0068]
+unicode = "\u0BB2\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x0079, 0x0073]
+unicode = "\u0BB2\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x007A]
+unicode = "\u0BA3\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x007A, 0x0068]
+unicode = "\u0BA3\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x007A, 0x0073]
+unicode = "\u0BA3\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x00F5]
+unicode = "\u0BB7\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x00F5, 0x0068]
+unicode = "\u0BB7\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x00F5, 0x0073]
+unicode = "\u0BB7\u0BCC"
+
+[[mappings]]
+cids = [0x0062, 0x2021]
+unicode = "\u0B99\u0BC6"
+
+[[mappings]]
+cids = [0x0062, 0x2021, 0x0068]
+unicode = "\u0B99\u0BCA"
+
+[[mappings]]
+cids = [0x0062, 0x2021, 0x0073]
+unicode = "\u0B99\u0BCC"
+
+[[mappings]]
+cids = [0x0063]
+unicode = "\u0B89"
+
+[[mappings]]
+cids = [0x0064]
+unicode = "\u0BA9"
+
+[[mappings]]
+cids = [0x0064, 0x0068]
+unicode = "\u0BA9\u0BBE"
+
+[[mappings]]
+cids = [0x0065]
+unicode = "\u0BA8"
+
+[[mappings]]
+cids = [0x0065, 0x0068]
+unicode = "\u0BA8\u0BBE"
+
+[[mappings]]
+cids = [0x0066]
+unicode = "\u0B95"
+
+[[mappings]]
+cids = [0x0066, 0x0068]
+unicode = "\u0B95\u0BBE"
+
+[[mappings]]
+cids = [0x0067]
+unicode = "\u0BAA"
+
+[[mappings]]
+cids = [0x0067, 0x0068]
+unicode = "\u0BAA\u0BBE"
+
+[[mappings]]
+cids = [0x0069, 0x0023]
+unicode = "\u0B9C\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0041]
+unicode = "\u0BB9\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0042]
+unicode = "\u0B95\u0BCD\u0BB7\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0048]
+unicode = "\u0BB4\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0050]
+unicode = "\u0B9E\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x005B]
+unicode = "\u0BB8\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0061]
+unicode = "\u0BAF\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0064]
+unicode = "\u0BA9\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0065]
+unicode = "\u0BA8\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0066]
+unicode = "\u0B95\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0067]
+unicode = "\u0BAA\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x006A]
+unicode = "\u0BA4\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x006B]
+unicode = "\u0BAE\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x006C]
+unicode = "\u0B9F\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0072]
+unicode = "\u0B9A\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0073]
+unicode = "\u0BB3\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0074]
+unicode = "\u0BB5\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0075]
+unicode = "\u0BB0\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0077]
+unicode = "\u0BB1\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x0079]
+unicode = "\u0BB2\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x007A]
+unicode = "\u0BA3\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x00F5]
+unicode = "\u0BB7\u0BC8"
+
+[[mappings]]
+cids = [0x0069, 0x2021]
+unicode = "\u0B99\u0BC8"
+
+[[mappings]]
+cids = [0x006A]
+unicode = "\u0BA4"
+
+[[mappings]]
+cids = [0x006A, 0x0068]
+unicode = "\u0BA4\u0BBE"
+
+[[mappings]]
+cids = [0x006B]
+unicode = "\u0BAE"
+
+[[mappings]]
+cids = [0x006B, 0x0068]
+unicode = "\u0BAE\u0BBE"
+
+[[mappings]]
+cids = [0x006C]
+unicode = "\u0B9F"
+
+[[mappings]]
+cids = [0x006C, 0x0068]
+unicode = "\u0B9F\u0BBE"
+
+[[mappings]]
+cids = [0x006D]
+unicode = "\u0B85"
+
+[[mappings]]
+cids = [0x006E, 0x0023]
+unicode = "\u0B9C\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0023, 0x0068]
+unicode = "\u0B9C\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0041]
+unicode = "\u0BB9\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0041, 0x0068]
+unicode = "\u0BB9\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0042]
+unicode = "\u0B95\u0BCD\u0BB7\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0042, 0x0068]
+unicode = "\u0B95\u0BCD\u0BB7\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0048]
+unicode = "\u0BB4\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0048, 0x0068]
+unicode = "\u0BB4\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0050]
+unicode = "\u0B9E\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0050, 0x0068]
+unicode = "\u0B9E\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x005B]
+unicode = "\u0BB8\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x005B, 0x0068]
+unicode = "\u0BB8\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0061]
+unicode = "\u0BAF\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0061, 0x0068]
+unicode = "\u0BAF\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0064]
+unicode = "\u0BA9\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0064, 0x0068]
+unicode = "\u0BA9\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0065]
+unicode = "\u0BA8\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0065, 0x0068]
+unicode = "\u0BA8\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0066]
+unicode = "\u0B95\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0066, 0x0068]
+unicode = "\u0B95\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0067]
+unicode = "\u0BAA\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0067, 0x0068]
+unicode = "\u0BAA\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x006A]
+unicode = "\u0BA4\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x006A, 0x0068]
+unicode = "\u0BA4\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x006B]
+unicode = "\u0BAE\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x006B, 0x0068]
+unicode = "\u0BAE\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x006C]
+unicode = "\u0B9F\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x006C, 0x0068]
+unicode = "\u0B9F\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0072]
+unicode = "\u0B9A\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0072, 0x0068]
+unicode = "\u0B9A\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0073]
+unicode = "\u0BB3\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0073, 0x0068]
+unicode = "\u0BB3\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0074]
+unicode = "\u0BB5\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0074, 0x0068]
+unicode = "\u0BB5\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0075]
+unicode = "\u0BB0\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0075, 0x0068]
+unicode = "\u0BB0\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0077]
+unicode = "\u0BB1\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0077, 0x0068]
+unicode = "\u0BB1\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x0079]
+unicode = "\u0BB2\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x0079, 0x0068]
+unicode = "\u0BB2\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x007A]
+unicode = "\u0BA3\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x007A, 0x0068]
+unicode = "\u0BA3\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x00F5]
+unicode = "\u0BB7\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x00F5, 0x0068]
+unicode = "\u0BB7\u0BCB"
+
+[[mappings]]
+cids = [0x006E, 0x2021]
+unicode = "\u0B99\u0BC7"
+
+[[mappings]]
+cids = [0x006E, 0x2021, 0x0068]
+unicode = "\u0B99\u0BCB"
+
+[[mappings]]
+cids = [0x006F]
+unicode = "\u0B9F\u0BBF"
+
+[[mappings]]
+cids = [0x0070]
+unicode = "\u0BAF\u0BC0"
+
+[[mappings]]
+cids = [0x0071]
+unicode = "\u0BB3\u0BC2"
+
+[[mappings]]
+cids = [0x0072]
+unicode = "\u0B9A"
+
+[[mappings]]
+cids = [0x0072, 0x0068]
+unicode = "\u0B9A\u0BBE"
+
+[[mappings]]
+cids = [0x0073]
+unicode = "\u0BB3"
+
+[[mappings]]
+cids = [0x0073, 0x0068]
+unicode = "\u0BB3\u0BBE"
+
+[[mappings]]
+cids = [0x0074]
+unicode = "\u0BB5"
+
+[[mappings]]
+cids = [0x0074, 0x0068]
+unicode = "\u0BB5\u0BBE"
+
+[[mappings]]
+cids = [0x0075]
+unicode = "\u0BB0"
+
+[[mappings]]
+cids = [0x0075, 0x0068]
+unicode = "\u0BB0\u0BBE"
+
+[[mappings]]
+cids = [0x0076]
+unicode = "\u0B8E"
+
+[[mappings]]
+cids = [0x0077]
+unicode = "\u0BB1"
+
+[[mappings]]
+cids = [0x0077, 0x0068]
+unicode = "\u0BB1\u0BBE"
+
+[[mappings]]
+cids = [0x0078]
+unicode = "\u0B92"
+
+[[mappings]]
+cids = [0x0078, 0x0073]
+unicode = "\u0B94"
+
+[[mappings]]
+cids = [0x0079]
+unicode = "\u0BB2"
+
+[[mappings]]
+cids = [0x0079, 0x0068]
+unicode = "\u0BB2\u0BBE"
+
+[[mappings]]
+cids = [0x007A]
+unicode = "\u0BA3"
+
+[[mappings]]
+cids = [0x007A, 0x0068]
+unicode = "\u0BA3\u0BBE"
+
+[[mappings]]
+cids = [0x007B]
+unicode = "\u0B9C\u0BCD"
+
+[[mappings]]
+cids = [0x007C]
+unicode = "\u0B9E\u0BC1"
+
+[[mappings]]
+cids = [0x007D]
+unicode = "\u0BA9\u0BC2"
+
+[[mappings]]
+cids = [0x007E]
+unicode = "\u0B83"
+
+[[mappings]]
+cids = [0x00A1]
+unicode = "\u0B95\u0BCD"
+
+[[mappings]]
+cids = [0x00A2]
+unicode = "\u0B9A\u0BCD"
+
+[[mappings]]
+cids = [0x00A3]
+unicode = "\u0B9F\u0BCD"
+
+[[mappings]]
+cids = [0x00A4]
+unicode = "\u0BA4\u0BCD"
+
+[[mappings]]
+cids = [0x00A5]
+unicode = "\u0BAA\u0BCD"
+
+[[mappings]]
+cids = [0x00A7]
+unicode = "\u0B99\u0BCD"
+
+[[mappings]]
+cids = [0x00A9]
+unicode = "\u0BA3\u0BCD"
+
+[[mappings]]
+cids = [0x00AA]
+unicode = "\u0BA8\u0BCD"
+
+[[mappings]]
+cids = [0x00AB]
+unicode = "\u0BAE\u0BCD"
+
+[[mappings]]
+cids = [0x00AE]
+unicode = "\u0BB0\u0BCD"
+
+[[mappings]]
+cids = [0x00B0]
+unicode = "\u0BB8\u0BCD"
+
+[[mappings]]
+cids = [0x00B1]
+unicode = "\u0BD0"
+
+[[mappings]]
+cids = [0x00B2]
+unicode = "\u0BF3"
+
+[[mappings]]
+cids = [0x00B3]
+unicode = "\u0BF8"
+
+[[mappings]]
+cids = [0x00B4]
+unicode = "\u0BF5"
+
+[[mappings]]
+cids = [0x00B5]
+unicode = "\u0BF4"
+
+[[mappings]]
+cids = [0x00B7]
+unicode = "\u0BFA"
+
+[[mappings]]
+cids = [0x00BA]
+unicode = "\u0B95\u0BCD\u0BB7\u0BCD"
+
+[[mappings]]
+cids = [0x00BB]
+unicode = "\u0B95\u0BBF"
+
+[[mappings]]
+cids = [0x00BC]
+unicode = "\u0B99\u0BC1"
+
+[[mappings]]
+cids = [0x00BD]
+unicode = "\u0B99\u0BC2"
+
+[[mappings]]
+cids = [0x00BF]
+unicode = "\u0BB1\u0BBF"
+
+[[mappings]]
+cids = [0x00C0]
+unicode = "\u0BB9\u0BCD"
+
+[[mappings]]
+cids = [0x00C1]
+unicode = "\u0B9A\u0BBF"
+
+[[mappings]]
+cids = [0x00C2]
+unicode = "\u0BA4\u0BBF"
+
+[[mappings]]
+cids = [0x00C3]
+unicode = "\u0BAA\u0BBF"
+
+[[mappings]]
+cids = [0x00C4]
+unicode = "\u0BB2\u0BC0"
+
+[[mappings]]
+cids = [0x00C5]
+unicode = "\u0BB5\u0BC0"
+
+[[mappings]]
+cids = [0x00C6]
+unicode = "\u0BB4\u0BC0"
+
+[[mappings]]
+cids = [0x00C7]
+unicode = "\u0BB3\u0BC0"
+
+[[mappings]]
+cids = [0x00C8]
+unicode = "\u0BB8\u0BC0"
+
+[[mappings]]
+cids = [0x00C9]
+unicode = "\u0B9C\u0BC0"
+
+[[mappings]]
+cids = [0x00CA]
+unicode = "\u0BB7\u0BC0"
+
+[[mappings]]
+cids = [0x00CB]
+unicode = "\u0BB9\u0BC0"
+
+[[mappings]]
+cids = [0x00CC]
+unicode = "\u0B95\u0BCD\u0BB7\u0BC0"
+
+[[mappings]]
+cids = [0x00CD]
+unicode = "\u0BAF\u0BC1"
+
+[[mappings]]
+cids = [0x00CE]
+unicode = "\u0BB5\u0BC1"
+
+[[mappings]]
+cids = [0x00CF]
+unicode = "\u0B87"
+
+[[mappings]]
+cids = [0x00D1]
+unicode = "\u0B95\u0BC0"
+
+[[mappings]]
+cids = [0x00D3]
+unicode = "\u0B9A\u0BC0"
+
+[[mappings]]
+cids = [0x00D4]
+unicode = "\u0BA4\u0BC0"
+
+[[mappings]]
+cids = [0x00D5]
+unicode = "\u0BAA\u0BC0"
+
+[[mappings]]
+cids = [0x00D6]
+unicode = "\u0BB1\u0BC0"
+
+[[mappings]]
+cids = [0x00D8]
+unicode = "\u0B9E\u0BC0"
+
+[[mappings]]
+cids = [0x00D9]
+unicode = "\u0BA3\u0BC0"
+
+[[mappings]]
+cids = [0x00DA]
+unicode = "\u0BA8\u0BC0"
+
+[[mappings]]
+cids = [0x00DB]
+unicode = "\u0BAE\u0BC0"
+
+[[mappings]]
+cids = [0x00DC]
+unicode = "\u0BA9\u0BC0"
+
+[[mappings]]
+cids = [0x00DF]
+unicode = "\u0BB0\u0BC0"
+
+[[mappings]]
+cids = [0x00E0]
+unicode = "\u0B99\u0BBF"
+
+[[mappings]]
+cids = [0x00E1]
+unicode = "\u0B9E\u0BBF"
+
+[[mappings]]
+cids = [0x00E2]
+unicode = "\u0BA3\u0BBF"
+
+[[mappings]]
+cids = [0x00E3]
+unicode = "\u0BA8\u0BBF"
+
+[[mappings]]
+cids = [0x00E4]
+unicode = "\u0BAE\u0BBF"
+
+[[mappings]]
+cids = [0x00E5]
+unicode = "\u0BA9\u0BBF"
+
+[[mappings]]
+cids = [0x00E6]
+unicode = "\u0BAF\u0BBF"
+
+[[mappings]]
+cids = [0x00E7]
+unicode = "\u0BB0\u0BBF"
+
+[[mappings]]
+cids = [0x00E8]
+unicode = "\u0BB2\u0BBF"
+
+[[mappings]]
+cids = [0x00E9]
+unicode = "\u0BB5\u0BBF"
+
+[[mappings]]
+cids = [0x00EA]
+unicode = "\u0BB4\u0BBF"
+
+[[mappings]]
+cids = [0x00EB]
+unicode = "\u0BB3\u0BBF"
+
+[[mappings]]
+cids = [0x00EC]
+unicode = "\u0BB8\u0BBF"
+
+[[mappings]]
+cids = [0x00ED]
+unicode = "\u0B9C\u0BBF"
+
+[[mappings]]
+cids = [0x00EE]
+unicode = "\u0BB7\u0BBF"
+
+[[mappings]]
+cids = [0x00EF]
+unicode = "\u0BB9\u0BBF"
+
+[[mappings]]
+cids = [0x00F1]
+unicode = "\u0BB5\u0BC2"
+
+[[mappings]]
+cids = [0x00F2]
+unicode = "\u0BAA\u0BC1"
+
+[[mappings]]
+cids = [0x00F3]
+unicode = "\u0BAA\u0BC2"
+
+[[mappings]]
+cids = [0x00F4]
+unicode = "\u0BAF\u0BC2"
+
+[[mappings]]
+cids = [0x00F5]
+unicode = "\u0BB7"
+
+[[mappings]]
+cids = [0x00F5, 0x0026]
+unicode = "\u0BB7\u0BC1"
+
+[[mappings]]
+cids = [0x00F5, 0x005D]
+unicode = "\u0BB7\u0BC2"
+
+[[mappings]]
+cids = [0x00F5, 0x0068]
+unicode = "\u0BB7\u0BBE"
+
+[[mappings]]
+cids = [0x00F6]
+unicode = "\u0BA4\u0BC2"
+
+[[mappings]]
+cids = [0x00F8]
+unicode = "\u0B95\u0BCD\u0BB7\u0BBF"
+
+[[mappings]]
+cids = [0x00F9]
+unicode = "\u0BB1\u0BC2"
+
+[[mappings]]
+cids = [0x00FA]
+unicode = "\u0B9E\u0BC2"
+
+[[mappings]]
+cids = [0x00FB]
+unicode = "\u0BA3\u0BC2"
+
+[[mappings]]
+cids = [0x00FC]
+unicode = "\u0BA8\u0BC2"
+
+[[mappings]]
+cids = [0x00FF]
+unicode = "\u0BB2\u0BC2"
+
+[[mappings]]
+cids = [0x0152]
+unicode = "\u0BAF\u0BCD"
+
+[[mappings]]
+cids = [0x0153]
+unicode = "\u0BB4\u0BCD"
+
+[[mappings]]
+cids = [0x0160]
+unicode = "\u0B9E\u0BCD"
+
+[[mappings]]
+cids = [0x0161]
+unicode = "\u0BB2\u0BCD"
+
+[[mappings]]
+cids = [0x0178]
+unicode = "\u0BB3\u0BCD"
+
+[[mappings]]
+cids = [0x2020]
+unicode = "\u0B99\u0BC0"
+
+[[mappings]]
+cids = [0x2021]
+unicode = "\u0B99"
+
+[[mappings]]
+cids = [0x2021, 0x0068]
+unicode = "\u0B99\u0BBE"
+
+[[mappings]]
+cids = [0x2030]
+unicode = "\u0BB1\u0BCD"
+
+[[mappings]]
+cids = [0x2039]
+unicode = "\u0BA9\u0BCD"
+
+[[mappings]]
+cids = [0x203A]
+unicode = "\u0BB5\u0BCD"

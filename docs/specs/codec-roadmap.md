@@ -1,9 +1,10 @@
 # tamil-codec expansion: plan and source inventory
 
 Status: the unreleased source includes bounded TSCII, TAB, TAM and Anjal byte
-conversion, plus the LT-TM / IndoWord 16-bit code profile with its active suite,
-alongside the published `bamini-v1` profile. Further profiles remain planned.
-See the codec contracts for limits, coverage, and mapping-source conflicts.
+conversion, plus the LT-TM / IndoWord and Vanavil (`Vanavil Avvaiyar`) 16-bit
+code profiles with their active suites, alongside the published `bamini-v1`
+profile. Further profiles remain planned. See the codec contracts for limits,
+coverage, and mapping-source conflicts.
 
 ## Delivery order
 
@@ -23,8 +24,11 @@ See the codec contracts for limits, coverage, and mapping-source conflicts.
 
 The LT-TM / IndoWord CID profile has a bounded implementation, canonical
 mapping table, and 687 active vectors following owner review of the
-[profile contract](codec-lt-tm.md). Rust, Python, Node/browser WASM, and Dart
-gates pass; that does not establish compatibility with every LT-TM face.
+[profile contract](codec-lt-tm.md). The Vanavil (`Vanavil Avvaiyar`) CID profile
+has a bounded implementation, canonical 319-key mapping table, and 661 active
+vectors following owner review of the [Vanavil contract](codec-vanavil.md).
+Rust, Python, Node/browser WASM, and Dart gates pass; that does not establish
+compatibility with every LT-TM or Vanavil face.
 
 ## Acceptance for each profile
 
@@ -45,7 +49,8 @@ gates pass; that does not establish compatibility with every LT-TM face.
 | TSCII 1.7 | [Unicode Technical Note 15](https://www.unicode.org/notes/tn15/) and [IANA registration draft](https://data.iana.org/archive/ietf-charsets/pdf00000.pdf) | The note states copyright and permission conditions. Audit alternative licensed mapping data and independent agreement before copying. |
 | TAB | [Unicode Technical Note 17](https://www.unicode.org/notes/tn17/) and [Tamil Nadu standards](https://www.tamilvu.org/ta/Tamilnet99-tabtam-341628) | Review exact reuse terms, mapping version and byte coverage. |
 | TAM | [Unicode Technical Note 18](https://www.unicode.org/notes/tn18/tn18-1.html) and the same Tamil Nadu standards | The note states copyright and permission conditions. Review alternative licensed mapping data before copying. |
-| Anjal / Vanavil | [open-tamil converter inventory](https://github.com/Ezhil-Language-Foundation/open-tamil/blob/main/tamil/txt2unicode/README.md) | Identify each mapping's origin, version, and applicable file-level license; the inventory alone is not a verified mapping source. |
+| Anjal | [open-tamil converter inventory](https://github.com/Ezhil-Language-Foundation/open-tamil/blob/main/tamil/txt2unicode/README.md) | Implemented as a bounded byte profile from Android TamilUtil (`anjal.toml`). See [profile contract](codec-anjal.md). |
+| Vanavil (`Vanavil Avvaiyar`) | [Azhagi converter inventory](https://www.azhagi.com/tamil-fonts-converter.php), [TVA legacy font list](https://www.tamilvu.org/en/tamil-softwares-old) | Implemented as a bounded 319-key 16-bit code profile (`vanavil-avvaiyar-cid-v1`) from a normalized Azhagi configuration projection, cross-checked against `Vanavilavvai.ttf` `cmap`. Active suite (661 vectors) and full gates pass. See [profile contract](codec-vanavil.md). |
 | LT-TM / IndoWord | [TVA legacy font list](https://www.tamilvu.org/en/tamil-softwares-old), [Azhagi converter inventory](https://www.azhagi.com/tamil-fonts-converter.php) | Implemented as a bounded 332-key CID profile from a normalized Azhagi configuration projection. PDF title and several page-one font runs were checked. Active suite and full gates pass; broader font-family compatibility remains unresolved. See [profile contract](codec-lt-tm.md). |
 
 An additional [Android TamilUtil repository](https://github.com/mayooresan/Android-TamilUtil)
@@ -97,9 +102,10 @@ and [IANA audit](codec-tscii-audit.md) contracts for the shipped profile's
 representation and limits.
 
 The LT-TM / IndoWord profile is implemented with 332 mapping keys and 687 active
-vectors; Rust, Python, WASM, and Dart gates pass. Its PDF input representation
-and known mapping distinctions are documented in [the profile contract](codec-lt-tm.md).
-Next codec research should compare Vanavil independently and extend checks
-across the remaining embedded PDF font faces before claiming broader
-compatibility. Do not merge LT-TM with Vanavil, AnuGraphics, or Pallavar without
-comparing their code tables.
+vectors, and the Vanavil (`Vanavil Avvaiyar`) profile is implemented with 319
+mapping keys and 661 active vectors; Rust, Python, WASM, and Dart gates pass.
+Their code representations and the `0x00C0..0x00CF` ↔ `0x00E0..0x00EF` block
+transposition between LT-TM and Vanavil Avvaiyar are documented in the
+[LT-TM contract](codec-lt-tm.md) and [Vanavil contract](codec-vanavil.md).
+Do not merge LT-TM or Vanavil with AnuGraphics or Pallavar without comparing
+their code tables.

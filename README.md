@@ -25,7 +25,7 @@ Python package and the Node.js and browser WASM bindings.
 | **Work with Tamil text** | Tailored letter segmentation, Mei/Uyirmei splitting and composition, NFC/NFD normalization, and Unicode inspection. |
 | **Order and match words** | Stable Mei-first Agara sorting, versioned sort keys, and keys for exact normalized matching. |
 | **Format numbers and dates** | Tamil Nadu and Sri Lankan numeral profiles, integer words, exact INR/LKR amounts, fractions, and Gregorian dates. |
-| **Convert legacy text** | Unicode ↔ Bamini text, bounded TSCII/TAB/TAM/Anjal byte profiles, and a bounded LT-TM / IndoWord 16-bit CID profile. |
+| **Convert legacy text** | Unicode ↔ Bamini text, bounded TSCII/TAB/TAM/Anjal byte profiles, and bounded LT-TM / IndoWord and Vanavil Avvaiyar 16-bit CID profiles. |
 
 Normalization preserves joiners and non-Tamil text. Encoding conversion uses
 explicit profiles; callers choose the source encoding. Unsupported input is
@@ -55,12 +55,12 @@ All six Rust crates are published at `0.1.0-alpha.3`: [`tamil-core`](https://cra
 [`tamil-codec`](https://crates.io/crates/tamil-codec), and
 [`tamil-toolkit`](https://crates.io/crates/tamil-toolkit).
 
-**Alpha boundaries:** Bamini, TSCII, TAB, TAM, Anjal, and LT-TM conversions use
-declared bounded profiles. LT-TM handles selected 16-bit CID/code sequences;
-it does not parse PDFs or detect fonts automatically. These profiles do not
+**Alpha boundaries:** Bamini, TSCII, TAB, TAM, Anjal, LT-TM, and Vanavil conversions use
+declared bounded profiles. LT-TM and Vanavil handle selected 16-bit CID/code sequences;
+they do not parse PDFs or detect fonts automatically. These profiles do not
 claim complete historical-font coverage. Other planned linguistic modules
 and a Dart/Pub distribution are outside the published alpha. See the
-[LT-TM contract](docs/specs/codec-lt-tm.md) and [alpha 3 compatibility details](docs/releases/alpha-3.md#compatibility-and-scope).
+[LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), and [alpha 3 compatibility details](docs/releases/alpha-3.md#compatibility-and-scope).
 
 ## Quick start
 

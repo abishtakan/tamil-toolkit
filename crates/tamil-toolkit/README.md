@@ -20,7 +20,7 @@
 | --- | --- |
 | **Text** | Unicode letter operations, normalization, and inspection. |
 | **Ordering and numbers** | Agara sorting, number words, exact amounts, fractions, and dates. |
-| **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, Anjal, and LT-TM / IndoWord profiles. |
+| **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles. |
 
 Experimental alpha `0.1.0-alpha.3`. APIs may change before stability. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage.

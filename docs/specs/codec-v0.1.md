@@ -2,7 +2,9 @@
 
 Status: v0.1 engineering acceptance passed locally. Profile: `bamini-v1`.
 The [reverse encoder](codec-reverse-v0.1.md) extends this profile separately;
-its addition preserves the decoder behavior specified here.
+its addition preserves the decoder behavior specified here. Additional bounded
+profiles are specified in the [codec roadmap](codec-roadmap.md), including
+[LT-TM / IndoWord](codec-lt-tm.md) and [Vanavil Avvaiyar](codec-vanavil.md).
 
 ## Plan
 

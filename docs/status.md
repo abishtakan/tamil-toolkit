@@ -36,9 +36,11 @@ check results and public consumer verification.
 
 ## Scope and next development
 
-Alpha 3 adds the bounded LT-TM / IndoWord 16-bit profile. Byte and CID profiles
+Alpha 3 adds the bounded LT-TM / IndoWord 16-bit profile, and `master` now
+includes the bounded `Vanavil Avvaiyar` (`vanavil-avvaiyar-cid-v1`) 16-bit
+code/CID profile. Byte and CID profiles
 do not claim automatic detection or complete historical-font coverage. The
-current active golden suite contains 27,644 rows. Punarchi work is deferred at
+current active golden suite contains 28,305 rows. Punarchi work is deferred at
 user direction. Preliminary research and its open criteria remain documented
 under [the v0.1 source and scope contract](specs/punarchi-v0.1.md). The
 contract selects the Nannūl Eḻuttatikāram root text for the first named literary
@@ -183,6 +185,24 @@ Continue to follow
 - Broader compatibility with all LT-TM font families remains unverified; do
   not claim Vanavil, AnuGraphics, or Pallavar aliases. This work is
   committed as `3255bd4`.
+
+### Vanavil codec handoff (2026-11-01)
+
+- `Vanavil Avvaiyar` (`vanavil-avvaiyar-cid-v1`) is implemented as an explicit,
+  bounded 16-bit code/CID profile (`vanavil_codes_to_unicode`,
+  `vanavil_text_to_unicode`, `unicode_to_vanavil_codes`,
+  `unicode_to_vanavil_text`) across `tamil-codec`, `tamil-toolkit`, Python,
+  Node/browser WASM, and Dart.
+- `lexicon/vanavil.toml` is the canonical, normalized 319-entry mapping
+  projection derived from the audited Azhagi+ Portable `Vanavil Avvaiyar`
+  configuration (`SHA-256: 4948396d50fbbaf251ddfe620ca5d8a0ccdb65b5bef07231065a5d6439754b67`).
+  Compared to `lt_tm.toml`, `Vanavil Avvaiyar` transposes `0x00C0..0x00CF` and
+  `0x00E0..0x00EF` (`cid ^ 0x0020`), assigns `U+0BFA` (`௺`) to `0x00B7`, and
+  omits the 13 `ஶ` (`U+0BB6`) entries (`332 - 13 = 319` mappings).
+- `tests/golden/codec_vanavil.jsonl` adds 661 escaped, sourced golden vectors
+  (638 mapping decode/encode vectors plus 23 phrase, transposition, `ஶ`
+  rejection, NFD normalization, joiner-boundary, and error-policy vectors),
+  bringing the active golden corpus to 28,305 rows.
 
 ### PDF extraction status (2026-11-01; deferred / removed)
 

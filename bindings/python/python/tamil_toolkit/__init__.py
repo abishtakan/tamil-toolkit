@@ -5,7 +5,7 @@ from typing import Any
 
 from . import _native
 
-__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "anjal_bytes_to_unicode", "unicode_to_anjal_bytes", "tam_bytes_to_unicode", "unicode_to_tam_bytes", "tab_bytes_to_unicode", "unicode_to_tab_bytes", "tscii_bytes_to_unicode", "unicode_to_tscii_bytes", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date"]
+__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "anjal_bytes_to_unicode", "unicode_to_anjal_bytes", "tam_bytes_to_unicode", "unicode_to_tam_bytes", "tab_bytes_to_unicode", "unicode_to_tab_bytes", "tscii_bytes_to_unicode", "unicode_to_tscii_bytes", "lt_tm_codes_to_unicode", "lt_tm_text_to_unicode", "unicode_to_lt_tm_codes", "unicode_to_lt_tm_text", "vanavil_codes_to_unicode", "vanavil_text_to_unicode", "unicode_to_vanavil_codes", "unicode_to_vanavil_text", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date"]
 
 
 def execute(request: dict[str, Any]) -> Any:
@@ -102,6 +102,38 @@ def tscii_bytes_to_unicode(data: bytes | list[int]) -> str:
 
 def unicode_to_tscii_bytes(text: str) -> bytes:
     return bytes(execute({"op": "unicode_to_tscii_bytes", "input": {"text": text}}))
+
+
+def lt_tm_codes_to_unicode(codes: list[int], errors: str = "strict") -> str:
+    return execute({"op": "lt_tm_codes_to_unicode", "input": {"codes": list(codes), "errors": errors}})
+
+
+def lt_tm_text_to_unicode(text: str, errors: str = "strict") -> str:
+    return execute({"op": "lt_tm_text_to_unicode", "input": {"text": text, "errors": errors}})
+
+
+def unicode_to_lt_tm_codes(text: str) -> list[int]:
+    return execute({"op": "unicode_to_lt_tm_codes", "input": {"text": text}})
+
+
+def unicode_to_lt_tm_text(text: str) -> str:
+    return execute({"op": "unicode_to_lt_tm_text", "input": {"text": text}})
+
+
+def vanavil_codes_to_unicode(codes: list[int], errors: str = "strict") -> str:
+    return execute({"op": "vanavil_codes_to_unicode", "input": {"codes": list(codes), "errors": errors}})
+
+
+def vanavil_text_to_unicode(text: str, errors: str = "strict") -> str:
+    return execute({"op": "vanavil_text_to_unicode", "input": {"text": text, "errors": errors}})
+
+
+def unicode_to_vanavil_codes(text: str) -> list[int]:
+    return execute({"op": "unicode_to_vanavil_codes", "input": {"text": text}})
+
+
+def unicode_to_vanavil_text(text: str) -> str:
+    return execute({"op": "unicode_to_vanavil_text", "input": {"text": text}})
 
 
 def format_fraction(numerator: int, denominator: int, digits: str = "latin") -> str:

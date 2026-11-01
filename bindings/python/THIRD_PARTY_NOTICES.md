@@ -8,9 +8,10 @@ Unicode 17 and CLDR 49 data: https://www.unicode.org/ and https://cldr.unicode.o
 Bamini mapping sources: https://github.com/ag-sanjjeev/app-tamil-fonts-unicode-converter
 and https://github.com/Pakeetharan/unicode-bamini-converter
 TSCII mapping source: https://github.com/mayooresan/Android-TamilUtil
-LT-TM mapping reference: Azhagi+ Portable configuration; source digest and
-scope are recorded in docs/specs/codec-lt-tm.md. Its bundled terms remain
-applicable to the derived mapping table.
+LT-TM and Vanavil mapping references: Azhagi+ Portable configurations; source
+digests and scope are recorded in docs/specs/codec-lt-tm.md and
+docs/specs/codec-vanavil.md. Their bundled terms remain applicable to the
+derived mapping tables.
 Exact sources, revisions, digests and profile limits are recorded at:
 https://github.com/abishtakan/tamil-toolkit/tree/HEAD/tests/reference
 and https://github.com/abishtakan/tamil-toolkit/tree/HEAD/docs/specs
