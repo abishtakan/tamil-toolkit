@@ -1,41 +1,79 @@
+<div align="center">
+
 # tamil-toolkit for Python
 
-Install the experimental MIT-licensed alpha with
-`python -m pip install --pre tamil-toolkit`, then import as
-`import tamil_toolkit as tamil`. Development builds use `just sync-bindings`.
-The package delegates all linguistic behavior to Rust through PyO3.
+**Rust-backed Tamil text tools for CPython.**
 
-The SDK includes Unicode normalization and tailored Ezhuthu segmentation,
-Mei/Uyir composition, Agara collation, bounded TN/SL integer/currency words,
-exact fractions, Gregorian dates, Bamini, and bounded TSCII, TAB, TAM and Anjal
-byte conversion. Other
-linguistic modules remain planned. Read the bounded contracts at
-https://github.com/abishtakan/tamil-toolkit/tree/HEAD/docs/specs.
+[![PyPI version](https://img.shields.io/pypi/v/tamil-toolkit?style=flat-square)](https://pypi.org/project/tamil-toolkit/)
+[![Monthly downloads](https://img.shields.io/pypi/dm/tamil-toolkit?style=flat-square&label=monthly)](https://pypistats.org/packages/tamil-toolkit)
+[![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
+[![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
+
+[Install](#install) · [Quick start](#quick-start) · [Documentation](#documentation)
+
+</div>
+
+## What’s included
+
+| Area | Capabilities |
+| --- | --- |
+| **Unicode and letters** | NFC/NFD normalization, tailored Tamil letter operations, and inspection. |
+| **Ordering** | Stable Mei-first Agara collation and versioned sort/search keys. |
+| **Numbers and dates** | Bounded TN/SL number words, exact INR/LKR amounts, fractions, and Gregorian dates. |
+| **Legacy conversion** | Bamini text conversion and bounded TSCII, TAB, TAM, and Anjal byte profiles. |
+
+Python is a thin binding to the shared Rust implementation.
+
+## Install
+
+Python 3.11+ with GIL-enabled CPython is supported. Install the published alpha:
+
+```sh
+python -m pip install tamil-toolkit==0.1.0a2
+```
+
+## Quick start
 
 ```python
 import tamil_toolkit as tamil
 
-assert tamil.format_fraction(2, 4) == "1/2"
-assert tamil.format_currency(102550, "LKR", "SL") == "LKR 1,025.50"
-date = tamil.format_date(2024, 2, 29, "SL", "full", "tamil")
+text = "தமிழ்"
+print(" | ".join(tamil.get_letters(text)))  # த | மி | ழ்
+print(tamil.unicode_to_bamini(text))  # jkpo;
+print(tamil.format_currency(102550, "LKR", "SL"))  # LKR 1,025.50
+print(tamil.format_fraction(2, 4))  # 1/2
 ```
 
-The alpha targets GIL-enabled CPython 3.11+ through abi3 wheels. Linux x64, Windows x64,
-and macOS arm64 wheels require their artifact CI jobs to pass before release.
-Source builds require Rust 1.85+. APIs may change before stability.
-See LICENSE, THIRD_PARTY_NOTICES.md, and bundled dependency license notices.
+`102550` is an exact amount in minor units. The numeral APIs support bounded
+TN/SL profiles and INR/LKR amounts.
 
-Collation APIs: `compare(left, right)`, `sort_words(words)`, `sort_key(text)`,
-and `search_key(text)`. Keys are numeric arrays for the versioned `agara-v1`
-profile; compare arrays lexicographically and retain the version with indexes.
-Sorting preserves original text and canonical ties. See the linked specifications.
+## Alpha 2 scope
 
-This distribution provides `tscii_bytes_to_unicode(bytes([0xba, 0xa2, 0xc5, 0xfd]))`.
+The published PyPI `0.1.0a2` package includes the capabilities listed above.
+Byte conversion uses explicit bounded profiles; it does not guess encodings or
+claim complete historical-font coverage. APIs may change.
 
-`unicode_to_tscii_bytes(text)` returns Python `bytes`.
+LT-TM CID conversion is present in current workspace source but is **not** in
+the published `0.1.0a2` package. Other planned linguistic modules and Dart/Pub
+distribution are not published.
 
-This distribution provides `tab_bytes_to_unicode(data)` and `unicode_to_tab_bytes(text)`.
+## Documentation
 
-This distribution provides `tam_bytes_to_unicode(data)` and `unicode_to_tam_bytes(text)`; TAM bytes do not preserve Latin letters.
+- [API and feature overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
+- [Unicode/core contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/core-v0.1.md)
+- [Collation contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md)
+- [Numerals, fractions, and dates](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.2.md)
+- [Codec contract and alpha 2 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-2.md#compatibility-and-scope)
+- [LT-TM workspace specification (unreleased)](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md)
+- [Python package API declarations](https://github.com/abishtakan/tamil-toolkit/blob/master/bindings/python/python/tamil_toolkit/__init__.py)
+- [Third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md)
 
-This distribution provides `anjal_bytes_to_unicode(data)` and `unicode_to_anjal_bytes(text)`; ambiguous legacy bytes raise an error.
+The wheels target CPython 3.11+ through the stable abi3 interface. Source builds
+require Rust 1.85+. See the [alpha 2 release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-2.md)
+for artifact details.
+
+## License
+
+Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
+Bundled data and mappings retain their recorded terms in the
+[third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).

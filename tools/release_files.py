@@ -14,11 +14,95 @@ INPUTS = {
 }
 SUMMARIES = {
     "tamil-core": "Unicode normalization, tailored Ezhuthu iteration, Mei/Uyir composition and scalar inspection.",
-    "tamil-norm": "Normalization facade for the Rust-owned Tamil toolkit.",
+    "tamil-norm": "NFC and NFD normalization for Tamil and mixed-script text, with joiners preserved.",
     "tamil-collate": "Versioned Mei-first Agara dictionary ordering and canonical sort/search keys.",
     "tamil-numerals": "Bounded TN/SL integers, exact INR/LKR amounts, rational fractions and Gregorian date formatting.",
-    "tamil-codec": "Explicit Bamini conversion, bounded TSCII, TAB, TAM and Anjal byte conversion, and an LT-TM CID profile.",
-    "tamil-toolkit": "Unified entry point for the implemented core, normalization, collation, numerals, Bamini, bounded TSCII, TAB, TAM and Anjal conversion, and LT-TM CID conversion.",
+    "tamil-codec": "Bamini conversion and bounded TSCII, TAB, TAM and Anjal byte profiles.",
+    "tamil-toolkit": "Unified Rust entry point for the published core, normalization, collation, numerals, and legacy conversion APIs.",
+}
+FEATURE_TABLES = {
+    "tamil-core": """| Area | Capabilities |
+| --- | --- |
+| **Segmentation** | Tailored Tamil letter clusters via `get_letters` or the borrowed `Letters` iterator. |
+| **Normalization** | NFC/NFD normalization and scalar-level inspection. |
+| **Ezhuthu** | Mei/Uyir splitting and composition. |""",
+    "tamil-norm": """| Operation | Behavior |
+| --- | --- |
+| **NFC/NFD** | Canonical Unicode normalization for Tamil and mixed-script text. |
+| **Preservation** | Non-Tamil text and ZWJ/ZWNJ joiners are retained. |""",
+    "tamil-collate": """| Area | Capabilities |
+| --- | --- |
+| **Ordering** | Stable Mei-first `agara-v1` comparison and sorting. |
+| **Keys** | Versioned numeric sort keys and canonical exact-match search keys. |""",
+    "tamil-numerals": """| Area | Capabilities |
+| --- | --- |
+| **Number words** | Bounded formal Tamil Nadu and Sri Lankan profiles. |
+| **Money** | Exact INR/LKR minor-unit amounts with no rounding. |
+| **Fractions and dates** | Rational fractions and Gregorian civil-date formatting. |""",
+    "tamil-codec": """| Area | Capabilities |
+| --- | --- |
+| **Bamini** | Explicit Unicode conversion using the declared Bamini profile. |
+| **Byte profiles** | Bounded TSCII, TAB, TAM, and Anjal conversion. |
+| **Limits** | No automatic detection or complete historical-font coverage. |""",
+    "tamil-toolkit": """| Area | Capabilities |
+| --- | --- |
+| **Text** | Unicode letter operations, normalization, and inspection. |
+| **Ordering and numbers** | Agara sorting, number words, exact amounts, fractions, and dates. |
+| **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, and Anjal profiles. |""",
+}
+CONTRACTS = {
+    "tamil-core": "docs/specs/core-v0.1.md",
+    "tamil-norm": "docs/specs/core-v0.1.md",
+    "tamil-collate": "docs/specs/collate-v0.1.md",
+    "tamil-numerals": "docs/specs/numerals-v0.2.md",
+    "tamil-codec": "docs/releases/alpha-2.md#compatibility-and-scope",
+    "tamil-toolkit": "README.md#capability-contracts",
+}
+EXAMPLES = {
+    "tamil-core": '''use tamil_core::{get_letters, Letters};
+
+fn main() {
+    let text = "தமிழ்";
+    println!("{}", get_letters(text).join(" | "));
+    assert_eq!(Letters::new(text).count(), 3);
+}''',
+    "tamil-norm": '''fn main() {
+    let decomposed = tamil_norm::normalize_nfd("தமிழ்");
+    let normalized = tamil_norm::normalize_nfc(&decomposed);
+    println!("{normalized}");
+}''',
+    "tamil-collate": '''fn main() {
+    let words = vec!["ஆ".to_owned(), "அ".to_owned()];
+    let sorted = tamil_collate::sort_words(&words);
+    println!("{}", sorted.join(" | "));
+}''',
+    "tamil-numerals": '''use tamil_numerals::{Currency, Locale};
+
+fn main() -> Result<(), String> {
+    let amount = tamil_numerals::format_currency(102_550, Currency::LKR, Locale::SL)?;
+    println!("{amount}");
+    Ok(())
+}''',
+    "tamil-codec": '''use tamil_codec::{bamini_to_unicode, unicode_to_bamini, ErrorPolicy};
+
+fn main() -> Result<(), String> {
+    let legacy = unicode_to_bamini("தமிழ்")?;
+    let text = bamini_to_unicode(&legacy, ErrorPolicy::Strict)?;
+    println!("{legacy} -> {text}");
+    Ok(())
+}''',
+    "tamil-toolkit": '''use tamil_toolkit::{codec, core};
+
+fn main() -> Result<(), String> {
+    let text = "தமிழ்";
+    println!("{}", core::get_letters(text).join(" | "));
+    println!("{}", codec::unicode_to_bamini(text)?);
+    Ok(())
+}''',
+}
+UNRELEASED_NOTES = {
+    "tamil-codec": "\n\nLT-TM CID conversion is present in current workspace source but is **not** included in the published `0.1.0-alpha.2` crate. See the [unreleased workspace specification](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md).",
+    "tamil-toolkit": "\n\nLT-TM CID conversion is present in current workspace source but is **not** included in the published `0.1.0-alpha.2` crate. See the [unreleased workspace specification](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md).",
 }
 
 
@@ -67,23 +151,64 @@ def expected_files():
         label = "Release" if POLICY["channel"] == "stable" else "Experimental " + POLICY["channel"]
         stability = ("Public APIs follow semantic versioning." if POLICY["channel"] == "stable"
                      else "APIs may change before stability.")
-        text = f"""# {name}
+        contract_url = f"https://github.com/abishtakan/tamil-toolkit/blob/master/{CONTRACTS[name]}"
+        unreleased_note = UNRELEASED_NOTES.get(name, "") if VERSION == "0.1.0-alpha.2" else ""
+        text = f"""<div align="center">
 
-{SUMMARIES[name]}
+# {name}
 
-{label} `{VERSION}`. {stability} This package
-does not implement all Tamil linguistic conventions. Read the bounded module
-contracts and examples in the [project documentation](https://github.com/abishtakan/tamil-toolkit#readme).
+**{SUMMARIES[name]}**
+
+[![crates.io version](https://img.shields.io/crates/v/{name}?style=flat-square)](https://crates.io/crates/{name})
+[![crates.io downloads](https://img.shields.io/crates/d/{name}?style=flat-square&label=downloads)](https://crates.io/crates/{name})
+[![docs.rs](https://docs.rs/{name}/badge.svg)](https://docs.rs/{name}/{VERSION})
+[![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
+[![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
+
+[Install](#install) · [Example](#example) · [Documentation](#documentation)
+
+</div>
+
+## What’s included
+
+{FEATURE_TABLES[name]}
+
+{label} `{VERSION}`. {stability} This package provides bounded APIs and does not
+attempt complete Tamil linguistic coverage.
+
+## Install
+
+```sh
+cargo add {name}@={VERSION}
+```
+
+Or add the exact alpha dependency to `Cargo.toml`:
 
 ```toml
 [dependencies]
 {name} = \"={VERSION}\"
 ```
 
-Original code is MIT licensed; see LICENSE and THIRD_PARTY_NOTICES.md.
-Bundled `lexicon/` files are generated copies of the repository's canonical
-declarative data, checked byte for byte by `just check-release-files`.
-Contributions are welcome at https://github.com/abishtakan/tamil-toolkit.
+## Example
+
+```rust
+{EXAMPLES[name]}
+```
+
+## Documentation
+
+- [API reference on docs.rs](https://docs.rs/{name}/{VERSION})
+- [Feature contract and examples]({contract_url})
+- [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
+- [Alpha 2 release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-2.md)
+{unreleased_note}
+
+## License
+
+Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
+Bundled data and mappings retain their recorded terms in the
+[third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).
+Contributions are welcome; see the [contributor guide](https://github.com/abishtakan/tamil-toolkit/blob/master/CONTRIBUTING.md).
 """
         files[ROOT / "crates" / name / "README.md"] = text.encode("utf-8")
     for name, inputs in INPUTS.items():

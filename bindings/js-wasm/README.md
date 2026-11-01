@@ -1,39 +1,88 @@
-# tamil-toolkit for TypeScript / WASM
+<div align="center">
 
-`just sync-bindings` produces Node and browser WASM builds and TypeScript
-declarations. Node: `import * as tamil from 'tamil-toolkit'`. Browser:
-`import { init, get_letters } from 'tamil-toolkit/web'; await init();`.
-Install the experimental MIT-licensed alpha on npm with `npm install tamil-toolkit@alpha`.
-These adapters serialize calls into the shared Rust dispatcher. Planned modules
-are excluded. APIs may change before stability. Node 22+ is supported; browser
-consumers must initialize the WASM module before calling its functions.
+# tamil-toolkit for JavaScript and TypeScript
 
-```javascript
-import { format_fraction, format_currency } from "tamil-toolkit";
+**Rust-backed Tamil text tools for Node.js and browsers.**
 
-console.log(format_fraction(2, 4)); // 1/2
-console.log(format_currency(102550, "LKR", "SL")); // LKR 1,025.50
+[![npm alpha version](https://img.shields.io/npm/v/tamil-toolkit/alpha?style=flat-square&label=npm%20alpha)](https://www.npmjs.com/package/tamil-toolkit)
+[![Monthly downloads](https://img.shields.io/npm/dm/tamil-toolkit?style=flat-square&label=monthly)](https://www.npmjs.com/package/tamil-toolkit)
+[![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
+[![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
+
+[Install](#install) · [Node quick start](#node-quick-start) · [Documentation](#documentation)
+
+</div>
+
+## What’s included
+
+| Area | Capabilities |
+| --- | --- |
+| **Unicode and letters** | NFC/NFD normalization, tailored Tamil letter operations, and inspection. |
+| **Ordering** | Stable Mei-first Agara collation and versioned sort/search keys. |
+| **Numbers and dates** | Bounded TN/SL number words, exact INR/LKR amounts, fractions, and Gregorian dates. |
+| **Legacy conversion** | Bamini text conversion and bounded TSCII, TAB, TAM, and Anjal byte profiles. |
+
+TypeScript and WASM are thin bindings to the shared Rust implementation.
+
+## Install
+
+Node.js 22+ is supported. Install alpha 2 from npm’s `alpha` dist-tag:
+
+```sh
+npm install tamil-toolkit@alpha
 ```
 
-The package includes core Unicode/Ezhuthu functions, Agara collation, bounded
-TN/SL integer and currency words, fractions, Gregorian dates, and explicit
-Bamini and bounded TSCII, TAB, TAM and Anjal byte conversion. For browser code use the `/web` entry point, `await init()`,
-then call the same methods. Hosts must serve the packaged WASM file with the
-generated loader; bundlers must support WebAssembly assets and ES modules.
-See LICENSE, THIRD_PARTY_NOTICES.md, and bundled dependency license notices.
+The `alpha` tag points to `0.1.0-alpha.2`; npm’s `latest` tag still points to
+`0.1.0-alpha.1`. The version badge above tracks the `alpha` tag.
 
-Both entry points expose `compare`, `sort_words`, `sort_key`, and `search_key`.
-Use the comparison result or numeric-array keys for ordering; comparing their
-JSON string representation is incorrect. The versioned `agara-v1` profile and
-its mixed-script fallback are specified at
-https://github.com/abishtakan/tamil-toolkit/tree/HEAD/docs/specs/collate-v0.1.md.
+## Node quick start
 
-This distribution provides `tscii_bytes_to_unicode(new Uint8Array([0xba, 0xa2, 0xc5, 0xfd]))`.
+```javascript
+import * as tamil from "tamil-toolkit";
 
-`unicode_to_tscii_bytes(text)` returns an array of byte values.
+const text = "தமிழ்";
+console.log(tamil.get_letters(text).join(" | ")); // த | மி | ழ்
+console.log(tamil.unicode_to_bamini(text)); // jkpo;
+console.log(tamil.format_currency(102550, "LKR", "SL")); // LKR 1,025.50
+```
 
-This distribution provides `tab_bytes_to_unicode(bytes)` and `unicode_to_tab_bytes(text)`.
+## Browser quick start
 
-This distribution provides `tam_bytes_to_unicode(bytes)` and `unicode_to_tam_bytes(text)`; TAM bytes do not preserve Latin letters.
+Use the `/web` entry point and initialize WebAssembly before calling the API:
 
-This distribution provides `anjal_bytes_to_unicode(bytes)` and `unicode_to_anjal_bytes(text)`; ambiguous legacy bytes raise an error.
+```javascript
+import { init, get_letters } from "tamil-toolkit/web";
+
+await init();
+console.log(get_letters("தமிழ்").join(" | "));
+```
+
+The host page or bundler must serve the packaged WASM asset as an ES module
+asset. The Node entry point initializes its native WASM module automatically.
+
+## Alpha 2 scope
+
+The published npm `0.1.0-alpha.2` package includes the capabilities listed
+above. Byte conversion uses explicit bounded profiles; it does not guess
+encodings or claim complete historical-font coverage. APIs may change.
+
+LT-TM CID conversion is present in current workspace source but is **not** in
+the published `0.1.0-alpha.2` package. Other planned linguistic modules and
+Dart/Pub distribution are not published.
+
+## Documentation
+
+- [API and feature overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
+- [JavaScript/WASM API declarations](https://github.com/abishtakan/tamil-toolkit/tree/master/bindings/js-wasm)
+- [Unicode/core contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/core-v0.1.md)
+- [Collation contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md)
+- [Numerals, fractions, and dates](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.2.md)
+- [Codec contract and alpha 2 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-2.md#compatibility-and-scope)
+- [LT-TM workspace specification (unreleased)](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md)
+- [Third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md)
+
+## License
+
+Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
+Bundled data and mappings retain their recorded terms in the
+[third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).
