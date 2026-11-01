@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Defer further Punarchi source review and implementation at user direction;
+  preserve the source contract and incomplete review criteria for later.
+
 - Pin Thamodaran's 1999 Nannūl critical edition as the first literary Punarchi
   profile's root-text/commentary source; verify the three chapter ranges and
   document provisional Tolkāppiyam comparison areas. Add a page-indexed,
@@ -27,6 +30,21 @@
   active golden vectors. Record PDF evidence, mapping provenance, and
   compatibility limits. Owner-approved gates passed: Rust, 115 harness tests,
   Python, Node/browser WASM, and Dart.
+
+- Add private `tools/tamil-pdf-extract`, a locked PDF-aware CLI that reads
+  Identity-H text runs, delegates LT-TM decoding to the Rust dispatcher, and
+  preserves unsupported font runs as raw bytes. Restrict automatic decoding to
+  five visually spot-checked PDF face names; add synthetic extraction tests
+  and source-file inventory evidence. Add a Markdown review ledger for all 103
+  decoded runs with raw CIDs and output scalars. Add an optional page-numbered
+  Tesseract OCR Markdown draft path for review when font mappings are
+  unavailable; keep OCR separate from Rust decoding and mark its output
+  unverified. No OCR output or PDF content is bundled in the package.
+
+- Evaluate the standard Tesseract Tamil model on three rendered pages from the
+  2003 PDF at 300 DPI. Record that it is useful for rough prose drafts, but its
+  two-column index output is fragmented and it emits many invisible U+200C
+  scalars. Do not treat it as a verified full-book transcription.
 
 ## 0.1.0-alpha.2 / Python 0.1.0a2 - 2026-11-01
 

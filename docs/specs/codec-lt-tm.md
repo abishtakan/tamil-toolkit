@@ -22,9 +22,11 @@ first title run decodes as the code sequence
 which produces Unicode scalars
 `U+0BA4 U+0BCA U+0BB2 U+0BCD U+0B95 U+0BBE U+0BAA U+0BCD U+0BAA U+0BBF U+0BAF U+0BAE U+0BCD`.
 This is a spot-check against the rendered PDF title. Other inspected page-one
-runs from LT-TM-Nakkeraan, Narmada, Nila, and Sindhu also decoded to their
-visible text, but this is not a claim that every embedded font face was fully
-compared code by code.
+runs from PDF faces `LT-TM-Nakkeran`, `LT-TM-Narmada`, `LT-TM-Nila,Bold`, and
+`LT-TM-Sindhu` also decoded to their visible text. These five exact face names
+are the only ones the v0.1 PDF extractor automatically decodes; other
+`LT-TM-*` faces and style variants remain unverified. The checks are samples,
+not a claim that every code assignment in each face was compared.
 
 The canonical map in `lexicon/lt_tm.toml` is a normalized projection of the
 public Azhagi+ Portable LT-TM configuration. The source configuration's

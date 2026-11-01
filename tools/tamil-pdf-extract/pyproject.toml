@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tamil-pdf-extract"
+version = "0.1.0"
+description = "Local PDF text extraction utility using tamil-toolkit's Rust LT-TM codec"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pypdf==6.13.3",
+    "tamil-toolkit>=0.1.0a2,<0.2",
+]
+
+[project.optional-dependencies]
+ocr = [
+    "Pillow>=11,<14",
+    "pypdfium2==5.14.0",
+]
+
+[project.scripts]
+tamil-pdf-extract = "tamil_pdf_extract.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8,<10"]
+
+[tool.uv.sources]
+tamil-toolkit = { path = "../../bindings/python" }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tamil_pdf_extract"]

@@ -45,6 +45,9 @@ test-parity:
 test-dart:
     uv run --locked python tools/tasks.py test-dart
 
+test-pdf-extract:
+    uv run --project tools/tamil-pdf-extract --locked pytest tools/tamil-pdf-extract/tests/test_extract.py -q
+
 test-harness:
     uv run --locked python tools/tasks.py test-harness
 

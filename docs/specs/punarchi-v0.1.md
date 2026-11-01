@@ -1,10 +1,11 @@
 # Punarchi v0.1 source and scope contract
 
-Status: source audit in progress. This document does not specify an executable
-rule set, and the planned golden suite remains inactive. The first profile is
-Nannūl Eḻuttatikāram-root-text-scoped; its merger rules are blocked on a
-full rule inventory, printed-page/variant review, and expert-reviewed test
-vectors. The chapter boundaries and primary edition are now pinned.
+Status: deferred by user direction on 2026-11-01. This document does not
+specify an executable rule set, and the planned golden suite remains inactive.
+The first profile is Nannūl Eḻuttatikāram-root-text-scoped; its merger rules
+remain blocked on a full rule inventory, printed-page/variant review, and
+expert-reviewed test vectors. The chapter boundaries and primary edition are
+pinned. Preserve the remaining review criteria for later resumption.
 Lexicon provenance and redistribution rights are a separate prerequisite for a
 future lexical splitter.
 
