@@ -10,15 +10,15 @@ INPUTS = {
     "tamil-core": ("core.toml",),
     "tamil-collate": ("collate.toml",),
     "tamil-numerals": ("numerals.toml", "numerals-formats.toml"),
-    "tamil-codec": ("bamini.toml", "tscii.toml", "tab.toml", "tam.toml", "anjal.toml"),
+    "tamil-codec": ("bamini.toml", "tscii.toml", "tab.toml", "tam.toml", "anjal.toml", "lt_tm.toml"),
 }
 SUMMARIES = {
     "tamil-core": "Unicode normalization, tailored Ezhuthu iteration, Mei/Uyir composition and scalar inspection.",
     "tamil-norm": "Normalization facade for the Rust-owned Tamil toolkit.",
     "tamil-collate": "Versioned Mei-first Agara dictionary ordering and canonical sort/search keys.",
     "tamil-numerals": "Bounded TN/SL integers, exact INR/LKR amounts, rational fractions and Gregorian date formatting.",
-    "tamil-codec": "Explicit Bamini conversion and bounded TSCII, TAB, TAM and Anjal byte conversion.",
-    "tamil-toolkit": "Unified entry point for the implemented core, normalization, collation, numerals, Bamini and bounded TSCII, TAB, TAM and Anjal conversion.",
+    "tamil-codec": "Explicit Bamini conversion, bounded TSCII, TAB, TAM and Anjal byte conversion, and an LT-TM CID profile.",
+    "tamil-toolkit": "Unified entry point for the implemented core, normalization, collation, numerals, Bamini, bounded TSCII, TAB, TAM and Anjal conversion, and LT-TM CID conversion.",
 }
 
 
@@ -33,6 +33,9 @@ Unicode 17 and CLDR 49 data: https://www.unicode.org/ and https://cldr.unicode.o
 Bamini mapping sources: https://github.com/ag-sanjjeev/app-tamil-fonts-unicode-converter
 and https://github.com/Pakeetharan/unicode-bamini-converter
 TSCII mapping source: https://github.com/mayooresan/Android-TamilUtil
+LT-TM mapping reference: Azhagi+ Portable configuration; source digest and
+scope are recorded in docs/specs/codec-lt-tm.md. Its bundled terms remain
+applicable to the derived mapping table.
 Exact sources, revisions, digests and profile limits are recorded at:
 https://github.com/abishtakan/tamil-toolkit/tree/HEAD/tests/reference
 and https://github.com/abishtakan/tamil-toolkit/tree/HEAD/docs/specs

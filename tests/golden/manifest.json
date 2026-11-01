@@ -20,6 +20,7 @@
     {"file": "codec_tab_utn.jsonl", "status": "active", "operations": ["tab_bytes_to_unicode", "unicode_to_tab_bytes"]},
     {"file": "codec_tam.jsonl", "status": "active", "operations": ["tam_bytes_to_unicode", "unicode_to_tam_bytes"]},
     {"file": "codec_tam_utn.jsonl", "status": "active", "operations": ["tam_bytes_to_unicode", "unicode_to_tam_bytes"]},
-    {"file": "codec_anjal.jsonl", "status": "active", "operations": ["anjal_bytes_to_unicode", "unicode_to_anjal_bytes"]}
+    {"file": "codec_anjal.jsonl", "status": "active", "operations": ["anjal_bytes_to_unicode", "unicode_to_anjal_bytes"]},
+    {"file": "codec_lt_tm.jsonl", "status": "active", "operations": ["lt_tm_codes_to_unicode", "lt_tm_text_to_unicode", "unicode_to_lt_tm_codes", "unicode_to_lt_tm_text"]}
   ]
 }

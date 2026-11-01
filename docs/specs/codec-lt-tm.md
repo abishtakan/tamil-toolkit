@@ -1,109 +1,110 @@
-# LT-TM / IndoWord codec source assessment
+# LT-TM / IndoWord CID profile
 
-Status: the PDF's encoding family is identified as LT-TM / IndoWord. A public
-LT-TM configuration is available in Azhagi+ Portable, but the bundled license
-restricts derivative works of its software and related author-generated files.
-Do not copy it into the toolkit. Independently derive and verify a reusable
-map, and finalize the public input representation, before implementation.
-There is no implementation or active golden suite.
+Status: first bounded profile implemented in Rust and wired through the shared
+dispatcher. Its 664 mapping vectors and 23 contract vectors are active after
+owner review; Rust, Python, WASM, and Dart parity gates pass. This work does not
+establish that every
+LT-TM face, IndoWord installation, or Vanavil variant has an identical table.
 
-## Finding
+## Identification and evidence
 
-The Tamil Virtual Academy Digital Library catalogs the source as the 2003
-Tamilmann edition of *Tolkāppiyam – Eḻuttatikāram: Iḷampūraṇam*. The downloaded
-PDF is digitally typeset text, not a scan-only document. Its text is rendered
-with embedded Type 0 fonts whose family names include `LT-TM-Roja`,
-`LT-TM-Mullai`, `LT-TM-Anita`, `LT-TM-Sindhu`, `LT-TM-Pandian`, and other
-`LT-TM-*` faces. The inspected copy contains 18 face/style names across 12
-families.
+The Tamil Virtual Academy catalog identifies the 2003 Tamilmann edition of
+*Tolkāppiyam – Eḻuttatikāram: Iḷampūraṇam*. Its digital PDF is typeset text with
+embedded Type 0 font families named `LT-TM-*`, not a scan-only document. The
+official TVA legacy font list associates IndoWord with `LT-TM-Lakshman`; Azhagi
+identifies LT-TM as the same encoding family as IndoWord.
 
-The official TVA software list pairs AnuGraphics with Pallavar and IndoWord
-with `LT-TM-Lakshman` in its old non-Unicode font inventory. Azhagi explicitly
-describes LT-TM as the same encoding as IndoWord. These sources support
-identifying the PDF as an LT-TM / IndoWord-family font encoding, rather than
-Bamini, TSCII, TAB, TAM, or Anjal. They do not make AnuGraphics or Pallavar
-aliases for LT-TM.
+The embedded PDF fonts use `/Identity-H`, with CID values represented by
+big-endian 16-bit units and an identity `ToUnicode` map. A generic text
+extractor therefore does not recover Tamil Unicode from the font codes. The
+first title run decodes as the code sequence
+`[0x0062,0x006A,0x0068,0x0161,0x0066,0x0068,0x00A5,0x00E3,0x0061,0x00AB]`,
+which produces Unicode scalars
+`U+0BA4 U+0BCA U+0BB2 U+0BCD U+0B95 U+0BBE U+0BAA U+0BCD U+0BAA U+0BBF U+0BAF U+0BAE U+0BCD`.
+This is a spot-check against the rendered PDF title. Other inspected page-one
+runs from LT-TM-Nakkeraan, Narmada, Nila, and Sindhu also decoded to their
+visible text, but this is not a claim that every embedded font face was fully
+compared code by code.
 
-An Azhagi+ LT-TM configuration spot-check agrees with the PDF's visible title:
-the first `/F1` run begins with CIDs `0062 006A 0068` (`bjh`), which the LT-TM
-profile renders as U+0BA4 U+0BCA. This is one checked sequence, not full
-document-wide validation.
+The canonical map in `lexicon/lt_tm.toml` is a normalized projection of the
+public Azhagi+ Portable LT-TM configuration. The source configuration's
+SHA-256 is
+`32fc21ffe8e2fbffa33d5f3899acfd15ee8a2ab9fc5fd5e931f9e7d4ec3326cd`; the
+archive digest is
+`e5fbf4b1f9a5533ac70021119641c51ddfa1df99c54162b9fa74e32ae1c1d510`. The
+configuration is not bundled in its original form. The archive license
+restricts derivative works of the software and related author-generated files;
+that provenance and the source digest are retained here. The repository's MIT
+license does not replace upstream terms.
 
-Do not yet claim that every `LT-TM-*` face and IndoWord share one complete code
-table. A modern LT-TM converter describes its profile as based on Vanavil with
-a few keys changed. This is a useful comparison lead, not proof of
-equivalence. Compare the actual mappings before declaring aliases.
+The table has 332 unique keys and 332 unique NFC output strings. Keys contain
+one to three 16-bit values. No claim of independent derivation or universal
+font-family equivalence is made. The SDEV LT-TM converter describes a
+Vanavil-based layout with key differences, and the inspected difference is
+material: CID `0x00C4` maps to `U+0BAE U+0BBF`, while `0x00E4` maps to
+`U+0BB2 U+0BC0`. Vanavil is not an alias in this profile. AnuGraphics and
+Pallavar remain separate.
 
-## PDF text representation
+## API contract
 
-The embedded fonts use `/Identity-H` and `CIDFontType2`, with `/CIDToGIDMap`
-streams. Their `/ToUnicode` CMaps map each CID to the same numeric value, so
-the PDF's text layer does not carry reliable Tamil Unicode. A generic text
-extractor can return the legacy codes as unrelated characters or replacement
-characters even though the page visibly renders correctly.
+The decoder accepts either:
 
-PDF content strings are 16-bit big-endian character codes under `/Identity-H`;
-the inspected CIDs include values beyond the byte range. This PDF-layer form
-must not be silently treated as raw 8-bit input or as Windows-1252. Determine
-whether the public codec accepts legacy text characters, bytes, or explicit
-16-bit CIDs, and document how a caller supplies the font selection. The codec
-itself should not parse PDFs or infer font runs.
+- `codes`: an array of unsigned 16-bit PDF character codes. This is the direct
+  input for `/Identity-H` text after the caller combines string fragments from
+  a `TJ` run in order.
+- `text`: a string whose BMP scalar values are interpreted as code values.
+  This is for legacy text already exposed as code-valued Unicode characters;
+  it is not a byte decoder or Windows-1252 conversion.
 
-The inspected local PDF copy has SHA-256
-`6a74647421923520338e0d14f5820014f6ade2c0b7a145fca6baf44a4079542f`.
-The PDF is not copied into this repository; use the catalog link below to
-retrieve the source and verify the digest.
+Operations are `lt_tm_codes_to_unicode`, `lt_tm_text_to_unicode`,
+`unicode_to_lt_tm_codes`, and `unicode_to_lt_tm_text`. They all use the
+`lt-tm-indoword-cid-v1` profile. The codec does not parse PDF objects, infer
+font runs, or detect encodings. Callers select the LT-TM profile and split text
+by the PDF font resource before conversion. Values outside `0..=65535`,
+non-BMP scalars in legacy text, and UTF-16 surrogate code units in `codes` are
+rejected.
 
-## Mapping reference and reuse limit
+Decoding uses longest-key matching with a three-code maximum and normalizes
+output to NFC. A mapped code sequence takes precedence over fallback. Unmapped
+ASCII digits, printable punctuation, and tab/line-break whitespace pass
+through; unmapped ASCII letters and other unmapped values fail under `strict`.
+`preserve` copies an unmapped valid code point unchanged. It never removes
+joiners. Invalid surrogate code units fail in both policies. The default error
+policy is `strict`.
 
-Azhagi+ Portable documents support for LT-TM and includes
-`AzhagiPlus-Tamil-LtTm-PhoneticTransliteration.txt` in its Tamil
-`Tamil-All-PhoneticTransliteration` directory. The text file is UTF-16, 5,386
-bytes, and is a structured key-sequence configuration rather than a direct
-one-byte code table. The official Azhagi documentation says these files support
-typing and conversion. The archive's `License.txt` grants free use of Azhagi+
-but prohibits derivative works of the software or documentation, and defines
-the software to include related author-generated files. Treat the configuration
-as a comparison reference only; it was not added to the repository or copied
-into the lexicon.
+Encoding normalizes input to NFC, greedily uses the longest matching Unicode
+entry, permits only the same unmapped ASCII digit/punctuation/whitespace
+fallback, and verifies a strict decode round trip before returning. Therefore
+unmapped Tamil, other scripts, letters in English font runs, and non-ASCII
+symbols fail explicitly. Legacy English runs should remain assigned to their
+own PDF font and must not be sent through this Tamil-font profile.
 
-For reproducibility, the public [Azhagi+ Portable archive](https://www.azhagi.com/sai/plus/new2/AzhagiPlus-Portable.zip)
-downloaded for this assessment has SHA-256
-`e5fbf4b1f9a5533ac70021119641c51ddfa1df99c54162b9fa74e32ae1c1d510`; the
-LT-TM text file has SHA-256
-`32fc21ffe8e2fbffa33d5f3899acfd15ee8a2ab9fc5fd5e931f9e7d4ec3326cd`; and
-the bundled license has SHA-256
-`8c8801d01086a51edaa5db6afa5f4895b7ba14faa0dfee52f03e6163a6b5baa4`.
-The [portable download page](https://azhagi.com/steps-portable.php) describes
-the package; the [conversion-file documentation](https://www.azhagi.com/any-tamil-font.php)
-describes LT-TM text files and their role.
+These code mappings do not vary between TN and SL. Fixtures use `dialect:
+"COMMON"` for that code-level invariance; no regional language behavior is
+implied.
 
-## Implementation gate
+## Acceptance and limits
 
-Before implementation:
-
-1. Independently derive the map from inspectable LT-TM font/code evidence and
-   readable Tamil source text, or obtain a separately licensed mapping source.
-   Record version, digest, attribution, and terms. Do not copy Azhagi's
-   author-generated configuration.
-2. Compare code-to-Unicode assignments for the PDF's embedded LT-TM faces and
-   the proposed IndoWord/Vanavil aliases. Keep AnuGraphics/Pallavar separate
-   unless a mapping comparison proves equivalence. Record conflicts and
-   unsupported codes instead of selecting by font name alone.
-3. Specify the input unit, selected-profile behavior, decode/encode direction,
-   normalization, punctuation and English handling, invalid input behavior,
-   and whether any encoder is one-to-one.
-4. Add escaped, sourced golden vectors before Rust code. Include vectors
-   verified against this PDF's rendered pages and an independent mapping
-   reference. Keep the suite planned until the map is independently reviewed.
-5. Implement the bounded profile in Rust and expose it through the shared
-   dispatcher and thin Python, WASM, and Dart bindings. Do not add PDF parsing or
-   automatic font/encoding detection to the codec profile.
+- The lexicon contains exactly 332 unique code keys and unique NFC values;
+  `build.rs` validates ranges, key lengths, output normalization, duplicates,
+  and the expected profile identity before generating static tries.
+- Golden vectors cover every mapping in decode and encode directions, plus the
+  2003 PDF title, LT-TM text input, the checked `Ä`/`ä` distinction, Ksha,
+  punctuation/digits, preserve behavior, malformed inputs, and unsupported
+  Unicode. The suite is active following owner review.
+- Rust owns all conversion behavior. Python, WASM, and Dart use the shared Rust
+  JSON dispatcher without separate mapping logic.
+- The profile does not yet claim complete compatibility with all LT-TM or
+  IndoWord fonts, Vanavil compatibility, PDF parsing, automatic detection,
+  arbitrary English mixed runs, or full Tamil Unicode encodability.
 
 ## Sources
 
-- [Tamil Virtual Academy Digital Library record for the 2003 source](https://tamildigitallibrary.in/book-details/TkRnMk9UYz1BdG9aYXRvejB0bzk-/TlE9PUF0b1phdG96MHRvOQ--/TWpBPUF0b1phdG96MHRvOQ--)
-- [TVA legacy font/software list](https://www.tamilvu.org/en/tamil-softwares-old) (pairs AnuGraphics/Pallavar and IndoWord/LT-TM-Lakshman)
-- [Azhagi font converter inventory](https://www.azhagi.com/tamil-fonts-converter.php) (identifies LT-TM as the same encoding as IndoWord)
-- [SDEV LT-TM converter](https://www.sdev.in/tools/tamil-font-converter/lt-tm-to-unicode) (describes a Vanavil-based layout with some key differences; comparison lead only)
-- [Azhagi+ Portable download page](https://azhagi.com/steps-portable.php) and [LT-TM conversion-file documentation](https://www.azhagi.com/any-tamil-font.php) (public comparison reference; bundled license restricts derivative works)
+- [TVA Digital Library record for the 2003 edition](https://tamildigitallibrary.in/book-details/TkRnMk9UYz1BdG9aYXRvejB0bzk-/TlE9PUF0b1phdG96MHRvOQ--/TWpBPUF0b1phdG96MHRvOQ--)
+- [TVA legacy font/software list](https://www.tamilvu.org/en/tamil-softwares-old)
+- [Azhagi font converter inventory](https://www.azhagi.com/tamil-fonts-converter.php)
+- [Azhagi+ Portable archive](https://www.azhagi.com/sai/plus/new2/AzhagiPlus-Portable.zip) and [LT-TM conversion-file documentation](https://www.azhagi.com/any-tamil-font.php)
+- [SDEV LT-TM converter](https://www.sdev.in/tools/tamil-font-converter/lt-tm-to-unicode), used only to identify a Vanavil comparison lead
+
+The inspected PDF copy's SHA-256 is
+`6a74647421923520338e0d14f5820014f6ade2c0b7a145fca6baf44a4079542f`.

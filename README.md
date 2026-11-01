@@ -59,7 +59,11 @@ implemented package to enter values and see its operations update live as you
 type. Results show the returned text or JSON plus Unicode scalar values. Python
 and Dart selections call their native adapters from the local dev server. The
 `tamil-codec` workbench supports live Bamini conversion in both directions and
-bounded TSCII, TAB, TAM and Anjal byte conversion in both directions. Planned packages remain visibly unimplemented. Golden vectors and native test suites are
+bounded TSCII, TAB, TAM and Anjal byte conversion in both directions. The
+unreleased LT-TM CID profile is available through Rust and the shared dispatcher;
+its 687-vector parity suite passed Rust, Python, WASM, and Dart verification.
+The workbench does not expose it yet.
+Planned packages remain visibly unimplemented. Golden vectors and native test suites are
 available in a collapsed optional section below the manual controls.
 `pnpm run check:workbench` type-checks the app; `pnpm run build:workbench`
 verifies a production bundle.
@@ -95,7 +99,7 @@ the host; mobile library bundling is future work.
 - `tscii_bytes_to_unicode`: bounded TSCII byte decoding with explicit errors
   for unsupported bytes and NFC output.
 - Local MCP tools for scalar inspection, scalar diffs, and fixture validation.
-- **22,585 active golden vectors**, including 1,687 shared error cases, across Rust,
+- **27,644 active golden vectors**, including 1,698 shared error cases, across Rust,
   Python, Node/browser-target WASM, and host Dart.
 - Independent Unicode 17 fixtures cover all 247 traditional letters, the full
   288-form supported consonant/vowel matrix, both Shri spellings, and 766 UAX 29
@@ -165,7 +169,7 @@ errors. It does not yet provide reverse conversion or automatic detection.
 | `tamil-norm`     | Working facade                         | Re-export core normalization for SDK/PostgreSQL consumers                     |
 | `tamil-collate`  | agara-v1 verified locally              | Mei-first Agara sorting and canonical sort/search keys                        |
 | `tamil-numerals` | v0.2 feature families verified locally | Integer words, exact INR/LKR amounts, fractions, Gregorian dates              |
-| `tamil-codec`    | bounded profiles                       | Bamini â†” Unicode and TSCII bytes â†’ Unicode; unsupported input is rejected |
+| `tamil-codec`    | bounded profiles                       | Bamini, TSCII/TAB/TAM/Anjal; unreleased LT-TM CID codes (suite active)       |
 | `tamil-punarchi` | Planned                                | Sourced Nannool sandhi and compound splitting                                 |
 | `tamil-morph`    | Planned                                | FST stemming, lemmatization, suffix/case analysis                             |
 | `tamil-dialect`  | Planned                                | TN/SL regional spoken-to-literary normalization                               |
@@ -219,3 +223,5 @@ packages are live.
 
 The TSCII, TAB, TAM and Anjal byte conversions are included in all alpha.2
 packages. The published Python alpha.1 package does not include them.
+The LT-TM / IndoWord CID profile is an unreleased source change and is not part
+of the alpha.2 distributions.

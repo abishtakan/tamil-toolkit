@@ -39,3 +39,10 @@ preference selects the primary source's first RA+VIRAMA spelling; other aliases
 remain valid decoder inputs. Source/license files and independent
 encoder evidence live under `tests/reference/codec-v0.1`. See the codec
 specification for the five unsupported ambiguous forms and profile differences.
+
+`lt_tm.toml` stores a normalized projection of the documented Azhagi+ Portable
+LT-TM mapping configuration as 16-bit code sequences. The source digest, terms,
+and bounded profile scope are recorded in `docs/specs/codec-lt-tm.md`.
+`tamil-codec/build.rs` validates its 332 keys and unique NFC values before
+compiling static CID and reverse-Unicode tries. It does not make every
+LT-TM/IndoWord font or Vanavil variant equivalent.

@@ -1,10 +1,15 @@
 # Bootstrap contract
 
-This setup implements only the operations in the active golden suite. It does
-not claim to implement general legacy-encoding coverage, sandhi, morphology,
+Only operations covered by an active golden suite have cross-runtime parity
+evidence. Some unreleased Rust profiles may be wired to the dispatcher while
+their suites are still planned; those are not counted as verified support. This
+setup does not claim general legacy-encoding coverage, sandhi, morphology,
 dialect normalization, hyphenation, prosody, or PostgreSQL full-text search.
 
 The unreleased [TSCII decoder](codec-tscii-draft.md) and [encoder](codec-tscii-encode.md) contracts specify the bounded byte profile. The unreleased [TAB](codec-tab.md) and [TAM](codec-tam.md) contracts define their byte profiles. The unreleased [Anjal contract](codec-anjal.md) records its strict ambiguity rules.
+The unreleased [LT-TM / IndoWord contract](codec-lt-tm.md) specifies a bounded
+16-bit code profile for PDF `/Identity-H` and legacy code-valued text. Its
+mapping suite is active following owner review.
 
 ## Unicode operations
 

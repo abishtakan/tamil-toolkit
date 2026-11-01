@@ -33,6 +33,10 @@ pub const OPERATIONS: &[&str] = &[
     "unicode_to_tab_bytes",
     "tscii_bytes_to_unicode",
     "unicode_to_tscii_bytes",
+    "lt_tm_codes_to_unicode",
+    "lt_tm_text_to_unicode",
+    "unicode_to_lt_tm_codes",
+    "unicode_to_lt_tm_text",
     "format_fraction",
     "fraction_to_words",
     "fraction_symbol",
@@ -74,6 +78,33 @@ fn digit_style(input: &Value) -> Result<numerals::DigitStyle, String> {
         None => Ok(numerals::DigitStyle::Latin),
         Some(value) => {
             numerals::DigitStyle::parse(value.as_str().ok_or("unsupported digit style")?)
+        }
+    }
+}
+
+fn lt_tm_codes(input: &Value) -> Result<Vec<u16>, String> {
+    let error = || "expected LT-TM code array".to_owned();
+    input
+        .get("codes")
+        .and_then(Value::as_array)
+        .ok_or_else(error)?
+        .iter()
+        .map(|value| {
+            let number = value.as_number().ok_or_else(error)?.to_string();
+            number
+                .strip_suffix(".0")
+                .unwrap_or(&number)
+                .parse::<u16>()
+                .map_err(|_| error())
+        })
+        .collect()
+}
+
+fn codec_error_policy(input: &Value) -> Result<codec::ErrorPolicy, String> {
+    match input.get("errors") {
+        None => Ok(codec::ErrorPolicy::Strict),
+        Some(value) => {
+            codec::ErrorPolicy::parse(value.as_str().ok_or("unsupported codec error policy")?)
         }
     }
 }
@@ -141,6 +172,20 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         }
         "unicode_to_bamini" => {
             codec::unicode_to_bamini(string(&input["text"])?).map(|text| json!(text))
+        }
+        "lt_tm_codes_to_unicode" => {
+            codec::lt_tm_codes_to_unicode(&lt_tm_codes(input)?, codec_error_policy(input)?)
+                .map(|text| json!(text))
+        }
+        "lt_tm_text_to_unicode" => {
+            codec::lt_tm_text_to_unicode(string(&input["text"])?, codec_error_policy(input)?)
+                .map(|text| json!(text))
+        }
+        "unicode_to_lt_tm_codes" => {
+            codec::unicode_to_lt_tm_codes(string(&input["text"])?).map(|codes| json!(codes))
+        }
+        "unicode_to_lt_tm_text" => {
+            codec::unicode_to_lt_tm_text(string(&input["text"])?).map(|text| json!(text))
         }
         "unicode_to_anjal_bytes" => {
             codec::unicode_to_anjal_bytes(string(&input["text"])?).map(|bytes| json!(bytes))

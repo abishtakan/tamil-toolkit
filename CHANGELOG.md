@@ -22,10 +22,11 @@
   TVA HTML root/commentary paraphrases and example citations for Nannūl sūtras
   151–157; keep them inactive pending print and linguistic review.
 
-- Identify LT-TM / IndoWord as the likely legacy font encoding in the 2003
-  Tamilmann Tolkāppiyam PDF. Record its PDF font/CID behavior and defer codec
-  implementation until the mapping, aliases, input unit, and source terms are
-  independently established.
+- Add a bounded LT-TM / IndoWord 16-bit code profile, canonical 332-entry
+  mapping projection, reverse encoder, shared dispatcher operations, and 687
+  active golden vectors. Record PDF evidence, mapping provenance, and
+  compatibility limits. Owner-approved gates passed: Rust, 115 harness tests,
+  Python, Node/browser WASM, and Dart.
 
 ## 0.1.0-alpha.2 / Python 0.1.0a2 - 2026-11-01
 

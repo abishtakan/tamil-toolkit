@@ -1,6 +1,6 @@
 # tamil-toolkit
 
-Unified entry point for the implemented core, normalization, collation, numerals, Bamini and bounded TSCII, TAB, TAM and Anjal conversion.
+Unified entry point for the implemented core, normalization, collation, numerals, Bamini, bounded TSCII, TAB, TAM and Anjal conversion, and LT-TM CID conversion.
 
 Experimental alpha `0.1.0-alpha.2`. APIs may change before stability. This package
 does not implement all Tamil linguistic conventions. Read the bounded module

@@ -1,4 +1,4 @@
-//! Explicit Bamini conversion and bounded TSCII byte decoding.
+//! Explicit legacy Tamil encoding conversion profiles.
 //! See the codec specifications for coverage, ambiguity, and non-reversibility.
 #![forbid(unsafe_code)]
 
@@ -9,10 +9,15 @@ enum Terminal {
     Text(&'static str),
     Ambiguous,
     Bytes(&'static [u8]),
+    Cids(&'static [u16]),
 }
 struct Node {
     edges: &'static [(u8, usize)],
     terminal: Option<Terminal>,
+}
+struct CidNode {
+    edges: &'static [(u16, usize)],
+    terminal: Option<&'static str>,
 }
 mod tables {
     use super::{Node, Terminal};
@@ -34,7 +39,12 @@ mod anjal_tables {
     use super::{Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/anjal_tables.rs"));
 }
+mod lt_tm_tables {
+    use super::{CidNode, Node, Terminal};
+    include!(concat!(env!("OUT_DIR"), "/lt_tm_tables.rs"));
+}
 pub use anjal_tables::PROFILE as ANJAL_PROFILE;
+pub use lt_tm_tables::PROFILE as LT_TM_PROFILE;
 pub use tab_tables::PROFILE as TAB_PROFILE;
 pub use tables::PROFILE;
 pub use tam_tables::PROFILE as TAM_PROFILE;
@@ -90,6 +100,7 @@ fn decode_legacy_bytes(bytes: &[u8], nodes: &[Node], name: &str) -> Result<Strin
                 ));
             }
             Some((_, Terminal::Bytes(_))) => unreachable!("decoder trie contains only text"),
+            Some((_, Terminal::Cids(_))) => unreachable!("byte decoder trie contains only text"),
             None if byte < 0x80 => {
                 output.push(char::from(byte));
                 position += 1;
@@ -232,6 +243,7 @@ pub fn bamini_to_unicode(text: &str, errors: ErrorPolicy) -> Result<String, Stri
                 position += length;
             }
             Some((_, Terminal::Bytes(_))) => unreachable!("Bamini trie contains only text"),
+            Some((_, Terminal::Cids(_))) => unreachable!("Bamini trie contains no CID mappings"),
             None => {
                 let scalar = tail.chars().next().expect("non-empty UTF-8 tail");
                 if errors == ErrorPolicy::Strict && !tables::PASSTHROUGH.contains(scalar) {
@@ -246,6 +258,127 @@ pub fn bamini_to_unicode(text: &str, errors: ErrorPolicy) -> Result<String, Stri
         }
     }
     Ok(normalize_nfc(&output))
+}
+
+fn longest_cid_match(codes: &[u16]) -> Option<(usize, &'static str)> {
+    let mut current = 0;
+    let mut found = None;
+    for (index, code) in codes.iter().take(lt_tm_tables::MAX_KEY_CIDS).enumerate() {
+        let node = &lt_tm_tables::CID_NODES[current];
+        let edge = match node.edges.binary_search_by_key(code, |&(key, _)| key) {
+            Ok(edge) => edge,
+            Err(_) => break,
+        };
+        current = node.edges[edge].1;
+        if let Some(value) = lt_tm_tables::CID_NODES[current].terminal {
+            found = Some((index + 1, value));
+        }
+    }
+    found
+}
+
+fn lt_tm_fallback(code: u16) -> bool {
+    let Some(scalar) = char::from_u32(u32::from(code)) else {
+        return false;
+    };
+    scalar.is_ascii_digit()
+        || scalar.is_ascii_punctuation()
+        || matches!(code, 0x0009..=0x000d | 0x0020)
+}
+
+/// Decode 16-bit LT-TM / IndoWord character codes to NFC Unicode.
+///
+/// This accepts font character codes, including PDF `/Identity-H` CIDs; it is
+/// not an 8-bit file decoder and does not inspect or select PDF font runs.
+pub fn lt_tm_codes_to_unicode(codes: &[u16], errors: ErrorPolicy) -> Result<String, String> {
+    let mut output = String::with_capacity(codes.len());
+    let mut position = 0;
+    while position < codes.len() {
+        if let Some((length, value)) = longest_cid_match(&codes[position..]) {
+            output.push_str(value);
+            position += length;
+            continue;
+        }
+
+        let code = codes[position];
+        let scalar = char::from_u32(u32::from(code))
+            .ok_or_else(|| format!("invalid LT-TM code unit at offset {position}: 0x{code:04X}"))?;
+        if errors == ErrorPolicy::Strict && !lt_tm_fallback(code) {
+            return Err(format!(
+                "unsupported LT-TM code at offset {position}: U+{code:04X}"
+            ));
+        }
+        output.push(scalar);
+        position += 1;
+    }
+    Ok(normalize_nfc(&output))
+}
+
+/// Decode legacy text whose BMP scalar values represent LT-TM code values.
+/// Non-BMP values cannot be represented by the profile's 16-bit code units.
+pub fn lt_tm_text_to_unicode(text: &str, errors: ErrorPolicy) -> Result<String, String> {
+    let mut codes = Vec::with_capacity(text.chars().count());
+    for (position, scalar) in text.chars().enumerate() {
+        let value = u32::from(scalar);
+        let code = u16::try_from(value).map_err(|_| {
+            format!("LT-TM text contains non-BMP scalar at character {position}: U+{value:04X}")
+        })?;
+        codes.push(code);
+    }
+    lt_tm_codes_to_unicode(&codes, errors)
+}
+
+/// Encode the supported LT-TM Unicode subset to 16-bit character codes.
+///
+/// Output is NFC-normalized and accepted only when strict decoding exactly
+/// reproduces the normalized input.
+pub fn unicode_to_lt_tm_codes(text: &str) -> Result<Vec<u16>, String> {
+    let normalized = normalize_nfc(text);
+    let mut codes = Vec::with_capacity(normalized.len());
+    let mut position = 0;
+    while position < normalized.len() {
+        let tail = &normalized[position..];
+        if let Some((length, Terminal::Cids(value))) = longest_match(
+            tail.as_bytes(),
+            lt_tm_tables::ENCODE_NODES,
+            lt_tm_tables::MAX_UNICODE_KEY_BYTES,
+        ) {
+            codes.extend_from_slice(value);
+            position += length;
+            continue;
+        }
+
+        let scalar = tail
+            .chars()
+            .next()
+            .expect("non-empty normalized UTF-8 tail");
+        if !scalar.is_ascii_digit()
+            && !scalar.is_ascii_punctuation()
+            && !scalar.is_ascii_whitespace()
+        {
+            return Err(format!(
+                "unsupported Unicode scalar for LT-TM at NFC byte {position}: U+{:04X}",
+                u32::from(scalar)
+            ));
+        }
+        codes.push(scalar as u16);
+        position += scalar.len_utf8();
+    }
+
+    match lt_tm_codes_to_unicode(&codes, ErrorPolicy::Strict) {
+        Ok(decoded) if decoded == normalized => Ok(codes),
+        _ => Err("LT-TM encoding is not reversible for this input".into()),
+    }
+}
+
+/// Encode to a legacy string whose scalar values are LT-TM code values.
+pub fn unicode_to_lt_tm_text(text: &str) -> Result<String, String> {
+    unicode_to_lt_tm_codes(text).map(|codes| {
+        codes
+            .into_iter()
+            .map(|code| char::from_u32(u32::from(code)).expect("validated LT-TM code point"))
+            .collect()
+    })
 }
 
 /// Canonical Unicode -> ASCII Bamini. Every accepted input round-trips to its NFC.
@@ -304,9 +437,17 @@ mod tests {
             let _ = anjal_bytes_to_unicode(&bytes);
         }
         #[test]
+        fn arbitrary_lt_tm_codes_never_panic(codes in prop::collection::vec(any::<u16>(), 0..128)) {
+            let _ = lt_tm_codes_to_unicode(&codes, ErrorPolicy::Strict);
+            let _ = lt_tm_codes_to_unicode(&codes, ErrorPolicy::Preserve);
+        }
+        #[test]
         fn arbitrary_tscii_encoding_roundtrips(text in ".{0,96}") {
             if let Ok(bytes) = unicode_to_tscii_bytes(&text) {
                 prop_assert_eq!(tscii_bytes_to_unicode(&bytes).unwrap(), normalize_nfc(&text));
+            }
+            if let Ok(codes) = unicode_to_lt_tm_codes(&text) {
+                prop_assert_eq!(lt_tm_codes_to_unicode(&codes, ErrorPolicy::Strict).unwrap(), normalize_nfc(&text));
             }
             if let Ok(bytes) = unicode_to_tab_bytes(&text) {
                 prop_assert_eq!(tab_bytes_to_unicode(&bytes).unwrap(), normalize_nfc(&text));
@@ -340,6 +481,15 @@ mod tests {
             if let Ok(encoded) = unicode_to_bamini(&text) {
                 prop_assert!(encoded.is_ascii());
                 prop_assert_eq!(bamini_to_unicode(&encoded, ErrorPolicy::Strict).unwrap(), normalize_nfc(&text));
+            }
+        }
+        #[test]
+        fn supported_lt_tm_sequences_roundtrip(text in prop::collection::vec(prop::sample::select(lt_tm_tables::ENCODABLE_TEXT.to_vec()), 0..32)) {
+            let text = text.concat();
+            let result = unicode_to_lt_tm_codes(&text);
+            prop_assert_eq!(&result, &unicode_to_lt_tm_codes(&tamil_core::normalize_nfd(&text)));
+            if let Ok(codes) = result {
+                prop_assert_eq!(lt_tm_codes_to_unicode(&codes, ErrorPolicy::Strict).unwrap(), normalize_nfc(&text));
             }
         }
         #[test]

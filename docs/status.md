@@ -44,7 +44,7 @@ release-policy checks, and `just release-check`; see `alpha-2.md` for details.
 
 Alpha 2 adds bounded TSCII, TAB, TAM, and Anjal byte conversion. These profiles
 do not claim automatic detection or complete historical font coverage. The
-current active golden suite contains 26,957 rows. Punarchi source review has
+current active golden suite contains 27,644 rows. Punarchi source review has
 started under [the v0.1 source and scope contract](specs/punarchi-v0.1.md). The
 contract selects the Nannūl Eḻuttatikāram root text for the first named literary
 profile, matching the toolkit's stated merger scope; Tolkāppiyam remains a
@@ -152,19 +152,33 @@ Continue to follow
 ### LT-TM codec handoff (2026-11-01)
 
 - The 2003 Tamilmann *Tolkāppiyam* PDF is digitally typeset text using embedded
-  `LT-TM-*` font faces; it is not a scan-only PDF. The likely legacy codec is
-  LT-TM / IndoWord. The PDF's `/Identity-H` CIDs have an identity `ToUnicode`
-  map, so ordinary extraction does not produce reliable Tamil Unicode.
-- Durable source and representation findings are in the [LT-TM codec source
-  assessment](specs/codec-lt-tm.md). The local source copy's SHA-256 is recorded
-  there. No Rust implementation or golden suite was added.
-- Pending: independently derive or find a separately licensed mapping, compare
-  LT-TM and IndoWord assignments across embedded font families, confirm the
-  PDF CID-to-text representation across the document, then write sourced
-  vectors before implementation. Azhagi+ Portable's LT-TM configuration
-  matches one title sequence, but its bundled license restricts derivative
-  works, so it is documented as a comparison reference only. Do not claim
-  Vanavil, AnuGraphics, or Pallavar aliases until their maps are compared.
+  `LT-TM-*` font faces; it is not scan-only. The profile consumes 16-bit
+  `/Identity-H` codes; ordinary extraction does not return reliable Tamil
+  Unicode. Several page-one font runs and the title were checked against the
+  rendered page.
+- `lexicon/lt_tm.toml` is the canonical, normalized 332-entry mapping
+  projection. The build compiles a CID trie and reverse Unicode trie. Rust
+  exposes code-array and legacy code-valued text conversion through the shared
+  dispatcher, so Python, Node/browser WASM, and Dart use the same engine.
+- `tests/golden/codec_lt_tm.jsonl` contains 687 escaped, sourced vectors: all
+  mapping entries in both directions plus PDF, normalization, fallback, and
+  error cases. The owner reviewed [the profile contract](specs/codec-lt-tm.md)
+  and activated the suite; it now counts as parity coverage.
+- The source projection is based on the Azhagi+ Portable LT-TM configuration;
+  its digest and bundled terms are recorded in the contract. The toolkit MIT
+  license does not replace those terms. This is a bounded profile and does not
+  establish that every LT-TM/IndoWord font is equivalent. Vanavil, AnuGraphics,
+  and Pallavar are not aliases; there is no PDF parser or automatic detection.
+- Checks completed: `just agent-pre-stop-gate` passed, including Clippy,
+  25 Rust tests, doctests, 115 harness tests, and 27,644 Rust golden vectors;
+  Python passed 27,656 cases; Vitest passed 27,654; `just test-dart` passed
+  analysis and 27,654 host-FFI fixture tests. `just sync-bindings` rebuilt
+  PyO3, Node/browser WASM, and TypeScript declarations. The initial Rust run
+  caught a missing final virama in one expected phrase; the fixture was fixed
+  and the complete gate rerun passed.
+- Broader compatibility with all LT-TM font families remains unverified; do
+  not claim Vanavil, AnuGraphics, or Pallavar aliases. This work is
+  uncommitted on `master`; no commit was created.
 
 Never put registry credentials in the handoff, repository, build artifacts, or
 chat. Do not claim complete linguistic support from the bootstrap suites.

@@ -1,8 +1,9 @@
 # tamil-codec expansion: plan and source inventory
 
-Status: the unreleased source includes bounded TSCII, TAB, TAM and Anjal byte conversion
+Status: the unreleased source includes bounded TSCII, TAB, TAM and Anjal byte
+conversion, plus the LT-TM / IndoWord 16-bit code profile with its active suite,
 alongside the published `bamini-v1` profile. Further profiles remain planned.
-See the codec contracts for limits and the TAB mapping-source conflicts.
+See the codec contracts for limits, coverage, and mapping-source conflicts.
 
 ## Delivery order
 
@@ -19,6 +20,11 @@ See the codec contracts for limits and the TAB mapping-source conflicts.
 4. Repeat for remaining profiles. Define detection separately, including an
    explicit uncertain result for inputs shared by multiple encodings. Treat
    historic orthography as a separately sourced transformation.
+
+The LT-TM / IndoWord CID profile has a bounded implementation, canonical
+mapping table, and 687 active vectors following owner review of the
+[profile contract](codec-lt-tm.md). Rust, Python, Node/browser WASM, and Dart
+gates pass; that does not establish compatibility with every LT-TM face.
 
 ## Acceptance for each profile
 
@@ -40,7 +46,7 @@ See the codec contracts for limits and the TAB mapping-source conflicts.
 | TAB | [Unicode Technical Note 17](https://www.unicode.org/notes/tn17/) and [Tamil Nadu standards](https://www.tamilvu.org/ta/Tamilnet99-tabtam-341628) | Review exact reuse terms, mapping version and byte coverage. |
 | TAM | [Unicode Technical Note 18](https://www.unicode.org/notes/tn18/tn18-1.html) and the same Tamil Nadu standards | The note states copyright and permission conditions. Review alternative licensed mapping data before copying. |
 | Anjal / Vanavil | [open-tamil converter inventory](https://github.com/Ezhil-Language-Foundation/open-tamil/blob/main/tamil/txt2unicode/README.md) | Identify each mapping's origin, version, and applicable file-level license; the inventory alone is not a verified mapping source. |
-| LT-TM / IndoWord | [TVA legacy font list](https://www.tamilvu.org/en/tamil-softwares-old), [Azhagi converter inventory](https://www.azhagi.com/tamil-fonts-converter.php) | Identified in the 2003 Tamilmann Tolkāppiyam PDF. Azhagi's public configuration matches a PDF title sequence but its bundled license restricts derivatives; independently derive the map and settle CID input/aliases. See [source assessment](codec-lt-tm.md). |
+| LT-TM / IndoWord | [TVA legacy font list](https://www.tamilvu.org/en/tamil-softwares-old), [Azhagi converter inventory](https://www.azhagi.com/tamil-fonts-converter.php) | Implemented as a bounded 332-key CID profile from a normalized Azhagi configuration projection. PDF title and several page-one font runs were checked. Active suite and full gates pass; broader font-family compatibility remains unresolved. See [profile contract](codec-lt-tm.md). |
 
 An additional [Android TamilUtil repository](https://github.com/mayooresan/Android-TamilUtil)
 claims mappings for TSCII, TAB, TAM and Anjal. Its [license](https://github.com/mayooresan/Android-TamilUtil/blob/master/LICENSE)
@@ -84,15 +90,16 @@ interpretation cannot encode. One Android key begins with byte `0x5C` because
 the Java source contains an escaped backslash; it needs independent review.
 These counts are an audit convention, not a chosen API or a complete standard.
 
-TSCII was the first candidate for a bounded profile because the IANA
-registration draft and two existing implementations provide inspectable
-evidence. The draft identifies both byte `0xAD` and byte `0xFE` as the third
-vowel, with the former deprecated. Pin the intended standard version, settle
-all byte/string representation rules, and review source rights and mismatches
-before marking a complete mapping profile ready for implementation.
+The bounded TSCII profile is implemented and active. The comparisons above are
+historical source-selection evidence, not a claim that the toolkit covers every
+TSCII assignment. See the [decoder](codec-tscii-draft.md), [encoder](codec-tscii-encode.md),
+and [IANA audit](codec-tscii-audit.md) contracts for the shipped profile's
+representation and limits.
 
-The LT-TM / IndoWord profile is the next mapping-derivation candidate. Do not
-merge it with Vanavil, AnuGraphics, or Pallavar until code tables are compared.
-The PDF CID representation and whole-document coverage still need verification;
-no fixtures or decoder are active. Azhagi's configuration is a comparison lead,
-not data to copy into the toolkit.
+The LT-TM / IndoWord profile is implemented with 332 mapping keys and 687 active
+vectors; Rust, Python, WASM, and Dart gates pass. Its PDF input representation
+and known mapping distinctions are documented in [the profile contract](codec-lt-tm.md).
+Next codec research should compare Vanavil independently and extend checks
+across the remaining embedded PDF font faces before claiming broader
+compatibility. Do not merge LT-TM with Vanavil, AnuGraphics, or Pallavar without
+comparing their code tables.

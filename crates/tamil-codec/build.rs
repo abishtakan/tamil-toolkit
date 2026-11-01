@@ -42,6 +42,24 @@ struct TsciiProfile {
 
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
+struct CidProfile {
+    profile: String,
+    source: String,
+    source_url: String,
+    source_sha256: String,
+    max_key_cids: usize,
+    mappings: Vec<CidMapping>,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct CidMapping {
+    cids: Vec<u16>,
+    unicode: String,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
 struct TsciiMapping {
     hex: String,
     unicode: String,
@@ -57,6 +75,12 @@ struct ByteAmbiguous {
 #[derive(Default)]
 struct Node {
     edges: BTreeMap<u8, usize>,
+    terminal: Option<String>,
+}
+
+#[derive(Default)]
+struct CidNode {
+    edges: BTreeMap<u16, usize>,
     terminal: Option<String>,
 }
 
@@ -97,6 +121,29 @@ fn insert(nodes: &mut Vec<Node>, key: &[u8], terminal: String, maximum: usize) {
     );
 }
 
+fn insert_cids(nodes: &mut Vec<CidNode>, key: &[u16], terminal: String, maximum: usize) {
+    assert!(
+        !key.is_empty() && key.len() <= maximum,
+        "invalid CID trie key"
+    );
+    let mut current = 0;
+    for &cid in key {
+        current = match nodes[current].edges.get(&cid) {
+            Some(&next) => next,
+            None => {
+                let next = nodes.len();
+                nodes.push(CidNode::default());
+                nodes[current].edges.insert(cid, next);
+                next
+            }
+        };
+    }
+    assert!(
+        nodes[current].terminal.replace(terminal).is_none(),
+        "duplicate LT-TM CID key"
+    );
+}
+
 fn render_nodes(nodes: &[Node]) -> String {
     nodes
         .iter()
@@ -113,6 +160,27 @@ fn render_nodes(nodes: &[Node]) -> String {
                 .collect::<Vec<_>>()
                 .join(",");
             format!("Node {{edges: &[{edges}], terminal: {terminal}}}")
+        })
+        .collect::<Vec<_>>()
+        .join(",\n")
+}
+
+fn render_cid_nodes(nodes: &[CidNode]) -> String {
+    nodes
+        .iter()
+        .map(|node| {
+            let terminal = node
+                .terminal
+                .as_ref()
+                .map(|value| format!("Some({value})"))
+                .unwrap_or("None".into());
+            let edges = node
+                .edges
+                .iter()
+                .map(|(cid, next)| format!("({cid},{next})"))
+                .collect::<Vec<_>>()
+                .join(",");
+            format!("CidNode {{edges: &[{edges}], terminal: {terminal}}}")
         })
         .collect::<Vec<_>>()
         .join(",\n")
@@ -354,4 +422,79 @@ fn main() {
         )
         .expect("write TSCII trie");
     }
+
+    let path = "lexicon/lt_tm.toml";
+    println!("cargo:rerun-if-changed={path}");
+    let profile: CidProfile = toml::from_str(&fs::read_to_string(path).expect("read lt_tm.toml"))
+        .expect("valid lt_tm.toml");
+    assert_eq!(profile.profile, "lt-tm-indoword-cid-v1");
+    assert!(!profile.source.is_empty() && profile.source_url.starts_with("https://"));
+    assert_eq!(
+        profile.source_sha256,
+        "32fc21ffe8e2fbffa33d5f3899acfd15ee8a2ab9fc5fd5e931f9e7d4ec3326cd"
+    );
+    assert_eq!(profile.max_key_cids, 3);
+    assert_eq!(profile.mappings.len(), 332);
+
+    let mut cid_nodes = vec![CidNode::default()];
+    let mut reverse: BTreeMap<&str, &[u16]> = BTreeMap::new();
+    for mapping in &profile.mappings {
+        assert!(!mapping.cids.is_empty() && mapping.cids.len() <= profile.max_key_cids);
+        assert!(
+            mapping
+                .cids
+                .iter()
+                .all(|cid| !matches!(*cid, 0xd800..=0xdfff)),
+            "surrogate code unit in LT-TM map"
+        );
+        assert!(
+            valid_output(&mapping.unicode),
+            "invalid LT-TM Unicode output"
+        );
+        insert_cids(
+            &mut cid_nodes,
+            &mapping.cids,
+            literal(&mapping.unicode),
+            profile.max_key_cids,
+        );
+        assert!(
+            reverse.insert(&mapping.unicode, &mapping.cids).is_none(),
+            "duplicate LT-TM Unicode output"
+        );
+    }
+    assert_eq!(reverse.len(), 332);
+
+    let mut encode_nodes = vec![Node::default()];
+    let mut maximum_unicode_bytes = 0;
+    let encodable_text = reverse
+        .keys()
+        .map(|text| literal(text))
+        .collect::<Vec<_>>()
+        .join(",");
+    for (text, cids) in reverse {
+        maximum_unicode_bytes = maximum_unicode_bytes.max(text.len());
+        let codes = cids
+            .iter()
+            .map(u16::to_string)
+            .collect::<Vec<_>>()
+            .join(",");
+        insert(
+            &mut encode_nodes,
+            text.as_bytes(),
+            format!("Terminal::Cids(&[{codes}])"),
+            text.len(),
+        );
+    }
+    let code = format!(
+        "pub const PROFILE: &str = {};\npub const MAX_KEY_CIDS: usize = {};\npub const CID_NODES: &[CidNode] = &[{}];\npub const MAX_UNICODE_KEY_BYTES: usize = {maximum_unicode_bytes};\npub const ENCODE_NODES: &[Node] = &[{}];\n#[cfg(test)] pub const ENCODABLE_TEXT: &[&str] = &[{encodable_text}];\n",
+        literal(&profile.profile),
+        profile.max_key_cids,
+        render_cid_nodes(&cid_nodes),
+        render_nodes(&encode_nodes),
+    );
+    fs::write(
+        PathBuf::from(env::var_os("OUT_DIR").expect("OUT_DIR")).join("lt_tm_tables.rs"),
+        code,
+    )
+    .expect("write LT-TM CID tries");
 }
