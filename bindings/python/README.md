@@ -20,7 +20,7 @@
 | **Unicode and letters** | NFC/NFD normalization, tailored Tamil letter operations, and inspection. |
 | **Ordering** | Stable Mei-first Agara collation and versioned sort/search keys. |
 | **Numbers and dates** | Bounded TN/SL number words, exact INR/LKR amounts, fractions, and Gregorian dates. |
-| **Legacy conversion** | Bamini text conversion and bounded TSCII, TAB, TAM, and Anjal byte profiles. |
+| **Legacy conversion** | Bamini text conversion, bounded TSCII/TAB/TAM/Anjal byte profiles, and LT-TM / IndoWord 16-bit CID conversion. |
 
 Python is a thin binding to the shared Rust implementation.
 
@@ -29,7 +29,7 @@ Python is a thin binding to the shared Rust implementation.
 Python 3.11+ with GIL-enabled CPython is supported. Install the published alpha:
 
 ```sh
-python -m pip install tamil-toolkit==0.1.0a2
+python -m pip install tamil-toolkit==0.1.0a3
 ```
 
 ## Quick start
@@ -47,15 +47,24 @@ print(tamil.format_fraction(2, 4))  # 1/2
 `102550` is an exact amount in minor units. The numeral APIs support bounded
 TN/SL profiles and INR/LKR amounts.
 
-## Alpha 2 scope
+## Alpha 3 scope
 
-The published PyPI `0.1.0a2` package includes the capabilities listed above.
-Byte conversion uses explicit bounded profiles; it does not guess encodings or
-claim complete historical-font coverage. APIs may change.
+The PyPI `0.1.0a3` package includes the capabilities listed above. The shared
+`execute` API exposes `lt_tm_codes_to_unicode`, `lt_tm_text_to_unicode`,
+`unicode_to_lt_tm_codes`, and `unicode_to_lt_tm_text`. LT-TM conversion handles
+selected 16-bit code sequences; it does not parse PDFs, select font runs, or
+detect encodings. The profile does not claim complete historical-font coverage.
+APIs may change.
 
-LT-TM CID conversion is present in current workspace source but is **not** in
-the published `0.1.0a2` package. Other planned linguistic modules and Dart/Pub
-distribution are not published.
+Other planned linguistic modules, the private PDF extraction utility, and
+Dart/Pub distribution are not published.
+
+```python
+import tamil_toolkit as tamil
+
+codes = tamil.execute({"op": "unicode_to_lt_tm_codes", "input": {"text": "தமிழ்"}})
+text = tamil.execute({"op": "lt_tm_codes_to_unicode", "input": {"codes": codes}})
+```
 
 ## Documentation
 
@@ -63,13 +72,13 @@ distribution are not published.
 - [Unicode/core contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/core-v0.1.md)
 - [Collation contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md)
 - [Numerals, fractions, and dates](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.2.md)
-- [Codec contract and alpha 2 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-2.md#compatibility-and-scope)
-- [LT-TM workspace specification (unreleased)](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md)
+- [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-3.md#compatibility-and-scope)
+- [LT-TM CID profile contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md)
 - [Python package API declarations](https://github.com/abishtakan/tamil-toolkit/blob/master/bindings/python/python/tamil_toolkit/__init__.py)
 - [Third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md)
 
 The wheels target CPython 3.11+ through the stable abi3 interface. Source builds
-require Rust 1.85+. See the [alpha 2 release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-2.md)
+require Rust 1.85+. See the [alpha 3 release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-3.md)
 for artifact details.
 
 ## License

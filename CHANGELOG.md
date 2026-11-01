@@ -25,12 +25,6 @@
   TVA HTML root/commentary paraphrases and example citations for Nannūl sūtras
   151–157; keep them inactive pending print and linguistic review.
 
-- Add a bounded LT-TM / IndoWord 16-bit code profile, canonical 332-entry
-  mapping projection, reverse encoder, shared dispatcher operations, and 687
-  active golden vectors. Record PDF evidence, mapping provenance, and
-  compatibility limits. Owner-approved gates passed: Rust, 115 harness tests,
-  Python, Node/browser WASM, and Dart.
-
 - Add private `tools/tamil-pdf-extract`, a locked PDF-aware CLI that reads
   Identity-H text runs, delegates LT-TM decoding to the Rust dispatcher, and
   preserves unsupported font runs as raw bytes. Restrict automatic decoding to
@@ -45,6 +39,15 @@
   2003 PDF at 300 DPI. Record that it is useful for rough prose drafts, but its
   two-column index output is fragmented and it emits many invisible U+200C
   scalars. Do not treat it as a verified full-book transcription.
+
+## 0.1.0-alpha.3 / Python 0.1.0a3 - 2026-11-01
+
+- Add the bounded LT-TM / IndoWord 16-bit code profile, its canonical
+  332-entry mapping, reverse encoder, and shared dispatcher operations.
+- Activate 687 sourced LT-TM golden vectors across Rust, Python, WASM, and
+  Dart. Document mapping provenance and compatibility limits.
+- Refresh project and package READMEs for the synchronized alpha release.
+- Keep the PDF extraction CLI private; it is not included in registry packages.
 
 ## 0.1.0-alpha.2 / Python 0.1.0a2 - 2026-11-01
 

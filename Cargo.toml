@@ -4,7 +4,7 @@ members = ["crates/*", "bindings/python", "bindings/js-wasm", "bindings/dart-flu
 exclude = ["extensions/pg_tamil"]
 
 [workspace.package]
-version = "0.1.0-alpha.2"
+version = "0.1.0-alpha.3"
 edition = "2021"
 rust-version = "1.85"
 publish = false
@@ -12,17 +12,17 @@ license = "MIT"
 repository = "https://github.com/abishtakan/tamil-toolkit"
 
 [workspace.dependencies]
-tamil-core = { path = "crates/tamil-core", version = "=0.1.0-alpha.2" }
-tamil-norm = { path = "crates/tamil-norm", version = "=0.1.0-alpha.2" }
-tamil-collate = { path = "crates/tamil-collate", version = "=0.1.0-alpha.2" }
-tamil-numerals = { path = "crates/tamil-numerals", version = "=0.1.0-alpha.2" }
-tamil-codec = { path = "crates/tamil-codec", version = "=0.1.0-alpha.2" }
-tamil-punarchi = { path = "crates/tamil-punarchi", version = "=0.1.0-alpha.2" }
-tamil-morph = { path = "crates/tamil-morph", version = "=0.1.0-alpha.2" }
-tamil-dialect = { path = "crates/tamil-dialect", version = "=0.1.0-alpha.2" }
-tamil-hyphen = { path = "crates/tamil-hyphen", version = "=0.1.0-alpha.2" }
-tamil-yaappu = { path = "crates/tamil-yaappu", version = "=0.1.0-alpha.2" }
-tamil-toolkit = { path = "crates/tamil-toolkit", version = "=0.1.0-alpha.2" }
+tamil-core = { path = "crates/tamil-core", version = "=0.1.0-alpha.3" }
+tamil-norm = { path = "crates/tamil-norm", version = "=0.1.0-alpha.3" }
+tamil-collate = { path = "crates/tamil-collate", version = "=0.1.0-alpha.3" }
+tamil-numerals = { path = "crates/tamil-numerals", version = "=0.1.0-alpha.3" }
+tamil-codec = { path = "crates/tamil-codec", version = "=0.1.0-alpha.3" }
+tamil-punarchi = { path = "crates/tamil-punarchi", version = "=0.1.0-alpha.3" }
+tamil-morph = { path = "crates/tamil-morph", version = "=0.1.0-alpha.3" }
+tamil-dialect = { path = "crates/tamil-dialect", version = "=0.1.0-alpha.3" }
+tamil-hyphen = { path = "crates/tamil-hyphen", version = "=0.1.0-alpha.3" }
+tamil-yaappu = { path = "crates/tamil-yaappu", version = "=0.1.0-alpha.3" }
+tamil-toolkit = { path = "crates/tamil-toolkit", version = "=0.1.0-alpha.3" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 unicode-normalization = "0.1"

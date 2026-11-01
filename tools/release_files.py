@@ -6,6 +6,7 @@ from release_policy import ROOT, load
 POLICY = load()
 VERSION = POLICY["version"]
 PUBLIC = tuple(POLICY["public_crates"])
+RELEASE_RECORD = "alpha-" + VERSION.rsplit("alpha.", 1)[1]
 INPUTS = {
     "tamil-core": ("core.toml",),
     "tamil-collate": ("collate.toml",),
@@ -17,8 +18,8 @@ SUMMARIES = {
     "tamil-norm": "NFC and NFD normalization for Tamil and mixed-script text, with joiners preserved.",
     "tamil-collate": "Versioned Mei-first Agara dictionary ordering and canonical sort/search keys.",
     "tamil-numerals": "Bounded TN/SL integers, exact INR/LKR amounts, rational fractions and Gregorian date formatting.",
-    "tamil-codec": "Bamini conversion and bounded TSCII, TAB, TAM and Anjal byte profiles.",
-    "tamil-toolkit": "Unified Rust entry point for the published core, normalization, collation, numerals, and legacy conversion APIs.",
+    "tamil-codec": "Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, and LT-TM / IndoWord profiles.",
+    "tamil-toolkit": "Unified Rust entry point for published Tamil text, ordering, numerals, and bounded legacy conversion APIs.",
 }
 FEATURE_TABLES = {
     "tamil-core": """| Area | Capabilities |
@@ -43,19 +44,20 @@ FEATURE_TABLES = {
 | --- | --- |
 | **Bamini** | Explicit Unicode conversion using the declared Bamini profile. |
 | **Byte profiles** | Bounded TSCII, TAB, TAM, and Anjal conversion. |
-| **Limits** | No automatic detection or complete historical-font coverage. |""",
+| **LT-TM / IndoWord** | Selected 16-bit CID/code conversion in both directions. |
+| **Limits** | No PDF parsing, automatic detection, or complete historical-font coverage. |""",
     "tamil-toolkit": """| Area | Capabilities |
 | --- | --- |
 | **Text** | Unicode letter operations, normalization, and inspection. |
 | **Ordering and numbers** | Agara sorting, number words, exact amounts, fractions, and dates. |
-| **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, and Anjal profiles. |""",
+| **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, Anjal, and LT-TM / IndoWord profiles. |""",
 }
 CONTRACTS = {
     "tamil-core": "docs/specs/core-v0.1.md",
     "tamil-norm": "docs/specs/core-v0.1.md",
     "tamil-collate": "docs/specs/collate-v0.1.md",
     "tamil-numerals": "docs/specs/numerals-v0.2.md",
-    "tamil-codec": "docs/releases/alpha-2.md#compatibility-and-scope",
+    "tamil-codec": "docs/specs/codec-lt-tm.md",
     "tamil-toolkit": "README.md#capability-contracts",
 }
 EXAMPLES = {
@@ -83,12 +85,16 @@ fn main() -> Result<(), String> {
     println!("{amount}");
     Ok(())
 }''',
-    "tamil-codec": '''use tamil_codec::{bamini_to_unicode, unicode_to_bamini, ErrorPolicy};
+    "tamil-codec": '''use tamil_codec::{bamini_to_unicode, lt_tm_codes_to_unicode, unicode_to_bamini, unicode_to_lt_tm_codes, ErrorPolicy};
 
 fn main() -> Result<(), String> {
     let legacy = unicode_to_bamini("தமிழ்")?;
     let text = bamini_to_unicode(&legacy, ErrorPolicy::Strict)?;
     println!("{legacy} -> {text}");
+
+    let codes = unicode_to_lt_tm_codes("தமிழ்")?;
+    let decoded = lt_tm_codes_to_unicode(&codes, ErrorPolicy::Strict)?;
+    println!("{codes:?} -> {decoded}");
     Ok(())
 }''',
     "tamil-toolkit": '''use tamil_toolkit::{codec, core};
@@ -97,12 +103,10 @@ fn main() -> Result<(), String> {
     let text = "தமிழ்";
     println!("{}", core::get_letters(text).join(" | "));
     println!("{}", codec::unicode_to_bamini(text)?);
+    let codes = codec::unicode_to_lt_tm_codes(text)?;
+    println!("{:?} -> {}", codes, codec::lt_tm_codes_to_unicode(&codes, codec::ErrorPolicy::Strict)?);
     Ok(())
 }''',
-}
-UNRELEASED_NOTES = {
-    "tamil-codec": "\n\nLT-TM CID conversion is present in current workspace source but is **not** included in the published `0.1.0-alpha.2` crate. See the [unreleased workspace specification](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md).",
-    "tamil-toolkit": "\n\nLT-TM CID conversion is present in current workspace source but is **not** included in the published `0.1.0-alpha.2` crate. See the [unreleased workspace specification](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md).",
 }
 
 
@@ -152,7 +156,6 @@ def expected_files():
         stability = ("Public APIs follow semantic versioning." if POLICY["channel"] == "stable"
                      else "APIs may change before stability.")
         contract_url = f"https://github.com/abishtakan/tamil-toolkit/blob/master/{CONTRACTS[name]}"
-        unreleased_note = UNRELEASED_NOTES.get(name, "") if VERSION == "0.1.0-alpha.2" else ""
         text = f"""<div align="center">
 
 # {name}
@@ -200,8 +203,7 @@ Or add the exact alpha dependency to `Cargo.toml`:
 - [API reference on docs.rs](https://docs.rs/{name}/{VERSION})
 - [Feature contract and examples]({contract_url})
 - [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Alpha 2 release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-2.md)
-{unreleased_note}
+- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/{RELEASE_RECORD}.md)
 
 ## License
 

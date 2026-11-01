@@ -1,6 +1,6 @@
 {
   "name": "tamil-toolkit",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "license": "MIT",
   "repository": {"type": "git", "url": "https://github.com/abishtakan/tamil-toolkit.git", "directory": "bindings/js-wasm"},
   "homepage": "https://github.com/abishtakan/tamil-toolkit#readme",

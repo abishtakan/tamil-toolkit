@@ -226,5 +226,5 @@ dev = [{ name = "pytest", specifier = ">=8,<10" }]
 
 [[package]]
 name = "tamil-toolkit"
-version = "0.1.0a2"
+version = "0.1.0a3"
 source = { directory = "../../bindings/python" }
