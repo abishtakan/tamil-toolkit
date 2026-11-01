@@ -10,5 +10,7 @@ tests/reference/codec-tscii/* -text
 /lexicon/*.toml text eol=lf
 /crates/*/lexicon/*.toml text eol=lf
 /crates/*/README.md text eol=lf
+/README.md text eol=lf
+/bindings/*/README.md text eol=lf
 **/LICENSE text eol=lf
 **/THIRD_PARTY_NOTICES.md text eol=lf
