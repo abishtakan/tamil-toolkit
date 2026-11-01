@@ -96,6 +96,30 @@ Continue to follow
 [development workflow](development.md),
 [publishing policy](releases/policy.md), and the agent constitution.
 
+### Local workbench handoff (2026-11-01)
+
+- Objective: keep the browser workbench aligned with active package operations
+  for manual testing. Base commit: `1f1eb23`; workbench implementation:
+  `3c03992` on `master`.
+- The manual panel now covers all 35 supported active operations. This includes
+  the eight LT-TM and Vanavil CID/code and legacy-text directions. Decoders take
+  whitespace-separated 16-bit hexadecimal codes or code-valued text and expose
+  strict/preserve handling. Encoders accept Unicode text and return either code
+  arrays or code-valued text. The intentional `unknown_core_operation` negative
+  fixture remains unavailable as a supported operation.
+- Currency forms accept decimal amounts such as `1025.50` and convert exactly
+  to the existing integer `amount_minor` request. No Rust/API behavior changed.
+- Checks: `pnpm run check:workbench` passed; manifest comparison found 35/35
+  supported operations; `pnpm run build:workbench` passed (release copies,
+  browser WASM, and Vite production bundle); `git diff --check` passed. The
+  local Vite page and updated module returned HTTP 200. Browser automation was
+  unavailable, so rendered-browser interaction was not checked here.
+- The hot-reload server is running at `http://127.0.0.1:5173/`. Next action:
+  manually choose `tamil-codec`, select an LT-TM or Vanavil operation, and try
+  the provided examples or edit the inputs. Updated currency operations are
+  under `tamil-numerals`.
+- Uncommitted work after saving this handoff: none.
+
 ### Punarchi handoff (2026-11-01; deferred)
 
 - Scheduling: further Punarchi work is deferred at user direction. Keep the
