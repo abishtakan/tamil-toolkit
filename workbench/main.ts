@@ -88,6 +88,15 @@ function parseHexBytes(value: string): number[] {
   });
 }
 
+function parseHexCodes(value: string): number[] {
+  const text = value.trim();
+  if (!text) return [];
+  return text.split(/\s+/).map((part) => {
+    if (!/^(?:0x)?[0-9a-f]{1,4}$/i.test(part)) throw new Error("Enter 16-bit hexadecimal codes separated by spaces, for example 0062 006A 0161.");
+    return Number.parseInt(part.replace(/^0x/i, ""), 16);
+  });
+}
+
 function parseCurrencyAmount(value: string): number {
   const match = /^([+-]?)(\d*)(?:\.(\d{0,2}))?$/.exec(value.trim());
   if (!match || (!match[2] && !match[3])) {
@@ -325,6 +334,81 @@ const operations: OperationSpec[] = [
     op: "tscii_bytes_to_unicode", label: "TSCII bytes to Unicode", description: "Decode actual TSCII bytes using the bounded profile.",
     fields: [{ key: "bytes", label: "TSCII bytes (hex)", kind: "text", initial: "BA A2 C5 FD", help: "Enter two-digit hexadecimal bytes separated by spaces." }],
     build: (v) => ({ op: "tscii_bytes_to_unicode", input: { bytes: parseHexBytes(v.bytes) } }),
+  },
+  {
+    op: "lt_tm_codes_to_unicode", label: "LT-TM codes to Unicode", description: "Decode 16-bit LT-TM / IndoWord character codes from a selected font run.",
+    fields: [
+      { key: "codes", label: "16-bit codes (hex)", kind: "text", initial: "0062 006A 0068 0161 0066 0068 00A5 00E3 0061 00AB", help: "Enter one to four hexadecimal digits per code, separated by spaces. These are 16-bit codes, not bytes." },
+      { key: "errors", label: "Unknown input", kind: "select", initial: "strict", options: ["strict", "preserve"] },
+    ],
+    build: (v) => ({ op: "lt_tm_codes_to_unicode", input: { codes: parseHexCodes(v.codes), errors: v.errors } }),
+    examples: [
+      { label: "TVA PDF title run", values: { codes: "0062 006A 0068 0161 0066 0068 00A5 00E3 0061 00AB", errors: "strict" } },
+      { label: "Preserve unmapped ASCII x", values: { codes: "0078", errors: "preserve" } },
+    ],
+  },
+  {
+    op: "lt_tm_text_to_unicode", label: "LT-TM legacy text to Unicode", description: "Decode BMP code-valued text already extracted from an LT-TM / IndoWord font run.",
+    fields: [
+      { key: "text", label: "LT-TM code-valued text", kind: "textarea", initial: "\u0062\u006a\u0068\u0161\u0066\u0068\u00a5\u00e3\u0061\u00ab", help: "Paste legacy text with its original code-valued characters. This is not a byte decoder or Windows-1252 conversion." },
+      { key: "errors", label: "Unknown input", kind: "select", initial: "strict", options: ["strict", "preserve"] },
+    ],
+    build: (v) => ({ op: "lt_tm_text_to_unicode", input: { text: v.text, errors: v.errors } }),
+    examples: [
+      { label: "TVA PDF title run", values: { text: "\u0062\u006a\u0068\u0161\u0066\u0068\u00a5\u00e3\u0061\u00ab", errors: "strict" } },
+      { label: "Preserve unmapped ASCII x", values: { text: "\u0078", errors: "preserve" } },
+    ],
+  },
+  {
+    op: "unicode_to_lt_tm_codes", label: "Unicode to LT-TM codes", description: "Encode Unicode Tamil to 16-bit LT-TM / IndoWord character codes.",
+    fields: [{ key: "text", label: "Unicode Tamil text", kind: "textarea", initial: demoTamil, help: "Unsupported or non-round-trippable input returns an error. Output is an array of hexadecimal code values in the raw JSON panel." }],
+    build: (v) => ({ op: "unicode_to_lt_tm_codes", input: { text: v.text } }),
+    examples: [{ label: "Sample Tamil word", values: { text: demoTamil } }],
+  },
+  {
+    op: "unicode_to_lt_tm_text", label: "Unicode to LT-TM legacy text", description: "Encode Unicode Tamil to text containing LT-TM / IndoWord code-valued characters.",
+    fields: [{ key: "text", label: "Unicode Tamil text", kind: "textarea", initial: demoTamil, help: "The result contains legacy code-valued characters; use the raw JSON panel to inspect its scalars." }],
+    build: (v) => ({ op: "unicode_to_lt_tm_text", input: { text: v.text } }),
+    examples: [{ label: "Sample Tamil word", values: { text: demoTamil } }],
+  },
+  {
+    op: "vanavil_codes_to_unicode", label: "Vanavil codes to Unicode", description: "Decode 16-bit Vanavil Avvaiyar character codes from a selected font run.",
+    fields: [
+      { key: "codes", label: "16-bit codes (hex)", kind: "text", initial: "00C4 00E4", help: "Enter one to four hexadecimal digits per code, separated by spaces. These are 16-bit codes, not bytes." },
+      { key: "errors", label: "Unknown input", kind: "select", initial: "strict", options: ["strict", "preserve"] },
+    ],
+    build: (v) => ({ op: "vanavil_codes_to_unicode", input: { codes: parseHexCodes(v.codes), errors: v.errors } }),
+    examples: [
+      { label: "Distinguish 00C4 / 00E4", values: { codes: "00C4 00E4", errors: "strict" } },
+      { label: "Preserve unmapped ASCII x", values: { codes: "0078", errors: "preserve" } },
+    ],
+  },
+  {
+    op: "vanavil_text_to_unicode", label: "Vanavil legacy text to Unicode", description: "Decode BMP code-valued text already extracted from a Vanavil Avvaiyar font run.",
+    fields: [
+      { key: "text", label: "Vanavil code-valued text", kind: "textarea", initial: "\u00c4\u00e4", help: "Paste legacy text with its original code-valued characters. This is not a byte decoder." },
+      { key: "errors", label: "Unknown input", kind: "select", initial: "strict", options: ["strict", "preserve"] },
+    ],
+    build: (v) => ({ op: "vanavil_text_to_unicode", input: { text: v.text, errors: v.errors } }),
+    examples: [
+      { label: "Distinguish Ä / ä", values: { text: "\u00c4\u00e4", errors: "strict" } },
+      { label: "Preserve unmapped ASCII x", values: { text: "\u0078", errors: "preserve" } },
+    ],
+  },
+  {
+    op: "unicode_to_vanavil_codes", label: "Unicode to Vanavil codes", description: "Encode Unicode Tamil to 16-bit Vanavil Avvaiyar character codes.",
+    fields: [{ key: "text", label: "Unicode Tamil text", kind: "textarea", initial: demoTamil, help: "Unsupported or non-round-trippable input returns an error. Output is an array of hexadecimal code values in the raw JSON panel." }],
+    build: (v) => ({ op: "unicode_to_vanavil_codes", input: { text: v.text } }),
+    examples: [
+      { label: "Sample Tamil word", values: { text: demoTamil } },
+      { label: "Vanavil 00C4 / 00E4 contrast", values: { text: "\u0bb2\u0bc0\u0bae\u0bbf" } },
+    ],
+  },
+  {
+    op: "unicode_to_vanavil_text", label: "Unicode to Vanavil legacy text", description: "Encode Unicode Tamil to text containing Vanavil Avvaiyar code-valued characters.",
+    fields: [{ key: "text", label: "Unicode Tamil text", kind: "textarea", initial: demoTamil, help: "The result contains legacy code-valued characters; use the raw JSON panel to inspect its scalars." }],
+    build: (v) => ({ op: "unicode_to_vanavil_text", input: { text: v.text } }),
+    examples: [{ label: "Sample Tamil word", values: { text: demoTamil } }],
   },
 ];
 

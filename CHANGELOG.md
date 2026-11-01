@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Extend the local workbench with manual LT-TM and Vanavil CID/code conversion
+  controls. Currency inputs accept ordinary decimal amounts and convert
+  exactly to the integer minor-unit API format.
+
 ## 0.1.0-alpha.4 / Python 0.1.0a4 - 2026-11-01
 
 - Add the bounded `Vanavil Avvaiyar` (`vanavil-avvaiyar-cid-v1`) 16-bit
