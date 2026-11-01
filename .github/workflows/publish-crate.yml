@@ -14,7 +14,9 @@ on:
       package:
         description: Approved crate name from just release-status (dependency order)
         required: true
-        type: string
+        type: choice
+        options: ['all', 'tamil-core', 'tamil-norm', 'tamil-collate', 'tamil-numerals', 'tamil-codec', 'tamil-toolkit']
+        default: 'all'
       confirm_publish:
         description: Choose publish after artifact review and release authorization
         required: true
@@ -75,24 +77,40 @@ jobs:
         with:
           toolchain: 1.95.0
 
-      - name: Repackage and compare the reviewed crate
-        env:
-          PACKAGE: ${{ inputs.package }}
-          VERSION: ${{ steps.verify.outputs.version }}
-          REVIEWED: ${{ steps.verify.outputs.crate }}
-        run: |
-          set -euo pipefail
-          cargo publish --locked --package "$PACKAGE" --dry-run
-          # Cargo 1.93+ removes the tarball produced by publish, so package once more
-          # to retain the archive for byte-for-byte comparison with the reviewed one.
-          cargo package --locked --package "$PACKAGE" --no-verify
-          python tools/release_policy.py compare-crate --reviewed "$REVIEWED" --built "target/package/${PACKAGE}-${VERSION}.crate"
-
-      - name: Publish selected reviewed crate
+      - name: Repackage, compare, and publish reviewed crates
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
           PACKAGE: ${{ inputs.package }}
+          VERSION: ${{ steps.verify.outputs.version }}
+          PACKAGES: ${{ steps.verify.outputs.packages }}
+          REVIEWED: ${{ steps.verify.outputs.crate }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
         run: |
           set -euo pipefail
           test -n "$CARGO_REGISTRY_TOKEN" || { echo "Configure CARGO_REGISTRY_TOKEN in GitHub Actions" >&2; exit 1; }
-          cargo publish --locked --package "$PACKAGE"
+          if [ "$PACKAGE" = "all" ]; then
+            CRATES="$PACKAGES"
+          else
+            CRATES="$PACKAGE"
+          fi
+          for pkg in $CRATES; do
+            echo "=== Processing crate $pkg $VERSION ==="
+            if python tools/release_policy.py is-published --registry crates.io --package "$pkg" --version "$VERSION"; then
+              echo "Crate $pkg $VERSION is already published to crates.io; skipping."
+              continue
+            fi
+            cargo package --locked --package "$pkg" --no-verify
+            if [ -n "${REVIEWED:-}" ] && [ "$PACKAGE" != "all" ]; then
+              python tools/release_policy.py compare-crate --reviewed "$REVIEWED" --built "target/package/${pkg}-${VERSION}.crate"
+            else
+              python tools/release_policy.py compare-crate --directory "$ARTIFACTS" --package "$pkg" --built "target/package/${pkg}-${VERSION}.crate"
+            fi
+            cargo publish --locked --package "$pkg"
+            for attempt in $(seq 1 12); do
+              if python tools/release_policy.py is-published --registry crates.io --package "$pkg" --version "$VERSION"; then
+                echo "Crate $pkg $VERSION is now available on crates.io."
+                break
+              fi
+              sleep 5
+            done
+          done

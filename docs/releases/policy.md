@@ -40,20 +40,21 @@ their channel and do not request promotion to `latest`.
 
 When preparing a release:
 
-1. Choose the next version and write its bounded changes and compatibility
-   notes. Returned errors, operation names, key formats, and Unicode behavior
-   are public contracts. Explain any breaking change even during alpha.
-2. Update the workspace version and all exact local `tamil-*` dependency pins
-   in `Cargo.toml`, each public crate's docs.rs link, Python's project version,
-   and the npm package version. Change the policy channel only if appropriate.
-3. Run `cargo update --workspace` and review Cargo.lock for unintended dependency
-   changes. Cargo documents this option for workspace version updates; it may
-   add dependencies that were absent from the lockfile. Refresh generated
-   crate READMEs/data/notices with `just sync-release-files`.
-4. Run `just check-release-policy` and `just check-unicode`. Finish the release
-   notes and local gates below, commit the reviewed source, and record its full
-   SHA. Published versions and existing release tags must never be reused or
-   moved. The first alpha has already been uploaded to all three registries.
+1. Choose the next version and run `just release-prepare <version>` (e.g.
+   `just release-prepare 0.1.0-alpha.4` or `just release-prepare 0.1.0-beta.1`).
+   This command deterministically updates `release-policy.toml`, root `Cargo.toml`,
+   internal crate pins, public crate docs.rs URLs, Python's `pyproject.toml`,
+   npm's `package.json`, synchronizes root and binding README install snippets,
+   regenerates crate READMEs via `tools/release_files.py`, updates `Cargo.lock`,
+   rolls `CHANGELOG.md`'s Unreleased section into a dated release heading, and
+   scaffolds `docs/releases/<record_name>.md`.
+2. Review the changes, `Cargo.lock`, and write any additional bounded changes or
+   compatibility notes in `docs/releases/<record_name>.md`. Returned errors,
+   operation names, key formats, and Unicode behavior are public contracts.
+   Explain any breaking change even during alpha.
+3. Run `just check-release-policy` and `just check-unicode`. Finish local gates,
+   commit the reviewed source on `master`, and record its full SHA. Published
+   versions and existing release tags must never be reused or moved.
 
 ## Development and release checks
 
@@ -61,10 +62,10 @@ When preparing a release:
 | --- | --- |
 | During edits | `just agent-post-edit`; focused checks for affected behavior |
 | Feature integration | `just agent-pre-stop-gate`; Dart/workbench checks when affected |
-| Release preparation | Full integration gate, `just test-dart`, workbench checks, `just release-check` |
+| Release preparation | `just release-prepare <version>`, full integration gate, `just test-dart`, workbench checks, `just release-check` |
 | Normal GitHub CI | Ubuntu Rust/Unicode checks, release-policy regression tests, workflow lint |
 | Explicit distribution build | Rust archive/MSRV, Node 22/24, three wheel platforms, CPython consumers |
-| After publication | Fresh public installs, active golden consumers, links and digests in release record |
+| After publication | `just release-record <artifact_run_id>`, fresh public installs, active golden consumers, links and digests in release record |
 
 Local `just release-check` builds archives and real isolated consumers. It can
 inspect a dirty working tree for preparation; those files are not release
@@ -83,25 +84,22 @@ Node execution of the browser WASM target does not establish browser UI support.
    source SHA, release versions, channel, and public crate scope. Record the
    run ID and full SHA in the release record. Artifacts from the old first-alpha
    harness lack this metadata and must not be reused with the new publishers.
-3. Dispatch the appropriate publishing workflow from `master` with
+3. Dispatch **Publish release** (`publish-release.yml`) from `master` with
    `artifact_run_id`, the full `source_sha`, and `confirm_publish=publish`.
-   The gate validates the run's repository, workflow ID, successful completion,
-   explicit dispatch, and master branch. It then checks out the reviewed SHA
-   and verifies every relevant artifact's source identity and archive hashes.
-4. Rust uses `publish-crate.yml`: supply one approved `package` and follow the
-   `just release-status` order. Wait for each dependency to appear on crates.io
-   before dispatching its dependents. A dry-run repackage compares every file
-   with the reviewed crate. Only the archive-root Cargo.lock may differ because
-   local artifact verification uses sibling path patches and publication uses
-   published registry siblings. The actual upload uses the same reviewed tree.
-5. Python uses `publish-pypi.yml`: it validates all three platforms, then uploads
-   exactly three cp311-abi3 wheels and the Linux-built source archive. npm uses
-   `publish-npm.yml`: it validates both Node artifacts, requires byte-identical
-   tarballs, and publishes that tarball with the policy's channel tag.
-6. Verify fresh public installs, record registry links, exact source, workflow
-   runs, archive hashes, and consumer results in `docs/releases/README.md` and
-   the version's release record. Create the new immutable version tag against
-   the reviewed commit, then update `docs/status.md`.
+   The unified workflow verifies the reviewed run and runs three jobs:
+   - `crates`: publishes all 6 Rust crates in dependency order (`tamil-core`,
+     `tamil-norm`, `tamil-collate`, `tamil-numerals`, `tamil-codec`, `tamil-toolkit`).
+     Before publishing each crate, it checks crates.io to ensure re-runs are idempotent.
+   - `npm`: verifies byte-identical Node 22/24 tarballs and publishes to npm via OIDC.
+   - `pypi`: verifies Linux/Windows/macOS wheels and sdist, then publishes via OIDC.
+   Alternatively, individual publishers (`publish-crate.yml` with `package: all` or
+   a single crate, `publish-npm.yml`, `publish-pypi.yml`) remain available for isolated retries.
+4. Run `just release-record <artifact_run_id>` to automatically query GitHub Actions
+   and registry APIs (crates.io, npm, PyPI) or local manifests, updating
+   `docs/releases/<release-record>.md` with the exact commit SHA, artifact run link,
+   publisher run links, and SHA-256 checksums table while preserving compatibility notes.
+5. Verify fresh public installs, record consumer results in the version's release record,
+   create the new immutable version tag against the reviewed commit, then update `docs/status.md`.
 
 ## Accounts and credentials
 

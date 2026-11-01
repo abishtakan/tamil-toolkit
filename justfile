@@ -17,6 +17,14 @@ check-release-policy:
 release-status:
     uv run --locked python tools/release_policy.py status
 
+# Deterministically bump versions, sync READMEs/crates, and prepare release records.
+release-prepare version:
+    uv run --locked python tools/release_policy.py prepare {{version}} --lockfile
+
+# Generate or update the release record from a distribution artifact run.
+release-record run_id:
+    uv run --locked python tools/release_policy.py release-record {{run_id}}
+
 # Refresh checked distribution copies from canonical lexicon/license sources.
 sync-release-files:
     uv run --locked python tools/release_files.py

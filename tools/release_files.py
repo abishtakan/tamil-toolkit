@@ -1,12 +1,17 @@
 """Synchronize distributable data/license copies; canonical sources stay at root."""
 
 import argparse
-from release_policy import ROOT, load
+from pathlib import Path
+import re
+try:
+    from release_policy import ROOT, load, parse_version
+except ModuleNotFoundError:
+    from tools.release_policy import ROOT, load, parse_version
 
 POLICY = load()
 VERSION = POLICY["version"]
 PUBLIC = tuple(POLICY["public_crates"])
-RELEASE_RECORD = "alpha-" + VERSION.rsplit("alpha.", 1)[1]
+RELEASE_RECORD = POLICY["record_name"]
 INPUTS = {
     "tamil-core": ("core.toml",),
     "tamil-collate": ("collate.toml",),
@@ -110,7 +115,60 @@ fn main() -> Result<(), String> {
 }
 
 
-def notices():
+def sync_root_readme(text, policy):
+    v = policy["version"]
+    pv = policy["python_version"]
+    tag = policy["npm_tag"]
+    rec = policy["record_name"]
+    lbl = policy["label"]
+    text = re.sub(r'(\| \*\*Rust 1\.85\+\*\* \| `cargo add tamil-toolkit@=)[^`]+(` \|)', rf'\g<1>{v}\g<2>', text)
+    text = re.sub(r'(\| \*\*Python 3\.11\+\*\* \| `python -m pip install tamil-toolkit==)[^`]+(` \|)', rf'\g<1>{pv}\g<2>', text)
+    text = re.sub(r'(\| \*\*Node\.js 22\+ / browsers\*\* \| `npm install tamil-toolkit@)[^`]+(` \|)', rf'\g<1>{tag}\g<2>', text)
+    text = re.sub(r'(\| SDK \| Install )[^\|]+( \| Version \| Downloads \|)', rf'\g<1>{lbl}\g<2>', text)
+    text = re.sub(r'(npm[’\']s `)[^`]+(` tag points to )[^;]+(;)', rf'\g<1>{tag}\g<2>{lbl}\g<3>', text)
+    text = re.sub(r'(All six Rust crates are published at `)[^`]+(`:)', rf'\g<1>{v}\g<2>', text)
+    text = re.sub(r'https://docs\.rs/tamil-toolkit/[^/]+/tamil_toolkit/', f'https://docs.rs/tamil-toolkit/{v}/tamil_toolkit/', text)
+    text = re.sub(r'\[[^\]]+ compatibility details\]\(docs/releases/[^)]+\.md#compatibility-and-scope\)',
+                  f'[{lbl} compatibility details](docs/releases/{rec}.md#compatibility-and-scope)', text)
+    text = re.sub(r'(\| Published package list and release record \| \[Release policy\]\(docs/releases/policy\.md#what-can-ship\) · )\[[^\]]+\]\(docs/releases/[^)]+\.md\)( \|)',
+                  rf'\g<1>[{lbl}](docs/releases/{rec}.md)\g<2>', text)
+    text = re.sub(r'· \[[^\]]+ scope\]\(docs/releases/[^)]+\.md#compatibility-and-scope\)',
+                  f'· [{lbl} scope](docs/releases/{rec}.md#compatibility-and-scope)', text)
+    return text
+
+
+def sync_python_readme(text, policy):
+    pv = policy["python_version"]
+    rec = policy["record_name"]
+    lbl = policy["label"]
+    title = lbl.title()
+    text = re.sub(r'python -m pip install tamil-toolkit==\S+', f'python -m pip install tamil-toolkit=={pv}', text)
+    text = re.sub(r'## (?:Alpha|Beta|Rc|\d+)[^\n]* scope', f'## {title} scope', text)
+    text = re.sub(r'(The PyPI `)[^`]+(` package includes)', rf'\g<1>{pv}\g<2>', text)
+    text = re.sub(r'https://github\.com/abishtakan/tamil-toolkit/blob/master/docs/releases/[^/)]+\.md#compatibility-and-scope',
+                  f'https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/{rec}.md#compatibility-and-scope', text)
+    text = re.sub(r'See the \[[^\]]+\]\(https://github\.com/abishtakan/tamil-toolkit/blob/master/docs/releases/[^/)]+\.md\)',
+                  f'See the [{lbl} release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/{rec}.md)', text)
+    return text
+
+
+def sync_js_readme(text, policy):
+    v = policy["version"]
+    tag = policy["npm_tag"]
+    rec = policy["record_name"]
+    lbl = policy["label"]
+    title = lbl.title()
+    text = re.sub(r'(Install )[^f]+( from npm[’\']s `)[^`]+(` dist-tag:)', rf'\g<1>{lbl}\g<2>{tag}\g<3>', text)
+    text = re.sub(r'npm install tamil-toolkit@\S+', f'npm install tamil-toolkit@{tag}', text)
+    text = re.sub(r'(The `)[^`]+(` tag points to `)[^`]+(`;)', rf'\g<1>{tag}\g<2>{v}\g<3>', text)
+    text = re.sub(r'## (?:Alpha|Beta|Rc|\d+)[^\n]* scope', f'## {title} scope', text)
+    text = re.sub(r'(The npm `)[^`]+(` package includes)', rf'\g<1>{v}\g<2>', text)
+    text = re.sub(r'https://github\.com/abishtakan/tamil-toolkit/blob/master/docs/releases/[^/)]+\.md#compatibility-and-scope',
+                  f'https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/{rec}.md#compatibility-and-scope', text)
+    return text
+
+
+def notices(root=ROOT):
     text = """# Third-party notices
 
 Original tamil-toolkit code is MIT licensed. The following upstream data and
@@ -138,24 +196,43 @@ locked Rust dependency graph with the complete upstream license texts.
         ("Pakeetharan Balasubramaniam Bamini reference (MIT)", "tests/reference/codec-v0.1/LICENSE-pakeetharan.txt"),
         ("Jay Mayu Android TamilUtil reference (MIT)", "tests/reference/codec-tscii/LICENSE.txt"),
     ):
-        text += f"## {title}\n\n```text\n{(ROOT / source).read_text(encoding='utf-8').strip()}\n```\n\n"
+        text += f"## {title}\n\n```text\n{(root / source).read_text(encoding='utf-8').strip()}\n```\n\n"
     return text.encode("utf-8")
 
 
-def expected_files():
-    notice = notices()
-    files = {ROOT / "THIRD_PARTY_NOTICES.md": notice}
-    license_bytes = (ROOT / "LICENSE").read_bytes()
-    destinations = [ROOT / "crates" / name for name in PUBLIC]
-    destinations += [ROOT / "bindings" / name for name in ("python", "js-wasm", "dart-flutter")]
-    for destination in destinations:
-        files[destination / "LICENSE"] = license_bytes
-        files[destination / "THIRD_PARTY_NOTICES.md"] = notice
-    for name in PUBLIC:
-        label = "Release" if POLICY["channel"] == "stable" else "Experimental " + POLICY["channel"]
-        stability = ("Public APIs follow semantic versioning." if POLICY["channel"] == "stable"
+def expected_files(root=ROOT):
+    policy = load(root)
+    version = policy["version"]
+    public = tuple(policy["public_crates"])
+    release_record = policy["record_name"]
+    files = {}
+
+    if (root / "LICENSE").is_file():
+        license_bytes = (root / "LICENSE").read_bytes()
+        destinations = [root / "crates" / name for name in public]
+        destinations += [root / "bindings" / name for name in ("python", "js-wasm", "dart-flutter")]
+        for destination in destinations:
+            files[destination / "LICENSE"] = license_bytes
+
+    if all((root / source).is_file() for source in (
+        "tests/reference/unicode-17.0.0/LICENSE.txt",
+        "tests/reference/codec-v0.1/LICENSE-ag.txt",
+        "tests/reference/codec-v0.1/LICENSE-pakeetharan.txt",
+        "tests/reference/codec-tscii/LICENSE.txt",
+    )):
+        notice = notices(root)
+        files[root / "THIRD_PARTY_NOTICES.md"] = notice
+        destinations = [root / "crates" / name for name in public]
+        destinations += [root / "bindings" / name for name in ("python", "js-wasm", "dart-flutter")]
+        for destination in destinations:
+            files[destination / "THIRD_PARTY_NOTICES.md"] = notice
+
+    for name in public:
+        label = "Release" if policy["channel"] == "stable" else "Experimental " + policy["channel"]
+        stability = ("Public APIs follow semantic versioning." if policy["channel"] == "stable"
                      else "APIs may change before stability.")
         contract_url = f"https://github.com/abishtakan/tamil-toolkit/blob/master/{CONTRACTS[name]}"
+        record_title = f"{policy['channel'].title()} release record"
         text = f"""<div align="center">
 
 # {name}
@@ -164,7 +241,7 @@ def expected_files():
 
 [![crates.io version](https://img.shields.io/crates/v/{name}?style=flat-square)](https://crates.io/crates/{name})
 [![crates.io downloads](https://img.shields.io/crates/d/{name}?style=flat-square&label=downloads)](https://crates.io/crates/{name})
-[![docs.rs](https://docs.rs/{name}/badge.svg)](https://docs.rs/{name}/{VERSION})
+[![docs.rs](https://docs.rs/{name}/badge.svg)](https://docs.rs/{name}/{version})
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
 [![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 
@@ -176,20 +253,20 @@ def expected_files():
 
 {FEATURE_TABLES[name]}
 
-{label} `{VERSION}`. {stability} This package provides bounded APIs and does not
+{label} `{version}`. {stability} This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage.
 
 ## Install
 
 ```sh
-cargo add {name}@={VERSION}
+cargo add {name}@={version}
 ```
 
 Or add the exact alpha dependency to `Cargo.toml`:
 
 ```toml
 [dependencies]
-{name} = \"={VERSION}\"
+{name} = \"={version}\"
 ```
 
 ## Example
@@ -200,10 +277,10 @@ Or add the exact alpha dependency to `Cargo.toml`:
 
 ## Documentation
 
-- [API reference on docs.rs](https://docs.rs/{name}/{VERSION})
+- [API reference on docs.rs](https://docs.rs/{name}/{version})
 - [Feature contract and examples]({contract_url})
 - [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/{RELEASE_RECORD}.md)
+- [{record_title}](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/{release_record}.md)
 
 ## License
 
@@ -212,28 +289,46 @@ Bundled data and mappings retain their recorded terms in the
 [third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).
 Contributions are welcome; see the [contributor guide](https://github.com/abishtakan/tamil-toolkit/blob/master/CONTRIBUTING.md).
 """
-        files[ROOT / "crates" / name / "README.md"] = text.encode("utf-8")
-    for name, inputs in INPUTS.items():
-        for filename in inputs:
-            files[ROOT / "crates" / name / "lexicon" / filename] = (ROOT / "lexicon" / filename).read_bytes()
+        files[root / "crates" / name / "README.md"] = text.encode("utf-8")
+
+    if (root / "lexicon").is_dir():
+        for name, inputs in INPUTS.items():
+            for filename in inputs:
+                lex_file = root / "lexicon" / filename
+                if lex_file.is_file():
+                    files[root / "crates" / name / "lexicon" / filename] = lex_file.read_bytes()
+
+    for readme_path, sync_fn in (
+        (root / "README.md", sync_root_readme),
+        (root / "bindings/python/README.md", sync_python_readme),
+        (root / "bindings/js-wasm/README.md", sync_js_readme),
+    ):
+        if readme_path.is_file():
+            content = readme_path.read_text(encoding="utf-8")
+            synced = sync_fn(content, policy)
+            files[readme_path] = synced.encode("utf-8")
+
     return files
 
 
-def sync(check=False):
+def sync(root=ROOT, check=False):
     stale = []
-    for path, expected in expected_files().items():
+    files = expected_files(root)
+    for path, expected in files.items():
         if path.is_file() and path.read_bytes() == expected:
             continue
-        stale.append(str(path.relative_to(ROOT)))
+        stale.append(str(path.relative_to(root)))
         if not check:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(expected)
     if check and stale:
         raise ValueError("Stale release copies; run just sync-release-files: " + ", ".join(stale))
-    print(f"Release source copies {'verified' if check else 'synchronized'} ({len(expected_files())} files).")
+    print(f"Release source copies {'verified' if check else 'synchronized'} ({len(files)} files).")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
-    sync(parser.parse_args().check)
+    parser.add_argument("--root", type=Path, default=ROOT)
+    args = parser.parse_args()
+    sync(root=args.root, check=args.check)

@@ -20,7 +20,9 @@ def repository(tmp_path):
     paths = ["release-policy.toml", "Cargo.toml", "Cargo.lock", "package.json",
              "workbench/package.json", "bindings/js-wasm/package.json",
              "bindings/python/pyproject.toml", "bindings/dart-flutter/pubspec.yaml",
-             "extensions/pg_tamil/Cargo.toml", "tests/golden/manifest.json"]
+             "extensions/pg_tamil/Cargo.toml", "tests/golden/manifest.json",
+             "README.md", "bindings/python/README.md", "bindings/js-wasm/README.md",
+             "CHANGELOG.md", "LICENSE"]
     paths += [str(p.relative_to(gate.ROOT)) for p in (gate.ROOT / "crates").glob("*/Cargo.toml")]
     paths += [f"bindings/{p}/Cargo.toml" for p in ("python", "js-wasm", "dart-flutter/rust")]
     paths += [str(p.relative_to(gate.ROOT)) for p in (gate.ROOT / "docs/specs").glob("*.md")]
@@ -257,7 +259,7 @@ def test_repackage_allows_generated_lock_only(tmp_path):
 
 
 def test_publishing_workflows_require_manual_review_and_serialize():
-    for name in ("publish-crate.yml", "publish-npm.yml", "publish-pypi.yml"):
+    for name in ("publish-crate.yml", "publish-npm.yml", "publish-pypi.yml", "publish-release.yml"):
         text = (gate.ROOT / ".github/workflows" / name).read_text()
         assert "workflow_dispatch:" in text and "source_sha:" in text
         assert "  push:" not in text and "  pull_request:" not in text
@@ -265,3 +267,104 @@ def test_publishing_workflows_require_manual_review_and_serialize():
         assert "github.ref == 'refs/heads/master'" in text
         assert "verify-run" in text and "--source-sha" in text
         assert "0.1.0-alpha.1" not in text
+
+
+def test_parse_version():
+    p1 = gate.parse_version("0.1.0-alpha.4")
+    assert p1["version"] == "0.1.0-alpha.4"
+    assert p1["channel"] == "alpha"
+    assert p1["python_version"] == "0.1.0a4"
+    assert p1["npm_tag"] == "alpha"
+    assert p1["record_name"] == "alpha-4"
+
+    p2 = gate.parse_version("0.2.0-beta.1")
+    assert p2["channel"] == "beta"
+    assert p2["python_version"] == "0.2.0b1"
+    assert p2["npm_tag"] == "beta"
+    assert p2["record_name"] == "beta-1"
+
+    p3 = gate.parse_version("1.0.0-rc.3")
+    assert p3["channel"] == "rc"
+    assert p3["python_version"] == "1.0.0rc3"
+    assert p3["npm_tag"] == "rc"
+    assert p3["record_name"] == "rc-3"
+
+    p4 = gate.parse_version("1.0.0")
+    assert p4["channel"] == "stable"
+    assert p4["python_version"] == "1.0.0"
+    assert p4["npm_tag"] == "latest"
+    assert p4["record_name"] == "v1.0.0"
+
+    with pytest.raises(ValueError, match="Unsupported release version"):
+        gate.parse_version("invalid-version")
+
+
+def test_prepare_bumps_synthetic_repository(repository):
+    from tools import release_files
+
+    # Bump to 0.1.0-alpha.4
+    gate.prepare("0.1.0-alpha.4", root=repository)
+    p1 = gate.check(repository)
+    assert p1["version"] == "0.1.0-alpha.4"
+    assert p1["python_version"] == "0.1.0a4"
+    assert p1["channel"] == "alpha"
+    release_files.sync(root=repository, check=True)
+
+    # Bump to 0.2.0-beta.1
+    gate.prepare("0.2.0-beta.1", root=repository)
+    p2 = gate.check(repository)
+    assert p2["version"] == "0.2.0-beta.1"
+    assert p2["python_version"] == "0.2.0b1"
+    assert p2["channel"] == "beta"
+    release_files.sync(root=repository, check=True)
+
+
+def test_verify_package_all(repository, artifacts):
+    directory, policy = artifacts
+    output = gate.verify("crates.io", directory, SHA, package="all", root=repository)
+    assert output["version"] == policy["version"]
+    assert set(output["packages"].split()) == set(policy["public_crates"])
+    for name in policy["public_crates"]:
+        key = f"crate_{name.replace('-', '_')}"
+        assert key in output
+        assert output[key].endswith(".crate")
+
+
+def test_compare_crate_batch(tmp_path):
+    policy = gate.load()
+    reviewed_dir = tmp_path / "reviewed"
+    built_dir = tmp_path / "built"
+    reviewed_dir.mkdir()
+    built_dir.mkdir()
+    for name in policy["public_crates"]:
+        prefix = f"{name}-{policy['version']}/"
+        rev_path = reviewed_dir / f"{name}-{policy['version']}.crate"
+        bld_path = built_dir / f"{name}-{policy['version']}.crate"
+        pack(rev_path, {prefix + "src/lib.rs": "code", prefix + "Cargo.lock": "lock a"})
+        pack(bld_path, {prefix + "src/lib.rs": "code", prefix + "Cargo.lock": "lock b"})
+        gate.compare_crate(reviewed=rev_path, built=bld_path)
+
+
+def test_is_published_query(monkeypatch):
+    class MockResponse:
+        status = 200
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            pass
+
+    def mock_urlopen(req, timeout=10):
+        url = req.full_url if hasattr(req, "full_url") else str(req)
+        if "404" in url:
+            raise gate.urllib.error.HTTPError(url, 404, "Not Found", {}, None)
+        return MockResponse()
+
+    monkeypatch.setattr(gate.urllib.request, "urlopen", mock_urlopen)
+    assert gate.is_published("crates.io", "tamil-core", "0.1.0-alpha.3") is True
+    assert gate.is_published("crates.io", "tamil-core", "0.1.0-alpha.404") is False
+    assert gate.is_published("npm", "tamil-toolkit", "0.1.0-alpha.3") is True
+    assert gate.is_published("npm", "tamil-toolkit", "0.1.0-alpha.404") is False
+    assert gate.is_published("pypi", "tamil-toolkit", "0.1.0-alpha.3") is True
+    assert gate.is_published("pypi", "tamil-toolkit", "0.1.0-alpha.404") is False

@@ -1,0 +1,247 @@
+name: Publish release (crates.io, npm, PyPI)
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_run_id:
+        description: Successful Alpha distribution artifacts dispatch run ID
+        required: true
+        type: string
+      source_sha:
+        description: Full 40-character reviewed source commit from that run
+        required: true
+        type: string
+      confirm_publish:
+        description: Choose publish after artifact review and release authorization
+        required: true
+        type: choice
+        options: ['no', 'publish']
+        default: 'no'
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: publish-release
+  cancel-in-progress: false
+
+jobs:
+  crates:
+    if: ${{ inputs.confirm_publish == 'publish' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-rust
+          path: ${{ runner.temp }}/release-artifacts/rust
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Validate artifact run and reviewed commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.artifact_run_id }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
+        run: |
+          set -euo pipefail
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}" > "$RUNNER_TEMP/artifact-run.json"
+          workflow_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/alpha-artifacts.yml" --jq '.id')"
+          python tools/release_policy.py verify-run --directory "$ARTIFACTS" --source-sha "$SOURCE_SHA" --run-info "$RUNNER_TEMP/artifact-run.json" --workflow-id "$workflow_id"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha }}
+
+      - name: Verify source, versions, scope, and artifact hashes
+        id: verify
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
+          PACKAGE: all
+        run: python tools/release_policy.py verify --registry crates.io --directory "$ARTIFACTS" --source-sha "$SOURCE_SHA" --package "$PACKAGE"
+
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.95.0
+
+      - name: Repackage, compare, and publish reviewed crates
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+          VERSION: ${{ steps.verify.outputs.version }}
+          PACKAGES: ${{ steps.verify.outputs.packages }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
+        run: |
+          set -euo pipefail
+          test -n "$CARGO_REGISTRY_TOKEN" || { echo "Configure CARGO_REGISTRY_TOKEN in GitHub Actions" >&2; exit 1; }
+          for pkg in $PACKAGES; do
+            echo "=== Processing crate $pkg $VERSION ==="
+            if python tools/release_policy.py is-published --registry crates.io --package "$pkg" --version "$VERSION"; then
+              echo "Crate $pkg $VERSION is already published to crates.io; skipping."
+              continue
+            fi
+            cargo package --locked --package "$pkg" --no-verify
+            python tools/release_policy.py compare-crate --directory "$ARTIFACTS" --package "$pkg" --built "target/package/${pkg}-${VERSION}.crate"
+            cargo publish --locked --package "$pkg"
+            for attempt in $(seq 1 12); do
+              if python tools/release_policy.py is-published --registry crates.io --package "$pkg" --version "$VERSION"; then
+                echo "Crate $pkg $VERSION is now available on crates.io."
+                break
+              fi
+              sleep 5
+            done
+          done
+
+  npm:
+    if: ${{ inputs.confirm_publish == 'publish' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-rust
+          path: ${{ runner.temp }}/release-artifacts/rust
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-npm-node22
+          path: ${{ runner.temp }}/release-artifacts/npm-node22
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-npm-node24
+          path: ${{ runner.temp }}/release-artifacts/npm-node24
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Validate artifact run and reviewed commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.artifact_run_id }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
+        run: |
+          set -euo pipefail
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}" > "$RUNNER_TEMP/artifact-run.json"
+          workflow_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/alpha-artifacts.yml" --jq '.id')"
+          python tools/release_policy.py verify-run --directory "$ARTIFACTS" --source-sha "$SOURCE_SHA" --run-info "$RUNNER_TEMP/artifact-run.json" --workflow-id "$workflow_id"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha }}
+
+      - name: Verify source, versions, scope, and artifact hashes
+        id: verify
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
+        run: python tools/release_policy.py verify --registry npm --directory "$ARTIFACTS" --source-sha "$SOURCE_SHA"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+
+      - name: Ensure npm trusted-publishing support
+        run: npm install --global npm@12.2.0
+
+      - name: Publish the reviewed tarball using OIDC
+        env:
+          TARBALL: ${{ steps.verify.outputs.tarball }}
+          NPM_TAG: ${{ steps.verify.outputs.npm_tag }}
+        run: |
+          set -euo pipefail
+          if python tools/release_policy.py is-published --registry npm --package tamil-toolkit; then
+            echo "npm package tamil-toolkit is already published; skipping."
+          else
+            npm publish "$TARBALL" --tag "$NPM_TAG"
+          fi
+
+  pypi:
+    if: ${{ inputs.confirm_publish == 'publish' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-rust
+          path: ${{ runner.temp }}/release-artifacts/rust
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-python-x86_64-unknown-linux-gnu
+          path: ${{ runner.temp }}/release-artifacts/python-linux
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-python-x86_64-pc-windows-msvc
+          path: ${{ runner.temp }}/release-artifacts/python-windows
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: alpha-python-aarch64-apple-darwin
+          path: ${{ runner.temp }}/release-artifacts/python-macos
+          run-id: ${{ inputs.artifact_run_id }}
+          github-token: ${{ github.token }}
+
+      - name: Validate artifact run and reviewed commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.artifact_run_id }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
+        run: |
+          set -euo pipefail
+          gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${RUN_ID}" > "$RUNNER_TEMP/artifact-run.json"
+          workflow_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/alpha-artifacts.yml" --jq '.id')"
+          python tools/release_policy.py verify-run --directory "$ARTIFACTS" --source-sha "$SOURCE_SHA" --run-info "$RUNNER_TEMP/artifact-run.json" --workflow-id "$workflow_id"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha }}
+
+      - name: Verify source, versions, scope, and artifact hashes
+        id: verify
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          ARTIFACTS: ${{ runner.temp }}/release-artifacts
+        run: python tools/release_policy.py verify --registry pypi --directory "$ARTIFACTS" --source-sha "$SOURCE_SHA" --dist "$RUNNER_TEMP/pypi-dist"
+
+      - name: Publish reviewed distributions using OIDC
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: ${{ runner.temp }}/pypi-dist/
+          skip-existing: true
