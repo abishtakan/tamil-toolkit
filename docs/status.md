@@ -1,44 +1,43 @@
 # Project handoff
 
 Updated: 2026-11-01. Branch: `master`. Current release source:
-`9917a761365dafbaa21a8f0bda2923ad71e712c1` (`0.1.0-alpha.3`). This immutable
-source SHA is tagged `v0.1.0-alpha.3`; post-release documentation commits do not
-change the published packages. See the [alpha-3 release record](releases/alpha-3.md).
+`252aaed369e0122e7b123bb7aa3c76a2ce64208d` (`0.1.0-alpha.4`). This immutable
+source SHA is tagged `v0.1.0-alpha.4`; post-release documentation commits do not
+change the published packages. See the [alpha-4 release record](releases/alpha-4.md).
 
-## Current status: alpha 3 released
+## Current status: alpha 4 released
 
 The immutable artifact build passed in
-[run 41304156907](https://github.com/abishtakan/tamil-toolkit/actions/runs/41304156907).
+[run 41319153698](https://github.com/abishtakan/tamil-toolkit/actions/runs/41319153698).
 The reviewed release is published on crates.io, npm, and PyPI, and tag
-[`v0.1.0-alpha.3`](https://github.com/abishtakan/tamil-toolkit/tree/v0.1.0-alpha.3)
+[`v0.1.0-alpha.4`](https://github.com/abishtakan/tamil-toolkit/tree/v0.1.0-alpha.4)
 points to the release source.
 
 - crates.io: `tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`,
-  `tamil-codec`, and `tamil-toolkit`, all `0.1.0-alpha.3`.
-- npm: [`tamil-toolkit@0.1.0-alpha.3`](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.3)
-  is published using the configured OIDC trusted publisher. A fresh public
-  installation passed all 27,644 active golden rows through Node and
-  browser-target WASM. The `alpha` tag points at alpha 3; `latest` remains alpha 1.
+  `tamil-codec`, and `tamil-toolkit`, all `0.1.0-alpha.4`
+  ([run 41319360003](https://github.com/abishtakan/tamil-toolkit/actions/runs/41319360003)).
+- npm: [`tamil-toolkit@0.1.0-alpha.4`](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.4)
+  is published using the configured OIDC trusted publisher
+  ([run 41319499023](https://github.com/abishtakan/tamil-toolkit/actions/runs/41319499023)).
+  The `alpha` tag points at alpha 4; `latest` remains alpha 1.
 
-- PyPI: `tamil-toolkit 0.1.0a3`. OIDC publisher run
-[41304851700](https://github.com/abishtakan/tamil-toolkit/actions/runs/41304851700)
+- PyPI: `tamil-toolkit 0.1.0a4`. OIDC publisher run
+[41319502255](https://github.com/abishtakan/tamil-toolkit/actions/runs/41319502255)
   passed the configured `pypi` reviewer gate. Public artifact digests matched
-  the reviewed wheels/source archive; a fresh Windows CPython 3.13.7 install
-  passed all 27,644 active golden rows.
+  the reviewed wheels/source archive.
 
 Publisher run links, registry checksums, and the full artifact inventory are
-recorded in [releases/alpha-3.md](releases/alpha-3.md). The prior
-[alpha-2 release record](releases/alpha-2.md) remains available as history.
+recorded in [releases/alpha-4.md](releases/alpha-4.md). The prior
+[alpha-3 release record](releases/alpha-3.md) remains available as history.
 
-The alpha 3 source passed the complete agent gate, Dart checks, release-policy
+The alpha 4 source passed the complete agent gate, Dart checks, release-policy
 and Unicode gates, and `just release-check`; see the release record for the
 check results and public consumer verification.
 
 ## Scope and next development
 
-Alpha 3 adds the bounded LT-TM / IndoWord 16-bit profile, and `master` now
-includes the bounded `Vanavil Avvaiyar` (`vanavil-avvaiyar-cid-v1`) 16-bit
-code/CID profile. Byte and CID profiles
+Alpha 4 adds the bounded `Vanavil Avvaiyar` (`vanavil-avvaiyar-cid-v1`) 16-bit
+code/CID profile alongside the bounded LT-TM / IndoWord 16-bit profile. Byte and CID profiles
 do not claim automatic detection or complete historical-font coverage. The
 current active golden suite contains 28,305 rows. Punarchi work is deferred at
 user direction. Preliminary research and its open criteria remain documented
