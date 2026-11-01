@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.0-alpha.4 / Python 0.1.0a4 - 2026-11-01
+
 - Add the bounded `Vanavil Avvaiyar` (`vanavil-avvaiyar-cid-v1`) 16-bit
   code/CID profile (`vanavil_codes_to_unicode`, `vanavil_text_to_unicode`,
   `unicode_to_vanavil_codes`, `unicode_to_vanavil_text`), its canonical

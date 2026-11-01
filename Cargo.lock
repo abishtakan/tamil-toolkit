@@ -457,7 +457,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-codec"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 dependencies = [
  "proptest",
  "serde",
@@ -468,7 +468,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-collate"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 dependencies = [
  "proptest",
  "serde",
@@ -479,7 +479,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-core"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 dependencies = [
  "proptest",
  "serde",
@@ -490,7 +490,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-dart"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 dependencies = [
  "serde_json",
  "tamil-toolkit",
@@ -498,26 +498,26 @@ dependencies = [
 
 [[package]]
 name = "tamil-dialect"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 
 [[package]]
 name = "tamil-hyphen"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 
 [[package]]
 name = "tamil-morph"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 
 [[package]]
 name = "tamil-norm"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 dependencies = [
  "tamil-core",
 ]
 
 [[package]]
 name = "tamil-numerals"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 dependencies = [
  "proptest",
  "serde",
@@ -528,11 +528,11 @@ dependencies = [
 
 [[package]]
 name = "tamil-punarchi"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 
 [[package]]
 name = "tamil-python"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 dependencies = [
  "pyo3",
  "tamil-toolkit",
@@ -540,7 +540,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-toolkit"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 dependencies = [
  "serde_json",
  "tamil-codec",
@@ -552,7 +552,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-wasm"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 dependencies = [
  "tamil-toolkit",
  "wasm-bindgen",
@@ -560,7 +560,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-yaappu"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.4"
 
 [[package]]
 name = "target-lexicon"

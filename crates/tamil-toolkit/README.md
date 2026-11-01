@@ -6,7 +6,7 @@
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-toolkit?style=flat-square)](https://crates.io/crates/tamil-toolkit)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-toolkit?style=flat-square&label=downloads)](https://crates.io/crates/tamil-toolkit)
-[![docs.rs](https://docs.rs/tamil-toolkit/badge.svg)](https://docs.rs/tamil-toolkit/0.1.0-alpha.3)
+[![docs.rs](https://docs.rs/tamil-toolkit/badge.svg)](https://docs.rs/tamil-toolkit/0.1.0-alpha.4)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
 [![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 
@@ -22,20 +22,20 @@
 | **Ordering and numbers** | Agara sorting, number words, exact amounts, fractions, and dates. |
 | **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles. |
 
-Experimental alpha `0.1.0-alpha.3`. APIs may change before stability. This package provides bounded APIs and does not
+Experimental alpha `0.1.0-alpha.4`. APIs may change before stability. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage.
 
 ## Install
 
 ```sh
-cargo add tamil-toolkit@=0.1.0-alpha.3
+cargo add tamil-toolkit@=0.1.0-alpha.4
 ```
 
 Or add the exact alpha dependency to `Cargo.toml`:
 
 ```toml
 [dependencies]
-tamil-toolkit = "=0.1.0-alpha.3"
+tamil-toolkit = "=0.1.0-alpha.4"
 ```
 
 ## Example
@@ -55,10 +55,10 @@ fn main() -> Result<(), String> {
 
 ## Documentation
 
-- [API reference on docs.rs](https://docs.rs/tamil-toolkit/0.1.0-alpha.3)
+- [API reference on docs.rs](https://docs.rs/tamil-toolkit/0.1.0-alpha.4)
 - [Feature contract and examples](https://github.com/abishtakan/tamil-toolkit/blob/master/README.md#capability-contracts)
 - [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-3.md)
+- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-4.md)
 
 ## License
 

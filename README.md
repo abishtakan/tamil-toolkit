@@ -35,20 +35,20 @@ reported according to each profile's contract.
 
 Choose the SDK for your application:
 
-| SDK | Install alpha 3 | Version | Downloads |
+| SDK | Install alpha 4 | Version | Downloads |
 | --- | --- | --- | --- |
-| **Rust 1.85+** | `cargo add tamil-toolkit@=0.1.0-alpha.3` | [![crates.io][crates-version]][crates] | [![crates.io total downloads][crates-downloads]][crates] |
-| **Python 3.11+** | `python -m pip install tamil-toolkit==0.1.0a3` | [![PyPI][pypi-version]][pypi] | [![PyPI monthly downloads][pypi-downloads]][pypistats] |
+| **Rust 1.85+** | `cargo add tamil-toolkit@=0.1.0-alpha.4` | [![crates.io][crates-version]][crates] | [![crates.io total downloads][crates-downloads]][crates] |
+| **Python 3.11+** | `python -m pip install tamil-toolkit==0.1.0a4` | [![PyPI][pypi-version]][pypi] | [![PyPI monthly downloads][pypi-downloads]][pypistats] |
 | **Node.js 22+ / browsers** | `npm install tamil-toolkit@alpha` | [![npm alpha][npm-version]][npm] | [![npm monthly downloads][npm-downloads]][npm] |
 
-**Public alpha:** APIs may change. npm’s `alpha` tag points to alpha 3;
+**Public alpha:** APIs may change. npm’s `alpha` tag points to alpha 4;
 `latest` still points to alpha 1. See the [release notes](CHANGELOG.md) and
-[alpha 3 compatibility details](docs/releases/alpha-3.md#compatibility-and-scope).
+[alpha 4 compatibility details](docs/releases/alpha-4.md#compatibility-and-scope).
 
 Download badges track the umbrella package in each registry: total downloads
 on crates.io and monthly downloads on PyPI and npm.
 
-All six Rust crates are published at `0.1.0-alpha.3`: [`tamil-core`](https://crates.io/crates/tamil-core),
+All six Rust crates are published at `0.1.0-alpha.4`: [`tamil-core`](https://crates.io/crates/tamil-core),
 [`tamil-norm`](https://crates.io/crates/tamil-norm),
 [`tamil-collate`](https://crates.io/crates/tamil-collate),
 [`tamil-numerals`](https://crates.io/crates/tamil-numerals),
@@ -60,7 +60,7 @@ declared bounded profiles. LT-TM and Vanavil handle selected 16-bit CID/code seq
 they do not parse PDFs or detect fonts automatically. These profiles do not
 claim complete historical-font coverage. Other planned linguistic modules
 and a Dart/Pub distribution are outside the published alpha. See the
-[LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), and [alpha 3 compatibility details](docs/releases/alpha-3.md#compatibility-and-scope).
+[LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), and [alpha 4 compatibility details](docs/releases/alpha-4.md#compatibility-and-scope).
 
 ## Quick start
 
@@ -127,10 +127,10 @@ covers verification and contribution workflow.
 | Unicode letters, composition, and normalization | [Core contract](docs/specs/core-v0.1.md) |
 | Agara sorting and search keys | [Collation contract](docs/specs/collate-v0.1.md) |
 | Number words, currency, fractions, and dates | [Numerals contract](docs/specs/numerals-v0.1.md) · [fractions and dates](docs/specs/numerals-v0.2.md) |
-| Bamini, bounded byte profiles, and LT-TM CID conversion | [Codec contract](docs/specs/codec-v0.1.md) · [LT-TM profile](docs/specs/codec-lt-tm.md) · [alpha 3 scope](docs/releases/alpha-3.md#compatibility-and-scope) |
-| Rust API reference | [docs.rs/tamil-toolkit](https://docs.rs/tamil-toolkit/0.1.0-alpha.3/tamil_toolkit/) |
+| Bamini, bounded byte profiles, and LT-TM / Vanavil CID conversion | [Codec contract](docs/specs/codec-v0.1.md) · [LT-TM profile](docs/specs/codec-lt-tm.md) · [Vanavil profile](docs/specs/codec-vanavil.md) · [alpha 4 scope](docs/releases/alpha-4.md#compatibility-and-scope) |
+| Rust API reference | [docs.rs/tamil-toolkit](https://docs.rs/tamil-toolkit/0.1.0-alpha.4/tamil_toolkit/) |
 | Python and JavaScript/WASM SDK guides | [Python](bindings/python/README.md) · [JavaScript/WASM](bindings/js-wasm/README.md) |
-| Published package list and release record | [Release policy](docs/releases/policy.md#what-can-ship) · [alpha 3](docs/releases/alpha-3.md) |
+| Published package list and release record | [Release policy](docs/releases/policy.md#what-can-ship) · [alpha 4](docs/releases/alpha-4.md) |
 | Contributing, development, and current status | [Contributing](CONTRIBUTING.md) · [development guide](docs/development.md) · [project status](docs/status.md) |
 
 The repository checks shared golden fixtures through Rust, Python, Node/browser

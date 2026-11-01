@@ -6,7 +6,7 @@
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-numerals?style=flat-square)](https://crates.io/crates/tamil-numerals)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-numerals?style=flat-square&label=downloads)](https://crates.io/crates/tamil-numerals)
-[![docs.rs](https://docs.rs/tamil-numerals/badge.svg)](https://docs.rs/tamil-numerals/0.1.0-alpha.3)
+[![docs.rs](https://docs.rs/tamil-numerals/badge.svg)](https://docs.rs/tamil-numerals/0.1.0-alpha.4)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
 [![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 
@@ -22,20 +22,20 @@
 | **Money** | Exact INR/LKR minor-unit amounts with no rounding. |
 | **Fractions and dates** | Rational fractions and Gregorian civil-date formatting. |
 
-Experimental alpha `0.1.0-alpha.3`. APIs may change before stability. This package provides bounded APIs and does not
+Experimental alpha `0.1.0-alpha.4`. APIs may change before stability. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage.
 
 ## Install
 
 ```sh
-cargo add tamil-numerals@=0.1.0-alpha.3
+cargo add tamil-numerals@=0.1.0-alpha.4
 ```
 
 Or add the exact alpha dependency to `Cargo.toml`:
 
 ```toml
 [dependencies]
-tamil-numerals = "=0.1.0-alpha.3"
+tamil-numerals = "=0.1.0-alpha.4"
 ```
 
 ## Example
@@ -52,10 +52,10 @@ fn main() -> Result<(), String> {
 
 ## Documentation
 
-- [API reference on docs.rs](https://docs.rs/tamil-numerals/0.1.0-alpha.3)
+- [API reference on docs.rs](https://docs.rs/tamil-numerals/0.1.0-alpha.4)
 - [Feature contract and examples](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.2.md)
 - [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-3.md)
+- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-4.md)
 
 ## License
 
