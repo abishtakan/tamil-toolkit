@@ -2,29 +2,24 @@
 
 ## Unreleased
 
-- Prepare alpha.5 with approved numeric APIs and explicitly experimental,
-  bounded calendar APIs. Defer Krishna Jayanthi until annual month selection
-  is sourced; earlier festival-batch notes do not imply candidate support.
-  Repair source digest, adapter/dispatcher IDs, schemas and monthly regressions.
-  See docs/releases/numerals-calendar-candidate.md for the release boundary.
-
 
 ## 0.1.0-alpha.5 / Python 0.1.0a5 - 2026-11-02
 
-- Extend the still-planned TN Thirukanitham observance pack with the
-  source-backed named festival families: Sankatahara Chaturthi, Sivarathri, Thai
-  Poosam, Panguni Uthiram, Chitra Pournami, Vaikasi Visakam, Aadi Perukku,
-  Krishna Jayanthi, Vinayaka Chaturthi, Navaratri/Ayudha Puja/Vijayadasami,
-  Tamil Deepavali, Karthigai Deepam, and Arudra Darshan. Krishna Jayanthi is
-  explicitly the Udyog Smarta Nishita/Rohini rule; separate 2025–2027 month
-  vectors retain the Chennai publisher dates, including the 2027 profile/Drik
-  disagreement. The same publisher's general explainer gives a different tie
-  rule, and its Kanchipuram date is retained as a different-location source.
-  The primary Dharmasindhu text contains additional cases beyond the selected
-  finite summary. Every listed TN family now has a bounded named selector.
-  All observance fixtures remain planned; no universal festival schedule or
-  Vakiya date equivalence is claimed, and broader community variants remain
-  pending.
+- Publish the reviewed Rust crates, npm package, and PyPI distributions from
+  the immutable CI artifacts; tag v0.1.0-alpha.5 points to the reviewed source.
+  Fresh public Rust, Python, and npm consumers passed all active golden vectors.
+  Numeric v0.3 remains approved; calendar APIs remain experimental and planned.
+  See docs/releases/alpha-5.md for publisher runs and digests.
+
+- Extend the still-planned TN Thirukanitham observance pack with bounded
+  source-named selector work for Sankatahara Chaturthi, Sivarathri, Thai Poosam,
+  Panguni Uthiram, Chitra Pournami, Vaikasi Visakam, Aadi Perukku, Vinayaka
+  Chaturthi, Navaratri/Ayudha Puja/Vijayadasami, Tamil Deepavali, Karthigai
+  Deepam, and Arudra Darshan. Krishna Jayanthi is excluded from the alpha.5
+  event inventory because annual festival-month selection lacks a sourced
+  contract; historical helper output is not a supported selector. All
+  observance fixtures remain planned; no universal festival schedule or Vakiya
+  date equivalence is claimed, and broader community variants remain pending.
 
 - Remove an unsupported October Nava Ekadashi witness; align its coverage and
   metadata with the retained November 2 page, preserving the Drik witness.

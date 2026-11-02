@@ -51,13 +51,17 @@ review vectors. Calendar activation was not performed.
 - Formatting, Unicode/schema, release policy and all 50 release-copy checks
   passed. Release-check passed isolated Rust/Python/Node/browser-WASM consumers;
   each installed WASM package passed all 35,871 selected vectors.
-- Nine alpha.5 archives have verified SHA-256 digests in
+- Nine locally built candidate archives have verified SHA-256 digests in
   `target/alpha/alpha-5-SHA256SUMS.json`; the cumulative digest file has 45
-  historical/current archive entries. No upload occurred.
+  historical/current archive entries. Publication used the immutable GitHub
+  Actions distribution artifacts in [run 41409101149](https://github.com/abishtakan/tamil-toolkit/actions/runs/41409101149);
+  publisher runs and public digests are recorded in [alpha-5.md](alpha-5.md).
 
 The three monthly fixture names mentioning Krishna Jayanthi are historical
 query names; their candidate expectations omit that event. They verify the
 remaining monthly inventory, not the deferred selector or its publisher date.
 The broader calendar completeness milestone remains deferred as listed above.
-The user authorized committing and pushing this candidate after verification.
-No release tag or registry publication is part of that action.
+This candidate was committed and pushed after verification. Its later
+publication is recorded in [alpha-5.md](alpha-5.md), and immutable tag
+v0.1.0-alpha.5 points to the reviewed source commit. No calendar suite was
+activated.

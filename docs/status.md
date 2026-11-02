@@ -1,48 +1,48 @@
 # Project handoff
 
-Updated: 2026-11-02. Branch: `master`. Current release source:
-`252aaed369e0122e7b123bb7aa3c76a2ce64208d` (`0.1.0-alpha.4`). This immutable
-source SHA is tagged `v0.1.0-alpha.4`; post-release documentation commits do not
-change the published packages. See the [alpha-4 release record](releases/alpha-4.md).
+Updated: 2026-11-02. Branch: master. Current release source:
+147ade2f1b0579200c2d222c9546c85a5e56b258 (0.1.0-alpha.5). This immutable
+source SHA is tagged v0.1.0-alpha.5; post-release documentation commits do not
+change the published packages. See the [alpha-5 release record](releases/alpha-5.md).
 
-## Current status: alpha 4 released
+## Current status: alpha 5 released
 
-The immutable artifact build passed in
-[run 41319153698](https://github.com/abishtakan/tamil-toolkit/actions/runs/41319153698).
-The reviewed release is published on crates.io, npm, and PyPI, and tag
-[`v0.1.0-alpha.4`](https://github.com/abishtakan/tamil-toolkit/tree/v0.1.0-alpha.4)
-points to the release source.
+The immutable distribution build passed in
+[run 41409101149](https://github.com/abishtakan/tamil-toolkit/actions/runs/41409101149).
+Its Rust/MSRV, Node 22/24, macOS/Linux/Windows wheels, and six CPython 3.11/3.14
+consumer jobs all succeeded. All six approved crates, npm, and PyPI were
+published through the repository's individual GitHub Actions workflows.
 
-- crates.io: `tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`,
-  `tamil-codec`, and `tamil-toolkit`, all `0.1.0-alpha.4`
-  ([run 41319360003](https://github.com/abishtakan/tamil-toolkit/actions/runs/41319360003)).
-- npm: [`tamil-toolkit@0.1.0-alpha.4`](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.4)
-  is published using the configured OIDC trusted publisher
-  ([run 41319499023](https://github.com/abishtakan/tamil-toolkit/actions/runs/41319499023)).
-  The `alpha` tag points at alpha 4; `latest` remains alpha 1.
+- crates.io: tamil-core, tamil-norm, tamil-collate, tamil-numerals,
+  tamil-codec, and tamil-toolkit at 0.1.0-alpha.5
+  ([publisher run 41409938856](https://github.com/abishtakan/tamil-toolkit/actions/runs/41409938856)).
+- npm: [tamil-toolkit@0.1.0-alpha.5](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.5)
+  ([publisher run 41409955005](https://github.com/abishtakan/tamil-toolkit/actions/runs/41409955005)).
+- PyPI: [tamil-toolkit 0.1.0a5](https://pypi.org/project/tamil-toolkit/0.1.0a5/)
+  ([publisher run 41409963577](https://github.com/abishtakan/tamil-toolkit/actions/runs/41409963577));
+  the configured pypi reviewer gate was satisfied.
 
-- PyPI: `tamil-toolkit 0.1.0a4`. OIDC publisher run
-[41319502255](https://github.com/abishtakan/tamil-toolkit/actions/runs/41319502255)
-  passed the configured `pypi` reviewer gate. Public artifact digests matched
-  the reviewed wheels/source archive.
+Fresh public installs from crates.io, PyPI, and npm passed all 35,646 active
+golden vectors in Rust, Python 3.14, and Node; the npm consumer also passed
+through its browser-target WASM export. Registry links, publisher runs, and
+archive digests are in [releases/alpha-5.md](releases/alpha-5.md).
 
-Publisher run links, registry checksums, and the full artifact inventory are
-recorded in [releases/alpha-4.md](releases/alpha-4.md). The prior
-[alpha-3 release record](releases/alpha-3.md) remains available as history.
+Numeric v0.3 remains approved. Calendar APIs remain bounded and experimental;
+all 225 calendar review vectors remain planned, and no calendar suite was
+activated. Krishna Jayanthi remains deferred pending a sourced annual
+festival-month selection contract.
 
-The alpha 4 source passed the complete agent gate, Dart checks, release-policy
-and Unicode gates, and `just release-check`; see the release record for the
-check results and public consumer verification.
+## Previous release: alpha 4
+
+Alpha 4 remains documented in [its release record](releases/alpha-4.md).
+Its immutable tag and published package versions remain unchanged.
 
 ## Alpha 5 candidate closeout
 
-The latest user request is to finish a releasable version and defer the broader
-calendar milestone. Workspace/package versions are prepared as 0.1.0-alpha.5.
-See [candidate scope](releases/numerals-calendar-candidate.md) for included
-experimental APIs and the deferred list. Numeric v0.3 remains approved; every
-calendar suite remains planned. The user subsequently authorized commit and push of this candidate.
-Publication and release tagging remain separate actions; no upload occurred.
-
+The alpha.5 candidate scope is now published from the immutable source above.
+See [candidate scope](releases/numerals-calendar-candidate.md) and the release
+record for the exact feature boundary, local verification, registry state, and
+checksums. Numeric v0.3 remains approved; every calendar suite remains planned.
 The candidate audit repaired a malformed retained-source digest, synchronized
 the observance rule-set ID through Rust/adapters/schema, and excluded Krishna
 Jayanthi from the event inventory because its annual month filter is unsourced.
@@ -55,14 +55,11 @@ verification is complete; see the candidate record for exact final results,
 including the corrected convenience-test rerun and nine verified archive
 digests. The broader calendar completeness milestone is deferred.
 
-## Unreleased numerals/calendar completion work (open)
+## Remaining calendar completeness work (open)
 
-The current worktree adds the numeric and Gregorian civil portion, bounded
-Thirukanitham date/location and primary phase APIs, and a source-defined
-classical 1962 Vakiya civil/instant/day profile from the reviewed
-[completion plan](specs/numerals-completion-plan.md). This is unreleased source
-work; the alpha 4 tag and published artifacts remain unchanged. The full
-milestone is incomplete: arbitrary-location Vakiya corrections, Vakiya local
+Alpha 5 publishes the approved numeric APIs and bounded, source-limited
+experimental calendar APIs. The broader calendar milestone remains incomplete.
+Remaining work includes arbitrary-location Vakiya corrections, Vakiya local
 daylight intervals, unresolved observance variants and broader source/acceptance
 review (including Dharmasindhu Pradosham's unquantified threshold and Smartha
 Ekadashi), the official Thiruvalluvar boundary, provenance/acceptance review
@@ -76,9 +73,12 @@ official equivalence. Both profiles now expose bounded year/month enumeration
 and date arithmetic; those operations do not expand either profile's
 source-supported astronomical coverage.
 Every calendar suite remains planned; no calendar owner approval to activate
-one is recorded.
+one is recorded. The feature and gate notes below preserve intermediate
+history; the final alpha.5 boundary and verification results are in the candidate record.
+In particular, intermediate Krishna Jayanthi selector notes do not describe
+candidate support.
 
-### Named festival rule batch (2026-11-02)
+### Historical named festival rule batch (2026-11-02, before candidate audit)
 
 The planned `thirukanitham-tamil-named-observances-v1` pack now contains separate
 named rules for every requested TN Thirukanitham family in the completion
