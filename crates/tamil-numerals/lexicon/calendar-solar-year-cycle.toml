@@ -1,0 +1,29 @@
+# The romanized South Indian 60-title sequence and its solar-year anchor.
+# Primary table: South Indian Chronological Tables (1889), Table C, printed
+# pp. 18-19 / PDF pp. 30-31. The 1889 printed spellings are retained; this is
+# not a publisher-specific modern Tamil-script spelling table.
+profile = "south-indian-solar-year-cycle-v1"
+source_id = "south-indian-solar-60-year-cycle-1889"
+source = "South Indian Chronological Tables (1889), Table C, printed pp. 18-19 / PDF pp. 30-31; numbered cyclic years 1-60 and Tamil solar-year commencement dates. Roman names are rendered in plain ASCII; scan footnote variants are recorded in the source ledger."
+source_sha256 = "11130caa3fee257f77ca11a7aff482518e6a47cc32fe70c4397d49a37e504a23"
+anchor_solar_year = 187
+anchor_cycle_index = 1
+cycle_length = 60
+region_scope = "South Indian Tamil solar-year title sequence; cross-checked with Tamil Nadu historical chronology. Sri Lankan publisher spellings are not asserted."
+sources = [
+  "https://tamildigitallibrary.in/assets/docs/uploads/primary_files/book/TVA_BOK_0047959/TVA_BOK_0047959_South_Indian_chronological_tables_1889.pdf",
+  "https://censusindia.gov.in/nada/index.php/catalog/28366/download/31548/20504_1941_CIR.pdf",
+  "https://www.cict.in/pdf/cyclic%20list%20of%20tamil%20year.pdf",
+]
+cycle_names = [
+  "Prabhava", "Vibhava", "Sukla", "Pramoda", "Prajapati", "Angirasa",
+  "Srimukha", "Bhava", "Yuva", "Dhatu", "Isvara", "Bahudhanya",
+  "Pramadi", "Vikrama", "Vishu", "Chitrabhanu", "Svabhanu", "Tarana",
+  "Parthiva", "Vyaya", "Sarvajit", "Sarvadhari", "Virodhi", "Vikriti",
+  "Khara", "Nandana", "Vijaya", "Jaya", "Manmatha", "Durmukhi",
+  "Hevilamba", "Vilambi", "Vikari", "Sarvari", "Plava", "Subhakrit",
+  "Sobhakrit", "Krodhi", "Visvavasu", "Parabhava", "Plavanga", "Kilaka",
+  "Saumya", "Sadharana", "Virodhikrit", "Paridhavi", "Pramadi", "Ananda",
+  "Rakshasa", "Nala", "Pingala", "Kalayukta", "Siddharthi", "Raudra",
+  "Durmati", "Dundubhi", "Rudhirodgari", "Raktakshi", "Krodhana", "Kshaya",
+]

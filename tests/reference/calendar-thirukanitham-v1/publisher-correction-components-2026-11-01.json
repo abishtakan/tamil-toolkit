@@ -1,0 +1,90 @@
+{
+  "evidence_class": "derived Rust component-variant measurements and retained minute-level publisher observations; model deltas are reproducible test evidence, not knowledge of publisher settings",
+  "comparison_date": "2026-11-01",
+  "publisher_receipt": "tests/reference/calendar-thirukanitham-v1/drik-panchang-observations-2026-11-01.json",
+  "measurement_test": "cargo test -p tamil-numerals calendar::drik::tests::publisher_comparison_component_deltas_are_measured_separately -- --nocapture",
+  "time_scale": "event roots are integer UTC seconds; local labels are Asia/Kolkata or Asia/Colombo UTC+05:30",
+  "prior_variant": {
+    "sidereal_anchor_treatment": "the 1956 true Lahiri anchor was advanced as if it were mean",
+    "solar_and_lunar_limbs": "mean geocentric longitudes without apparent-coordinate corrections",
+    "sidereal_limb_inputs": "mean coordinates minus the same wrongly mean-advanced true anchor"
+  },
+  "corrected_profile_components": {
+    "true_lahiri_anchor_arcseconds": 83700.658,
+    "source_correct_mean_anchor_arcseconds": 83683.88952,
+    "selected_model_nutation_at_anchor_arcseconds": 16.768479927,
+    "selected_model_nutation_at_tithi_root_arcseconds": 8.29312,
+    "solar_fk5_longitude_correction_at_tithi_root_arcseconds": -0.09033,
+    "solar_annual_aberration_at_tithi_root_arcseconds": -20.642856,
+    "net_solar_apparent_minus_mean_at_tithi_root_arcseconds": -12.440066,
+    "tithi_elongation_apparent_minus_mean_at_root_arcseconds": 20.733186,
+    "sidereal_frame": "apparent ecliptic-of-date coordinates minus P03 mean Lahiri plus the same-model date nutation; shared nutation cancels from sidereal longitude"
+  },
+  "chennai_limb_root_variants": [
+    {
+      "limb": "tithi",
+      "transition": "22->23",
+      "prior_mean_pipeline_utc_seconds": 1793524969,
+      "corrected_anchor_with_mean_coordinates_utc_seconds": 1793524969,
+      "corrected_profile_utc_seconds": 1793524931,
+      "prior_mean_pipeline_local": "2026-11-01T14:52:49+05:30",
+      "corrected_anchor_with_mean_coordinates_local": "2026-11-01T14:52:49+05:30",
+      "corrected_apparent_true_sidereal_pipeline_local": "2026-11-01T14:52:11+05:30",
+      "anchor_component_delta_seconds": 0,
+      "apparent_coordinate_component_delta_seconds": -38,
+      "independent_jpl_one_second_bracket_utc": [1793524930, 1793524931],
+      "publisher_label_local": "14:51"
+    },
+    {
+      "limb": "nakshatra",
+      "transition": "7->8",
+      "prior_mean_pipeline_utc_seconds": 1793491820,
+      "corrected_anchor_with_mean_coordinates_utc_seconds": 1793491792,
+      "corrected_profile_utc_seconds": 1793491792,
+      "prior_mean_pipeline_local": "2026-11-01T05:40:20+05:30",
+      "corrected_anchor_with_mean_coordinates_local": "2026-11-01T05:39:52+05:30",
+      "corrected_apparent_true_sidereal_pipeline_local": "2026-11-01T05:39:52+05:30",
+      "anchor_component_delta_seconds": -28,
+      "apparent_coordinate_component_delta_seconds": 0,
+      "independent_jpl_one_second_bracket_utc": [1793491792, 1793491793]
+    },
+    {
+      "limb": "yoga",
+      "transition": "22->23",
+      "prior_mean_pipeline_utc_seconds": 1793524187,
+      "corrected_anchor_with_mean_coordinates_utc_seconds": 1793524134,
+      "corrected_profile_utc_seconds": 1793524167,
+      "prior_mean_pipeline_local": "2026-11-01T14:39:47+05:30",
+      "corrected_anchor_with_mean_coordinates_local": "2026-11-01T14:38:54+05:30",
+      "corrected_apparent_true_sidereal_pipeline_local": "2026-11-01T14:39:27+05:30",
+      "anchor_component_delta_seconds": -53,
+      "apparent_coordinate_component_delta_seconds": 33,
+      "independent_jpl_one_second_bracket_utc": [1793524166, 1793524167],
+      "publisher_label_local": "14:39"
+    }
+  ],
+  "solar_event_sensitivity": {
+    "profile_horizon": "apparent solar-center altitude -47 arcminutes minus spherical geometric dip at station elevation",
+    "chennai": {
+      "profile_elevation_meters": 14,
+      "profile_sunrise_local": "06:02:18",
+      "profile_sunset_local": "17:42:30",
+      "same_horizon_at_sea_level_sunrise_local": "06:02:49",
+      "same_horizon_at_sea_level_sunset_local": "17:41:59",
+      "elevation_only_delta_profile_minus_sea_level_seconds": [-31, 31],
+      "profile_minus_geometric_center_crossing_seconds": [-200, 200],
+      "publisher_sunrise_sunset_labels": ["06:03", "17:42"]
+    },
+    "colombo": {
+      "profile_elevation_meters": 7,
+      "profile_sunrise_local": "05:57:44",
+      "profile_sunset_local": "17:50:35",
+      "same_horizon_at_sea_level_sunrise_local": "05:58:05",
+      "same_horizon_at_sea_level_sunset_local": "17:50:14",
+      "elevation_only_delta_profile_minus_sea_level_seconds": [-21, 21],
+      "profile_minus_geometric_center_crossing_seconds": [-196, 196],
+      "publisher_sunrise_sunset_labels": ["05:58", "17:50"]
+    },
+    "interpretation": "With nearest-minute rounding, the sea-level variants reproduce these publisher sunrise/sunset labels while retaining the toolkit horizon rule. This is a measured sensitivity scenario only; the publisher's elevation, coordinates, horizon, refraction, ephemeris and rounding settings are undisclosed, so it is not assigned as the cause."
+  }
+}

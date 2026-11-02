@@ -1,0 +1,107 @@
+profile = "vakyakarana-1962-laghuprakashika-solar-transits-v1"
+min_saka_year_elapsed = 1869
+max_saka_year_elapsed = 1890
+saka_to_kali_year = 3179
+ahargana_year_days = 365
+ahargana_quarter_numerator = 1
+ahargana_quarter_denominator = 4
+ahargana_adjustment_multiplier = 5
+ahargana_adjustment_subtrahend = 1237
+ahargana_adjustment_denominator = 576
+kali_epoch_weekday = "Friday"
+nadis_per_day = 60
+vinadis_per_nadi = 60
+# Source: Kuppanna Sastri & Sarma eds., Vakyakarana with Sundararaja's
+# Laghuprakashika (1962), printed p. 255 / scan PDF p. 292, rule 16b-17a.
+# The east-west distance from Ujjain is divided by this yojana count to get
+# Deśāntara in nāḍis.
+desantara_yojanas_per_nadi = 55
+# Source: Kuppanna Sastri & Sarma eds., Vakyakarana with Sundararaja's
+# Laghuprakashika (1962), printed p. 255 / scan PDF p. 292, rule 16a.
+# Bhujaantara in vinadis at the ends of Mesha through Mina. Linear longitude
+# interpolation is an experimental convention; the source gives no equation.
+bhujaantara_end_of_rasi_vinadis = [16, 7, -5, -15, -21, -21, -14, -6, 4, 14, 20, 21]
+# Source: Kuppanna Sastri & Sarma eds., Vakyakarana with Sundararaja's
+# Laghuprakashika (1962), printed pp. 268-269 / scan PDF pp. 305-306.
+# Exact Cara interval coefficients per full rasi of Bhuja, multiplied by the
+# equinoctial shadow in angulas. The entries apply over 0-30, 30-60 and 60-90
+# degrees of Bhuja, respectively; printed p. 269 gives 20, 16, and 6 2/3.
+cara_interval_coefficients = [[20, 1], [16, 1], [20, 3]]
+# Arc-minute Bhupadi corrections at 10-day intervals from Mesha Sankramana,
+# printed translation p. 252 / scan PDF p. 289, mnemonic Nos. 1 through 37.
+bhupadi_correction_minutes = [14, 32, 54, 78, 105, 133, 163, 194, 224, 254, 284, 311, 335, 358, 376, 391, 403, 411, 415, 416, 412, 406, 398, 386, 374, 361, 347, 334, 322, 311, 303, 297, 295, 296, 301, 309, 322]
+
+# Source: Kuppanna Sastri & Sarma eds., Vakyakarana with Sundararaja's
+# Laghuprakashika (1962), printed English translation p. 251 / scan PDF p. 288.
+# The 2019 Pai article pp. 546-547 is a text-extracted, non-visual cross-check.
+[[solar_vakya]]
+rasi = "vrishabha"
+days = 2
+nadis = 55
+vinadis = 32
+
+[[solar_vakya]]
+rasi = "mithuna"
+days = 6
+nadis = 19
+vinadis = 44
+
+[[solar_vakya]]
+rasi = "karkataka"
+days = 2
+nadis = 56
+vinadis = 22
+
+[[solar_vakya]]
+rasi = "simha"
+days = 6
+nadis = 24
+vinadis = 34
+
+[[solar_vakya]]
+rasi = "kanya"
+days = 2
+nadis = 26
+vinadis = 44
+
+[[solar_vakya]]
+rasi = "tula"
+days = 4
+nadis = 54
+vinadis = 6
+
+[[solar_vakya]]
+rasi = "vrischika"
+days = 6
+nadis = 48
+vinadis = 13
+
+[[solar_vakya]]
+rasi = "dhanu"
+days = 1
+nadis = 18
+vinadis = 37
+
+[[solar_vakya]]
+rasi = "makara"
+days = 2
+nadis = 39
+vinadis = 30
+
+[[solar_vakya]]
+rasi = "kumbha"
+days = 4
+nadis = 6
+vinadis = 46
+
+[[solar_vakya]]
+rasi = "mina"
+days = 5
+nadis = 55
+vinadis = 10
+
+[[solar_vakya]]
+rasi = "mesha"
+days = 1
+nadis = 15
+vinadis = 31

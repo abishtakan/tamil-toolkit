@@ -1,0 +1,372 @@
+{
+  "reference": "NASA/JPL Horizons DE441 observer ephemeris, geocenter, apparent airless ecliptic-of-date",
+  "transform": "ERFA 2.0.1.5 / SOFA IAU 2000A nutation + independent Decimal evaluation of the IAU 2006 P03 longitude polynomial",
+  "time": {
+    "jpl_table_scale": "UT/UTC",
+    "toolkit_tt_minus_utc_seconds": 69.184,
+    "nutation_epoch_scale": "TT",
+    "true_anchor_jd_tt": 2435553.5
+  },
+  "sidereal_anchor": {
+    "jd_tt": 2435553.5,
+    "true_anchor_arcseconds": 83700.658,
+    "erfa_iau2000a_nutation_longitude_arcseconds": 16.77790556,
+    "erfa_iau2000a_nutation_obliquity_arcseconds": -2.284779497,
+    "mean_anchor_arcseconds": 83683.88009444,
+    "mean_anchor_microarcseconds_rounded": 83683880094
+  },
+  "sidereal_checkpoints": [
+    {
+      "epoch": "J2000.0",
+      "jd_tt": 2451545.0,
+      "nutation_longitude_arcseconds": -13.931996331,
+      "nutation_obliquity_arcseconds": -5.769398076,
+      "mean_ayanamsa_arcseconds": 85885.392893307,
+      "true_ayanamsa_arcseconds": 85871.460896976
+    },
+    {
+      "epoch": "2024-01-01T00:00:00Z",
+      "jd_tt": 2460310.500800741,
+      "nutation_longitude_arcseconds": -5.35910881,
+      "nutation_obliquity_arcseconds": 8.067471777,
+      "mean_ayanamsa_arcseconds": 87092.2989167,
+      "true_ayanamsa_arcseconds": 87086.939807891
+    },
+    {
+      "epoch": "2024-08-01T00:00:00Z",
+      "jd_tt": 2460523.500800741,
+      "nutation_longitude_arcseconds": -1.568598244,
+      "nutation_obliquity_arcseconds": 8.760861526,
+      "mean_ayanamsa_arcseconds": 87121.628087913,
+      "true_ayanamsa_arcseconds": 87120.059489669
+    },
+    {
+      "epoch": "2025-04-14T00:00:00Z",
+      "jd_tt": 2460779.500800741,
+      "nutation_longitude_arcseconds": 0.099599402,
+      "nutation_obliquity_arcseconds": 9.508825324,
+      "mean_ayanamsa_arcseconds": 87156.878271116,
+      "true_ayanamsa_arcseconds": 87156.977870518
+    },
+    {
+      "epoch": "2026-11-01T00:00:00Z",
+      "jd_tt": 2461345.500800741,
+      "nutation_longitude_arcseconds": 8.265166873,
+      "nutation_obliquity_arcseconds": 7.670151244,
+      "mean_ayanamsa_arcseconds": 87234.814608575,
+      "true_ayanamsa_arcseconds": 87243.079775448
+    },
+    {
+      "epoch": "2027-12-31T23:00:00Z",
+      "jd_tt": 2461771.459134074,
+      "nutation_longitude_arcseconds": 14.793334944,
+      "nutation_obliquity_arcseconds": 4.628070979,
+      "mean_ayanamsa_arcseconds": 87293.468019503,
+      "true_ayanamsa_arcseconds": 87308.261354448
+    }
+  ],
+  "samples": [
+    {
+      "utc": "2024-Jan-01 00:00:00.000",
+      "unix_utc_seconds": 1704067200,
+      "jd_tt": 2460310.500800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 280.0389812,
+        "moon_longitude_deg": 155.9921866,
+        "elongation_deg": 235.95320539999997
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": -5.35910881,
+        "nutation_obliquity_arcseconds": 8.067471777
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87092.2989167,
+        "true_ayanamsa_arcseconds": 87086.939807891,
+        "true_ayanamsa_deg": 24.190816613303,
+        "sidereal_sun_longitude_deg": 255.848164586697,
+        "sidereal_moon_longitude_deg": 131.801369986697,
+        "sidereal_yoga_sum_deg": 27.649534573394
+      }
+    },
+    {
+      "utc": "2024-Apr-13 18:00:00.000",
+      "unix_utc_seconds": 1713031200,
+      "jd_tt": 2460414.250800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 24.293947,
+        "moon_longitude_deg": 90.138067,
+        "elongation_deg": 65.84412
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": -5.20248479,
+        "nutation_obliquity_arcseconds": 9.056851759
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87106.584829906,
+        "true_ayanamsa_arcseconds": 87101.382345116,
+        "true_ayanamsa_deg": 24.194828429199,
+        "sidereal_sun_longitude_deg": 0.099118570801,
+        "sidereal_moon_longitude_deg": 65.943238570801,
+        "sidereal_yoga_sum_deg": 66.042357141602
+      }
+    },
+    {
+      "utc": "2024-Apr-14 00:00:00.000",
+      "unix_utc_seconds": 1713052800,
+      "jd_tt": 2460414.500800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 24.5389381,
+        "moon_longitude_deg": 93.4140791,
+        "elongation_deg": 68.875141
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": -5.17608211,
+        "nutation_obliquity_arcseconds": 9.054050035
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87106.619253814,
+        "true_ayanamsa_arcseconds": 87101.443171705,
+        "true_ayanamsa_deg": 24.194845325474,
+        "sidereal_sun_longitude_deg": 0.344092774526,
+        "sidereal_moon_longitude_deg": 69.219233774526,
+        "sidereal_yoga_sum_deg": 69.563326549053
+      }
+    },
+    {
+      "utc": "2025-Apr-13 18:00:00.000",
+      "unix_utc_seconds": 1744567200,
+      "jd_tt": 2460779.250800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 24.0528747,
+        "moon_longitude_deg": 212.0193733,
+        "elongation_deg": 187.96649860000002
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": 0.117617976,
+        "nutation_obliquity_arcseconds": 9.523252968
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87156.843847056,
+        "true_ayanamsa_arcseconds": 87156.961465033,
+        "true_ayanamsa_deg": 24.21026707362,
+        "sidereal_sun_longitude_deg": 359.84260762638,
+        "sidereal_moon_longitude_deg": 187.80910622638,
+        "sidereal_yoga_sum_deg": 187.65171385276
+      }
+    },
+    {
+      "utc": "2025-Apr-14 00:00:00.000",
+      "unix_utc_seconds": 1744588800,
+      "jd_tt": 2460779.500800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 24.2977508,
+        "moon_longitude_deg": 214.9755905,
+        "elongation_deg": 190.67783970000002
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": 0.099599402,
+        "nutation_obliquity_arcseconds": 9.508825324
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87156.878271116,
+        "true_ayanamsa_arcseconds": 87156.977870518,
+        "true_ayanamsa_deg": 24.210271630699,
+        "sidereal_sun_longitude_deg": 0.087479169301,
+        "sidereal_moon_longitude_deg": 190.765318869301,
+        "sidereal_yoga_sum_deg": 190.852798038601
+      }
+    },
+    {
+      "utc": "2026-Apr-13 18:00:00.000",
+      "unix_utc_seconds": 1776103200,
+      "jd_tt": 2461144.250800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 23.8156451,
+        "moon_longitude_deg": 334.9709442,
+        "elongation_deg": 311.15529910000004
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": 5.941907226,
+        "nutation_obliquity_arcseconds": 8.870924625
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87207.103085002,
+        "true_ayanamsa_arcseconds": 87213.044992228,
+        "true_ayanamsa_deg": 24.225845831174,
+        "sidereal_sun_longitude_deg": 359.589799268826,
+        "sidereal_moon_longitude_deg": 310.745098368826,
+        "sidereal_yoga_sum_deg": 310.334897637651
+      }
+    },
+    {
+      "utc": "2026-Apr-14 00:00:00.000",
+      "unix_utc_seconds": 1776124800,
+      "jd_tt": 2461144.500800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 24.0607132,
+        "moon_longitude_deg": 338.291449,
+        "elongation_deg": 314.2307358
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": 5.916223793,
+        "nutation_obliquity_arcseconds": 8.875952272
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87207.137509213,
+        "true_ayanamsa_arcseconds": 87213.053733006,
+        "true_ayanamsa_deg": 24.225848259168,
+        "sidereal_sun_longitude_deg": 359.834864940832,
+        "sidereal_moon_longitude_deg": 314.065600740832,
+        "sidereal_yoga_sum_deg": 313.900465681664
+      }
+    },
+    {
+      "utc": "2026-Nov-01 00:00:00.000",
+      "unix_utc_seconds": 1793491200,
+      "jd_tt": 2461345.500800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 218.5768804,
+        "moon_longitude_deg": 117.4706196,
+        "elongation_deg": 258.8937392
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": 8.265166873,
+        "nutation_obliquity_arcseconds": 7.670151244
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87234.814608575,
+        "true_ayanamsa_arcseconds": 87243.079775448,
+        "true_ayanamsa_deg": 24.234188826513,
+        "sidereal_sun_longitude_deg": 194.342691573487,
+        "sidereal_moon_longitude_deg": 93.236430773487,
+        "sidereal_yoga_sum_deg": 287.579122346974
+      }
+    },
+    {
+      "utc": "2026-Nov-01 18:30:00.000",
+      "unix_utc_seconds": 1793557800,
+      "jd_tt": 2461346.271634074,
+      "jpl_apparent": {
+        "sun_longitude_deg": 219.3478915,
+        "moon_longitude_deg": 128.2852965,
+        "elongation_deg": 268.937405
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": 8.31341246,
+        "nutation_obliquity_arcseconds": 7.694458957
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87234.92075015,
+        "true_ayanamsa_arcseconds": 87243.23416261,
+        "true_ayanamsa_deg": 24.234231711836,
+        "sidereal_sun_longitude_deg": 195.113659788164,
+        "sidereal_moon_longitude_deg": 104.051064788164,
+        "sidereal_yoga_sum_deg": 299.164724576328
+      }
+    },
+    {
+      "utc": "2027-Jan-15 00:00:00.000",
+      "unix_utc_seconds": 1799971200,
+      "jd_tt": 2461420.500800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 294.5912943,
+        "moon_longitude_deg": 14.2272259,
+        "elongation_deg": 79.63593159999999
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": 11.163826806,
+        "nutation_obliquity_arcseconds": 6.964156333
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87245.141901609,
+        "true_ayanamsa_arcseconds": 87256.305728415,
+        "true_ayanamsa_deg": 24.237862702338,
+        "sidereal_sun_longitude_deg": 270.353431597662,
+        "sidereal_moon_longitude_deg": 349.989363197662,
+        "sidereal_yoga_sum_deg": 260.342794795325
+      }
+    },
+    {
+      "utc": "2027-Apr-13 18:00:00.000",
+      "unix_utc_seconds": 1807639200,
+      "jd_tt": 2461509.250800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 23.5889569,
+        "moon_longitude_deg": 110.8810625,
+        "elongation_deg": 87.2921056
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": 10.838035026,
+        "nutation_obliquity_arcseconds": 7.079257709
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87257.362543742,
+        "true_ayanamsa_arcseconds": 87268.200578769,
+        "true_ayanamsa_deg": 24.241166827436,
+        "sidereal_sun_longitude_deg": 359.347790072564,
+        "sidereal_moon_longitude_deg": 86.639895672564,
+        "sidereal_yoga_sum_deg": 85.987685745129
+      }
+    },
+    {
+      "utc": "2027-Apr-14 00:00:00.000",
+      "unix_utc_seconds": 1807660800,
+      "jd_tt": 2461509.500800741,
+      "jpl_apparent": {
+        "sun_longitude_deg": 23.834007,
+        "moon_longitude_deg": 114.4121023,
+        "elongation_deg": 90.5780953
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": 10.857997599,
+        "nutation_obliquity_arcseconds": 7.085713396
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87257.396968105,
+        "true_ayanamsa_arcseconds": 87268.254965704,
+        "true_ayanamsa_deg": 24.241181934918,
+        "sidereal_sun_longitude_deg": 359.592825065082,
+        "sidereal_moon_longitude_deg": 90.170920365082,
+        "sidereal_yoga_sum_deg": 89.763745430164
+      }
+    },
+    {
+      "utc": "2027-Dec-31 23:00:00.000",
+      "unix_utc_seconds": 1830294000,
+      "jd_tt": 2461771.459134074,
+      "jpl_apparent": {
+        "sun_longitude_deg": 280.0345724,
+        "moon_longitude_deg": 325.1510152,
+        "elongation_deg": 45.116442800000016
+      },
+      "erfa_iau2000a": {
+        "nutation_longitude_arcseconds": 14.793334944,
+        "nutation_obliquity_arcseconds": 4.628070979
+      },
+      "p03_lahiri_true": {
+        "mean_ayanamsa_arcseconds": 87293.468019503,
+        "true_ayanamsa_arcseconds": 87308.261354448,
+        "true_ayanamsa_deg": 24.25229482068,
+        "sidereal_sun_longitude_deg": 255.78227757932,
+        "sidereal_moon_longitude_deg": 300.89872037932,
+        "sidereal_yoga_sum_deg": 196.68099795864
+      }
+    }
+  ],
+  "raw_inputs": [
+    {
+      "path": "tests/reference/calendar-thirukanitham-v1/horizons/horizons_de441_geocentric_apparent_sun_reacquired_2026-11-02.json",
+      "sha256": "953C0798EE1FBB19E5D48256ADFAF763B022D0DA12FBE5623F5942B8F94D457C",
+      "body": "Sun (10)"
+    },
+    {
+      "path": "tests/reference/calendar-thirukanitham-v1/horizons/horizons_de441_geocentric_apparent_moon_reacquired_2026-11-02.json",
+      "sha256": "2B5897B853755B7130319C20024FB693D024EEF64B5F1E03A788975F685124F2",
+      "body": "Moon (301)"
+    }
+  ],
+  "extraction_script": {
+    "path": "tools/prepare_thirukanitham_reference.py",
+    "sha256": "547A84F1E221EE8E21317231E5BDC7882D4467C8C5E81F6E70EC686B353AB3DC"
+  }
+}

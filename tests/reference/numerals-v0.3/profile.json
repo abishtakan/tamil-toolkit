@@ -1,0 +1,21 @@
+{
+  "profile": "numerals-v0.3",
+  "cldr_version": "49",
+  "unicode_version": "17.0.0",
+  "max_decimal_bytes": 1024,
+  "max_decimal_digits": 256,
+  "max_decimal_scale": 256,
+  "max_integer_words": 999999999,
+  "max_currency_major": "999999999.99",
+  "max_traditional_integer": 99999999,
+  "traditional_zero": "U+0BE6",
+  "traditional_negative": "U+2212",
+  "ordinal_ruleset": "%spellout-ordinal",
+  "traditional_rulesets": [
+    "%tamil",
+    "%%tamil-thousands"
+  ],
+  "decimal_point_word": "\u0baa\u0bc1\u0bb3\u0bcd\u0bb3\u0bbf",
+  "lakh_stem_from": "\u0bb2\u0b9f\u0bcd\u0b9a",
+  "lakh_stem_to": "\u0b87\u0bb2\u0b9f\u0bcd\u0b9a"
+}

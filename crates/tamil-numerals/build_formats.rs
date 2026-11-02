@@ -7,6 +7,7 @@ use unicode_normalization::is_nfc;
 struct Formats {
     profile: String,
     division: String,
+    decimal_point_word: String,
     latin_digits: String,
     tamil_digits: String,
     months: Vec<String>,
@@ -95,11 +96,22 @@ pub fn compile() {
     assert_eq!(data.profile, "numerals-formats-v1");
     assert_eq!(data.latin_digits, "0123456789");
     assert!(clean(&data.division));
+    assert!(clean(&data.decimal_point_word));
     let digits: Vec<_> = data.tamil_digits.chars().collect();
     assert_eq!(digits.len(), 10);
     assert_eq!(digits.iter().collect::<BTreeSet<_>>().len(), 10);
     assert!(clean(&data.tamil_digits));
-    let mut code=format!("pub const FORMAT_PROFILE:&str={};\npub const DIVISION:&str={};\npub const TAMIL_DIGITS:&[char]=&[{}];\n",literal(&data.profile),literal(&data.division),digits.iter().map(|c|format!("'{}'",c.escape_unicode())).collect::<Vec<_>>().join(","));
+    let mut code = format!(
+        "pub const FORMAT_PROFILE:&str={};\npub const DIVISION:&str={};\npub const DECIMAL_POINT_WORD:&str={};\npub const TAMIL_DIGITS:&[char]=&[{}];\n",
+        literal(&data.profile),
+        literal(&data.division),
+        literal(&data.decimal_point_word),
+        digits
+            .iter()
+            .map(|c| format!("'{}'", c.escape_unicode()))
+            .collect::<Vec<_>>()
+            .join(",")
+    );
     for (name, values, length) in [
         ("MONTHS", &data.months, 12),
         ("ABBREVIATED_MONTHS", &data.abbreviated_months, 12),

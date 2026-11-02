@@ -1,0 +1,541 @@
+# Versioned official annual holiday schedules; facts only, no derived observance rules.
+profile = "official-holiday-schedules-v1"
+
+[[schedules]]
+id = "tn-ni-public-holidays-2025-go792"
+jurisdiction = "TN"
+year = 2025
+source_id = "tn-public-department-go-792-2024"
+source = "Government of Tamil Nadu, G.O. Ms. No. 792, Public (Miscellaneous), 22 November 2024, Annexure: Public Holidays for State Government offices and commercial/co-operative banks for 2025 under the Negotiable Instruments Act, 1881."
+source_url = "https://www.stationeryprinting.tn.gov.in/extraordinary/2024/375_Ex_II_1_2024.pdf"
+source_sha256 = ""
+reuse_terms_status = "unverified"
+scope_note = "The order says the listed public holidays are in addition to Sundays, which are separately defined as public holidays. Sunday rules are not expanded into named rows."
+
+[[schedules.holidays]]
+date = "2025-01-01"
+name = "New Year’s Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-01-14"
+name = "Pongal"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-01-15"
+name = "Thiruvalluvar Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-01-16"
+name = "Uzhavar Thirunal"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-01-26"
+name = "Republic Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-02-11"
+name = "Thai Poosam"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-03-30"
+name = "Telugu New Year’s Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-03-31"
+name = "Ramzan (Idu’l Fitr)"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-04-01"
+name = "Annual closing of Accounts for Commercial Banks & Co-operative Banks"
+categories = ["commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-04-10"
+name = "Mahaveer Jayanthi"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-04-14"
+name = "Tamil New Year’s Day / Dr. B.R.Ambedkar’s Birthday"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-04-18"
+name = "Good Friday"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-05-01"
+name = "May Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-06-07"
+name = "Bakrid (Idul Azha)"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-07-06"
+name = "Muharram"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-08-15"
+name = "Independence Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-08-16"
+name = "Krishna Jayanthi"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-08-27"
+name = "Vinayakar Chathurthi"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-09-05"
+name = "Milad-un-Nabi"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-10-01"
+name = "Ayutha Pooja"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-10-02"
+name = "Vijaya Dasami"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-10-02"
+name = "Gandhi Jayanthi"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-10-20"
+name = "Deepavali"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2025-12-25"
+name = "Christmas"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules]]
+id = "tn-ni-public-holidays-2026-go708"
+jurisdiction = "TN"
+year = 2026
+source_id = "tn-public-department-go-708-2025"
+source = "Government of Tamil Nadu, G.O. Ms. No. 708, Public (Miscellaneous), 11 November 2025, Annexure: Public Holidays for State Government offices and commercial/co-operative banks for 2026 under the Negotiable Instruments Act, 1881."
+source_url = "https://www.stationeryprinting.tn.gov.in/extraordinary/2025/721_Ex_II_1_2025.pdf"
+source_sha256 = ""
+reuse_terms_status = "unverified"
+scope_note = "The order says the listed public holidays are in addition to Sundays, which are separately defined as public holidays. Sunday rules are not expanded into named rows."
+
+[[schedules.holidays]]
+date = "2026-01-01"
+name = "New Year’s Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-01-15"
+name = "Pongal"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-01-16"
+name = "Thiruvalluvar Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-01-17"
+name = "Uzhavar Thirunal"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-01-26"
+name = "Republic Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-02-01"
+name = "Thai Poosam"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-03-19"
+name = "Telugu New Year’s Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-03-21"
+name = "Ramzan (Idu’l Fitr)"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-03-31"
+name = "Mahaveer Jayanthi"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-04-01"
+name = "Annual closing of Accounts for Commercial Banks & Co-operative Banks"
+categories = ["commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-04-03"
+name = "Good Friday"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-04-14"
+name = "Tamil New Year’s Day / Dr. B.R.Ambedkar’s Birthday"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-05-01"
+name = "May Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-05-28"
+name = "Bakrid (Idul Azha)"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-06-26"
+name = "Muharram (Yaom -E - Shahadath)"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-08-15"
+name = "Independence Day"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-08-26"
+name = "Milad-un-Nabi (Prophet's Birthday)"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-09-04"
+name = "Krishna Jayanthi"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-09-14"
+name = "Vinayakar Chathurthi"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-10-02"
+name = "Gandhi Jayanthi"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-10-19"
+name = "Ayutha Pooja"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-10-20"
+name = "Vijaya Dasami"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-11-08"
+name = "Deepavali"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules.holidays]]
+date = "2026-12-25"
+name = "Christmas"
+categories = ["state_government", "commercial_banks", "cooperative_banks"]
+
+[[schedules]]
+id = "sl-cb-bank-holidays-2026"
+jurisdiction = "SL"
+year = 2026
+source_id = "central-bank-sri-lanka-bank-holidays-2026"
+source = "Central Bank of Sri Lanka, Bank Holidays for 2026; source table flags Bank (B), Public (P), and Mercantile (M) holidays and states that all Saturdays and Sundays are Bank Holidays."
+source_url = "https://www.cbsl.gov.lk/en/about/about-the-bank/bank-holidays-2026"
+source_sha256 = "5d2c3f0b4e83786479acd30335347c5e7f0bc7d7c2d5af8e67cebddfe0590c84"
+reuse_terms_status = "unverified"
+scope_note = "Returns the named schedule rows with the source’s B/P/M flags. The page’s weekly Saturday/Sunday Bank Holiday rule is recorded here and is not expanded into named rows."
+
+[[schedules.holidays]]
+date = "2026-01-03"
+name = "Duruthu Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-01-15"
+name = "Tamil Thai Pongal Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2026-02-01"
+name = "Navam Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-02-04"
+name = "Independence Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2026-02-15"
+name = "Mahasivarathri Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-03-02"
+name = "Medin Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-03-21"
+name = "Id-Ul-Fitre (Ramazan Festival Day)"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-04-01"
+name = "Bak Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-04-03"
+name = "Good Friday"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-04-13"
+name = "Day prior to Sinhala & Tamil New Year Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2026-04-14"
+name = "Sinhala & Tamil New Year Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2026-05-01"
+name = "Vesak Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-05-01"
+name = "May Day (International Workers’ Day)"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2026-05-02"
+name = "Day following Vesak Full Moon Poya Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2026-05-28"
+name = "Id-Ul-Allah (Hadji Festival Day)"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-05-30"
+name = "Adhi Poson Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-06-29"
+name = "Poson Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-07-29"
+name = "Esala Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-08-26"
+name = "Milad-Un-Nabi (Holy Prophet's Birthday)"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2026-08-27"
+name = "Nikini Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-09-26"
+name = "Binara Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-10-25"
+name = "Vap Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-11-08"
+name = "Deepawali Festival Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-11-24"
+name = "Ill Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-12-23"
+name = "Unduwap Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2026-12-25"
+name = "Christmas Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules]]
+id = "sl-cb-bank-holidays-2027"
+jurisdiction = "SL"
+year = 2027
+source_id = "central-bank-sri-lanka-bank-holidays-2027"
+source = "Central Bank of Sri Lanka, Bank Holidays for 2027; source table flags Bank (B), Public (P), and Mercantile (M) holidays and states that all Saturdays and Sundays are Bank Holidays."
+source_url = "https://www.cbsl.gov.lk/en/about/about-the-bank/bank-holidays-2027"
+source_sha256 = "9071010e6d253e72aee4cdd40057cebc2dfc98e45e713de65ceb9d209cb09eb9"
+reuse_terms_status = "unverified"
+scope_note = "Returns the named schedule rows with the source’s B/P/M flags. The page’s weekly Saturday/Sunday Bank Holiday rule is recorded here and is not expanded into named rows."
+
+[[schedules.holidays]]
+date = "2027-01-15"
+name = "Tamil Thai Pongal Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2027-01-22"
+name = "Duruthu Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-02-04"
+name = "Independence Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2027-02-20"
+name = "Navam Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-03-06"
+name = "Mahasivarathri Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-03-10"
+name = "Eid-Ul-Fitr (Ramazan Festival Day)"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-03-22"
+name = "Medin Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-03-26"
+name = "Good Friday"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-04-13"
+name = "Day prior to Sinhala & Tamil New Year Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2027-04-14"
+name = "Sinhala & Tamil New Year Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2027-04-20"
+name = "Bak Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-05-01"
+name = "May Day (International Workers’ Day)"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2027-05-17"
+name = "Eid-Ul-Allha (Hadji Festival Day)"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-05-19"
+name = "Vesak Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-05-20"
+name = "Day following Vesak Full Moon Poya Day"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2027-06-18"
+name = "Poson Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-07-18"
+name = "Esala Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-08-15"
+name = "Milad-Un-Nabi (Holy Prophet's Birthday)"
+categories = ["bank", "public", "mercantile"]
+
+[[schedules.holidays]]
+date = "2027-08-16"
+name = "Nikini Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-09-15"
+name = "Binara Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-10-15"
+name = "Vap Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-10-28"
+name = "Deepawali Festival Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-11-13"
+name = "Ill Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-12-13"
+name = "Unduwap Full Moon Poya Day"
+categories = ["bank", "public"]
+
+[[schedules.holidays]]
+date = "2027-12-25"
+name = "Christmas Day"
+categories = ["bank", "public", "mercantile"]

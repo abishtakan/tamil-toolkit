@@ -1,0 +1,501 @@
+# Unicode 17.0.0 UnicodeData Tamil numeric/symbol subset; Unicode-3.0.
+profile = "numerals-symbols-v1"
+source_version = "Unicode 17.0.0"
+
+[[symbols]]
+codepoint = 3024
+character = "\u0bd0"
+name = "TAMIL OM"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 3046
+character = "\u0be6"
+name = "TAMIL DIGIT ZERO"
+kind = "digit"
+rational = { numerator = 0, denominator = 1 }
+canonical_alternative = 3046
+
+[[symbols]]
+codepoint = 3047
+character = "\u0be7"
+name = "TAMIL DIGIT ONE"
+kind = "digit"
+rational = { numerator = 1, denominator = 1 }
+canonical_alternative = 3047
+
+[[symbols]]
+codepoint = 3048
+character = "\u0be8"
+name = "TAMIL DIGIT TWO"
+kind = "digit"
+rational = { numerator = 2, denominator = 1 }
+canonical_alternative = 3048
+
+[[symbols]]
+codepoint = 3049
+character = "\u0be9"
+name = "TAMIL DIGIT THREE"
+kind = "digit"
+rational = { numerator = 3, denominator = 1 }
+canonical_alternative = 3049
+
+[[symbols]]
+codepoint = 3050
+character = "\u0bea"
+name = "TAMIL DIGIT FOUR"
+kind = "digit"
+rational = { numerator = 4, denominator = 1 }
+canonical_alternative = 3050
+
+[[symbols]]
+codepoint = 3051
+character = "\u0beb"
+name = "TAMIL DIGIT FIVE"
+kind = "digit"
+rational = { numerator = 5, denominator = 1 }
+canonical_alternative = 3051
+
+[[symbols]]
+codepoint = 3052
+character = "\u0bec"
+name = "TAMIL DIGIT SIX"
+kind = "digit"
+rational = { numerator = 6, denominator = 1 }
+canonical_alternative = 3052
+
+[[symbols]]
+codepoint = 3053
+character = "\u0bed"
+name = "TAMIL DIGIT SEVEN"
+kind = "digit"
+rational = { numerator = 7, denominator = 1 }
+canonical_alternative = 3053
+
+[[symbols]]
+codepoint = 3054
+character = "\u0bee"
+name = "TAMIL DIGIT EIGHT"
+kind = "digit"
+rational = { numerator = 8, denominator = 1 }
+canonical_alternative = 3054
+
+[[symbols]]
+codepoint = 3055
+character = "\u0bef"
+name = "TAMIL DIGIT NINE"
+kind = "digit"
+rational = { numerator = 9, denominator = 1 }
+canonical_alternative = 3055
+
+[[symbols]]
+codepoint = 3056
+character = "\u0bf0"
+name = "TAMIL NUMBER TEN"
+kind = "integer_sign"
+rational = { numerator = 10, denominator = 1 }
+canonical_alternative = 3056
+
+[[symbols]]
+codepoint = 3057
+character = "\u0bf1"
+name = "TAMIL NUMBER ONE HUNDRED"
+kind = "integer_sign"
+rational = { numerator = 100, denominator = 1 }
+canonical_alternative = 3057
+
+[[symbols]]
+codepoint = 3058
+character = "\u0bf2"
+name = "TAMIL NUMBER ONE THOUSAND"
+kind = "integer_sign"
+rational = { numerator = 1000, denominator = 1 }
+canonical_alternative = 3058
+
+[[symbols]]
+codepoint = 3059
+character = "\u0bf3"
+name = "TAMIL DAY SIGN"
+kind = "calendar"
+
+[[symbols]]
+codepoint = 3060
+character = "\u0bf4"
+name = "TAMIL MONTH SIGN"
+kind = "calendar"
+
+[[symbols]]
+codepoint = 3061
+character = "\u0bf5"
+name = "TAMIL YEAR SIGN"
+kind = "calendar"
+
+[[symbols]]
+codepoint = 3062
+character = "\u0bf6"
+name = "TAMIL DEBIT SIGN"
+kind = "clerical"
+
+[[symbols]]
+codepoint = 3063
+character = "\u0bf7"
+name = "TAMIL CREDIT SIGN"
+kind = "clerical"
+
+[[symbols]]
+codepoint = 3064
+character = "\u0bf8"
+name = "TAMIL AS ABOVE SIGN"
+kind = "clerical"
+
+[[symbols]]
+codepoint = 3065
+character = "\u0bf9"
+name = "TAMIL RUPEE SIGN"
+kind = "currency"
+
+[[symbols]]
+codepoint = 3066
+character = "\u0bfa"
+name = "TAMIL NUMBER SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73664
+character = "\U00011fc0"
+name = "TAMIL FRACTION ONE THREE-HUNDRED-AND-TWENTIETH"
+kind = "fraction"
+rational = { numerator = 1, denominator = 320 }
+canonical_alternative = 73664
+
+[[symbols]]
+codepoint = 73665
+character = "\U00011fc1"
+name = "TAMIL FRACTION ONE ONE-HUNDRED-AND-SIXTIETH"
+kind = "fraction"
+rational = { numerator = 1, denominator = 160 }
+canonical_alternative = 73665
+
+[[symbols]]
+codepoint = 73666
+character = "\U00011fc2"
+name = "TAMIL FRACTION ONE EIGHTIETH"
+kind = "fraction"
+rational = { numerator = 1, denominator = 80 }
+canonical_alternative = 73666
+
+[[symbols]]
+codepoint = 73667
+character = "\U00011fc3"
+name = "TAMIL FRACTION ONE SIXTY-FOURTH"
+kind = "fraction"
+rational = { numerator = 1, denominator = 64 }
+canonical_alternative = 73667
+
+[[symbols]]
+codepoint = 73668
+character = "\U00011fc4"
+name = "TAMIL FRACTION ONE FORTIETH"
+kind = "fraction"
+rational = { numerator = 1, denominator = 40 }
+canonical_alternative = 73668
+
+[[symbols]]
+codepoint = 73669
+character = "\U00011fc5"
+name = "TAMIL FRACTION ONE THIRTY-SECOND"
+kind = "fraction"
+rational = { numerator = 1, denominator = 32 }
+canonical_alternative = 73669
+
+[[symbols]]
+codepoint = 73670
+character = "\U00011fc6"
+name = "TAMIL FRACTION THREE EIGHTIETHS"
+kind = "fraction"
+rational = { numerator = 3, denominator = 80 }
+canonical_alternative = 73670
+
+[[symbols]]
+codepoint = 73671
+character = "\U00011fc7"
+name = "TAMIL FRACTION THREE SIXTY-FOURTHS"
+kind = "fraction"
+rational = { numerator = 3, denominator = 64 }
+canonical_alternative = 73671
+
+[[symbols]]
+codepoint = 73672
+character = "\U00011fc8"
+name = "TAMIL FRACTION ONE TWENTIETH"
+kind = "fraction"
+rational = { numerator = 1, denominator = 20 }
+canonical_alternative = 73672
+
+[[symbols]]
+codepoint = 73673
+character = "\U00011fc9"
+name = "TAMIL FRACTION ONE SIXTEENTH-1"
+kind = "fraction"
+rational = { numerator = 1, denominator = 16 }
+canonical_alternative = 73673
+
+[[symbols]]
+codepoint = 73674
+character = "\U00011fca"
+name = "TAMIL FRACTION ONE SIXTEENTH-2"
+kind = "fraction"
+rational = { numerator = 1, denominator = 16 }
+canonical_alternative = 73673
+
+[[symbols]]
+codepoint = 73675
+character = "\U00011fcb"
+name = "TAMIL FRACTION ONE TENTH"
+kind = "fraction"
+rational = { numerator = 1, denominator = 10 }
+canonical_alternative = 73675
+
+[[symbols]]
+codepoint = 73676
+character = "\U00011fcc"
+name = "TAMIL FRACTION ONE EIGHTH"
+kind = "fraction"
+rational = { numerator = 1, denominator = 8 }
+canonical_alternative = 73676
+
+[[symbols]]
+codepoint = 73677
+character = "\U00011fcd"
+name = "TAMIL FRACTION THREE TWENTIETHS"
+kind = "fraction"
+rational = { numerator = 3, denominator = 20 }
+canonical_alternative = 73677
+
+[[symbols]]
+codepoint = 73678
+character = "\U00011fce"
+name = "TAMIL FRACTION THREE SIXTEENTHS"
+kind = "fraction"
+rational = { numerator = 3, denominator = 16 }
+canonical_alternative = 73678
+
+[[symbols]]
+codepoint = 73679
+character = "\U00011fcf"
+name = "TAMIL FRACTION ONE FIFTH"
+kind = "fraction"
+rational = { numerator = 1, denominator = 5 }
+canonical_alternative = 73679
+
+[[symbols]]
+codepoint = 73680
+character = "\U00011fd0"
+name = "TAMIL FRACTION ONE QUARTER"
+kind = "fraction"
+rational = { numerator = 1, denominator = 4 }
+canonical_alternative = 73680
+
+[[symbols]]
+codepoint = 73681
+character = "\U00011fd1"
+name = "TAMIL FRACTION ONE HALF-1"
+kind = "fraction"
+rational = { numerator = 1, denominator = 2 }
+canonical_alternative = 73681
+
+[[symbols]]
+codepoint = 73682
+character = "\U00011fd2"
+name = "TAMIL FRACTION ONE HALF-2"
+kind = "fraction"
+rational = { numerator = 1, denominator = 2 }
+canonical_alternative = 73681
+
+[[symbols]]
+codepoint = 73683
+character = "\U00011fd3"
+name = "TAMIL FRACTION THREE QUARTERS"
+kind = "fraction"
+rational = { numerator = 3, denominator = 4 }
+canonical_alternative = 73683
+
+[[symbols]]
+codepoint = 73684
+character = "\U00011fd4"
+name = "TAMIL FRACTION DOWNSCALING FACTOR KIIZH"
+kind = "fraction_modifier"
+
+[[symbols]]
+codepoint = 73685
+character = "\U00011fd5"
+name = "TAMIL SIGN NEL"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73686
+character = "\U00011fd6"
+name = "TAMIL SIGN CEVITU"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73687
+character = "\U00011fd7"
+name = "TAMIL SIGN AAZHAAKKU"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73688
+character = "\U00011fd8"
+name = "TAMIL SIGN UZHAKKU"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73689
+character = "\U00011fd9"
+name = "TAMIL SIGN MUUVUZHAKKU"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73690
+character = "\U00011fda"
+name = "TAMIL SIGN KURUNI"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73691
+character = "\U00011fdb"
+name = "TAMIL SIGN PATHAKKU"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73692
+character = "\U00011fdc"
+name = "TAMIL SIGN MUKKURUNI"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73693
+character = "\U00011fdd"
+name = "TAMIL SIGN KAACU"
+kind = "currency"
+
+[[symbols]]
+codepoint = 73694
+character = "\U00011fde"
+name = "TAMIL SIGN PANAM"
+kind = "currency"
+
+[[symbols]]
+codepoint = 73695
+character = "\U00011fdf"
+name = "TAMIL SIGN PON"
+kind = "currency"
+
+[[symbols]]
+codepoint = 73696
+character = "\U00011fe0"
+name = "TAMIL SIGN VARAAKAN"
+kind = "currency"
+
+[[symbols]]
+codepoint = 73697
+character = "\U00011fe1"
+name = "TAMIL SIGN PAARAM"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73698
+character = "\U00011fe2"
+name = "TAMIL SIGN KUZHI"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73699
+character = "\U00011fe3"
+name = "TAMIL SIGN VELI"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73700
+character = "\U00011fe4"
+name = "TAMIL WET CULTIVATION SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73701
+character = "\U00011fe5"
+name = "TAMIL DRY CULTIVATION SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73702
+character = "\U00011fe6"
+name = "TAMIL LAND SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73703
+character = "\U00011fe7"
+name = "TAMIL SALT PAN SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73704
+character = "\U00011fe8"
+name = "TAMIL TRADITIONAL CREDIT SIGN"
+kind = "clerical"
+
+[[symbols]]
+codepoint = 73705
+character = "\U00011fe9"
+name = "TAMIL TRADITIONAL NUMBER SIGN"
+kind = "clerical"
+
+[[symbols]]
+codepoint = 73706
+character = "\U00011fea"
+name = "TAMIL CURRENT SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73707
+character = "\U00011feb"
+name = "TAMIL AND ODD SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73708
+character = "\U00011fec"
+name = "TAMIL SPENT SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73709
+character = "\U00011fed"
+name = "TAMIL TOTAL SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73710
+character = "\U00011fee"
+name = "TAMIL IN POSSESSION SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73711
+character = "\U00011fef"
+name = "TAMIL STARTING FROM SIGN"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73712
+character = "\U00011ff0"
+name = "TAMIL SIGN MUTHALIYA"
+kind = "symbol"
+
+[[symbols]]
+codepoint = 73713
+character = "\U00011ff1"
+name = "TAMIL SIGN VAKAIYARAA"
+kind = "symbol"

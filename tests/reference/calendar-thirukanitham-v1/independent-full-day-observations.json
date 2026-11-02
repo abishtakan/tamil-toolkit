@@ -1,0 +1,561 @@
+{
+  "evidence_class": "independent full-day transition-set checks derived from raw JPL DE441 apparent coordinates plus ERFA/SOFA IAU 2000A nutation and Decimal IAU 2006 P03; the comparison reports the profile's event set and does not use Rust to classify JPL samples",
+  "time_scales": {
+    "jpl_observation_times": "UT/UTC",
+    "ERFA_and_P03_epoch": "TT = UTC + 69.184 seconds",
+    "JPL_coordinates": "geocentric apparent-airless ecliptic-of-date; center 500@399; Horizons quantity 31",
+    "sidereal_transform": "ERFA/SOFA IAU 2000A nutation plus independent Decimal P03 and true Lahiri anchor; subtract true aya from JPL apparent coordinates"
+  },
+  "provenance": {
+    "jpl_manifest": "tests/reference/calendar-thirukanitham-v1/horizons-full-day-request-manifest.json",
+    "jpl_manifest_sha256": "8F96BF3F9831C0ED6D39B4F5E795D984927105842E6BCB8C057C6950EFDF85D5",
+    "input_derived_report_sha256": "19CA5B4D59F2384F71E4A5E0013BAF526ACDB613CCFFAAF4B0A8E374A7469CB1",
+    "erfa_version": "2.0.1.5",
+    "pyerfa_requirement": "tools/requirements-thirukanitham-reference.txt",
+    "transform_script": "tools/prepare_thirukanitham_jpl_full_day_observations.py",
+    "transform_script_sha256": "CDA570E94FB6D976CFFDEE06016DF1EBC22BA182BC9923F39D826B9E39369534"
+  },
+  "statistics": {
+    "independent_full_local_days": 8,
+    "derived_location_and_elevation_contexts": 40,
+    "independent_jpl_classified_limb_transitions": 43,
+    "sample_interval_seconds": 60,
+    "maximum_bracket_width_seconds": 60
+  },
+  "days": [
+    {
+      "local_date": "2024-01-01",
+      "utc_interval": {
+        "start_inclusive": 1704047400,
+        "end_exclusive": 1704133800
+      },
+      "report_context_count": 5,
+      "sample_interval_seconds": 60,
+      "independent_transition_count": 5,
+      "transition_set_matches_all_derived_report_contexts": true,
+      "transitions": [
+        {
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39,
+          "jpl_before_utc_seconds": 1704051600,
+          "jpl_after_utc_seconds": 1704051660,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704051625,
+          "profile_root_minus_jpl_after_seconds": -35
+        },
+        {
+          "limb": "yoga",
+          "from_index": 2,
+          "to_index": 3,
+          "jpl_before_utc_seconds": 1704060600,
+          "jpl_after_utc_seconds": 1704060660,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704060599,
+          "profile_root_minus_jpl_after_seconds": -61
+        },
+        {
+          "limb": "nakshatra",
+          "from_index": 10,
+          "to_index": 11,
+          "jpl_before_utc_seconds": 1704078360,
+          "jpl_after_utc_seconds": 1704078420,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704078374,
+          "profile_root_minus_jpl_after_seconds": -46
+        },
+        {
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40,
+          "jpl_before_utc_seconds": 1704099480,
+          "jpl_after_utc_seconds": 1704099540,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704099528,
+          "profile_root_minus_jpl_after_seconds": -12
+        },
+        {
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21,
+          "jpl_before_utc_seconds": 1704099480,
+          "jpl_after_utc_seconds": 1704099540,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704099528,
+          "profile_root_minus_jpl_after_seconds": -12
+        }
+      ]
+    },
+    {
+      "local_date": "2024-01-03",
+      "utc_interval": {
+        "start_inclusive": 1704220200,
+        "end_exclusive": 1704306600
+      },
+      "report_context_count": 5,
+      "sample_interval_seconds": 60,
+      "independent_transition_count": 5,
+      "transition_set_matches_all_derived_report_contexts": true,
+      "transitions": [
+        {
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5,
+          "jpl_before_utc_seconds": 1704240120,
+          "jpl_after_utc_seconds": 1704240180,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704240153,
+          "profile_root_minus_jpl_after_seconds": -27
+        },
+        {
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43,
+          "jpl_before_utc_seconds": 1704243660,
+          "jpl_after_utc_seconds": 1704243720,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704243691,
+          "profile_root_minus_jpl_after_seconds": -29
+        },
+        {
+          "limb": "nakshatra",
+          "from_index": 12,
+          "to_index": 13,
+          "jpl_before_utc_seconds": 1704273360,
+          "jpl_after_utc_seconds": 1704273420,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704273375,
+          "profile_root_minus_jpl_after_seconds": -45
+        },
+        {
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44,
+          "jpl_before_utc_seconds": 1704291480,
+          "jpl_after_utc_seconds": 1704291540,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704291518,
+          "profile_root_minus_jpl_after_seconds": -22
+        },
+        {
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23,
+          "jpl_before_utc_seconds": 1704291480,
+          "jpl_after_utc_seconds": 1704291540,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704291518,
+          "profile_root_minus_jpl_after_seconds": -22
+        }
+      ]
+    },
+    {
+      "local_date": "2024-01-10",
+      "utc_interval": {
+        "start_inclusive": 1704825000,
+        "end_exclusive": 1704911400
+      },
+      "report_context_count": 5,
+      "sample_interval_seconds": 60,
+      "independent_transition_count": 6,
+      "transition_set_matches_all_derived_report_contexts": true,
+      "transitions": [
+        {
+          "limb": "yoga",
+          "from_index": 11,
+          "to_index": 12,
+          "jpl_before_utc_seconds": 1704826320,
+          "jpl_after_utc_seconds": 1704826380,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704826322,
+          "profile_root_minus_jpl_after_seconds": -58
+        },
+        {
+          "limb": "karana",
+          "from_index": 56,
+          "to_index": 57,
+          "jpl_before_utc_seconds": 1704858720,
+          "jpl_after_utc_seconds": 1704858780,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704858763,
+          "profile_root_minus_jpl_after_seconds": -17
+        },
+        {
+          "limb": "nakshatra",
+          "from_index": 19,
+          "to_index": 20,
+          "jpl_before_utc_seconds": 1704895800,
+          "jpl_after_utc_seconds": 1704895860,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704895812,
+          "profile_root_minus_jpl_after_seconds": -48
+        },
+        {
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58,
+          "jpl_before_utc_seconds": 1704897660,
+          "jpl_after_utc_seconds": 1704897720,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704897683,
+          "profile_root_minus_jpl_after_seconds": -37
+        },
+        {
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30,
+          "jpl_before_utc_seconds": 1704897660,
+          "jpl_after_utc_seconds": 1704897720,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704897683,
+          "profile_root_minus_jpl_after_seconds": -37
+        },
+        {
+          "limb": "yoga",
+          "from_index": 12,
+          "to_index": 13,
+          "jpl_before_utc_seconds": 1704901620,
+          "jpl_after_utc_seconds": 1704901680,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704901647,
+          "profile_root_minus_jpl_after_seconds": -33
+        }
+      ]
+    },
+    {
+      "local_date": "2024-01-11",
+      "utc_interval": {
+        "start_inclusive": 1704911400,
+        "end_exclusive": 1704997800
+      },
+      "report_context_count": 5,
+      "sample_interval_seconds": 60,
+      "independent_transition_count": 5,
+      "transition_set_matches_all_derived_report_contexts": true,
+      "transitions": [
+        {
+          "limb": "karana",
+          "from_index": 58,
+          "to_index": 59,
+          "jpl_before_utc_seconds": 1704936120,
+          "jpl_after_utc_seconds": 1704936180,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704936152,
+          "profile_root_minus_jpl_after_seconds": -28
+        },
+        {
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0,
+          "jpl_before_utc_seconds": 1704974220,
+          "jpl_after_utc_seconds": 1704974280,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704974248,
+          "profile_root_minus_jpl_after_seconds": -32
+        },
+        {
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1,
+          "jpl_before_utc_seconds": 1704974220,
+          "jpl_after_utc_seconds": 1704974280,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704974248,
+          "profile_root_minus_jpl_after_seconds": -32
+        },
+        {
+          "limb": "nakshatra",
+          "from_index": 20,
+          "to_index": 21,
+          "jpl_before_utc_seconds": 1704974880,
+          "jpl_after_utc_seconds": 1704974940,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704974941,
+          "profile_root_minus_jpl_after_seconds": 1
+        },
+        {
+          "limb": "yoga",
+          "from_index": 13,
+          "to_index": 14,
+          "jpl_before_utc_seconds": 1704975540,
+          "jpl_after_utc_seconds": 1704975600,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1704975543,
+          "profile_root_minus_jpl_after_seconds": -57
+        }
+      ]
+    },
+    {
+      "local_date": "2024-01-25",
+      "utc_interval": {
+        "start_inclusive": 1706121000,
+        "end_exclusive": 1706207400
+      },
+      "report_context_count": 5,
+      "sample_interval_seconds": 60,
+      "independent_transition_count": 5,
+      "transition_set_matches_all_derived_report_contexts": true,
+      "transitions": [
+        {
+          "limb": "yoga",
+          "from_index": 1,
+          "to_index": 2,
+          "jpl_before_utc_seconds": 1706148060,
+          "jpl_after_utc_seconds": 1706148120,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1706148115,
+          "profile_root_minus_jpl_after_seconds": -5
+        },
+        {
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8,
+          "jpl_before_utc_seconds": 1706150760,
+          "jpl_after_utc_seconds": 1706150820,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1706150793,
+          "profile_root_minus_jpl_after_seconds": -27
+        },
+        {
+          "limb": "karana",
+          "from_index": 28,
+          "to_index": 29,
+          "jpl_before_utc_seconds": 1706159040,
+          "jpl_after_utc_seconds": 1706159100,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1706159064,
+          "profile_root_minus_jpl_after_seconds": -36
+        },
+        {
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30,
+          "jpl_before_utc_seconds": 1706205240,
+          "jpl_after_utc_seconds": 1706205300,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1706205241,
+          "profile_root_minus_jpl_after_seconds": -59
+        },
+        {
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16,
+          "jpl_before_utc_seconds": 1706205240,
+          "jpl_after_utc_seconds": 1706205300,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1706205241,
+          "profile_root_minus_jpl_after_seconds": -59
+        }
+      ]
+    },
+    {
+      "local_date": "2025-07-15",
+      "utc_interval": {
+        "start_inclusive": 1752517800,
+        "end_exclusive": 1752604200
+      },
+      "report_context_count": 5,
+      "sample_interval_seconds": 60,
+      "independent_transition_count": 7,
+      "transition_set_matches_all_derived_report_contexts": true,
+      "transitions": [
+        {
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38,
+          "jpl_before_utc_seconds": 1752517800,
+          "jpl_after_utc_seconds": 1752517860,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1752517810,
+          "profile_root_minus_jpl_after_seconds": -50
+        },
+        {
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20,
+          "jpl_before_utc_seconds": 1752517800,
+          "jpl_after_utc_seconds": 1752517860,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1752517810,
+          "profile_root_minus_jpl_after_seconds": -50
+        },
+        {
+          "limb": "nakshatra",
+          "from_index": 24,
+          "to_index": 25,
+          "jpl_before_utc_seconds": 1752540960,
+          "jpl_after_utc_seconds": 1752541020,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1752540988,
+          "profile_root_minus_jpl_after_seconds": -32
+        },
+        {
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39,
+          "jpl_before_utc_seconds": 1752558720,
+          "jpl_after_utc_seconds": 1752558780,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1752558719,
+          "profile_root_minus_jpl_after_seconds": -61
+        },
+        {
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5,
+          "jpl_before_utc_seconds": 1752568920,
+          "jpl_after_utc_seconds": 1752568980,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1752568946,
+          "profile_root_minus_jpl_after_seconds": -34
+        },
+        {
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40,
+          "jpl_before_utc_seconds": 1752599340,
+          "jpl_after_utc_seconds": 1752599400,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1752599374,
+          "profile_root_minus_jpl_after_seconds": -26
+        },
+        {
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21,
+          "jpl_before_utc_seconds": 1752599340,
+          "jpl_after_utc_seconds": 1752599400,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1752599374,
+          "profile_root_minus_jpl_after_seconds": -26
+        }
+      ]
+    },
+    {
+      "local_date": "2026-11-01",
+      "utc_interval": {
+        "start_inclusive": 1793471400,
+        "end_exclusive": 1793557800
+      },
+      "report_context_count": 5,
+      "sample_interval_seconds": 60,
+      "independent_transition_count": 5,
+      "transition_set_matches_all_derived_report_contexts": true,
+      "transitions": [
+        {
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43,
+          "jpl_before_utc_seconds": 1793485320,
+          "jpl_after_utc_seconds": 1793485380,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1793485322,
+          "profile_root_minus_jpl_after_seconds": -58
+        },
+        {
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8,
+          "jpl_before_utc_seconds": 1793491740,
+          "jpl_after_utc_seconds": 1793491800,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1793491792,
+          "profile_root_minus_jpl_after_seconds": -8
+        },
+        {
+          "limb": "yoga",
+          "from_index": 22,
+          "to_index": 23,
+          "jpl_before_utc_seconds": 1793524140,
+          "jpl_after_utc_seconds": 1793524200,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1793524167,
+          "profile_root_minus_jpl_after_seconds": -33
+        },
+        {
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44,
+          "jpl_before_utc_seconds": 1793524920,
+          "jpl_after_utc_seconds": 1793524980,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1793524931,
+          "profile_root_minus_jpl_after_seconds": -49
+        },
+        {
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23,
+          "jpl_before_utc_seconds": 1793524920,
+          "jpl_after_utc_seconds": 1793524980,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1793524931,
+          "profile_root_minus_jpl_after_seconds": -49
+        }
+      ]
+    },
+    {
+      "local_date": "2027-12-31",
+      "utc_interval": {
+        "start_inclusive": 1830191400,
+        "end_exclusive": 1830277800
+      },
+      "report_context_count": 5,
+      "sample_interval_seconds": 60,
+      "independent_transition_count": 5,
+      "transition_set_matches_all_derived_report_contexts": true,
+      "transitions": [
+        {
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6,
+          "jpl_before_utc_seconds": 1830220920,
+          "jpl_after_utc_seconds": 1830220980,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1830220938,
+          "profile_root_minus_jpl_after_seconds": -42
+        },
+        {
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4,
+          "jpl_before_utc_seconds": 1830220920,
+          "jpl_after_utc_seconds": 1830220980,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1830220938,
+          "profile_root_minus_jpl_after_seconds": -42
+        },
+        {
+          "limb": "yoga",
+          "from_index": 14,
+          "to_index": 15,
+          "jpl_before_utc_seconds": 1830226440,
+          "jpl_after_utc_seconds": 1830226500,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1830226496,
+          "profile_root_minus_jpl_after_seconds": -4
+        },
+        {
+          "limb": "nakshatra",
+          "from_index": 22,
+          "to_index": 23,
+          "jpl_before_utc_seconds": 1830238560,
+          "jpl_after_utc_seconds": 1830238620,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1830238581,
+          "profile_root_minus_jpl_after_seconds": -39
+        },
+        {
+          "limb": "karana",
+          "from_index": 6,
+          "to_index": 7,
+          "jpl_before_utc_seconds": 1830268980,
+          "jpl_after_utc_seconds": 1830269040,
+          "bracket_width_seconds": 60,
+          "profile_root_utc_seconds": 1830268994,
+          "profile_root_minus_jpl_after_seconds": -46
+        }
+      ]
+    }
+  ]
+}

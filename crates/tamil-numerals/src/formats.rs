@@ -15,6 +15,7 @@ mod tables {
     use super::DateOp;
     include!(concat!(env!("OUT_DIR"), "/numeral_format_tables.rs"));
 }
+pub(crate) use tables::DECIMAL_POINT_WORD;
 pub use tables::FORMAT_PROFILE;
 pub const INVALID_DATE: &str = "invalid Gregorian date";
 
@@ -187,7 +188,7 @@ impl GregorianDate {
     pub fn day(self) -> u32 {
         self.day
     }
-    fn weekday(self) -> usize {
+    pub(crate) fn weekday(self) -> usize {
         let y = self.year - 1;
         let ordinal = (1..self.month)
             .map(|month| i64::from(month_length(self.year, month)))

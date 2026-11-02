@@ -7,12 +7,13 @@ publish = ["crates-io"]
 license.workspace = true
 repository.workspace = true
 readme = "README.md"
-documentation = "https://docs.rs/tamil-numerals/0.1.0-alpha.4"
+documentation = "https://docs.rs/tamil-numerals/0.1.0-alpha.5"
 include = ["src/**", "build*.rs", "lexicon/*.toml", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"]
 description = "Tamil numerals, fractions, dates, and LKR/INR currencies"
 
 [dependencies]
 tamil-core.workspace = true
+astro = "=2.0.0"
 
 [build-dependencies]
 serde.workspace = true
@@ -21,6 +22,7 @@ unicode-normalization.workspace = true
 
 [dev-dependencies]
 proptest.workspace = true
+serde_json.workspace = true
 
 [lints]
 workspace = true

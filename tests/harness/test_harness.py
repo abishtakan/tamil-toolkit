@@ -6,6 +6,9 @@ from pathlib import Path
 import pytest
 
 from tools.harness import GOLDEN, ROOT, load_vectors, unicode_issues, validate_golden_schema, validate_rows
+from tools.extract_numeral_ordinal_data import project as ordinal_projection
+from tools.extract_numeral_symbol_data import project as symbol_projection
+from tools.extract_numeral_traditional_data import project as traditional_projection
 
 
 def oracle_module():
@@ -142,3 +145,12 @@ def test_manifest_cannot_hide_an_unregistered_suite(tmp_path):
     (tmp_path / "forgotten.jsonl").write_text("", encoding="utf-8")
     with pytest.raises(ValueError, match="registered"):
         load_vectors(tmp_path)
+
+
+def test_numeral_lexicon_projections_match_pinned_sources():
+    for filename, projection in (
+        ("numerals-ordinals.toml", ordinal_projection),
+        ("numerals-symbols.toml", symbol_projection),
+        ("numerals-traditional.toml", traditional_projection),
+    ):
+        assert projection() == (ROOT / "lexicon" / filename).read_text(encoding="utf-8")

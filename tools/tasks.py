@@ -29,6 +29,12 @@ def run(*args, cwd=ROOT):
 def check_unicode():
     run(sys.executable, "tools/release_policy.py", "check")
     run(sys.executable, "tools/mcp-tamil-oracle/check_source_unicode.py")
+    for projection in (
+        "tools/extract_numeral_ordinal_data.py",
+        "tools/extract_numeral_symbol_data.py",
+        "tools/extract_numeral_traditional_data.py",
+    ):
+        run(sys.executable, projection, "--check")
     run(sys.executable, "tools/release_files.py", "--check")
 
 

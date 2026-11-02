@@ -3,6 +3,12 @@
 version = 4
 
 [[package]]
+name = "astro"
+version = "2.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "199632e1a87451cf771da7adeba192cab923ede42657ac3de0133ba6f4ae14be"
+
+[[package]]
 name = "autocfg"
 version = "1.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -457,7 +463,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-codec"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 dependencies = [
  "proptest",
  "serde",
@@ -468,7 +474,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-collate"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 dependencies = [
  "proptest",
  "serde",
@@ -479,7 +485,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-core"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 dependencies = [
  "proptest",
  "serde",
@@ -490,7 +496,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-dart"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 dependencies = [
  "serde_json",
  "tamil-toolkit",
@@ -498,29 +504,31 @@ dependencies = [
 
 [[package]]
 name = "tamil-dialect"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 
 [[package]]
 name = "tamil-hyphen"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 
 [[package]]
 name = "tamil-morph"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 
 [[package]]
 name = "tamil-norm"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 dependencies = [
  "tamil-core",
 ]
 
 [[package]]
 name = "tamil-numerals"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 dependencies = [
+ "astro",
  "proptest",
  "serde",
+ "serde_json",
  "tamil-core",
  "toml",
  "unicode-normalization",
@@ -528,11 +536,11 @@ dependencies = [
 
 [[package]]
 name = "tamil-punarchi"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 
 [[package]]
 name = "tamil-python"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 dependencies = [
  "pyo3",
  "tamil-toolkit",
@@ -540,7 +548,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-toolkit"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 dependencies = [
  "serde_json",
  "tamil-codec",
@@ -552,7 +560,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-wasm"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 dependencies = [
  "tamil-toolkit",
  "wasm-bindgen",
@@ -560,7 +568,7 @@ dependencies = [
 
 [[package]]
 name = "tamil-yaappu"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 
 [[package]]
 name = "target-lexicon"

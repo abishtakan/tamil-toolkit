@@ -132,3 +132,11 @@ require a new complete artifact build and review.
 - [npm trusted publishers and initial validation window](https://docs.npmjs.com/trusted-publishers/)
 - [GitHub workflow concurrency](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency)
 - [PyPI trusted publishing](https://docs.pypi.org/trusted-publishers/)
+
+## Numerals/calendar candidate scope exception
+
+The bounded candidate in [numerals-calendar-candidate.md](numerals-calendar-candidate.md)
+includes experimental calendar APIs inside the existing approved crates.
+Their acceptance suites stay planned and are tested separately when selected.
+They are not advertised as approved complete calendar support. This exception
+does not approve publication, new public crates, or calendar fixture activation.

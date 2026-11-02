@@ -1,0 +1,895 @@
+# Canonical rule metadata for the finite Nava / Tamil-rule TN subset.
+# Algorithms are Rust; annual publisher schedules remain independent witnesses.
+rule_set_id = "thirukanitham-tamil-named-observances-v1"
+profile_definition_id = "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+coverage_start_year = 2025
+coverage_end_year = 2027
+jurisdiction = "TN"
+scope_note = "Bounded Tamil Nadu observance collection for Thirukanitham contexts in supported TN locations. Nava tithi/Pradosham, distinct named Drik/Udaya/Anudina/Pujadeep festival rules, Dharmasindhu moonrise Chaturthi retain separate IDs and source records; the selected astronomy model is explicit and publisher-equivalent dates are not claimed."
+astronomy_note = "Toolkit Thirukanitham apparent geocentric Sun and Moon with local sunrise, sunset, and a USNO-defined geocentric Moon upper-limb rise threshold. Local Nishita windows are the eighth of fifteen equal parts of the computed night. Nava's tithi schedule source uses Vakyakarana and is only a rule/date witness. No astronomy is reused for Vakiya."
+reuse_terms_status = "Nava, TamilCalendar.app, Drik, TamilCalendar.com, Udyog, and institutional calendar pages are used only for factual date and rule summaries; no page text, images, markup, or annual event table is redistributed. Nava, TamilCalendar.app, TamilCalendar.com, and Udyog reuse terms were not established; Drik states its data are copyrighted. Broader reuse permission is unverified."
+
+[[sources]]
+id = "nava-panchangam-observance-method"
+url = "https://navapanchangam.com/methodology.html"
+locator = "How a festival gets its date; sections on tithi-based observances and local windows. Judges Amavasya/Pournami in Aparahna and takes the later day when two Aparahna windows qualify; if none qualifies, uses the day tithi prevails at sunrise. Annual answer pages use Vakyakarana."
+sha256 = "0a9b815e3e33e3f4911742433ee5fe5d802f27d1fa3c87bb9300811410006195"
+year = 0
+
+[[sources]]
+id = "nava-amavasya-chennai-2026-27"
+url = "https://navapanchangam.com/answers/amavasya-dates"
+locator = "Amavasya dates for Chennai, November 2026 through October 2027 (listed dates 2026-11-08 through 2027-10-29); annual date and tithi-interval examples; tithi-based days are from Vakyakarana."
+sha256 = "7965cc8113410e1ed35ed408442e62e1b7f8178c5f2c0b152758ebc02193c9eb"
+year = 0
+coverage_start = "2026-11-08"
+coverage_end = "2027-10-29"
+
+[[sources]]
+id = "nava-pournami-chennai-2026-27"
+url = "https://navapanchangam.com/answers/pournami-dates"
+locator = "Pournami dates for Chennai, November 2026 through October 2027 (listed dates 2026-11-24 through 2027-10-15); annual date and tithi-interval examples; tithi-based days are from Vakyakarana."
+sha256 = "c92f7e132e818f997a42a82a32c9372b3ce6fa33c59211655d3236e8a90b3dbc"
+year = 0
+coverage_start = "2026-11-24"
+coverage_end = "2027-10-15"
+
+[[sources]]
+id = "hari-bhakti-vilasa-ekadashi-arunodaya"
+url = "https://www.anantasatsang.org/scripture/radha-bhakti/hari-bhakti-vilasa/vilasa-12"
+locator = "Hari-bhakti-vilasa 12.318–320: Dashami at Arunodaya invalidates that day's Ekadashi and directs the fast to Dvadashi; 12.328 defines Arunodaya as four ghatis before sunrise. Sanskrit verses and English translation are displayed."
+sha256 = "40bdcf628b26ccd39cdc6193783c7477ff46c3734817c709f1cb79c4a7d764ef"
+year = 0
+
+[[sources]]
+id = "basics-panchangam-vaishnava-ekadashi"
+url = "https://multifaiths.com/pdf/Panchang.pdf"
+locator = "S. Narasimha Rao, Basics of Panchangam (2005), printed pp. 14–16: Vaishnava Ekadashi without Dashami at Arunodaya; a Dashami vedha defers the fast to the following day; Arunodaya is four ghatis (96 minutes) before sunrise; one ghati is 24 minutes."
+sha256 = "4716fae5ca5634f9a88be5482e7335e3cbe5bc4df27a31923f2e8946d3e9e750"
+year = 0
+
+[[sources]]
+id = "nava-sri-vaishnava-ekadashi-chennai-2026-27"
+url = "https://navapanchangam.com/answers/next-ekadashi"
+locator = "Chennai Sri Vaishnava schedule, updated 2026-11-02: Arunodaya is 96 minutes before local sunrise; Dashami at Arunodaya or Ekadashi continuing past the next morning's Arunodaya defers the fast. Listed dates from 2026-11-05 through 2027-10-26 use Nava's Vaakya engine."
+sha256 = "d930613acfbe8592a80b383317a579d06d308ef02bdcf2d8b9f8147d4c717566"
+year = 0
+coverage_start = "2026-11-05"
+coverage_end = "2027-10-26"
+observed_dates = "2026-11-05,2026-11-20,2026-12-04,2026-12-20,2027-01-03,2027-01-19,2027-02-02,2027-02-17,2027-03-04,2027-03-18,2027-04-02,2027-04-17,2027-05-02,2027-05-16,2027-06-01,2027-06-15,2027-06-30,2027-07-14,2027-07-29,2027-08-13,2027-08-28,2027-09-11,2027-09-26,2027-10-11,2027-10-26"
+
+[[sources]]
+id = "drik-iskcon-ekadashi-chennai-2026"
+url = "https://www.drikpanchang.com/iskcon/iskcon-ekadashi-list.html?geoname-id=1264527"
+locator = "2026 ISKCON Ekadashi fasting list for Chennai, Tamil Nadu, India. The page says its list is valid only for Vaishnava Sampradaya and ISKCON followers and lists 2026-10-06, 2026-10-22, 2026-11-05, and 2026-11-21; used as a cross-lineage date check, not a Sri Vaishnava rule source."
+sha256 = "1afc94f5b4c0ce0942273be2f5c0794ca268c9d1bb65f2cb7b2cb99719a27905"
+year = 2026
+coverage_start = "2026-10-06"
+coverage_end = "2026-11-21"
+observed_dates = "2026-10-06,2026-10-22,2026-11-05,2026-11-21"
+
+[[sources]]
+id = "nava-panchangam-pradosham-method"
+url = "https://navapanchangam.com/answers/pradosham-dates"
+locator = "How this is worked out: Pradosha kala is 90 minutes from local sunset; Trayodashi must be present in the window, and the later evening is chosen when one tithi touches two evenings. Nava states the tithi schedule uses its Vaakya engine. Updated 2026-11-02."
+sha256 = "feaf7ad87e62841933ddabee280c00469d672237c908e5ef95978d76d94fe840"
+year = 0
+
+[[sources]]
+id = "nava-panchangam-pradosham-chennai-2026-27"
+url = "https://navapanchangam.com/answers/pradosham-dates"
+locator = "Every Pradosham in the next twelve months for Chennai, published 2026-11-02; dates from 2026-11-06 through 2027-10-27, computed with Nava's Vaakya engine."
+sha256 = "feaf7ad87e62841933ddabee280c00469d672237c908e5ef95978d76d94fe840"
+year = 0
+coverage_start = "2026-11-06"
+coverage_end = "2027-10-27"
+observed_dates = "2026-11-06,2026-11-22,2026-12-06,2026-12-21,2027-01-05,2027-01-20,2027-02-04,2027-02-18,2027-03-05,2027-03-20,2027-04-04,2027-04-18,2027-05-04,2027-05-17,2027-06-02,2027-06-16,2027-07-01,2027-07-15,2027-07-31,2027-08-14,2027-08-29,2027-09-13,2027-09-27,2027-10-13,2027-10-27"
+
+[[sources]]
+id = "tamilcalendar-app-pradosham-chennai-2026"
+url = "https://www.tamilcalendar.app/pradosham/2026"
+locator = "TamilCalendar.app published Chennai/Tamil Nadu Pradosham dates for 2026, reviewed 2026-09-21; 25 monthly listed dates, used as an independent date witness only. The page does not state its selection algorithm."
+sha256 = "df2011c53c7b0167232ea0fba417cc36f48291ea76368962551e9258de095737"
+year = 2026
+coverage_start = "2026-01-01"
+coverage_end = "2026-12-21"
+observed_dates = "2026-01-01,2026-01-16,2026-01-30,2026-02-14,2026-03-01,2026-03-16,2026-03-30,2026-04-15,2026-04-29,2026-05-14,2026-05-28,2026-06-12,2026-06-27,2026-07-12,2026-07-26,2026-08-10,2026-08-25,2026-09-08,2026-09-24,2026-10-08,2026-10-23,2026-11-06,2026-11-22,2026-12-06,2026-12-21"
+
+[[sources]]
+id = "tamilcalendar-app-pradosham-chennai-2027"
+url = "https://www.tamilcalendar.app/pradosham/2027"
+locator = "TamilCalendar.app published Chennai/Tamil Nadu Pradosham dates for 2027; 25 monthly listed dates, used as an independent date witness only. The page does not state its selection algorithm."
+sha256 = "e240ae8b915d9d351923de47897c9b2042031138dbc76d5464b94c2b4766fb39"
+year = 2027
+coverage_start = "2027-01-05"
+coverage_end = "2027-12-25"
+observed_dates = "2027-01-05,2027-01-20,2027-02-03,2027-02-18,2027-03-05,2027-03-20,2027-04-04,2027-04-18,2027-05-04,2027-05-17,2027-06-02,2027-06-16,2027-07-01,2027-07-15,2027-07-31,2027-08-14,2027-08-29,2027-09-13,2027-09-27,2027-10-12,2027-10-27,2027-11-11,2027-11-25,2027-12-11,2027-12-25"
+
+[[sources]]
+id = "drik-sankranti-festival-sequence"
+url = "https://www.drikpanchang.com/festivals/pongal/bhogi-pandigai-date-time.html?geoname-id=1264527&year=2026"
+locator = "Bhogi Pandigai page; Chennai, 2026 date plus sequence description: Bhogi is one day before the main Makara Sankranti day; Tamil Nadu names that day Pongal; day 3 is Mattu Pongal."
+sha256 = "cbcb2a6d64c0b641d7699fbd7a46b1bf57a7132a8493b7c13911c045495fa9c1"
+year = 0
+
+[[sources]]
+id = "sewell-dikshit-tamil-rule"
+url = "https://upload.wikimedia.org/wikipedia/commons/c/c8/The_Indian_calendar%2C_with_tables_for_the_conversion_of_Hindu_and_Muhammadan_into_A.D._dates%2C_and_vice_versa_%28IA_indiancalendarwi00sewerich%29.pdf"
+locator = "Sewell & Dikshit, The Indian Calendar (1896), printed p. 12, §28; visually inspected facsimile, PDF p. 28. Names the after-sunrise/before-sunset same-day rule the Tamil Rule for Tamil and Tinnevelly."
+sha256 = "0d441771519c93ed9066c2da57bba8f9f908750e1a15a20b1e8d6916682dc7bc"
+year = 0
+
+[[sources]]
+id = "imd-pac-tamil-solar-method"
+url = "https://packolkata.gov.in/INDIAN_CALADAR_PAC.pdf"
+locator = "Positional Astronomy Centre, Indian Calendar, section The Tamil rule; defines same civil date before local sunset, otherwise next day."
+sha256 = ""
+year = 0
+
+[[sources]]
+id = "drik-tamil-calendar-chennai-2025"
+url = "https://www.drikpanchang.com/tamil/tamil-calendar.html?geoname-id=1264527&year=2025"
+locator = "2025 Tamil Festivals annual list for Chennai; exact observed_dates below are the published named event dates used as date witnesses."
+sha256 = "272aac36efad1d413889ee61f35de2716bcb1698c6d9cd2b3dc6447b1b730ff9"
+year = 2025
+coverage_start = "2025-01-13"
+coverage_end = "2025-12-04"
+observed_dates = "2025-01-13,2025-01-14,2025-01-15,2025-02-11,2025-02-26,2025-04-11,2025-04-14,2025-05-12,2025-06-09,2025-08-02,2025-08-27,2025-09-22,2025-10-01,2025-10-02,2025-10-20,2025-12-04"
+
+[[sources]]
+id = "drik-tamil-calendar-chennai-2026"
+url = "https://www.drikpanchang.com/tamil/tamil-calendar.html?geoname-id=1264527&year=2026"
+locator = "2026 Tamil Festivals annual list for Chennai; exact observed_dates below are the published named event dates used as date witnesses."
+sha256 = "a6b55df2f29cd8699450b2a8bd5ac0ac56725686e68fc2da5179433935820618"
+year = 2026
+coverage_start = "2026-01-03"
+coverage_end = "2026-12-24"
+observed_dates = "2026-01-03,2026-01-13,2026-01-14,2026-01-15,2026-02-01,2026-02-15,2026-04-01,2026-04-14,2026-05-01,2026-05-30,2026-08-03,2026-09-14,2026-10-20,2026-11-08,2026-11-24,2026-12-24"
+
+[[sources]]
+id = "drik-aadi-perukku-method"
+url = "https://www.drikpanchang.com/tamil/tamil-calendar.html?geoname-id=1264527&year=2026"
+locator = "Tamil calendar festival list: Aadi Perukku is on the 18th day of Tamil Aadi month."
+sha256 = "a6b55df2f29cd8699450b2a8bd5ac0ac56725686e68fc2da5179433935820618"
+year = 0
+
+[[sources]]
+id = "drik-thaipusam-method"
+url = "https://www.drikpanchang.com/festivals/thaipusam/tamil-thaipusam-date.html?geoname-id=1264527&year=2026"
+locator = "Chennai Thai Poosam page: Tamil solar month Thai; Poosam (Pushya) nakshatra interval and local sunrise-day convention."
+sha256 = "babd748d2239273aab8e492d538a051d5f87527558d0399536b4fff07feb0671"
+year = 0
+
+[[sources]]
+id = "udaya-thai-poosam-rule"
+url = "https://udaya.app/festival/thai-poosam/"
+locator = "Thai Poosam selector: the date whose sunrise holds Pournami and on which Poosam also runs; if that does not select a day, use the day Poosam holds sunrise. The page's 2024 example selects Pournami on 2024-01-25 although Pushya reaches sunrise only on 2024-01-26."
+sha256 = "f14cb6b6963726719c089aadfb19449adac0160788a40e5a9ebbd1acc78ad314"
+year = 0
+
+[[sources]]
+id = "pujadeep-thai-poosam-rule"
+url = "https://pujadeep.com/festivals/thaipusam/2027/"
+locator = "Thai Pusam selector: Purnima and Pushya together during daytime; if none, Pushya at sunrise; the Pushya nearest to Thai Purnima is selected. The displayed clock examples are for Washington DC and are not Chennai astronomical inputs."
+sha256 = "c7b25ec3f0ee746fbfd155718dbc09760f67ca1f0acca264e37a19bfca95b1b0"
+year = 0
+
+[[sources]]
+id = "drik-panguni-uthiram-method"
+url = "https://www.drikpanchang.com/festivals/panguni-uthiram/panguni-uthiram-date.html?geoname-id=1264527&year=2026"
+locator = "Chennai Panguni Uthiram page: observe when Uthiram (Uttara Phalguni) nakshatra prevails in Tamil Panguni; local day is sunrise-based."
+sha256 = "81bd307281ce15e9277844c999651b81fc380cc8cacd3699b591f33743d37643"
+year = 0
+
+[[sources]]
+id = "udaya-panguni-uthiram-precedence"
+url = "https://udaya.app/festival/panguni-uthiram/"
+locator = "Panguni Uthiram method: first choose the local Pournami civil day on which Uttara Phalguni also runs; if none, choose the day Uttara Phalguni holds at local sunrise. This is an Udaya rule description, not a universal Tamil rule."
+sha256 = "dac45d4974e768a00e6977d1fdf97733381cb76b45581c5eb1edf13994e334a1"
+year = 0
+
+[[sources]]
+id = "anudina-panguni-uthiram-nearest-purnima"
+url = "https://dixith.com/jeevana-sutra/anudina-panguni-uthiram/"
+locator = "If Uttara Phalguni holds twice in Panguni, Anudina selects the occurrence nearer the full moon, described as the day whose sunrise tithi is closest to Purnima. This supplies the repeated-star precedence after the named Udaya full-moon-overlap tier."
+sha256 = "da53b1696221981cba3cdf5de8ddba2993dedc9339c8174e52cd79e77f4d84fc"
+year = 0
+
+[[sources]]
+id = "drik-vaikasi-visakam-method"
+url = "https://www.drikpanchang.com/festivals/vaikasi-visakam/vaikasi-visakam-date-time.html?geoname-id=1264527&year=2026"
+locator = "Chennai Vaikasi Visakam page: Visakam (Vishakha) nakshatra in Tamil solar month Vaikasi; local day is sunrise-based."
+sha256 = "c0580e9cc8e9b7e7f7aea77d07b78cad738eade8dc1e0bdced0f1ddfe7872a61"
+year = 0
+
+[[sources]]
+id = "drik-arudra-darshan-method"
+url = "https://www.drikpanchang.com/festivals/arudra-darshan/arudra-darshan-date-time.html?geoname-id=1264527&year=2026"
+locator = "Arudra/Thiruvathirai in Tamil Margazhi; Nataraja worship is described at Arunodaya. The page lists the 2026 date and nakshatra interval; it does not provide a separate sunrise tie rule."
+sha256 = "5579706dec52a1b0534c6a74431df1e14890e09d9bae63fbc9fb36f8a789aae1"
+year = 0
+
+[[sources]]
+id = "udaya-thiruvathirai-sunrise-method"
+url = "https://udaya.app/festival/thiruvathirai/"
+locator = "Thiruvathirai date method: the Ardra nakshatra running at sunrise in Margazhi; its event date is separate from the small-hours darshan/abhishekam."
+sha256 = "32488d6d03cad9b72f375505a7dc3b9465cdacadd2b3a559199b9032c6b02aa1"
+year = 0
+
+[[sources]]
+id = "anudina-arudra-sunrise-nearest-purnima"
+url = "https://dixith.com/jeevana-sutra/anudina-arudra-darshanam/"
+locator = "Arudra Darshan rule: Ardra at sunrise during the Tamil month Margazhi; if Ardra occurs twice in the month, choose the occurrence nearer the full moon."
+sha256 = "5538004134a6457e42a6ff7e508fb803096d61cdf4544109d8e64aa59b387485"
+year = 0
+
+[[sources]]
+id = "drik-karthigai-deepam-method"
+url = "https://www.drikpanchang.com/festivals/karthigai-deepam/karthigai-deepam-date-time.html?geoname-id=1264527&year=2026"
+locator = "Karthigai Deepam is in Tamil Karthikai when Karthigai (Krittika) prevails during Ratrimana; the flame is lit after sunset. The Chennai page lists the 2026 date and nakshatra interval."
+sha256 = "c2a9db25ac747014f96e7e155f87dd311f9cabab73373885511139ffefd3123c"
+year = 0
+
+[[sources]]
+id = "pujadeep-karthigai-evening-method"
+url = "https://pujadeep.com/festivals/karthigai-deepam/2026/"
+locator = "Tamil Karthigai Deepam method: Krittika prevails during evening Pradosh when lamps are lit; when it qualifies twice in Karthigai, select the later day near the Karthigai full moon. Its displayed clock examples are for Washington DC, not Chennai."
+sha256 = "26161881a35083e9bdc223cba8d3faad28c5abfe3950178dcfb2a828e15d8275"
+year = 0
+
+[[sources]]
+id = "tamilcalendar-com-aadi-perukku-chennai-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Chennai Tamil Festivals 2026 list, Aadi Perukku: 2026-08-03. Independent published date witness only; the page identifies its astronomical basis as Swiss Ephemeris with Lahiri ayanamsa."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-08-03"
+coverage_end = "2026-08-03"
+observed_dates = "2026-08-03"
+
+[[sources]]
+id = "tamilcalendar-com-thaipusam-chennai-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Chennai Tamil Festivals 2026 list, Thai Poosam: 2026-02-01. Independent published date witness only; the page identifies its astronomical basis as Swiss Ephemeris with Lahiri ayanamsa."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-02-01"
+coverage_end = "2026-02-01"
+observed_dates = "2026-02-01"
+
+[[sources]]
+id = "tamilcalendar-com-panguni-uthiram-chennai-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Chennai Tamil Festivals 2026 list, Panguni Uthiram: 2026-04-01. Independent published date witness only; the page identifies its astronomical basis as Swiss Ephemeris with Lahiri ayanamsa."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-04-01"
+coverage_end = "2026-04-01"
+observed_dates = "2026-04-01"
+
+[[sources]]
+id = "tamilcalendar-com-vaikasi-visakam-chennai-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Chennai Tamil Festivals 2026 list, Vaikasi Visakam: 2026-05-30. Independent published date witness only; the page identifies its astronomical basis as Swiss Ephemeris with Lahiri ayanamsa."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-05-30"
+coverage_end = "2026-05-30"
+observed_dates = "2026-05-30"
+
+[[sources]]
+id = "tamilcalendar-com-arudra-darshan-chennai-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Chennai Tamil Festivals 2026 list, Arudhra Darisanam: 2026-01-03 and 2026-12-24. Independent published date witness only; the page identifies its astronomical basis as Swiss Ephemeris with Lahiri ayanamsa."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-01-03"
+coverage_end = "2026-12-24"
+observed_dates = "2026-01-03,2026-12-24"
+
+[[sources]]
+id = "tamilcalendar-com-karthigai-deepam-chennai-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Chennai Tamil Festivals 2026 list, Karthigai Deepam: 2026-11-24. Independent published date witness only; the page identifies its astronomical basis as Swiss Ephemeris with Lahiri ayanamsa."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-11-24"
+coverage_end = "2026-11-24"
+observed_dates = "2026-11-24"
+
+
+
+[[sources]]
+id = "drik-tamil-calendar-chennai-2027"
+url = "https://www.drikpanchang.com/tamil/tamil-calendar.html?geoname-id=1264527&year=2027"
+locator = "2027 Tamil Festivals annual list for Chennai; exact observed_dates below are the published named event dates used as date witnesses."
+sha256 = "23050a4d20ab3fcf9387ac2b7e7ec2faff1ff852562ece58636a4fe34f97ba28"
+year = 2027
+coverage_start = "2027-01-14"
+coverage_end = "2027-12-11"
+observed_dates = "2027-01-14,2027-01-15,2027-01-16,2027-01-22,2027-03-06,2027-03-22,2027-04-14,2027-04-20,2027-05-20,2027-08-03,2027-09-04,2027-09-30,2027-10-09,2027-10-28,2027-12-11"
+
+[[sources]]
+id = "drik-chitra-pournami-chennai-2027"
+url = "https://www.drikpanchang.com/festivals/chitra-pournami/chitra-pournami-date-time.html?geoname-id=1264527&year=2027"
+locator = "Chennai Chitra Pournami page: full-moon tithi in Tamil Chithirai; lists 2027-04-20. Rule identity and an exact date witness for that date."
+sha256 = "c6b102d5940663801b8d0bd24870a21331f12f9d7f7551292ad24005b00b2693"
+year = 2027
+coverage_start = "2027-04-20"
+coverage_end = "2027-04-20"
+observed_dates = "2027-04-20"
+
+[[sources]]
+id = "tamilcalendar-com-chitra-pournami-chennai-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Tamil Calendar 2026 festival list: Chitra Pournami, 2026-05-01; listed across Tamil Nadu. Independent date witness only; source states a Swiss Ephemeris/Lahiri astronomical basis."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-05-01"
+coverage_end = "2026-05-01"
+observed_dates = "2026-05-01"
+
+[[sources]]
+id = "tamilcalendar-com-vinayaka-chaturthi-chennai-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Tamil Calendar 2026 festival list: Vinayaka Chaturthi, 2026-09-14; listed across Tamil Nadu. Independent date witness only; source states a Swiss Ephemeris/Lahiri astronomical basis."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-09-14"
+coverage_end = "2026-09-14"
+observed_dates = "2026-09-14"
+
+[[sources]]
+id = "tamilcalendar-com-sivarathri-chennai-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Tamil Calendar 2026 festival list: Maha Shivaratri, 2026-02-15; listed across Tamil Nadu. Independent date witness only; source states a Swiss Ephemeris/Lahiri astronomical basis."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-02-15"
+coverage_end = "2026-02-15"
+observed_dates = "2026-02-15"
+
+[[sources]]
+id = "drik-vinayaka-madhyahna-method"
+url = "https://www.drikpanchang.com/festivals/ganesh-chaturthi/ganesh-chaturthi-date-time.html?geoname-id=1264527&year=2026"
+locator = "Madhyahna is the third of five equal portions between local sunrise and sunset; Ganapati Sthapana/Puja is performed during that portion. The specific day selector is a bounded toolkit rule: use the unique Madhyahna overlap, or the tithi-start date when it repeats or misses the window."
+sha256 = "dc389dbffa153a2bf3c748f5d41300cf2516655cde5c9d106138d3db8fe3362f"
+year = 0
+
+[[sources]]
+id = "drik-vinayaka-chennai-2025-2027"
+url = "https://www.drikpanchang.com/festivals/ganesh-chaturthi/ganesh-chaturthi-date-time.html?geoname-id=1264527&year=2026"
+locator = "Chennai page's recent-year list: Vinayaka Chaturthi 2025-08-27, 2026-09-14 and 2027-09-04. Independent published date witnesses for the named Madhyahna selector."
+sha256 = "dc389dbffa153a2bf3c748f5d41300cf2516655cde5c9d106138d3db8fe3362f"
+year = 0
+coverage_start = "2025-08-27"
+coverage_end = "2027-09-04"
+observed_dates = "2025-08-27,2026-09-14,2027-09-04"
+
+[[sources]]
+id = "udaya-sivaratri-nishita-method"
+url = "https://udaya.app/festival/sivaratri/"
+locator = "Sivaratri date rule: Krishna Chaturdashi at Nishita, defined as the midpoint from local sunset to next sunrise; if Chaturdashi does not reach that midpoint, use the day it occurs at sunset. The page distinguishes northern and southern month names."
+sha256 = "e273728c48a8b411fe472ff1d3680826a58c5e1241f3a94b55e5d64c31273850"
+year = 0
+
+[[sources]]
+id = "drik-sivarathri-chennai-2026"
+url = "https://www.drikpanchang.com/festivals/maha-shivaratri/maha-shivaratri-date-time.html?geoname-id=1264527&year=2026"
+locator = "Chennai Maha Shivaratri page lists 2026-02-15 and Nishita puja at 23:58–00:47; Chaturdashi starts 17:04 on Feb 15 and ends 17:34 on Feb 16."
+sha256 = "d06b4a892ba54c24a9793089f02669f539e20a6f94774908b6246eb23e42d0bd"
+year = 2026
+coverage_start = "2026-02-15"
+coverage_end = "2026-02-15"
+observed_dates = "2026-02-15"
+
+[[sources]]
+id = "drik-sivarathri-chennai-2025"
+url = "https://www.drikpanchang.com/festivals/maha-shivaratri/maha-shivaratri-date-time.html?geoname-id=1264527&year=2025"
+locator = "Chennai Maha Shivaratri page: 2025-02-26; Nishita 23:57–00:46 and Krishna Chaturdashi 2025-02-26 11:08 through 2025-02-27 08:54."
+sha256 = "19e52e26f60e2045f653f466a6a6a7283ca2b6fe271e3916665b2753768868a1"
+year = 2025
+coverage_start = "2025-02-26"
+coverage_end = "2025-02-26"
+observed_dates = "2025-02-26"
+
+[[sources]]
+id = "drik-sivarathri-chennai-2027"
+url = "https://www.drikpanchang.com/festivals/maha-shivaratri/maha-shivaratri-date-time.html?geoname-id=1264527&year=2027"
+locator = "Chennai Maha Shivaratri page: 2027-03-06; Nishita 23:56–00:44 and Krishna Chaturdashi 2027-03-06 12:03 through 2027-03-07 13:46."
+sha256 = "129119ed824fb4e69947286a2661f507d4492f3698697a7433c6f1f667cade09"
+year = 2027
+coverage_start = "2027-03-06"
+coverage_end = "2027-03-06"
+observed_dates = "2027-03-06"
+
+[[sources]]
+id = "drik-chitra-pournami-chennai-2025"
+url = "https://www.drikpanchang.com/festivals/chitra-pournami/chitra-pournami-date-time.html?geoname-id=1264527&year=2025"
+locator = "Chennai Chitra Pournami page: 2025-05-12; Pournami tithi begins 2025-05-11 20:01 and ends 2025-05-12 22:25."
+sha256 = "ab318ede227addb7818de09637052d6095a0048a29ec3df132fc4ddba2177632"
+year = 2025
+coverage_start = "2025-05-12"
+coverage_end = "2025-05-12"
+observed_dates = "2025-05-12"
+
+[[sources]]
+id = "panjangam-panguni-uthiram-chennai-2025"
+url = "https://panjangam.com/festivals/panguni-uthiram/2025/"
+locator = "Panguni Uthiram 2025 page: 2025-04-11, Chennai IST; timings state calculations use the Drik sidereal Lahiri method. Independent date witness, not an astronomy input."
+sha256 = "0d83ec87aad1e135f9c84c06414eb4f4f9baa303024d5d4471c6c2c8beda42ec"
+year = 2025
+coverage_start = "2025-04-11"
+coverage_end = "2025-04-11"
+observed_dates = "2025-04-11"
+
+[[sources]]
+id = "nammacalendar-karthigai-deepam-chennai-2025-vakya"
+url = "https://nammacalendar.com/festival/karthigai-deepam/2025/"
+locator = "Chennai Karthigai Deepam date 2025-12-03, explicitly computed by the Vakya panchangam. Cross-profile date witness only; no publisher-equivalence or Vakiya astronomy is claimed for this Thirukanitham output."
+sha256 = "1e58d055a9f523a63d2c7eea071d0cd932945aa4459e019c9ad227346eb531f5"
+year = 2025
+coverage_start = "2025-12-03"
+coverage_end = "2025-12-03"
+observed_dates = "2025-12-03"
+
+
+
+
+[[sources]]
+id = "ashtanga-hridaya-brahma-muhurta-boundary"
+url = "https://satyori.com/source-texts/ashtanga-hridayam/sutrasthana/2/1/"
+locator = "Aṣṭāṅga Hṛdayam Sūtrasthāna 2.1, Prātarutthāna: brāhma muhūrta is the 48-minute interval from 96 to 48 minutes before sunrise. This supplies the named time window only; it is not a Deepavali selector."
+sha256 = "fabc2ec94ae8fb2ffa9c08289338a310019cee33010b671179f7c731ebda5143"
+year = 0
+
+[[sources]]
+id = "drik-tamil-deepavali-chennai-2025"
+url = "https://www.drikpanchang.com/tamil/festivals/tamil-deepavali/tamil-deepavali-date-time.html?geoname-id=1264527&year=2025"
+locator = "Chennai Tamil Deepavali page: Tamil Nadu selects Krishna Chaturdashi during Brahma Muhurat just before sunrise; exact published date 2025-10-20. Used as the named selector and exact date witness."
+sha256 = "eef9c34fac776c710962056111a4031eadfcd0345ed30b6671176174355c1898"
+year = 2025
+coverage_start = "2025-10-20"
+coverage_end = "2025-10-20"
+observed_dates = "2025-10-20"
+
+[[sources]]
+id = "drik-tamil-deepavali-chennai-2026"
+url = "https://www.drikpanchang.com/tamil/festivals/tamil-deepavali/tamil-deepavali-date-time.html?geoname-id=1264527&year=2026"
+locator = "Chennai Tamil Deepavali page: Tamil Nadu selects Krishna Chaturdashi during Brahma Muhurat just before sunrise; exact published date 2026-11-08. Used as the named selector and exact date witness."
+sha256 = "720cab1f6f1f7c2582f6c296a97bcf0fb7fc9f6cbd778956780fdf34ca214496"
+year = 2026
+coverage_start = "2026-11-08"
+coverage_end = "2026-11-08"
+observed_dates = "2026-11-08"
+
+[[sources]]
+id = "drik-tamil-deepavali-chennai-2027"
+url = "https://www.drikpanchang.com/tamil/festivals/tamil-deepavali/tamil-deepavali-date-time.html?geoname-id=1264527&year=2027"
+locator = "Chennai Tamil Deepavali page: Tamil Nadu selects Krishna Chaturdashi during Brahma Muhurat just before sunrise; exact published date 2027-10-28. Used as the named selector and exact date witness."
+sha256 = "42e50737b40e03c1a64fd81ab93d56b6794eb5a0676d3c5180212dda21b7cb45"
+year = 2027
+coverage_start = "2027-10-28"
+coverage_end = "2027-10-28"
+observed_dates = "2027-10-28"
+
+[[sources]]
+id = "drik-navaratri-ghatasthapana-method"
+url = "https://www.drikpanchang.com/navratri/info/ghatasthapana-puja-vidhi.html"
+locator = "Ghatasthapana method: first one-third of local daytime while Shukla Pratipada prevails; if unavailable the page names Abhijit Muhurta as fallback. This named toolkit selector implements only the first-third tier and reports unsupported when no unique date qualifies."
+sha256 = "36efbafb236a2fc9eff5a3b24d92525b630677f1651af1368f106e201f85c006"
+year = 0
+
+[[sources]]
+id = "drik-ayudha-puja-navami-method"
+url = "https://www.drikpanchang.com/navratri/durga-puja/ayudha-puja-date-time.html?geoname-id=1264527&year=2026"
+locator = "Ayudha Puja page: the observance is on Navami Tithi during Navratri; the Chennai 2026 page says the Hindu calendar day begins at sunrise and lists 2026-10-20. The named toolkit variant selects the unique sunrise-Navami date; other tithi/day-selection variants are not inferred."
+sha256 = "f1ae46579063721fff8c8ffd870ab012c8fd1a33f0a4cf7cdbe4eeb34fd6a85f"
+year = 0
+
+[[sources]]
+id = "udyog-vijayadashami-aparahna-rule"
+url = "https://udyog.io/en/festivals/dussehra"
+locator = "Smarta Vijayadashami method, rules 1–8: Dashami in Aparahna; prefer a whole interval to a partial one; compare covered durations with a 24-minute equality threshold; if neither day overlaps, choose the first tithi day; in the stated doubtful case a next-day Shravana-at-Aparahna condition moves the result. Source identifies Dharmasindhu/Nirnayasindhu references. Selected toolkit implementation follows these stated finite conditions."
+sha256 = "9f160e587e249595cc78a0ffbd6b7c5273a1d987c66e8f794d8de25bcec49aaf"
+year = 0
+
+[[sources]]
+id = "tamilcalendar-com-tn-navaratri-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Tamil Nadu annual list, Navaratri Begins: 2026-10-11. Independent date witness; the page does not state its selector."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-10-11"
+coverage_end = "2026-10-11"
+observed_dates = "2026-10-11"
+
+[[sources]]
+id = "tamilcalendar-com-tn-ayudha-puja-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Tamil Nadu annual list, Ayudha Pooja: 2026-10-19. This differs from the selected Drik sunrise-Navami rule's Chennai date 2026-10-20; retained as an explicit publisher disagreement, not attached to the different date."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-10-19"
+coverage_end = "2026-10-19"
+observed_dates = "2026-10-19"
+
+[[sources]]
+id = "tamilcalendar-com-tn-vijayadashami-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Tamil Nadu annual list, Vijayadashami / Dussehra: 2026-10-20. Independent date witness; the page does not state its selector."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-10-20"
+coverage_end = "2026-10-20"
+observed_dates = "2026-10-20"
+
+[[sources]]
+id = "tamilcalendar-com-tn-krishna-jayanthi-2026"
+url = "https://tamilcalendar.com/festivals"
+locator = "Tamil Nadu annual list, Krishna Janmashtami / Krishna Jayanthi: 2026-09-04. Independent date witness; the page does not state its selector."
+sha256 = "4b6d6cb79853b38096de8322db09df9db0a29bf1e4fbd5e1b9b875f245568b62"
+year = 2026
+coverage_start = "2026-09-04"
+coverage_end = "2026-09-04"
+observed_dates = "2026-09-04"
+
+[[rules]]
+event_id = "puthandu"
+display_name = "Puthandu"
+rule_id = "chithirai_month_day_one"
+kind = "solar_month_day"
+month = 1
+day = 1
+offset_days = 0
+tithi_index = 0
+source_ids = "sewell-dikshit-tamil-rule,imd-pac-tamil-solar-method,drik-tamil-calendar-chennai-2025,drik-tamil-calendar-chennai-2026,drik-tamil-calendar-chennai-2027"
+
+[[rules]]
+event_id = "pongal"
+display_name = "Thai Pongal"
+rule_id = "thai_month_day_one"
+kind = "solar_month_day"
+month = 10
+day = 1
+offset_days = 0
+tithi_index = 0
+source_ids = "sewell-dikshit-tamil-rule,imd-pac-tamil-solar-method,drik-sankranti-festival-sequence,drik-tamil-calendar-chennai-2025,drik-tamil-calendar-chennai-2026,drik-tamil-calendar-chennai-2027"
+
+[[rules]]
+event_id = "bhogi_pandigai"
+display_name = "Bhogi Pandigai"
+rule_id = "day_before_thai_month_day_one"
+kind = "solar_month_day"
+month = 10
+day = 1
+offset_days = -1
+tithi_index = 0
+source_ids = "drik-sankranti-festival-sequence,drik-tamil-calendar-chennai-2025,drik-tamil-calendar-chennai-2026,drik-tamil-calendar-chennai-2027"
+
+[[rules]]
+event_id = "mattu_pongal"
+display_name = "Mattu Pongal"
+rule_id = "day_after_thai_month_day_one"
+kind = "solar_month_day"
+month = 10
+day = 1
+offset_days = 1
+tithi_index = 0
+source_ids = "drik-sankranti-festival-sequence,drik-tamil-calendar-chennai-2025,drik-tamil-calendar-chennai-2026,drik-tamil-calendar-chennai-2027"
+
+[[rules]]
+event_id = "amavasya_tithi_day"
+display_name = "Amavasya tithi day"
+rule_id = "amavasya_aparahna_then_sunrise"
+kind = "tithi_aparahna_then_sunrise"
+month = 0
+day = 0
+offset_days = 0
+tithi_index = 30
+source_ids = "nava-panchangam-observance-method,nava-amavasya-chennai-2026-27"
+
+[[rules]]
+event_id = "pournami_tithi_day"
+display_name = "Pournami tithi day"
+rule_id = "pournami_aparahna_then_sunrise"
+kind = "tithi_aparahna_then_sunrise"
+month = 0
+day = 0
+offset_days = 0
+tithi_index = 15
+source_ids = "nava-panchangam-observance-method,nava-pournami-chennai-2026-27"
+
+[[rules]]
+event_id = "sri_vaishnava_ekadashi"
+display_name = "Sri Vaishnava Ekadashi"
+rule_id = "nava_sri_vaishnava_arunodaya_defer"
+kind = "tithi_arunodaya_defer"
+month = 0
+day = 0
+offset_days = 0
+tithi_index = 0
+source_ids = "hari-bhakti-vilasa-ekadashi-arunodaya,basics-panchangam-vaishnava-ekadashi,nava-sri-vaishnava-ekadashi-chennai-2026-27,drik-iskcon-ekadashi-chennai-2026"
+
+[[rules]]
+event_id = "nava_pradosham"
+display_name = "Pradosham"
+rule_id = "nava_pradosha_sunset_90min_later_if_repeated"
+kind = "tithi_pradosha_sunset_window"
+month = 0
+day = 0
+offset_days = 0
+tithi_index = 0
+source_ids = "nava-panchangam-pradosham-method,nava-panchangam-pradosham-chennai-2026-27,tamilcalendar-app-pradosham-chennai-2026,tamilcalendar-app-pradosham-chennai-2027"
+
+[[rules]]
+event_id = "aadi_perukku"
+display_name = "Aadi Perukku"
+rule_id = "drik_aadi_month_day_eighteen"
+kind = "solar_month_day"
+month = 4
+day = 18
+offset_days = 0
+tithi_index = 0
+source_ids = "drik-aadi-perukku-method,tamilcalendar-com-aadi-perukku-chennai-2026"
+
+[[rules]]
+event_id = "thai_poosam"
+display_name = "Thai Poosam"
+rule_id = "pujadeep_thai_purnima_pushya_daytime_then_sunrise"
+kind = "nakshatra_tithi_daytime_then_sunrise"
+month = 10
+day = 0
+offset_days = 0
+tithi_index = 15
+nakshatra_index = 8
+source_ids = "drik-thaipusam-method,udaya-thai-poosam-rule,pujadeep-thai-poosam-rule,tamilcalendar-com-thaipusam-chennai-2026"
+
+[[rules]]
+event_id = "panguni_uthiram"
+display_name = "Panguni Uthiram"
+rule_id = "udaya_panguni_uthiram_purnima_then_sunrise"
+kind = "nakshatra_sunrise_purnima_then_sunrise"
+month = 12
+day = 0
+offset_days = 0
+tithi_index = 15
+nakshatra_index = 12
+source_ids = "drik-panguni-uthiram-method,udaya-panguni-uthiram-precedence,anudina-panguni-uthiram-nearest-purnima,panjangam-panguni-uthiram-chennai-2025,tamilcalendar-com-panguni-uthiram-chennai-2026"
+
+[[rules]]
+event_id = "vaikasi_visakam"
+display_name = "Vaikasi Visakam"
+rule_id = "drik_vaikasi_vishakha_at_sunrise"
+kind = "nakshatra_sunrise"
+month = 2
+day = 0
+offset_days = 0
+tithi_index = 0
+nakshatra_index = 16
+source_ids = "drik-vaikasi-visakam-method,tamilcalendar-com-vaikasi-visakam-chennai-2026"
+
+[[rules]]
+event_id = "arudra_darshan"
+display_name = "Arudra Darshan"
+rule_id = "anudina_margazhi_thiruvathirai_nearest_purnima"
+kind = "nakshatra_sunrise_nearest_purnima"
+month = 9
+day = 0
+offset_days = 0
+tithi_index = 15
+nakshatra_index = 6
+source_ids = "drik-arudra-darshan-method,udaya-thiruvathirai-sunrise-method,anudina-arudra-sunrise-nearest-purnima,tamilcalendar-com-arudra-darshan-chennai-2026"
+
+[[rules]]
+event_id = "karthigai_deepam"
+display_name = "Karthigai Deepam"
+rule_id = "karthigai_krittika_pradosha_later_if_repeated"
+kind = "nakshatra_sunset_later_if_repeated"
+month = 8
+day = 0
+offset_days = 0
+tithi_index = 0
+nakshatra_index = 3
+source_ids = "drik-karthigai-deepam-method,pujadeep-karthigai-evening-method,nammacalendar-karthigai-deepam-chennai-2025-vakya,tamilcalendar-com-karthigai-deepam-chennai-2026"
+
+[[rules]]
+event_id = "chitra_pournami"
+display_name = "Chitra Pournami"
+rule_id = "chithirai_pournami_at_sunrise"
+kind = "tithi_solar_month_sunrise"
+month = 1
+day = 0
+offset_days = 0
+tithi_index = 15
+nakshatra_index = 0
+source_ids = "drik-chitra-pournami-chennai-2025,tamilcalendar-com-chitra-pournami-chennai-2026,drik-chitra-pournami-chennai-2027"
+
+[[rules]]
+event_id = "vinayaka_chaturthi"
+display_name = "Vinayaka Chaturthi"
+rule_id = "aavani_shukla_chaturthi_madhyahna_then_start"
+kind = "tithi_madhyahna_then_start"
+month = 5
+day = 0
+offset_days = 0
+tithi_index = 4
+nakshatra_index = 0
+source_ids = "drik-vinayaka-madhyahna-method,drik-vinayaka-chennai-2025-2027,tamilcalendar-com-vinayaka-chaturthi-chennai-2026"
+
+[[rules]]
+event_id = "sivarathri"
+display_name = "Maha Sivaratri"
+rule_id = "maasi_krishna_chaturdashi_nishita_then_sunset"
+kind = "tithi_nishita_then_sunset"
+month = 11
+day = 0
+offset_days = 0
+tithi_index = 29
+nakshatra_index = 0
+source_ids = "udaya-sivaratri-nishita-method,drik-sivarathri-chennai-2025,drik-sivarathri-chennai-2026,drik-sivarathri-chennai-2027,tamilcalendar-com-sivarathri-chennai-2026"
+
+[[rules]]
+event_id = "deepavali"
+display_name = "Tamil Deepavali"
+rule_id = "drik_tn_chaturdashi_brahma_muhurta_unique"
+kind = "tithi_solar_month_brahma_muhurta"
+month = 7
+day = 0
+offset_days = 0
+tithi_index = 29
+nakshatra_index = 0
+source_ids = "drik-tamil-deepavali-chennai-2025,drik-tamil-deepavali-chennai-2026,drik-tamil-deepavali-chennai-2027,ashtanga-hridaya-brahma-muhurta-boundary"
+
+[[rules]]
+event_id = "navaratri_ghatasthapana"
+display_name = "Navaratri Ghatasthapana"
+rule_id = "drik_navaratri_pratipada_first_third_only"
+kind = "tithi_solar_month_first_third"
+month = 6
+day = 0
+offset_days = 0
+tithi_index = 1
+nakshatra_index = 0
+source_ids = "drik-navaratri-ghatasthapana-method,drik-tamil-calendar-chennai-2025,drik-tamil-calendar-chennai-2026,drik-tamil-calendar-chennai-2027,tamilcalendar-com-tn-navaratri-2026"
+
+[[rules]]
+event_id = "ayudha_puja"
+display_name = "Ayudha Puja"
+rule_id = "drik_navaratri_navami_at_sunrise_unique"
+kind = "tithi_navaratri_navami_sunrise"
+month = 6
+day = 0
+offset_days = 0
+tithi_index = 9
+nakshatra_index = 0
+source_ids = "drik-ayudha-puja-navami-method,drik-tamil-calendar-chennai-2025,drik-tamil-calendar-chennai-2026,drik-tamil-calendar-chennai-2027,tamilcalendar-com-tn-ayudha-puja-2026"
+
+[[rules]]
+event_id = "vijayadasami"
+display_name = "Vijayadasami"
+rule_id = "udyog_smarta_vijayadashami_aparahna_after_navarathiri"
+kind = "tithi_navaratri_dasara_aparahna"
+month = 6
+day = 0
+offset_days = 0
+tithi_index = 10
+nakshatra_index = 21
+source_ids = "udyog-vijayadashami-aparahna-rule,drik-tamil-calendar-chennai-2025,drik-tamil-calendar-chennai-2026,drik-tamil-calendar-chennai-2027,tamilcalendar-com-tn-vijayadashami-2026"
+
+[[sources]]
+id = "dharmasindhu-sankata-chaturthi-moonrise-method"
+url = "https://archive.org/details/dharmasindhubykashinathupadhyaya1888nirnaysagarpress_498_a"
+locator = "Dharmasindhu, Pariccheda 2, Caturthi-nirnaya / Sankata Caturthi section; printed p. 56, source leaf 76. Moonrise-vyapini Krishna Chaturthi; at two moonrises choose the earlier Tritiya-linked day; at neither moonrise choose the second day. Independently checked against the rendered scan and the cited Hindi commentary."
+sha256 = "c2ff32ff9e03fc1436c5690444697878812306e8a6d8fd2259bbb709e5009875"
+year = 0
+
+[[sources]]
+id = "usno-moonrise-definition"
+url = "https://aa.usno.navy.mil/faq/RST_defs"
+locator = "US Naval Observatory rise/set definitions: Moonrise is upper-limb contact under average sea-level refraction; for geocentric center coordinates, zenith distance is 90.5666 degrees + lunar semidiameter - horizontal parallax. Toolkit applies the explicitly documented Thirukanitham elevation-horizon correction."
+sha256 = "178f7024fdbce65bf3c3ee80f758ec3429e0115dff4d538cf54c59a978f58281"
+year = 0
+
+[[sources]]
+id = "drik-sankashti-chennai-2025"
+url = "https://www.drikpanchang.com/vrats/sankashti-chaturthi-dates.html?geoname-id=1264527&year=2025"
+locator = "2025 Sankashti Chaturthi Vrat dates and moonrise timings for Chennai, Tamil Nadu, India. Only the exact displayed observance dates in observed_dates are date witnesses; they do not establish engine equivalence or a statewide schedule."
+sha256 = "3f6682dbf4f54d137d472f50a3fed5f483b217fff15fe0b0223b2cd802246f70"
+year = 2025
+coverage_start = "2025-01-17"
+coverage_end = "2025-12-07"
+observed_dates = "2025-01-17,2025-02-16,2025-03-17,2025-04-16,2025-05-16,2025-06-14,2025-07-14,2025-08-12,2025-09-10,2025-10-10,2025-11-08,2025-12-07"
+
+[[sources]]
+id = "drik-sankashti-chennai-2026"
+url = "https://www.drikpanchang.com/vrats/sankashti-chaturthi-dates.html?geoname-id=1264527&year=2026"
+locator = "2026 Sankashti Chaturthi Vrat dates and moonrise timings for Chennai, Tamil Nadu, India. Only the exact displayed observance dates in observed_dates are date witnesses; they do not establish engine equivalence or a statewide schedule."
+sha256 = "95f4aef246a638b363a51531d2db3860b9a04c4f37638f7005b04eb48830394f"
+year = 2026
+coverage_start = "2026-01-06"
+coverage_end = "2026-12-26"
+observed_dates = "2026-01-06,2026-02-05,2026-03-06,2026-04-05,2026-05-05,2026-06-04,2026-07-03,2026-08-02,2026-08-31,2026-09-29,2026-10-29,2026-11-27,2026-12-26"
+
+[[sources]]
+id = "drik-sankashti-chennai-2027"
+url = "https://www.drikpanchang.com/vrats/sankashti-chaturthi-dates.html?geoname-id=1264527&year=2027"
+locator = "2027 Sankashti Chaturthi Vrat dates and moonrise timings for Chennai, Tamil Nadu, India. Only the exact displayed observance dates in observed_dates are date witnesses; they do not establish engine equivalence or a statewide schedule."
+sha256 = "bc8d0116110019efb6e1273a378d330beb65185f42b29b9a34e6f50395317a8c"
+year = 2027
+coverage_start = "2027-01-25"
+coverage_end = "2027-12-16"
+observed_dates = "2027-01-25,2027-02-24,2027-03-25,2027-04-24,2027-05-23,2027-06-22,2027-07-22,2027-08-20,2027-09-19,2027-10-18,2027-11-17,2027-12-16"
+
+[[sources]]
+id = "udyog-janmashtami-smarta-rule"
+url = "https://udyog.io/en/puja-vidhi/janmashtami-puja"
+locator = "Date rule line names Dharma Sindhu, Pariccheda 2, Krishna-janmashtami and Nirnaya Sindhu, Pariccheda 2, Janmashtami and Jayanti: Ashtami at Nishita on one night selects that night; when both qualify, Rohini at Nishita selects the night, otherwise the second; if neither qualifies, the second. Nishita is identified as the eighth of fifteen night muhurtas."
+sha256 = "e3f52a9c2dc9883fb48c9baca6a7587c78385ebaa9395151640d2e396a85dea7"
+year = 0
+
+[[sources]]
+id = "udyog-janmashtami-smarta-overview"
+url = "https://udyog.io/en/learn/janmashtami-smarta-vaishnava"
+locator = "General Smarta/Vaishnava explainer, updated 2026-09-26: when Ashtami touches Nishita on two nights, choose the night with larger overlap. This differs from the detailed puja/festival rule pages that use Rohini at Nishita, then the second night. Retained as an explicit publisher-internal rule discrepancy; not used by the selected selector."
+sha256 = "32f19fb9f644457afd7042568cebda9adc5e3560c6cb5940efbfd94dae86a668"
+year = 0
+
+[[sources]]
+id = "dharmasindhu-janmashtami-primary-text"
+url = "https://archive.org/details/dharmasindhubykashinathupadhyaya1888nirnaysagarpress_498_a"
+locator = "Dharmasindhu, Pariccheda 2, Janmashtami-nirnaya and the Krishna-janmashtami passage, printed pp. 52–54. The text presents a multi-case tithi/Nishita/Rohini rule. It is an inspected primary lead; the implementation adopts only the explicitly summarized finite Udyog Smarta selector and does not claim to implement every textual exception."
+sha256 = "c2ff32ff9e03fc1436c5690444697878812306e8a6d8fd2259bbb709e5009875"
+year = 0
+
+[[sources]]
+id = "drik-krishna-janmashtami-chennai-2025"
+url = "https://www.drikpanchang.com/dashavatara/lord-krishna/krishna-janmashtami-date-time.html?geoname-id=1264527&year=2025"
+locator = "Chennai, Tamil Nadu annual Krishna Janmashtami page lists 2025-08-15. This date is an independent date witness only at the exact Chennai reference coordinates and is not evidence of engine equivalence or a statewide schedule."
+sha256 = "388c4ca3a5c8f8ed52b7bb362a4262852a396488df3c7cdc416267fd282b8c21"
+year = 2025
+coverage_start = "2025-08-15"
+coverage_end = "2025-08-15"
+observed_dates = "2025-08-15"
+
+[[sources]]
+id = "drik-krishna-janmashtami-chennai-2026"
+url = "https://www.drikpanchang.com/dashavatara/lord-krishna/krishna-janmashtami-date-time.html?geoname-id=1264527&year=2026"
+locator = "Chennai, Tamil Nadu annual Krishna Janmashtami page lists 2026-09-04. This date is an independent date witness only at the exact Chennai reference coordinates and is not evidence of engine equivalence or a statewide schedule."
+sha256 = "2a652504fd1882d5d0ab7475a7cecd20a5be81bf8ea0133411afe7ed6ae70b31"
+year = 2026
+coverage_start = "2026-09-04"
+coverage_end = "2026-09-04"
+observed_dates = "2026-09-04"
+
+[[sources]]
+id = "drik-krishna-janmashtami-chennai-2027"
+url = "https://www.drikpanchang.com/dashavatara/lord-krishna/krishna-janmashtami-date-time.html?geoname-id=1264527&year=2027"
+locator = "Chennai, Tamil Nadu annual Krishna Janmashtami page lists 2027-08-25. The selected Udyog Smarta rule's Thirukanitham profile result differs; retain this exact independent observation without attaching it to the other date."
+sha256 = "6a9f4b220575bee305295705968720c737d3ccfcdca1b214836229381b08b84d"
+year = 2027
+coverage_start = "2027-08-25"
+coverage_end = "2027-08-25"
+observed_dates = "2027-08-25"
+
+[[sources]]
+id = "udyog-janmashtami-kanchipuram-2027"
+url = "https://udyog.io/en/yatra/kamakshi-kanchipuram"
+locator = "Udyog 2027 festival panel gives Krishna Janmashtami on 2027-08-24 for Kamakshi Amman, Kanchipuram (coordinates 12.8407, 79.7032). This is a different location, not a Chennai source witness."
+sha256 = "cfd1fe86fbe6d11404ff969e7fb28cf04a056c8800f24e8bd367146f83f57d2d"
+year = 2027
+coverage_start = "2027-08-24"
+coverage_end = "2027-08-24"
+observed_dates = "2027-08-24"
+
+[[rules]]
+event_id = "sankatahara_chaturthi"
+display_name = "Sankatahara Chaturthi"
+rule_id = "dharmasindhu_krishna_chaturthi_moonrise_first_if_repeated_else_second"
+kind = "tithi_moonrise_first_if_repeated_else_second"
+month = 0
+day = 0
+offset_days = 0
+tithi_index = 19
+nakshatra_index = 0
+source_ids = "dharmasindhu-sankata-chaturthi-moonrise-method,usno-moonrise-definition,drik-sankashti-chennai-2025,drik-sankashti-chennai-2026,drik-sankashti-chennai-2027"

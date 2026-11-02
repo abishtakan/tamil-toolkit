@@ -1,0 +1,102 @@
+{
+  "title": "JPL Horizons request and extraction manifest",
+  "api_documentation": "https://ssd-api.jpl.nasa.gov/doc/horizons.html",
+  "api_response_version": "1.2",
+  "retrieved_utc_date": "2026-11-02",
+  "coordinate_output": "Observer apparent airless ecliptic longitude/latitude, geocentric center 500@399, UTC/UT, quantity 31",
+  "queries": [
+    {
+      "body_id": "10",
+      "body": "sun",
+      "endpoint": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "parameters": {
+        "format": "json",
+        "COMMAND": "10",
+        "OBJ_DATA": "YES",
+        "MAKE_EPHEM": "YES",
+        "EPHEM_TYPE": "OBSERVER",
+        "CENTER": "500@399",
+        "TLIST_TYPE": "CAL",
+        "TLIST": "2024-Jan-01 00:00:00.000' '2024-Apr-13 18:00:00.000' '2024-Apr-14 00:00:00.000' '2025-Apr-13 18:00:00.000' '2025-Apr-14 00:00:00.000' '2026-Apr-13 18:00:00.000' '2026-Apr-14 00:00:00.000' '2026-Nov-01 00:00:00.000' '2026-Nov-01 18:30:00.000' '2027-Jan-15 00:00:00.000' '2027-Apr-13 18:00:00.000' '2027-Apr-14 00:00:00.000' '2027-Dec-31 23:00:00.000",
+        "TIME_TYPE": "UT",
+        "TIME_DIGITS": "FRACSEC",
+        "QUANTITIES": "31",
+        "APPARENT": "AIRLESS",
+        "REF_SYSTEM": "ICRF",
+        "CSV_FORMAT": "YES",
+        "CAL_TYPE": "GREGORIAN"
+      },
+      "time_list_utc": [
+        "2024-Jan-01 00:00:00.000",
+        "2024-Apr-13 18:00:00.000",
+        "2024-Apr-14 00:00:00.000",
+        "2025-Apr-13 18:00:00.000",
+        "2025-Apr-14 00:00:00.000",
+        "2026-Apr-13 18:00:00.000",
+        "2026-Apr-14 00:00:00.000",
+        "2026-Nov-01 00:00:00.000",
+        "2026-Nov-01 18:30:00.000",
+        "2027-Jan-15 00:00:00.000",
+        "2027-Apr-13 18:00:00.000",
+        "2027-Apr-14 00:00:00.000",
+        "2027-Dec-31 23:00:00.000"
+      ],
+      "request_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&CENTER=%27500%40399%27&TLIST_TYPE=%27CAL%27&TLIST=%272024-Jan-01+00%3A00%3A00.000%27+%272024-Apr-13+18%3A00%3A00.000%27+%272024-Apr-14+00%3A00%3A00.000%27+%272025-Apr-13+18%3A00%3A00.000%27+%272025-Apr-14+00%3A00%3A00.000%27+%272026-Apr-13+18%3A00%3A00.000%27+%272026-Apr-14+00%3A00%3A00.000%27+%272026-Nov-01+00%3A00%3A00.000%27+%272026-Nov-01+18%3A30%3A00.000%27+%272027-Jan-15+00%3A00%3A00.000%27+%272027-Apr-13+18%3A00%3A00.000%27+%272027-Apr-14+00%3A00%3A00.000%27+%272027-Dec-31+23%3A00%3A00.000%27&TIME_TYPE=%27UT%27&TIME_DIGITS=%27FRACSEC%27&QUANTITIES=%2731%27&APPARENT=%27AIRLESS%27&REF_SYSTEM=%27ICRF%27&CSV_FORMAT=%27YES%27&CAL_TYPE=%27GREGORIAN%27",
+      "request_url_sha256": "7E66097BA850833AD1947A2FF53FA96478C7B00D9AFD5C1D4DCCFB34EC443EE9",
+      "response_path": "tests/reference/calendar-thirukanitham-v1/horizons/horizons_de441_geocentric_apparent_sun_reacquired_2026-11-02.json",
+      "response_sha256": "953C0798EE1FBB19E5D48256ADFAF763B022D0DA12FBE5623F5942B8F94D457C",
+      "response_bytes": 7466,
+      "expected_records": 13
+    },
+    {
+      "body_id": "301",
+      "body": "moon",
+      "endpoint": "https://ssd.jpl.nasa.gov/api/horizons.api",
+      "parameters": {
+        "format": "json",
+        "COMMAND": "301",
+        "OBJ_DATA": "YES",
+        "MAKE_EPHEM": "YES",
+        "EPHEM_TYPE": "OBSERVER",
+        "CENTER": "500@399",
+        "TLIST_TYPE": "CAL",
+        "TLIST": "2024-Jan-01 00:00:00.000' '2024-Apr-13 18:00:00.000' '2024-Apr-14 00:00:00.000' '2025-Apr-13 18:00:00.000' '2025-Apr-14 00:00:00.000' '2026-Apr-13 18:00:00.000' '2026-Apr-14 00:00:00.000' '2026-Nov-01 00:00:00.000' '2026-Nov-01 18:30:00.000' '2027-Jan-15 00:00:00.000' '2027-Apr-13 18:00:00.000' '2027-Apr-14 00:00:00.000' '2027-Dec-31 23:00:00.000",
+        "TIME_TYPE": "UT",
+        "TIME_DIGITS": "FRACSEC",
+        "QUANTITIES": "31",
+        "APPARENT": "AIRLESS",
+        "REF_SYSTEM": "ICRF",
+        "CSV_FORMAT": "YES",
+        "CAL_TYPE": "GREGORIAN"
+      },
+      "time_list_utc": [
+        "2024-Jan-01 00:00:00.000",
+        "2024-Apr-13 18:00:00.000",
+        "2024-Apr-14 00:00:00.000",
+        "2025-Apr-13 18:00:00.000",
+        "2025-Apr-14 00:00:00.000",
+        "2026-Apr-13 18:00:00.000",
+        "2026-Apr-14 00:00:00.000",
+        "2026-Nov-01 00:00:00.000",
+        "2026-Nov-01 18:30:00.000",
+        "2027-Jan-15 00:00:00.000",
+        "2027-Apr-13 18:00:00.000",
+        "2027-Apr-14 00:00:00.000",
+        "2027-Dec-31 23:00:00.000"
+      ],
+      "request_url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27301%27&OBJ_DATA=%27YES%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27OBSERVER%27&CENTER=%27500%40399%27&TLIST_TYPE=%27CAL%27&TLIST=%272024-Jan-01+00%3A00%3A00.000%27+%272024-Apr-13+18%3A00%3A00.000%27+%272024-Apr-14+00%3A00%3A00.000%27+%272025-Apr-13+18%3A00%3A00.000%27+%272025-Apr-14+00%3A00%3A00.000%27+%272026-Apr-13+18%3A00%3A00.000%27+%272026-Apr-14+00%3A00%3A00.000%27+%272026-Nov-01+00%3A00%3A00.000%27+%272026-Nov-01+18%3A30%3A00.000%27+%272027-Jan-15+00%3A00%3A00.000%27+%272027-Apr-13+18%3A00%3A00.000%27+%272027-Apr-14+00%3A00%3A00.000%27+%272027-Dec-31+23%3A00%3A00.000%27&TIME_TYPE=%27UT%27&TIME_DIGITS=%27FRACSEC%27&QUANTITIES=%2731%27&APPARENT=%27AIRLESS%27&REF_SYSTEM=%27ICRF%27&CSV_FORMAT=%27YES%27&CAL_TYPE=%27GREGORIAN%27",
+      "request_url_sha256": "A9A08F52556770F2EB32E7DAD6499C4E9893EA300D2D5FCE580DF4309BB7D017",
+      "response_path": "tests/reference/calendar-thirukanitham-v1/horizons/horizons_de441_geocentric_apparent_moon_reacquired_2026-11-02.json",
+      "response_sha256": "2B5897B853755B7130319C20024FB693D024EEF64B5F1E03A788975F685124F2",
+      "response_bytes": 7585,
+      "expected_records": 13
+    }
+  ],
+  "extraction": {
+    "script": "tools/prepare_thirukanitham_reference.py",
+    "extraction": "Read JSON result text; select CSV rows matching UTC timestamp and extract ObsEcLon and ObsEcLat from quantity 31; match Sun and Moon rows by exact Unix UTC second.",
+    "transformation": "ERFA/SOFA nut00a at TT=UTC+69.184s and independent Decimal evaluation of IAU 2006 P03; subtract true Lahiri ayanamsa from JPL apparent longitude.",
+    "generated_projection": "tests/reference/calendar-thirukanitham-v1/independent-transforms.json",
+    "limitations": "This records the exact request URL string sent by the acquisition pass and hashes the saved response bodies. The earlier response files remain unchanged; no Drik Panchang page bytes are retained."
+  }
+}

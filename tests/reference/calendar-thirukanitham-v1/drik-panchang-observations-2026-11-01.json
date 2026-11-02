@@ -1,0 +1,59 @@
+{
+  "description": "Short factual observations from named Drik Panchang location/date pages. These snapshots list sunrise-day values and do not provide a complete midnight-to-midnight transition table.",
+  "reuse_terms": "Page terms for reuse of the source page content were not established. Only the factual values below and page SHA-256 digests are retained; no page HTML is redistributed.",
+  "civil_date": "2026-11-01",
+  "locations": [
+    {
+      "name": "Chennai",
+      "geoname_id": 1264527,
+      "url": "https://www.drikpanchang.com/tamil/tamil-month-panchangam.html?date=01%2F11%2F2026&geoname-id=1264527",
+      "page_sha256": "281C7812CA9EAEBE79DBC64FB6AAD2F09809D00B5160BE59B2847383C3081708",
+      "tamil_date": "15 Aippasi",
+      "vara": "Sunday",
+      "sunrise_local": "06:03",
+      "sunset_local": "17:42",
+      "tithi": {
+        "name": "Saptami",
+        "ends_local": "14:51"
+      },
+      "nakshatra": {
+        "name": "Pushya",
+        "ends_local": "2026-11-02 04:30"
+      },
+      "yoga": {
+        "name": "Sadhya",
+        "ends_local": "14:39"
+      },
+      "karana": {
+        "name": "Bava",
+        "ends_local": "14:51"
+      }
+    },
+    {
+      "name": "Colombo",
+      "geoname_id": 1248991,
+      "url": "https://www.drikpanchang.com/tamil/tamil-month-panchangam.html?date=01%2F11%2F2026&geoname-id=1248991",
+      "page_sha256": "C624FD394D80D34732D1A3A35B03977D3A2890DA61CB57F319A0EDED592AF6A7",
+      "tamil_date": "15 Aippasi",
+      "vara": "Sunday",
+      "sunrise_local": "05:58",
+      "sunset_local": "17:50",
+      "tithi": {
+        "name": "Saptami",
+        "ends_local": "14:51"
+      },
+      "nakshatra": {
+        "name": "Pushya",
+        "ends_local": "2026-11-02 04:30"
+      },
+      "yoga": {
+        "name": "Sadhya",
+        "ends_local": "14:39"
+      },
+      "karana": {
+        "name": "Bava",
+        "ends_local": "14:51"
+      }
+    }
+  ]
+}

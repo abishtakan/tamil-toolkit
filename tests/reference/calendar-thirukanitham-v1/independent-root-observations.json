@@ -1,0 +1,5343 @@
+{
+  "evidence_class": "independent expected root brackets derived from raw JPL DE441 apparent coordinates plus ERFA/SOFA IAU 2000A nutation and Decimal IAU 2006 P03; window centers are derived profile outputs and are not treated as expected values",
+  "time_scales": {
+    "jpl_observation_times": "UT/UTC",
+    "ERFA_and_P03_epoch": "TT = UTC + 69.184 seconds",
+    "JPL_coordinates": "geocentric apparent-airless ecliptic-of-date; JPL's observer quantities use its documented IAU 1976/1980 apparent model",
+    "sidereal_transform": "ERFA/SOFA IAU 2000A nutation plus independent Decimal P03 and true Lahiri anchor; subtract true aya from JPL apparent coordinates"
+  },
+  "provenance": {
+    "jpl_manifest": "tests/reference/calendar-thirukanitham-v1/horizons-root-request-manifest.json",
+    "jpl_manifest_sha256": "15FF18596B436A17DEC684DD89DE5528F3AB107B24DB0538124263E9F05125F1",
+    "input_derived_report_sha256": "19CA5B4D59F2384F71E4A5E0013BAF526ACDB613CCFFAAF4B0A8E374A7469CB1",
+    "erfa_version": "2.0.1.5",
+    "pyerfa_requirement": "tools/requirements-thirukanitham-reference.txt",
+    "transform_script": "tools/prepare_thirukanitham_jpl_root_observations.py",
+    "transform_script_sha256": "52D93F1E5A8B5EE6430B0753215FDD9E7536F92E13579641E8E9DC7CEABE1294"
+  },
+  "statistics": {
+    "independently_checked_public_solar_ingresses": 49,
+    "independently_checked_terminal_solar_ingresses": 1,
+    "independently_checked_limb_roots": 43,
+    "maximum_absolute_solar_ingress_profile_minus_jpl_after_seconds": 3,
+    "maximum_absolute_limb_profile_minus_jpl_after_seconds": 4,
+    "jpl_root_bracket_width_seconds": 1
+  },
+  "solar_ingresses": [
+    {
+      "solar_year": 2023,
+      "month": 9,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1702722508,
+      "jpl_before_utc_seconds": 1702722509,
+      "jpl_after_utc_seconds": 1702722510,
+      "bracket_width_seconds": 1,
+      "sign_before": 8,
+      "sign_after": 9,
+      "boundary_degrees": 240.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.03486322015078258,
+      "jpl_signed_boundary_error_after_arcseconds": 0.007613908326220553,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2023,
+      "month": 10,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1705266820,
+      "jpl_before_utc_seconds": 1705266821,
+      "jpl_after_utc_seconds": 1705266822,
+      "bracket_width_seconds": 1,
+      "sign_before": 9,
+      "sign_after": 10,
+      "boundary_degrees": 270.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.033141244807666226,
+      "jpl_signed_boundary_error_after_arcseconds": 0.00933763371904206,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2023,
+      "month": 11,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1707819228,
+      "jpl_before_utc_seconds": 1707819229,
+      "jpl_after_utc_seconds": 1707819230,
+      "bracket_width_seconds": 1,
+      "sign_before": 10,
+      "sign_after": 11,
+      "boundary_degrees": 300.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.02546171913309081,
+      "jpl_signed_boundary_error_after_arcseconds": 0.016657969467814837,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2023,
+      "month": 12,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1710399975,
+      "jpl_before_utc_seconds": 1710399976,
+      "jpl_after_utc_seconds": 1710399977,
+      "bracket_width_seconds": 1,
+      "sign_before": 11,
+      "sign_after": 12,
+      "boundary_degrees": 330.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.024916435404520598,
+      "jpl_signed_boundary_error_after_arcseconds": 0.016842016498230805,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 1,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1713022460,
+      "jpl_before_utc_seconds": 1713022461,
+      "jpl_after_utc_seconds": 1713022462,
+      "bracket_width_seconds": 1,
+      "sign_before": 12,
+      "sign_after": 1,
+      "boundary_degrees": 0.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.017791039681469556,
+      "jpl_signed_boundary_error_after_arcseconds": 0.022886118676979095,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 2,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1715689419,
+      "jpl_before_utc_seconds": 1715689420,
+      "jpl_after_utc_seconds": 1715689421,
+      "bracket_width_seconds": 1,
+      "sign_before": 1,
+      "sign_after": 2,
+      "boundary_degrees": 30.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.020274565054023697,
+      "jpl_signed_boundary_error_after_arcseconds": 0.019683547361637466,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 3,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1718391437,
+      "jpl_before_utc_seconds": 1718391439,
+      "jpl_after_utc_seconds": 1718391440,
+      "bracket_width_seconds": 1,
+      "sign_before": 2,
+      "sign_after": 3,
+      "boundary_degrees": 60.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.0013478378605213948,
+      "jpl_signed_boundary_error_after_arcseconds": 0.038251328351179836,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2024,
+      "month": 4,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1721108935,
+      "jpl_before_utc_seconds": 1721108936,
+      "jpl_after_utc_seconds": 1721108937,
+      "bracket_width_seconds": 1,
+      "sign_before": 3,
+      "sign_after": 4,
+      "boundary_degrees": 90.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.02423129953967873,
+      "jpl_signed_boundary_error_after_arcseconds": 0.015366558636742411,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 5,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1723817660,
+      "jpl_before_utc_seconds": 1723817661,
+      "jpl_after_utc_seconds": 1723817662,
+      "bracket_width_seconds": 1,
+      "sign_before": 4,
+      "sign_after": 5,
+      "boundary_degrees": 120.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.01799285098513792,
+      "jpl_signed_boundary_error_after_arcseconds": 0.021964070754165732,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 6,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1726495974,
+      "jpl_before_utc_seconds": 1726495975,
+      "jpl_after_utc_seconds": 1726495976,
+      "bracket_width_seconds": 1,
+      "sign_before": 5,
+      "sign_after": 6,
+      "boundary_degrees": 150.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.024697193180145405,
+      "jpl_signed_boundary_error_after_arcseconds": 0.015982247077772627,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 7,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1729131154,
+      "jpl_before_utc_seconds": 1729131155,
+      "jpl_after_utc_seconds": 1729131156,
+      "bracket_width_seconds": 1,
+      "sign_before": 6,
+      "sign_after": 7,
+      "boundary_degrees": 180.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.02429367330023524,
+      "jpl_signed_boundary_error_after_arcseconds": 0.016746008816426183,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 8,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1731722518,
+      "jpl_before_utc_seconds": 1731722519,
+      "jpl_after_utc_seconds": 1731722520,
+      "bracket_width_seconds": 1,
+      "sign_before": 7,
+      "sign_after": 8,
+      "boundary_degrees": 210.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.013146108381079102,
+      "jpl_signed_boundary_error_after_arcseconds": 0.028971001904665172,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 9,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1734280867,
+      "jpl_before_utc_seconds": 1734280868,
+      "jpl_after_utc_seconds": 1734280869,
+      "bracket_width_seconds": 1,
+      "sign_before": 8,
+      "sign_after": 9,
+      "boundary_degrees": 240.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.022892909839811182,
+      "jpl_signed_boundary_error_after_arcseconds": 0.019583049243010464,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 10,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1736825138,
+      "jpl_before_utc_seconds": 1736825139,
+      "jpl_after_utc_seconds": 1736825140,
+      "bracket_width_seconds": 1,
+      "sign_before": 9,
+      "sign_after": 10,
+      "boundary_degrees": 270.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.007819593088242982,
+      "jpl_signed_boundary_error_after_arcseconds": 0.03465737208898645,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 11,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1739377569,
+      "jpl_before_utc_seconds": 1739377570,
+      "jpl_after_utc_seconds": 1739377571,
+      "bracket_width_seconds": 1,
+      "sign_before": 10,
+      "sign_after": 11,
+      "boundary_degrees": 300.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.0038293627085295157,
+      "jpl_signed_boundary_error_after_arcseconds": 0.03828958122085169,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2024,
+      "month": 12,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1741958437,
+      "jpl_before_utc_seconds": 1741958438,
+      "jpl_after_utc_seconds": 1741958439,
+      "bracket_width_seconds": 1,
+      "sign_before": 11,
+      "sign_after": 12,
+      "boundary_degrees": 330.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.015709023432464164,
+      "jpl_signed_boundary_error_after_arcseconds": 0.025691114797155024,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2025,
+      "month": 1,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1744581082,
+      "jpl_before_utc_seconds": 1744581083,
+      "jpl_after_utc_seconds": 1744581084,
+      "bracket_width_seconds": 1,
+      "sign_before": 12,
+      "sign_after": 1,
+      "boundary_degrees": 0.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.006559140047102119,
+      "jpl_signed_boundary_error_after_arcseconds": 0.03412008380792031,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2025,
+      "month": 2,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1747248117,
+      "jpl_before_utc_seconds": 1747248118,
+      "jpl_after_utc_seconds": 1747248119,
+      "bracket_width_seconds": 1,
+      "sign_before": 1,
+      "sign_after": 2,
+      "boundary_degrees": 30.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.03938685880484627,
+      "jpl_signed_boundary_error_after_arcseconds": 0.000930286068978603,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2025,
+      "month": 3,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1749950063,
+      "jpl_before_utc_seconds": 1749950064,
+      "jpl_after_utc_seconds": 1749950065,
+      "bracket_width_seconds": 1,
+      "sign_before": 2,
+      "sign_after": 3,
+      "boundary_degrees": 60.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.013665232734183519,
+      "jpl_signed_boundary_error_after_arcseconds": 0.02593223857729754,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2025,
+      "month": 4,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1752667339,
+      "jpl_before_utc_seconds": 1752667340,
+      "jpl_after_utc_seconds": 1752667341,
+      "bracket_width_seconds": 1,
+      "sign_before": 3,
+      "sign_after": 4,
+      "boundary_degrees": 90.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.01814182089674432,
+      "jpl_signed_boundary_error_after_arcseconds": 0.021817517495037464,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2025,
+      "month": 5,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1755375770,
+      "jpl_before_utc_seconds": 1755375772,
+      "jpl_after_utc_seconds": 1755375773,
+      "bracket_width_seconds": 1,
+      "sign_before": 4,
+      "sign_after": 5,
+      "boundary_degrees": 120.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.0119428218226858,
+      "jpl_signed_boundary_error_after_arcseconds": 0.028014487088512396,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2025,
+      "month": 6,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1758053853,
+      "jpl_before_utc_seconds": 1758053855,
+      "jpl_after_utc_seconds": 1758053856,
+      "bracket_width_seconds": 1,
+      "sign_before": 5,
+      "sign_after": 6,
+      "boundary_degrees": 150.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.008962863194028614,
+      "jpl_signed_boundary_error_after_arcseconds": 0.03171492350020344,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2025,
+      "month": 7,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1760688973,
+      "jpl_before_utc_seconds": 1760688974,
+      "jpl_after_utc_seconds": 1760688975,
+      "bracket_width_seconds": 1,
+      "sign_before": 6,
+      "sign_after": 7,
+      "boundary_degrees": 180.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.029810136311425595,
+      "jpl_signed_boundary_error_after_arcseconds": 0.011589485825425072,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2025,
+      "month": 8,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1763280453,
+      "jpl_before_utc_seconds": 1763280454,
+      "jpl_after_utc_seconds": 1763280455,
+      "bracket_width_seconds": 1,
+      "sign_before": 7,
+      "sign_after": 8,
+      "boundary_degrees": 210.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.041845671989904076,
+      "jpl_signed_boundary_error_after_arcseconds": 0.000273655734872591,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2025,
+      "month": 9,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1765839002,
+      "jpl_before_utc_seconds": 1765839003,
+      "jpl_after_utc_seconds": 1765839004,
+      "bracket_width_seconds": 1,
+      "sign_before": 8,
+      "sign_after": 9,
+      "boundary_degrees": 240.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.017304081291058537,
+      "jpl_signed_boundary_error_after_arcseconds": 0.02517397470001015,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2025,
+      "month": 10,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1768383436,
+      "jpl_before_utc_seconds": 1768383437,
+      "jpl_after_utc_seconds": 1768383438,
+      "bracket_width_seconds": 1,
+      "sign_before": 9,
+      "sign_after": 10,
+      "boundary_degrees": 270.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.03325224649870506,
+      "jpl_signed_boundary_error_after_arcseconds": 0.009224992072631721,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2025,
+      "month": 11,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1770935935,
+      "jpl_before_utc_seconds": 1770935936,
+      "jpl_after_utc_seconds": 1770935937,
+      "bracket_width_seconds": 1,
+      "sign_before": 10,
+      "sign_after": 11,
+      "boundary_degrees": 300.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.02403429125479306,
+      "jpl_signed_boundary_error_after_arcseconds": 0.018083037480209896,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2025,
+      "month": 12,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1773516779,
+      "jpl_before_utc_seconds": 1773516781,
+      "jpl_after_utc_seconds": 1773516782,
+      "bracket_width_seconds": 1,
+      "sign_before": 11,
+      "sign_after": 12,
+      "boundary_degrees": 330.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.015566447791570681,
+      "jpl_signed_boundary_error_after_arcseconds": 0.02619187478103413,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2026,
+      "month": 1,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1776139355,
+      "jpl_before_utc_seconds": 1776139356,
+      "jpl_after_utc_seconds": 1776139357,
+      "bracket_width_seconds": 1,
+      "sign_before": 12,
+      "sign_after": 1,
+      "boundary_degrees": 0.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.019204174532205798,
+      "jpl_signed_boundary_error_after_arcseconds": 0.021475543724136514,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2026,
+      "month": 2,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1778806318,
+      "jpl_before_utc_seconds": 1778806319,
+      "jpl_after_utc_seconds": 1778806320,
+      "bracket_width_seconds": 1,
+      "sign_before": 1,
+      "sign_after": 2,
+      "boundary_degrees": 30.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.025045387280897558,
+      "jpl_signed_boundary_error_after_arcseconds": 0.015273300550688873,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2026,
+      "month": 3,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1781508176,
+      "jpl_before_utc_seconds": 1781508177,
+      "jpl_after_utc_seconds": 1781508178,
+      "bracket_width_seconds": 1,
+      "sign_before": 2,
+      "sign_after": 3,
+      "boundary_degrees": 60.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.03881988639022893,
+      "jpl_signed_boundary_error_after_arcseconds": 0.0011358277902218106,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2026,
+      "month": 4,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1784225358,
+      "jpl_before_utc_seconds": 1784225360,
+      "jpl_after_utc_seconds": 1784225361,
+      "bracket_width_seconds": 1,
+      "sign_before": 3,
+      "sign_after": 4,
+      "boundary_degrees": 90.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.006547222540120856,
+      "jpl_signed_boundary_error_after_arcseconds": 0.03305128024067017,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2026,
+      "month": 5,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1786933721,
+      "jpl_before_utc_seconds": 1786933723,
+      "jpl_after_utc_seconds": 1786933724,
+      "bracket_width_seconds": 1,
+      "sign_before": 4,
+      "sign_after": 5,
+      "boundary_degrees": 120.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.007533980351581704,
+      "jpl_signed_boundary_error_after_arcseconds": 0.03242547028321496,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2026,
+      "month": 6,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1789611773,
+      "jpl_before_utc_seconds": 1789611775,
+      "jpl_after_utc_seconds": 1789611776,
+      "bracket_width_seconds": 1,
+      "sign_before": 5,
+      "sign_after": 6,
+      "boundary_degrees": 150.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.00719902673154138,
+      "jpl_signed_boundary_error_after_arcseconds": 0.03347905934560913,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2026,
+      "month": 7,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1792246898,
+      "jpl_before_utc_seconds": 1792246899,
+      "jpl_after_utc_seconds": 1792246900,
+      "bracket_width_seconds": 1,
+      "sign_before": 6,
+      "sign_after": 7,
+      "boundary_degrees": 180.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.020139944342645322,
+      "jpl_signed_boundary_error_after_arcseconds": 0.021257799744489603,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2026,
+      "month": 8,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1794838388,
+      "jpl_before_utc_seconds": 1794838390,
+      "jpl_after_utc_seconds": 1794838391,
+      "bracket_width_seconds": 1,
+      "sign_before": 7,
+      "sign_after": 8,
+      "boundary_degrees": 210.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.012921746053962124,
+      "jpl_signed_boundary_error_after_arcseconds": 0.029196534239872562,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2026,
+      "month": 9,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1797396898,
+      "jpl_before_utc_seconds": 1797396900,
+      "jpl_after_utc_seconds": 1797396901,
+      "bracket_width_seconds": 1,
+      "sign_before": 8,
+      "sign_after": 9,
+      "boundary_degrees": 240.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.002748550468822941,
+      "jpl_signed_boundary_error_after_arcseconds": 0.03973034534965336,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2026,
+      "month": 10,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1799941221,
+      "jpl_before_utc_seconds": 1799941223,
+      "jpl_after_utc_seconds": 1799941224,
+      "bracket_width_seconds": 1,
+      "sign_before": 9,
+      "sign_after": 10,
+      "boundary_degrees": 270.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.0027038638336307486,
+      "jpl_signed_boundary_error_after_arcseconds": 0.03977527458118857,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2026,
+      "month": 11,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1802493541,
+      "jpl_before_utc_seconds": 1802493542,
+      "jpl_after_utc_seconds": 1802493543,
+      "bracket_width_seconds": 1,
+      "sign_before": 10,
+      "sign_after": 11,
+      "boundary_degrees": 300.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.018430569889460457,
+      "jpl_signed_boundary_error_after_arcseconds": 0.023687948396400316,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2026,
+      "month": 12,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1805074202,
+      "jpl_before_utc_seconds": 1805074203,
+      "jpl_after_utc_seconds": 1805074204,
+      "bracket_width_seconds": 1,
+      "sign_before": 11,
+      "sign_after": 12,
+      "boundary_degrees": 330.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.013558183491113596,
+      "jpl_signed_boundary_error_after_arcseconds": 0.02783908164474269,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2027,
+      "month": 1,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1807696699,
+      "jpl_before_utc_seconds": 1807696700,
+      "jpl_after_utc_seconds": 1807696701,
+      "bracket_width_seconds": 1,
+      "sign_before": 12,
+      "sign_after": 1,
+      "boundary_degrees": 0.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.02337650421395665,
+      "jpl_signed_boundary_error_after_arcseconds": 0.01766132185139213,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2027,
+      "month": 2,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1810363780,
+      "jpl_before_utc_seconds": 1810363781,
+      "jpl_after_utc_seconds": 1810363782,
+      "bracket_width_seconds": 1,
+      "sign_before": 1,
+      "sign_after": 2,
+      "boundary_degrees": 30.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.03609605598740018,
+      "jpl_signed_boundary_error_after_arcseconds": 0.004223435246331064,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2027,
+      "month": 3,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1813065952,
+      "jpl_before_utc_seconds": 1813065954,
+      "jpl_after_utc_seconds": 1813065955,
+      "bracket_width_seconds": 1,
+      "sign_before": 2,
+      "sign_after": 3,
+      "boundary_degrees": 60.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.007530185371251719,
+      "jpl_signed_boundary_error_after_arcseconds": 0.03242759839849896,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "solar_year": 2027,
+      "month": 4,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1815783532,
+      "jpl_before_utc_seconds": 1815783533,
+      "jpl_after_utc_seconds": 1815783534,
+      "bracket_width_seconds": 1,
+      "sign_before": 3,
+      "sign_after": 4,
+      "boundary_degrees": 90.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.01943994349176137,
+      "jpl_signed_boundary_error_after_arcseconds": 0.020517107782325184,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2027,
+      "month": 5,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1818492221,
+      "jpl_before_utc_seconds": 1818492222,
+      "jpl_after_utc_seconds": 1818492223,
+      "bracket_width_seconds": 1,
+      "sign_before": 4,
+      "sign_after": 5,
+      "boundary_degrees": 120.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.024900734376842593,
+      "jpl_signed_boundary_error_after_arcseconds": 0.015058424855851626,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2027,
+      "month": 6,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1821170430,
+      "jpl_before_utc_seconds": 1821170431,
+      "jpl_after_utc_seconds": 1821170432,
+      "bracket_width_seconds": 1,
+      "sign_before": 5,
+      "sign_after": 6,
+      "boundary_degrees": 150.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.015277714351213945,
+      "jpl_signed_boundary_error_after_arcseconds": 0.02540231638477053,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2027,
+      "month": 7,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1823805533,
+      "jpl_before_utc_seconds": 1823805534,
+      "jpl_after_utc_seconds": 1823805535,
+      "bracket_width_seconds": 1,
+      "sign_before": 6,
+      "sign_after": 7,
+      "boundary_degrees": 180.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.02776405368649648,
+      "jpl_signed_boundary_error_after_arcseconds": 0.013634095068937313,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2027,
+      "month": 8,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1826396912,
+      "jpl_before_utc_seconds": 1826396913,
+      "jpl_after_utc_seconds": 1826396914,
+      "bracket_width_seconds": 1,
+      "sign_before": 7,
+      "sign_after": 8,
+      "boundary_degrees": 210.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.0032142261716217035,
+      "jpl_signed_boundary_error_after_arcseconds": 0.038542242702988005,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2027,
+      "month": 9,
+      "terminal_after_public_coverage": false,
+      "profile_root_utc_seconds_used_to_select_window": 1828955335,
+      "jpl_before_utc_seconds": 1828955336,
+      "jpl_after_utc_seconds": 1828955337,
+      "bracket_width_seconds": 1,
+      "sign_before": 8,
+      "sign_after": 9,
+      "boundary_degrees": 240.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.014141394819944253,
+      "jpl_signed_boundary_error_after_arcseconds": 0.028335607396456908,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "solar_year": 2027,
+      "month": 10,
+      "terminal_after_public_coverage": true,
+      "profile_root_utc_seconds_used_to_select_window": 1831499638,
+      "jpl_before_utc_seconds": 1831499640,
+      "jpl_after_utc_seconds": 1831499641,
+      "bracket_width_seconds": 1,
+      "sign_before": 9,
+      "sign_after": 10,
+      "boundary_degrees": 270.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.002266935234729317,
+      "jpl_signed_boundary_error_after_arcseconds": 0.04021183872282563,
+      "profile_root_minus_jpl_after_seconds": 3
+    }
+  ],
+  "civil_day_limb_roots": [
+    {
+      "limb": "karana",
+      "from_index": 38,
+      "to_index": 39,
+      "profile_root_utc_seconds_used_to_select_window": 1704051625,
+      "contexts": [
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39
+        }
+      ],
+      "jpl_before_utc_seconds": 1704051628,
+      "jpl_after_utc_seconds": 1704051629,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 38,
+      "jpl_index_after": 39,
+      "boundary_degrees": 234.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.3430800000955969,
+      "jpl_signed_boundary_error_after_arcseconds": 0.10871999999153559,
+      "jpl_apparent_sun_longitude_before_deg": 279.8553302,
+      "jpl_apparent_sun_longitude_after_deg": 279.855342,
+      "jpl_apparent_moon_longitude_before_deg": 153.8552349,
+      "jpl_apparent_moon_longitude_after_deg": 153.8553722,
+      "profile_root_minus_jpl_after_seconds": 4
+    },
+    {
+      "limb": "yoga",
+      "from_index": 2,
+      "to_index": 3,
+      "profile_root_utc_seconds_used_to_select_window": 1704060599,
+      "contexts": [
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "yoga",
+          "from_index": 2,
+          "to_index": 3
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 2,
+          "to_index": 3
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 2,
+          "to_index": 3
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "yoga",
+          "from_index": 2,
+          "to_index": 3
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "yoga",
+          "from_index": 2,
+          "to_index": 3
+        }
+      ],
+      "jpl_before_utc_seconds": 1704060602,
+      "jpl_after_utc_seconds": 1704060603,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 2,
+      "jpl_index_after": 3,
+      "boundary_degrees": 26.666666666666668,
+      "jpl_signed_boundary_error_before_arcseconds": -0.07328522439138396,
+      "jpl_signed_boundary_error_after_arcseconds": 0.46311199733963804,
+      "jpl_apparent_sun_longitude_before_deg": 279.9611662,
+      "jpl_apparent_sun_longitude_after_deg": 279.961178,
+      "jpl_apparent_moon_longitude_before_deg": 155.0871083,
+      "jpl_apparent_moon_longitude_after_deg": 155.0872455,
+      "profile_root_minus_jpl_after_seconds": 4
+    },
+    {
+      "limb": "nakshatra",
+      "from_index": 10,
+      "to_index": 11,
+      "profile_root_utc_seconds_used_to_select_window": 1704078374,
+      "contexts": [
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "nakshatra",
+          "from_index": 10,
+          "to_index": 11
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 10,
+          "to_index": 11
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 10,
+          "to_index": 11
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "nakshatra",
+          "from_index": 10,
+          "to_index": 11
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "nakshatra",
+          "from_index": 10,
+          "to_index": 11
+        }
+      ],
+      "jpl_before_utc_seconds": 1704078376,
+      "jpl_after_utc_seconds": 1704078377,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 10,
+      "jpl_index_after": 11,
+      "boundary_degrees": 133.33333333333334,
+      "jpl_signed_boundary_error_before_arcseconds": -0.16015721965914054,
+      "jpl_signed_boundary_error_after_arcseconds": 0.3330414707534146,
+      "jpl_apparent_sun_longitude_before_deg": 280.1707889,
+      "jpl_apparent_sun_longitude_after_deg": 280.1708007,
+      "jpl_apparent_moon_longitude_before_deg": 157.5241096,
+      "jpl_apparent_moon_longitude_after_deg": 157.5242466,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "limb": "karana",
+      "from_index": 39,
+      "to_index": 40,
+      "profile_root_utc_seconds_used_to_select_window": 1704099528,
+      "contexts": [
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        }
+      ],
+      "jpl_before_utc_seconds": 1704099529,
+      "jpl_after_utc_seconds": 1704099530,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 39,
+      "jpl_index_after": 40,
+      "boundary_degrees": 240.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.38447999999107196,
+      "jpl_signed_boundary_error_after_arcseconds": 0.0655200001006051,
+      "jpl_apparent_sun_longitude_before_deg": 280.4202674,
+      "jpl_apparent_sun_longitude_after_deg": 280.4202792,
+      "jpl_apparent_moon_longitude_before_deg": 160.4201606,
+      "jpl_apparent_moon_longitude_after_deg": 160.4202974,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "limb": "tithi",
+      "from_index": 20,
+      "to_index": 21,
+      "profile_root_utc_seconds_used_to_select_window": 1704099528,
+      "contexts": [
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        }
+      ],
+      "jpl_before_utc_seconds": 1704099529,
+      "jpl_after_utc_seconds": 1704099530,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 20,
+      "jpl_index_after": 21,
+      "boundary_degrees": 240.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.38447999999107196,
+      "jpl_signed_boundary_error_after_arcseconds": 0.0655200001006051,
+      "jpl_apparent_sun_longitude_before_deg": 280.4202674,
+      "jpl_apparent_sun_longitude_after_deg": 280.4202792,
+      "jpl_apparent_moon_longitude_before_deg": 160.4201606,
+      "jpl_apparent_moon_longitude_after_deg": 160.4202974,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "limb": "yoga",
+      "from_index": 4,
+      "to_index": 5,
+      "profile_root_utc_seconds_used_to_select_window": 1704240153,
+      "contexts": [
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5
+        }
+      ],
+      "jpl_before_utc_seconds": 1704240150,
+      "jpl_after_utc_seconds": 1704240151,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 4,
+      "jpl_index_after": 5,
+      "boundary_degrees": 53.333333333333336,
+      "jpl_signed_boundary_error_before_arcseconds": -0.5163651180623674,
+      "jpl_signed_boundary_error_after_arcseconds": 0.01895306951382736,
+      "jpl_apparent_sun_longitude_before_deg": 282.0788824,
+      "jpl_apparent_sun_longitude_after_deg": 282.0788942,
+      "jpl_apparent_moon_longitude_before_deg": 179.6360439,
+      "jpl_apparent_moon_longitude_after_deg": 179.6361808,
+      "profile_root_minus_jpl_after_seconds": -2
+    },
+    {
+      "limb": "karana",
+      "from_index": 42,
+      "to_index": 43,
+      "profile_root_utc_seconds_used_to_select_window": 1704243691,
+      "contexts": [
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43
+        }
+      ],
+      "jpl_before_utc_seconds": 1704243688,
+      "jpl_after_utc_seconds": 1704243689,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 42,
+      "jpl_index_after": 43,
+      "boundary_degrees": 258.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.4359600000043429,
+      "jpl_signed_boundary_error_after_arcseconds": 0.015119999920898408,
+      "jpl_apparent_sun_longitude_before_deg": 282.1206158,
+      "jpl_apparent_sun_longitude_after_deg": 282.1206275,
+      "jpl_apparent_moon_longitude_before_deg": 180.1204947,
+      "jpl_apparent_moon_longitude_after_deg": 180.1206317,
+      "profile_root_minus_jpl_after_seconds": -2
+    },
+    {
+      "limb": "nakshatra",
+      "from_index": 12,
+      "to_index": 13,
+      "profile_root_utc_seconds_used_to_select_window": 1704273375,
+      "contexts": [
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "nakshatra",
+          "from_index": 12,
+          "to_index": 13
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 12,
+          "to_index": 13
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 12,
+          "to_index": 13
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "nakshatra",
+          "from_index": 12,
+          "to_index": 13
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "nakshatra",
+          "from_index": 12,
+          "to_index": 13
+        }
+      ],
+      "jpl_before_utc_seconds": 1704273372,
+      "jpl_after_utc_seconds": 1704273373,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 12,
+      "jpl_index_after": 13,
+      "boundary_degrees": 160.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.06924842830358102,
+      "jpl_signed_boundary_error_after_arcseconds": 0.4250306664062009,
+      "jpl_apparent_sun_longitude_before_deg": 282.4707664,
+      "jpl_apparent_sun_longitude_after_deg": 282.4707782,
+      "jpl_apparent_moon_longitude_before_deg": 184.1908573,
+      "jpl_apparent_moon_longitude_after_deg": 184.1909946,
+      "profile_root_minus_jpl_after_seconds": -2
+    },
+    {
+      "limb": "karana",
+      "from_index": 43,
+      "to_index": 44,
+      "profile_root_utc_seconds_used_to_select_window": 1704291518,
+      "contexts": [
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        }
+      ],
+      "jpl_before_utc_seconds": 1704291514,
+      "jpl_after_utc_seconds": 1704291515,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 43,
+      "jpl_index_after": 44,
+      "boundary_degrees": 264.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.2541599998494348,
+      "jpl_signed_boundary_error_after_arcseconds": 0.1990799999475712,
+      "jpl_apparent_sun_longitude_before_deg": 282.6847732,
+      "jpl_apparent_sun_longitude_after_deg": 282.684785,
+      "jpl_apparent_moon_longitude_before_deg": 186.6847026,
+      "jpl_apparent_moon_longitude_after_deg": 186.6848403,
+      "profile_root_minus_jpl_after_seconds": -3
+    },
+    {
+      "limb": "tithi",
+      "from_index": 22,
+      "to_index": 23,
+      "profile_root_utc_seconds_used_to_select_window": 1704291518,
+      "contexts": [
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 3,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        }
+      ],
+      "jpl_before_utc_seconds": 1704291514,
+      "jpl_after_utc_seconds": 1704291515,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 22,
+      "jpl_index_after": 23,
+      "boundary_degrees": 264.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.2541599998494348,
+      "jpl_signed_boundary_error_after_arcseconds": 0.1990799999475712,
+      "jpl_apparent_sun_longitude_before_deg": 282.6847732,
+      "jpl_apparent_sun_longitude_after_deg": 282.684785,
+      "jpl_apparent_moon_longitude_before_deg": 186.6847026,
+      "jpl_apparent_moon_longitude_after_deg": 186.6848403,
+      "profile_root_minus_jpl_after_seconds": -3
+    },
+    {
+      "limb": "yoga",
+      "from_index": 11,
+      "to_index": 12,
+      "profile_root_utc_seconds_used_to_select_window": 1704826322,
+      "contexts": [
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "yoga",
+          "from_index": 11,
+          "to_index": 12
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 11,
+          "to_index": 12
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 11,
+          "to_index": 12
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "yoga",
+          "from_index": 11,
+          "to_index": 12
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "yoga",
+          "from_index": 11,
+          "to_index": 12
+        }
+      ],
+      "jpl_before_utc_seconds": 1704826322,
+      "jpl_after_utc_seconds": 1704826323,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 11,
+      "jpl_index_after": 12,
+      "boundary_degrees": 146.66666666666669,
+      "jpl_signed_boundary_error_before_arcseconds": -0.394609154977843,
+      "jpl_signed_boundary_error_after_arcseconds": 0.23538309467312502,
+      "jpl_apparent_sun_longitude_before_deg": 288.9948087,
+      "jpl_apparent_sun_longitude_after_deg": 288.9948205,
+      "jpl_apparent_moon_longitude_before_deg": 266.0541727,
+      "jpl_apparent_moon_longitude_after_deg": 266.0543359,
+      "profile_root_minus_jpl_after_seconds": 1
+    },
+    {
+      "limb": "karana",
+      "from_index": 56,
+      "to_index": 57,
+      "profile_root_utc_seconds_used_to_select_window": 1704858763,
+      "contexts": [
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 56,
+          "to_index": 57
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 56,
+          "to_index": 57
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 56,
+          "to_index": 57
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 56,
+          "to_index": 57
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 56,
+          "to_index": 57
+        }
+      ],
+      "jpl_before_utc_seconds": 1704858762,
+      "jpl_after_utc_seconds": 1704858763,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 56,
+      "jpl_index_after": 57,
+      "boundary_degrees": 342.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.33228000002054614,
+      "jpl_signed_boundary_error_after_arcseconds": 0.2192399999785266,
+      "jpl_apparent_sun_longitude_before_deg": 289.3775972,
+      "jpl_apparent_sun_longitude_after_deg": 289.377609,
+      "jpl_apparent_moon_longitude_before_deg": 271.3775049,
+      "jpl_apparent_moon_longitude_after_deg": 271.3776699,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "nakshatra",
+      "from_index": 19,
+      "to_index": 20,
+      "profile_root_utc_seconds_used_to_select_window": 1704895812,
+      "contexts": [
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "nakshatra",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "nakshatra",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "nakshatra",
+          "from_index": 19,
+          "to_index": 20
+        }
+      ],
+      "jpl_before_utc_seconds": 1704895811,
+      "jpl_after_utc_seconds": 1704895812,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 19,
+      "jpl_index_after": 20,
+      "boundary_degrees": 253.33333333333334,
+      "jpl_signed_boundary_error_before_arcseconds": -0.2644813348297248,
+      "jpl_signed_boundary_error_after_arcseconds": 0.3359947143167119,
+      "jpl_apparent_sun_longitude_before_deg": 289.8147658,
+      "jpl_apparent_sun_longitude_after_deg": 289.8147776,
+      "jpl_apparent_moon_longitude_before_deg": 277.524548,
+      "jpl_apparent_moon_longitude_after_deg": 277.5247148,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "karana",
+      "from_index": 57,
+      "to_index": 58,
+      "profile_root_utc_seconds_used_to_select_window": 1704897683,
+      "contexts": [
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58
+        }
+      ],
+      "jpl_before_utc_seconds": 1704897682,
+      "jpl_after_utc_seconds": 1704897683,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 57,
+      "jpl_index_after": 58,
+      "boundary_degrees": 348.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.2901600001678162,
+      "jpl_signed_boundary_error_after_arcseconds": 0.268199999936769,
+      "jpl_apparent_sun_longitude_before_deg": 289.8368429,
+      "jpl_apparent_sun_longitude_after_deg": 289.8368547,
+      "jpl_apparent_moon_longitude_before_deg": 277.8367623,
+      "jpl_apparent_moon_longitude_after_deg": 277.8369292,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "tithi",
+      "from_index": 29,
+      "to_index": 30,
+      "profile_root_utc_seconds_used_to_select_window": 1704897683,
+      "contexts": [
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 57,
+          "to_index": 58
+        }
+      ],
+      "jpl_before_utc_seconds": 1704897682,
+      "jpl_after_utc_seconds": 1704897683,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 29,
+      "jpl_index_after": 30,
+      "boundary_degrees": 348.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.2901600001678162,
+      "jpl_signed_boundary_error_after_arcseconds": 0.268199999936769,
+      "jpl_apparent_sun_longitude_before_deg": 289.8368429,
+      "jpl_apparent_sun_longitude_after_deg": 289.8368547,
+      "jpl_apparent_moon_longitude_before_deg": 277.8367623,
+      "jpl_apparent_moon_longitude_after_deg": 277.8369292,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "yoga",
+      "from_index": 12,
+      "to_index": 13,
+      "profile_root_utc_seconds_used_to_select_window": 1704901647,
+      "contexts": [
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "yoga",
+          "from_index": 12,
+          "to_index": 13
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 12,
+          "to_index": 13
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 12,
+          "to_index": 13
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "yoga",
+          "from_index": 12,
+          "to_index": 13
+        },
+        {
+          "date": {
+            "day": 10,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "yoga",
+          "from_index": 12,
+          "to_index": 13
+        }
+      ],
+      "jpl_before_utc_seconds": 1704901647,
+      "jpl_after_utc_seconds": 1704901648,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 12,
+      "jpl_index_after": 13,
+      "boundary_degrees": 160.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.059645825558618526,
+      "jpl_signed_boundary_error_after_arcseconds": 0.5843862842084491,
+      "jpl_apparent_sun_longitude_before_deg": 289.8836283,
+      "jpl_apparent_sun_longitude_after_deg": 289.8836401,
+      "jpl_apparent_moon_longitude_before_deg": 278.4989442,
+      "jpl_apparent_moon_longitude_after_deg": 278.4991113,
+      "profile_root_minus_jpl_after_seconds": 1
+    },
+    {
+      "limb": "karana",
+      "from_index": 58,
+      "to_index": 59,
+      "profile_root_utc_seconds_used_to_select_window": 1704936152,
+      "contexts": [
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 58,
+          "to_index": 59
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 58,
+          "to_index": 59
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 58,
+          "to_index": 59
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 58,
+          "to_index": 59
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 58,
+          "to_index": 59
+        }
+      ],
+      "jpl_before_utc_seconds": 1704936150,
+      "jpl_after_utc_seconds": 1704936151,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 58,
+      "jpl_index_after": 59,
+      "boundary_degrees": 354.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.21563999998761574,
+      "jpl_signed_boundary_error_after_arcseconds": 0.3488399998559544,
+      "jpl_apparent_sun_longitude_before_deg": 290.2907451,
+      "jpl_apparent_sun_longitude_after_deg": 290.2907569,
+      "jpl_apparent_moon_longitude_before_deg": 284.2906852,
+      "jpl_apparent_moon_longitude_after_deg": 284.2908538,
+      "profile_root_minus_jpl_after_seconds": -1
+    },
+    {
+      "limb": "karana",
+      "from_index": 59,
+      "to_index": 0,
+      "profile_root_utc_seconds_used_to_select_window": 1704974248,
+      "contexts": [
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0
+        }
+      ],
+      "jpl_before_utc_seconds": 1704974244,
+      "jpl_after_utc_seconds": 1704974245,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 59,
+      "jpl_index_after": 0,
+      "boundary_degrees": 0.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.31931999997141247,
+      "jpl_signed_boundary_error_after_arcseconds": 0.25019999998221465,
+      "jpl_apparent_sun_longitude_before_deg": 290.7402208,
+      "jpl_apparent_sun_longitude_after_deg": 290.7402326,
+      "jpl_apparent_moon_longitude_before_deg": 290.7401321,
+      "jpl_apparent_moon_longitude_after_deg": 290.7403021,
+      "profile_root_minus_jpl_after_seconds": -3
+    },
+    {
+      "limb": "tithi",
+      "from_index": 30,
+      "to_index": 1,
+      "profile_root_utc_seconds_used_to_select_window": 1704974248,
+      "contexts": [
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 30,
+          "to_index": 1
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 59,
+          "to_index": 0
+        }
+      ],
+      "jpl_before_utc_seconds": 1704974244,
+      "jpl_after_utc_seconds": 1704974245,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 30,
+      "jpl_index_after": 1,
+      "boundary_degrees": 0.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.31931999997141247,
+      "jpl_signed_boundary_error_after_arcseconds": 0.25019999998221465,
+      "jpl_apparent_sun_longitude_before_deg": 290.7402208,
+      "jpl_apparent_sun_longitude_after_deg": 290.7402326,
+      "jpl_apparent_moon_longitude_before_deg": 290.7401321,
+      "jpl_apparent_moon_longitude_after_deg": 290.7403021,
+      "profile_root_minus_jpl_after_seconds": -3
+    },
+    {
+      "limb": "nakshatra",
+      "from_index": 20,
+      "to_index": 21,
+      "profile_root_utc_seconds_used_to_select_window": 1704974941,
+      "contexts": [
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "nakshatra",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "nakshatra",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "nakshatra",
+          "from_index": 20,
+          "to_index": 21
+        }
+      ],
+      "jpl_before_utc_seconds": 1704974937,
+      "jpl_after_utc_seconds": 1704974938,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 20,
+      "jpl_index_after": 21,
+      "boundary_degrees": 266.6666666666667,
+      "jpl_signed_boundary_error_before_arcseconds": -0.4018732325221208,
+      "jpl_signed_boundary_error_after_arcseconds": 0.21012306958709814,
+      "jpl_apparent_sun_longitude_before_deg": 290.7483975,
+      "jpl_apparent_sun_longitude_after_deg": 290.7484093,
+      "jpl_apparent_moon_longitude_before_deg": 290.8579279,
+      "jpl_apparent_moon_longitude_after_deg": 290.8580979,
+      "profile_root_minus_jpl_after_seconds": -3
+    },
+    {
+      "limb": "yoga",
+      "from_index": 13,
+      "to_index": 14,
+      "profile_root_utc_seconds_used_to_select_window": 1704975543,
+      "contexts": [
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "yoga",
+          "from_index": 13,
+          "to_index": 14
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 13,
+          "to_index": 14
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 13,
+          "to_index": 14
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "yoga",
+          "from_index": 13,
+          "to_index": 14
+        },
+        {
+          "date": {
+            "day": 11,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "yoga",
+          "from_index": 13,
+          "to_index": 14
+        }
+      ],
+      "jpl_before_utc_seconds": 1704975540,
+      "jpl_after_utc_seconds": 1704975541,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 13,
+      "jpl_index_after": 14,
+      "boundary_degrees": 173.33333333333334,
+      "jpl_signed_boundary_error_before_arcseconds": -0.46800422773003447,
+      "jpl_signed_boundary_error_after_arcseconds": 0.1864683834924108,
+      "jpl_apparent_sun_longitude_before_deg": 290.7555122,
+      "jpl_apparent_sun_longitude_after_deg": 290.755524,
+      "jpl_apparent_moon_longitude_before_deg": 290.9604381,
+      "jpl_apparent_moon_longitude_after_deg": 290.9606081,
+      "profile_root_minus_jpl_after_seconds": -2
+    },
+    {
+      "limb": "yoga",
+      "from_index": 1,
+      "to_index": 2,
+      "profile_root_utc_seconds_used_to_select_window": 1706148115,
+      "contexts": [
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "yoga",
+          "from_index": 1,
+          "to_index": 2
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 1,
+          "to_index": 2
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 1,
+          "to_index": 2
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "yoga",
+          "from_index": 1,
+          "to_index": 2
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "yoga",
+          "from_index": 1,
+          "to_index": 2
+        }
+      ],
+      "jpl_before_utc_seconds": 1706148114,
+      "jpl_after_utc_seconds": 1706148115,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 1,
+      "jpl_index_after": 2,
+      "boundary_degrees": 13.333333333333334,
+      "jpl_signed_boundary_error_before_arcseconds": -0.0505201358123486,
+      "jpl_signed_boundary_error_after_arcseconds": 0.5045946592531436,
+      "jpl_apparent_sun_longitude_before_deg": 304.5733602,
+      "jpl_apparent_sun_longitude_after_deg": 304.5733719,
+      "jpl_apparent_moon_longitude_before_deg": 117.1441313,
+      "jpl_apparent_moon_longitude_after_deg": 117.1442738,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "nakshatra",
+      "from_index": 7,
+      "to_index": 8,
+      "profile_root_utc_seconds_used_to_select_window": 1706150793,
+      "contexts": [
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8
+        }
+      ],
+      "jpl_before_utc_seconds": 1706150791,
+      "jpl_after_utc_seconds": 1706150792,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 7,
+      "jpl_index_after": 8,
+      "boundary_degrees": 93.33333333333334,
+      "jpl_signed_boundary_error_before_arcseconds": -0.3944268261761863,
+      "jpl_signed_boundary_error_after_arcseconds": 0.11821058635632653,
+      "jpl_apparent_sun_longitude_before_deg": 304.6048591,
+      "jpl_apparent_sun_longitude_after_deg": 304.6048708,
+      "jpl_apparent_moon_longitude_before_deg": 117.5253118,
+      "jpl_apparent_moon_longitude_after_deg": 117.5254542,
+      "profile_root_minus_jpl_after_seconds": -1
+    },
+    {
+      "limb": "karana",
+      "from_index": 28,
+      "to_index": 29,
+      "profile_root_utc_seconds_used_to_select_window": 1706159064,
+      "contexts": [
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 28,
+          "to_index": 29
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 28,
+          "to_index": 29
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 28,
+          "to_index": 29
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 28,
+          "to_index": 29
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 28,
+          "to_index": 29
+        }
+      ],
+      "jpl_before_utc_seconds": 1706159062,
+      "jpl_after_utc_seconds": 1706159063,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 28,
+      "jpl_index_after": 29,
+      "boundary_degrees": 174.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.42516000003161025,
+      "jpl_signed_boundary_error_after_arcseconds": 0.04428000013376732,
+      "jpl_apparent_sun_longitude_before_deg": 304.7021783,
+      "jpl_apparent_sun_longitude_after_deg": 304.70219,
+      "jpl_apparent_moon_longitude_before_deg": 118.7020602,
+      "jpl_apparent_moon_longitude_after_deg": 118.7022023,
+      "profile_root_minus_jpl_after_seconds": -1
+    },
+    {
+      "limb": "karana",
+      "from_index": 29,
+      "to_index": 30,
+      "profile_root_utc_seconds_used_to_select_window": 1706205241,
+      "contexts": [
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30
+        }
+      ],
+      "jpl_before_utc_seconds": 1706205240,
+      "jpl_after_utc_seconds": 1706205241,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 29,
+      "jpl_index_after": 30,
+      "boundary_degrees": 180.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.16271999995751685,
+      "jpl_signed_boundary_error_after_arcseconds": 0.30312000001231354,
+      "jpl_apparent_sun_longitude_before_deg": 305.2454836,
+      "jpl_apparent_sun_longitude_after_deg": 305.2454954,
+      "jpl_apparent_moon_longitude_before_deg": 125.2454384,
+      "jpl_apparent_moon_longitude_after_deg": 125.2455796,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "tithi",
+      "from_index": 15,
+      "to_index": 16,
+      "profile_root_utc_seconds_used_to_select_window": 1706205241,
+      "contexts": [
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 15,
+          "to_index": 16
+        },
+        {
+          "date": {
+            "day": 25,
+            "month": 1,
+            "year": 2024
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 29,
+          "to_index": 30
+        }
+      ],
+      "jpl_before_utc_seconds": 1706205240,
+      "jpl_after_utc_seconds": 1706205241,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 15,
+      "jpl_index_after": 16,
+      "boundary_degrees": 180.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.16271999995751685,
+      "jpl_signed_boundary_error_after_arcseconds": 0.30312000001231354,
+      "jpl_apparent_sun_longitude_before_deg": 305.2454836,
+      "jpl_apparent_sun_longitude_after_deg": 305.2454954,
+      "jpl_apparent_moon_longitude_before_deg": 125.2454384,
+      "jpl_apparent_moon_longitude_after_deg": 125.2455796,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "karana",
+      "from_index": 37,
+      "to_index": 38,
+      "profile_root_utc_seconds_used_to_select_window": 1752517810,
+      "contexts": [
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38
+        }
+      ],
+      "jpl_before_utc_seconds": 1752517812,
+      "jpl_after_utc_seconds": 1752517813,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 37,
+      "jpl_index_after": 38,
+      "boundary_degrees": 228.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.0874800000246978,
+      "jpl_signed_boundary_error_after_arcseconds": 0.4384799999570532,
+      "jpl_apparent_sun_longitude_before_deg": 112.5641091,
+      "jpl_apparent_sun_longitude_after_deg": 112.5641202,
+      "jpl_apparent_moon_longitude_before_deg": 340.5640848,
+      "jpl_apparent_moon_longitude_after_deg": 340.564242,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "limb": "tithi",
+      "from_index": 19,
+      "to_index": 20,
+      "profile_root_utc_seconds_used_to_select_window": 1752517810,
+      "contexts": [
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 19,
+          "to_index": 20
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 37,
+          "to_index": 38
+        }
+      ],
+      "jpl_before_utc_seconds": 1752517812,
+      "jpl_after_utc_seconds": 1752517813,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 19,
+      "jpl_index_after": 20,
+      "boundary_degrees": 228.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.0874800000246978,
+      "jpl_signed_boundary_error_after_arcseconds": 0.4384799999570532,
+      "jpl_apparent_sun_longitude_before_deg": 112.5641091,
+      "jpl_apparent_sun_longitude_after_deg": 112.5641202,
+      "jpl_apparent_moon_longitude_before_deg": 340.5640848,
+      "jpl_apparent_moon_longitude_after_deg": 340.564242,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "limb": "nakshatra",
+      "from_index": 24,
+      "to_index": 25,
+      "profile_root_utc_seconds_used_to_select_window": 1752540988,
+      "contexts": [
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "nakshatra",
+          "from_index": 24,
+          "to_index": 25
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 24,
+          "to_index": 25
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 24,
+          "to_index": 25
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "nakshatra",
+          "from_index": 24,
+          "to_index": 25
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "nakshatra",
+          "from_index": 24,
+          "to_index": 25
+        }
+      ],
+      "jpl_before_utc_seconds": 1752540990,
+      "jpl_after_utc_seconds": 1752540991,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 24,
+      "jpl_index_after": 25,
+      "boundary_degrees": 320.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.2983280790658682,
+      "jpl_signed_boundary_error_after_arcseconds": 0.26939105057408597,
+      "jpl_apparent_sun_longitude_before_deg": 112.819944,
+      "jpl_apparent_sun_longitude_after_deg": 112.819955,
+      "jpl_apparent_moon_longitude_before_deg": 344.2146683,
+      "jpl_apparent_moon_longitude_after_deg": 344.214826,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "limb": "karana",
+      "from_index": 38,
+      "to_index": 39,
+      "profile_root_utc_seconds_used_to_select_window": 1752558719,
+      "contexts": [
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 38,
+          "to_index": 39
+        }
+      ],
+      "jpl_before_utc_seconds": 1752558721,
+      "jpl_after_utc_seconds": 1752558722,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 38,
+      "jpl_index_after": 39,
+      "boundary_degrees": 234.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.26027999999769236,
+      "jpl_signed_boundary_error_after_arcseconds": 0.26891999989402393,
+      "jpl_apparent_sun_longitude_before_deg": 113.0156627,
+      "jpl_apparent_sun_longitude_after_deg": 113.0156738,
+      "jpl_apparent_moon_longitude_before_deg": 347.0155904,
+      "jpl_apparent_moon_longitude_after_deg": 347.0157485,
+      "profile_root_minus_jpl_after_seconds": 3
+    },
+    {
+      "limb": "yoga",
+      "from_index": 4,
+      "to_index": 5,
+      "profile_root_utc_seconds_used_to_select_window": 1752568946,
+      "contexts": [
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "yoga",
+          "from_index": 4,
+          "to_index": 5
+        }
+      ],
+      "jpl_before_utc_seconds": 1752568947,
+      "jpl_after_utc_seconds": 1752568948,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 4,
+      "jpl_index_after": 5,
+      "boundary_degrees": 53.333333333333336,
+      "jpl_signed_boundary_error_before_arcseconds": -0.37807496745472235,
+      "jpl_signed_boundary_error_after_arcseconds": 0.23176350515541344,
+      "jpl_apparent_sun_longitude_before_deg": 113.1285425,
+      "jpl_apparent_sun_longitude_after_deg": 113.1285535,
+      "jpl_apparent_moon_longitude_before_deg": 348.6342008,
+      "jpl_apparent_moon_longitude_after_deg": 348.6343592,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "limb": "karana",
+      "from_index": 39,
+      "to_index": 40,
+      "profile_root_utc_seconds_used_to_select_window": 1752599374,
+      "contexts": [
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        }
+      ],
+      "jpl_before_utc_seconds": 1752599375,
+      "jpl_after_utc_seconds": 1752599376,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 39,
+      "jpl_index_after": 40,
+      "boundary_degrees": 240.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.18216000003121735,
+      "jpl_signed_boundary_error_after_arcseconds": 0.35063999995372797,
+      "jpl_apparent_sun_longitude_before_deg": 113.464435,
+      "jpl_apparent_sun_longitude_after_deg": 113.4644461,
+      "jpl_apparent_moon_longitude_before_deg": 353.4643844,
+      "jpl_apparent_moon_longitude_after_deg": 353.4645435,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "limb": "tithi",
+      "from_index": 20,
+      "to_index": 21,
+      "profile_root_utc_seconds_used_to_select_window": 1752599374,
+      "contexts": [
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 20,
+          "to_index": 21
+        },
+        {
+          "date": {
+            "day": 15,
+            "month": 7,
+            "year": 2025
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 39,
+          "to_index": 40
+        }
+      ],
+      "jpl_before_utc_seconds": 1752599375,
+      "jpl_after_utc_seconds": 1752599376,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 20,
+      "jpl_index_after": 21,
+      "boundary_degrees": 240.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.18216000003121735,
+      "jpl_signed_boundary_error_after_arcseconds": 0.35063999995372797,
+      "jpl_apparent_sun_longitude_before_deg": 113.464435,
+      "jpl_apparent_sun_longitude_after_deg": 113.4644461,
+      "jpl_apparent_moon_longitude_before_deg": 353.4643844,
+      "jpl_apparent_moon_longitude_after_deg": 353.4645435,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "limb": "karana",
+      "from_index": 42,
+      "to_index": 43,
+      "profile_root_utc_seconds_used_to_select_window": 1793485322,
+      "contexts": [
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 42,
+          "to_index": 43
+        }
+      ],
+      "jpl_before_utc_seconds": 1793485323,
+      "jpl_after_utc_seconds": 1793485324,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 42,
+      "jpl_index_after": 43,
+      "boundary_degrees": 258.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.008999999977277184,
+      "jpl_signed_boundary_error_after_arcseconds": 0.5389200000308847,
+      "jpl_apparent_sun_longitude_before_deg": 218.5088608,
+      "jpl_apparent_sun_longitude_after_deg": 218.5088724,
+      "jpl_apparent_moon_longitude_before_deg": 116.5088583,
+      "jpl_apparent_moon_longitude_after_deg": 116.5090221,
+      "profile_root_minus_jpl_after_seconds": 2
+    },
+    {
+      "limb": "nakshatra",
+      "from_index": 7,
+      "to_index": 8,
+      "profile_root_utc_seconds_used_to_select_window": 1793491792,
+      "contexts": [
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "nakshatra",
+          "from_index": 7,
+          "to_index": 8
+        }
+      ],
+      "jpl_before_utc_seconds": 1793491792,
+      "jpl_after_utc_seconds": 1793491793,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 7,
+      "jpl_index_after": 8,
+      "boundary_degrees": 93.33333333333334,
+      "jpl_signed_boundary_error_before_arcseconds": -0.3225136551805008,
+      "jpl_signed_boundary_error_after_arcseconds": 0.26608374885199737,
+      "jpl_apparent_sun_longitude_before_deg": 218.5837323,
+      "jpl_apparent_sun_longitude_after_deg": 218.5837438,
+      "jpl_apparent_moon_longitude_before_deg": 117.567433,
+      "jpl_apparent_moon_longitude_after_deg": 117.5675965,
+      "profile_root_minus_jpl_after_seconds": 1
+    },
+    {
+      "limb": "yoga",
+      "from_index": 22,
+      "to_index": 23,
+      "profile_root_utc_seconds_used_to_select_window": 1793524167,
+      "contexts": [
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "yoga",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "yoga",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "yoga",
+          "from_index": 22,
+          "to_index": 23
+        }
+      ],
+      "jpl_before_utc_seconds": 1793524166,
+      "jpl_after_utc_seconds": 1793524167,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 22,
+      "jpl_index_after": 23,
+      "boundary_degrees": 293.33333333333337,
+      "jpl_signed_boundary_error_before_arcseconds": -0.4993263939923054,
+      "jpl_signed_boundary_error_after_arcseconds": 0.12670895991959696,
+      "jpl_apparent_sun_longitude_before_deg": 218.9584754,
+      "jpl_apparent_sun_longitude_after_deg": 218.9584869,
+      "jpl_apparent_moon_longitude_before_deg": 122.843142,
+      "jpl_apparent_moon_longitude_after_deg": 122.8433044,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "karana",
+      "from_index": 43,
+      "to_index": 44,
+      "profile_root_utc_seconds_used_to_select_window": 1793524931,
+      "contexts": [
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        }
+      ],
+      "jpl_before_utc_seconds": 1793524930,
+      "jpl_after_utc_seconds": 1793524931,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 43,
+      "jpl_index_after": 44,
+      "boundary_degrees": 264.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.4269600000270657,
+      "jpl_signed_boundary_error_after_arcseconds": 0.11592000007567549,
+      "jpl_apparent_sun_longitude_before_deg": 218.96732,
+      "jpl_apparent_sun_longitude_after_deg": 218.9673316,
+      "jpl_apparent_moon_longitude_before_deg": 122.9672014,
+      "jpl_apparent_moon_longitude_after_deg": 122.9673638,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "tithi",
+      "from_index": 22,
+      "to_index": 23,
+      "profile_root_utc_seconds_used_to_select_window": 1793524931,
+      "contexts": [
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 1,
+            "month": 11,
+            "year": 2026
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 43,
+          "to_index": 44
+        }
+      ],
+      "jpl_before_utc_seconds": 1793524930,
+      "jpl_after_utc_seconds": 1793524931,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 22,
+      "jpl_index_after": 23,
+      "boundary_degrees": 264.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.4269600000270657,
+      "jpl_signed_boundary_error_after_arcseconds": 0.11592000007567549,
+      "jpl_apparent_sun_longitude_before_deg": 218.96732,
+      "jpl_apparent_sun_longitude_after_deg": 218.9673316,
+      "jpl_apparent_moon_longitude_before_deg": 122.9672014,
+      "jpl_apparent_moon_longitude_after_deg": 122.9673638,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "karana",
+      "from_index": 5,
+      "to_index": 6,
+      "profile_root_utc_seconds_used_to_select_window": 1830220938,
+      "contexts": [
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6
+        }
+      ],
+      "jpl_before_utc_seconds": 1830220937,
+      "jpl_after_utc_seconds": 1830220938,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 5,
+      "jpl_index_after": 6,
+      "boundary_degrees": 36.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.08100000000013097,
+      "jpl_signed_boundary_error_after_arcseconds": 0.3693599999678554,
+      "jpl_apparent_sun_longitude_before_deg": 279.1724827,
+      "jpl_apparent_sun_longitude_after_deg": 279.1724945,
+      "jpl_apparent_moon_longitude_before_deg": 315.1724602,
+      "jpl_apparent_moon_longitude_after_deg": 315.1725971,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "tithi",
+      "from_index": 3,
+      "to_index": 4,
+      "profile_root_utc_seconds_used_to_select_window": 1830220938,
+      "contexts": [
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "tithi",
+          "from_index": 3,
+          "to_index": 4
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 5,
+          "to_index": 6
+        }
+      ],
+      "jpl_before_utc_seconds": 1830220937,
+      "jpl_after_utc_seconds": 1830220938,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 3,
+      "jpl_index_after": 4,
+      "boundary_degrees": 36.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.08100000000013097,
+      "jpl_signed_boundary_error_after_arcseconds": 0.3693599999678554,
+      "jpl_apparent_sun_longitude_before_deg": 279.1724827,
+      "jpl_apparent_sun_longitude_after_deg": 279.1724945,
+      "jpl_apparent_moon_longitude_before_deg": 315.1724602,
+      "jpl_apparent_moon_longitude_after_deg": 315.1725971,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "yoga",
+      "from_index": 14,
+      "to_index": 15,
+      "profile_root_utc_seconds_used_to_select_window": 1830226496,
+      "contexts": [
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "yoga",
+          "from_index": 14,
+          "to_index": 15
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 14,
+          "to_index": 15
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "yoga",
+          "from_index": 14,
+          "to_index": 15
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "yoga",
+          "from_index": 14,
+          "to_index": 15
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "yoga",
+          "from_index": 14,
+          "to_index": 15
+        }
+      ],
+      "jpl_before_utc_seconds": 1830226496,
+      "jpl_after_utc_seconds": 1830226497,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 14,
+      "jpl_index_after": 15,
+      "boundary_degrees": 186.66666666666669,
+      "jpl_signed_boundary_error_before_arcseconds": -0.041040573819373094,
+      "jpl_signed_boundary_error_after_arcseconds": 0.49391566533358855,
+      "jpl_apparent_sun_longitude_before_deg": 279.2380752,
+      "jpl_apparent_sun_longitude_after_deg": 279.238087,
+      "jpl_apparent_moon_longitude_before_deg": 315.933106,
+      "jpl_apparent_moon_longitude_after_deg": 315.9332428,
+      "profile_root_minus_jpl_after_seconds": 1
+    },
+    {
+      "limb": "nakshatra",
+      "from_index": 22,
+      "to_index": 23,
+      "profile_root_utc_seconds_used_to_select_window": 1830238581,
+      "contexts": [
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "nakshatra",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "nakshatra",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "nakshatra",
+          "from_index": 22,
+          "to_index": 23
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "nakshatra",
+          "from_index": 22,
+          "to_index": 23
+        }
+      ],
+      "jpl_before_utc_seconds": 1830238580,
+      "jpl_after_utc_seconds": 1830238581,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 22,
+      "jpl_index_after": 23,
+      "boundary_degrees": 293.33333333333337,
+      "jpl_signed_boundary_error_before_arcseconds": -0.04427956343988626,
+      "jpl_signed_boundary_error_after_arcseconds": 0.44783862281292386,
+      "jpl_apparent_sun_longitude_before_deg": 279.3806583,
+      "jpl_apparent_sun_longitude_after_deg": 279.3806701,
+      "jpl_apparent_moon_longitude_before_deg": 317.5855902,
+      "jpl_apparent_moon_longitude_after_deg": 317.5857269,
+      "profile_root_minus_jpl_after_seconds": 0
+    },
+    {
+      "limb": "karana",
+      "from_index": 6,
+      "to_index": 7,
+      "profile_root_utc_seconds_used_to_select_window": 1830268994,
+      "contexts": [
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "TN",
+          "elevation_meters": 14,
+          "limb": "karana",
+          "from_index": 6,
+          "to_index": 7
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 6,
+          "to_index": 7
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 7,
+          "limb": "karana",
+          "from_index": 6,
+          "to_index": 7
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": -100,
+          "limb": "karana",
+          "from_index": 6,
+          "to_index": 7
+        },
+        {
+          "date": {
+            "day": 31,
+            "month": 12,
+            "year": 2027
+          },
+          "region": "SL",
+          "elevation_meters": 3000,
+          "limb": "karana",
+          "from_index": 6,
+          "to_index": 7
+        }
+      ],
+      "jpl_before_utc_seconds": 1830268993,
+      "jpl_after_utc_seconds": 1830268994,
+      "bracket_width_seconds": 1,
+      "jpl_index_before": 6,
+      "jpl_index_after": 7,
+      "boundary_degrees": 42.0,
+      "jpl_signed_boundary_error_before_arcseconds": -0.0680399999509973,
+      "jpl_signed_boundary_error_after_arcseconds": 0.38052000002153363,
+      "jpl_apparent_sun_longitude_before_deg": 279.7395098,
+      "jpl_apparent_sun_longitude_after_deg": 279.7395216,
+      "jpl_apparent_moon_longitude_before_deg": 321.7394909,
+      "jpl_apparent_moon_longitude_after_deg": 321.7396273,
+      "profile_root_minus_jpl_after_seconds": 0
+    }
+  ]
+}

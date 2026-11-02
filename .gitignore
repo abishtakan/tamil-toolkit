@@ -18,4 +18,5 @@
 !.env.example
 /bindings/python/THIRD_PARTY_LICENSES.txt
 /bindings/js-wasm/THIRD_PARTY_LICENSES.txt
+/tmp/
 

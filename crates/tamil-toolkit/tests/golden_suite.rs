@@ -8,9 +8,17 @@ fn all_active_golden_vectors() {
         serde_json::from_str(&fs::read_to_string(root.join("manifest.json")).unwrap()).unwrap();
     assert_eq!(manifest["version"], 1);
     let mut count = 0;
+    let mut planned_review_count = 0;
     let mut ids = BTreeSet::new();
     let mut files = BTreeSet::new();
     let mut dialects = BTreeSet::new();
+    let include_planned = std::env::var("TAMIL_GOLDEN_INCLUDE_PLANNED")
+        .unwrap_or_default()
+        .split(',')
+        .map(str::trim)
+        .filter(|name| !name.is_empty())
+        .map(str::to_owned)
+        .collect::<BTreeSet<_>>();
     for suite in manifest["suites"].as_array().unwrap() {
         let filename = suite["file"].as_str().unwrap();
         assert!(
@@ -28,7 +36,7 @@ fn all_active_golden_vectors() {
             let case: Value = serde_json::from_str(line).unwrap();
             let id = case["id"].as_str().unwrap();
             assert!(ids.insert(id.to_owned()), "duplicate golden id: {id}");
-            if status == "planned" {
+            if status == "planned" && !include_planned.contains(filename) {
                 continue;
             }
             dialects.insert(case["dialect"].as_str().unwrap().to_owned());
@@ -53,13 +61,20 @@ fn all_active_golden_vectors() {
                     index + 1
                 ),
             }
-            count += 1;
+            if status == "active" {
+                count += 1;
+            } else {
+                planned_review_count += 1;
+            }
             suite_count += 1;
         }
         if status == "active" {
             assert!(suite_count > 0, "empty active suite");
         } else {
-            eprintln!("PLANNED {filename}: {}", suite["reason"]);
+            eprintln!(
+                "PLANNED {filename}: {} (executed {suite_count} review-only vectors)",
+                suite["reason"]
+            );
         }
     }
     let on_disk: BTreeSet<_> = fs::read_dir(&root)
@@ -75,4 +90,9 @@ fn all_active_golden_vectors() {
     );
     assert!(count > 0, "no active golden vectors");
     eprintln!("Rust passed {count} active golden vectors");
+    if planned_review_count > 0 {
+        eprintln!(
+            "Rust executed {planned_review_count} explicitly selected planned vectors for pre-activation review; they are not counted as active parity"
+        );
+    }
 }

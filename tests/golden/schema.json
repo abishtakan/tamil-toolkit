@@ -2,92 +2,6218 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "tamil-toolkit golden vector",
   "type": "object",
-  "required": ["id", "op", "input", "dialect", "tags", "source"],
-  "oneOf": [{"required": ["expected"], "not": {"required": ["expected_error"]}}, {"required": ["expected_error"], "not": {"required": ["expected"]}}],
+  "required": [
+    "id",
+    "op",
+    "input",
+    "dialect",
+    "tags",
+    "source"
+  ],
+  "oneOf": [
+    {
+      "required": [
+        "expected"
+      ],
+      "not": {
+        "required": [
+          "expected_error"
+        ]
+      }
+    },
+    {
+      "required": [
+        "expected_error"
+      ],
+      "not": {
+        "required": [
+          "expected"
+        ]
+      }
+    }
+  ],
   "additionalProperties": false,
   "properties": {
-    "id": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"},
-    "op": {"type": "string", "pattern": "^[a-z][a-z0-9_]+$"},
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]+$"
+    },
+    "op": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]+$"
+    },
     "input": {},
     "expected": {},
-    "expected_error": {"type": "string", "minLength": 1},
-    "dialect": {"enum": ["COMMON", "TN", "SL"]},
-    "locale": {"enum": ["TN", "SL"]},
-    "region": {"enum": ["TN", "JAFFNA", "BATTICALOA", "VANNI", "UP_COUNTRY", "KONGU", "CHENNAI"]},
-    "tags": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
-    "source": {"type": "string", "minLength": 1},
+    "expected_error": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dialect": {
+      "enum": [
+        "COMMON",
+        "TN",
+        "SL"
+      ]
+    },
+    "locale": {
+      "enum": [
+        "TN",
+        "SL"
+      ]
+    },
+    "region": {
+      "enum": [
+        "TN",
+        "JAFFNA",
+        "BATTICALOA",
+        "VANNI",
+        "UP_COUNTRY",
+        "KONGU",
+        "CHENNAI"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
     "unicode_exceptions": {
       "type": "array",
       "items": {
-        "type": "object", "required": ["path", "kind", "reason"], "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "path",
+          "kind",
+          "reason"
+        ],
+        "additionalProperties": false,
         "properties": {
-          "path": {"type": "string", "pattern": "^/(input|expected)(/.*)?$"},
-          "kind": {"enum": ["non_nfc", "joiner"]},
-          "reason": {"type": "string", "minLength": 12}
+          "path": {
+            "type": "string",
+            "pattern": "^/(input|expected)(/.*)?$"
+          },
+          "kind": {
+            "enum": [
+              "non_nfc",
+              "joiner"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 12
+          }
         }
       }
     }
   },
   "allOf": [
     {
-      "if": {"properties": {"op": {"enum": ["get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "inspect_tamil_string", "sort_key", "search_key"]}}, "not": {"required": ["expected_error"]}},
-      "then": {"properties": {"input": {"type": "string"}}}
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "get_letters",
+              "normalize_nfc",
+              "normalize_nfd",
+              "split_uyirmei",
+              "inspect_tamil_string",
+              "sort_key",
+              "search_key"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "string"
+          }
+        }
+      }
     },
     {
-      "if": {"properties": {"op": {"const": "get_letters"}}},
-      "then": {"properties": {"expected": {"type": "array", "items": {"type": "string"}}}}
+      "if": {
+        "properties": {
+          "op": {
+            "const": "get_letters"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
     },
     {
-      "if": {"properties": {"op": {"enum": ["normalize_nfc", "normalize_nfd", "compose_uyirmei"]}}},
-      "then": {"properties": {"expected": {"type": "string"}}}
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "normalize_nfc",
+              "normalize_nfd",
+              "compose_uyirmei"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
     },
     {
-      "if": {"properties": {"op": {"const": "split_uyirmei"}}},
-      "then": {"properties": {"expected": {"$ref": "#/$defs/parts"}}}
+      "if": {
+        "properties": {
+          "op": {
+            "const": "split_uyirmei"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "$ref": "#/$defs/parts"
+          }
+        }
+      }
     },
     {
-      "if": {"properties": {"op": {"const": "compose_uyirmei"}}, "not": {"required": ["expected_error"]}},
-      "then": {"properties": {"input": {"$ref": "#/$defs/parts"}}}
+      "if": {
+        "properties": {
+          "op": {
+            "const": "compose_uyirmei"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "$ref": "#/$defs/parts"
+          }
+        }
+      }
     },
     {
-      "if": {"properties": {"op": {"enum": ["sort_key", "search_key"]}}},
-      "then": {"properties": {"expected": {"type": "array", "minItems": 1, "prefixItems": [{"const": 1}], "items": {"type": "integer", "minimum": 0, "maximum": 1114111}}}}
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "sort_key",
+              "search_key"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "type": "array",
+            "minItems": 1,
+            "prefixItems": [
+              {
+                "const": 1
+              }
+            ],
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1114111
+            }
+          }
+        }
+      }
     },
     {
-      "if": {"properties": {"op": {"const": "compare"}}, "not": {"required": ["expected_error"]}},
-      "then": {"properties": {"input": {"type": "object", "required": ["left", "right"], "additionalProperties": false, "properties": {"left": {"type": "string"}, "right": {"type": "string"}}}}}
+      "if": {
+        "properties": {
+          "op": {
+            "const": "compare"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "left",
+              "right"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "left": {
+                "type": "string"
+              },
+              "right": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     },
     {
-      "if": {"properties": {"op": {"const": "compare"}}},
-      "then": {"properties": {"expected": {"enum": [-1, 0, 1]}}}
+      "if": {
+        "properties": {
+          "op": {
+            "const": "compare"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "enum": [
+              -1,
+              0,
+              1
+            ]
+          }
+        }
+      }
     },
     {
-      "if": {"properties": {"op": {"const": "sort_words"}}, "not": {"required": ["expected_error"]}},
-      "then": {"properties": {"input": {"type": "array", "items": {"type": "string"}}}}
+      "if": {
+        "properties": {
+          "op": {
+            "const": "sort_words"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
     },
     {
-      "if": {"properties": {"op": {"const": "sort_words"}}},
-      "then": {"properties": {"expected": {"type": "array", "items": {"type": "string"}}}}
+      "if": {
+        "properties": {
+          "op": {
+            "const": "sort_words"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
     },
-    {"if": {"properties": {"op": {"enum": ["to_words"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["value"], "additionalProperties": false, "properties": {"value": {"type": "integer", "minimum": -999999999, "maximum": 999999999}, "locale": {"enum": ["TN", "SL"]}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"enum": ["format_currency", "currency_to_words"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["amount_minor", "currency"], "additionalProperties": false, "properties": {"amount_minor": {"type": "integer", "minimum": -99999999999, "maximum": 99999999999}, "currency": {"enum": ["INR", "LKR"]}, "locale": {"enum": ["TN", "SL"]}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"const": "bamini_to_unicode"}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["text"], "additionalProperties": false, "properties": {"text": {"type": "string"}, "errors": {"enum": ["strict", "preserve"]}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"const": "unicode_to_bamini"}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["text"], "additionalProperties": false, "properties": {"text": {"type": "string"}}}, "expected": {"type": "string", "pattern": "^[\\x00-\\x7f]*$"}}}},
-    {"if": {"properties": {"op": {"enum": ["unicode_to_tscii_bytes", "unicode_to_tab_bytes", "unicode_to_tam_bytes", "unicode_to_anjal_bytes"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["text"], "additionalProperties": false, "properties": {"text": {"type": "string"}}}, "expected": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 255}}}}},
-    {"if": {"properties": {"op": {"enum": ["tscii_bytes_to_unicode", "tab_bytes_to_unicode", "tam_bytes_to_unicode", "anjal_bytes_to_unicode"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["bytes"], "additionalProperties": false, "properties": {"bytes": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 255}}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"enum": ["lt_tm_codes_to_unicode", "vanavil_codes_to_unicode"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["codes"], "additionalProperties": false, "properties": {"codes": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 65535}}, "errors": {"enum": ["strict", "preserve"]}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"enum": ["lt_tm_text_to_unicode", "vanavil_text_to_unicode"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["text"], "additionalProperties": false, "properties": {"text": {"type": "string"}, "errors": {"enum": ["strict", "preserve"]}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"enum": ["unicode_to_lt_tm_codes", "unicode_to_vanavil_codes"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["text"], "additionalProperties": false, "properties": {"text": {"type": "string"}}}, "expected": {"type": "array", "items": {"type": "integer", "minimum": 0, "maximum": 65535}}}}},
-    {"if": {"properties": {"op": {"enum": ["unicode_to_lt_tm_text", "unicode_to_vanavil_text"]}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["text"], "additionalProperties": false, "properties": {"text": {"type": "string"}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"const": "format_fraction"}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["numerator", "denominator"], "additionalProperties": false, "properties": {"numerator": {"type": "integer", "minimum": -999999999, "maximum": 999999999}, "denominator": {"type": "integer", "minimum": -999999999, "maximum": 999999999}, "digits": {"enum": ["latin", "tamil"]}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"const": "fraction_to_words"}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["numerator", "denominator"], "additionalProperties": false, "properties": {"numerator": {"type": "integer", "minimum": -999999999, "maximum": 999999999}, "denominator": {"type": "integer", "minimum": -999999999, "maximum": 999999999}, "locale": {"enum": ["TN", "SL"]}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"const": "fraction_symbol"}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["numerator", "denominator"], "additionalProperties": false, "properties": {"numerator": {"type": "integer", "minimum": -999999999, "maximum": 999999999}, "denominator": {"type": "integer", "minimum": -999999999, "maximum": 999999999}}}, "expected": {"type": "string"}}}},
-    {"if": {"properties": {"op": {"const": "format_date"}}, "not": {"required": ["expected_error"]}}, "then": {"properties": {"input": {"type": "object", "required": ["year", "month", "day"], "additionalProperties": false, "properties": {"year": {"type": "integer", "minimum": 1, "maximum": 9999}, "month": {"type": "integer", "minimum": 1, "maximum": 12}, "day": {"type": "integer", "minimum": 1, "maximum": 31}, "locale": {"enum": ["TN", "SL"]}, "style": {"enum": ["short", "medium", "long", "full"]}, "digits": {"enum": ["latin", "tamil"]}}}, "expected": {"type": "string"}}}}
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "to_words"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "integer",
+                "minimum": -999999999,
+                "maximum": 999999999
+              },
+              "locale": {
+                "enum": [
+                  "TN",
+                  "SL"
+                ]
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "format_currency",
+              "currency_to_words"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "amount_minor",
+              "currency"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "amount_minor": {
+                "type": "integer",
+                "minimum": -99999999999,
+                "maximum": 99999999999
+              },
+              "currency": {
+                "enum": [
+                  "INR",
+                  "LKR"
+                ]
+              },
+              "locale": {
+                "enum": [
+                  "TN",
+                  "SL"
+                ]
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "bamini_to_unicode"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "errors": {
+                "enum": [
+                  "strict",
+                  "preserve"
+                ]
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "unicode_to_bamini"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            }
+          },
+          "expected": {
+            "type": "string",
+            "pattern": "^[\\x00-\\x7f]*$"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "unicode_to_tscii_bytes",
+              "unicode_to_tab_bytes",
+              "unicode_to_tam_bytes",
+              "unicode_to_anjal_bytes"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            }
+          },
+          "expected": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "tscii_bytes_to_unicode",
+              "tab_bytes_to_unicode",
+              "tam_bytes_to_unicode",
+              "anjal_bytes_to_unicode"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "bytes"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "bytes": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 255
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "lt_tm_codes_to_unicode",
+              "vanavil_codes_to_unicode"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "codes"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "codes": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+                }
+              },
+              "errors": {
+                "enum": [
+                  "strict",
+                  "preserve"
+                ]
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "lt_tm_text_to_unicode",
+              "vanavil_text_to_unicode"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "errors": {
+                "enum": [
+                  "strict",
+                  "preserve"
+                ]
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "unicode_to_lt_tm_codes",
+              "unicode_to_vanavil_codes"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            }
+          },
+          "expected": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "unicode_to_lt_tm_text",
+              "unicode_to_vanavil_text"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "format_fraction"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "numerator",
+              "denominator"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "numerator": {
+                "type": "integer",
+                "minimum": -999999999,
+                "maximum": 999999999
+              },
+              "denominator": {
+                "type": "integer",
+                "minimum": -999999999,
+                "maximum": 999999999
+              },
+              "digits": {
+                "enum": [
+                  "latin",
+                  "tamil"
+                ]
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "fraction_to_words"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "numerator",
+              "denominator"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "numerator": {
+                "type": "integer",
+                "minimum": -999999999,
+                "maximum": 999999999
+              },
+              "denominator": {
+                "type": "integer",
+                "minimum": -999999999,
+                "maximum": 999999999
+              },
+              "locale": {
+                "enum": [
+                  "TN",
+                  "SL"
+                ]
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "fraction_symbol"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "numerator",
+              "denominator"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "numerator": {
+                "type": "integer",
+                "minimum": -999999999,
+                "maximum": 999999999
+              },
+              "denominator": {
+                "type": "integer",
+                "minimum": -999999999,
+                "maximum": 999999999
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "format_date"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "year",
+              "month",
+              "day"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "year": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9999
+              },
+              "month": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12
+              },
+              "day": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 31
+              },
+              "locale": {
+                "enum": [
+                  "TN",
+                  "SL"
+                ]
+              },
+              "style": {
+                "enum": [
+                  "short",
+                  "medium",
+                  "long",
+                  "full"
+                ]
+              },
+              "digits": {
+                "enum": [
+                  "latin",
+                  "tamil"
+                ]
+              }
+            }
+          },
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "convert_digits",
+              "parse_decimal",
+              "format_decimal",
+              "decimal_to_words",
+              "ordinal_to_words",
+              "digit_sequence_to_words",
+              "format_currency_decimal",
+              "currency_decimal_to_words",
+              "parse_fraction_symbol",
+              "symbol_info",
+              "format_mixed_fraction",
+              "parse_mixed_fraction",
+              "format_traditional_integer",
+              "parse_traditional_integer",
+              "parse_percent",
+              "format_percent",
+              "ratio_to_percent",
+              "percent_to_ratio",
+              "format_numeric_range",
+              "validate_gregorian_date",
+              "parse_gregorian_date",
+              "weekday",
+              "add_gregorian_date",
+              "date_difference",
+              "date_interval",
+              "vakya_solar_transits",
+              "vakya_true_sun_from_mesha_elapsed",
+              "vakya_true_moon_from_kali_day",
+              "vakya_reduce_to_local_true_sunrise",
+              "vakya_cara_from_sayana_sun",
+              "vakya_desantara_from_yojana_distance",
+              "vakya_bhujaantara_from_true_sun",
+              "calendar_profile_info",
+              "gregorian_to_tamil_date",
+              "tamil_to_gregorian_date",
+              "tamil_month_info",
+              "panchangam_at",
+              "panchangam_day",
+              "lunar_phase_events",
+              "tamil_year_info",
+              "add_tamil_date",
+              "calendar_daylight_periods",
+              "tamil_year_cycle_info",
+              "calendar_display_info",
+              "format_tamil_date",
+              "compare_calendar_profiles",
+              "thiruvalluvar_year_info"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "format_decimal",
+              "format_percent",
+              "ratio_to_percent",
+              "percent_to_ratio"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/exactDecimal"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "format_numeric_range"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "start": {
+                "$ref": "#/$defs/rangeEndpoint"
+              },
+              "end": {
+                "$ref": "#/$defs/rangeEndpoint"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "weekday",
+              "add_gregorian_date",
+              "validate_gregorian_date"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "required": [
+              "year",
+              "month",
+              "day"
+            ],
+            "properties": {
+              "year": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9999
+              },
+              "month": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12
+              },
+              "day": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 31
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "vakya_solar_transits"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "saka_year_elapsed"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-solar-transits-v1"
+              },
+              "saka_year_elapsed": {
+                "type": "integer",
+                "minimum": 1869,
+                "maximum": 1890
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "saka_year_elapsed",
+              "kali_year",
+              "ahargana",
+              "transits"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-solar-transits-v1"
+              },
+              "saka_year_elapsed": {
+                "type": "integer",
+                "minimum": 1869,
+                "maximum": 1890
+              },
+              "kali_year": {
+                "type": "integer",
+                "minimum": 5048,
+                "maximum": 5069
+              },
+              "ahargana": {
+                "type": "object",
+                "required": [
+                  "days",
+                  "nadi",
+                  "vinadi",
+                  "weekday"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "days": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "nadi": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "vinadi": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "weekday": {
+                    "enum": [
+                      "Monday",
+                      "Tuesday",
+                      "Wednesday",
+                      "Thursday",
+                      "Friday",
+                      "Saturday",
+                      "Sunday"
+                    ]
+                  }
+                }
+              },
+              "transits": {
+                "type": "array",
+                "minItems": 12,
+                "maxItems": 12,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "rasi",
+                    "day_field",
+                    "weekday",
+                    "nadi",
+                    "vinadi"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "rasi": {
+                      "enum": [
+                        "vrishabha",
+                        "mithuna",
+                        "karkataka",
+                        "simha",
+                        "kanya",
+                        "tula",
+                        "vrischika",
+                        "dhanu",
+                        "makara",
+                        "kumbha",
+                        "mina",
+                        "mesha"
+                      ]
+                    },
+                    "day_field": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "weekday": {
+                      "enum": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
+                      ]
+                    },
+                    "nadi": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 59
+                    },
+                    "vinadi": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 59
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "vakya_true_sun_from_mesha_elapsed"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "elapsed_days",
+              "nadi",
+              "vinadi"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-solar-transits-v1"
+              },
+              "elapsed_days": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 370
+              },
+              "nadi": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 59
+              },
+              "vinadi": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 59
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "elapsed_from_mesha",
+              "approximate_sun",
+              "bhupadi_correction",
+              "true_sun"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-solar-transits-v1"
+              },
+              "elapsed_from_mesha": {
+                "type": "object",
+                "required": [
+                  "days",
+                  "nadi",
+                  "vinadi"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "days": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 370
+                  },
+                  "nadi": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "vinadi": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  }
+                }
+              },
+              "approximate_sun": {
+                "type": "object",
+                "required": [
+                  "degrees",
+                  "minutes",
+                  "seconds"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "degrees": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 370
+                  },
+                  "minutes": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "seconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  }
+                }
+              },
+              "bhupadi_correction": {
+                "type": "object",
+                "required": [
+                  "degrees",
+                  "minutes",
+                  "seconds"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "degrees": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 370
+                  },
+                  "minutes": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "seconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  }
+                }
+              },
+              "true_sun": {
+                "type": "object",
+                "required": [
+                  "degrees",
+                  "minutes",
+                  "seconds"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "degrees": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 359
+                  },
+                  "minutes": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "seconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "vakya_true_moon_from_kali_day"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "kali_day"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-true-moon-v1"
+              },
+              "kali_day": {
+                "type": "integer",
+                "minimum": 1600984,
+                "maximum": 9007199254740991
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "kali_day",
+              "quotients",
+              "moon_vakya_number",
+              "uncorrected_true_moon",
+              "daily_motion",
+              "vinadi_adjustment",
+              "correction_seconds",
+              "true_moon"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-true-moon-v1"
+              },
+              "kali_day": {
+                "type": "integer",
+                "minimum": 1600984,
+                "maximum": 9007199254740991
+              },
+              "quotients": {
+                "type": "object",
+                "required": [
+                  "period_12372",
+                  "period_3031",
+                  "period_248"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "period_12372": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "period_3031": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 4
+                  },
+                  "period_248": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 12
+                  }
+                }
+              },
+              "moon_vakya_number": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 248
+              },
+              "uncorrected_true_moon": {
+                "$ref": "#/$defs/rasiDmsAngle"
+              },
+              "daily_motion": {
+                "type": "object",
+                "required": [
+                  "degrees",
+                  "minutes",
+                  "seconds"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "degrees": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 359
+                  },
+                  "minutes": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "seconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  }
+                }
+              },
+              "vinadi_adjustment": {
+                "type": "integer",
+                "minimum": -32,
+                "maximum": 384
+              },
+              "correction_seconds": {
+                "type": "integer",
+                "maximum": 9007199254740991,
+                "minimum": -9007199254740991
+              },
+              "true_moon": {
+                "$ref": "#/$defs/rasiDmsAngle"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "vakya_reduce_to_local_true_sunrise"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "true_position",
+              "daily_motion",
+              "cara_half_vinadi_tenths",
+              "desantara_vinadi_tenths",
+              "bhujaantara_vinadi_tenths"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-local-sunrise-v1"
+              },
+              "true_position": {
+                "$ref": "#/$defs/rasiDmsAngle"
+              },
+              "daily_motion": {
+                "type": "object",
+                "required": [
+                  "degrees",
+                  "minutes",
+                  "seconds"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "degrees": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 359
+                  },
+                  "minutes": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "seconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  }
+                }
+              },
+              "cara_half_vinadi_tenths": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "desantara_vinadi_tenths": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "bhujaantara_vinadi_tenths": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "true_position",
+              "daily_motion",
+              "adjustment_vinadi_tenths",
+              "correction_arcseconds",
+              "local_true_position"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-local-sunrise-v1"
+              },
+              "true_position": {
+                "$ref": "#/$defs/rasiDmsAngle"
+              },
+              "daily_motion": {
+                "type": "object",
+                "required": [
+                  "degrees",
+                  "minutes",
+                  "seconds"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "degrees": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 359
+                  },
+                  "minutes": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "seconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  }
+                }
+              },
+              "adjustment_vinadi_tenths": {
+                "type": "object",
+                "required": [
+                  "cara_half",
+                  "desantara",
+                  "bhujaantara",
+                  "total"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "cara_half": {
+                    "type": "integer",
+                    "maximum": 9007199254740991,
+                    "minimum": -9007199254740991
+                  },
+                  "desantara": {
+                    "type": "integer",
+                    "maximum": 9007199254740991,
+                    "minimum": -9007199254740991
+                  },
+                  "bhujaantara": {
+                    "type": "integer",
+                    "maximum": 9007199254740991,
+                    "minimum": -9007199254740991
+                  },
+                  "total": {
+                    "type": "integer",
+                    "maximum": 9007199254740991,
+                    "minimum": -9007199254740991
+                  }
+                }
+              },
+              "correction_arcseconds": {
+                "type": "integer",
+                "maximum": 9007199254740991,
+                "minimum": -9007199254740991
+              },
+              "local_true_position": {
+                "$ref": "#/$defs/rasiDmsAngle"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "vakya_cara_from_sayana_sun"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "sayana_sun",
+              "equinoctial_shadow_tenths"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-cara-v1"
+              },
+              "sayana_sun": {
+                "$ref": "#/$defs/rasiDmsAngle"
+              },
+              "equinoctial_shadow_tenths": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "sayana_sun",
+              "bhuja",
+              "equinoctial_shadow_tenths",
+              "cara_vinadi_tenths"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-cara-v1"
+              },
+              "sayana_sun": {
+                "$ref": "#/$defs/rasiDmsAngle"
+              },
+              "bhuja": {
+                "$ref": "#/$defs/rasiDmsAngle"
+              },
+              "equinoctial_shadow_tenths": {
+                "type": "integer",
+                "maximum": 9007199254740991,
+                "minimum": -9007199254740991
+              },
+              "cara_vinadi_tenths": {
+                "type": "integer",
+                "maximum": 9007199254740991,
+                "minimum": -9007199254740991
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "vakya_desantara_from_yojana_distance"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "east_west_distance_tenths_yojana"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-desantara-v1"
+              },
+              "east_west_distance_tenths_yojana": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "east_west_distance_tenths_yojana",
+              "desantara_vinadi_tenths"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-desantara-v1"
+              },
+              "east_west_distance_tenths_yojana": {
+                "type": "integer",
+                "maximum": 9007199254740991,
+                "minimum": -9007199254740991
+              },
+              "desantara_vinadi_tenths": {
+                "type": "integer",
+                "maximum": 9007199254740991,
+                "minimum": -9007199254740991
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "vakya_bhujaantara_from_true_sun"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "sun_rasi",
+              "sun_rasi_progress_arcseconds"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-bhujaantara-linear-experimental-v1"
+              },
+              "sun_rasi": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 11
+              },
+              "sun_rasi_progress_arcseconds": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 108000
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "sun_rasi",
+              "sun_rasi_progress_arcseconds",
+              "bracketing_endpoint_vinadi",
+              "bhujaantara_vinadi_tenths"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-bhujaantara-linear-experimental-v1"
+              },
+              "sun_rasi": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 11
+              },
+              "sun_rasi_progress_arcseconds": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 108000
+              },
+              "bracketing_endpoint_vinadi": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "integer",
+                  "maximum": 9007199254740991,
+                  "minimum": -9007199254740991
+                }
+              },
+              "bhujaantara_vinadi_tenths": {
+                "type": "integer",
+                "maximum": 9007199254740991,
+                "minimum": -9007199254740991
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "lunar_phase_events"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "start_unix_seconds",
+              "end_unix_seconds"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "enum": [
+                  "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2",
+                  "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+                ]
+              },
+              "start_unix_seconds": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "end_unix_seconds": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "lunar_phase_events"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "events"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "phase",
+                    "ecliptic_longitude_difference_degrees",
+                    "utc_minute"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "phase": {
+                      "enum": [
+                        "new_moon",
+                        "first_quarter",
+                        "full_moon",
+                        "last_quarter"
+                      ]
+                    },
+                    "ecliptic_longitude_difference_degrees": {
+                      "enum": [
+                        0,
+                        90,
+                        180,
+                        270
+                      ]
+                    },
+                    "utc_minute": {
+                      "type": "object",
+                      "required": [
+                        "year",
+                        "month",
+                        "day",
+                        "hour",
+                        "minute"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "year": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9999
+                        },
+                        "month": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 12
+                        },
+                        "day": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 31
+                        },
+                        "hour": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 23
+                        },
+                        "minute": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 59
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "calendar_profile_info",
+              "gregorian_to_tamil_date",
+              "tamil_to_gregorian_date",
+              "tamil_month_info",
+              "panchangam_at",
+              "panchangam_day",
+              "lunar_phase_events",
+              "tamil_year_info",
+              "add_tamil_date",
+              "calendar_daylight_periods",
+              "tamil_year_cycle_info",
+              "calendar_display_info",
+              "format_tamil_date",
+              "compare_calendar_profiles",
+              "thiruvalluvar_year_info"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "calendar_profile_info"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "profile",
+              "definition_id",
+              "coverage",
+              "solar_year",
+              "ephemeris",
+              "time_model",
+              "sidereal_definition",
+              "sidereal_parameters",
+              "vara_definition",
+              "sunrise",
+              "solar_month_rule",
+              "supported_regions",
+              "reference_stations",
+              "sources"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "gregorian_to_tamil_date"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "region",
+                  "latitude_microdegrees",
+                  "longitude_microdegrees",
+                  "elevation_meters",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "region": {
+                    "enum": [
+                      "TN",
+                      "SL"
+                    ]
+                  },
+                  "latitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 5800000,
+                    "maximum": 13700000
+                  },
+                  "longitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 76000000,
+                    "maximum": 82000000
+                  },
+                  "elevation_meters": {
+                    "type": "integer",
+                    "minimum": -100,
+                    "maximum": 3000
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "gregorian_date",
+              "tamil_date"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "tamil_to_gregorian_date"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "solar_year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "solar_year": {
+                    "type": "integer",
+                    "minimum": 2023,
+                    "maximum": 2027
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 35
+                  }
+                }
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "region",
+                  "latitude_microdegrees",
+                  "longitude_microdegrees",
+                  "elevation_meters",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "region": {
+                    "enum": [
+                      "TN",
+                      "SL"
+                    ]
+                  },
+                  "latitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 5800000,
+                    "maximum": 13700000
+                  },
+                  "longitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 76000000,
+                    "maximum": 82000000
+                  },
+                  "elevation_meters": {
+                    "type": "integer",
+                    "minimum": -100,
+                    "maximum": 3000
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "tamil_date",
+              "gregorian_date"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "tamil_month_info"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "month",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "solar_year": {
+                "type": "integer",
+                "minimum": 2023,
+                "maximum": 2027
+              },
+              "month": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "region",
+                  "latitude_microdegrees",
+                  "longitude_microdegrees",
+                  "elevation_meters",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "region": {
+                    "enum": [
+                      "TN",
+                      "SL"
+                    ]
+                  },
+                  "latitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 5800000,
+                    "maximum": 13700000
+                  },
+                  "longitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 76000000,
+                    "maximum": 82000000
+                  },
+                  "elevation_meters": {
+                    "type": "integer",
+                    "minimum": -100,
+                    "maximum": 3000
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "month",
+              "month_name",
+              "start_date",
+              "end_date_exclusive",
+              "days"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "panchangam_at"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "instant_unix_seconds",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "instant_unix_seconds": {
+                "type": "integer",
+                "minimum": 1704047400,
+                "maximum": 1830277799
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "region",
+                  "latitude_microdegrees",
+                  "longitude_microdegrees",
+                  "elevation_meters",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "region": {
+                    "enum": [
+                      "TN",
+                      "SL"
+                    ]
+                  },
+                  "latitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 5800000,
+                    "maximum": 13700000
+                  },
+                  "longitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 76000000,
+                    "maximum": 82000000
+                  },
+                  "elevation_meters": {
+                    "type": "integer",
+                    "minimum": -100,
+                    "maximum": 3000
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "local_date",
+              "local_time",
+              "vara",
+              "limbs"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "panchangam_day"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "region",
+                  "latitude_microdegrees",
+                  "longitude_microdegrees",
+                  "elevation_meters",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "region": {
+                    "enum": [
+                      "TN",
+                      "SL"
+                    ]
+                  },
+                  "latitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 5800000,
+                    "maximum": 13700000
+                  },
+                  "longitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 76000000,
+                    "maximum": 82000000
+                  },
+                  "elevation_meters": {
+                    "type": "integer",
+                    "minimum": -100,
+                    "maximum": 3000
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "sunrise_minute_of_day",
+              "sunset_minute_of_day",
+              "vara",
+              "limbs_at_sunrise",
+              "transitions"
+            ],
+            "properties": {
+              "sunrise_minute_of_day": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1439
+              },
+              "sunset_minute_of_day": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1439
+              },
+              "vara": {
+                "enum": [
+                  "Sunday",
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday"
+                ]
+              },
+              "transitions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "limb",
+                    "from_index",
+                    "to_index",
+                    "day_offset",
+                    "minute_of_day"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "limb": {
+                      "enum": [
+                        "tithi",
+                        "nakshatra",
+                        "yoga",
+                        "karana"
+                      ]
+                    },
+                    "from_index": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 59
+                    },
+                    "to_index": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 59
+                    },
+                    "day_offset": {
+                      "const": 0
+                    },
+                    "minute_of_day": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1439
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "calendar_profile_info"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "profile",
+              "definition_id",
+              "coverage",
+              "epoch",
+              "reference_station",
+              "day_boundary",
+              "solar_model",
+              "moon_model",
+              "local_sunrise",
+              "sources"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "gregorian_to_tamil_date"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "reference_station",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "reference_station": {
+                    "const": "ujjain"
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "gregorian_date",
+              "tamil_date",
+              "reference_station",
+              "day_boundary"
+            ],
+            "properties": {
+              "tamil_date": {
+                "$ref": "#/$defs/vakyaTamilDate"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "tamil_to_gregorian_date"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "solar_year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "solar_year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 35
+                  }
+                }
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "reference_station",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "reference_station": {
+                    "const": "ujjain"
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "tamil_date",
+              "gregorian_date",
+              "reference_station",
+              "day_boundary"
+            ],
+            "properties": {
+              "tamil_date": {
+                "$ref": "#/$defs/vakyaTamilDate"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "tamil_month_info"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "month",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "solar_year": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9999
+              },
+              "month": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 12
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "reference_station",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "reference_station": {
+                    "const": "ujjain"
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "month",
+              "month_name",
+              "start_date",
+              "end_date_exclusive",
+              "days",
+              "reference_station",
+              "day_boundary"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "panchangam_at"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "instant_unix_seconds",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "instant_unix_seconds": {
+                "type": "integer"
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "reference_station",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "reference_station": {
+                    "const": "ujjain"
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "local_date",
+              "local_time",
+              "vara",
+              "limbs",
+              "reference_station",
+              "position_basis"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "panchangam_day"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "reference_station",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "reference_station": {
+                    "const": "ujjain"
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "sunrise_minute_of_day",
+              "sunrise_basis",
+              "sunset_minute_of_day",
+              "sunset_status",
+              "vara",
+              "limbs_at_sunrise",
+              "transitions"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "tamil_year_info"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "solar_year": {
+                "type": "integer",
+                "minimum": 2023,
+                "maximum": 2027
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "region",
+                  "latitude_microdegrees",
+                  "longitude_microdegrees",
+                  "elevation_meters",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "region": {
+                    "enum": [
+                      "TN",
+                      "SL"
+                    ]
+                  },
+                  "latitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 5800000,
+                    "maximum": 13700000
+                  },
+                  "longitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 76000000,
+                    "maximum": 82000000
+                  },
+                  "elevation_meters": {
+                    "type": "integer",
+                    "minimum": -100,
+                    "maximum": 3000
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "year_cycle",
+              "start_date",
+              "end_date_exclusive",
+              "days",
+              "months"
+            ],
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "solar_year": {
+                "type": "integer"
+              },
+              "year_cycle": {
+                "$ref": "#/$defs/yearCycle"
+              },
+              "start_date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "end_date_exclusive": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "days": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 366
+              },
+              "months": {
+                "type": "array",
+                "minItems": 12,
+                "maxItems": 12,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "month",
+                    "month_name",
+                    "start_date",
+                    "end_date_exclusive",
+                    "days"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "month": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 12
+                    },
+                    "month_name": {
+                      "type": "string"
+                    },
+                    "start_date": {
+                      "type": "object",
+                      "required": [
+                        "year",
+                        "month",
+                        "day"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "year": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9999
+                        },
+                        "month": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 12
+                        },
+                        "day": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 31
+                        }
+                      }
+                    },
+                    "end_date_exclusive": {
+                      "type": "object",
+                      "required": [
+                        "year",
+                        "month",
+                        "day"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "year": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9999
+                        },
+                        "month": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 12
+                        },
+                        "day": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 31
+                        }
+                      }
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 35
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "tamil_year_info"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "solar_year": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9999
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "reference_station",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "reference_station": {
+                    "const": "ujjain"
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "year_cycle",
+              "start_date",
+              "end_date_exclusive",
+              "days",
+              "months",
+              "reference_station",
+              "day_boundary"
+            ],
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "solar_year": {
+                "type": "integer"
+              },
+              "year_cycle": {
+                "$ref": "#/$defs/yearCycle"
+              },
+              "start_date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "end_date_exclusive": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "days": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 366
+              },
+              "months": {
+                "type": "array",
+                "minItems": 12,
+                "maxItems": 12,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "month",
+                    "month_name",
+                    "start_date",
+                    "end_date_exclusive",
+                    "days"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "month": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 12
+                    },
+                    "month_name": {
+                      "type": "string"
+                    },
+                    "start_date": {
+                      "type": "object",
+                      "required": [
+                        "year",
+                        "month",
+                        "day"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "year": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9999
+                        },
+                        "month": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 12
+                        },
+                        "day": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 31
+                        }
+                      }
+                    },
+                    "end_date_exclusive": {
+                      "type": "object",
+                      "required": [
+                        "year",
+                        "month",
+                        "day"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "year": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9999
+                        },
+                        "month": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 12
+                        },
+                        "day": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 31
+                        }
+                      }
+                    },
+                    "days": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 35
+                    }
+                  }
+                }
+              },
+              "reference_station": {
+                "const": "ujjain"
+              },
+              "day_boundary": {
+                "const": "ujjain_mean_sunrise"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "add_tamil_date"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "unit",
+              "amount",
+              "overflow",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "solar_year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "solar_year": {
+                    "type": "integer",
+                    "minimum": 2023,
+                    "maximum": 2027
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 35
+                  }
+                }
+              },
+              "unit": {
+                "enum": [
+                  "days",
+                  "months",
+                  "years"
+                ]
+              },
+              "amount": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "overflow": {
+                "enum": [
+                  "reject",
+                  "clamp"
+                ]
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "region",
+                  "latitude_microdegrees",
+                  "longitude_microdegrees",
+                  "elevation_meters",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "region": {
+                    "enum": [
+                      "TN",
+                      "SL"
+                    ]
+                  },
+                  "latitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 5800000,
+                    "maximum": 13700000
+                  },
+                  "longitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 76000000,
+                    "maximum": 82000000
+                  },
+                  "elevation_meters": {
+                    "type": "integer",
+                    "minimum": -100,
+                    "maximum": 3000
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "tamil_date",
+              "gregorian_date"
+            ],
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "tamil_date": {
+                "type": "object",
+                "required": [
+                  "solar_year",
+                  "month",
+                  "month_name",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "solar_year": {
+                    "type": "integer",
+                    "minimum": 2023,
+                    "maximum": 2027
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "month_name": {
+                    "type": "string"
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 35
+                  }
+                }
+              },
+              "gregorian_date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "add_tamil_date"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "unit",
+              "amount",
+              "overflow",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "solar_year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "solar_year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 35
+                  }
+                }
+              },
+              "unit": {
+                "enum": [
+                  "days",
+                  "months",
+                  "years"
+                ]
+              },
+              "amount": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "overflow": {
+                "enum": [
+                  "reject",
+                  "clamp"
+                ]
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "reference_station",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "reference_station": {
+                    "const": "ujjain"
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "tamil_date",
+              "gregorian_date",
+              "reference_station",
+              "day_boundary"
+            ],
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "tamil_date": {
+                "type": "object",
+                "required": [
+                  "solar_year",
+                  "month",
+                  "month_name",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "solar_year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "month_name": {
+                    "type": "string"
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 35
+                  }
+                }
+              },
+              "gregorian_date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "reference_station": {
+                "const": "ujjain"
+              },
+              "day_boundary": {
+                "const": "ujjain_mean_sunrise"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "calendar_daylight_periods"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "region",
+                  "latitude_microdegrees",
+                  "longitude_microdegrees",
+                  "elevation_meters",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "region": {
+                    "enum": [
+                      "TN",
+                      "SL"
+                    ]
+                  },
+                  "latitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 5800000,
+                    "maximum": 13700000
+                  },
+                  "longitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 76000000,
+                    "maximum": 82000000
+                  },
+                  "elevation_meters": {
+                    "type": "integer",
+                    "minimum": -100,
+                    "maximum": 3000
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "weekday",
+              "rule_id",
+              "daylight_basis",
+              "sunrise_local_time",
+              "sunset_local_time",
+              "intervals",
+              "source",
+              "source_sha256"
+            ],
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "weekday": {
+                "enum": [
+                  "Sunday",
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday"
+                ]
+              },
+              "rule_id": {
+                "const": "south-indian-daylight-eighths-v1"
+              },
+              "daylight_basis": {
+                "const": "computed apparent sunrise to sunset"
+              },
+              "sunrise_local_time": {
+                "type": "object",
+                "required": [
+                  "hour",
+                  "minute",
+                  "second"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "hour": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 23
+                  },
+                  "minute": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "second": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  }
+                }
+              },
+              "sunset_local_time": {
+                "type": "object",
+                "required": [
+                  "hour",
+                  "minute",
+                  "second"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "hour": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 23
+                  },
+                  "minute": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  },
+                  "second": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 59
+                  }
+                }
+              },
+              "intervals": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "period",
+                    "eighth_part",
+                    "start_local_time",
+                    "end_local_time"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "period": {
+                      "enum": [
+                        "rahukalam",
+                        "yamagandam",
+                        "kuligai"
+                      ]
+                    },
+                    "eighth_part": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 8
+                    },
+                    "start_local_time": {
+                      "type": "object",
+                      "required": [
+                        "hour",
+                        "minute",
+                        "second"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "hour": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 23
+                        },
+                        "minute": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 59
+                        },
+                        "second": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 59
+                        }
+                      }
+                    },
+                    "end_local_time": {
+                      "type": "object",
+                      "required": [
+                        "hour",
+                        "minute",
+                        "second"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "hour": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 23
+                        },
+                        "minute": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 59
+                        },
+                        "second": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 59
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "source": {
+                "type": "string"
+              },
+              "source_sha256": {
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "calendar_daylight_periods"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "reference_station",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "reference_station": {
+                    "const": "ujjain"
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "expected_error": {
+            "const": "source-defined local sunset unavailable for this calendar definition"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "tamil_year_cycle_info"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "enum": [
+                  "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2",
+                  "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+                ]
+              },
+              "solar_year": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9999
+              },
+              "context": {
+                "type": "object"
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "cycle_index",
+              "cycle_name",
+              "anchor",
+              "source_id",
+              "source_sha256",
+              "source",
+              "region_scope",
+              "sources"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "enum": [
+                  "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2",
+                  "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+                ]
+              },
+              "solar_year": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9999
+              },
+              "cycle_index": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 60
+              },
+              "cycle_name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "anchor": {
+                "type": "object",
+                "required": [
+                  "solar_year",
+                  "cycle_index"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "solar_year": {
+                    "const": 187
+                  },
+                  "cycle_index": {
+                    "const": 1
+                  }
+                }
+              },
+              "source_id": {
+                "const": "south-indian-solar-60-year-cycle-1889"
+              },
+              "source_sha256": {
+                "const": "11130caa3fee257f77ca11a7aff482518e6a47cc32fe70c4397d49a37e504a23"
+              },
+              "source": {
+                "type": "string"
+              },
+              "region_scope": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sources": {
+                "type": "array",
+                "minItems": 3,
+                "items": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "tamil_year_cycle_info"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "required": [
+          "op",
+          "input"
+        ]
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "context"
+            ],
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "solar_year": {
+                "type": "integer"
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "region",
+                  "latitude_microdegrees",
+                  "longitude_microdegrees",
+                  "elevation_meters",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "region": {
+                    "enum": [
+                      "TN",
+                      "SL"
+                    ]
+                  },
+                  "latitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 5800000,
+                    "maximum": 13700000
+                  },
+                  "longitude_microdegrees": {
+                    "type": "integer",
+                    "minimum": 76000000,
+                    "maximum": 82000000
+                  },
+                  "elevation_meters": {
+                    "type": "integer",
+                    "minimum": -100,
+                    "maximum": 3000
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "tamil_year_cycle_info"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              }
+            }
+          }
+        },
+        "required": [
+          "op",
+          "input"
+        ]
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "solar_year",
+              "context"
+            ],
+            "properties": {
+              "definition_id": {
+                "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+              },
+              "solar_year": {
+                "type": "integer"
+              },
+              "context": {
+                "type": "object",
+                "required": [
+                  "reference_station",
+                  "time_zone"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "reference_station": {
+                    "const": "ujjain"
+                  },
+                  "time_zone": {
+                    "enum": [
+                      "Asia/Kolkata",
+                      "Asia/Colombo"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "tamil_year_cycle_info"
+          },
+          "input": {
+            "properties": {
+              "definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              }
+            }
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "solar_year": {
+                "minimum": 2023,
+                "maximum": 2027
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "calendar_official_holidays"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "jurisdiction",
+                  "year"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "jurisdiction": {
+                    "const": "TN"
+                  },
+                  "year": {
+                    "enum": [
+                      2025,
+                      2026
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "jurisdiction",
+                  "year"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "jurisdiction": {
+                    "const": "SL"
+                  },
+                  "year": {
+                    "enum": [
+                      2026,
+                      2027
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "expected": {
+            "$ref": "#/$defs/officialHolidayYear"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "format_tamil_date"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "context",
+              "script",
+              "digits",
+              "style"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "enum": [
+                  "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2",
+                  "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+                ]
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "context": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/thirukanithamContext"
+                  },
+                  {
+                    "$ref": "#/$defs/vakyaCivilContext"
+                  }
+                ]
+              },
+              "script": {
+                "enum": [
+                  "tamil",
+                  "romanized"
+                ]
+              },
+              "digits": {
+                "enum": [
+                  "tamil",
+                  "latin"
+                ]
+              },
+              "style": {
+                "enum": [
+                  "day_month_year",
+                  "weekday_day_month_year"
+                ]
+              }
+            },
+            "oneOf": [
+              {
+                "properties": {
+                  "definition_id": {
+                    "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+                  },
+                  "context": {
+                    "$ref": "#/$defs/thirukanithamContext"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "definition_id": {
+                    "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+                  },
+                  "context": {
+                    "$ref": "#/$defs/vakyaCivilContext"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "calendar_display_info"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "definition_id",
+              "date",
+              "context",
+              "script",
+              "digits"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "definition_id": {
+                "enum": [
+                  "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2",
+                  "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+                ]
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "context": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/thirukanithamContext"
+                  },
+                  {
+                    "$ref": "#/$defs/vakyaCivilContext"
+                  }
+                ]
+              },
+              "script": {
+                "enum": [
+                  "tamil",
+                  "romanized"
+                ]
+              },
+              "digits": {
+                "enum": [
+                  "tamil",
+                  "latin"
+                ]
+              }
+            },
+            "oneOf": [
+              {
+                "properties": {
+                  "definition_id": {
+                    "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+                  },
+                  "context": {
+                    "$ref": "#/$defs/thirukanithamContext"
+                  }
+                }
+              },
+              {
+                "properties": {
+                  "definition_id": {
+                    "const": "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+                  },
+                  "context": {
+                    "$ref": "#/$defs/vakyaCivilContext"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "compare_calendar_profiles"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "thirukanitham_context",
+              "vakya_context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 2024,
+                    "maximum": 2027
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "instant_unix_seconds": {
+                "type": "integer"
+              },
+              "thirukanitham_context": {
+                "$ref": "#/$defs/thirukanithamContext"
+              },
+              "vakya_context": {
+                "$ref": "#/$defs/vakyaCivilContext"
+              }
+            },
+            "oneOf": [
+              {
+                "required": [
+                  "date"
+                ],
+                "not": {
+                  "required": [
+                    "instant_unix_seconds"
+                  ]
+                }
+              },
+              {
+                "required": [
+                  "instant_unix_seconds"
+                ],
+                "not": {
+                  "required": [
+                    "date"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "format_tamil_date"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "calendar_display_info",
+              "compare_calendar_profiles"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "expected": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "thiruvalluvar_year_info"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "object",
+            "required": [
+              "convention_id",
+              "date",
+              "context"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "convention_id": {
+                "const": "tn-thiruvalluvar-thai1-thirukanitham-v1"
+              },
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "enum": [
+                      2025,
+                      2026,
+                      2027
+                    ]
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "context": {
+                "$ref": "#/$defs/thirukanithamTnContext"
+              }
+            }
+          },
+          "expected": {
+            "type": "object",
+            "required": [
+              "convention_id",
+              "calendar_definition_id",
+              "context",
+              "gregorian_date",
+              "thiruvalluvar_year",
+              "thai1_date",
+              "boundary_status",
+              "year_number_rule",
+              "official_equivalence",
+              "scope_note",
+              "known_source_conflict",
+              "sources"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "convention_id": {
+                "const": "tn-thiruvalluvar-thai1-thirukanitham-v1"
+              },
+              "calendar_definition_id": {
+                "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+              },
+              "context": {
+                "type": "object"
+              },
+              "gregorian_date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "thiruvalluvar_year": {
+                "type": "integer",
+                "minimum": 2055,
+                "maximum": 2058
+              },
+              "thai1_date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "boundary_status": {
+                "enum": [
+                  "before_thai1",
+                  "on_or_after_thai1"
+                ]
+              },
+              "year_number_rule": {
+                "const": "proleptic_gregorian_year_plus_30_before_profile_thai1_or_plus_31_on_or_after"
+              },
+              "official_equivalence": {
+                "const": "not_established"
+              },
+              "scope_note": {
+                "type": "string",
+                "minLength": 1
+              },
+              "known_source_conflict": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sources": {
+                "type": "array",
+                "minItems": 4,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "url",
+                    "locator"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "locator": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "calendar_observances"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "$ref": "#/$defs/calendarObservancesInput"
+          },
+          "expected": {
+            "$ref": "#/$defs/calendarObservancesResult"
+          }
+        }
+      }
+    }
   ],
   "$defs": {
+    "calendarObservancesInput": {
+      "type": "object",
+      "required": [
+        "definition_id",
+        "rule_set",
+        "gregorian_year",
+        "context"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "definition_id": {
+          "enum": [
+            "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2",
+            "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+          ]
+        },
+        "rule_set": {
+          "const": "thirukanitham-tamil-named-observances-v1"
+        },
+        "gregorian_year": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999
+        },
+        "month": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "context": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/thirukanithamContext"
+            },
+            {
+              "$ref": "#/$defs/vakyaCivilContext"
+            }
+          ]
+        }
+      }
+    },
+    "calendarObservancesResult": {
+      "type": "object",
+      "required": [
+        "definition_id",
+        "rule_set_id",
+        "gregorian_year",
+        "jurisdiction",
+        "context",
+        "scope_note",
+        "astronomy_note",
+        "source_compatibility",
+        "reuse_terms_status",
+        "sources",
+        "supported_event_ids",
+        "events"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "definition_id": {
+          "const": "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+        },
+        "rule_set_id": {
+          "const": "thirukanitham-tamil-named-observances-v1"
+        },
+        "gregorian_year": {
+          "type": "integer",
+          "minimum": 2025,
+          "maximum": 2027
+        },
+        "jurisdiction": {
+          "const": "TN"
+        },
+        "context": {
+          "$ref": "#/$defs/thirukanithamTnContext"
+        },
+        "scope_note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "astronomy_note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_compatibility": {
+          "const": "publisher_equivalence_not_claimed"
+        },
+        "reuse_terms_status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/calendarObservanceSource"
+          }
+        },
+        "supported_event_ids": {
+          "type": "array",
+          "minItems": 22,
+          "maxItems": 22,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "puthandu",
+              "pongal",
+              "bhogi_pandigai",
+              "mattu_pongal",
+              "amavasya_tithi_day",
+              "pournami_tithi_day",
+              "sri_vaishnava_ekadashi",
+              "nava_pradosham",
+              "aadi_perukku",
+              "thai_poosam",
+              "panguni_uthiram",
+              "vaikasi_visakam",
+              "arudra_darshan",
+              "karthigai_deepam",
+              "chitra_pournami",
+              "vinayaka_chaturthi",
+              "sivarathri",
+              "deepavali",
+              "navaratri_ghatasthapana",
+              "ayudha_puja",
+              "vijayadasami",
+              "sankatahara_chaturthi",
+              "krishna_jayanthi"
+            ]
+          }
+        },
+        "events": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/calendarObservanceEvent"
+          }
+        }
+      }
+    },
+    "calendarObservanceSource": {
+      "type": "object",
+      "required": [
+        "id",
+        "url",
+        "locator",
+        "sha256",
+        "year"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          ]
+        },
+        "year": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer",
+              "minimum": 2025,
+              "maximum": 2027
+            }
+          ]
+        }
+      }
+    },
+    "calendarObservanceEvent": {
+      "type": "object",
+      "required": [
+        "event_id",
+        "display_name",
+        "date",
+        "rule_id",
+        "tithi_index",
+        "nakshatra_index",
+        "source_ids"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "enum": [
+            "puthandu",
+            "pongal",
+            "bhogi_pandigai",
+            "mattu_pongal",
+            "amavasya_tithi_day",
+            "pournami_tithi_day",
+            "sri_vaishnava_ekadashi",
+            "nava_pradosham",
+            "aadi_perukku",
+            "thai_poosam",
+            "panguni_uthiram",
+            "vaikasi_visakam",
+            "arudra_darshan",
+            "karthigai_deepam",
+            "chitra_pournami",
+            "vinayaka_chaturthi",
+            "sivarathri",
+            "deepavali",
+            "navaratri_ghatasthapana",
+            "ayudha_puja",
+            "vijayadasami",
+            "sankatahara_chaturthi",
+            "krishna_jayanthi"
+          ]
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "date": {
+          "type": "object",
+          "required": [
+            "year",
+            "month",
+            "day"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "year": {
+              "type": "integer",
+              "minimum": 2025,
+              "maximum": 2027
+            },
+            "month": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "day": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 31
+            }
+          }
+        },
+        "rule_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tithi_index": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 30
+            }
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "nakshatra_index": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 27
+            }
+          ]
+        }
+      }
+    },
+    "thirukanithamTnContext": {
+      "type": "object",
+      "required": [
+        "region",
+        "latitude_microdegrees",
+        "longitude_microdegrees",
+        "elevation_meters",
+        "time_zone"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "region": {
+          "const": "TN"
+        },
+        "latitude_microdegrees": {
+          "type": "integer",
+          "minimum": 8000000,
+          "maximum": 13700000
+        },
+        "longitude_microdegrees": {
+          "type": "integer",
+          "minimum": 76000000,
+          "maximum": 80500000
+        },
+        "elevation_meters": {
+          "type": "integer",
+          "minimum": -100,
+          "maximum": 3000
+        },
+        "time_zone": {
+          "const": "Asia/Kolkata"
+        }
+      }
+    },
+    "thirukanithamSlContext": {
+      "type": "object",
+      "required": [
+        "region",
+        "latitude_microdegrees",
+        "longitude_microdegrees",
+        "elevation_meters",
+        "time_zone"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "region": {
+          "const": "SL"
+        },
+        "latitude_microdegrees": {
+          "type": "integer",
+          "minimum": 5800000,
+          "maximum": 9900000
+        },
+        "longitude_microdegrees": {
+          "type": "integer",
+          "minimum": 79400000,
+          "maximum": 82000000
+        },
+        "elevation_meters": {
+          "type": "integer",
+          "minimum": -100,
+          "maximum": 3000
+        },
+        "time_zone": {
+          "const": "Asia/Colombo"
+        }
+      }
+    },
+    "thirukanithamContext": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/thirukanithamTnContext"
+        },
+        {
+          "$ref": "#/$defs/thirukanithamSlContext"
+        }
+      ]
+    },
+    "vakyaCivilContext": {
+      "type": "object",
+      "required": [
+        "reference_station",
+        "time_zone"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "reference_station": {
+          "const": "ujjain"
+        },
+        "time_zone": {
+          "enum": [
+            "Asia/Kolkata",
+            "Asia/Colombo"
+          ]
+        }
+      }
+    },
+    "yearCycle": {
+      "type": "object",
+      "required": [
+        "solar_year",
+        "cycle_index",
+        "cycle_name",
+        "anchor",
+        "source_id",
+        "source",
+        "source_sha256",
+        "region_scope",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "solar_year": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999
+        },
+        "cycle_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 60
+        },
+        "cycle_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "anchor": {
+          "type": "object",
+          "required": [
+            "solar_year",
+            "cycle_index"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "solar_year": {
+              "const": 187
+            },
+            "cycle_index": {
+              "const": 1
+            }
+          }
+        },
+        "source_id": {
+          "const": "south-indian-solar-60-year-cycle-1889"
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_sha256": {
+          "const": "11130caa3fee257f77ca11a7aff482518e6a47cc32fe70c4397d49a37e504a23"
+        },
+        "region_scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "officialHolidayYear": {
+      "type": "object",
+      "required": [
+        "jurisdiction",
+        "year",
+        "schedule_id",
+        "source_id",
+        "source",
+        "source_url",
+        "source_sha256",
+        "reuse_terms_status",
+        "scope_note",
+        "holidays"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "jurisdiction": {
+          "enum": [
+            "TN",
+            "SL"
+          ]
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 2025,
+          "maximum": 2027
+        },
+        "schedule_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "source_sha256": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          ]
+        },
+        "scope_note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "holidays": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 26,
+          "items": {
+            "type": "object",
+            "required": [
+              "date",
+              "name",
+              "categories"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "date": {
+                "type": "object",
+                "required": [
+                  "year",
+                  "month",
+                  "day"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "year": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9999
+                  },
+                  "month": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "day": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 31
+                  }
+                }
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "categories": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "enum": [
+                    "state_government",
+                    "commercial_banks",
+                    "cooperative_banks",
+                    "bank",
+                    "public",
+                    "mercantile"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "reuse_terms_status": {
+          "const": "unverified"
+        }
+      }
+    },
+    "rasiDmsAngle": {
+      "type": "object",
+      "required": [
+        "rasi",
+        "degrees",
+        "minutes",
+        "seconds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "rasi": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 11
+        },
+        "degrees": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 29
+        },
+        "minutes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        },
+        "seconds": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 59
+        }
+      }
+    },
+    "exactDecimal": {
+      "type": "object",
+      "required": [
+        "negative",
+        "coefficient",
+        "scale"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "negative": {
+          "type": "boolean"
+        },
+        "coefficient": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,255})$"
+        },
+        "scale": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 256
+        }
+      }
+    },
+    "rangeEndpoint": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "value"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "decimal"
+            },
+            "value": {
+              "$ref": "#/$defs/exactDecimal"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "numerator",
+            "denominator"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "const": "fraction"
+            },
+            "numerator": {
+              "type": "integer",
+              "minimum": -999999999,
+              "maximum": 999999999
+            },
+            "denominator": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 999999999
+            }
+          }
+        }
+      ]
+    },
     "parts": {
-      "type": "object", "required": ["mei", "uyir"], "additionalProperties": false,
-      "properties": {"mei": {"type": "string", "minLength": 1}, "uyir": {"type": "string", "minLength": 1}}
+      "type": "object",
+      "required": [
+        "mei",
+        "uyir"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "mei": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uyir": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "vakyaTamilDate": {
+      "type": "object",
+      "required": [
+        "solar_year",
+        "month",
+        "month_name",
+        "day"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "solar_year": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9999
+        },
+        "month": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 12
+        },
+        "month_name": {
+          "type": "string"
+        },
+        "day": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 35
+        }
+      }
     }
   }
 }

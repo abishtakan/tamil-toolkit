@@ -1,0 +1,152 @@
+# Canonical numeric and naming data for the bounded Thirukanitham profile.
+# The runtime algorithm is Rust; this file is declarative data compiled by build.rs.
+# Provider source: https://github.com/saurvs/astro-rust, crate astro 2.0.0, MIT.
+# Independent astronomy: https://ssd-api.jpl.nasa.gov/doc/horizons.html
+# Time-zone rules: https://www.iana.org/time-zones/releases/2026f
+# Lahiri anchor (true, including nutation): https://www.astro.com/swisseph/swisseph.htm section 2.8.5.
+# Independent IAU 2000A nutation: https://github.com/liberfa/erfa and https://github.com/liberfa/pyerfa.
+# P03 precession: https://www.iers.org/SharedDocs/Publikationen/EN/IERS/resolutions/IAU/IAU2006_Resolution_B1.pdf
+# Panchang limb and sunrise rules: https://packolkata.imd.gov.in/panchang/en/explanation
+# Tamil solar-month assignment: Sewell & Dikshit (1896), printed p. 12, §28; Positional Astronomy Centre, Indian Calendar, "The Tamil rule".
+
+profile = "thirukanitham-calendar-v1"
+definition_id = "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2"
+sidereal_definition = "lahiri-1956-true-anchor-p03-true-iau1980-v2"
+ephemeris_provider = "astro"
+ephemeris_version = "2.0.0"
+ephemeris_license = "MIT"
+ephemeris_archive_sha256 = "199632E1A87451CF771DA7ADEBA192CAB923EDE42657AC3DE0133BA6F4AE14BE"
+sun_model = "VSOP87-D"
+moon_model = "partial ELP-2000/82"
+nutation_model = "astro-2.0.0-63-term-iau1980"
+solar_coordinate_definition = "geocentric-apparent-ecliptic-of-date:VSOP87-D-mean+FK5+IAU1980-nutation+solar-aberration;no-separate-light-time-or-gravitational-deflection"
+lunar_coordinate_definition = "geocentric-apparent-ecliptic-of-date:partial-ELP-2000/82-mean+IAU1980-nutation;no-separate-FK5-lunar-aberration-light-time-or-gravitational-deflection"
+sidereal_coordinate_definition = "apparent-ecliptic-of-date-longitude-minus-true-Lahiri-ayanamsa;P03-mean-anchor+same-model-date-nutation"
+vara_definition = "panchangam-day:weekday-of-report-civil-date-at-computed-sunrise;panchangam-at:weekday-of-local-civil-date-including-before-sunrise;not-sunrise-to-sunrise"
+time_zone_database_release = "2026f"
+solar_month_rule = "ingress_at_or_before_local_sunset_opens_same_date"
+daylight_period_rule = "south-indian-daylight-eighths-v1"
+daylight_period_source = "S. Narasimha Rao, Basics of Panchangam, reprint from Achara Vichara Monthly, 2005, printed p. 35; daylight interval divided into eight equal temporal parts, weekday-assigned Rahu Kaala, Gulika Kaala and Yamaganda slots, corrected from the 06:00-18:00 illustration to actual sunrise and sunset"
+daylight_period_source_sha256 = "4716fae5ca5634f9a88be5482e7335e3cbe5bc4df27a31923f2e8946d3e9e750"
+rahu_eighth_by_weekday = [8, 2, 7, 5, 6, 4, 3]
+kuligai_eighth_by_weekday = [7, 6, 5, 4, 3, 2, 1]
+yamagandam_eighth_by_weekday = [5, 4, 3, 2, 1, 7, 6]
+horizon_definition = "apparent_solar_center_altitude_minus_47_arcminutes_with_spherical_elevation_dip"
+sources = [
+  "https://github.com/saurvs/astro-rust",
+  "https://ssd-api.jpl.nasa.gov/doc/horizons.html",
+  "https://www.iers.org/SharedDocs/Publikationen/EN/IERS/resolutions/IAU/IAU2006_Resolution_B1.pdf?__blob=publicationFile&v=3",
+  "https://iauarchive.eso.org/static/resolutions/IAU2006_Resol1.pdf",
+  "https://www.astro.com/swisseph/swisseph.htm",
+  "https://github.com/liberfa/erfa",
+  "https://github.com/liberfa/pyerfa",
+  "https://www.nist.gov/pml/time-and-frequency-division/time-realization/leap-seconds",
+  "https://www.iana.org/time-zones",
+  "https://packolkata.imd.gov.in/panchang/en/explanation",
+  "https://packolkata.imd.gov.in/panchang/en/regional-calendars",
+  "https://packolkata.gov.in/INDIAN_CALADAR_PAC.pdf",
+  "https://upload.wikimedia.org/wikipedia/commons/c/c8/The_Indian_calendar%2C_with_tables_for_the_conversion_of_Hindu_and_Muhammadan_into_A.D._dates%2C_and_vice_versa_%28IA_indiancalendarwi00sewerich%29.pdf",
+  "https://multifaiths.com/pdf/Panchang.pdf#page=35",
+  "https://www.geonames.org/about.html",
+  "https://aa.usno.navy.mil/faq/asa_glossary",
+  "https://aa.usno.navy.mil/faq/moon_phases",
+  "https://aa.usno.navy.mil/api/moon/phases/year?year=2025",
+]
+public_start_year = 2024
+public_end_year = 2027
+solar_year_start = 2023
+solar_year_end = 2027
+tt_minus_utc_millis = 69184
+ut1_minus_utc_assumed_millis = 0
+ut1_minus_utc_max_abs_millis = 900
+sunrise_center_altitude_arcminutes = -47
+refraction_arcminutes = 31
+solar_semidiameter_arcminutes = 16
+earth_radius_meters = 6371000
+root_scan_step_seconds = 3600
+display_rounding_seconds = 60
+lahiri_anchor_milliarcseconds = 83700658
+lahiri_anchor_jd_centidays = 243555350
+# The 1956 anchor is true per Swiss Ephemeris section 2.8.5. Its mean value is
+# true anchor minus this crate's 63-term IAU 1980 nutation at the epoch.
+# astro 2.0.0 gives +16.768479927 arcseconds, hence mean anchor 23°14'43.889520".
+lahiri_mean_anchor_microarcseconds = 83683889520
+precession_picoarcseconds_per_power = [0, 5028796195000000, 1105434800000, 79640000, -23857000, -38300]
+precession_epoch_jd_millidays = 2451545000
+precession_century_days = 36525
+
+months = [
+  "Chithirai", "Vaikasi", "Aani", "Aadi", "Avani", "Purattasi",
+  "Aippasi", "Karthigai", "Margazhi", "Thai", "Maasi", "Panguni"
+]
+
+tithi_names = [
+  "Pratipada", "Dvitiya", "Tritiya", "Chaturthi", "Panchami",
+  "Shashthi", "Saptami", "Ashtami", "Navami", "Dashami",
+  "Ekadashi", "Dwadashi", "Trayodashi", "Chaturdashi", "Purnima"
+]
+
+nakshatra_names = [
+  "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashirsha", "Ardra",
+  "Punarvasu", "Pushya", "Ashlesha", "Magha", "Purva Phalguni",
+  "Uttara Phalguni", "Hasta", "Chitra", "Swati", "Vishakha", "Anuradha",
+  "Jyeshtha", "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana",
+  "Dhanishtha", "Shatabhisha", "Purva Bhadrapada", "Uttara Bhadrapada",
+  "Revati"
+]
+
+yoga_names = [
+  "Vishkambha", "Priti", "Ayushman", "Saubhagya", "Shobhana", "Atiganda",
+  "Sukarma", "Dhriti", "Shula", "Ganda", "Vriddhi", "Dhruva", "Vyaghata",
+  "Harshana", "Vajra", "Siddhi", "Vyatipata", "Variyana", "Parigha", "Shiva",
+  "Siddha", "Sadhya", "Shubha", "Shukla", "Brahma", "Indra", "Vaidhriti"
+]
+
+karana_names = [
+  "Kimstughna", "Bava", "Balava", "Kaulava", "Taitila", "Gara", "Vanija",
+  "Vishti", "Sakuni", "Chatushpada", "Naga"
+]
+
+weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+[[regions]]
+id = "TN"
+time_zone = "Asia/Kolkata"
+utc_offset_seconds = 19800
+latitude_min_microdegrees = 8000000
+latitude_max_microdegrees = 13700000
+longitude_min_microdegrees = 76000000
+longitude_max_microdegrees = 80500000
+
+[[regions]]
+id = "SL"
+time_zone = "Asia/Colombo"
+utc_offset_seconds = 19800
+latitude_min_microdegrees = 5800000
+latitude_max_microdegrees = 9900000
+longitude_min_microdegrees = 79400000
+longitude_max_microdegrees = 82000000
+
+[[stations]]
+id = "chennai-geonames-1264527"
+region = "TN"
+latitude_microdegrees = 13087840
+longitude_microdegrees = 80278470
+elevation_meters = 14
+source = "https://www.geonames.org/1264527/chennai.html"
+
+[[stations]]
+id = "colombo-geonames-1248991"
+region = "SL"
+latitude_microdegrees = 6935480
+longitude_microdegrees = 79848680
+elevation_meters = 7
+source = "https://www.geonames.org/1248991/colombo.html"
+
+[[stations]]
+id = "jaffna-geonames-1242833"
+region = "SL"
+latitude_microdegrees = 9668450
+longitude_microdegrees = 80007420
+elevation_meters = 7
+source = "https://www.geonames.org/1242833/jaffna.html"

@@ -1,0 +1,59 @@
+{
+  "description": "Factual adjacent-day extracts used to distinguish the publisher's sunrise-to-sunrise day from the toolkit's civil-midnight reports.",
+  "retrieved_utc_date": "2026-11-02",
+  "reuse_terms": "Terms for reproducing page content are unknown. Only factual fields, locators and digests are retained; page HTML is not redistributed. A digest without retained page bytes cannot independently verify an extraction.",
+  "locations": [
+    {
+      "name": "Chennai",
+      "geoname_id": 1264527,
+      "civil_date": "2026-10-31",
+      "url": "https://www.drikpanchang.com/tamil/tamil-month-panchangam.html?date=31%2F10%2F2026&geoname-id=1264527",
+      "page_sha256": "05A8BEBEE71F3DF73C00E28EEEFED855BCFF3D4E35EFD3D15C898D6C3E8542CF",
+      "source_note": "Page content describes Chennai and states that the Panchang day starts and ends with sunrise.",
+      "sunrise_local": "06:02",
+      "sunset_local": "17:42",
+      "tithi": {"name": "Shasti", "ends_local": "16:57"},
+      "nakshatra": [
+        {"name": "Thiruvathirai", "ends_local": "07:12"},
+        {"name": "Punarpoosam", "ends_local": "2026-11-01 05:39"}
+      ],
+      "yoga": {"name": "Siddha", "ends_local": "17:31"},
+      "karana": [
+        {"name": "Garaja", "ends_local": "06:08"},
+        {"name": "Vanija", "ends_local": "16:57"},
+        {"name": "Vishti", "ends_local": "2026-11-01 03:51"}
+      ]
+    },
+    {
+      "name": "Chennai",
+      "geoname_id": 1264527,
+      "civil_date": "2026-11-02",
+      "url": "https://www.drikpanchang.com/tamil/tamil-month-panchangam.html?date=02%2F11%2F2026&geoname-id=1264527",
+      "page_sha256": "29EF1FF3FA3E3006056B2DAEC2F9E0CF9FBBCC08D9250CCB5C60A52A2B449E5B",
+      "source_note": "Page content describes Chennai and states that the Panchang day starts and ends with sunrise.",
+      "sunrise_local": "06:03",
+      "sunset_local": "17:42",
+      "tithi": {"name": "Astami", "ends_local": "13:10"},
+      "nakshatra": {"name": "Ayilyam", "ends_local": "2026-11-03 03:46"},
+      "yoga": {"name": "Shubha", "ends_local": "12:07"},
+      "karana": [
+        {"name": "Kaulava", "ends_local": "13:10"},
+        {"name": "Taitila", "ends_local": "2026-11-03 00:29"}
+      ]
+    }
+  ],
+  "reconciliation": {
+    "2026-11-01_civil_day_roots": [
+      {"limb": "karana", "transition": "42->43", "toolkit_profile_local": "2026-11-01 03:52:02", "publisher_previous_sunrise_day_local": "2026-11-01 03:51"},
+      {"limb": "nakshatra", "transition": "7->8", "toolkit_profile_local": "2026-11-01 05:39:52", "publisher_previous_sunrise_day_local": "2026-11-01 05:39"}
+    ],
+    "2026-11-01_next_day_nakshatra_exit": {
+      "limb": "nakshatra",
+      "transition": "8->9",
+      "toolkit_profile_local": "2026-11-02 04:31",
+      "publisher_november_1_page_local": "2026-11-02 04:30",
+      "publisher_november_2_sunrise_state": "Ayilyam"
+    },
+    "interpretation": "The Oct 31 sunrise-day page contains transitions at 03:51 and 05:39 on Nov 1, before the Nov 1 sunrise; the toolkit's Nov 1 report includes them in its midnight-to-midnight interval. The Nov 1 page's next-day Pushya exit is followed by Ayilyam at the Nov 2 sunrise. This reconciles day assignment and after-state only; it does not establish exact publisher roots or identify ephemeris, elevation, horizon, frame or rounding settings."
+  }
+}

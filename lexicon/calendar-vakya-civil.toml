@@ -1,0 +1,27 @@
+# Definition and reference-station data for the bounded civil profile.
+# Epoch Gregorian ordinal is the proleptic-Gregorian day count from 0001-01-01.
+# The value is derived from 3102 BCE-01-23 (astronomical year -3101), kali day 0.
+profile = "vakyakarana-1962-laghuprakashika-civil-v1"
+definition_id = "vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1"
+kali_epoch_gregorian_ordinal = -1132960
+reference_station = "ujjain"
+reference_station_latitude_microdegrees = 23183333
+reference_station_longitude_microdegrees = 75783333
+ist_meridian_longitude_microdegrees = 82500000
+mean_sunrise_hour = 6
+timezone_offset_seconds = 19800
+vinadi_seconds = 24
+seconds_per_day = 86400
+daytime_end_nadi = 30
+solar_date_min_year = 1
+solar_date_max_year = 9999
+kolkata_instant_min_year = 1947
+colombo_instant_min_year = 2007
+timezone_ids = ["Asia/Kolkata", "Asia/Colombo"]
+month_names = ["Chithirai", "Vaikasi", "Aani", "Aadi", "Avani", "Purattasi", "Aippasi", "Karthigai", "Margazhi", "Thai", "Maasi", "Panguni"]
+source_urls = [
+  "https://www.ebharatisampat.in/pdfs/ebharati-pdf-1644580379VakyaKarana-LaghuParkasikaVyakhya-Ed-KuppannaSastri-SarmaKV-1962.pdf",
+  "https://repository.ias.ac.in/74672/1/21-PUB.pdf",
+  "https://cdn.sciengine.com/doi/pdfView/243DF073EF884DF7AA2A82C5143ED578",
+  "https://imdnagpur.gov.in/pages/obs_network_view.php"
+]

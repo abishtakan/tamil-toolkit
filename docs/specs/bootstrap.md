@@ -58,8 +58,10 @@ member's escaped JSON Pointer and use `key_non_nfc`, `key_joiner`, or
 All runtimes execute every row of every active suite; unknown operations fail.
 Planned suites are validated and reported, but never counted as passing tests.
 Only the owner reviewing the specification may activate a planned suite. Empty
-planned suites deliberately avoid fabricated linguistic facts. The numeral
-suite now uses the reviewed CLDR/ICU evidence specified below.
+planned suites deliberately avoid fabricated linguistic facts. The numerals
+v0.3 vectors use pinned CLDR/ICU evidence and are active following the owner's
+explicit specification review and activation approval. Calendar suites remain
+planned pending their separate review and approval.
 
 The oracle shares `tamil-toolkit`'s Rust dispatcher. Python implements Unicode
 scalar display/diff and schema validation only, not Tamil linguistic algorithms.
@@ -76,10 +78,25 @@ Mixed-script fallback and the profile's limits are specified explicitly there.
 The [numerals v0.1 contract](numerals-v0.1.md) adds bounded CLDR 49 integer
 spellings and exact INR/LKR minor-unit formatting. The declared SL lakh spelling and invariant unit-label template
 have explicit sources and limits; no general regional speech support is implied.
-The [numeral completion contract](numerals-v0.2.md) adds exact reduced fractions,
+The [numeral v0.2 contract](numerals-v0.2.md) adds exact reduced fractions,
 traditional symbols, common-name/division readings, and Gregorian date formats
-with Latin/Tamil decimal digits. This completes the numeral feature families
-within their explicit component and calendar bounds.
+with Latin/Tamil decimal digits. The additive
+[numeral v0.3 contract](numerals-v0.3.md) covers exact decimal strings,
+formal decimal/ordinal/digit-sequence words, reverse fraction-symbol values,
+traditional integer parsing, mixed fractions, percentages, numeric ranges,
+major-unit currency strings and Gregorian civil arithmetic. Its 7,341 escaped
+vectors are active following the owner's explicit activation approval, and
+execute unchanged across the real runtimes. Six bounded Rust
+properties exercise decimal, money, traditional integer, ratio/percent and
+Gregorian invariants. These additions do not establish complete Tamil numeral
+usage. The separate
+[calendar completion plan](numerals-completion-plan.md) still requires both
+Thirukanitham and Vakiya plus sourced observance and holiday data. A bounded
+Thirukanitham implementation is in the worktree; its suite remains planned and
+it is not counted as active coverage. Vakiya has historical arithmetic kernels
+and a bounded Ujjain mean-sunrise Gregorian-date and five-limb profile; its
+suites also remain planned. Arbitrary-location Vakiya and true local daylight
+remain unfinished.
 
 The [Punarchi source and scope contract](punarchi-v0.1.md) selects the Nannūl
 Eḻuttatikāram root text for a named literary merger profile, with Tolkāppiyam

@@ -1,8 +1,170 @@
-from typing import Any, TypedDict
+from typing import Any, Literal, TypedDict
 
 class Uyirmei(TypedDict):
     mei: str
     uyir: str
+
+class ExactDecimal(TypedDict):
+    negative: bool
+    coefficient: str
+    scale: int
+
+class MixedFraction(TypedDict):
+    negative: bool
+    whole: int
+    numerator: int
+    denominator: int
+
+class Ahargana(TypedDict):
+    days: int
+    nadi: int
+    vinadi: int
+    weekday: str
+
+class SolarTransit(TypedDict):
+    rasi: str
+    day_field: int
+    weekday: str
+    nadi: int
+    vinadi: int
+
+class VakyaSolarYear(TypedDict):
+    definition_id: str
+    saka_year_elapsed: int
+    kali_year: int
+    ahargana: Ahargana
+    transits: list[SolarTransit]
+
+class DmsAngle(TypedDict):
+    degrees: int
+    minutes: int
+    seconds: int
+
+class VakyaTrueSun(TypedDict):
+    definition_id: str
+    elapsed_from_mesha: dict[str, int]
+    approximate_sun: DmsAngle
+    bhupadi_correction: DmsAngle
+    true_sun: DmsAngle
+
+class RasiDmsAngle(TypedDict):
+    rasi: int
+    degrees: int
+    minutes: int
+    seconds: int
+
+class VakyaTrueMoon(TypedDict):
+    definition_id: str
+    kali_day: int
+    quotients: dict[str, int]
+    moon_vakya_number: int
+    uncorrected_true_moon: RasiDmsAngle
+    daily_motion: DmsAngle
+    vinadi_adjustment: int
+    correction_seconds: int
+    true_moon: RasiDmsAngle
+
+class VakyaLocalSunriseReduction(TypedDict):
+    definition_id: str
+    true_position: RasiDmsAngle
+    daily_motion: DmsAngle
+    adjustment_vinadi_tenths: dict[str, int]
+    correction_arcseconds: int
+    local_true_position: RasiDmsAngle
+
+class VakyaCara(TypedDict):
+    definition_id: str
+    sayana_sun: RasiDmsAngle
+    bhuja: RasiDmsAngle
+    equinoctial_shadow_tenths: int
+    cara_vinadi_tenths: int
+
+class VakyaDesantara(TypedDict):
+    definition_id: str
+    east_west_distance_tenths_yojana: int
+    desantara_vinadi_tenths: int
+
+class VakyaBhujaantara(TypedDict):
+    definition_id: str
+    sun_rasi: int
+    sun_rasi_progress_arcseconds: int
+    bracketing_endpoint_vinadi: tuple[int, int]
+    bhujaantara_vinadi_tenths: int
+
+class CalendarProfileInfo(TypedDict):
+    profile: str
+    definition_id: str
+    coverage: dict[str, str]
+    solar_year: dict[str, Any]
+    ephemeris: dict[str, Any]
+    time_model: dict[str, Any]
+    sidereal_definition: str
+    sidereal_parameters: dict[str, Any]
+    vara_definition: str
+    sunrise: dict[str, Any]
+    solar_month_rule: str
+    supported_regions: list[dict[str, Any]]
+    reference_stations: list[dict[str, Any]]
+    sources: list[str]
+
+class RangeDecimalEndpoint(TypedDict):
+    type: str
+    value: ExactDecimal
+
+class RangeFractionEndpoint(TypedDict):
+    type: str
+    numerator: int
+    denominator: int
+
+class CalendarContext(TypedDict):
+    region: str
+    latitude_microdegrees: int
+    longitude_microdegrees: int
+    elevation_meters: int
+    time_zone: str
+
+class VakyaCivilContext(TypedDict):
+    reference_station: str
+    time_zone: str
+
+class CalendarObservanceSource(TypedDict):
+    id: str
+    url: str
+    locator: str
+    sha256: str | None
+    year: int | None
+
+class CalendarObservanceEvent(TypedDict):
+    event_id: str
+    display_name: str
+    date: dict[str, int]
+    rule_id: str
+    tithi_index: int | None
+    nakshatra_index: int | None
+    source_ids: list[str]
+
+class CalendarObservances(TypedDict):
+    definition_id: str
+    rule_set_id: str
+    gregorian_year: int
+    jurisdiction: str
+    context: CalendarContext
+    scope_note: str
+    astronomy_note: str
+    source_compatibility: Literal["publisher_equivalence_not_claimed"]
+    reuse_terms_status: str
+    sources: list[CalendarObservanceSource]
+    supported_event_ids: list[str]
+    events: list[CalendarObservanceEvent]
+
+CalendarDisplayScript = Literal["tamil", "romanized"]
+CalendarDisplayDigits = Literal["latin", "tamil"]
+CalendarDisplayStyle = Literal["day_month_year", "weekday_day_month_year"]
+
+class TamilSolarDate(TypedDict):
+    solar_year: int
+    month: int
+    day: int
 
 def execute(request: dict[str, Any]) -> Any: ...
 def get_letters(text: str) -> list[str]: ...
@@ -40,3 +202,52 @@ def format_fraction(numerator: int, denominator: int, digits: str = "latin") -> 
 def fraction_to_words(numerator: int, denominator: int, locale: str = "TN") -> str: ...
 def fraction_symbol(numerator: int, denominator: int) -> str: ...
 def format_date(year: int, month: int, day: int, locale: str = "TN", style: str = "long", digits: str = "latin") -> str: ...
+def convert_digits(text: str, to: str) -> str: ...
+def parse_decimal(text: str, source_digits: str, grouping: str = "none", allow_mixed_digits: bool = False) -> ExactDecimal: ...
+def format_decimal(value: ExactDecimal, digits: str = "latin", grouping: str = "none") -> str: ...
+def decimal_to_words(text: str, source_digits: str, locale: str = "TN", grouping: str = "none", allow_mixed_digits: bool = False) -> str: ...
+def ordinal_to_words(value: int, locale: str = "TN") -> str: ...
+def digit_sequence_to_words(text: str, source_digits: str, locale: str = "TN") -> str: ...
+def format_currency_decimal(amount: str, source_digits: str, currency: str, locale: str = "TN", grouping: str = "none") -> str: ...
+def currency_decimal_to_words(amount: str, source_digits: str, currency: str, locale: str = "TN", grouping: str = "none") -> str: ...
+def parse_fraction_symbol(text: str) -> dict[str, int]: ...
+def symbol_info(text: str) -> dict[str, Any]: ...
+def format_mixed_fraction(negative: bool, whole: int, numerator: int, denominator: int, digits: str = "latin") -> str: ...
+def parse_mixed_fraction(text: str, source_digits: str) -> MixedFraction: ...
+def format_traditional_integer(value: int) -> str: ...
+def parse_traditional_integer(text: str) -> int: ...
+def parse_percent(text: str, source_digits: str, grouping: str = "none") -> ExactDecimal: ...
+def format_percent(value: ExactDecimal, digits: str = "latin", grouping: str = "none") -> str: ...
+def ratio_to_percent(value: ExactDecimal) -> ExactDecimal: ...
+def percent_to_ratio(value: ExactDecimal) -> ExactDecimal: ...
+def format_numeric_range(start: RangeDecimalEndpoint | RangeFractionEndpoint, end: RangeDecimalEndpoint | RangeFractionEndpoint, start_inclusive: bool, end_inclusive: bool, separator: str = "–", digits: str = "latin") -> str: ...
+def validate_gregorian_date(year: int, month: int, day: int) -> bool: ...
+def parse_gregorian_date(text: str) -> dict[str, int]: ...
+def weekday(year: int, month: int, day: int) -> str: ...
+def add_gregorian_date(year: int, month: int, day: int, unit: str, amount: int, overflow: str = "reject") -> dict[str, int]: ...
+def date_difference(start: dict[str, int], end: dict[str, int]) -> int: ...
+def date_interval(start: str, end: str) -> dict[str, Any]: ...
+def vakya_solar_transits(saka_year_elapsed: int) -> VakyaSolarYear: ...
+def vakya_true_sun_from_mesha_elapsed(elapsed_days: int, nadi: int, vinadi: int) -> VakyaTrueSun: ...
+def vakya_true_moon_from_kali_day(kali_day: int) -> VakyaTrueMoon: ...
+def vakya_reduce_to_local_true_sunrise(true_position: RasiDmsAngle, daily_motion: DmsAngle, cara_half_vinadi_tenths: int, desantara_vinadi_tenths: int, bhujaantara_vinadi_tenths: int) -> VakyaLocalSunriseReduction: ...
+def vakya_cara_from_sayana_sun(sayana_sun: RasiDmsAngle, equinoctial_shadow_tenths: int) -> VakyaCara: ...
+def vakya_desantara_from_yojana_distance(east_west_distance_tenths_yojana: int) -> VakyaDesantara: ...
+def vakya_bhujaantara_from_true_sun(sun_rasi: int, sun_rasi_progress_arcseconds: int) -> VakyaBhujaantara: ...
+def calendar_profile_info(definition_id: str = ...) -> dict[str, Any]: ...
+def gregorian_to_tamil_date(date: GregorianDate, context: CalendarContext | VakyaCivilContext, definition_id: str = ...) -> dict[str, Any]: ...
+def tamil_to_gregorian_date(date: TamilSolarDate, context: CalendarContext | VakyaCivilContext, definition_id: str = ...) -> dict[str, Any]: ...
+def tamil_month_info(solar_year: int, month: int, context: CalendarContext | VakyaCivilContext, definition_id: str = ...) -> dict[str, Any]: ...
+def tamil_year_info(solar_year: int, context: CalendarContext | VakyaCivilContext, definition_id: str = ...) -> dict[str, Any]: ...
+def tamil_year_cycle_info(solar_year: int, context: CalendarContext | VakyaCivilContext, definition_id: str = ...) -> dict[str, Any]: ...
+def calendar_official_holidays(jurisdiction: str, year: int) -> dict[str, Any]: ...
+def calendar_observances(gregorian_year: int, context: CalendarContext | VakyaCivilContext, rule_set: str = ..., definition_id: str = ..., month: int | None = ...) -> CalendarObservances: ...
+def add_tamil_date(date: TamilSolarDate, unit: str, amount: int, context: CalendarContext | VakyaCivilContext, overflow: str = ..., definition_id: str = ...) -> dict[str, Any]: ...
+def panchangam_at(instant_unix_seconds: int, context: CalendarContext | VakyaCivilContext, definition_id: str = ...) -> dict[str, Any]: ...
+def panchangam_day(date: GregorianDate, context: CalendarContext | VakyaCivilContext, definition_id: str = ...) -> dict[str, Any]: ...
+def lunar_phase_events(start_unix_seconds: int, end_unix_seconds: int, definition_id: str = ...) -> dict[str, Any]: ...
+def calendar_daylight_periods(date: GregorianDate, context: CalendarContext | VakyaCivilContext, definition_id: str = ...) -> dict[str, Any]: ...
+def format_tamil_date(date: GregorianDate, context: CalendarContext | VakyaCivilContext, script: CalendarDisplayScript = ..., digits: CalendarDisplayDigits = ..., style: CalendarDisplayStyle = ..., definition_id: str = ...) -> str: ...
+def calendar_display_info(date: GregorianDate, context: CalendarContext | VakyaCivilContext, script: CalendarDisplayScript = ..., digits: CalendarDisplayDigits = ..., definition_id: str = ...) -> dict[str, Any]: ...
+def compare_calendar_profiles(thirukanitham_context: CalendarContext, vakya_context: VakyaCivilContext, *, date: GregorianDate | None = ..., instant_unix_seconds: int | None = ...) -> dict[str, Any]: ...
+def thiruvalluvar_year_info(date: GregorianDate, context: CalendarContext, convention_id: str = ...) -> dict[str, Any]: ...

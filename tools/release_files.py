@@ -15,16 +15,30 @@ RELEASE_RECORD = POLICY["record_name"]
 INPUTS = {
     "tamil-core": ("core.toml",),
     "tamil-collate": ("collate.toml",),
-    "tamil-numerals": ("numerals.toml", "numerals-formats.toml"),
+    "tamil-numerals": (
+        "numerals.toml",
+        "numerals-formats.toml",
+        "numerals-ordinals.toml",
+        "numerals-symbols.toml",
+        "numerals-traditional.toml",
+        "calendar-vakya-solar.toml",
+        "calendar-vakya-moon.toml",
+        "calendar-vakya-civil.toml",
+        "calendar-thirukanitham.toml",
+        "calendar-solar-year-cycle.toml",
+        "calendar-tamil-display.toml",
+        "calendar-official-holidays.toml",
+        "calendar-observances.toml",
+    ),
     "tamil-codec": ("bamini.toml", "tscii.toml", "tab.toml", "tam.toml", "anjal.toml", "lt_tm.toml", "vanavil.toml"),
 }
 SUMMARIES = {
     "tamil-core": "Unicode normalization, tailored Ezhuthu iteration, Mei/Uyir composition and scalar inspection.",
     "tamil-norm": "NFC and NFD normalization for Tamil and mixed-script text, with joiners preserved.",
     "tamil-collate": "Versioned Mei-first Agara dictionary ordering and canonical sort/search keys.",
-    "tamil-numerals": "Bounded TN/SL integers, exact INR/LKR amounts, rational fractions and Gregorian date formatting.",
+    "tamil-numerals": "Bounded TN/SL number words, exact decimal and INR/LKR strings, Unicode 17 symbols, traditional numerals, fractions, Gregorian civil arithmetic, bounded Thirukanitham and classical Vākyakaraṇa calendar profiles, selected TN observance rules, and official annual holiday schedules.",
     "tamil-codec": "Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles.",
-    "tamil-toolkit": "Unified Rust entry point for published Tamil text, ordering, numerals, and bounded legacy conversion APIs.",
+    "tamil-toolkit": "Unified Rust entry point for Tamil text, ordering, bounded exact numerals, civil arithmetic, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, and legacy conversion APIs.",
 }
 FEATURE_TABLES = {
     "tamil-core": """| Area | Capabilities |
@@ -43,8 +57,11 @@ FEATURE_TABLES = {
     "tamil-numerals": """| Area | Capabilities |
 | --- | --- |
 | **Number words** | Bounded formal Tamil Nadu and Sri Lankan profiles. |
-| **Money** | Exact INR/LKR minor-unit amounts with no rounding. |
-| **Fractions and dates** | Rational fractions and Gregorian civil-date formatting. |""",
+| **Exact strings** | Bounded decimal parse/format, percentages, mixed fractions, exact numeric ranges, and INR/LKR major-unit amounts without rounding. |
+| **Symbols and traditional integers** | Unicode 17 Tamil numeric metadata and canonical CLDR traditional integer parse/format. |
+| **Fractions and dates** | Rational fractions plus validated Gregorian parsing, weekday, arithmetic, differences, and intervals. |
+| **Tamil calendar** | Bounded Thirukanitham Drik solar-date conversion and five-limb day/instant reports for the declared 2024–2027 TN/SL location ranges; a named Nava Panchangam/Tamil-rule TN subset for Puthandu, Pongal, Bhogi, Mattu Pongal and Amavasya/Pournami Aparahna selection with sunrise fallback; separately sourced annual holiday rows for TN 2025–26 and SL 2026–27. Vakiya and Sri Lanka observances are unsupported, and observance/calendar fixture suites remain planned. |
+| **Historical calendar kernels** | Unreleased source-pinned 1962 Vakiya solar and lunar calculations, including a caller-input local-sunrise correction; calendar fixtures remain planned. |""",
     "tamil-codec": """| Area | Capabilities |
 | --- | --- |
 | **Bamini** | Explicit Unicode conversion using the declared Bamini profile. |
@@ -54,16 +71,27 @@ FEATURE_TABLES = {
     "tamil-toolkit": """| Area | Capabilities |
 | --- | --- |
 | **Text** | Unicode letter operations, normalization, and inspection. |
-| **Ordering and numbers** | Agara sorting, number words, exact amounts, fractions, and dates. |
+| **Ordering and numbers** | Agara sorting, Tamil number words, bounded exact numeric strings and currency amounts, symbol metadata, fractions, and Gregorian civil arithmetic. |
+| **Tamil calendar** | Bounded Thirukanitham Drik conversion and panchangam reports, a named Nava Panchangam/Tamil-rule TN subset for solar festivals and Amavasya/Pournami Aparahna selection with sunrise fallback, and selected authority-published TN/SL annual holiday schedules; Vakiya and Sri Lanka observances are unsupported and calendar fixture suites remain planned. |
+| **Historical calendar kernels** | Unreleased source-pinned 1962 Vakiya solar and lunar calculations; full Vakiya date/location/five-limb coverage is not implemented. |
 | **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles. |""",
 }
 CONTRACTS = {
     "tamil-core": "docs/specs/core-v0.1.md",
     "tamil-norm": "docs/specs/core-v0.1.md",
     "tamil-collate": "docs/specs/collate-v0.1.md",
-    "tamil-numerals": "docs/specs/numerals-v0.2.md",
+    "tamil-numerals": "docs/specs/numerals-v0.3.md",
     "tamil-codec": "docs/specs/codec-lt-tm.md",
     "tamil-toolkit": "README.md#capability-contracts",
+}
+UNRELEASED_NOTES = {
+    name: (
+        "This candidate includes owner-approved numerals v0.3 and experimental, bounded calendar APIs. "
+        "Calendar acceptance suites remain planned and their selected review runs are separate from active numeral parity. "
+        "Thirukanitham, Ujjain mean-sunrise Vakiya, named TN observances and annual holiday snapshots have explicit coverage. "
+        "Arbitrary-location Vakiya daylight, official era reconciliation and Krishna Jayanthi remain deferred. "
+        "See docs/releases/numerals-calendar-candidate.md for scope and limitations."
+    ) for name in ("tamil-numerals", "tamil-toolkit")
 }
 EXAMPLES = {
     "tamil-core": '''use tamil_core::{get_letters, Letters};
@@ -102,7 +130,7 @@ fn main() -> Result<(), String> {
     println!("{codes:?} -> {decoded}");
     Ok(())
 }''',
-    "tamil-toolkit": '''use tamil_toolkit::{codec, core};
+    "tamil-toolkit": '''use tamil_toolkit::{codec, core, numerals};
 
 fn main() -> Result<(), String> {
     let text = "தமிழ்";
@@ -110,6 +138,8 @@ fn main() -> Result<(), String> {
     println!("{}", codec::unicode_to_bamini(text)?);
     let codes = codec::unicode_to_lt_tm_codes(text)?;
     println!("{:?} -> {}", codes, codec::lt_tm_codes_to_unicode(&codes, codec::ErrorPolicy::Strict)?);
+    let amount = numerals::parse_decimal("123.45", "latin", "none", false)?;
+    println!("{}", numerals::format_currency_decimal(&amount, numerals::Currency::LKR, numerals::Locale::SL)?);
     Ok(())
 }''',
 }
@@ -183,6 +213,37 @@ LT-TM and Vanavil mapping references: Azhagi+ Portable configurations; source
 digests and scope are recorded in docs/specs/codec-lt-tm.md and
 docs/specs/codec-vanavil.md. Their bundled terms remain applicable to the
 derived mapping tables.
+Tamil calendar display labels are extracted as short factual name lists from
+Tamil Virtual Academy's educational page; its reuse terms were not stated, so
+no license or permission is asserted and no prose or page/table image is copied.
+Tamil Gregorian weekday labels are from CLDR 49 under Unicode data terms.
+The Latin transliterations of the seven weekday names are from Vidya Mohan and
+Rajiv Ranjan, *Basic Tamil* (2024), chapter 6.1, under CC BY-NC 4.0; attribution
+and the noncommercial condition remain applicable. No images or surrounding
+text from the book are included.
+Historical Vakyakarana solar-transit, Bhupadi correction, and Candra-vakya
+values are transcribed as mathematical facts from *Vakyakarana with
+Sundararaja's Laghuprakashika*, eds. T. S. Kuppanna Sastri and K. V. Sarma,
+1962, printed English translation pp. 251-253 and Appendix II pp. 125-134.
+No source prose or scan images are included; the publication's redistribution
+terms were not established. See docs/specs/calendar-vakya-solar-v1.md and
+docs/specs/calendar-vakya-moon-v1.md before redistributing this data.
+The Ujjain mean-sunrise civil profile uses the same 1962 source, Bag (2001)
+for the Kali epoch's Gregorian equivalence, Pai (2019) as an independent
+transit-method cross-check, and IMD station metadata. It does not include
+source prose or page images; see docs/specs/calendar-vakya-civil-v1.md. The
+1962 source's redistribution terms remain unresolved.
+The Thirukanitham Drik profile depends on Rust `astro` 2.0.0 by Saurav
+Sachidanand, distributed under the MIT license; its complete upstream license
+text is copied below. GeoNames city-point coordinates are attributed to
+GeoNames and used under CC BY 4.0. Drik Panchang, IMD, and Nava Panchangam
+provide factual date and rule witnesses in planned calendar suites. The named
+Nava observance subset records its published Aparahna-then-sunrise selection
+rule and factual annual dates; Nava's annual tithi pages use Vakyakarana, so
+their match to Thirukanitham is not a publisher-equivalence claim. Reuse terms
+for these page tables are not established, and no source page or markup is
+copied. Exact sources, locators, coverage, and retained-page digests are in
+lexicon/calendar-observances.toml and docs/specs/calendar-observances-v1.md.
 Exact sources, revisions, digests and profile limits are recorded at:
 https://github.com/abishtakan/tamil-toolkit/tree/HEAD/tests/reference
 and https://github.com/abishtakan/tamil-toolkit/tree/HEAD/docs/specs
@@ -196,6 +257,7 @@ locked Rust dependency graph with the complete upstream license texts.
         ("ag-sanjjeev Bamini source (MIT)", "tests/reference/codec-v0.1/LICENSE-ag.txt"),
         ("Pakeetharan Balasubramaniam Bamini reference (MIT)", "tests/reference/codec-v0.1/LICENSE-pakeetharan.txt"),
         ("Jay Mayu Android TamilUtil reference (MIT)", "tests/reference/codec-tscii/LICENSE.txt"),
+        ("astro 2.0.0 by Saurav Sachidanand (MIT)", "tests/reference/calendar-thirukanitham-v1/astro-LICENSE.md"),
     ):
         text += f"## {title}\n\n```text\n{(root / source).read_text(encoding='utf-8').strip()}\n```\n\n"
     return text.encode("utf-8")
@@ -220,6 +282,7 @@ def expected_files(root=ROOT):
         "tests/reference/codec-v0.1/LICENSE-ag.txt",
         "tests/reference/codec-v0.1/LICENSE-pakeetharan.txt",
         "tests/reference/codec-tscii/LICENSE.txt",
+        "tests/reference/calendar-thirukanitham-v1/astro-LICENSE.md",
     )):
         notice = notices(root)
         files[root / "THIRD_PARTY_NOTICES.md"] = notice
@@ -234,6 +297,9 @@ def expected_files(root=ROOT):
                      else "APIs may change before stability.")
         contract_url = f"https://github.com/abishtakan/tamil-toolkit/blob/master/{CONTRACTS[name]}"
         record_title = f"{policy['channel'].title()} release record"
+        unreleased_note = UNRELEASED_NOTES.get(name, "")
+        if unreleased_note:
+            unreleased_note = " " + unreleased_note
         text = f"""<div align="center">
 
 # {name}
@@ -255,7 +321,7 @@ def expected_files(root=ROOT):
 {FEATURE_TABLES[name]}
 
 {label} `{version}`. {stability} This package provides bounded APIs and does not
-attempt complete Tamil linguistic coverage.
+attempt complete Tamil linguistic coverage.{unreleased_note}
 
 ## Install
 

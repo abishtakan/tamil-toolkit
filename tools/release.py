@@ -32,11 +32,24 @@ def run(*args, cwd=ROOT, capture=False, env=None):
 
 
 def fixtures(destination):
-    # Export unchanged active rows, including exact errors, without importing a binding.
+    # Export unchanged active rows and any explicitly selected planned review rows,
+    # including exact errors, without importing a binding.
     golden = ROOT / "tests/golden"
     manifest = json.loads((golden / "manifest.json").read_text(encoding="utf-8"))
+    selected = {
+        name.strip()
+        for name in os.environ.get("TAMIL_GOLDEN_INCLUDE_PLANNED", "").split(",")
+        if name.strip()
+    }
+    active = [suite for suite in manifest["suites"] if suite["status"] == "active"]
+    planned = [suite for suite in manifest["suites"]
+               if suite["status"] == "planned" and suite["file"] in selected]
     content = "".join((golden / suite["file"]).read_text(encoding="utf-8")
-                      for suite in manifest["suites"] if suite["status"] == "active")
+                      for suite in [*active, *planned])
+    if planned:
+        review_count = sum(len((golden / suite["file"]).read_text(encoding="utf-8").splitlines())
+                           for suite in planned)
+        print(f"PRE-ACTIVATION ARCHIVE REVIEW: executing {review_count} selected planned vectors; they remain outside active parity and release scope.", flush=True)
     path = destination / "golden.jsonl"
     path.write_text(content, encoding="utf-8", newline="\n")
     return path

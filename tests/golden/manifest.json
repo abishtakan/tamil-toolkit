@@ -1,27 +1,383 @@
 {
   "version": 1,
   "suites": [
-    {"file": "core_graphemes.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string"]},
-    {"file": "core_alphabet.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string"]},
-    {"file": "core_normalization.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string"]},
-    {"file": "core_boundaries.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string"]},
-    {"file": "core_errors.jsonl", "status": "active", "operations": ["get_letters", "split_uyirmei", "compose_uyirmei", "normalize_nfc", "normalize_nfd", "inspect_tamil_string", "unknown_core_operation"]},
-    {"file": "collate_agara_varisai.jsonl", "status": "active", "operations": ["compare", "sort_words", "sort_key", "search_key"]},
-    {"file": "numerals_lkr_inr.jsonl", "status": "active", "operations": ["to_words", "format_currency", "currency_to_words"]},
-    {"file": "codec_bamini.jsonl", "status": "active", "operations": ["bamini_to_unicode"]},
-    {"file": "codec_unicode_to_bamini.jsonl", "status": "active", "operations": ["unicode_to_bamini"]},
-    {"file": "numerals_fractions_dates.jsonl", "status": "active", "operations": ["format_fraction", "fraction_to_words", "fraction_symbol", "format_date"]},
-    {"file": "punarchi_nannool.jsonl", "status": "planned", "reason": "The Nannool root-text profile needs inspected edition-pinned rules and expert-reviewed merger fixtures; Tolkappiyam comparisons remain separate, and a future splitter needs licensed lexicon provenance."},
-    {"file": "codec_tscii_bytes.jsonl", "status": "active", "operations": ["tscii_bytes_to_unicode"]},
-    {"file": "codec_tscii_iana.jsonl", "status": "active", "operations": ["tscii_bytes_to_unicode"]},
-    {"file": "codec_unicode_to_tscii.jsonl", "status": "active", "operations": ["unicode_to_tscii_bytes"]},
-    {"file": "codec_tscii_iana_audit.jsonl", "status": "active", "operations": ["tscii_bytes_to_unicode", "unicode_to_tscii_bytes"]},
-    {"file": "codec_tab.jsonl", "status": "active", "operations": ["tab_bytes_to_unicode", "unicode_to_tab_bytes"]},
-    {"file": "codec_tab_utn.jsonl", "status": "active", "operations": ["tab_bytes_to_unicode", "unicode_to_tab_bytes"]},
-    {"file": "codec_tam.jsonl", "status": "active", "operations": ["tam_bytes_to_unicode", "unicode_to_tam_bytes"]},
-    {"file": "codec_tam_utn.jsonl", "status": "active", "operations": ["tam_bytes_to_unicode", "unicode_to_tam_bytes"]},
-    {"file": "codec_anjal.jsonl", "status": "active", "operations": ["anjal_bytes_to_unicode", "unicode_to_anjal_bytes"]},
-    {"file": "codec_lt_tm.jsonl", "status": "active", "operations": ["lt_tm_codes_to_unicode", "lt_tm_text_to_unicode", "unicode_to_lt_tm_codes", "unicode_to_lt_tm_text"]},
-    {"file": "codec_vanavil.jsonl", "status": "active", "operations": ["vanavil_codes_to_unicode", "vanavil_text_to_unicode", "unicode_to_vanavil_codes", "unicode_to_vanavil_text"]}
+    {
+      "file": "core_graphemes.jsonl",
+      "status": "active",
+      "operations": [
+        "get_letters",
+        "split_uyirmei",
+        "compose_uyirmei",
+        "normalize_nfc",
+        "normalize_nfd",
+        "inspect_tamil_string"
+      ]
+    },
+    {
+      "file": "core_alphabet.jsonl",
+      "status": "active",
+      "operations": [
+        "get_letters",
+        "split_uyirmei",
+        "compose_uyirmei",
+        "normalize_nfc",
+        "normalize_nfd",
+        "inspect_tamil_string"
+      ]
+    },
+    {
+      "file": "core_normalization.jsonl",
+      "status": "active",
+      "operations": [
+        "get_letters",
+        "split_uyirmei",
+        "compose_uyirmei",
+        "normalize_nfc",
+        "normalize_nfd",
+        "inspect_tamil_string"
+      ]
+    },
+    {
+      "file": "core_boundaries.jsonl",
+      "status": "active",
+      "operations": [
+        "get_letters",
+        "split_uyirmei",
+        "compose_uyirmei",
+        "normalize_nfc",
+        "normalize_nfd",
+        "inspect_tamil_string"
+      ]
+    },
+    {
+      "file": "core_errors.jsonl",
+      "status": "active",
+      "operations": [
+        "get_letters",
+        "split_uyirmei",
+        "compose_uyirmei",
+        "normalize_nfc",
+        "normalize_nfd",
+        "inspect_tamil_string",
+        "unknown_core_operation"
+      ]
+    },
+    {
+      "file": "collate_agara_varisai.jsonl",
+      "status": "active",
+      "operations": [
+        "compare",
+        "sort_words",
+        "sort_key",
+        "search_key"
+      ]
+    },
+    {
+      "file": "numerals_lkr_inr.jsonl",
+      "status": "active",
+      "operations": [
+        "to_words",
+        "format_currency",
+        "currency_to_words"
+      ]
+    },
+    {
+      "file": "numerals_v03.jsonl",
+      "status": "active",
+      "operations": [
+        "convert_digits",
+        "parse_decimal",
+        "format_decimal",
+        "decimal_to_words",
+        "ordinal_to_words",
+        "digit_sequence_to_words",
+        "format_currency_decimal",
+        "currency_decimal_to_words",
+        "parse_fraction_symbol",
+        "symbol_info",
+        "format_mixed_fraction",
+        "parse_mixed_fraction",
+        "format_traditional_integer",
+        "parse_traditional_integer",
+        "parse_percent",
+        "format_percent",
+        "ratio_to_percent",
+        "percent_to_ratio",
+        "format_numeric_range",
+        "validate_gregorian_date",
+        "parse_gregorian_date",
+        "weekday",
+        "add_gregorian_date",
+        "date_difference",
+        "date_interval"
+      ]
+    },
+    {
+      "file": "calendar_thirukanitham.jsonl",
+      "status": "planned",
+      "reason": "Thirukanitham has a source-pinned bounded Drik definition and independent expected cases; calendar fixtures require the separate owner review and do not activate through numeric v0.3 approval.",
+      "operations": [
+        "calendar_profile_info",
+        "gregorian_to_tamil_date",
+        "tamil_to_gregorian_date",
+        "tamil_month_info",
+        "panchangam_at",
+        "panchangam_day"
+      ]
+    },
+    {
+      "file": "calendar_observances.jsonl",
+      "status": "planned",
+      "reason": "Named TN rules now cover the bounded solar/tithi/nakshatra festivals, Nava Sri Vaishnava Ekadashi and Pradosham, Dharmasindhu Sankatahara Chaturthi, and the Udyog Smarta Krishna Jayanthi selector. Monthly publisher witnesses remain separate from derived annual outputs; source disagreements, unsupported Vakiya/SL behavior, and calendar review remain open.",
+      "operations": [
+        "calendar_observances"
+      ]
+    },
+    {
+      "file": "calendar_daylight_periods.jsonl",
+      "status": "planned",
+      "reason": "The daylight eighth rule and weekday slots are pinned to a visually inspected primary handbook page; Vakiya returns an explicit unavailable error because local sunset is unsourced. Calendar vectors remain pending separate owner review.",
+      "operations": [
+        "calendar_daylight_periods"
+      ]
+    },
+    {
+      "file": "calendar_lunar_phases.jsonl",
+      "status": "planned",
+      "reason": "Primary phase definitions and independent USNO minute observations are pinned to the bounded Thirukanitham model; calendar fixtures require separate owner review and do not activate through numeric v0.3 approval.",
+      "operations": [
+        "lunar_phase_events"
+      ]
+    },
+    {
+      "file": "calendar_solar_arithmetic.jsonl",
+      "status": "planned",
+      "reason": "Year enumeration and profile-based Tamil solar-date arithmetic have independent source anchors and finite contracts; calendar fixtures remain inactive pending separate owner review.",
+      "operations": [
+        "tamil_year_info",
+        "add_tamil_date"
+      ]
+    },
+    {
+      "file": "calendar_vakya_solar.jsonl",
+      "status": "planned",
+      "reason": "Calendar vectors have a separate activation review; numeric v0.3 approval does not activate this source-pinned historical Vakiya solar contract.",
+      "operations": [
+        "vakya_solar_transits",
+        "vakya_true_sun_from_mesha_elapsed"
+      ]
+    },
+    {
+      "file": "calendar_vakya_moon.jsonl",
+      "status": "planned",
+      "reason": "Calendar vectors have a separate activation review; table and boundary regression vectors remain planned and derived outputs are not called independently observed historical results.",
+      "operations": [
+        "vakya_true_moon_from_kali_day"
+      ]
+    },
+    {
+      "file": "calendar_vakya_civil.jsonl",
+      "status": "planned",
+      "reason": "The bounded classical 1962 Vakiya civil/limb contract has primary worked anchors, but calendar suites require separate owner review; numeric v0.3 approval does not activate them.",
+      "operations": [
+        "calendar_profile_info",
+        "gregorian_to_tamil_date",
+        "tamil_to_gregorian_date",
+        "tamil_month_info",
+        "panchangam_at",
+        "panchangam_day"
+      ]
+    },
+    {
+      "file": "calendar_vakya_local_sunrise.jsonl",
+      "status": "planned",
+      "reason": "The 1962 correction takes the terms as caller inputs; Cara, Deśāntara and experimental longitude-linear Bhujaantara interpolation have separate calculations, while date/location derivation and calendar activation review remain open.",
+      "operations": [
+        "vakya_reduce_to_local_true_sunrise"
+      ]
+    },
+    {
+      "file": "calendar_vakya_cara.jsonl",
+      "status": "planned",
+      "reason": "The source-backed exact rational coefficients and regression fixtures remain planned pending separate calendar review; numeric v0.3 approval does not activate this suite.",
+      "operations": [
+        "vakya_cara_from_sayana_sun"
+      ]
+    },
+    {
+      "file": "calendar_vakya_desantara.jsonl",
+      "status": "planned",
+      "reason": "The 1962 distance-to-time conversion is source-pinned, but the calendar suite requires its own review and remains separate from numeric v0.3 activation.",
+      "operations": [
+        "vakya_desantara_from_yojana_distance"
+      ]
+    },
+    {
+      "file": "calendar_vakya_bhujaantara.jsonl",
+      "status": "planned",
+      "reason": "The 1962 Bhujaantara endpoint table is transcribed; longitude-linear interpolation is an explicitly experimental convention because the source gives no equation. Calendar fixtures require separate review and remain planned.",
+      "operations": [
+        "vakya_bhujaantara_from_true_sun"
+      ]
+    },
+    {
+      "file": "codec_bamini.jsonl",
+      "status": "active",
+      "operations": [
+        "bamini_to_unicode"
+      ]
+    },
+    {
+      "file": "codec_unicode_to_bamini.jsonl",
+      "status": "active",
+      "operations": [
+        "unicode_to_bamini"
+      ]
+    },
+    {
+      "file": "numerals_fractions_dates.jsonl",
+      "status": "active",
+      "operations": [
+        "format_fraction",
+        "fraction_to_words",
+        "fraction_symbol",
+        "format_date"
+      ]
+    },
+    {
+      "file": "punarchi_nannool.jsonl",
+      "status": "planned",
+      "reason": "The Nannool root-text profile needs inspected edition-pinned rules and expert-reviewed merger fixtures; Tolkappiyam comparisons remain separate, and a future splitter needs licensed lexicon provenance."
+    },
+    {
+      "file": "codec_tscii_bytes.jsonl",
+      "status": "active",
+      "operations": [
+        "tscii_bytes_to_unicode"
+      ]
+    },
+    {
+      "file": "codec_tscii_iana.jsonl",
+      "status": "active",
+      "operations": [
+        "tscii_bytes_to_unicode"
+      ]
+    },
+    {
+      "file": "codec_unicode_to_tscii.jsonl",
+      "status": "active",
+      "operations": [
+        "unicode_to_tscii_bytes"
+      ]
+    },
+    {
+      "file": "codec_tscii_iana_audit.jsonl",
+      "status": "active",
+      "operations": [
+        "tscii_bytes_to_unicode",
+        "unicode_to_tscii_bytes"
+      ]
+    },
+    {
+      "file": "codec_tab.jsonl",
+      "status": "active",
+      "operations": [
+        "tab_bytes_to_unicode",
+        "unicode_to_tab_bytes"
+      ]
+    },
+    {
+      "file": "codec_tab_utn.jsonl",
+      "status": "active",
+      "operations": [
+        "tab_bytes_to_unicode",
+        "unicode_to_tab_bytes"
+      ]
+    },
+    {
+      "file": "codec_tam.jsonl",
+      "status": "active",
+      "operations": [
+        "tam_bytes_to_unicode",
+        "unicode_to_tam_bytes"
+      ]
+    },
+    {
+      "file": "codec_tam_utn.jsonl",
+      "status": "active",
+      "operations": [
+        "tam_bytes_to_unicode",
+        "unicode_to_tam_bytes"
+      ]
+    },
+    {
+      "file": "codec_anjal.jsonl",
+      "status": "active",
+      "operations": [
+        "anjal_bytes_to_unicode",
+        "unicode_to_anjal_bytes"
+      ]
+    },
+    {
+      "file": "codec_lt_tm.jsonl",
+      "status": "active",
+      "operations": [
+        "lt_tm_codes_to_unicode",
+        "lt_tm_text_to_unicode",
+        "unicode_to_lt_tm_codes",
+        "unicode_to_lt_tm_text"
+      ]
+    },
+    {
+      "file": "codec_vanavil.jsonl",
+      "status": "active",
+      "operations": [
+        "vanavil_codes_to_unicode",
+        "vanavil_text_to_unicode",
+        "unicode_to_vanavil_codes",
+        "unicode_to_vanavil_text"
+      ]
+    },
+    {
+      "file": "calendar_year_cycle.jsonl",
+      "status": "planned",
+      "operations": [
+        "tamil_year_cycle_info"
+      ],
+      "reason": "The 1889 South Indian chronological table provides a numbered 60-title sequence and solar-year anchor; the 1941 Census and CICT table independently cross-check year labels. Error vectors cover invalid ranges/context. Calendar fixtures remain planned pending separate owner review."
+    },
+    {
+      "file": "calendar_official_holidays.jsonl",
+      "status": "planned",
+      "operations": [
+        "calendar_official_holidays"
+      ],
+      "reason": "Named annual schedules are transcribed from Tamil Nadu Government Gazettes for 2025–26 and Central Bank of Sri Lanka bank-holiday tables for 2026–27. Only published rows and applicability flags are returned; unlisted years are explicit errors. Calendar suites remain planned pending separate owner review."
+    },
+    {
+      "file": "calendar_tamil_display.jsonl",
+      "status": "planned",
+      "operations": [
+        "format_tamil_date",
+        "calendar_display_info"
+      ],
+      "reason": "Tamil and Romanized calendar display labels are source-pinned in calendar-tamil-display-v1.md; date and weekday expected labels are factual/source cases while calendar calculations remain in the planned calendar suites."
+    },
+    {
+      "file": "calendar_profile_comparison.jsonl",
+      "status": "planned",
+      "operations": [
+        "compare_calendar_profiles"
+      ],
+      "reason": "The profile comparison contract reports both explicit model contexts and their field differences without an accuracy ranking; valid output fixtures are classified as derived comparison regressions. Calendar suites remain planned."
+    },
+    {
+      "file": "calendar_thiruvalluvar_year.jsonl",
+      "status": "planned",
+      "operations": [
+        "thiruvalluvar_year_info"
+      ],
+      "reason": "The TN Thai-1 convention is explicitly bound to the Thirukanitham profile for 2025–2027; expected dates are derived regressions and include the known 2026 Gazette conflict. Official daily year resolution remains unestablished; calendar suites remain planned."
+    }
   ]
 }

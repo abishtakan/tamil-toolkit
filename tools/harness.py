@@ -2,6 +2,7 @@
 
 import functools
 import json
+import os
 import re
 import unicodedata
 from pathlib import Path
@@ -101,8 +102,8 @@ def validate_rows(path: Path, seen=None):
     return rows
 
 
-@functools.lru_cache(maxsize=1)
-def load_vectors(root=GOLDEN):
+@functools.lru_cache(maxsize=8)
+def load_vectors(root=GOLDEN, include_planned=()):
     root = Path(root)
     manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
     if manifest.get("version") != 1 or not isinstance(manifest.get("suites"), list):
@@ -118,7 +119,7 @@ def load_vectors(root=GOLDEN):
     for suite in manifest["suites"]:
         name = suite["file"]
         rows = validate_rows(root / name, seen)
-        if suite["status"] == "active":
+        if suite["status"] == "active" or name in include_planned:
             operations = suite.get("operations", [])
             if not rows or not operations or any(row["op"] not in operations for row in rows):
                 raise ValueError(f"empty suite or undeclared operation in {name}")
@@ -139,3 +140,12 @@ def validate_golden_schema(file_path: str):
     active = load_vectors()
     rows = validate_rows(path)
     return {"valid": True, "file": path.relative_to(ROOT).as_posix(), "rows": len(rows), "active_vectors": len(active)}
+
+
+def selected_planned_suites():
+    """Return explicitly selected planned suite files for review-only parity runs."""
+    return tuple(
+        name.strip()
+        for name in os.environ.get("TAMIL_GOLDEN_INCLUDE_PLANNED", "").split(",")
+        if name.strip()
+    )
