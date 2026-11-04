@@ -1,4 +1,4 @@
-use super::super::{tables, SolarVakya};
+use crate::{tables, SolarVakya};
 
 const WEEKDAYS: [&str; 7] = [
     "Monday",

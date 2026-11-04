@@ -203,6 +203,8 @@ class TamilToolkit {
             library.lookupFunction<_NativeFree, void Function(Pointer<Utf8>)>(
                 'tamil_toolkit_free');
 
+  late final TamilCalendar calendar = TamilCalendar(this);
+
   Object? execute(Map<String, Object?> request) {
     final input = jsonEncode(request).toNativeUtf8();
     try {
@@ -958,4 +960,75 @@ class TamilToolkit {
           .toList(),
     );
   }
+}
+
+class TamilCalendar {
+  final TamilToolkit _toolkit;
+  TamilCalendar(this._toolkit);
+
+  Map<String, dynamic> gregorianToTamilDate(
+    GregorianDate date,
+    CalendarContextInput context, {
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+  }) =>
+      _toolkit.gregorianToTamilDate(date, context, definitionId: definitionId);
+
+  Map<String, dynamic> tamilToGregorianDate(
+    TamilSolarDate date,
+    CalendarContextInput context, {
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+  }) =>
+      _toolkit.tamilToGregorianDate(date, context, definitionId: definitionId);
+
+  Map<String, dynamic> tamilMonthInfo(
+    int solarYear,
+    int month,
+    CalendarContextInput context, {
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+  }) =>
+      _toolkit.tamilMonthInfo(solarYear, month, context,
+          definitionId: definitionId);
+
+  Map<String, dynamic> tamilYearInfo(
+    int solarYear,
+    CalendarContextInput context, {
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+  }) =>
+      _toolkit.tamilYearInfo(solarYear, context, definitionId: definitionId);
+
+  Map<String, dynamic> tamilYearCycleInfo(
+    int solarYear,
+    CalendarContextInput context, {
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+  }) =>
+      _toolkit.tamilYearCycleInfo(solarYear, context,
+          definitionId: definitionId);
+
+  Map<String, dynamic> officialHolidays(String jurisdiction, int year) =>
+      _toolkit.calendarOfficialHolidays(jurisdiction, year);
+
+  Map<String, dynamic> observances(
+    int gregorianYear,
+    CalendarContextInput context, {
+    String ruleSet = 'thirukanitham-tamil-named-observances-v1',
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+    int? month,
+  }) =>
+      _toolkit.calendarObservances(gregorianYear, context,
+          ruleSet: ruleSet, definitionId: definitionId, month: month);
+
+  PanchangamAt panchangamAt(
+    int instantUnixSeconds,
+    CalendarContextInput context, {
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+  }) =>
+      _toolkit.panchangamAt(instantUnixSeconds, context,
+          definitionId: definitionId);
+
+  PanchangamDay panchangamDay(
+    GregorianDate date,
+    CalendarContextInput context, {
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+  }) =>
+      _toolkit.panchangamDay(date, context, definitionId: definitionId);
 }

@@ -1,5 +1,5 @@
-use super::super::tables::{OFFICIAL_HOLIDAYS, OFFICIAL_HOLIDAY_SCHEDULES};
-use super::super::{CalendarOfficialHoliday, CalendarOfficialHolidayYearInfo, GregorianDate};
+use crate::tables::{OFFICIAL_HOLIDAYS, OFFICIAL_HOLIDAY_SCHEDULES};
+use crate::{CalendarOfficialHoliday, CalendarOfficialHolidayYearInfo, GregorianDate};
 
 /// Return an authority-published annual named-holiday schedule in the bundled source range.
 /// Weekly rules are reported in `scope_note` and are not expanded into dated rows.

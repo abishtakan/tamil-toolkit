@@ -1,6 +1,6 @@
 use crate::{
     calendar_context, calendar_date_fields, calendar_definition, calendar_exact_object,
-    calendar_gregorian_date, calendar_gregorian_json, calendar_integer, numerals,
+    calendar_gregorian_date, calendar_gregorian_json, calendar_integer, numerals, calendar,
     vakya_civil_context, CalendarDefinition, THIRUKANITHAM_DEFINITION, VAKYA_CIVIL_DEFINITION,
 };
 use serde_json::{json, Value};
@@ -11,12 +11,12 @@ struct DisplayRequest {
     context: DisplayContext,
     script: String,
     digits: String,
-    names: numerals::CalendarDisplayNames,
+    names: calendar::CalendarDisplayNames,
 }
 
 enum DisplayContext {
-    Thirukanitham(numerals::ThirukanithamContext),
-    VakyaCivil(numerals::VakyaCivilContext),
+    Thirukanitham(calendar::ThirukanithamContext),
+    VakyaCivil(calendar::VakyaCivilContext),
 }
 
 struct SolarDisplayDate {
@@ -60,7 +60,7 @@ fn parse_display_request(input: &Value, include_style: bool) -> Result<DisplayRe
         .as_str()
         .ok_or("unsupported calendar display script")?
         .to_owned();
-    let names = numerals::calendar_display_names(&script)?;
+    let names = calendar::calendar_display_names(&script)?;
     let digits = object["digits"]
         .as_str()
         .ok_or("unsupported digit style")?
@@ -80,8 +80,8 @@ fn solar_display_date(request: &DisplayRequest) -> Result<SolarDisplayDate, Stri
     match &request.context {
         DisplayContext::Thirukanitham(context) => {
             let converted =
-                numerals::thirukanitham_gregorian_to_tamil_date(request.date, *context)?;
-            let profile = numerals::thirukanitham_profile_info();
+                calendar::thirukanitham_gregorian_to_tamil_date(request.date, *context)?;
+            let profile = calendar::thirukanitham_profile_info();
             Ok(SolarDisplayDate {
                 solar_year: converted.tamil_date.solar_year,
                 month: converted.tamil_date.month,
@@ -95,8 +95,8 @@ fn solar_display_date(request: &DisplayRequest) -> Result<SolarDisplayDate, Stri
             })
         }
         DisplayContext::VakyaCivil(context) => {
-            let converted = numerals::vakya_gregorian_to_tamil_date(request.date, *context)?;
-            let profile = numerals::vakya_civil_profile_info()?;
+            let converted = calendar::vakya_gregorian_to_tamil_date(request.date, *context)?;
+            let profile = calendar::vakya_civil_profile_info()?;
             Ok(SolarDisplayDate {
                 solar_year: converted.tamil_date.solar_year,
                 month: converted.tamil_date.month,
@@ -130,7 +130,7 @@ fn weekday_index(weekday: &str) -> Result<usize, String> {
 fn format_solar_date(
     date: &SolarDisplayDate,
     date_weekday_index: usize,
-    names: &numerals::CalendarDisplayNames,
+    names: &calendar::CalendarDisplayNames,
     digits: &str,
     style: &str,
 ) -> Result<String, String> {
@@ -168,7 +168,7 @@ pub(crate) fn format_tamil_date(input: &Value) -> Result<Value, String> {
 fn limb_display_json(
     limb: Value,
     kind: &str,
-    names: &numerals::CalendarDisplayNames,
+    names: &calendar::CalendarDisplayNames,
 ) -> Result<Value, String> {
     let index = limb
         .get("index")
@@ -214,7 +214,7 @@ fn limb_display_json(
     }))
 }
 
-fn display_sources(names: &numerals::CalendarDisplayNames, profile_sources: &[&str]) -> Value {
+fn display_sources(names: &calendar::CalendarDisplayNames, profile_sources: &[&str]) -> Value {
     json!({
         "display_lexicon_profile":names.profile_id,
         "tamil_calendar_names":{
@@ -251,7 +251,7 @@ fn display_sources(names: &numerals::CalendarDisplayNames, profile_sources: &[&s
 pub(crate) fn calendar_display_info(input: &Value) -> Result<Value, String> {
     let request = parse_display_request(input, false)?;
     let date = solar_display_date(&request)?;
-    let cycle = numerals::solar_year_cycle_info(date.solar_year)?;
+    let cycle = calendar::solar_year_cycle_info(date.solar_year)?;
     let weekday = weekday_index(numerals::weekday(request.date))?;
     let month_name = request
         .names
@@ -265,7 +265,7 @@ pub(crate) fn calendar_display_info(input: &Value) -> Result<Value, String> {
         .ok_or("outside supported calendar coverage")?;
     let (panchangam, panchangam_json, profile_name) = match &request.context {
         DisplayContext::Thirukanitham(context) => {
-            let day = numerals::thirukanitham_panchangam_day(request.date, *context)?;
+            let day = calendar::thirukanitham_panchangam_day(request.date, *context)?;
             let vara_index = weekday_index(day.vara)?;
             let displayed = json!({
                 "tithi":limb_display_json(crate::calendar_limb_json(day.limbs_at_sunrise.tithi),"tithi",&request.names)?,
@@ -280,7 +280,7 @@ pub(crate) fn calendar_display_info(input: &Value) -> Result<Value, String> {
             )
         }
         DisplayContext::VakyaCivil(context) => {
-            let day = numerals::vakya_panchangam_day(request.date, *context)?;
+            let day = calendar::vakya_panchangam_day(request.date, *context)?;
             let vara_index = weekday_index(day.vara)?;
             let displayed = json!({
                 "tithi":limb_display_json(crate::vakya_limb_json(day.limbs_at_sunrise.tithi),"tithi",&request.names)?,
@@ -332,14 +332,14 @@ fn profile_provenance(
 ) -> Result<(String, Vec<&'static str>), String> {
     match definition {
         CalendarDefinition::Thirukanitham => {
-            let profile = numerals::thirukanitham_profile_info();
+            let profile = calendar::thirukanitham_profile_info();
             Ok((
                 "Thirukanitham apparent-position profile evaluated at the supplied TN/SL coordinates and civil zone".into(),
                 profile.sources,
             ))
         }
         CalendarDefinition::VakyaCivil => {
-            let profile = numerals::vakya_civil_profile_info()?;
+            let profile = calendar::vakya_civil_profile_info()?;
             Ok((
                 "1962 Vakyakarana/Laghuprakashika equations; Ujjain mean-solar-time positions with the supplied Kolkata or Colombo civil label".into(),
                 profile.sources,
@@ -384,8 +384,8 @@ pub(crate) fn compare_calendar_profiles(input: &Value) -> Result<Value, String> 
     if has_date {
         let date = calendar_gregorian_date(calendar_date_fields(&object["date"], false)?)?;
         let thirukanitham =
-            numerals::thirukanitham_gregorian_to_tamil_date(date, thirukanitham_context)?;
-        let vakya = numerals::vakya_gregorian_to_tamil_date(date, vakya_context)?;
+            calendar::thirukanitham_gregorian_to_tamil_date(date, thirukanitham_context)?;
+        let vakya = calendar::vakya_gregorian_to_tamil_date(date, vakya_context)?;
         let thirukanitham_solar = json!({
             "solar_year":thirukanitham.tamil_date.solar_year,
             "month":thirukanitham.tamil_date.month,
@@ -410,8 +410,8 @@ pub(crate) fn compare_calendar_profiles(input: &Value) -> Result<Value, String> 
     }
 
     let instant = calendar_integer(&object["instant_unix_seconds"])?;
-    let thirukanitham = numerals::thirukanitham_panchangam_at(instant, thirukanitham_context)?;
-    let vakya = numerals::vakya_panchangam_at(instant, vakya_context)?;
+    let thirukanitham = calendar::thirukanitham_panchangam_at(instant, thirukanitham_context)?;
+    let vakya = calendar::vakya_panchangam_at(instant, vakya_context)?;
     let thirukanitham_result = json!({
         "definition_id":thirukanitham.definition_id,
         "local_date":calendar_gregorian_json(thirukanitham.local_date),
@@ -482,7 +482,7 @@ pub(crate) fn thiruvalluvar_year_info(input: &Value) -> Result<Value, String> {
     // Thai month 10 starts in the solar year preceding this Gregorian year.
     // The output is deliberately a named Thirukanitham profile convention,
     // since the Tamil Nadu Gazette witness has a different 2026 date label.
-    let thai1 = numerals::thirukanitham_month_info(fields.0 - 1, 10, context)?.start_date;
+    let thai1 = calendar::thirukanitham_month_info(fields.0 - 1, 10, context)?.start_date;
     let on_or_after_thai1 =
         (date.year(), date.month(), date.day()) >= (thai1.year(), thai1.month(), thai1.day());
     let year_offset = if on_or_after_thai1 { 31 } else { 30 };
@@ -508,3 +508,4 @@ pub(crate) fn thiruvalluvar_year_info(input: &Value) -> Result<Value, String> {
         ]
     }))
 }
+

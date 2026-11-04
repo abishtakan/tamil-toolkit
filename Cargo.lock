@@ -462,6 +462,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "tamil-calendar"
+version = "0.1.0-alpha.5"
+dependencies = [
+ "astro",
+ "proptest",
+ "serde",
+ "serde_json",
+ "tamil-core",
+ "tamil-numerals",
+ "toml",
+ "unicode-normalization",
+]
+
+[[package]]
 name = "tamil-codec"
 version = "0.1.0-alpha.5"
 dependencies = [
@@ -525,7 +539,6 @@ dependencies = [
 name = "tamil-numerals"
 version = "0.1.0-alpha.5"
 dependencies = [
- "astro",
  "proptest",
  "serde",
  "serde_json",
@@ -551,6 +564,7 @@ name = "tamil-toolkit"
 version = "0.1.0-alpha.5"
 dependencies = [
  "serde_json",
+ "tamil-calendar",
  "tamil-codec",
  "tamil-collate",
  "tamil-core",

@@ -1,4 +1,4 @@
-use super::super::tables;
+use crate::tables;
 use super::drik::{
     thirukanitham_gregorian_to_tamil_date, thirukanitham_month_info,
     thirukanitham_tamil_to_gregorian_date,
@@ -7,7 +7,7 @@ use super::vakya_civil::{
     vakya_gregorian_to_tamil_date, vakya_month_info, vakya_tamil_to_gregorian_date,
 };
 use super::{ThirukanithamContext, VakyaCivilContext};
-use crate::{add_gregorian_date, date_difference, GregorianDate};
+use tamil_numerals::{add_gregorian_date, date_difference, GregorianDate};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct CalendarSolarDate {
@@ -297,6 +297,7 @@ pub fn vakya_add_solar_date(
 #[cfg(test)]
 mod tests {
     use super::solar_year_cycle_info;
+    use tamil_numerals::GregorianDate;
 
     #[test]
     fn review_regression_final_partial_month_supports_valid_date_arithmetic() {
@@ -306,7 +307,7 @@ mod tests {
                 super::vakya_add_solar_date(9999, 5, 7, unit, 0, "reject", context).unwrap();
             assert_eq!(
                 unchanged.gregorian_date,
-                crate::GregorianDate::new(9999, 12, 31).unwrap()
+                GregorianDate::new(9999, 12, 31).unwrap()
             );
             assert_eq!(unchanged.tamil_date.day, 7);
         }
@@ -314,13 +315,13 @@ mod tests {
             super::vakya_add_solar_date(9999, 5, 6, "months", 0, "reject", context).unwrap();
         assert_eq!(
             previous.gregorian_date,
-            crate::GregorianDate::new(9999, 12, 30).unwrap()
+            GregorianDate::new(9999, 12, 30).unwrap()
         );
         let into_final_month =
             super::vakya_add_solar_date(9999, 4, 7, "months", 1, "reject", context).unwrap();
         assert_eq!(
             into_final_month.gregorian_date,
-            crate::GregorianDate::new(9999, 12, 31).unwrap()
+            GregorianDate::new(9999, 12, 31).unwrap()
         );
     }
 

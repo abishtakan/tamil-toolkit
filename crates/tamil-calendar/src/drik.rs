@@ -1,5 +1,5 @@
-use super::super::tables;
-use super::super::tables::{
+use crate::tables;
+use crate::tables::{
     DRIK_DEFINITION_ID, DRIK_DISPLAY_ROUNDING_SECONDS, DRIK_EARTH_RADIUS_METERS,
     DRIK_EPHEMERIS_ARCHIVE_SHA256, DRIK_EPHEMERIS_LICENSE, DRIK_EPHEMERIS_PROVIDER,
     DRIK_EPHEMERIS_VERSION, DRIK_HORIZON_DEFINITION, DRIK_KARANA_NAMES,
@@ -16,10 +16,10 @@ use super::super::tables::{
     DRIK_TT_MINUS_UTC_MILLIS, DRIK_TZ_DATABASE_RELEASE, DRIK_UT1_MINUS_UTC_ASSUMED_MILLIS,
     DRIK_UT1_MINUS_UTC_MAX_ABS_MILLIS, DRIK_VARA_DEFINITION, DRIK_WEEKDAYS, DRIK_YOGA_NAMES,
 };
-use crate::{add_gregorian_date, date_difference, GregorianDate};
 use astro::{aberr, ecliptic, lunar, nutation, sun, time};
 use std::collections::BTreeSet;
 use std::f64::consts::{PI, TAU};
+use tamil_numerals::{add_gregorian_date, date_difference, GregorianDate};
 
 const SECONDS_PER_DAY: i64 = 86_400;
 const UNIX_EPOCH_JD: f64 = 2_440_587.5;
@@ -2667,7 +2667,7 @@ mod tests {
     #[test]
     fn p03_lahiri_transform_matches_independent_erfa_epoch_checkpoints() {
         let reference: serde_json::Value = serde_json::from_str(include_str!(
-            "../../../../tests/reference/calendar-thirukanitham-v1/independent-transforms.json"
+            "../../../tests/reference/calendar-thirukanitham-v1/independent-transforms.json"
         ))
         .unwrap();
         let checkpoints = reference["sidereal_checkpoints"].as_array().unwrap();
@@ -3144,7 +3144,7 @@ mod tests {
     #[test]
     fn production_limb_and_sidereal_coordinates_match_independent_jpl_transforms() {
         let reference: serde_json::Value = serde_json::from_str(include_str!(
-            "../../../../tests/reference/calendar-thirukanitham-v1/independent-transforms.json"
+            "../../../tests/reference/calendar-thirukanitham-v1/independent-transforms.json"
         ))
         .unwrap();
         let samples = reference["samples"].as_array().unwrap();
@@ -3224,7 +3224,7 @@ mod tests {
     #[test]
     fn production_roots_match_independent_jpl_second_cadence_brackets() {
         let reference: serde_json::Value = serde_json::from_str(include_str!(
-            "../../../../tests/reference/calendar-thirukanitham-v1/independent-root-observations.json"
+            "../../../tests/reference/calendar-thirukanitham-v1/independent-root-observations.json"
         ))
         .unwrap();
         let solar_roots = reference["solar_ingresses"].as_array().unwrap();
@@ -3322,11 +3322,11 @@ mod tests {
     #[test]
     fn complete_civil_day_reports_match_independent_full_day_jpl_transition_sets() {
         let expected: serde_json::Value = serde_json::from_str(include_str!(
-            "../../../../tests/reference/calendar-thirukanitham-v1/independent-full-day-observations.json"
+            "../../../tests/reference/calendar-thirukanitham-v1/independent-full-day-observations.json"
         ))
         .unwrap();
         let derived: serde_json::Value = serde_json::from_str(include_str!(
-            "../../../../tests/reference/calendar-thirukanitham-v1/derived-civil-day-and-month-reports.json"
+            "../../../tests/reference/calendar-thirukanitham-v1/derived-civil-day-and-month-reports.json"
         ))
         .unwrap();
         let expected_days = expected["days"].as_array().unwrap();
@@ -3417,7 +3417,7 @@ mod tests {
     #[test]
     fn publisher_comparison_component_deltas_are_measured_separately() {
         let evidence: serde_json::Value = serde_json::from_str(include_str!(
-            "../../../../tests/reference/calendar-thirukanitham-v1/publisher-correction-components-2026-11-01.json"
+            "../../../tests/reference/calendar-thirukanitham-v1/publisher-correction-components-2026-11-01.json"
         ))
         .unwrap();
         let date = GregorianDate::new(2026, 11, 1).unwrap();

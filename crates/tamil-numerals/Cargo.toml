@@ -13,7 +13,6 @@ description = "Tamil numerals, fractions, dates, and LKR/INR currencies"
 
 [dependencies]
 tamil-core.workspace = true
-astro = "=2.0.0"
 
 [build-dependencies]
 serde.workspace = true

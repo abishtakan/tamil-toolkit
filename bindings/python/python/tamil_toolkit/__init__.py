@@ -11,7 +11,7 @@ __all__.append("vakya_reduce_to_local_true_sunrise")
 __all__.append("vakya_cara_from_sayana_sun")
 __all__.append("vakya_desantara_from_yojana_distance")
 __all__.append("vakya_bhujaantara_from_true_sun")
-__all__ += ["format_tamil_date", "calendar_display_info", "compare_calendar_profiles", "thiruvalluvar_year_info"]
+__all__ += ["format_tamil_date", "calendar_display_info", "compare_calendar_profiles", "thiruvalluvar_year_info", "calendar"]
 
 
 def execute(request: dict[str, Any]) -> Any:
@@ -530,3 +530,6 @@ def thiruvalluvar_year_info(
     return execute({"op": "thiruvalluvar_year_info", "input": {
         "convention_id": convention_id, "date": date, "context": context,
     }})
+
+
+from . import calendar

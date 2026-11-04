@@ -32,25 +32,6 @@ struct CurrencyUnits {
     factor: u64,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct CalendarOfficialHoliday {
-    pub date: GregorianDate,
-    pub name: &'static str,
-    pub categories: &'static [&'static str],
-}
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct CalendarOfficialHolidayYearInfo {
-    pub jurisdiction: &'static str,
-    pub year: i64,
-    pub schedule_id: &'static str,
-    pub source_id: &'static str,
-    pub source: &'static str,
-    pub source_url: &'static str,
-    pub source_sha256: Option<&'static str>,
-    pub reuse_terms_status: &'static str,
-    pub scope_note: &'static str,
-    pub holidays: Vec<CalendarOfficialHoliday>,
-}
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SymbolInfo {
     pub codepoint: u32,
     pub character: &'static str,
@@ -61,56 +42,23 @@ pub struct SymbolInfo {
     pub source_version: &'static str,
 }
 mod tables {
-    use super::{CurrencyUnits, Op, Operand, Rule, SolarVakya, SymbolInfo};
+    use super::{CurrencyUnits, Op, Operand, Rule, SymbolInfo};
     include!(concat!(env!("OUT_DIR"), "/numeral_tables.rs"));
 }
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub(crate) struct SolarVakya {
-    pub rasi: &'static str,
-    pub days: i64,
-    pub nadis: i64,
-    pub vinadis: i64,
-}
-mod calendar;
-pub use calendar::{
-    calendar_display_names, calendar_official_holiday_year, solar_year_cycle_info,
-    thirukanitham_add_solar_date, thirukanitham_daylight_periods,
-    thirukanitham_gregorian_to_tamil_date, thirukanitham_lunar_phase_events,
-    thirukanitham_month_info, thirukanitham_observances, thirukanitham_panchangam_at,
-    thirukanitham_panchangam_day, thirukanitham_profile_info, thirukanitham_solar_year_info,
-    thirukanitham_tamil_to_gregorian_date, vakya_add_solar_date, vakya_bhujaantara_from_true_sun,
-    vakya_cara_from_sayana_sun, vakya_civil_profile_info, vakya_desantara_from_yojana_distance,
-    vakya_gregorian_to_tamil_date, vakya_month_info, vakya_panchangam_at, vakya_panchangam_day,
-    vakya_reduce_to_local_true_sunrise, vakya_solar_transits, vakya_solar_year_info,
-    vakya_tamil_to_gregorian_date, vakya_true_moon_from_kali_day,
-    vakya_true_sun_from_mesha_elapsed, Ahargana, CalendarDisplayNames, CalendarSolarDate,
-    CalendarSolarDateArithmetic, CalendarSolarMonth, CalendarSolarYearCycleInfo,
-    CalendarSolarYearInfo, DmsAngle, RasiDmsAngle, SolarTransit, ThirukanithamContext,
-    ThirukanithamDateConversion, ThirukanithamDateReverse, ThirukanithamDaylightInterval,
-    ThirukanithamDaylightPeriods, ThirukanithamLimb, ThirukanithamLimbs, ThirukanithamLocalTime,
-    ThirukanithamLunarPhaseEvent, ThirukanithamMonthInfo, ThirukanithamObservanceEvent,
-    ThirukanithamObservanceSource, ThirukanithamObservances, ThirukanithamPanchangamAt,
-    ThirukanithamPanchangamDay, ThirukanithamProfileInfo, ThirukanithamRegionInfo,
-    ThirukanithamStationInfo, ThirukanithamTamilDate, ThirukanithamTransition,
-    ThirukanithamUtcMinute, VakyaBhujaantara, VakyaCara, VakyaCivilContext,
-    VakyaCivilDateConversion, VakyaCivilDateReverse, VakyaCivilLimb, VakyaCivilLimbs,
-    VakyaCivilMonthInfo, VakyaCivilPanchangamAt, VakyaCivilPanchangamDay, VakyaCivilProfileInfo,
-    VakyaCivilTamilDate, VakyaCivilTime, VakyaCivilTransition, VakyaDesantara,
-    VakyaLocalSunriseReduction, VakyaSolarYear, VakyaTrueMoon, VakyaTrueSun,
-};
 pub use tables::{MAX_INTEGER, MAX_MINOR, PROFILE};
 pub const INTEGER_ERROR: &str = "expected an integer in the supported range";
 
 mod numeric;
 pub use numeric::{
-    add_gregorian_date, convert_digits, currency_decimal_to_words, date_difference, date_interval,
-    decimal_to_words, digit_sequence_to_words, format_currency_decimal, format_decimal,
-    format_mixed_fraction, format_numeric_range, format_percent, format_traditional_integer,
-    iso_date, ordinal_to_words, parse_decimal, parse_fraction_symbol, parse_gregorian_date,
-    parse_mixed_fraction, parse_percent, parse_traditional_integer, percent_to_ratio,
-    ratio_to_percent, symbol_info, validate_currency_decimal, validate_exact_decimal,
-    validate_gregorian_date, validate_mixed_fraction, validate_numeric_range, weekday,
-    ExactDecimal, MixedFraction, NumericRangeEndpoint, MAX_DECIMAL_DIGITS, MAX_DECIMAL_SCALE,
+    add_gregorian_date, convert_digits, currency_decimal_to_words, date_difference,
+    date_from_ordinal, date_interval, decimal_to_words, digit_sequence_to_words,
+    format_currency_decimal, format_decimal, format_mixed_fraction, format_numeric_range,
+    format_percent, format_traditional_integer, iso_date, ordinal_day, ordinal_to_words,
+    parse_decimal, parse_fraction_symbol, parse_gregorian_date, parse_mixed_fraction, parse_percent,
+    parse_traditional_integer, percent_to_ratio, ratio_to_percent, symbol_info,
+    validate_currency_decimal, validate_exact_decimal, validate_gregorian_date,
+    validate_mixed_fraction, validate_numeric_range, weekday, ExactDecimal, MixedFraction,
+    NumericRangeEndpoint, MAX_DECIMAL_DIGITS, MAX_DECIMAL_SCALE,
 };
 
 /// Formal lexical profiles; neither is a regional spoken-language normalizer.

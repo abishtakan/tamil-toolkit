@@ -1,3 +1,43 @@
+//! Standalone Tamil calendar engine covering Thirukanitham (Drik), Vakiya,
+//! panchangam limbs, daylight intervals, official holidays, and festival observances.
+#![forbid(unsafe_code)]
+
+use tamil_numerals::GregorianDate;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct CalendarOfficialHoliday {
+    pub date: GregorianDate,
+    pub name: &'static str,
+    pub categories: &'static [&'static str],
+}
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CalendarOfficialHolidayYearInfo {
+    pub jurisdiction: &'static str,
+    pub year: i64,
+    pub schedule_id: &'static str,
+    pub source_id: &'static str,
+    pub source: &'static str,
+    pub source_url: &'static str,
+    pub source_sha256: Option<&'static str>,
+    pub reuse_terms_status: &'static str,
+    pub scope_note: &'static str,
+    pub holidays: Vec<CalendarOfficialHoliday>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) struct SolarVakya {
+    pub rasi: &'static str,
+    pub days: i64,
+    pub nadis: i64,
+    pub vinadis: i64,
+}
+
+mod tables {
+    use super::SolarVakya;
+    include!(concat!(env!("OUT_DIR"), "/calendar_tables.rs"));
+}
+
 mod display;
 mod drik;
 mod holidays;

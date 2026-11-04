@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Extract calendar modules, astronomical calculation engines (Vakiya and
+  Thirukanitham), and ephemeris tables from `tamil-numerals` into the dedicated
+  internal workspace crate `tamil-calendar`.
+- Remove the `astro = "=2.0.0"` dependency and all calendar modules from
+  `tamil-numerals`, leaving it strictly focused on numbers, currency, and date
+  formatting with zero backward-compatibility shims or stubs.
+- Re-export calendar APIs via `tamil-toolkit::calendar` and provide sub-namespace
+  access across language bindings: `tamil_toolkit.calendar` in Python,
+  `api.calendar` in WebAssembly/TypeScript, and `TamilCalendar` in Dart.
+- Add developer workbench support for `tamil-calendar` with a dedicated package
+  card and operations in `workbench/main.ts`.
+
 
 ## 0.1.0-alpha.5 / Python 0.1.0a5 - 2026-11-02
 

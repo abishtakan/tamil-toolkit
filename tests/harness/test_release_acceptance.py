@@ -22,7 +22,7 @@ def test_alpha_scope_and_versions():
     assert workspace["workspace"]["package"]["license"] == "MIT"
     assert workspace["workspace"]["package"]["repository"] == REPOSITORY
     umbrella = read_toml(ROOT / "crates/tamil-toolkit/Cargo.toml")
-    assert {name for name in umbrella["dependencies"] if name.startswith("tamil-")} == PUBLIC - {"tamil-toolkit"}
+    assert {name for name in umbrella["dependencies"] if name.startswith("tamil-")} == (PUBLIC - {"tamil-toolkit"}) | {"tamil-calendar"}
     for path in (ROOT / "crates").glob("*/Cargo.toml"):
         manifest = read_toml(path)
         if manifest["package"]["name"] not in PUBLIC:

@@ -1,4 +1,4 @@
-use super::super::tables;
+use crate::tables;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct CalendarDisplayNames {

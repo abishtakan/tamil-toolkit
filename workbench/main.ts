@@ -46,7 +46,18 @@ const fixtureLoaders = import.meta.glob("../tests/golden/*.jsonl", {
 const suites = new Map(manifest.suites.map((suite) => [suite.file, suite]));
 const activeSuites = manifest.suites.filter((suite) => suite.status === "active");
 const numeralOperationNames = manifest.suites
-  .filter((suite) => ["numerals_lkr_inr.jsonl", "numerals_fractions_dates.jsonl", "numerals_v03.jsonl", "calendar_vakya_solar.jsonl", "calendar_vakya_moon.jsonl", "calendar_vakya_local_sunrise.jsonl", "calendar_vakya_cara.jsonl", "calendar_vakya_desantara.jsonl", "calendar_vakya_bhujaantara.jsonl", "calendar_vakya_civil.jsonl", "calendar_thirukanitham.jsonl", "calendar_lunar_phases.jsonl", "calendar_solar_arithmetic.jsonl", "calendar_daylight_periods.jsonl", "calendar_year_cycle.jsonl", "calendar_official_holidays.jsonl", "calendar_tamil_display.jsonl", "calendar_profile_comparison.jsonl", "calendar_thiruvalluvar_year.jsonl"].includes(suite.file))
+  .filter((suite) => ["numerals_lkr_inr.jsonl", "numerals_fractions_dates.jsonl", "numerals_v03.jsonl"].includes(suite.file))
+  .flatMap((suite) => suite.operations);
+const calendarSuiteFiles = [
+  "calendar_vakya_solar.jsonl", "calendar_vakya_moon.jsonl", "calendar_vakya_local_sunrise.jsonl",
+  "calendar_vakya_cara.jsonl", "calendar_vakya_desantara.jsonl", "calendar_vakya_bhujaantara.jsonl",
+  "calendar_vakya_civil.jsonl", "calendar_thirukanitham.jsonl", "calendar_lunar_phases.jsonl",
+  "calendar_solar_arithmetic.jsonl", "calendar_daylight_periods.jsonl", "calendar_year_cycle.jsonl",
+  "calendar_official_holidays.jsonl", "calendar_tamil_display.jsonl", "calendar_profile_comparison.jsonl",
+  "calendar_thiruvalluvar_year.jsonl", "calendar_observances.jsonl"
+];
+const calendarOperationNames = manifest.suites
+  .filter((suite) => calendarSuiteFiles.includes(suite.file))
   .flatMap((suite) => suite.operations);
 const rowsCache = new Map<string, Promise<Outcome[]>>();
 
@@ -66,7 +77,8 @@ const packages: PackageInfo[] = [
   { id: "tamil-core", state: "active", description: "Unicode primitives, letter boundaries, and scalar inspection.", suiteFiles: ["core_graphemes.jsonl", "core_alphabet.jsonl", "core_normalization.jsonl", "core_boundaries.jsonl", "core_errors.jsonl"] },
   { id: "tamil-norm", state: "facade", description: "NFC/NFD normalization facade re-exported from tamil-core.", suiteFiles: ["core_normalization.jsonl"], operations: ["normalize_nfc", "normalize_nfd"] },
   { id: "tamil-collate", state: "active", description: "Agara Varisai comparison, ordering, and canonical search keys.", suiteFiles: ["collate_agara_varisai.jsonl"] },
-  { id: "tamil-numerals", state: "active", description: "TN/SL number words, exact numeric strings, fractions, Gregorian civil dates, a source-bounded 1962 Vakyakarana civil profile, and a bounded Thirukanitham panchangam profile.", suiteFiles: ["numerals_lkr_inr.jsonl", "numerals_fractions_dates.jsonl", "numerals_v03.jsonl"], operations: numeralOperationNames },
+  { id: "tamil-numerals", state: "active", description: "TN/SL number words, exact numeric strings, fractions, and Gregorian civil dates.", suiteFiles: ["numerals_lkr_inr.jsonl", "numerals_fractions_dates.jsonl", "numerals_v03.jsonl"], operations: numeralOperationNames },
+  { id: "tamil-calendar", state: "active", description: "Solar arithmetic, Vakiya and Thirukanitham models, five limbs, holidays, and observances.", suiteFiles: calendarSuiteFiles, operations: calendarOperationNames },
   { id: "tamil-codec", state: "active", description: "Bamini and bounded legacy byte and CID conversion.", suiteFiles: ["codec_bamini.jsonl", "codec_unicode_to_bamini.jsonl", "codec_tscii_bytes.jsonl", "codec_tscii_iana.jsonl", "codec_unicode_to_tscii.jsonl", "codec_tscii_iana_audit.jsonl", "codec_tab.jsonl", "codec_tab_utn.jsonl", "codec_tam.jsonl", "codec_tam_utn.jsonl", "codec_anjal.jsonl", "codec_lt_tm.jsonl", "codec_vanavil.jsonl"] },
   { id: "tamil-toolkit", state: "dispatcher", description: "Shared Rust dispatcher used by bindings and the local oracle." },
   { id: "tamil-wasm", state: "wasm", description: "Browser WASM binding calling the shared Rust dispatcher." },
@@ -1260,7 +1272,7 @@ function appendPackageNote(info: PackageInfo) {
       ? "Manual requests run through the real PyO3 extension. It rebuilds when Rust sources change."
       : "Manual requests run through the Dart FFI package and host Rust library, rebuilt when Rust sources change.";
     selectedPanel.append(note);
-  } else if (info.id === "tamil-numerals" && (suites.get("calendar_vakya_solar.jsonl")?.status === "planned" || suites.get("calendar_thirukanitham.jsonl")?.status === "planned")) {
+  } else if (info.id === "tamil-calendar" && (suites.get("calendar_vakya_solar.jsonl")?.status === "planned" || suites.get("calendar_thirukanitham.jsonl")?.status === "planned")) {
     const note = document.createElement("div");
     note.className = "planned-note";
     note.textContent = "Choose Thirukanitham or the unmodified 1962 Vakyakarana Ujjain mean-sunrise civil profile in the date and panchangam forms. Vakyakarana arbitrary-location corrections and true local horizon sunrise remain unavailable pending source evidence; both calendar suites remain planned for separate owner review.";
@@ -1442,7 +1454,7 @@ function refreshConditionalFields() {
 function selectPackage(id: string) {
   if (id === selectedId) return;
   selectedId = id;
-  const defaultOperation = id === "tamil-numerals" ? "format_fraction" : undefined;
+  const defaultOperation = id === "tamil-numerals" ? "format_fraction" : id === "tamil-calendar" ? "gregorian_to_tamil_date" : undefined;
   selectedOperation = defaultOperation ?? operationsFor(packages.find((item) => item.id === id)!)[0]?.op ?? "";
   renderPackages();
   renderSelected();

@@ -1,0 +1,234 @@
+# CLDR 49 release-49/common/rbnf/ta.xml SpelloutRules; Unicode-3.0.
+profile = "numerals-ordinals-v1"
+max_integer = 999999999
+
+[[rulesets]]
+name = "%%spellout-ordinal-compound"
+
+[[rulesets.rules]]
+base = 1
+divisor = 1
+pattern = "\u0b92\u0ba9\u0bcd\u0bb1\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 2
+divisor = 1
+pattern = "=%spellout-ordinal="
+
+[[rulesets]]
+name = "%spellout-ordinal"
+
+[[rulesets.rules]]
+base = 0
+divisor = 1
+pattern = "\u0baa\u0bc2\u0b9c\u0bcd\u0baf\u0bae\u0bcd"
+
+[[rulesets.rules]]
+base = 1
+divisor = 1
+pattern = "\u0bae\u0bc1\u0ba4\u0bb2\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 2
+divisor = 1
+pattern = "\u0b87\u0bb0\u0ba3\u0bcd\u0b9f\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 3
+divisor = 1
+pattern = "\u0bae\u0bc2\u0ba9\u0bcd\u0bb1\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 4
+divisor = 1
+pattern = "\u0ba8\u0bbe\u0ba9\u0bcd\u0b95\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 5
+divisor = 1
+pattern = "\u0b90\u0ba8\u0bcd\u0ba4\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 6
+divisor = 1
+pattern = "\u0b86\u0bb1\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 7
+divisor = 1
+pattern = "\u0b8f\u0bb4\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 8
+divisor = 1
+pattern = "\u0b8e\u0b9f\u0bcd\u0b9f\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 9
+divisor = 1
+pattern = "\u0b92\u0ba9\u0bcd\u0baa\u0ba4\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 10
+divisor = 10
+pattern = "\u0baa\u0ba4\u0bcd\u0ba4\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 11
+divisor = 10
+pattern = "\u0baa\u0ba4\u0bbf\u0ba9\u0bca\u0ba9\u0bcd\u0bb1\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 12
+divisor = 10
+pattern = "\u0baa\u0ba9\u0bcd\u0ba9\u0bbf\u0bb0\u0ba3\u0bcd\u0b9f\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 13
+divisor = 10
+pattern = "\u0baa\u0ba4\u0bbf\u0ba9\u0bcd\u0bae\u0bc2\u0ba9\u0bcd\u0bb1\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 14
+divisor = 10
+pattern = "\u0baa\u0ba4\u0bbf\u0ba9\u0bbe\u0ba9\u0bcd\u0b95\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 15
+divisor = 10
+pattern = "\u0baa\u0ba4\u0bbf\u0ba9\u0bc8\u0ba8\u0bcd\u0ba4\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 16
+divisor = 10
+pattern = "\u0baa\u0ba4\u0bbf\u0ba9\u0bbe\u0bb1\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 17
+divisor = 10
+pattern = "\u0baa\u0ba4\u0bbf\u0ba9\u0bc7\u0bb4\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 18
+divisor = 10
+pattern = "\u0baa\u0ba4\u0bbf\u0ba9\u0bc6\u0b9f\u0bcd\u0b9f\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 19
+divisor = 10
+pattern = "\u0baa\u0ba4\u0bcd\u0ba4\u0bca\u0ba9\u0bcd\u0baa\u0ba4\u0bbe\u0bb5\u0ba4\u0bc1"
+
+[[rulesets.rules]]
+base = 20
+divisor = 10
+pattern = "\u0b87\u0bb0\u0bc1\u0baa\u0ba4[\u0bcd\u0ba4\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 30
+divisor = 10
+pattern = "\u0bae\u0bc1\u0baa\u0bcd\u0baa\u0ba4[\u0bcd\u0ba4\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 40
+divisor = 10
+pattern = "\u0ba8\u0bbe\u0bb1\u0bcd\u0baa\u0ba4[\u0bcd\u0ba4\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 50
+divisor = 10
+pattern = "\u0b90\u0bae\u0bcd\u0baa\u0ba4[\u0bcd\u0ba4\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 60
+divisor = 10
+pattern = "\u0b85\u0bb1\u0bc1\u0baa\u0ba4[\u0bcd\u0ba4\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 70
+divisor = 10
+pattern = "\u0b8e\u0bb4\u0bc1\u0baa\u0ba4[\u0bcd\u0ba4\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 80
+divisor = 10
+pattern = "\u0b8e\u0ba3\u0bcd\u0baa\u0ba4[\u0bcd\u0ba4\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 90
+divisor = 10
+pattern = "\u0ba4\u0bca\u0ba3\u0bcd\u0ba3\u0bc2\u0bb1[\u0bcd\u0bb1\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 100
+divisor = 100
+pattern = "\u0ba8\u0bc2\u0bb1[\u0bcd\u0bb1\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 200
+divisor = 100
+pattern = "\u0b87\u0bb0\u0bc1\u0ba8\u0bc2\u0bb1[\u0bcd\u0bb1\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 300
+divisor = 100
+pattern = "\u0bae\u0bc1\u0ba8\u0bcd\u0ba8\u0bc2\u0bb1[\u0bcd\u0bb1\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 400
+divisor = 100
+pattern = "\u0ba8\u0bbe\u0ba9\u0bc2\u0bb1[\u0bcd\u0bb1\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 500
+divisor = 100
+pattern = "\u0b90\u0ba8\u0bc2\u0bb1[\u0bcd\u0bb1\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 600
+divisor = 100
+pattern = "\u0b85\u0bb1\u0bc1\u0ba8\u0bc2\u0bb1[\u0bcd\u0bb1\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 700
+divisor = 100
+pattern = "\u0b8e\u0bb4\u0bc1\u0ba8\u0bc2\u0bb1[\u0bcd\u0bb1\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 800
+divisor = 100
+pattern = "\u0b8e\u0ba3\u0bcd\u0ba8\u0bc2\u0bb1[\u0bcd\u0bb1\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 900
+divisor = 100
+pattern = "\u0ba4\u0bca\u0bb3\u0bcd\u0bb3\u0bbe\u0baf\u0bbf\u0bb0\u0ba4\u0bcd\u0ba4[\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 1000
+divisor = 1000
+pattern = "\u0b86\u0baf\u0bbf\u0bb0\u0ba4\u0bcd\u0ba4[\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 2000
+divisor = 1000
+pattern = "<%%spellout-prefix<\u0bbe\u0baf\u0bbf\u0bb0\u0ba4\u0bcd\u0ba4[\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 100000
+divisor = 100000
+pattern = "\u0b92\u0bb0\u0bc1 \u0bb2\u0b9f\u0bcd\u0b9a\u0ba4\u0bcd\u0ba4[\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 200000
+divisor = 100000
+pattern = "<%spellout-cardinal< \u0bb2\u0b9f\u0bcd\u0b9a\u0ba4\u0bcd\u0ba4[\u0bc1 >%%spellout-ordinal-compound>|\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 10000000
+divisor = 10000000
+pattern = "\u0b92\u0bb0\u0bc1 \u0b95\u0bcb\u0b9f\u0bbf[\u0baf\u0bc7 >%%spellout-ordinal-compound>|\u0baf\u0bbe\u0bb5\u0ba4\u0bc1]"
+
+[[rulesets.rules]]
+base = 20000000
+divisor = 10000000
+pattern = "<%spellout-cardinal< \u0b95\u0bcb\u0b9f\u0bbf[\u0baf\u0bc7 >%%spellout-ordinal-compound>|\u0baf\u0bbe\u0bb5\u0ba4\u0bc1]"

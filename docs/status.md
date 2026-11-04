@@ -57,6 +57,19 @@ digests. The broader calendar completeness milestone is deferred.
 
 ## Remaining calendar completeness work (open)
 
+### Dedicated workspace crate architecture (`tamil-calendar`)
+
+Calendar, ephemeris, and astronomical logic have been extracted from
+`tamil-numerals` into the dedicated internal workspace crate `tamil-calendar`.
+`tamil-numerals` is now cleanly isolated to numbers, currency, and date
+formatting with zero astronomical dependencies (`astro` removed). Multi-runtime
+access is exposed through `tamil-toolkit` and sub-namespaces
+(`tamil_toolkit.calendar` in Python, `api.calendar` in WASM, and
+`TamilCalendar` in Dart). `tamil-calendar` remains an internal/experimental
+crate excluded from `release-policy.toml` publication while calendar suites
+remain planned.
+
+
 Alpha 5 publishes the approved numeric APIs and bounded, source-limited
 experimental calendar APIs. The broader calendar milestone remains incomplete.
 Remaining work includes arbitrary-location Vakiya corrections, Vakiya local

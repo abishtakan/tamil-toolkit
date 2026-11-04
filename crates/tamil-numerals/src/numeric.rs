@@ -948,14 +948,14 @@ fn days_before_year(year: i64) -> i64 {
     let y = year - 1;
     365 * y + y / 4 - y / 100 + y / 400
 }
-pub(crate) fn ordinal_day(date: GregorianDate) -> i64 {
+pub fn ordinal_day(date: GregorianDate) -> i64 {
     let mut days = days_before_year(date.year());
     for month in 1..date.month() {
         days += i64::from(month_length(date.year(), month));
     }
     days + i64::from(date.day()) - 1
 }
-pub(crate) fn date_from_ordinal(mut day: i64) -> Result<GregorianDate, String> {
+pub fn date_from_ordinal(mut day: i64) -> Result<GregorianDate, String> {
     let max = days_before_year(10000);
     if day < 0 || day >= max {
         return Err("Gregorian date arithmetic out of range".into());

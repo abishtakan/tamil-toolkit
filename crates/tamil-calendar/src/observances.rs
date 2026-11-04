@@ -1,4 +1,4 @@
-use super::super::tables::{
+use crate::tables::{
     CalendarObservanceSourceData, CALENDAR_OBSERVANCES_ASTRONOMY_NOTE,
     CALENDAR_OBSERVANCES_DEFINITION_ID, CALENDAR_OBSERVANCES_END_YEAR,
     CALENDAR_OBSERVANCES_JURISDICTION, CALENDAR_OBSERVANCES_REUSE_TERMS_STATUS,
@@ -12,7 +12,7 @@ use super::drik::{
     thirukanitham_sri_vaishnava_ekadashi_dates, thirukanitham_tamil_to_gregorian_date,
     thirukanitham_tithi_observance_dates, thirukanitham_vijayadashami_date, ThirukanithamContext,
 };
-use crate::{add_gregorian_date, GregorianDate};
+use tamil_numerals::{add_gregorian_date, GregorianDate};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ThirukanithamObservanceSource {

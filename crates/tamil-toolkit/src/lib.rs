@@ -3,6 +3,7 @@
 
 mod calendar_features;
 
+pub use tamil_calendar as calendar;
 pub use tamil_codec as codec;
 pub use tamil_collate as collate;
 pub use tamil_core as core;
@@ -99,7 +100,7 @@ pub(crate) fn calendar_date_fields(value: &Value, tamil: bool) -> Result<(i64, i
     ))
 }
 
-pub(crate) fn calendar_context(value: &Value) -> Result<numerals::ThirukanithamContext, String> {
+pub(crate) fn calendar_context(value: &Value) -> Result<calendar::ThirukanithamContext, String> {
     let names = [
         "region",
         "latitude_microdegrees",
@@ -114,7 +115,7 @@ pub(crate) fn calendar_context(value: &Value) -> Result<numerals::ThirukanithamC
     let time_zone = object["time_zone"]
         .as_str()
         .ok_or("invalid calendar context")?;
-    numerals::ThirukanithamContext::new(
+    calendar::ThirukanithamContext::new(
         region,
         calendar_integer(&object["latitude_microdegrees"])?,
         calendar_integer(&object["longitude_microdegrees"])?,
@@ -123,7 +124,7 @@ pub(crate) fn calendar_context(value: &Value) -> Result<numerals::ThirukanithamC
     )
 }
 
-pub(crate) fn vakya_civil_context(value: &Value) -> Result<numerals::VakyaCivilContext, String> {
+pub(crate) fn vakya_civil_context(value: &Value) -> Result<calendar::VakyaCivilContext, String> {
     let object = calendar_exact_object(
         value,
         &["reference_station", "time_zone"],
@@ -135,7 +136,7 @@ pub(crate) fn vakya_civil_context(value: &Value) -> Result<numerals::VakyaCivilC
     let time_zone = object["time_zone"]
         .as_str()
         .ok_or("invalid calendar context")?;
-    numerals::VakyaCivilContext::new(station, time_zone)
+    calendar::VakyaCivilContext::new(station, time_zone)
 }
 
 pub(crate) const THIRUKANITHAM_DEFINITION: &str =
@@ -168,15 +169,15 @@ pub(crate) fn calendar_gregorian_json(date: numerals::GregorianDate) -> Value {
     json!({"year":date.year(),"month":date.month(),"day":date.day()})
 }
 
-pub(crate) fn calendar_tamil_json(date: numerals::ThirukanithamTamilDate) -> Value {
+pub(crate) fn calendar_tamil_json(date: calendar::ThirukanithamTamilDate) -> Value {
     json!({"solar_year":date.solar_year,"month":date.month,"month_name":date.month_name,"day":date.day})
 }
 
-pub(crate) fn calendar_limb_json(limb: numerals::ThirukanithamLimb) -> Value {
+pub(crate) fn calendar_limb_json(limb: calendar::ThirukanithamLimb) -> Value {
     json!({"index":limb.index,"name":limb.name,"paksha":limb.paksha})
 }
 
-pub(crate) fn calendar_limbs_json(limbs: numerals::ThirukanithamLimbs) -> Value {
+pub(crate) fn calendar_limbs_json(limbs: calendar::ThirukanithamLimbs) -> Value {
     json!({
         "tithi":calendar_limb_json(limbs.tithi),
         "nakshatra":calendar_limb_json(limbs.nakshatra),
@@ -185,15 +186,15 @@ pub(crate) fn calendar_limbs_json(limbs: numerals::ThirukanithamLimbs) -> Value 
     })
 }
 
-pub(crate) fn vakya_tamil_json(date: numerals::VakyaCivilTamilDate) -> Value {
+pub(crate) fn vakya_tamil_json(date: calendar::VakyaCivilTamilDate) -> Value {
     json!({"solar_year":date.solar_year,"month":date.month,"month_name":date.month_name,"day":date.day})
 }
 
-pub(crate) fn vakya_limb_json(limb: numerals::VakyaCivilLimb) -> Value {
+pub(crate) fn vakya_limb_json(limb: calendar::VakyaCivilLimb) -> Value {
     json!({"index":limb.index,"name":limb.name,"paksha":limb.paksha})
 }
 
-pub(crate) fn vakya_limbs_json(limbs: numerals::VakyaCivilLimbs) -> Value {
+pub(crate) fn vakya_limbs_json(limbs: calendar::VakyaCivilLimbs) -> Value {
     json!({
         "tithi":vakya_limb_json(limbs.tithi),
         "nakshatra":vakya_limb_json(limbs.nakshatra),
@@ -206,7 +207,7 @@ fn calendar_profile_info(input: &Value) -> Result<Value, String> {
     let object = calendar_exact_object(input, &["definition_id"], "invalid calendar input")?;
     match calendar_definition(&object["definition_id"])? {
         CalendarDefinition::VakyaCivil => {
-            let profile = numerals::vakya_civil_profile_info()?;
+            let profile = calendar::vakya_civil_profile_info()?;
             Ok(json!({
                 "profile":profile.profile,
                 "definition_id":profile.definition_id,
@@ -237,7 +238,7 @@ fn calendar_profile_info(input: &Value) -> Result<Value, String> {
             }))
         }
         CalendarDefinition::Thirukanitham => {
-            let profile = numerals::thirukanitham_profile_info();
+            let profile = calendar::thirukanitham_profile_info();
             Ok(json!({
             "profile":profile.profile,
             "definition_id":profile.definition_id,
@@ -273,7 +274,7 @@ fn calendar_gregorian_to_tamil(input: &Value) -> Result<Value, String> {
                 return Err("outside supported calendar coverage".into());
             }
             let date = calendar_gregorian_date(date_fields)?;
-            let result = numerals::thirukanitham_gregorian_to_tamil_date(date, context)?;
+            let result = calendar::thirukanitham_gregorian_to_tamil_date(date, context)?;
             Ok(
                 json!({"definition_id":result.definition_id,"gregorian_date":calendar_gregorian_json(result.gregorian_date),"tamil_date":calendar_tamil_json(result.tamil_date)}),
             )
@@ -281,7 +282,7 @@ fn calendar_gregorian_to_tamil(input: &Value) -> Result<Value, String> {
         CalendarDefinition::VakyaCivil => {
             let context = vakya_civil_context(&object["context"])?;
             let date = calendar_gregorian_date(date_fields)?;
-            let result = numerals::vakya_gregorian_to_tamil_date(date, context)?;
+            let result = calendar::vakya_gregorian_to_tamil_date(date, context)?;
             Ok(
                 json!({"definition_id":result.definition_id,"gregorian_date":calendar_gregorian_json(result.gregorian_date),"tamil_date":vakya_tamil_json(result.tamil_date),"reference_station":result.reference_station,"day_boundary":result.day_boundary}),
             )
@@ -302,7 +303,7 @@ fn calendar_tamil_to_gregorian(input: &Value) -> Result<Value, String> {
             if !(2023..=2027).contains(&date_fields.0) {
                 return Err("outside supported calendar coverage".into());
             }
-            let result = numerals::thirukanitham_tamil_to_gregorian_date(
+            let result = calendar::thirukanitham_tamil_to_gregorian_date(
                 date_fields.0,
                 date_fields.1,
                 date_fields.2,
@@ -314,7 +315,7 @@ fn calendar_tamil_to_gregorian(input: &Value) -> Result<Value, String> {
         }
         CalendarDefinition::VakyaCivil => {
             let context = vakya_civil_context(&object["context"])?;
-            let result = numerals::vakya_tamil_to_gregorian_date(
+            let result = calendar::vakya_tamil_to_gregorian_date(
                 date_fields.0,
                 date_fields.1,
                 date_fields.2,
@@ -341,14 +342,14 @@ fn calendar_month_info(input: &Value) -> Result<Value, String> {
             if !(2023..=2027).contains(&year) {
                 return Err("outside supported calendar coverage".into());
             }
-            let result = numerals::thirukanitham_month_info(year, month, context)?;
+            let result = calendar::thirukanitham_month_info(year, month, context)?;
             Ok(
                 json!({"definition_id":result.definition_id,"solar_year":result.solar_year,"month":result.month,"month_name":result.month_name,"start_date":calendar_gregorian_json(result.start_date),"end_date_exclusive":calendar_gregorian_json(result.end_date_exclusive),"days":result.days}),
             )
         }
         CalendarDefinition::VakyaCivil => {
             let context = vakya_civil_context(&object["context"])?;
-            let result = numerals::vakya_month_info(year, month, context)?;
+            let result = calendar::vakya_month_info(year, month, context)?;
             Ok(
                 json!({"definition_id":result.definition_id,"solar_year":result.solar_year,"month":result.month,"month_name":result.month_name,"start_date":calendar_gregorian_json(result.start_date),"end_date_exclusive":calendar_gregorian_json(result.end_date_exclusive),"days":result.days,"reference_station":result.reference_station,"day_boundary":result.day_boundary}),
             )
@@ -356,11 +357,11 @@ fn calendar_month_info(input: &Value) -> Result<Value, String> {
     }
 }
 
-fn calendar_solar_date_json(date: &numerals::CalendarSolarDate) -> Value {
+fn calendar_solar_date_json(date: &calendar::CalendarSolarDate) -> Value {
     json!({"solar_year":date.solar_year,"month":date.month,"month_name":date.month_name,"day":date.day})
 }
 
-fn calendar_solar_year_cycle_json(info: &numerals::CalendarSolarYearCycleInfo) -> Value {
+fn calendar_solar_year_cycle_json(info: &calendar::CalendarSolarYearCycleInfo) -> Value {
     json!({
         "solar_year": info.solar_year,
         "cycle_index": info.cycle_index,
@@ -401,7 +402,7 @@ fn calendar_tamil_year_cycle_info(input: &Value) -> Result<Value, String> {
             VAKYA_CIVIL_DEFINITION
         }
     };
-    let info = numerals::solar_year_cycle_info(year)?;
+    let info = calendar::solar_year_cycle_info(year)?;
     let mut result = calendar_solar_year_cycle_json(&info);
     result["definition_id"] = json!(definition_id);
     Ok(result)
@@ -416,7 +417,7 @@ fn calendar_official_holidays(input: &Value) -> Result<Value, String> {
         return Err("unsupported calendar jurisdiction".into());
     }
     let info =
-        numerals::calendar_official_holiday_year(jurisdiction, calendar_integer(&object["year"])?)?;
+        calendar::calendar_official_holiday_year(jurisdiction, calendar_integer(&object["year"])?)?;
     let holidays = info
         .holidays
         .iter()
@@ -474,7 +475,7 @@ fn calendar_observances(input: &Value) -> Result<Value, String> {
         return Err("unsupported calendar observance rule set".into());
     }
     let info = match definition {
-        CalendarDefinition::Thirukanitham => numerals::thirukanitham_observances(
+        CalendarDefinition::Thirukanitham => calendar::thirukanitham_observances(
             rule_set,
             year,
             month,
@@ -545,7 +546,7 @@ fn calendar_tamil_year_info(input: &Value) -> Result<Value, String> {
     let year = calendar_integer(&object["solar_year"])?;
     match calendar_definition(&object["definition_id"])? {
         CalendarDefinition::Thirukanitham => {
-            let result = numerals::thirukanitham_solar_year_info(
+            let result = calendar::thirukanitham_solar_year_info(
                 year,
                 calendar_context(&object["context"])?,
             )?;
@@ -574,7 +575,7 @@ fn calendar_tamil_year_info(input: &Value) -> Result<Value, String> {
         }
         CalendarDefinition::VakyaCivil => {
             let result =
-                numerals::vakya_solar_year_info(year, vakya_civil_context(&object["context"])?)?;
+                calendar::vakya_solar_year_info(year, vakya_civil_context(&object["context"])?)?;
             let months = result
                 .months
                 .iter()
@@ -624,7 +625,7 @@ fn calendar_add_tamil_date(input: &Value) -> Result<Value, String> {
         .ok_or("invalid calendar input")?;
     match calendar_definition(&object["definition_id"])? {
         CalendarDefinition::Thirukanitham => {
-            let result = numerals::thirukanitham_add_solar_date(
+            let result = calendar::thirukanitham_add_solar_date(
                 fields.0,
                 fields.1,
                 fields.2,
@@ -640,7 +641,7 @@ fn calendar_add_tamil_date(input: &Value) -> Result<Value, String> {
             }))
         }
         CalendarDefinition::VakyaCivil => {
-            let result = numerals::vakya_add_solar_date(
+            let result = calendar::vakya_add_solar_date(
                 fields.0,
                 fields.1,
                 fields.2,
@@ -670,14 +671,14 @@ fn calendar_panchangam_at(input: &Value) -> Result<Value, String> {
     match calendar_definition(&object["definition_id"])? {
         CalendarDefinition::Thirukanitham => {
             let context = calendar_context(&object["context"])?;
-            let result = numerals::thirukanitham_panchangam_at(instant, context)?;
+            let result = calendar::thirukanitham_panchangam_at(instant, context)?;
             Ok(
                 json!({"definition_id":result.definition_id,"local_date":calendar_gregorian_json(result.local_date),"local_time":{"hour":result.local_time.hour,"minute":result.local_time.minute,"second":result.local_time.second},"vara":result.vara,"limbs":calendar_limbs_json(result.limbs)}),
             )
         }
         CalendarDefinition::VakyaCivil => {
             let context = vakya_civil_context(&object["context"])?;
-            let result = numerals::vakya_panchangam_at(instant, context)?;
+            let result = calendar::vakya_panchangam_at(instant, context)?;
             Ok(
                 json!({"definition_id":result.definition_id,"local_date":calendar_gregorian_json(result.local_date),"local_time":{"hour":result.local_time.hour,"minute":result.local_time.minute,"second":result.local_time.second},"vara":result.vara,"limbs":vakya_limbs_json(result.limbs),"reference_station":result.reference_station,"position_basis":"ujjain_mean_solar_time"}),
             )
@@ -699,7 +700,7 @@ fn calendar_panchangam_day(input: &Value) -> Result<Value, String> {
                 return Err("outside supported calendar coverage".into());
             }
             let date = calendar_gregorian_date(fields)?;
-            let result = numerals::thirukanitham_panchangam_day(date, context)?;
+            let result = calendar::thirukanitham_panchangam_day(date, context)?;
             let transitions = result.transitions.iter().map(|event| json!({"limb":event.limb,"from_index":event.from_index,"to_index":event.to_index,"day_offset":event.day_offset,"minute_of_day":event.minute_of_day})).collect::<Vec<_>>();
             Ok(
                 json!({"definition_id":result.definition_id,"date":calendar_gregorian_json(result.date),"sunrise_minute_of_day":result.sunrise_minute_of_day,"sunset_minute_of_day":result.sunset_minute_of_day,"vara":result.vara,"limbs_at_sunrise":calendar_limbs_json(result.limbs_at_sunrise),"transitions":transitions}),
@@ -708,7 +709,7 @@ fn calendar_panchangam_day(input: &Value) -> Result<Value, String> {
         CalendarDefinition::VakyaCivil => {
             let context = vakya_civil_context(&object["context"])?;
             let date = calendar_gregorian_date(fields)?;
-            let result = numerals::vakya_panchangam_day(date, context)?;
+            let result = calendar::vakya_panchangam_day(date, context)?;
             let transitions = result.transitions.iter().map(|event| json!({"limb":event.limb,"from_index":event.from_index,"to_index":event.to_index,"day_offset":event.day_offset,"minute_of_day":event.minute_of_day})).collect::<Vec<_>>();
             Ok(
                 json!({"definition_id":result.definition_id,"date":calendar_gregorian_json(result.date),"sunrise_minute_of_day":result.sunrise_minute_of_day,"sunrise_basis":result.sunrise_basis,"sunset_minute_of_day":result.sunset_minute_of_day,"sunset_status":result.sunset_status,"vara":result.vara,"limbs_at_sunrise":vakya_limbs_json(result.limbs_at_sunrise),"transitions":transitions}),
@@ -735,7 +736,7 @@ fn calendar_daylight_periods(input: &Value) -> Result<Value, String> {
     let date = calendar_gregorian_date(calendar_date_fields(&object["date"], false)?)?;
     match calendar_definition(&object["definition_id"])? {
         CalendarDefinition::Thirukanitham => {
-            let result = numerals::thirukanitham_daylight_periods(
+            let result = calendar::thirukanitham_daylight_periods(
                 date,
                 calendar_context(&object["context"])?,
             )?;
@@ -782,7 +783,7 @@ fn calendar_lunar_phase_events(input: &Value) -> Result<Value, String> {
     }
     let start = calendar_integer(&object["start_unix_seconds"])?;
     let end = calendar_integer(&object["end_unix_seconds"])?;
-    let events = numerals::thirukanitham_lunar_phase_events(start, end)?
+    let events = calendar::thirukanitham_lunar_phase_events(start, end)?
         .into_iter()
         .map(|event| {
             json!({
@@ -799,7 +800,7 @@ fn calendar_lunar_phase_events(input: &Value) -> Result<Value, String> {
         })
         .collect::<Vec<_>>();
     Ok(json!({
-        "definition_id":numerals::thirukanitham_profile_info().definition_id,
+        "definition_id":calendar::thirukanitham_profile_info().definition_id,
         "events":events
     }))
 }
@@ -1039,7 +1040,7 @@ fn vakya_solar_transits(input: &Value) -> Result<Value, String> {
         return Err("unsupported calendar definition".into());
     }
     let saka_year_elapsed = calendar_integer(&object["saka_year_elapsed"])?;
-    let year = numerals::vakya_solar_transits(saka_year_elapsed)?;
+    let year = calendar::vakya_solar_transits(saka_year_elapsed)?;
     Ok(json!({
         "definition_id": year.definition_id,
         "saka_year_elapsed": year.saka_year_elapsed,
@@ -1079,8 +1080,8 @@ fn vakya_true_sun_from_mesha_elapsed(input: &Value) -> Result<Value, String> {
     let elapsed_days = calendar_integer(&object["elapsed_days"])?;
     let nadi = calendar_integer(&object["nadi"])?;
     let vinadi = calendar_integer(&object["vinadi"])?;
-    let result = numerals::vakya_true_sun_from_mesha_elapsed(elapsed_days, nadi, vinadi)?;
-    let angle = |value: numerals::DmsAngle| json!({"degrees":value.degrees,"minutes":value.minutes,"seconds":value.seconds});
+    let result = calendar::vakya_true_sun_from_mesha_elapsed(elapsed_days, nadi, vinadi)?;
+    let angle = |value: calendar::DmsAngle| json!({"degrees":value.degrees,"minutes":value.minutes,"seconds":value.seconds});
     Ok(json!({
         "definition_id": result.definition_id,
         "elapsed_from_mesha": {
@@ -1109,8 +1110,8 @@ fn vakya_true_moon_from_kali_day(input: &Value) -> Result<Value, String> {
         return Err("unsupported calendar definition".into());
     }
     let kali_day = calendar_integer(&object["kali_day"])?;
-    let result = numerals::vakya_true_moon_from_kali_day(kali_day)?;
-    let rasi_angle = |value: numerals::RasiDmsAngle| json!({"rasi":value.rasi,"degrees":value.degrees,"minutes":value.minutes,"seconds":value.seconds});
+    let result = calendar::vakya_true_moon_from_kali_day(kali_day)?;
+    let rasi_angle = |value: calendar::RasiDmsAngle| json!({"rasi":value.rasi,"degrees":value.degrees,"minutes":value.minutes,"seconds":value.seconds});
     let daily_motion = result.daily_motion;
     Ok(json!({
         "definition_id": result.definition_id,
@@ -1168,13 +1169,13 @@ fn vakya_reduce_to_local_true_sunrise(input: &Value) -> Result<Value, String> {
     };
     let position = read_angle_fields(&object["true_position"], true)?;
     let daily_motion = read_angle_fields(&object["daily_motion"], false)?;
-    let true_position = numerals::RasiDmsAngle {
+    let true_position = calendar::RasiDmsAngle {
         rasi: u8::try_from(position[0]).map_err(|_| "invalid calendar angle")?,
         degrees: u8::try_from(position[1]).map_err(|_| "invalid calendar angle")?,
         minutes: u8::try_from(position[2]).map_err(|_| "invalid calendar angle")?,
         seconds: u8::try_from(position[3]).map_err(|_| "invalid calendar angle")?,
     };
-    let daily_motion = numerals::DmsAngle {
+    let daily_motion = calendar::DmsAngle {
         degrees: daily_motion[0],
         minutes: u8::try_from(daily_motion[1]).map_err(|_| "invalid calendar angle")?,
         seconds: u8::try_from(daily_motion[2]).map_err(|_| "invalid calendar angle")?,
@@ -1182,14 +1183,14 @@ fn vakya_reduce_to_local_true_sunrise(input: &Value) -> Result<Value, String> {
     let cara = calendar_integer(&object["cara_half_vinadi_tenths"])?;
     let desantara = calendar_integer(&object["desantara_vinadi_tenths"])?;
     let bhujaantara = calendar_integer(&object["bhujaantara_vinadi_tenths"])?;
-    let result = numerals::vakya_reduce_to_local_true_sunrise(
+    let result = calendar::vakya_reduce_to_local_true_sunrise(
         true_position,
         daily_motion,
         cara,
         desantara,
         bhujaantara,
     )?;
-    let rasi_angle = |value: numerals::RasiDmsAngle| json!({"rasi":value.rasi,"degrees":value.degrees,"minutes":value.minutes,"seconds":value.seconds});
+    let rasi_angle = |value: calendar::RasiDmsAngle| json!({"rasi":value.rasi,"degrees":value.degrees,"minutes":value.minutes,"seconds":value.seconds});
     Ok(json!({
         "definition_id": result.definition_id,
         "true_position": rasi_angle(result.true_position),
@@ -1235,15 +1236,15 @@ fn vakya_cara_from_sayana_sun(input: &Value) -> Result<Value, String> {
         return Err("invalid calendar input".into());
     }
     let read = |field: &str| -> Result<i64, String> { calendar_integer(&angle[field]) };
-    let sayana_sun = numerals::RasiDmsAngle {
+    let sayana_sun = calendar::RasiDmsAngle {
         rasi: u8::try_from(read("rasi")?).map_err(|_| "invalid calendar angle")?,
         degrees: u8::try_from(read("degrees")?).map_err(|_| "invalid calendar angle")?,
         minutes: u8::try_from(read("minutes")?).map_err(|_| "invalid calendar angle")?,
         seconds: u8::try_from(read("seconds")?).map_err(|_| "invalid calendar angle")?,
     };
     let shadow = calendar_integer(&object["equinoctial_shadow_tenths"])?;
-    let result = numerals::vakya_cara_from_sayana_sun(sayana_sun, shadow)?;
-    let angle = |value: numerals::RasiDmsAngle| {
+    let result = calendar::vakya_cara_from_sayana_sun(sayana_sun, shadow)?;
+    let angle = |value: calendar::RasiDmsAngle| {
         json!({
             "rasi": value.rasi,
             "degrees": value.degrees,
@@ -1275,7 +1276,7 @@ fn vakya_desantara_from_yojana_distance(input: &Value) -> Result<Value, String> 
         return Err("unsupported calendar definition".into());
     }
     let distance = calendar_integer(&object["east_west_distance_tenths_yojana"])?;
-    let result = numerals::vakya_desantara_from_yojana_distance(distance)?;
+    let result = calendar::vakya_desantara_from_yojana_distance(distance)?;
     Ok(json!({
         "definition_id": result.definition_id,
         "east_west_distance_tenths_yojana": result.east_west_distance_tenths_yojana,
@@ -1301,7 +1302,7 @@ fn vakya_bhujaantara_from_true_sun(input: &Value) -> Result<Value, String> {
     let sun_rasi = calendar_integer(&object["sun_rasi"])?;
     let sun_rasi = u8::try_from(sun_rasi).map_err(|_| "invalid calendar angle")?;
     let progress = calendar_integer(&object["sun_rasi_progress_arcseconds"])?;
-    let result = numerals::vakya_bhujaantara_from_true_sun(sun_rasi, progress)?;
+    let result = calendar::vakya_bhujaantara_from_true_sun(sun_rasi, progress)?;
     Ok(json!({
         "definition_id": result.definition_id,
         "sun_rasi": result.sun_rasi,
@@ -1700,3 +1701,5 @@ mod tests {
         assert!(execute_json("invalid JSON").is_err());
     }
 }
+
+

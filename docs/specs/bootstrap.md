@@ -89,12 +89,11 @@ vectors are active following the owner's explicit activation approval, and
 execute unchanged across the real runtimes. Six bounded Rust
 properties exercise decimal, money, traditional integer, ratio/percent and
 Gregorian invariants. These additions do not establish complete Tamil numeral
-usage. The separate
-[calendar completion plan](numerals-completion-plan.md) still requires both
-Thirukanitham and Vakiya plus sourced observance and holiday data. A bounded
-Thirukanitham implementation is in the worktree; its suite remains planned and
-it is not counted as active coverage. Vakiya has historical arithmetic kernels
-and a bounded Ujjain mean-sunrise Gregorian-date and five-limb profile; its
+usage. Calendar systems are maintained in the dedicated `tamil-calendar` crate,
+incorporating Thirukanitham and Vakiya engines plus sourced observance and holiday
+data. A bounded Thirukanitham implementation is in the worktree; its suite remains
+planned and it is not counted as active coverage. Vakiya has historical arithmetic
+kernels and a bounded Ujjain mean-sunrise Gregorian-date and five-limb profile; its
 suites also remain planned. Arbitrary-location Vakiya and true local daylight
 remain unfinished.
 
