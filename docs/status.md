@@ -418,12 +418,11 @@ invalid decimal values precede invalid display options. `git diff --check`
 passed. Canonical root lexicons and release-copy registration were inspected.
 The owner explicitly answered "Approve v0.3 activation" on 2026-11-01 after
 being presented with the contract and repair evidence. The suite is now active.
-The full calendar milestone remains incomplete. Both implemented profile
-definitions and their acceptance evidence remain planned pending separate
-calendar review and owner approval. The six Vakiya kernel suites now have a
-separate nine-row civil-profile suite; together 106 Vakiya rows remain
-planned. Thirukanitham has an 18-row calendar suite and a five-row lunar-phase
-suite; neither is active.
+The full calendar milestone remains in progress. Phase 1 civil and tabular calendar suites
+(`calendar_year_cycle`, `calendar_official_holidays`, `calendar_tamil_display`, and
+`calendar_thiruvalluvar_year`) are now active (35,890 total active vectors). All 4 suites
+pass across Rust, Python, and WebAssembly with verified multi-runtime parity. The astronomical
+ephemeris, Vakiya planetary transits, and religious observance suites remain planned under P2/P3.
 
 Post-activation default verification passed without the planned-suite override:
 `just agent-pre-stop-gate` (32 Rust tests, doctests, 121 harness tests, rebuilt

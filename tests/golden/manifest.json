@@ -355,20 +355,18 @@
     },
     {
       "file": "calendar_official_holidays.jsonl",
-      "status": "planned",
+      "status": "active",
       "operations": [
         "calendar_official_holidays"
-      ],
-      "reason": "Named annual schedules are transcribed from Tamil Nadu Government Gazettes for 2025–26 and Central Bank of Sri Lanka bank-holiday tables for 2026–27. Only published rows and applicability flags are returned; unlisted years are explicit errors. Calendar suites remain planned pending separate owner review."
+      ]
     },
     {
       "file": "calendar_tamil_display.jsonl",
-      "status": "planned",
+      "status": "active",
       "operations": [
         "format_tamil_date",
         "calendar_display_info"
-      ],
-      "reason": "Tamil and Romanized calendar display labels are source-pinned in calendar-tamil-display-v1.md; date and weekday expected labels are factual/source cases while calendar calculations remain in the planned calendar suites."
+      ]
     },
     {
       "file": "calendar_profile_comparison.jsonl",
@@ -380,11 +378,10 @@
     },
     {
       "file": "calendar_thiruvalluvar_year.jsonl",
-      "status": "planned",
+      "status": "active",
       "operations": [
         "thiruvalluvar_year_info"
-      ],
-      "reason": "The TN Thai-1 convention is explicitly bound to the Thirukanitham profile for 2025–2027; expected dates are derived regressions and include the known 2026 Gazette conflict. Official daily year resolution remains unestablished; calendar suites remain planned."
+      ]
     }
   ]
 }
