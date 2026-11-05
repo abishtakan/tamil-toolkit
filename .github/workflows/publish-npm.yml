@@ -104,4 +104,4 @@ jobs:
           else
             npm publish "$TARBALL" --tag "$NPM_TAG"
           fi
-          npm dist-tag add "tamil-toolkit@$VERSION" latest
+          npm dist-tag add "tamil-toolkit@$VERSION" latest || echo "npm dist-tag add latest skipped: trusted publisher cannot manage dist-tags without Allow npm dist-tag enabled in npm settings."
