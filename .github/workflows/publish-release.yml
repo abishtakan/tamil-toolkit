@@ -168,6 +168,7 @@ jobs:
         env:
           TARBALL: ${{ steps.verify.outputs.tarball }}
           NPM_TAG: ${{ steps.verify.outputs.npm_tag }}
+          VERSION: ${{ steps.verify.outputs.version }}
         run: |
           set -euo pipefail
           if python tools/release_policy.py is-published --registry npm --package tamil-toolkit; then
@@ -175,6 +176,7 @@ jobs:
           else
             npm publish "$TARBALL" --tag "$NPM_TAG"
           fi
+          npm dist-tag add "tamil-toolkit@$VERSION" latest
 
   pypi:
     if: ${{ inputs.confirm_publish == 'publish' && github.ref == 'refs/heads/master' }}

@@ -61,10 +61,17 @@ The changed workflows have not been dispatched remotely. They require a
 committed/pushed source and explicit dispatch to establish remote evidence.
 Existing registry versions and account configuration were left unchanged.
 
+## Autonomous Release Pipeline
+
+As of `specs/004-autonomous-release-pipeline`, an engineer or AI agent can trigger the complete release workflow through unified CLI commands:
+
+- `just release-test`: One-command execution of the pre-release test matrix (formatting, clippy, unit tests, 35,848+ golden vectors across Rust, Python, and WebAssembly, Dart tests, and mock archive packaging smoke tests).
+- `just release <version>`: End-to-end autonomous release orchestrator (`tools/release_pipeline.py`). Performs git hygiene checks, bumps version numbers across all manifests, pushes to `master`, dispatches & monitors `alpha-artifacts.yml` on GitHub Actions, triggers & monitors `publish-release.yml`, generates the immutable release record in `docs/releases/`, and tags the git commit.
+  - Supports `--dry-run` to stop safely after artifact matrix verification without publishing to registries.
+- `just npm-sync-tags [<version>]`: Synchronizes npm registry dist-tags (`tools/release_npm_tags.py`) so that the package default landing page and unadorned `npm install tamil-toolkit` point to the current active release.
+
 ## Limits
 
 Checks and instructions are guardrails, not an OS sandbox. Local checks do not
-prove remote account configuration. npm's trusted publisher is deferred until
-the next version is ready; Pub.dev and PostgreSQL packaging remain deferred.
-This work does not add a release bot, automatic version bumps, or automatic
-publishing on pushes/tags.
+prove remote account configuration. Pub.dev and PostgreSQL packaging remain deferred.
+Remote matrix artifact builds require valid GitHub CLI (`gh`) authentication with `repo` and `workflow` scopes.

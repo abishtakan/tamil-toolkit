@@ -121,6 +121,13 @@ def doctor():
         raise RuntimeError("Install or add to PATH: " + ", ".join(missing))
 
 
+def release_test():
+    pre_stop()
+    if shutil.which("dart"):
+        test_dart()
+    run(sys.executable, "tools/release.py", "all")
+
+
 TASKS = {
     "bootstrap": bootstrap,
     "doctor": doctor,
@@ -132,6 +139,7 @@ TASKS = {
     "test-harness": lambda: run(sys.executable, "-m", "pytest", "tests/harness", "-q"),
     "agent-post-edit": post_edit,
     "agent-pre-stop-gate": pre_stop,
+    "release-test": release_test,
 }
 
 

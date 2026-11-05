@@ -61,3 +61,15 @@ agent-post-edit:
 
 agent-pre-stop-gate:
     uv run --locked python tools/tasks.py agent-pre-stop-gate
+
+# Comprehensive pre-release test gate across all runtimes, clippy, golden parity, and packaging smoke checks.
+release-test:
+    uv run --locked python tools/tasks.py release-test
+
+# Autonomous end-to-end release pipeline (testing, version bump, remote matrix build, and publishing).
+release version *flags:
+    uv run --locked python tools/release_pipeline.py release {{version}} {{flags}}
+
+# Ensure npm registry dist-tags reflect the active release on npmjs.com.
+npm-sync-tags *version:
+    uv run --locked python tools/release_npm_tags.py {{version}}

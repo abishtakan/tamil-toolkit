@@ -24,7 +24,15 @@ SMOKE = ROOT / "tools/release_smoke"
 def run(*args, cwd=ROOT, capture=False, env=None):
     executable = shutil.which(str(args[0]))
     if executable is None:
+        home_bin = Path.home() / ".cargo" / "bin" / (f"{args[0]}.exe" if sys.platform == "win32" else str(args[0]))
+        if home_bin.exists():
+            executable = str(home_bin)
+    if executable is None:
         raise RuntimeError(f"Missing executable: {args[0]}")
+    env = (env or os.environ).copy()
+    cargo_bin = Path.home() / ".cargo" / "bin"
+    if cargo_bin.exists() and str(cargo_bin) not in env.get("PATH", "").split(os.pathsep):
+        env["PATH"] = f"{cargo_bin}{os.pathsep}{env.get('PATH', '')}"
     print("+ " + " ".join(map(str, args)), flush=True)
     result = subprocess.run([executable, *map(str, args[1:])], cwd=cwd, check=True,
                             capture_output=capture, text=True, encoding="utf-8", env=env)
@@ -64,25 +72,29 @@ def rust():
     sync(check=True)
     destination = OUT / "rust"
     destination.mkdir(parents=True, exist_ok=True)
+    all_crates = {p.name: ROOT / "crates" / p.name for p in (ROOT / "crates").iterdir() if (p / "Cargo.toml").is_file()}
+    package_targets = (*PUBLIC, "tamil-calendar")
     with tempfile.TemporaryDirectory(prefix="tamil-alpha-rust-") as directory:
         temp = Path(directory)
         config = temp / "patches.toml"
-        config.write_text(patches({name: ROOT / "crates" / name for name in PUBLIC}), encoding="utf-8")
-        selections = [item for name in PUBLIC for item in ("-p", name)]
+        config.write_text(patches(all_crates), encoding="utf-8")
+        selections = [item for name in package_targets for item in ("-p", name)]
         # Unpublished siblings cannot resolve from crates.io yet. These patches
         # affect local verification only; normalized archives keep registry versions.
         run("cargo", "package", *selections, "--allow-dirty", "--config", config)
         extracted = {}
-        for name in PUBLIC:
+        for name in package_targets:
             archive = ROOT / "target/package" / f"{name}-{VERSION}.crate"
-            shutil.copy2(archive, destination / archive.name)
+            if name in PUBLIC:
+                shutil.copy2(archive, destination / archive.name)
             with tarfile.open(archive) as package:
                 package.extractall(temp / "crates", filter="data")
             extracted[name] = temp / "crates" / f"{name}-{VERSION}"
             manifest = tomllib.loads((extracted[name] / "Cargo.toml").read_text(encoding="utf-8"))
-            assert manifest["package"]["license"] == "MIT"
-            for file in ("LICENSE", "README.md", "THIRD_PARTY_NOTICES.md"):
-                assert (extracted[name] / file).is_file(), (name, file)
+            if name in PUBLIC:
+                assert manifest["package"]["license"] == "MIT"
+                for file in ("LICENSE", "README.md", "THIRD_PARTY_NOTICES.md"):
+                    assert (extracted[name] / file).is_file(), (name, file)
             for dependency in manifest.get("dependencies", {}).values():
                 assert "path" not in dependency, f"Published path dependency in {name}"
         consumer = temp / "consumer"
@@ -125,13 +137,14 @@ def licenses():
 def stage_python(destination):
     """Minimal workspace; prune omitted members without changing locked releases."""
     destination.mkdir(parents=True)
-    for name in PUBLIC:
+    stage_crates = (*PUBLIC, "tamil-calendar")
+    for name in stage_crates:
         shutil.copytree(ROOT / "crates" / name, destination / "crates" / name,
                         ignore=shutil.ignore_patterns("tests", "target"))
     shutil.copytree(ROOT / "bindings/python", destination / "bindings/python",
                     ignore=shutil.ignore_patterns("tests", "__pycache__", "*.pyd", "*.so", "*.pdb", "*.egg-info"))
     manifest = (ROOT / "Cargo.toml").read_text(encoding="utf-8")
-    members = json.dumps([f"crates/{name}" for name in PUBLIC] + ["bindings/python"])
+    members = json.dumps([f"crates/{name}" for name in stage_crates] + ["bindings/python"])
     manifest = manifest.replace(
         'members = ["crates/*", "bindings/python", "bindings/js-wasm", "bindings/dart-flutter/rust"]',
         "members = " + members)

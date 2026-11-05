@@ -243,7 +243,7 @@ def verify(registry, directory, source_sha, package=None, dist=None, root=ROOT):
                     "npm archive metadata/channel mismatch")
             archives.append(paths[0])
         require(archives[0].read_bytes() == archives[1].read_bytes(), "Node 22/24 tarballs differ")
-        output.update(tarball=str(archives[1]), npm_tag=policy["npm_tag"])
+        output.update(tarball=str(archives[1]), npm_tag=policy["npm_tag"], version=policy["version"])
     elif registry == "pypi":
         selected = []
         for platform, suffix in (("linux", "manylinux2014_x86_64.manylinux_2_17_x86_64"),

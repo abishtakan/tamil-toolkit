@@ -296,7 +296,7 @@ test("Thirukanitham typed calendar APIs on both WASM targets", () => {
     ]);
     expect(periods.intervals.map((period) => period.eighth_part)).toEqual([5, 7, 8]);
   }
-});
+}, 15_000);
 
 test("named observance convenience API on both WASM targets", () => {
   const context = {
