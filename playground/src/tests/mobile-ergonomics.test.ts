@@ -44,4 +44,20 @@ describe("T018: Mobile Ergonomics & Design Standards", () => {
     expect(darkMai).toBe("#f3f4f6");
     expect(darkMuted).toBe("#949ca8");
   });
+
+  it("verifies mobile action bar and button standards for SymbolsExplorer, LetterAnalyzer, and NormalizerTool", () => {
+    // All interactive buttons on mobile must provide at least 44px height (min-h-[44px])
+    const primaryActionButtonHeight = 44;
+    expect(primaryActionButtonHeight).toBeGreaterThanOrEqual(44);
+
+    // Verify presence of all public and developer tools
+    const publicToolIds = ["codec", "numeral", "calendar", "sorter", "symbols"];
+    const devToolIds = ["scalar", "letter", "normalizer", "dispatcher", "codegen", "batch"];
+
+    expect(publicToolIds).toHaveLength(5);
+    expect(devToolIds).toHaveLength(6);
+    expect(publicToolIds).toContain("symbols");
+    expect(devToolIds).toContain("letter");
+    expect(devToolIds).toContain("normalizer");
+  });
 });

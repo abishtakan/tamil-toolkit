@@ -6,7 +6,10 @@ import { CodecConverter } from "./components/public-tools/CodecConverter";
 import { NumeralFormatter } from "./components/public-tools/NumeralFormatter";
 import { CalendarExplorer } from "./components/public-tools/CalendarExplorer";
 import { TextSorter } from "./components/public-tools/TextSorter";
+import { SymbolsExplorer } from "./components/public-tools/SymbolsExplorer";
 import { ScalarInspector } from "./components/developer-tools/ScalarInspector";
+import { LetterAnalyzer } from "./components/developer-tools/LetterAnalyzer";
+import { NormalizerTool } from "./components/developer-tools/NormalizerTool";
 import { DispatcherSandbox } from "./components/developer-tools/DispatcherSandbox";
 import { CodeGenerator } from "./components/developer-tools/CodeGenerator";
 import { BatchProcessor } from "./components/developer-tools/BatchProcessor";
@@ -22,6 +25,8 @@ import {
   Banknote,
   Calendar,
   ArrowDownAZ,
+  BookOpen,
+  ShieldCheck,
   Cpu,
   Terminal,
   Code2,
@@ -187,7 +192,8 @@ export function App() {
                 { id: "codec", label: t.tools.codec.title, icon: Type },
                 { id: "numeral", label: t.tools.numeral.title, icon: Banknote },
                 { id: "calendar", label: t.tools.calendar.title, icon: Calendar },
-                { id: "sorter", label: t.tools.sorter.title, icon: ArrowDownAZ }
+                { id: "sorter", label: t.tools.sorter.title, icon: ArrowDownAZ },
+                { id: "symbols", label: t.tools.symbols.title, icon: BookOpen }
               ].map((tool) => {
                 const Icon = tool.icon;
                 const isActive = activePublicTool === tool.id;
@@ -213,6 +219,7 @@ export function App() {
             {activePublicTool === "numeral" && <NumeralFormatter />}
             {activePublicTool === "calendar" && <CalendarExplorer />}
             {activePublicTool === "sorter" && <TextSorter />}
+            {activePublicTool === "symbols" && <SymbolsExplorer />}
           </div>
         )}
 
@@ -222,6 +229,8 @@ export function App() {
             <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
               {[
                 { id: "scalar", label: t.tools.scalar.title, icon: Cpu },
+                { id: "letter", label: t.tools.letter.title, icon: Sparkles },
+                { id: "normalizer", label: t.tools.normalizer.title, icon: ShieldCheck },
                 { id: "dispatcher", label: t.tools.dispatcher.title, icon: Terminal },
                 { id: "codegen", label: t.tools.codegen.title, icon: Code2 },
                 { id: "batch", label: t.tools.batch.title, icon: Files }
@@ -247,6 +256,8 @@ export function App() {
 
             {/* Active Dev Tool View */}
             {activeDevTool === "scalar" && <ScalarInspector />}
+            {activeDevTool === "letter" && <LetterAnalyzer />}
+            {activeDevTool === "normalizer" && <NormalizerTool />}
             {activeDevTool === "dispatcher" && <DispatcherSandbox />}
             {activeDevTool === "codegen" && <CodeGenerator />}
             {activeDevTool === "batch" && <BatchProcessor />}

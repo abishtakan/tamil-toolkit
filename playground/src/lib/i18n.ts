@@ -159,6 +159,67 @@ export interface Translations {
       completedNotice: string;
       formatError: string;
     };
+    symbols: {
+      title: string;
+      desc: string;
+      searchPlaceholder: string;
+      categoryAll: string;
+      categoryFractions: string;
+      categoryLand: string;
+      categoryVolume: string;
+      categoryCurrency: string;
+      symbolDetailsHeading: string;
+      glyphLabel: string;
+      codepointLabel: string;
+      nameLabel: string;
+      rationalLabel: string;
+      decimalLabel: string;
+      periodLabel: string;
+      copySymbolButton: string;
+      quickLookupHeading: string;
+      quickLookupPlaceholder: string;
+      noMatches: string;
+    };
+    letter: {
+      title: string;
+      desc: string;
+      inputPlaceholder: string;
+      inputLabel: string;
+      syllablesCount: string;
+      uyirCount: string;
+      meiCount: string;
+      uyirmeiCount: string;
+      granthaCount: string;
+      selectedSyllableHeading: string;
+      rootConsonantLabel: string;
+      vowelLabel: string;
+      vowelSignLabel: string;
+      codepointsLabel: string;
+      classificationLabel: string;
+      selectPrompt: string;
+    };
+    normalizer: {
+      title: string;
+      desc: string;
+      inputPlaceholder: string;
+      inputLabel: string;
+      outputLabel: string;
+      nfcLabel: string;
+      nfdLabel: string;
+      repairedLabel: string;
+      statusClean: string;
+      statusAnomalies: string;
+      anomaliesFixedLabel: string;
+      copyNormalizedButton: string;
+      diffHeading: string;
+      sampleVowelsButton: string;
+      sampleDefectiveButton: string;
+      codepointInspectorHeading: string;
+      nfcBanner: string;
+      nfdBanner: string;
+      repairedBanner: string;
+      decomposedCountLabel: string;
+    };
   };
 }
 
@@ -319,6 +380,67 @@ export const translations: Record<Language, Translations> = {
         progressLabel: "மாற்றத்தின் முன்னேற்றம்",
         completedNotice: "மாற்றம் வெற்றிகரமாக முடிந்தது!",
         formatError: "ஆதரிக்கப்படாத கோப்பு வடிவம். .txt அல்லது .csv கோப்புகளை மட்டுமே பதிவேற்றவும்."
+      },
+      symbols: {
+        title: "பழந்தமிழ் பின்னங்கள் & குறியீடுகள்",
+        desc: "பழந்தமிழர் பயன்படுத்திய பின்னங்கள் (முந்திரி, காணி, வீசம், கால்), நில அளவை, நாணய மற்றும் தானியக் குறியீடுகளை ஆய்வு செய்க.",
+        searchPlaceholder: "குறியீடு, பெயர் அல்லது மதிப்பைத் தேடுக (எ.கா: காணி, 1/80, முக்கால்)...",
+        categoryAll: "அனைத்தும்",
+        categoryFractions: "பின்னங்கள்",
+        categoryLand: "நில அளவை",
+        categoryVolume: "முகத்தல் அளவை",
+        categoryCurrency: "நாணயம் / எடை",
+        symbolDetailsHeading: "குறியீட்டு விவரங்கள்",
+        glyphLabel: "வரிவடிவம்",
+        codepointLabel: "ஒருங்குறி (Unicode)",
+        nameLabel: "பாரம்பரியப் பெயர்",
+        rationalLabel: "விகித முறிவெண் (Fraction)",
+        decimalLabel: "பதின்ம மதிப்பு (Decimal)",
+        periodLabel: "வரலாற்றுப் பயன்பாடு",
+        copySymbolButton: "குறியீட்டை நகலெடு",
+        quickLookupHeading: "எண் / பின்னத்தைத் தேடுக",
+        quickLookupPlaceholder: "எண்ணை உள்ளிடுக (எ.கா: 0.25 அல்லது 1/4)...",
+        noMatches: "பொருத்தமான குறியீடுகள் எதுவும் கிடைக்கவில்லை"
+      },
+      letter: {
+        title: "சொல் & எழுத்து பகுப்பாய்வி",
+        desc: "தமிழ் சொற்களை உயிர், மெய், உயிர்மெய், ஆய்தம் மற்றும் கிரந்த எழுத்துகளாகப் பிரித்து, அவற்றின் இலக்கணக் கட்டமைப்பை ஆராய்க.",
+        inputPlaceholder: "பகுப்பாய்வு செய்ய வேண்டிய சொற்களை உள்ளிடுக (எ.கா: தமிழ்நாடு, புரட்சி, ஸ்ரீலங்கா)...",
+        inputLabel: "பகுப்பாய்வு செய்ய வேண்டிய உரை:",
+        syllablesCount: "மொத்த எழுத்துகள்",
+        uyirCount: "உயிர்",
+        meiCount: "மெய்",
+        uyirmeiCount: "உயிர்மெய்",
+        granthaCount: "கிரந்தம்",
+        selectedSyllableHeading: "தேர்ந்தெடுக்கப்பட்ட எழுத்தின் கட்டமைப்பு",
+        rootConsonantLabel: "அடிப்படை மெய்யெழுத்து",
+        vowelLabel: "இணைந்த உயிரெழுத்து",
+        vowelSignLabel: "உயிர்மெய்க் குறியீடு (வடிவம்)",
+        codepointsLabel: "ஒருங்குறித் தொடர்",
+        classificationLabel: "இலக்கண வகை",
+        selectPrompt: "விவரங்களைக் காண மேலே உள்ள ஓர் எழுத்தைக் கிளிக் செய்க"
+      },
+      normalizer: {
+        title: "ஒருங்குறி சீரமைப்பி",
+        desc: "பிழையான புள்ளி, உடைந்த உயிர்மெய்க் குறிகள் மற்றும் தேவையற்ற குறியீடுகளைச் சரிசெய்து, தூய தமிழ் ஒருங்குறியாக மாற்றுக.",
+        inputPlaceholder: "சீரமைக்க வேண்டிய தமிழ் உரையை உள்ளிடுக...",
+        inputLabel: "மூல உரை (Input):",
+        outputLabel: "வெளியீட்டு உரை (Output):",
+        nfcLabel: "இயல்பு வடிவம் (NFC - பரிந்துரைக்கப்பட்டது)",
+        nfdLabel: "பிரித்த வடிவம் (NFD - Decomposed)",
+        repairedLabel: "பிழைதிருத்தம் (Repaired NFC)",
+        statusClean: "உரையில் எவ்வித ஒருங்குறிப் பிழைகளும் இல்லை (தூய உரை)",
+        statusAnomalies: "ஒருங்குறிப் பிழைகள் கண்டறியப்பட்டு சரிசெய்யப்பட்டன!",
+        anomaliesFixedLabel: "சரிசெய்யப்பட்ட பிழைகள்:",
+        copyNormalizedButton: "வெளியீட்டு உரையை நகலெடு",
+        diffHeading: "சீரமைப்பு ஒப்பீடு",
+        sampleVowelsButton: "இரட்டைக் குறியீடுகள் (கொ, கோ, கௌ)",
+        sampleDefectiveButton: "பிழை உரை மாதிரி",
+        codepointInspectorHeading: "ஒருங்குறி பைட் வரிசை ஆய்வு (Codepoints Inspector)",
+        nfcBanner: "NFC (ஒருங்கிணைந்த வடிவம்): இரட்டைக் குறியீடுகளை (கொம்பு + துணைக்கால்/ளகரம்) ஒற்றைக் குறியீடாக (ொ, ோ, ௌ) இணைத்துத் தருகிறது.",
+        nfdBanner: "NFD (பிரித்த வடிவம்): இரட்டை உயிர்மெய்க் குறிகளை (ொ, ோ, ௌ) அவற்றின் அடிப்படைக் கொம்பு (ெ/ே) மற்றும் துணைக்கால்/ளகரக் கூறுகளாகப் (ா/ௗ) பிரிக்கிறது. உலாவி எழுத்துருவில் இரண்டும் ஒரே மாதிரி தெரிந்தாலும், கீழே உள்ள Codepoints ஆய்வில் பைட் வரிசை வேறுபாட்டைக் காணலாம்.",
+        repairedBanner: "தூய பிழைதிருத்தம்: இரட்டைப் புள்ளிகள் சுருக்கப்பட்டு, மறைமுகத் தேவையற்ற குறியீடுகள் நீக்கப்பட்டு, தூய NFC வடிவில் தரப்பட்டுள்ளது.",
+        decomposedCountLabel: "இரட்டை உயிர்மெய்க் கூறுகள் பிரிக்கப்பட்டன"
       }
     }
   },
@@ -478,6 +600,67 @@ export const translations: Record<Language, Translations> = {
         progressLabel: "Conversion Progress",
         completedNotice: "Batch conversion complete!",
         formatError: "Unsupported file format. Please upload .txt or .csv files."
+      },
+      symbols: {
+        title: "Traditional Fractions & Symbols",
+        desc: "Explore classical Tamil fractions (Munthiri, Kani, Veesam, Kal), land area, currency, and volume measurement glyphs.",
+        searchPlaceholder: "Search by glyph, name, or value (e.g. Kani, 1/80, 0.75)...",
+        categoryAll: "All Glyphs",
+        categoryFractions: "Fractions",
+        categoryLand: "Land Measures",
+        categoryVolume: "Volume Measures",
+        categoryCurrency: "Currency / Weight",
+        symbolDetailsHeading: "Symbol Inspector",
+        glyphLabel: "Glyph",
+        codepointLabel: "Unicode Codepoint",
+        nameLabel: "Classical Name",
+        rationalLabel: "Rational Fraction",
+        decimalLabel: "Decimal Value",
+        periodLabel: "Historical Context",
+        copySymbolButton: "Copy Glyph",
+        quickLookupHeading: "Number to Fraction Lookup",
+        quickLookupPlaceholder: "Enter number or fraction (e.g. 0.25 or 1/4)...",
+        noMatches: "No matching traditional symbols found"
+      },
+      letter: {
+        title: "Letter & Syllable Analyzer",
+        desc: "Deconstruct Tamil words into vowels (உயிர்), consonants (மெய்), composite syllables (உயிர்மெய்), and Grantha loan letters.",
+        inputPlaceholder: "Type or paste words to analyze (e.g. தமிழ்நாடு, புரட்சி, ஸ்ரீலங்கா)...",
+        inputLabel: "Text to Analyze:",
+        syllablesCount: "Total Syllables",
+        uyirCount: "Vowels (உயிர்)",
+        meiCount: "Consonants (மெய்)",
+        uyirmeiCount: "Composite (உயிர்மெய்)",
+        granthaCount: "Grantha (கிரந்தம்)",
+        selectedSyllableHeading: "Syllable Structure Breakdown",
+        rootConsonantLabel: "Root Consonant (மெய்)",
+        vowelLabel: "Associated Vowel (உயிர்)",
+        vowelSignLabel: "Vowel Sign Glyph",
+        codepointsLabel: "Unicode Sequence",
+        classificationLabel: "Grammatical Category",
+        selectPrompt: "Click any syllable above to view its morphological breakdown"
+      },
+      normalizer: {
+        title: "Unicode Text Normalizer",
+        desc: "Audit and repair broken diacritics, anomalous pulli marks, and non-canonical sequences into clean Tamil Unicode.",
+        inputPlaceholder: "Paste Tamil text to audit and normalize...",
+        inputLabel: "Raw Input Text:",
+        outputLabel: "Normalized Unicode (Output):",
+        nfcLabel: "Canonical Composition (NFC - Recommended)",
+        nfdLabel: "Canonical Decomposition (NFD)",
+        repairedLabel: "Clean & Repaired (NFC)",
+        statusClean: "Text is in clean canonical Unicode standard (0 anomalies)",
+        statusAnomalies: "Encoding anomalies detected and repaired!",
+        anomaliesFixedLabel: "Repairs Performed:",
+        copyNormalizedButton: "Copy Clean Text",
+        diffHeading: "Normalization Diff",
+        sampleVowelsButton: "Two-Part Vowels (கொ, கோ, கௌ)",
+        sampleDefectiveButton: "Corrupted Text Sample",
+        codepointInspectorHeading: "Unicode Codepoint Inspector",
+        nfcBanner: "NFC (Canonical Composition): Composes split two-part vowel sequences into single canonical Unicode characters (ொ, ோ, ௌ) for standard storage and database queries.",
+        nfdBanner: "NFD (Canonical Decomposition): Decomposes two-part vowel signs (ொ, ோ, ௌ) into constituent kombu (ெ/ே) and auxiliary glyphs (ா/ௗ). While rendered identically by Tamil fonts, inspect the Codepoints breakdown below to verify byte-level decomposition.",
+        repairedBanner: "Clean & Repaired: Collapses duplicate pulli marks, strips stray invisible format controls (ZWJ/ZWNJ/BOM), and emits canonical NFC.",
+        decomposedCountLabel: "Two-part vowel signs decomposed"
       }
     }
   }

@@ -9,6 +9,20 @@ An authentic, zero-latency linguistic workbench and developer playground for Tam
 The playground UI rejects generic SaaS templates, neon gradients, and AI-generated design slop. Instead, it embodies **human-crafted, authentic Tamil linguistic materiality** and high-density utilitarian engineering:
 
 - **Asymmetric Workbench Hierarchy**: Primary tools (such as Legacy Font & Encoding Converter) receive visual prominence, while secondary diagnostics are arranged into an integrated developer console.
+- **Tools Suite**:
+  - **Public Utilities**:
+    1. *எழுத்துரு மாற்றி* (`codec`): Legacy Font & Encoding Converter (Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM).
+    2. *எண் - சொல் & நாணயம்* (`numeral`): Tamil Numeral, Cheque Legal Words & Financial Notation Formatter.
+    3. *நாட்காட்டி & பஞ்சாங்கம்* (`calendar`): Classical Thirukanitham & Vakya Solar Calendar Explorer.
+    4. *அகர வரிசை* (`sorter`): Classical Tamil Agara Varisai Word Sorter.
+    5. *பழந்தமிழ் பின்னங்கள் & குறியீடுகள்* (`symbols`): Traditional Fractions (முந்திரி to முக்கால்) and Epigraphical Measurement Glyph Explorer.
+  - **Developer Diagnostics**:
+    1. *ஒருங்குறி ஆய்வகம்* (`scalar`): Unicode Scalar & Invisible Joiner Code Inspector.
+    2. *சொல் & எழுத்து பகுப்பாய்வி* (`letter`): Grapheme Cluster & Morphological Syllable (உயிர், மெய், உயிர்மெய், கிரந்தம்) Decomposer.
+    3. *ஒருங்குறி சீரமைப்பி* (`normalizer`): Unicode NFC/NFD Canonical Normalizer & Digital Diacritic Anomaly Repair.
+    4. *நேரடி ஆய்வகம்* (`dispatcher`): Raw JSON WebAssembly Dispatcher Console.
+    5. *நிரல் குறிமுறை உருவாக்கி* (`codegen`): Polyglot SDK Generator (Rust, Python, TypeScript, Dart).
+    6. *கோப்புத் தொகுதி மாற்றி* (`batch`): Background Web Worker Document Batch Processor.
 - **De-AI-ified Interactions (Un-slop)**: 
   - Strictly **no** `scale-105` or bouncy hover physics.
   - State changes use crisp **1px hairline border color transitions** (`border-[var(--color-semman)]`, `border-[var(--color-sandhanam)]`) over a responsive 120–150ms duration.

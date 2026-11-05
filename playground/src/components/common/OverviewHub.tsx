@@ -8,6 +8,9 @@ import {
   Code2,
   Files,
   Cpu,
+  BookOpen,
+  Sparkles,
+  ShieldCheck,
   ArrowRight
 } from "lucide-react";
 
@@ -152,8 +155,8 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
             </div>
           </div>
 
-          {/* Bento Slot 3: Solar Calendar & Panchangam (Col 1-6) */}
-          <div className="lg:col-span-6">
+          {/* Bento Slot 3: Solar Calendar & Panchangam (Col 1-4) */}
+          <div className="lg:col-span-4">
             <div
               onClick={() => onSelectTool("public", "calendar")}
               onKeyDown={(e) => {
@@ -181,7 +184,7 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
                 </p>
 
                 <div className="text-xs font-tamil text-[var(--color-muted)] pt-1">
-                  60-ஆண்டு சுழற்சி • திருக்கணித சூரிய மாதம் • ராகு காலம்
+                  60-ஆண்டு சுழற்சி • திருக்கணித சூரிய மாதம்
                 </div>
               </div>
 
@@ -194,8 +197,8 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
             </div>
           </div>
 
-          {/* Bento Slot 4: Agara Varisai Sorter (Col 7-12) */}
-          <div className="lg:col-span-6">
+          {/* Bento Slot 4: Agara Varisai Sorter (Col 5-8) */}
+          <div className="lg:col-span-4">
             <div
               onClick={() => onSelectTool("public", "sorter")}
               onKeyDown={(e) => {
@@ -223,7 +226,7 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
                 </p>
 
                 <div className="text-xs font-tamil text-[var(--color-muted)] pt-1">
-                  அகரவரிசை மரபு: உயிர் (அ..ஔ) → மெய் (க்..ன்) → உயிர்மெய்
+                  அகரவரிசை: உயிர் (அ..ஔ) → மெய் → உயிர்மெய்
                 </div>
               </div>
 
@@ -232,6 +235,51 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
                   {t.hub.launchTool}
                 </span>
                 <ArrowRight className="w-4 h-4 text-[var(--color-semman)]" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bento Slot 5: Traditional Fractions & Symbols (Col 9-12) */}
+          <div className="lg:col-span-4">
+            <div
+              onClick={() => onSelectTool("public", "symbols")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelectTool("public", "symbols");
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              className="h-full border border-[var(--border-line)] hover:border-[var(--color-sandhanam)] bg-[var(--bg-surface)] hover:bg-[var(--bg-raised)]/30 rounded-2xl p-6 flex flex-col justify-between transition-colors duration-150 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-sandhanam)] active:scale-[0.99]"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--color-sandhanam-light)] text-[var(--color-sandhanam)] flex items-center justify-center shrink-0">
+                    <BookOpen className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-tamil font-bold text-[var(--color-mai)]">
+                    {t.tools.symbols.title}
+                  </h3>
+                </div>
+
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans leading-relaxed">
+                  {t.tools.symbols.desc}
+                </p>
+
+                <div className="rounded-xl bg-[var(--bg-raised)] p-2.5 border border-[var(--border-line)] flex items-center justify-around font-tamil font-bold text-base text-[var(--color-mai)]">
+                  <span>𑿀 (1/80)</span>
+                  <span>𑿈 (1/16)</span>
+                  <span>𑿒 (1/4)</span>
+                  <span>𑿔 (3/4)</span>
+                </div>
+              </div>
+
+              <div className="pt-4 flex items-center justify-between border-t border-[var(--border-line)] mt-4">
+                <span className="text-xs font-semibold text-[var(--color-sandhanam)] font-tamil">
+                  {t.hub.launchTool}
+                </span>
+                <ArrowRight className="w-4 h-4 text-[var(--color-sandhanam)]" />
               </div>
             </div>
           </div>
@@ -273,6 +321,70 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
                 </h4>
                 <p className="text-xs text-[var(--color-muted)] font-tamil-sans line-clamp-1 mt-0.5">
                   {t.tools.scalar.desc}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 self-end sm:self-center text-xs font-tamil text-[var(--color-sandhanam)] font-semibold shrink-0">
+              <span>{t.actions.inspect}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
+
+          {/* Diagnostic Item: Letter & Syllable Analyzer */}
+          <div
+            onClick={() => onSelectTool("dev", "letter")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectTool("dev", "letter");
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[var(--bg-raised)]/50 transition-colors duration-120 cursor-pointer focus-visible:outline-none focus-visible:bg-[var(--bg-raised)]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-[var(--bg-raised)] text-[var(--color-sandhanam)] border border-[var(--border-line)] flex items-center justify-center shrink-0">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-sm font-tamil font-bold text-[var(--color-mai)]">
+                  {t.tools.letter.title}
+                </h4>
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans line-clamp-1 mt-0.5">
+                  {t.tools.letter.desc}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 self-end sm:self-center text-xs font-tamil text-[var(--color-sandhanam)] font-semibold shrink-0">
+              <span>{t.actions.inspect}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
+
+          {/* Diagnostic Item: Unicode Text Normalizer */}
+          <div
+            onClick={() => onSelectTool("dev", "normalizer")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectTool("dev", "normalizer");
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[var(--bg-raised)]/50 transition-colors duration-120 cursor-pointer focus-visible:outline-none focus-visible:bg-[var(--bg-raised)]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-[var(--bg-raised)] text-[var(--color-sandhanam)] border border-[var(--border-line)] flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-sm font-tamil font-bold text-[var(--color-mai)]">
+                  {t.tools.normalizer.title}
+                </h4>
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans line-clamp-1 mt-0.5">
+                  {t.tools.normalizer.desc}
                 </p>
               </div>
             </div>
