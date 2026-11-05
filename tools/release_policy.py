@@ -692,7 +692,7 @@ was published by {npm_run_str}
 using the configured OIDC trusted publisher. The published tarball matches the
 reviewed Node 22 and Node 24 tarballs byte for byte; SHA-256:
 `{npm_sha256}`.
-The `{policy["npm_tag"]}` tag points to `{version}`; `latest` remains on alpha 1.
+The `{policy["npm_tag"]}` and `latest` tags point to `{version}`.
 
 ### PyPI
 

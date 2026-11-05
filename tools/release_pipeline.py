@@ -17,6 +17,10 @@ REPOSITORY = "abishtakan/tamil-toolkit"
 sys.path.insert(0, str(ROOT / "tools"))
 from release_policy import check, load, parse_version, prepare, release_record
 
+cargo_bin = Path.home() / ".cargo" / "bin"
+if cargo_bin.exists() and str(cargo_bin) not in os.environ.get("PATH", "").split(os.pathsep):
+    os.environ["PATH"] = f"{cargo_bin}{os.pathsep}{os.environ.get('PATH', '')}"
+
 
 def run_command(*args, cwd=ROOT, capture=False, check=True):
     executable = shutil.which(str(args[0]))
