@@ -73,7 +73,7 @@ def rust():
     destination = OUT / "rust"
     destination.mkdir(parents=True, exist_ok=True)
     all_crates = {p.name: ROOT / "crates" / p.name for p in (ROOT / "crates").iterdir() if (p / "Cargo.toml").is_file()}
-    package_targets = (*PUBLIC, "tamil-calendar")
+    package_targets = tuple(dict.fromkeys((*PUBLIC, "tamil-calendar")))
     with tempfile.TemporaryDirectory(prefix="tamil-alpha-rust-") as directory:
         temp = Path(directory)
         config = temp / "patches.toml"
@@ -137,7 +137,7 @@ def licenses():
 def stage_python(destination):
     """Minimal workspace; prune omitted members without changing locked releases."""
     destination.mkdir(parents=True)
-    stage_crates = (*PUBLIC, "tamil-calendar")
+    stage_crates = tuple(dict.fromkeys((*PUBLIC, "tamil-calendar")))
     for name in stage_crates:
         shutil.copytree(ROOT / "crates" / name, destination / "crates" / name,
                         ignore=shutil.ignore_patterns("tests", "target"))
