@@ -348,11 +348,10 @@
     },
     {
       "file": "calendar_year_cycle.jsonl",
-      "status": "planned",
+      "status": "active",
       "operations": [
         "tamil_year_cycle_info"
-      ],
-      "reason": "The 1889 South Indian chronological table provides a numbered 60-title sequence and solar-year anchor; the 1941 Census and CICT table independently cross-check year labels. Error vectors cover invalid ranges/context. Calendar fixtures remain planned pending separate owner review."
+      ]
     },
     {
       "file": "calendar_official_holidays.jsonl",

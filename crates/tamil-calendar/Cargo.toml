@@ -3,10 +3,12 @@ name = "tamil-calendar"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
-publish = false
+publish = ["crates-io"]
 license.workspace = true
 repository.workspace = true
 readme = "README.md"
+documentation = "https://docs.rs/tamil-calendar/0.1.0-alpha.6"
+include = ["src/**", "build*.rs", "lexicon/*.toml", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"]
 description = "Tamil calendar systems, Thirukanitham, Vakiya, panchangam, and observances"
 
 [dependencies]

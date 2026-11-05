@@ -30,6 +30,16 @@ INPUTS = {
         "calendar-official-holidays.toml",
         "calendar-observances.toml",
     ),
+    "tamil-calendar": (
+        "calendar-vakya-solar.toml",
+        "calendar-vakya-moon.toml",
+        "calendar-vakya-civil.toml",
+        "calendar-thirukanitham.toml",
+        "calendar-solar-year-cycle.toml",
+        "calendar-tamil-display.toml",
+        "calendar-official-holidays.toml",
+        "calendar-observances.toml",
+    ),
     "tamil-codec": ("bamini.toml", "tscii.toml", "tab.toml", "tam.toml", "anjal.toml", "lt_tm.toml", "vanavil.toml"),
 }
 SUMMARIES = {
@@ -37,6 +47,7 @@ SUMMARIES = {
     "tamil-norm": "NFC and NFD normalization for Tamil and mixed-script text, with joiners preserved.",
     "tamil-collate": "Versioned Mei-first Agara dictionary ordering and canonical sort/search keys.",
     "tamil-numerals": "Bounded TN/SL number words, exact decimal and INR/LKR strings, Unicode 17 symbols, traditional numerals, fractions, Gregorian civil arithmetic, bounded Thirukanitham and classical Vākyakaraṇa calendar profiles, selected TN observance rules, and official annual holiday schedules.",
+    "tamil-calendar": "Tamil calendar systems, Thirukanitham, Vakiya, panchangam, and observances.",
     "tamil-codec": "Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles.",
     "tamil-toolkit": "Unified Rust entry point for Tamil text, ordering, bounded exact numerals, civil arithmetic, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, and legacy conversion APIs.",
 }
@@ -62,6 +73,11 @@ FEATURE_TABLES = {
 | **Fractions and dates** | Rational fractions plus validated Gregorian parsing, weekday, arithmetic, differences, and intervals. |
 | **Tamil calendar** | Bounded Thirukanitham Drik solar-date conversion and five-limb day/instant reports for the declared 2024–2027 TN/SL location ranges; a named Nava Panchangam/Tamil-rule TN subset for Puthandu, Pongal, Bhogi, Mattu Pongal and Amavasya/Pournami Aparahna selection with sunrise fallback; separately sourced annual holiday rows for TN 2025–26 and SL 2026–27. Vakiya and Sri Lanka observances are unsupported, and observance/calendar fixture suites remain planned. |
 | **Historical calendar kernels** | Unreleased source-pinned 1962 Vakiya solar and lunar calculations, including a caller-input local-sunrise correction; calendar fixtures remain planned. |""",
+    "tamil-calendar": """| Area | Capabilities |
+| --- | --- |
+| **Tamil calendar** | Bounded Thirukanitham Drik solar-date conversion and five-limb panchangam. |
+| **Observances** | Tamil Nadu festival rules and official annual holiday schedules. |
+| **Historical kernels** | Classical Vākyakaraṇa solar, lunar, and civil timekeeping algorithms. |""",
     "tamil-codec": """| Area | Capabilities |
 | --- | --- |
 | **Bamini** | Explicit Unicode conversion using the declared Bamini profile. |
@@ -81,6 +97,7 @@ CONTRACTS = {
     "tamil-norm": "docs/specs/core-v0.1.md",
     "tamil-collate": "docs/specs/collate-v0.1.md",
     "tamil-numerals": "docs/specs/numerals-v0.3.md",
+    "tamil-calendar": "docs/specs/calendar-year-cycle-v1.md",
     "tamil-codec": "docs/specs/codec-lt-tm.md",
     "tamil-toolkit": "README.md#capability-contracts",
 }
@@ -116,6 +133,13 @@ fn main() {
 fn main() -> Result<(), String> {
     let amount = tamil_numerals::format_currency(102_550, Currency::LKR, Locale::SL)?;
     println!("{amount}");
+    Ok(())
+}''',
+    "tamil-calendar": '''use tamil_calendar::tamil_year_cycle_info;
+
+fn main() -> Result<(), String> {
+    let year = tamil_year_cycle_info(2026, 1)?;
+    println!("{}: {}", year.cycle_number, year.tamil);
     Ok(())
 }''',
     "tamil-codec": '''use tamil_codec::{bamini_to_unicode, lt_tm_codes_to_unicode, unicode_to_bamini, unicode_to_lt_tm_codes, ErrorPolicy};

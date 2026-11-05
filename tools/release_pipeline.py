@@ -140,44 +140,65 @@ def dispatch_artifact_matrix(head_sha: str, timeout_seconds=1200) -> int:
     return run_id
 
 
-def dispatch_publish_workflow(artifact_run_id: int, source_sha: str, timeout_seconds=600) -> int:
-    """Triggers publish-release.yml on GitHub Actions and streams execution until success."""
-    print(f"=== Dispatching Publish Release Workflow (Artifact ID {artifact_run_id}) ===", flush=True)
-    run_command(
-        "gh", "workflow", "run", "publish-release.yml",
-        "-f", f"artifact_run_id={artifact_run_id}",
-        "-f", f"source_sha={source_sha}",
-        "-f", "confirm_publish=publish"
-    )
+def dispatch_and_watch(workflow_file: str, inputs: dict, label: str, optional=False) -> int:
+    """Dispatches a workflow on GitHub Actions and streams execution until completion."""
+    print(f"\n=== Dispatching {label} ({workflow_file}) ===", flush=True)
+    args = ["gh", "workflow", "run", workflow_file]
+    for k, v in inputs.items():
+        args.extend(["-f", f"{k}={v}"])
+    run_command(*args)
 
-    print("Waiting for publish-release run to register on GitHub...", flush=True)
-    publish_run_id = None
+    print(f"Waiting for {workflow_file} run to register on GitHub...", flush=True)
+    run_id = None
     start_time = time.time()
     while time.time() - start_time < 60:
         time.sleep(5)
         runs_raw = run_command(
-            "gh", "run", "list", "--workflow=publish-release.yml", "--branch=master", "--limit=3",
+            "gh", "run", "list", f"--workflow={workflow_file}", "--branch=master", "--limit=3",
             "--json", "databaseId,status,createdAt", capture=True
         )
         try:
             runs = json.loads(runs_raw)
             if runs:
-                publish_run_id = runs[0]["databaseId"]
+                run_id = runs[0]["databaseId"]
                 break
         except Exception:
             continue
 
-    if not publish_run_id:
-        raise RuntimeError("Could not locate publish-release.yml run on GitHub Actions.")
+    if not run_id:
+        raise RuntimeError(f"Could not locate {workflow_file} run on GitHub Actions.")
 
-    print(f"Publish run registered with ID: {publish_run_id}. Watching execution...", flush=True)
+    print(f"{label} run registered with ID: {run_id}. Watching execution...", flush=True)
     try:
-        run_command("gh", "run", "watch", str(publish_run_id), "--exit-status")
+        run_command("gh", "run", "watch", str(run_id), "--exit-status")
     except subprocess.CalledProcessError as e:
-        raise RuntimeError(f"Publish workflow run {publish_run_id} failed: https://github.com/{REPOSITORY}/actions/runs/{publish_run_id}") from e
+        if optional:
+            print(f"Warning: {label} run {run_id} did not finish cleanly (may require reviewer deployment approval): https://github.com/{REPOSITORY}/actions/runs/{run_id}", flush=True)
+            return run_id
+        raise RuntimeError(f"{label} workflow run {run_id} failed: https://github.com/{REPOSITORY}/actions/runs/{run_id}") from e
 
-    print(f"Publish workflow run {publish_run_id} succeeded!", flush=True)
-    return publish_run_id
+    print(f"{label} workflow run {run_id} succeeded!", flush=True)
+    return run_id
+
+
+def dispatch_publish_workflow(artifact_run_id: int, source_sha: str) -> list[int]:
+    """Dispatches registry publisher workflows (crates.io, npm, PyPI) and monitors execution."""
+    common_inputs = {
+        "artifact_run_id": str(artifact_run_id),
+        "source_sha": source_sha,
+        "confirm_publish": "publish",
+    }
+    # 1. Crates.io
+    crate_inputs = {**common_inputs, "package": "all"}
+    crate_run_id = dispatch_and_watch("publish-crate.yml", crate_inputs, "Publish Crates to crates.io")
+
+    # 2. npm (OIDC trusted publisher)
+    npm_run_id = dispatch_and_watch("publish-npm.yml", common_inputs, "Publish npm package to npmjs.com")
+
+    # 3. PyPI (OIDC trusted publisher)
+    pypi_run_id = dispatch_and_watch("publish-pypi.yml", common_inputs, "Publish Python package to PyPI", optional=True)
+
+    return [crate_run_id, npm_run_id, pypi_run_id]
 
 
 def finalize_release(artifact_run_id: int, version: str, root=ROOT):

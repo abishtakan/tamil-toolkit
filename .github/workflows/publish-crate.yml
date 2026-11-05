@@ -15,7 +15,7 @@ on:
         description: Approved crate name from just release-status (dependency order)
         required: true
         type: choice
-        options: ['all', 'tamil-core', 'tamil-norm', 'tamil-collate', 'tamil-numerals', 'tamil-codec', 'tamil-toolkit']
+        options: ['all', 'tamil-core', 'tamil-norm', 'tamil-collate', 'tamil-numerals', 'tamil-calendar', 'tamil-codec', 'tamil-toolkit']
         default: 'all'
       confirm_publish:
         description: Choose publish after artifact review and release authorization
