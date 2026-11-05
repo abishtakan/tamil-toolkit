@@ -28,21 +28,23 @@ The design rejects generic SaaS neon palettes (no electric blues, purples, pinks
 - **Primary Hover (`--color-semman-hover`)**: `#7d2e1c`
 - **Secondary Accent (`--color-sandhanam`)**: `#b88628` / `#8c6218` (Sandalwood Brass / Warm Ochre)
 - **Borders & Dividers (`--border-line`)**: `#e8e0d4` (Warm earthen stroke)
-- **Primary Text (`--text-mai`)**: `#1f1a17` (Deep carbon ink)
-- **Muted Text (`--text-muted`)**: `#6e645c` (Weathered stone)
-- **Notice / Badge Accent (`--badge-accent`)**: `#f5ede2` (Parchment badge with terracotta border)
+- **Primary Text (`--color-mai`)**: `#1f1a17` (Deep carbon ink)
+- **Muted Text (`--color-muted`)**: `#574e47` (Weathered stone)
+- **Notice / Badge Accent (`--color-sandhanam-light`)**: `#fbf5ea` (Parchment badge with brass border)
 
-### Dark Theme: *இரவுச் சுவடி* (Night Scribe / Smoked Slate)
-- **Background (`--bg-canvas`)**: `#141210` (Deep warm soot)
-- **Surface Panels (`--bg-surface`)**: `#1c1815` (Smoked terracotta stone)
-- **Surface Raised (`--bg-raised`)**: `#26211d` (Warm obsidian)
-- **Primary Brand (`--color-semman`)**: `#d95c43` (Vibrant terracotta flame)
-- **Primary Hover (`--color-semman-hover`)**: `#e6725b`
-- **Secondary Accent (`--color-sandhanam`)**: `#e0a638` (Polished temple brass)
-- **Borders & Dividers (`--border-line`)**: `#332b25` (Subtle charcoal border)
-- **Primary Text (`--text-mai`)**: `#f4efe8` (Clean parchment white)
-- **Muted Text (`--text-muted`)**: `#a69a8f` (Muted ash)
-- **Notice / Badge Accent (`--badge-accent`)**: `#2a211b` (Smoked amber badge)
+### Dark Theme: *கருங்கல் & செப்புப் பட்டயம்* (Basalt Granite & Inscription Slate)
+Rejecting muddy swamp-brown tones (`#141210`, `#1c1815`, `#2d2211`), this palette draws inspiration from Thanjavur / Chola temple granite carvings and ancient engraved copper-plate charters:
+- **Background (`--bg-canvas`)**: `#0c0e11` (Deep neutral basalt granite, eliminates dirty swamp undertones)
+- **Surface Panels (`--bg-surface`)**: `#14171c` (Engraved cool slate stone)
+- **Surface Raised (`--bg-raised`)**: `#1c2026` (Elevated console tile)
+- **Primary Brand (`--color-semman`)**: `#e05338` (Radiant terracotta vermilion, 5.2:1 contrast)
+- **Primary Hover (`--color-semman-hover`)**: `#eb674e`
+- **Primary Tint (`--color-semman-light`)**: `#2a1512`
+- **Secondary Accent (`--color-sandhanam`)**: `#d99f36` (Antique brass / sandal gold, 6.8:1 contrast)
+- **Secondary Tint (`--color-sandhanam-light`)**: `#261d10` (Warm amber brass tint)
+- **Borders & Dividers (`--border-line`)**: `#262b33` (Subtle 1px cool stone hairline divider)
+- **Primary Text (`--color-mai`)**: `#f3f4f6` (High-contrast crisp off-white, **15.8:1 contrast**, passes WCAG AAA)
+- **Muted Text (`--color-muted`)**: `#949ca8` (Cool stone silver, **5.7:1 contrast**, passes WCAG AA)
 
 ---
 

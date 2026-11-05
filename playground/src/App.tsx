@@ -25,8 +25,7 @@ import {
   Cpu,
   Terminal,
   Code2,
-  Files,
-  ShieldCheck
+  Files
 } from "lucide-react";
 
 export function App() {
@@ -87,9 +86,9 @@ export function App() {
           {/* Brand Logo & Name */}
           <button
             onClick={() => setActiveTab("hub")}
-            className="flex items-center gap-2.5 text-left group cursor-pointer"
+            className="flex items-center gap-2.5 text-left group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] rounded-xl"
           >
-            <div className="w-9 h-9 rounded-xl bg-[var(--color-semman)] text-[#faf7f2] flex items-center justify-center font-tamil font-bold text-lg shadow-sm group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-[var(--color-semman)] text-[#faf7f2] flex items-center justify-center font-tamil font-bold text-lg shadow-sm group-hover:bg-[var(--color-semman-hover)] transition-colors active:scale-[0.98]">
               த
             </div>
             <div>
@@ -101,12 +100,6 @@ export function App() {
               </span>
             </div>
           </button>
-
-          {/* Privacy Badge on Desktop */}
-          <div className="hidden lg:flex items-center gap-1.5 text-xs text-[var(--color-muted)] bg-[var(--bg-canvas)] px-3 py-1.5 rounded-full border border-[var(--border-line)]">
-            <ShieldCheck className="w-3.5 h-3.5 text-[var(--color-semman)]" />
-            <span className="font-tamil">{t.privacyBadge}</span>
-          </div>
 
           {/* Controls: Language & Theme Toggle */}
           <div className="flex items-center gap-2">

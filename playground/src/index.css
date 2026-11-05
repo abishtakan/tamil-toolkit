@@ -2,6 +2,7 @@
 
 @layer base {
   :root {
+    /* Classical Tamil Parchment & Terracotta (Light Mode) */
     --bg-canvas: #faf7f2;
     --bg-surface: #ffffff;
     --bg-raised: #f3eee6;
@@ -9,8 +10,9 @@
     --color-semman-hover: #7d2e1c;
     --color-semman-light: #fbeee9;
     --color-sandhanam: #b88628;
+    --color-sandhanam-light: #fbf5ea;
     --color-mai: #1f1a17;
-    --color-muted: #6e645c;
+    --color-muted: #574e47;
     --border-line: #e8e0d4;
     --radius: 0.75rem;
 
@@ -22,16 +24,31 @@
   }
 
   .dark {
-    --bg-canvas: #141210;
-    --bg-surface: #1c1815;
-    --bg-raised: #26211d;
-    --color-semman: #d95c43;
-    --color-semman-hover: #e6725b;
-    --color-semman-light: #2b1915;
-    --color-sandhanam: #e0a638;
-    --color-mai: #f4efe8;
-    --color-muted: #a69a8f;
-    --border-line: #332b25;
+    /* Basalt Granite & Inscription Slate (Refined Dark Mode - No Muddy Brown) */
+    --bg-canvas: #0c0e11;
+    --bg-surface: #14171c;
+    --bg-raised: #1c2026;
+    --color-semman: #e05338;
+    --color-semman-hover: #eb674e;
+    --color-semman-light: #2a1512;
+    --color-sandhanam: #d99f36;
+    --color-sandhanam-light: #261d10;
+    --color-mai: #f3f4f6;
+    --color-muted: #949ca8;
+    --border-line: #262b33;
+  }
+
+  /* Accessible focus rings */
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--color-semman);
+  }
+
+  /* Utility-focused micro-transitions */
+  button, a, input, textarea {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-duration: 120ms;
   }
 }
 

@@ -1,6 +1,4 @@
 import { useLanguage } from "../../lib/i18n";
-import { Card, CardHeader, CardTitle, CardDescription } from "../ui/card";
-import { Badge } from "../ui/badge";
 import {
   Type,
   Banknote,
@@ -20,89 +18,32 @@ interface OverviewHubProps {
 export function OverviewHub({ onSelectTool }: OverviewHubProps) {
   const { t } = useLanguage();
 
-  const publicTools = [
-    {
-      id: "codec",
-      title: t.tools.codec.title,
-      desc: t.tools.codec.desc,
-      icon: Type,
-      tag: t.hub.tags.realtime
-    },
-    {
-      id: "numeral",
-      title: t.tools.numeral.title,
-      desc: t.tools.numeral.desc,
-      icon: Banknote,
-      tag: t.hub.tags.financial
-    },
-    {
-      id: "calendar",
-      title: t.tools.calendar.title,
-      desc: t.tools.calendar.desc,
-      icon: Calendar,
-      tag: t.hub.tags.solar
-    },
-    {
-      id: "sorter",
-      title: t.tools.sorter.title,
-      desc: t.tools.sorter.desc,
-      icon: ArrowDownAZ,
-      tag: t.hub.tags.collation
-    }
-  ];
-
-  const devTools = [
-    {
-      id: "scalar",
-      title: t.tools.scalar.title,
-      desc: t.tools.scalar.desc,
-      icon: Cpu,
-      tag: t.hub.tags.unicode
-    },
-    {
-      id: "dispatcher",
-      title: t.tools.dispatcher.title,
-      desc: t.tools.dispatcher.desc,
-      icon: Terminal,
-      tag: "JSON"
-    },
-    {
-      id: "codegen",
-      title: t.tools.codegen.title,
-      desc: t.tools.codegen.desc,
-      icon: Code2,
-      tag: "Rust / Python / TS"
-    },
-    {
-      id: "batch",
-      title: t.tools.batch.title,
-      desc: t.tools.batch.desc,
-      icon: Files,
-      tag: "Web Worker"
-    }
+  const legacyProfiles = [
+    "Bamini",
+    "TSCII",
+    "TAB",
+    "TAM",
+    "Anjal",
+    "Vanavil",
+    "LT-TM"
   ];
 
   return (
-    <div className="space-y-10 py-2">
-      {/* Hero Welcome in Terracotta Palette */}
-      <div className="rounded-3xl border border-[var(--border-line)] bg-gradient-to-br from-[var(--bg-surface)] to-[var(--bg-raised)] p-6 sm:p-10 shadow-sm relative overflow-hidden">
-        <div className="relative z-10 max-w-2xl space-y-3">
-          <Badge variant="terracotta" className="px-3 py-1 text-xs">
-            {t.privacyBadge}
-          </Badge>
-          <h1 className="text-2xl sm:text-4xl font-tamil font-bold text-[var(--color-mai)] leading-tight">
-            {t.siteTitle}
-          </h1>
-          <p className="text-sm sm:text-base text-[var(--color-muted)] font-tamil-sans leading-relaxed">
-            {t.siteSubtitle}
-          </p>
-        </div>
+    <div className="space-y-8 py-2">
+      {/* Workbench Header (Clean & Confident, No Defensive Badges) */}
+      <div className="border border-[var(--border-line)] bg-[var(--bg-surface)] rounded-2xl p-6 sm:p-7 shadow-xs">
+        <h1 className="text-xl sm:text-2xl font-tamil font-bold text-[var(--color-mai)] tracking-tight">
+          {t.siteTitle}
+        </h1>
+        <p className="text-xs sm:text-sm text-[var(--color-muted)] font-tamil-sans leading-relaxed mt-1.5 max-w-2xl">
+          {t.siteSubtitle}
+        </p>
       </div>
 
-      {/* Public Tools Section */}
-      <section className="space-y-4">
+      {/* Asymmetric Bento Workbench Grid */}
+      <div className="space-y-4">
         <div className="flex items-center justify-between border-b border-[var(--border-line)] pb-2">
-          <h2 className="text-lg sm:text-xl font-tamil font-bold text-[var(--color-mai)]">
+          <h2 className="text-base sm:text-lg font-tamil font-bold text-[var(--color-mai)]">
             {t.tabs.publicTools}
           </h2>
           <span className="text-xs text-[var(--color-muted)] font-tamil-sans">
@@ -110,51 +51,197 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {publicTools.map((tool) => {
-            const Icon = tool.icon;
-            return (
-              <button
-                key={tool.id}
-                onClick={() => onSelectTool("public", tool.id)}
-                className="text-left group cursor-pointer"
-              >
-                <Card className="h-full hover:border-[var(--color-semman)] hover:shadow-md transition-all duration-200 p-5 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="w-10 h-10 rounded-xl bg-[var(--color-semman-light)] text-[var(--color-semman)] flex items-center justify-center group-hover:scale-105 transition-transform">
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <Badge variant="outline" className="text-[10px]">
-                        {tool.tag}
-                      </Badge>
-                    </div>
-
-                    <CardHeader className="p-0">
-                      <CardTitle className="text-base group-hover:text-[var(--color-semman)] transition-colors">
-                        {tool.title}
-                      </CardTitle>
-                      <CardDescription className="line-clamp-2 text-xs mt-1">
-                        {tool.desc}
-                      </CardDescription>
-                    </CardHeader>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          {/* Bento Hero Slot: Legacy Font & Encoding Converter (Col 1-7) */}
+          <div className="lg:col-span-7">
+            <div
+              onClick={() => onSelectTool("public", "codec")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelectTool("public", "codec");
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              className="h-full border border-[var(--border-line)] hover:border-[var(--color-semman)] bg-[var(--bg-surface)] hover:bg-[var(--bg-raised)]/30 rounded-2xl p-6 flex flex-col justify-between transition-colors duration-150 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] active:scale-[0.99]"
+            >
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--color-semman-light)] text-[var(--color-semman)] flex items-center justify-center shrink-0">
+                    <Type className="w-5 h-5" />
                   </div>
+                  <h3 className="text-lg font-tamil font-bold text-[var(--color-mai)]">
+                    {t.tools.codec.title}
+                  </h3>
+                </div>
 
-                  <div className="pt-4 flex items-center text-xs font-semibold text-[var(--color-semman)] font-tamil">
-                    <span>{t.actions.openTool}</span>
-                    <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
+                <p className="text-xs sm:text-sm text-[var(--color-muted)] font-tamil-sans leading-relaxed">
+                  {t.tools.codec.desc}
+                </p>
+
+                {/* Supported Font Encodings List */}
+                <div className="pt-2">
+                  <div className="flex flex-wrap gap-1.5">
+                    {legacyProfiles.map((profile) => (
+                      <span
+                        key={profile}
+                        className="text-[11px] px-2.5 py-1 rounded-md bg-[var(--bg-raised)] text-[var(--color-mai)] border border-[var(--border-line)] font-mono-tamil"
+                      >
+                        {profile}
+                      </span>
+                    ))}
                   </div>
-                </Card>
-              </button>
-            );
-          })}
+                </div>
+              </div>
+
+              <div className="pt-6 flex items-center justify-between border-t border-[var(--border-line)] mt-4">
+                <span className="text-xs font-semibold text-[var(--color-semman)] font-tamil">
+                  {t.hub.launchTool}
+                </span>
+                <ArrowRight className="w-4 h-4 text-[var(--color-semman)]" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bento Slot 2: Numeral & Legal Cheque Formatter (Col 8-12) */}
+          <div className="lg:col-span-5">
+            <div
+              onClick={() => onSelectTool("public", "numeral")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelectTool("public", "numeral");
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              className="h-full border border-[var(--border-line)] hover:border-[var(--color-sandhanam)] bg-[var(--bg-surface)] hover:bg-[var(--bg-raised)]/30 rounded-2xl p-6 flex flex-col justify-between transition-colors duration-150 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-sandhanam)] active:scale-[0.99]"
+            >
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--color-sandhanam-light)] text-[var(--color-sandhanam)] flex items-center justify-center shrink-0">
+                    <Banknote className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-tamil font-bold text-[var(--color-mai)]">
+                    {t.tools.numeral.title}
+                  </h3>
+                </div>
+
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans leading-relaxed">
+                  {t.tools.numeral.desc}
+                </p>
+
+                {/* Practical Cheque Notation Preview */}
+                <div className="rounded-xl bg-[var(--bg-raised)] p-3.5 border border-[var(--border-line)] space-y-1">
+                  <span className="text-[11px] font-mono-tamil text-[var(--color-muted)] block">
+                    125000 INR
+                  </span>
+                  <p className="text-xs font-tamil font-semibold text-[var(--color-mai)] truncate">
+                    ஒரு இலட்சத்து இருபத்தைந்தாயிரம் ரூபாய் மட்டும்
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 flex items-center justify-between border-t border-[var(--border-line)] mt-4">
+                <span className="text-xs font-semibold text-[var(--color-sandhanam)] font-tamil">
+                  {t.hub.launchTool}
+                </span>
+                <ArrowRight className="w-4 h-4 text-[var(--color-sandhanam)]" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bento Slot 3: Solar Calendar & Panchangam (Col 1-6) */}
+          <div className="lg:col-span-6">
+            <div
+              onClick={() => onSelectTool("public", "calendar")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelectTool("public", "calendar");
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              className="h-full border border-[var(--border-line)] hover:border-[var(--color-semman)] bg-[var(--bg-surface)] hover:bg-[var(--bg-raised)]/30 rounded-2xl p-6 flex flex-col justify-between transition-colors duration-150 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] active:scale-[0.99]"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--color-semman-light)] text-[var(--color-semman)] flex items-center justify-center shrink-0">
+                    <Calendar className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-tamil font-bold text-[var(--color-mai)]">
+                    {t.tools.calendar.title}
+                  </h3>
+                </div>
+
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans leading-relaxed">
+                  {t.tools.calendar.desc}
+                </p>
+
+                <div className="text-xs font-tamil text-[var(--color-muted)] pt-1">
+                  60-ஆண்டு சுழற்சி • திருக்கணித சூரிய மாதம் • ராகு காலம்
+                </div>
+              </div>
+
+              <div className="pt-4 flex items-center justify-between border-t border-[var(--border-line)] mt-4">
+                <span className="text-xs font-semibold text-[var(--color-semman)] font-tamil">
+                  {t.hub.launchTool}
+                </span>
+                <ArrowRight className="w-4 h-4 text-[var(--color-semman)]" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bento Slot 4: Agara Varisai Sorter (Col 7-12) */}
+          <div className="lg:col-span-6">
+            <div
+              onClick={() => onSelectTool("public", "sorter")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelectTool("public", "sorter");
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              className="h-full border border-[var(--border-line)] hover:border-[var(--color-semman)] bg-[var(--bg-surface)] hover:bg-[var(--bg-raised)]/30 rounded-2xl p-6 flex flex-col justify-between transition-colors duration-150 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] active:scale-[0.99]"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--color-semman-light)] text-[var(--color-semman)] flex items-center justify-center shrink-0">
+                    <ArrowDownAZ className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-tamil font-bold text-[var(--color-mai)]">
+                    {t.tools.sorter.title}
+                  </h3>
+                </div>
+
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans leading-relaxed">
+                  {t.tools.sorter.desc}
+                </p>
+
+                <div className="text-xs font-tamil text-[var(--color-muted)] pt-1">
+                  அகரவரிசை மரபு: உயிர் (அ..ஔ) → மெய் (க்..ன்) → உயிர்மெய்
+                </div>
+              </div>
+
+              <div className="pt-4 flex items-center justify-between border-t border-[var(--border-line)] mt-4">
+                <span className="text-xs font-semibold text-[var(--color-semman)] font-tamil">
+                  {t.hub.launchTool}
+                </span>
+                <ArrowRight className="w-4 h-4 text-[var(--color-semman)]" />
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
 
-      {/* Developer Diagnostics Section */}
-      <section className="space-y-4">
+      {/* Integrated Developer Diagnostic Console */}
+      <section className="space-y-4 pt-2">
         <div className="flex items-center justify-between border-b border-[var(--border-line)] pb-2">
-          <h2 className="text-lg sm:text-xl font-tamil font-bold text-[var(--color-mai)]">
+          <h2 className="text-base sm:text-lg font-tamil font-bold text-[var(--color-mai)]">
             {t.tabs.devTools}
           </h2>
           <span className="text-xs text-[var(--color-muted)] font-tamil-sans">
@@ -162,44 +249,134 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {devTools.map((tool) => {
-            const Icon = tool.icon;
-            return (
-              <button
-                key={tool.id}
-                onClick={() => onSelectTool("dev", tool.id)}
-                className="text-left group cursor-pointer"
-              >
-                <Card className="h-full hover:border-[var(--color-sandhanam)] hover:shadow-md transition-all duration-200 p-5 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="w-10 h-10 rounded-xl bg-[#fcf5e8] dark:bg-[#2d2211] text-[var(--color-sandhanam)] flex items-center justify-center group-hover:scale-105 transition-transform">
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <Badge variant="outline" className="text-[10px]">
-                        {tool.tag}
-                      </Badge>
-                    </div>
+        <div className="border border-[var(--border-line)] bg-[var(--bg-surface)] rounded-2xl divide-y divide-[var(--border-line)] overflow-hidden shadow-xs">
+          {/* Diagnostic Item: Scalar Inspector */}
+          <div
+            onClick={() => onSelectTool("dev", "scalar")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectTool("dev", "scalar");
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[var(--bg-raised)]/50 transition-colors duration-120 cursor-pointer focus-visible:outline-none focus-visible:bg-[var(--bg-raised)]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-[var(--bg-raised)] text-[var(--color-sandhanam)] border border-[var(--border-line)] flex items-center justify-center shrink-0">
+                <Cpu className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-sm font-tamil font-bold text-[var(--color-mai)]">
+                  {t.tools.scalar.title}
+                </h4>
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans line-clamp-1 mt-0.5">
+                  {t.tools.scalar.desc}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 self-end sm:self-center text-xs font-tamil text-[var(--color-sandhanam)] font-semibold shrink-0">
+              <span>{t.actions.inspect}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
 
-                    <CardHeader className="p-0">
-                      <CardTitle className="text-base group-hover:text-[var(--color-sandhanam)] transition-colors">
-                        {tool.title}
-                      </CardTitle>
-                      <CardDescription className="line-clamp-2 text-xs mt-1">
-                        {tool.desc}
-                      </CardDescription>
-                    </CardHeader>
-                  </div>
+          {/* Diagnostic Item: Dispatcher Sandbox */}
+          <div
+            onClick={() => onSelectTool("dev", "dispatcher")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectTool("dev", "dispatcher");
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[var(--bg-raised)]/50 transition-colors duration-120 cursor-pointer focus-visible:outline-none focus-visible:bg-[var(--bg-raised)]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-[var(--bg-raised)] text-[var(--color-sandhanam)] border border-[var(--border-line)] flex items-center justify-center shrink-0">
+                <Terminal className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-sm font-tamil font-bold text-[var(--color-mai)]">
+                  {t.tools.dispatcher.title}
+                </h4>
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans line-clamp-1 mt-0.5">
+                  {t.tools.dispatcher.desc}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 self-end sm:self-center text-xs font-tamil text-[var(--color-sandhanam)] font-semibold shrink-0">
+              <span>{t.actions.inspect}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
 
-                  <div className="pt-4 flex items-center text-xs font-semibold text-[var(--color-sandhanam)] font-tamil">
-                    <span>{t.actions.inspect}</span>
-                    <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </Card>
-              </button>
-            );
-          })}
+          {/* Diagnostic Item: Code Generator */}
+          <div
+            onClick={() => onSelectTool("dev", "codegen")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectTool("dev", "codegen");
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[var(--bg-raised)]/50 transition-colors duration-120 cursor-pointer focus-visible:outline-none focus-visible:bg-[var(--bg-raised)]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-[var(--bg-raised)] text-[var(--color-sandhanam)] border border-[var(--border-line)] flex items-center justify-center shrink-0">
+                <Code2 className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-sm font-tamil font-bold text-[var(--color-mai)]">
+                  {t.tools.codegen.title}
+                </h4>
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans line-clamp-1 mt-0.5">
+                  {t.tools.codegen.desc}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 self-end sm:self-center text-xs font-tamil text-[var(--color-sandhanam)] font-semibold shrink-0">
+              <span>{t.actions.inspect}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
+
+          {/* Diagnostic Item: Batch Processor */}
+          <div
+            onClick={() => onSelectTool("dev", "batch")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onSelectTool("dev", "batch");
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[var(--bg-raised)]/50 transition-colors duration-120 cursor-pointer focus-visible:outline-none focus-visible:bg-[var(--bg-raised)]"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg bg-[var(--bg-raised)] text-[var(--color-sandhanam)] border border-[var(--border-line)] flex items-center justify-center shrink-0">
+                <Files className="w-4 h-4" />
+              </div>
+              <div>
+                <h4 className="text-sm font-tamil font-bold text-[var(--color-mai)]">
+                  {t.tools.batch.title}
+                </h4>
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans line-clamp-1 mt-0.5">
+                  {t.tools.batch.desc}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 self-end sm:self-center text-xs font-tamil text-[var(--color-sandhanam)] font-semibold shrink-0">
+              <span>{t.actions.inspect}</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </div>
+          </div>
         </div>
       </section>
     </div>

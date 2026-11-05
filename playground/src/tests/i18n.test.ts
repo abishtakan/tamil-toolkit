@@ -18,7 +18,7 @@ describe("i18n Bilingual Architecture", () => {
     const enKeys = getDeepKeys(translations.en as unknown as Record<string, unknown>).sort();
 
     expect(taKeys).toEqual(enKeys);
-    expect(taKeys.length).toBeGreaterThan(40);
+    expect(taKeys.length).toBeGreaterThan(45);
   });
 
   it("ensures no translation strings are empty or undefined", () => {
@@ -40,6 +40,15 @@ describe("i18n Bilingual Architecture", () => {
   it("provides localized document titles for both locales", () => {
     expect(translations.ta.documentTitle).toContain("தமிழ் கருவிப் பட்டறை");
     expect(translations.en.documentTitle).toContain("Tamil Toolkit Playground");
+  });
+
+  it("provides authentic un-slopped workbench copy", () => {
+    expect(translations.ta.hub.engineStatus).toContain("WebAssembly");
+    expect(translations.en.hub.engineStatus).toContain("WASM");
+    expect(translations.ta.hub.featuredBadge).toBe("முதன்மைக் கருவி");
+    expect(translations.en.hub.featuredBadge).toBe("Featured Tool");
+    expect(translations.ta.hub.launchTool).toBe("பயன்படுத்துக");
+    expect(translations.en.hub.launchTool).toBe("Open Utility");
   });
 
   it("provides comprehensive hub tag translations", () => {

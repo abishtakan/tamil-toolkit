@@ -33,10 +33,15 @@ export interface Translations {
   };
   hub: {
     heroBadge: string;
+    engineStatus: string;
+    quickJump: string;
+    encodingsSupported: string;
     realtimeHeading: string;
     realtimeDesc: string;
     devToolsHeading: string;
     devToolsDesc: string;
+    featuredBadge: string;
+    launchTool: string;
     tags: {
       realtime: string;
       financial: string;
@@ -188,11 +193,16 @@ export const translations: Record<Language, Translations> = {
       inspect: "ஆய்வு செய்"
     },
     hub: {
-      heroBadge: "வேகமான • பாதுகாப்பான • செவ்வியல் தமிழ்",
-      realtimeHeading: "நிகழ்நேரப் பயன்பாட்டுக் கருவிகள்",
-      realtimeDesc: "உடனடித் தமிழ் எழுத்துரு மாற்றி, எண்களைச் சொற்களாக்கும் கருவி, தமிழ் நாட்காட்டி மற்றும் அகரவரிசை.",
-      devToolsHeading: "தொழில்நுட்ப ஆய்வகக் கருவிகள்",
-      devToolsDesc: "நேரடி WebAssembly Dispatcher, பல மொழிகளுக்கான மாதிரி நிரல்கள், கோப்புத் தொகுதி மாற்றி மற்றும் ஒருங்குறி ஆய்வி.",
+      heroBadge: "தமிழ் ஒருங்குறி, எழுத்துரு & பஞ்சாங்கப் பணித்தளம்",
+      engineStatus: "WebAssembly இயந்திரம் தயார் (Offline)",
+      quickJump: "நேரடிப் பயன்பாடுகள்",
+      encodingsSupported: "7 எழுத்துருக்கள் ஆதரிக்கப்படுகின்றன",
+      realtimeHeading: "சொல், எழுத்துரு & நாட்காட்டிக் கருவிகள்",
+      realtimeDesc: "பழைய எழுத்துருக்களை ஒருங்குறியாக மாற்றுதல், காசோலை எண்களைச் சொற்களாக்குதல், மற்றும் மரபு நாட்காட்டி.",
+      devToolsHeading: "பொறியியல் ஆய்வகம் & ஒருங்குறித் தரவுகள்",
+      devToolsDesc: "நேரடி Rust WebAssembly இயக்கம், நிரல் உருவாக்கிகள், மற்றும் ஒருங்குறி எழுத்துக் கூட்ட ஆய்வி.",
+      featuredBadge: "முதன்மைக் கருவி",
+      launchTool: "பயன்படுத்துக",
       tags: {
         realtime: "நிகழ்நேரம்",
         financial: "நிதி",
@@ -342,11 +352,16 @@ export const translations: Record<Language, Translations> = {
       inspect: "Inspect"
     },
     hub: {
-      heroBadge: "Fast • Secure • Authentic Tamil",
-      realtimeHeading: "Zero-latency in-browser utilities",
-      realtimeDesc: "Instant legacy font converter, legal numerals to words, dynamic Tamil calendar, and Agara Varisai collation.",
-      devToolsHeading: "Diagnostics & low-level sandbox",
-      devToolsDesc: "Raw WebAssembly dispatcher sandbox, multi-language code generator, background worker batch processing, and Unicode scalar inspector.",
+      heroBadge: "Tamil Script, Numeral & Calendar Workbench",
+      engineStatus: "WASM Engine Ready (Offline)",
+      quickJump: "Direct Utilities",
+      encodingsSupported: "7 Legacy Encodings Supported",
+      realtimeHeading: "Script, Numeral & Calendar Utilities",
+      realtimeDesc: "Legacy font conversion, legal cheque numeral formatting, and classical solar calendar diagnostics.",
+      devToolsHeading: "Diagnostic Console & Unicode Inspector",
+      devToolsDesc: "Raw WebAssembly dispatcher execution, polyglot SDK generation, and scalar boundary inspection.",
+      featuredBadge: "Featured Tool",
+      launchTool: "Open Utility",
       tags: {
         realtime: "Real-time",
         financial: "Financial",

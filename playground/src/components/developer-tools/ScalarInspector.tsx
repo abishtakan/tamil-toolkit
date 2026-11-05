@@ -188,7 +188,7 @@ export function ScalarInspector() {
                 key={i}
                 className={`px-3 py-1.5 rounded-xl border text-center transition-all ${
                   s.isInvisible
-                    ? "bg-red-50 dark:bg-red-950/40 border-red-300 text-red-700 font-bold"
+                    ? "bg-red-50 dark:bg-red-950/40 border-red-300 dark:border-red-800 text-red-700 dark:text-red-300 font-bold"
                     : "bg-[var(--bg-canvas)] border-[var(--border-line)] text-[var(--color-mai)]"
                 }`}
               >

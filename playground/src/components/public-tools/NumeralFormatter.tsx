@@ -219,9 +219,6 @@ export function NumeralFormatter() {
                 <span className="text-xs font-bold text-[var(--color-mai)] font-tamil uppercase tracking-wide">
                   {t.tools.numeral.traditionalSymbolsLabel}
                 </span>
-                <Badge variant="sandhanam">
-                  {t.tools.numeral.classicalTamilBadge}
-                </Badge>
               </div>
               <CopyButton text={traditionalSymbols} size="sm" variant="outline" />
             </div>
