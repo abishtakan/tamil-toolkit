@@ -6,7 +6,7 @@ import { Badge } from "../ui/badge";
 import { UploadCloud, CheckCircle2, Download, AlertCircle } from "lucide-react";
 
 export function BatchProcessor() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   const [fileName, setFileName] = useState<string | null>(null);
   const [fileSize, setFileSize] = useState<number>(0);
@@ -162,9 +162,7 @@ export function BatchProcessor() {
             <div className="flex items-center gap-2 text-sm font-tamil text-red-600">
               <AlertCircle className="w-5 h-5 shrink-0" />
               <span>
-                {language === "en"
-                  ? `Error: ${errorMessage || "Failed to convert file"}`
-                  : `பிழை: ${errorMessage || "கோப்பை மாற்ற முடியவில்லை"}`}
+                {t.tools.dispatcher.statusError}: {errorMessage || t.tools.batch.formatError}
               </span>
             </div>
           )}

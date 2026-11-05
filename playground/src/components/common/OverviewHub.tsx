@@ -18,7 +18,7 @@ interface OverviewHubProps {
 }
 
 export function OverviewHub({ onSelectTool }: OverviewHubProps) {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   const publicTools = [
     {
@@ -26,28 +26,28 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
       title: t.tools.codec.title,
       desc: t.tools.codec.desc,
       icon: Type,
-      tag: language === "en" ? "Real-time" : "அதிவேகம்"
+      tag: t.hub.tags.realtime
     },
     {
       id: "numeral",
       title: t.tools.numeral.title,
       desc: t.tools.numeral.desc,
       icon: Banknote,
-      tag: language === "en" ? "Financial" : "காசோலை"
+      tag: t.hub.tags.financial
     },
     {
       id: "calendar",
       title: t.tools.calendar.title,
       desc: t.tools.calendar.desc,
       icon: Calendar,
-      tag: language === "en" ? "Solar / Drik" : "பஞ்சாங்கம்"
+      tag: t.hub.tags.solar
     },
     {
       id: "sorter",
       title: t.tools.sorter.title,
       desc: t.tools.sorter.desc,
       icon: ArrowDownAZ,
-      tag: language === "en" ? "Collation" : "இலக்கணம்"
+      tag: t.hub.tags.collation
     }
   ];
 
@@ -57,7 +57,7 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
       title: t.tools.scalar.title,
       desc: t.tools.scalar.desc,
       icon: Cpu,
-      tag: language === "en" ? "Unicode" : "ஒருங்குறி"
+      tag: t.hub.tags.unicode
     },
     {
       id: "dispatcher",
@@ -106,7 +106,7 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
             {t.tabs.publicTools}
           </h2>
           <span className="text-xs text-[var(--color-muted)] font-tamil-sans">
-            {language === "en" ? "Zero-latency in-browser utilities" : "நொடியில் இயங்கும் பயன்பாட்டுக் கருவிகள்"}
+            {t.hub.realtimeHeading}
           </span>
         </div>
 
@@ -141,7 +141,7 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
                   </div>
 
                   <div className="pt-4 flex items-center text-xs font-semibold text-[var(--color-semman)] font-tamil">
-                    <span>{language === "en" ? "Open Tool" : "தொடங்கு"}</span>
+                    <span>{t.actions.openTool}</span>
                     <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
                   </div>
                 </Card>
@@ -158,7 +158,7 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
             {t.tabs.devTools}
           </h2>
           <span className="text-xs text-[var(--color-muted)] font-tamil-sans">
-            {language === "en" ? "Diagnostics & low-level sandbox" : "நிரலாளர்கள் & ஒருங்குறி ஆய்வகம்"}
+            {t.hub.devToolsHeading}
           </span>
         </div>
 
@@ -193,7 +193,7 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
                   </div>
 
                   <div className="pt-4 flex items-center text-xs font-semibold text-[var(--color-sandhanam)] font-tamil">
-                    <span>{language === "en" ? "Inspect" : "ஆய்வு செய்"}</span>
+                    <span>{t.actions.inspect}</span>
                     <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
                   </div>
                 </Card>

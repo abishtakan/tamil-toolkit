@@ -66,7 +66,7 @@ const PRESETS = [
 ];
 
 export function DispatcherSandbox() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   const [requestJson, setRequestJson] = useState(PRESETS[0].payload);
   const [responseJson, setResponseJson] = useState("");
@@ -161,7 +161,7 @@ export function DispatcherSandbox() {
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[var(--color-mai)] font-tamil flex items-center gap-1.5">
               <Terminal className="w-3.5 h-3.5 text-[var(--color-semman)]" />
-              <span>{language === "en" ? "JSON Request Payload:" : "JSON கோரிக்கை (Request Payload):"}</span>
+              <span>{t.tools.dispatcher.payloadLabel}</span>
             </span>
           </div>
           <Textarea
@@ -189,11 +189,11 @@ export function DispatcherSandbox() {
               </span>
               {isError ? (
                 <Badge variant="outline" className="text-red-600 border-red-300">
-                  {language === "en" ? "Error" : "பிழை"}
+                  {t.tools.dispatcher.statusError}
                 </Badge>
               ) : (
                 <Badge variant="terracotta">
-                  {language === "en" ? "Success" : "வெற்றி"}
+                  {t.tools.dispatcher.statusSuccess}
                 </Badge>
               )}
             </div>
@@ -203,7 +203,7 @@ export function DispatcherSandbox() {
           <div className="relative">
             <Textarea
               readOnly
-              value={responseJson || (language === "en" ? "Response will appear here (Click 'Send Request')" : "முடிவு இங்கே தோன்றும் (Click 'Send Request')")}
+              value={responseJson || t.tools.dispatcher.responsePlaceholder}
               className="font-mono-tamil text-xs leading-relaxed min-h-[260px] bg-[var(--bg-raised)]/70 text-[var(--color-mai)]"
               spellCheck={false}
             />

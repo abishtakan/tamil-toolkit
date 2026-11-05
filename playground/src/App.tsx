@@ -115,10 +115,10 @@ export function App() {
               size="sm"
               onClick={toggleLanguage}
               className="text-xs font-tamil border-[var(--border-line)] min-h-[38px] px-3"
-              aria-label="Toggle language"
+              aria-label={t.nav.switchPrompt}
             >
               <Globe className="w-3.5 h-3.5 mr-1.5 text-[var(--color-semman)]" />
-              <span className="font-semibold">{language === "ta" ? "English" : "தமிழ்"}</span>
+              <span className="font-semibold">{t.nav.switchLanguageName}</span>
             </Button>
 
             <Button
@@ -265,9 +265,7 @@ export function App() {
       <footer className="border-t border-[var(--border-line)] bg-[var(--bg-surface)] py-6 mt-auto">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-tamil text-[var(--color-muted)] text-center sm:text-left">
           <p>
-            {language === "en"
-              ? "Tamil Toolkit Playground · WebAssembly Engine"
-              : "தமிழ் கருவிப் பட்டறை · Tamil Toolkit WebAssembly Engine"}
+            {t.siteTitle} · Tamil Toolkit WebAssembly Engine
           </p>
           <p className="font-mono-tamil">
             Rust owns linguistic behavior · MIT Licensed

@@ -9,7 +9,7 @@ import { StickyActionBar } from "../common/StickyActionBar";
 import { Sparkles, Banknote } from "lucide-react";
 
 export function NumeralFormatter() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [, startTransition] = useTransition();
 
   const [input, setInput] = useState("125000");
@@ -141,7 +141,7 @@ export function NumeralFormatter() {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <label className="text-xs font-semibold text-[var(--color-mai)] font-tamil">
-            {language === "en" ? "Number or Financial Amount:" : "எண் அல்லது தொகை (Numeric Amount):"}
+            {t.tools.numeral.inputLabel}
           </label>
           {latency > 0 && <Badge variant="mono">{latency.toFixed(1)} ms</Badge>}
         </div>
@@ -200,7 +200,7 @@ export function NumeralFormatter() {
           <Card className="bg-[var(--bg-surface)]">
             <div className="flex items-center justify-between pb-2">
               <span className="text-xs font-semibold text-[var(--color-muted)] font-tamil uppercase tracking-wide">
-                {language === "en" ? "Spoken Colloquial Variant" : "பேச்சு வழக்கு (Spoken Form)"}
+                {t.tools.numeral.spokenVariantBadge}
               </span>
               <CopyButton text={spokenWords} size="sm" variant="ghost" />
             </div>
@@ -220,7 +220,7 @@ export function NumeralFormatter() {
                   {t.tools.numeral.traditionalSymbolsLabel}
                 </span>
                 <Badge variant="sandhanam">
-                  {language === "en" ? "Classical Tamil" : "பண்டைய எண் முறை"}
+                  {t.tools.numeral.classicalTamilBadge}
                 </Badge>
               </div>
               <CopyButton text={traditionalSymbols} size="sm" variant="outline" />
@@ -230,7 +230,7 @@ export function NumeralFormatter() {
                 {traditionalSymbols}
               </p>
               <span className="text-xs font-tamil text-[var(--color-muted)]">
-                {language === "en" ? "Classical Tamil Numeral Notation" : "பண்டைய தமிழ் எண் குறியீடு"}
+                {t.tools.numeral.classicalNotationHeading}
               </span>
             </div>
           </Card>

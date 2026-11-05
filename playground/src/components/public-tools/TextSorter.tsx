@@ -18,7 +18,7 @@ const SAMPLE_WORDS = `பாரதி
 உமறுப்புலவர்`;
 
 export function TextSorter() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [, startTransition] = useTransition();
 
   const [input, setInput] = useState(SAMPLE_WORDS);
@@ -152,7 +152,7 @@ export function TextSorter() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[var(--color-mai)] font-tamil">
-              {language === "en" ? "Input words (one per line):" : "உள்ளீடு (வரியொன்றிற்கு ஒரு சொல்):"}
+              {t.tools.sorter.inputWordsLabel}
             </span>
             {input && (
               <button
@@ -175,11 +175,11 @@ export function TextSorter() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-xs font-semibold text-[var(--color-mai)] font-tamil">
-                {language === "en" ? "Collation Output:" : "அகர வரிசைப்படுத்தப்பட்ட முடிவு:"}
+                {t.tools.sorter.collationOutputLabel}
               </span>
               {wordCount > 0 && (
                 <Badge variant="terracotta">
-                  {wordCount} {language === "en" ? "words" : "சொற்கள்"}
+                  {wordCount} {t.tools.sorter.wordsCountSuffix}
                 </Badge>
               )}
             </div>

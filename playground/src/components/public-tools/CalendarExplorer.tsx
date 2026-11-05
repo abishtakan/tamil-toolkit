@@ -8,7 +8,7 @@ import { CopyButton } from "../common/CopyButton";
 import { Calendar as CalendarIcon, MapPin } from "lucide-react";
 
 export function CalendarExplorer() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   const [dateStr, setDateStr] = useState<string>(() => {
     return new Date().toISOString().split("T")[0];
@@ -132,7 +132,7 @@ export function CalendarExplorer() {
           setCoords({
             lat: pos.coords.latitude,
             lon: pos.coords.longitude,
-            label: language === "en" ? "Current Location (GPS)" : "தற்போதைய இருப்பிடம் (GPS)"
+            label: t.tools.calendar.gpsLocationLabel
           });
         },
         () => {
@@ -140,17 +140,14 @@ export function CalendarExplorer() {
           setCoords({
             lat: 13.0827,
             lon: 80.2707,
-            label: language === "en" ? "Chennai (Fallback)" : "சென்னை (Chennai - Fallback)"
+            label: t.tools.calendar.chennaiFallbackLabel
           });
         }
       );
     }
   };
 
-  const copySummary =
-    language === "en"
-      ? `${solarDate} | Thiruvalluvar Year: ${thiruvalluvarYear} | Cycle Year: ${cycleYearTitle} | Rahu: ${daylightPeriods.rahu}`
-      : `${solarDate} | திருவள்ளுவர் ஆண்டு: ${thiruvalluvarYear} | ஆண்டுப் பெயர்: ${cycleYearTitle} | ராகு: ${daylightPeriods.rahu}`;
+  const copySummary = `${solarDate} | ${t.tools.calendar.thiruvalluvarYearLabel}: ${thiruvalluvarYear} | ${t.tools.calendar.cycleYearLabel}: ${cycleYearTitle} | ${t.tools.calendar.rahuKalamLabel}: ${daylightPeriods.rahu}`;
 
   return (
     <div className="space-y-6">
@@ -192,7 +189,7 @@ export function CalendarExplorer() {
 
         <div className="space-y-1.5">
           <label className="text-xs font-semibold text-[var(--color-mai)] font-tamil">
-            {language === "en" ? "Panchangam Calculation Coordinates:" : "பஞ்சாங்கக் கணக்கீட்டு இருப்பிடம்:"}
+            {t.tools.calendar.coordsLabel}
           </label>
           <div className="flex items-center gap-2">
             <span className="text-xs font-tamil text-[var(--color-muted)] bg-[var(--bg-raised)] px-3 py-2.5 rounded-xl border border-[var(--border-line)] flex-1 truncate">
@@ -219,7 +216,7 @@ export function CalendarExplorer() {
           </span>
           <Badge variant="terracotta">
             <CalendarIcon className="w-3.5 h-3.5 mr-1" />
-            {cycleYearTitle || (language === "en" ? "Tamil Year" : "தமிழ் ஆண்டு")}
+            {cycleYearTitle || t.tools.calendar.yearFallback}
           </Badge>
         </div>
         <p className="text-2xl sm:text-3xl font-tamil font-bold text-[var(--color-mai)] mt-1">

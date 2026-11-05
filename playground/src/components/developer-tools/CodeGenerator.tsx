@@ -103,7 +103,7 @@ void main() {
 };
 
 export function CodeGenerator() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   const [activeLang, setActiveLang] = useState<LangKey>("typescript");
   const [activeCategory, setActiveCategory] = useState<"codec" | "numeral" | "calendar">("codec");
@@ -166,7 +166,7 @@ export function CodeGenerator() {
           <div className="flex items-center gap-2">
             <Code2 className="w-4 h-4 text-[var(--color-sandhanam)]" />
             <span className="text-sm font-tamil font-semibold text-[var(--color-mai)]">
-              {language === "en" ? "Integration Snippet (Example Code)" : "மாதிரி நிரல் (Example Code Snippet)"}
+              {t.tools.codegen.snippetHeading}
             </span>
           </div>
 
@@ -177,7 +177,7 @@ export function CodeGenerator() {
               onClick={() => setActiveCategory("codec")}
               className="text-xs font-tamil"
             >
-              {language === "en" ? "Font Converter" : "எழுத்துரு மாற்றி"}
+              {t.tools.codegen.tabCodec}
             </Button>
             <Button
               variant={activeCategory === "numeral" ? "primary" : "outline"}
@@ -185,7 +185,7 @@ export function CodeGenerator() {
               onClick={() => setActiveCategory("numeral")}
               className="text-xs font-tamil"
             >
-              {language === "en" ? "Numerals & Words" : "எண் - சொல்"}
+              {t.tools.codegen.tabNumeral}
             </Button>
             <Button
               variant={activeCategory === "calendar" ? "primary" : "outline"}
@@ -193,7 +193,7 @@ export function CodeGenerator() {
               onClick={() => setActiveCategory("calendar")}
               className="text-xs font-tamil"
             >
-              {language === "en" ? "Calendar" : "நாட்காட்டி"}
+              {t.tools.codegen.tabCalendar}
             </Button>
             <CopyButton text={activeCode} size="sm" variant="ghost" />
           </div>

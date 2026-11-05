@@ -205,8 +205,8 @@ export function CodecConverter() {
             <ArrowLeftRight className="w-3.5 h-3.5 mr-1" />
             <span>
               {direction === "to_unicode"
-                ? language === "en" ? "→ Unicode" : "→ ஒருங்குறி"
-                : language === "en" ? "→ Legacy Font" : "→ எழுத்துரு"}
+                ? t.tools.codec.directionLegacyToUnicode
+                : t.tools.codec.directionUnicodeToLegacy}
             </span>
           </Button>
         </div>
@@ -245,8 +245,8 @@ export function CodecConverter() {
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-[var(--color-mai)] font-tamil">
               {direction === "to_unicode"
-                ? language === "en" ? "Input (Legacy Text / Font):" : "உள்ளீடு (பழைய எழுத்துரு / Text):"
-                : language === "en" ? "Input (Tamil Unicode):" : "உள்ளீடு (தமிழ் ஒருங்குறி / Unicode):"}
+                ? t.tools.codec.inputLegacyLabel
+                : t.tools.codec.inputUnicodeLabel}
             </span>
             {input && (
               <button
@@ -271,8 +271,8 @@ export function CodecConverter() {
             <div className="flex items-center gap-2">
               <span className="text-xs font-semibold text-[var(--color-mai)] font-tamil">
                 {direction === "to_unicode"
-                  ? language === "en" ? "Output (Modern Unicode):" : "வெளியீடு (ஒருங்குறி / Unicode):"
-                  : language === "en" ? "Output (Legacy Encoded Font):" : "வெளியீடு (பழைய எழுத்துரு / Output):"}
+                  ? t.tools.codec.outputUnicodeLabel
+                  : t.tools.codec.outputLegacyLabel}
               </span>
               {detectedProfile && (
                 <Badge variant="terracotta">

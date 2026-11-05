@@ -17,7 +17,7 @@ interface ScalarDetail {
 }
 
 export function ScalarInspector() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [, startTransition] = useTransition();
 
   const [input, setInput] = useState("தமிழ்");
@@ -115,7 +115,7 @@ export function ScalarInspector() {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <label className="text-xs font-semibold text-[var(--color-mai)] font-tamil">
-            {language === "en" ? "Tamil String to Inspect (Input):" : "ஆய்வு செய்ய வேண்டிய உரை (Input String):"}
+            {t.tools.scalar.inputLabel}
           </label>
           {latency > 0 && <Badge variant="mono">{latency.toFixed(1)} ms</Badge>}
         </div>
