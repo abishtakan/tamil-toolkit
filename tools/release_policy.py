@@ -528,29 +528,28 @@ def release_record(run_id, root=ROOT, output=None):
     head_sha = run_info.get("head_sha", "pending")
     run_url = run_info.get("html_url", f"https://github.com/{REPOSITORY}/actions/runs/{run_id}")
 
-    # 2. Query publisher runs for head_sha
+    # 2. Query publisher runs
     publisher_runs = []
-    if head_sha != "pending":
-        if shutil.which("gh"):
-            try:
-                out = subprocess.check_output(
-                    ["gh", "api", f"repos/{REPOSITORY}/actions/runs?event=workflow_dispatch&head_sha={head_sha}&per_page=50"],
-                    cwd=root, text=True, stderr=subprocess.DEVNULL)
-                publisher_runs = json.loads(out).get("workflow_runs", [])
-            except Exception:
-                pass
-        if not publisher_runs:
-            headers = {"User-Agent": "tamil-toolkit-release-verifier"}
-            if token:
-                headers["Authorization"] = f"token {token}"
-            req = urllib.request.Request(
-                f"https://api.github.com/repos/{REPOSITORY}/actions/runs?event=workflow_dispatch&head_sha={head_sha}&per_page=50",
-                headers=headers)
-            try:
-                with urllib.request.urlopen(req, timeout=10) as resp:
-                    publisher_runs = json.loads(resp.read().decode("utf-8")).get("workflow_runs", [])
-            except Exception:
-                pass
+    if shutil.which("gh"):
+        try:
+            out = subprocess.check_output(
+                ["gh", "api", f"repos/{REPOSITORY}/actions/runs?event=workflow_dispatch&per_page=30"],
+                cwd=root, text=True, stderr=subprocess.DEVNULL)
+            publisher_runs = json.loads(out).get("workflow_runs", [])
+        except Exception:
+            pass
+    if not publisher_runs:
+        headers = {"User-Agent": "tamil-toolkit-release-verifier"}
+        if token:
+            headers["Authorization"] = f"token {token}"
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{REPOSITORY}/actions/runs?event=workflow_dispatch&per_page=30",
+            headers=headers)
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                publisher_runs = json.loads(resp.read().decode("utf-8")).get("workflow_runs", [])
+        except Exception:
+            pass
 
     crate_runs = {}
     npm_run_id = None
@@ -558,17 +557,16 @@ def release_record(run_id, root=ROOT, output=None):
     unified_run_id = None
 
     for r in publisher_runs:
-        if r.get("conclusion") != "success":
-            continue
         name = r.get("name", "")
         rid = r["id"]
-        if "Publish release" in name:
+        conclusion = r.get("conclusion")
+        if "Publish release" in name and conclusion == "success":
             unified_run_id = rid
         elif "Publish npm package" in name and not npm_run_id:
             npm_run_id = rid
-        elif "Publish Python package to PyPI" in name and not pypi_run_id:
+        elif "Publish Python package to PyPI" in name and not pypi_run_id and conclusion == "success":
             pypi_run_id = rid
-        elif "Publish Rust crate to crates.io" in name:
+        elif "Publish Rust crate to crates.io" in name and conclusion == "success" and not crate_runs:
             crate_runs[rid] = r
 
     if unified_run_id:
@@ -626,9 +624,9 @@ def release_record(run_id, root=ROOT, output=None):
         chk = crate_checksums.get(crate_name, "pending")
         if unified_run_id:
             c_run = f"[{unified_run_id}](https://github.com/{REPOSITORY}/actions/runs/{unified_run_id})"
-        elif idx < len(sorted_crate_runs):
-            c_id = sorted_crate_runs[idx]
-            c_run = f"[{c_id}](https://github.com/{REPOSITORY}/actions/runs/{c_id})"
+        elif sorted_crate_runs:
+            c_id = sorted_crate_runs[0] if len(sorted_crate_runs) == 1 else (sorted_crate_runs[idx] if idx < len(sorted_crate_runs) else "pending")
+            c_run = f"[{c_id}](https://github.com/{REPOSITORY}/actions/runs/{c_id})" if c_id != "pending" else "pending"
         else:
             c_run = "pending"
         crate_rows.append(
