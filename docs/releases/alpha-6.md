@@ -33,7 +33,7 @@ crates.io API.
 ### npm
 
 [`tamil-toolkit@0.1.0-alpha.6`](https://www.npmjs.com/package/tamil-toolkit/v/0.1.0-alpha.6)
-was published by [run 41999812379](https://github.com/abishtakan/tamil-toolkit/actions/runs/41999812379)
+was published by [run 42001668907](https://github.com/abishtakan/tamil-toolkit/actions/runs/42001668907)
 using the configured OIDC trusted publisher. The published tarball matches the
 reviewed Node 22 and Node 24 tarballs byte for byte; SHA-256:
 `1d50e886fcbb0dbb61b6d90db730a04dda471151f81f61f30070372b95bdc09f`.
