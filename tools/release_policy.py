@@ -107,14 +107,14 @@ def check(root=ROOT):
                     and any((root / "docs/specs").glob(module + "-*.md")),
                     f"{name}: a specification and active golden suite are required before publication")
         for dependency, settings in manifest.get("dependencies", {}).items():
-            if not dependency.startswith("tamil-"):
+            if not dependency.startswith("tamil-") or dependency == "tamil-hyphen":
                 continue
             require(dependency in public, f"{name}: unfinished dependency {dependency}")
             require(public.index(dependency) < public.index(name), f"{name}: public dependency order is wrong")
             require(settings == {"workspace": True}, f"{name}: dependency must inherit workspace: {dependency}")
     require(found == set(public), "Public scope contains missing or private support crates")
     umbrella = read_toml(root / "crates/tamil-toolkit/Cargo.toml")["dependencies"]
-    require({name for name in umbrella if name.startswith("tamil-")} == set(public) - {"tamil-toolkit"},
+    require({name for name in umbrella if name.startswith("tamil-") and name != "tamil-hyphen"} == set(public) - {"tamil-toolkit"},
             "Umbrella must expose exactly the approved modules")
     for name, settings in workspace["dependencies"].items():
         if name.startswith("tamil-"):

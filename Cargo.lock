@@ -523,6 +523,14 @@ version = "0.1.0-alpha.6"
 [[package]]
 name = "tamil-hyphen"
 version = "0.1.0-alpha.6"
+dependencies = [
+ "proptest",
+ "serde",
+ "serde_json",
+ "tamil-core",
+ "tamil-norm",
+ "unicode-segmentation",
+]
 
 [[package]]
 name = "tamil-morph"
@@ -568,6 +576,7 @@ dependencies = [
  "tamil-codec",
  "tamil-collate",
  "tamil-core",
+ "tamil-hyphen",
  "tamil-norm",
  "tamil-numerals",
 ]

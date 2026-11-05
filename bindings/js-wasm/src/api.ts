@@ -1,4 +1,7 @@
 export interface Uyirmei { mei: string; uyir: string }
+export interface HyphenationPoint { letter_index: number; byte_offset: number }
+export interface HyphenationResult { word: string; syllables: string[]; hyphenated: string }
+export interface WrapResult { lines: string[]; wrapped: string }
 export interface Request { op: string; input: unknown }
 export interface EncodingCandidate { encoding: string; confidence: number }
 export interface DetectionResult {
@@ -371,6 +374,14 @@ export function createApi(nativeExecute: (request: string) => string) {
     calendar_display_info: (date: GregorianDate, context: CalendarContextInput, script: CalendarDisplayScript = "tamil", digits: CalendarDisplayDigits = "latin", definition_id: string = thirukanithamDefinition) => execute({ op: "calendar_display_info", input: { definition_id, date, context, script, digits } }) as Record<string, unknown>,
     compare_calendar_profiles: (input: CalendarProfileComparisonInput) => execute({ op: "compare_calendar_profiles", input }) as CalendarProfileComparisonResult,
     thiruvalluvar_year_info: (date: GregorianDate, context: CalendarContext, convention_id: ThiruvalluvarYearInfo["convention_id"] = "tn-thiruvalluvar-thai1-thirukanitham-v1") => execute({ op: "thiruvalluvar_year_info", input: { date, context, convention_id } }) as ThiruvalluvarYearInfo,
+    hyphenate_word: (word: string, delimiter: string = "\u00AD", left_min: number = 2, right_min: number = 2) =>
+      execute({ op: "hyphenate_word", input: { word, delimiter, left_min, right_min } }) as HyphenationResult,
+    hyphenation_points: (word: string, left_min: number = 2, right_min: number = 2) =>
+      execute({ op: "hyphenation_points", input: { word, left_min, right_min } }) as HyphenationPoint[],
+    hyphenate_text: (text: string, delimiter: string = "\u00AD", left_min: number = 2, right_min: number = 2) =>
+      execute({ op: "hyphenate_text", input: { text, delimiter, left_min, right_min } }) as string,
+    wrap_text: (text: string, max_width: number, delimiter: string = "-", left_min: number = 2, right_min: number = 2) =>
+      execute({ op: "wrap_text", input: { text, max_width, delimiter, left_min, right_min } }) as WrapResult,
     calendar: {
       profileInfo: (definition_id: string = thirukanithamDefinition) => execute({ op: "calendar_profile_info", input: { definition_id } }) as CalendarProfileInfo,
       gregorianToTamilDate: (date: GregorianDate, context: CalendarContextInput, definition_id: string = thirukanithamDefinition) => execute({ op: "gregorian_to_tamil_date", input: { definition_id, date, context } }) as CalendarDateConversion,

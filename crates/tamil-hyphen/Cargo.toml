@@ -6,7 +6,21 @@ publish.workspace = true
 license.workspace = true
 repository.workspace = true
 rust-version.workspace = true
-description = "Syllable and morpheme boundary hyphenation"
+description = "Syllable and orthographic boundary hyphenation"
+
+[dependencies]
+tamil-core.workspace = true
+tamil-norm.workspace = true
+serde.workspace = true
+unicode-segmentation.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
+serde_json.workspace = true
 
 [lints]
 workspace = true
+
+[[bench]]
+name = "hyphen_bench"
+harness = false

@@ -180,6 +180,53 @@ export interface Translations {
       quickLookupPlaceholder: string;
       noMatches: string;
     };
+    hyphenator: {
+      title: string;
+      desc: string;
+      tabWord: string;
+      tabText: string;
+      tabWrap: string;
+      wordInputLabel: string;
+      wordPlaceholder: string;
+      textInputLabel: string;
+      textPlaceholder: string;
+      syllableChipsHeading: string;
+      breakpointsHeading: string;
+      breakpointsDesc: string;
+      codaBindingNotice: string;
+      codaBindingRule: string;
+      marginHeading: string;
+      leftMarginLabel: string;
+      rightMarginLabel: string;
+      delimiterLabel: string;
+      delimiterHyphen: string;
+      delimiterBullet: string;
+      delimiterSlash: string;
+      delimiterSoft: string;
+      delimiterNone: string;
+      syllablesCount: string;
+      breakpointsCount: string;
+      noBreakpoints: string;
+      shortWordNotice: string;
+      showSoftHyphensToggle: string;
+      copyWordButton: string;
+      copyNoHyphenButton: string;
+      copyHtmlButton: string;
+      copyTextButton: string;
+      columnWidthLabel: string;
+      columnWidthLetters: string;
+      compareToggle: string;
+      defaultWrapHeading: string;
+      syllabicWrapHeading: string;
+      lineCount: string;
+      sampleWordsHeading: string;
+      sampleParagraphButton: string;
+      errOrphanedPulli: string;
+      errOrphanedVisiri: string;
+      errOrphanedDiacritic: string;
+      errPureConsonant: string;
+      errAytham: string;
+    };
     letter: {
       title: string;
       desc: string;
@@ -402,6 +449,53 @@ export const translations: Record<Language, Translations> = {
         quickLookupPlaceholder: "எண்ணை உள்ளிடுக (எ.கா: 0.25 அல்லது 1/4)...",
         noMatches: "பொருத்தமான குறியீடுகள் எதுவும் கிடைக்கவில்லை"
       },
+      hyphenator: {
+        title: "சொல் & பத்தி அசையசைப்பி",
+        desc: "தமிழ் இலக்கண மரபுப்படி (ஒற்று அடுத்த வரியில் பிரியாத வண்ணம்) சொற்களை அசை பிரித்து, மென்-இணைப்புக் குறி (Soft Hyphen) மற்றும் நிரல் வரி மடிப்பை (Line Wrapping) ஒழுங்கு செய்க.",
+        tabWord: "சொல் அசை பிரிப்பு",
+        tabText: "பத்தி & மென்-இணைப்புக் குறி",
+        tabWrap: "நிரல் வரி மடிப்பு",
+        wordInputLabel: "ஆராய வேண்டிய சொல்:",
+        wordPlaceholder: "எ.கா: தமிழ்நாடு, பல்கலைக்கழகம், திருக்குறள்...",
+        textInputLabel: "பத்தி உரை:",
+        textPlaceholder: "மென்-இணைப்புக் குறி சேர்க்க வேண்டிய தமிழ் உரை அல்லது பத்தியை உள்ளிடுக...",
+        syllableChipsHeading: "சொல்லின் அசைக்கூறுகள் (Syllable Units)",
+        breakpointsHeading: "அனுமதிக்கப்பட்ட பிரிவிடங்கள் (Break Points)",
+        breakpointsDesc: "வரியின் இறுதியில் சொல் நீண்டு செல்லும்போது, அதனைப் பிரித்து (-) அடுத்த வரிக்குக் கொண்டு செல்லக்கூடிய இலக்கணப்படியான இடங்கள்.",
+        codaBindingNotice: "மெய் ஒற்று விதி (Coda Binding)",
+        codaBindingRule: "ஒற்று (புள்ளி எழுத்து) முந்தைய உயிருடனோ அல்லது உயிர்மெய்யுடனோ மட்டுமே சேர வேண்டும்; புதிய வரி மெய்யெழுத்தில் தொடங்கக் கூடாது.",
+        marginHeading: "விளிம்பு வரம்புகள் (Marginal Restraints)",
+        leftMarginLabel: "தொடக்க விளிம்பு (குறைந்தபட்ச எழுத்துக்கள்)",
+        rightMarginLabel: "முடிவு விளிம்பு (குறைந்தபட்ச எழுத்துக்கள்)",
+        delimiterLabel: "பிரிப்புக் குறியீடு",
+        delimiterHyphen: "இணைப்புக் குறி (-)",
+        delimiterBullet: "நடுப்புள்ளி (·)",
+        delimiterSlash: "சாய்வுக்கோடு (/)",
+        delimiterSoft: "மென்-இணைப்பு (&shy;)",
+        delimiterNone: "குறியீடு இன்றி (None / ZWSP)",
+        syllablesCount: "அசைகள்",
+        breakpointsCount: "பிரிவிடங்கள்",
+        noBreakpoints: "இந்தச் சொல்லுக்கு தற்போதைய விளிம்பு அமைப்பில் பிரிவிடங்கள் இல்லை",
+        shortWordNotice: "விளிம்பு வரம்புகளுக்குள் அடங்காத குறுகிய சொல்",
+        showSoftHyphensToggle: "மென்-இணைப்புக் குறிகளைத் தெளிவாகக் காட்டு ([·])",
+        copyWordButton: "MS Word / Docs-க்கு நகலெடு",
+        copyNoHyphenButton: "இணைப்புக் குறியின்றி நகலெடு (ZWSP)",
+        copyHtmlButton: "HTML (&shy;) நகலெடு",
+        copyTextButton: "மென்-உரை (Unicode) நகலெடு",
+        columnWidthLabel: "நிரல் அகலம் (எழுத்துக்கள்):",
+        columnWidthLetters: "எழுத்துக்கள் / வரி",
+        compareToggle: "இயல்புநிலை மடிப்போடு ஒப்பிடுக",
+        defaultWrapHeading: "வழக்கமான வரி மடிப்பு (ஒற்று பிரிந்து பிழையாகும்)",
+        syllabicWrapHeading: "தமிழ் அசைசார் வரி மடிப்பு (இலக்கணப்படி சரியானது)",
+        lineCount: "வரிகள்",
+        sampleWordsHeading: "மாதிரிச் சொற்கள்:",
+        sampleParagraphButton: "மாதிரிப் பத்தி",
+        errOrphanedPulli: "(தனிப் புள்ளித் தொடக்கம்!)",
+        errOrphanedVisiri: "(விசிறி மட்டும் தொடக்கம்!)",
+        errOrphanedDiacritic: "(சிதைந்த குறியீடு தொடக்கம்!)",
+        errPureConsonant: "(புள்ளி எழுத்தில் தொடக்கம்!)",
+        errAytham: "(ஆய்த எழுத்தில் தொடக்கம்!)"
+      },
       letter: {
         title: "சொல் & எழுத்து பகுப்பாய்வி",
         desc: "தமிழ் சொற்களை உயிர், மெய், உயிர்மெய், ஆய்தம் மற்றும் கிரந்த எழுத்துகளாகப் பிரித்து, அவற்றின் இலக்கணக் கட்டமைப்பை ஆராய்க.",
@@ -621,6 +715,53 @@ export const translations: Record<Language, Translations> = {
         quickLookupHeading: "Number to Fraction Lookup",
         quickLookupPlaceholder: "Enter number or fraction (e.g. 0.25 or 1/4)...",
         noMatches: "No matching traditional symbols found"
+      },
+      hyphenator: {
+        title: "Syllabic Hyphenator & Line Wrapper",
+        desc: "Grammar-compliant Tamil syllabification, soft-hyphen (&shy;) injection, and responsive column wrapping preserving coda binding invariants.",
+        tabWord: "Word Syllables",
+        tabText: "Paragraph Soft-Hyphens",
+        tabWrap: "Column Wrap Simulator",
+        wordInputLabel: "Target Tamil Word:",
+        wordPlaceholder: "e.g. தமிழ்நாடு, பல்கலைக்கழகம், திருக்குறள்...",
+        textInputLabel: "Paragraph Text:",
+        textPlaceholder: "Enter Tamil paragraph or prose to inject soft hyphens or test line breaks...",
+        syllableChipsHeading: "Syllable Units (Syllable Chunks)",
+        breakpointsHeading: "Permissible Hyphenation Breakpoints",
+        breakpointsDesc: "Valid places where a hyphen (-) can be inserted at the end of a line so the rest wraps safely without violating coda binding rules.",
+        codaBindingNotice: "Coda Binding Invariant",
+        codaBindingRule: "In Tamil orthography, pure consonants (ஒற்று) must stay bound to their preceding nucleus; a line or hyphenated segment must never start with a pulli letter.",
+        marginHeading: "Safe Margin Restraints",
+        leftMarginLabel: "Left Minimum Margin (letters)",
+        rightMarginLabel: "Right Minimum Margin (letters)",
+        delimiterLabel: "Syllable Delimiter",
+        delimiterHyphen: "Hyphen (-)",
+        delimiterBullet: "Middle Dot (·)",
+        delimiterSlash: "Slash (/)",
+        delimiterSoft: "Soft Hyphen (&shy;)",
+        delimiterNone: "None / ZWSP",
+        syllablesCount: "Syllables",
+        breakpointsCount: "Breakpoints",
+        noBreakpoints: "No valid breakpoints within current safe margins",
+        shortWordNotice: "Word is too short for current margin constraints",
+        showSoftHyphensToggle: "Highlight Soft Hyphens ([·])",
+        copyWordButton: "Copy for MS Word / Docs",
+        copyNoHyphenButton: "Copy without Hyphen (ZWSP)",
+        copyHtmlButton: "Copy HTML (&shy;)",
+        copyTextButton: "Copy Unicode Soft-Hyphen Text",
+        columnWidthLabel: "Column Width (Tamil Letters):",
+        columnWidthLetters: "letters / line",
+        compareToggle: "Compare with Naive Character Wrap",
+        defaultWrapHeading: "Naive / Browser Wrap (Breaks pulli to newline)",
+        syllabicWrapHeading: "Tamil Syllabic Wrap (Grammatically Compliant)",
+        lineCount: "Lines",
+        sampleWordsHeading: "Sample Words:",
+        sampleParagraphButton: "Load Sample Paragraph",
+        errOrphanedPulli: "(Orphaned Pulli / Virama!)",
+        errOrphanedVisiri: "(Orphaned Visiri ி/ீ!)",
+        errOrphanedDiacritic: "(Orphaned Diacritic!)",
+        errPureConsonant: "(Starts with Pure Consonant / Mei!)",
+        errAytham: "(Starts with Aytham ஃ!)"
       },
       letter: {
         title: "Letter & Syllable Analyzer",

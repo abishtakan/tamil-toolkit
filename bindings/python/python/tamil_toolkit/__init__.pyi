@@ -4,6 +4,19 @@ class Uyirmei(TypedDict):
     mei: str
     uyir: str
 
+class HyphenationPoint(TypedDict):
+    letter_index: int
+    byte_offset: int
+
+class HyphenationResult(TypedDict):
+    word: str
+    syllables: list[str]
+    hyphenated: str
+
+class WrapResult(TypedDict):
+    lines: list[str]
+    wrapped: str
+
 class EncodingCandidate(TypedDict):
     encoding: str
     confidence: float
@@ -264,3 +277,7 @@ def format_tamil_date(date: GregorianDate, context: CalendarContext | VakyaCivil
 def calendar_display_info(date: GregorianDate, context: CalendarContext | VakyaCivilContext, script: CalendarDisplayScript = ..., digits: CalendarDisplayDigits = ..., definition_id: str = ...) -> dict[str, Any]: ...
 def compare_calendar_profiles(thirukanitham_context: CalendarContext, vakya_context: VakyaCivilContext, *, date: GregorianDate | None = ..., instant_unix_seconds: int | None = ...) -> dict[str, Any]: ...
 def thiruvalluvar_year_info(date: GregorianDate, context: CalendarContext, convention_id: str = ...) -> dict[str, Any]: ...
+def hyphenate_word(word: str, delimiter: str = ..., left_min: int = ..., right_min: int = ...) -> HyphenationResult: ...
+def hyphenation_points(word: str, left_min: int = ..., right_min: int = ...) -> list[HyphenationPoint]: ...
+def hyphenate_text(text: str, delimiter: str = ..., left_min: int = ..., right_min: int = ...) -> str: ...
+def wrap_text(text: str, max_width: int, delimiter: str = ..., left_min: int = ..., right_min: int = ...) -> WrapResult: ...

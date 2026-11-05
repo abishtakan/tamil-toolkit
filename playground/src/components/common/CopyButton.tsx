@@ -5,6 +5,7 @@ import { useLanguage } from "../../lib/i18n";
 
 export interface CopyButtonProps extends Omit<ButtonProps, "onClick"> {
   text: string;
+  html?: string;
   onCopied?: () => void;
   label?: string;
   copiedLabel?: string;
@@ -12,6 +13,7 @@ export interface CopyButtonProps extends Omit<ButtonProps, "onClick"> {
 
 export function CopyButton({
   text,
+  html,
   onCopied,
   label,
   copiedLabel,
@@ -27,14 +29,31 @@ export function CopyButton({
   const displayCopiedLabel = copiedLabel ?? t.actions.copied;
 
   const handleCopy = async () => {
-    if (!text) return;
+    if (!text && !html) return;
     try {
-      await navigator.clipboard.writeText(text);
+      if (html && typeof ClipboardItem !== "undefined" && navigator.clipboard?.write) {
+        const blobHtml = new Blob([html], { type: "text/html" });
+        const blobText = new Blob([text || html], { type: "text/plain" });
+        const item = new ClipboardItem({
+          "text/html": blobHtml,
+          "text/plain": blobText,
+        });
+        await navigator.clipboard.write([item]);
+      } else {
+        await navigator.clipboard.writeText(text);
+      }
       setCopied(true);
       onCopied?.();
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Clipboard copy failed:", err);
+    } catch {
+      try {
+        await navigator.clipboard.writeText(text);
+        setCopied(true);
+        onCopied?.();
+        setTimeout(() => setCopied(false), 2000);
+      } catch (err) {
+        console.error("Clipboard copy failed:", err);
+      }
     }
   };
 

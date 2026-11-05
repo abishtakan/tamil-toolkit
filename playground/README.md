@@ -16,6 +16,7 @@ The playground UI rejects generic SaaS templates, neon gradients, and AI-generat
     3. *நாட்காட்டி & பஞ்சாங்கம்* (`calendar`): Classical Thirukanitham & Vakya Solar Calendar Explorer.
     4. *அகர வரிசை* (`sorter`): Classical Tamil Agara Varisai Word Sorter.
     5. *பழந்தமிழ் பின்னங்கள் & குறியீடுகள்* (`symbols`): Traditional Fractions (முந்திரி to முக்கால்) and Epigraphical Measurement Glyph Explorer.
+    6. *சொல் & பத்தி அசையசைப்பி* (`hyphenator`): Syllabic Hyphenation, Coda Binding Inspector & Responsive Line Wrapper.
   - **Developer Diagnostics**:
     1. *ஒருங்குறி ஆய்வகம்* (`scalar`): Unicode Scalar & Invisible Joiner Code Inspector.
     2. *சொல் & எழுத்து பகுப்பாய்வி* (`letter`): Grapheme Cluster & Morphological Syllable (உயிர், மெய், உயிர்மெய், கிரந்தம்) Decomposer.

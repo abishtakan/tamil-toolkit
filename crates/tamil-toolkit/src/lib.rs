@@ -7,6 +7,7 @@ pub use tamil_calendar as calendar;
 pub use tamil_codec as codec;
 pub use tamil_collate as collate;
 pub use tamil_core as core;
+pub use tamil_hyphen as hyphen;
 pub use tamil_norm as norm;
 pub use tamil_numerals as numerals;
 
@@ -888,6 +889,10 @@ pub const OPERATIONS: &[&str] = &[
     "panchangam_day",
     "lunar_phase_events",
     "calendar_daylight_periods",
+    "hyphenate_word",
+    "hyphenation_points",
+    "hyphenate_text",
+    "wrap_text",
 ];
 
 fn string(value: &Value) -> Result<&str, String> {
@@ -1809,6 +1814,61 @@ pub fn execute(request: &Value) -> Result<Value, String> {
                 style,
                 digit_style(input)?
             )))
+        }
+        "hyphenate_word" => {
+            let word = string(input)
+                .or_else(|_| string(&input["text"]))
+                .or_else(|_| string(&input["word"]))?;
+            let delimiter = input.get("delimiter").and_then(Value::as_str).unwrap_or("\u{00AD}");
+            let left_min = input.get("left_min").and_then(Value::as_u64).unwrap_or(2) as usize;
+            let right_min = input.get("right_min").and_then(Value::as_u64).unwrap_or(2) as usize;
+            let cfg = hyphen::HyphenationConfig {
+                delimiter: delimiter.to_string(),
+                left_min,
+                right_min,
+            };
+            let res = hyphen::hyphenate_word(word, Some(&cfg))?;
+            serde_json::to_value(&res).map_err(|e| e.to_string())
+        }
+        "hyphenation_points" => {
+            let word = string(input)
+                .or_else(|_| string(&input["text"]))
+                .or_else(|_| string(&input["word"]))?;
+            let left_min = input.get("left_min").and_then(Value::as_u64).unwrap_or(2) as usize;
+            let right_min = input.get("right_min").and_then(Value::as_u64).unwrap_or(2) as usize;
+            let cfg = hyphen::HyphenationConfig {
+                delimiter: "\u{00AD}".to_string(),
+                left_min,
+                right_min,
+            };
+            let pts = hyphen::hyphenation_points(word, Some(&cfg))?;
+            serde_json::to_value(&pts).map_err(|e| e.to_string())
+        }
+        "hyphenate_text" => {
+            let text = string(input).or_else(|_| string(&input["text"]))?;
+            let delimiter = input.get("delimiter").and_then(Value::as_str).unwrap_or("\u{00AD}");
+            let left_min = input.get("left_min").and_then(Value::as_u64).unwrap_or(2) as usize;
+            let right_min = input.get("right_min").and_then(Value::as_u64).unwrap_or(2) as usize;
+            let cfg = hyphen::HyphenationConfig {
+                delimiter: delimiter.to_string(),
+                left_min,
+                right_min,
+            };
+            hyphen::hyphenate_text(text, Some(&cfg)).map(|t| json!(t))
+        }
+        "wrap_text" => {
+            let text = string(&input["text"])?;
+            let max_width = input.get("max_width").and_then(Value::as_u64).ok_or("wrap_text requires 'max_width'")? as usize;
+            let delimiter = input.get("delimiter").and_then(Value::as_str).unwrap_or("-");
+            let left_min = input.get("left_min").and_then(Value::as_u64).unwrap_or(2) as usize;
+            let right_min = input.get("right_min").and_then(Value::as_u64).unwrap_or(2) as usize;
+            let cfg = hyphen::HyphenationConfig {
+                delimiter: delimiter.to_string(),
+                left_min,
+                right_min,
+            };
+            let res = hyphen::wrap_text(text, max_width, Some(&cfg))?;
+            serde_json::to_value(&res).map_err(|e| e.to_string())
         }
         op => Err(format!("unsupported operation: {op}")),
     }

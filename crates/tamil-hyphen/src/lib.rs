@@ -1,7 +1,13 @@
-//! Syllable and morpheme boundary hyphenation.
+//! Syllable and orthographic boundary hyphenation.
 //!
-//! Planned: add reviewed golden vectors and declarative rules before algorithms.
+//! Provides deterministic Tamil syllable breakdown (*Akshara* boundary detection),
+//! word hyphenation, paragraph soft-hyphenation, and publication-grade line wrapping.
 #![forbid(unsafe_code)]
 
-/// No linguistic behavior is implemented in this module yet.
-pub const STATUS: &str = "planned";
+pub mod syllable;
+pub mod text;
+pub mod types;
+
+pub use syllable::{classify_letter, hyphenate_word, hyphenation_points, LetterClass};
+pub use text::{hyphenate_text, tokenize_words, wrap_text, TextToken};
+pub use types::{HyphenationConfig, HyphenationPoint, HyphenationResult, WrapResult};

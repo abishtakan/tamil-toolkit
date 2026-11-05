@@ -569,4 +569,304 @@ export function auditAndNormalizeTamil(rawText: string): NormalizationResult {
   };
 }
 
+// ---------------------------------------------------------------------------
+// 4. Tamil Syllabic Hyphenation & Responsive Line Wrapping
+// ---------------------------------------------------------------------------
+
+export interface HyphenationPoint {
+  point_index: number;
+  letter_index: number;
+  byte_offset: number;
+}
+
+export interface HyphenationResult {
+  word: string;
+  syllables: string[];
+  hyphenated: string;
+}
+
+export interface WrapResult {
+  lines: string[];
+  wrapped: string;
+}
+
+export interface HyphenationOptions {
+  delimiter?: string;
+  left_min?: number;
+  right_min?: number;
+}
+
+function isTamilWord(str: string): boolean {
+  for (let i = 0; i < str.length; i++) {
+    const cp = str.charCodeAt(i);
+    if (cp >= 0x0b80 && cp <= 0x0bff) return true;
+  }
+  return false;
+}
+
+export function getTamilSyllables(word: string): string[] {
+  const letters = getLetters(word);
+  if (letters.length === 0) return [];
+
+  const isCoda = (l: string) => l.endsWith("\u0BCD") || l === "\u0B83";
+  const isNucleus = (l: string) => !isCoda(l) && isTamilWord(l);
+
+  const syllables: string[] = [];
+  let current: string[] = [];
+
+  for (let i = 0; i < letters.length; i++) {
+    const l = letters[i];
+    if (isNucleus(l)) {
+      if (current.length > 0) {
+        syllables.push(current.join(""));
+        current = [];
+      }
+      current.push(l);
+    } else {
+      current.push(l);
+    }
+  }
+
+  if (current.length > 0) {
+    syllables.push(current.join(""));
+  }
+
+  return syllables;
+}
+
+export function fallbackHyphenateWord(
+  word: string,
+  options?: HyphenationOptions
+): HyphenationResult {
+  const delimiter = options?.delimiter ?? "\u00AD";
+  const leftMin = options?.left_min ?? 2;
+  const rightMin = options?.right_min ?? 2;
+
+  const syllables = getTamilSyllables(word);
+  const totalLetters = getLetters(word).length;
+
+  if (totalLetters < leftMin + rightMin || syllables.length <= 1) {
+    return {
+      word,
+      syllables: syllables.length > 0 ? syllables : [word],
+      hyphenated: word,
+    };
+  }
+
+  // Calculate permissible break points between syllables
+  const segments: string[] = [];
+  let currentSegment = "";
+  let cumulativeLetters = 0;
+
+  for (let i = 0; i < syllables.length; i++) {
+    const syl = syllables[i];
+    const sylLetters = getLetters(syl).length;
+    currentSegment += syl;
+    cumulativeLetters += sylLetters;
+
+    const remainingLetters = totalLetters - cumulativeLetters;
+    if (
+      i < syllables.length - 1 &&
+      cumulativeLetters >= leftMin &&
+      remainingLetters >= rightMin
+    ) {
+      segments.push(currentSegment);
+      currentSegment = "";
+    }
+  }
+  if (currentSegment) {
+    segments.push(currentSegment);
+  }
+
+  return {
+    word,
+    syllables,
+    hyphenated: segments.join(delimiter),
+  };
+}
+
+export function hyphenateWord(
+  word: string,
+  options?: HyphenationOptions
+): HyphenationResult {
+  if (!word) return { word: "", syllables: [], hyphenated: "" };
+  try {
+    const fn = (tt as any).hyphenate_word;
+    if (typeof fn === "function") {
+      const res = fn(
+        word,
+        options?.delimiter ?? "\u00AD",
+        options?.left_min ?? 2,
+        options?.right_min ?? 2
+      );
+      if (res && Array.isArray(res.syllables)) return res;
+    }
+    const res = tt.execute({
+      op: "hyphenate_word",
+      input: {
+        word,
+        delimiter: options?.delimiter ?? "\u00AD",
+        left_min: options?.left_min ?? 2,
+        right_min: options?.right_min ?? 2,
+      },
+    }) as HyphenationResult;
+    if (res && Array.isArray(res.syllables)) return res;
+  } catch {
+    // Fallback to JS engine
+  }
+  return fallbackHyphenateWord(word, options);
+}
+
+export function getHyphenationPoints(
+  word: string,
+  options?: { left_min?: number; right_min?: number }
+): HyphenationPoint[] {
+  if (!word) return [];
+  try {
+    const fn = (tt as any).hyphenation_points;
+    if (typeof fn === "function") {
+      const res = fn(word, options?.left_min ?? 2, options?.right_min ?? 2);
+      if (Array.isArray(res)) return res;
+    }
+    const res = tt.execute({
+      op: "hyphenation_points",
+      input: {
+        word,
+        left_min: options?.left_min ?? 2,
+        right_min: options?.right_min ?? 2,
+      },
+    }) as HyphenationPoint[];
+    if (Array.isArray(res)) return res;
+  } catch {
+    // Fallback
+  }
+
+  const leftMin = options?.left_min ?? 2;
+  const rightMin = options?.right_min ?? 2;
+  const syllables = getTamilSyllables(word);
+  const totalLetters = getLetters(word).length;
+  if (totalLetters < leftMin + rightMin || syllables.length <= 1) {
+    return [];
+  }
+
+  const encoder = new TextEncoder();
+  const points: HyphenationPoint[] = [];
+  let cumulativeLetters = 0;
+  let cumulativeBytes = 0;
+  let pointIndex = 0;
+
+  for (let i = 0; i < syllables.length - 1; i++) {
+    const syl = syllables[i];
+    cumulativeLetters += getLetters(syl).length;
+    cumulativeBytes += encoder.encode(syl).length;
+    const remainingLetters = totalLetters - cumulativeLetters;
+
+    if (cumulativeLetters >= leftMin && remainingLetters >= rightMin) {
+      points.push({
+        point_index: pointIndex++,
+        letter_index: cumulativeLetters,
+        byte_offset: cumulativeBytes,
+      });
+    }
+  }
+
+  return points;
+}
+
+export function hyphenateText(
+  text: string,
+  options?: HyphenationOptions
+): string {
+  if (!text) return "";
+  try {
+    const fn = (tt as any).hyphenate_text;
+    if (typeof fn === "function") {
+      const res = fn(
+        text,
+        options?.delimiter ?? "\u00AD",
+        options?.left_min ?? 2,
+        options?.right_min ?? 2
+      );
+      if (typeof res === "string") return res;
+    }
+    const res = tt.execute({
+      op: "hyphenate_text",
+      input: {
+        text,
+        delimiter: options?.delimiter ?? "\u00AD",
+        left_min: options?.left_min ?? 2,
+        right_min: options?.right_min ?? 2,
+      },
+    });
+    if (typeof res === "string") return res;
+  } catch {
+    // Fallback
+  }
+  const delimiter = options?.delimiter ?? "\u00AD";
+  const cleaned = text.split("\u00AD").join("");
+  return cleaned.replace(/[\u0B80-\u0BFF]+/g, (match) => {
+    return hyphenateWord(match, { ...options, delimiter }).hyphenated;
+  });
+}
+
+export function wrapText(
+  text: string,
+  maxWidth: number,
+  options?: HyphenationOptions
+): WrapResult {
+  if (!text) return { lines: [], wrapped: "" };
+  try {
+    const fn = (tt as any).wrap_text;
+    if (typeof fn === "function") {
+      const res = fn(
+        text,
+        maxWidth,
+        options?.delimiter ?? "-",
+        options?.left_min ?? 2,
+        options?.right_min ?? 2
+      );
+      if (res && Array.isArray(res.lines)) return res;
+    }
+    const res = tt.execute({
+      op: "wrap_text",
+      input: {
+        text,
+        max_width: maxWidth,
+        delimiter: options?.delimiter ?? "-",
+        left_min: options?.left_min ?? 2,
+        right_min: options?.right_min ?? 2,
+      },
+    }) as WrapResult;
+    if (res && Array.isArray(res.lines)) return res;
+  } catch {
+    // Fallback
+  }
+  const words = text.split(/\s+/);
+  const lines: string[] = [];
+  let currentLine: string[] = [];
+  let currentLen = 0;
+
+  for (const w of words) {
+    const wLen = getLetters(w).length;
+    if (currentLen + (currentLine.length > 0 ? 1 : 0) + wLen <= maxWidth) {
+      currentLine.push(w);
+      currentLen += (currentLine.length > 1 ? 1 : 0) + wLen;
+    } else {
+      if (currentLine.length > 0) {
+        lines.push(currentLine.join(" "));
+      }
+      currentLine = [w];
+      currentLen = wLen;
+    }
+  }
+  if (currentLine.length > 0) {
+    lines.push(currentLine.join(" "));
+  }
+
+  return {
+    lines,
+    wrapped: lines.join("\n"),
+  };
+}
+
 export { tt };

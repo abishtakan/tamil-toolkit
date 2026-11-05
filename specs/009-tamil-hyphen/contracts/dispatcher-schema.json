@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TamilHyphenOperations",
+  "description": "JSON Schemas for tamil-hyphen operations routed through tamil-toolkit dispatcher",
+  "definitions": {
+    "HyphenationConfig": {
+      "type": "object",
+      "properties": {
+        "delimiter": { "type": "string", "default": "\u00ad" },
+        "left_min": { "type": "integer", "minimum": 1, "default": 2 },
+        "right_min": { "type": "integer", "minimum": 1, "default": 2 }
+      },
+      "additionalProperties": false
+    },
+    "HyphenationPoint": {
+      "type": "object",
+      "required": ["letter_index", "scalar_offset", "byte_offset"],
+      "properties": {
+        "letter_index": { "type": "integer", "minimum": 0 },
+        "scalar_offset": { "type": "integer", "minimum": 0 },
+        "byte_offset": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "HyphenationResult": {
+      "type": "object",
+      "required": ["original", "hyphenated", "segments", "points"],
+      "properties": {
+        "original": { "type": "string" },
+        "hyphenated": { "type": "string" },
+        "segments": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "points": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/HyphenationPoint" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "WrapResult": {
+      "type": "object",
+      "required": ["lines", "broken_words_count"],
+      "properties": {
+        "lines": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "broken_words_count": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

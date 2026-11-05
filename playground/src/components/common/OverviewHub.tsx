@@ -9,6 +9,7 @@ import {
   Files,
   Cpu,
   BookOpen,
+  Scissors,
   Sparkles,
   ShieldCheck,
   ArrowRight
@@ -280,6 +281,68 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
                   {t.hub.launchTool}
                 </span>
                 <ArrowRight className="w-4 h-4 text-[var(--color-sandhanam)]" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bento Slot 6: Syllabic Hyphenator & Line Wrapper (Col 1-12) */}
+          <div className="lg:col-span-12">
+            <div
+              onClick={() => onSelectTool("public", "hyphenator")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelectTool("public", "hyphenator");
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              className="h-full border border-[var(--border-line)] hover:border-[var(--color-semman)] bg-[var(--bg-surface)] hover:bg-[var(--bg-raised)]/30 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 transition-colors duration-150 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] active:scale-[0.99]"
+            >
+              <div className="space-y-3 max-w-2xl">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[var(--color-semman-light)] text-[var(--color-semman)] flex items-center justify-center shrink-0">
+                    <Scissors className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-base sm:text-lg font-tamil font-bold text-[var(--color-mai)]">
+                      {t.tools.hyphenator.title}
+                    </h3>
+                    <span className="text-[11px] font-mono-tamil text-[var(--color-muted)]">
+                      Grammar-Safe Syllabification &amp; Line Wrapping
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-[var(--color-muted)] font-tamil-sans leading-relaxed">
+                  {t.tools.hyphenator.desc}
+                </p>
+
+                {/* Visual Syllable Ribbon Preview */}
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-[11px] font-tamil text-[var(--color-muted)] mr-1">
+                    மாதிரி:
+                  </span>
+                  {["த", "மிழ்", "நா", "டு"].map((chunk, i) => (
+                    <span
+                      key={i}
+                      className="px-2 py-0.5 rounded-md bg-[var(--bg-raised)] border border-[var(--border-line)] font-tamil font-bold text-xs text-[var(--color-mai)]"
+                    >
+                      {chunk}
+                    </span>
+                  ))}
+                  <span className="text-xs text-[var(--color-muted)] px-1">→</span>
+                  <span className="text-xs font-tamil font-bold text-[var(--color-semman)]">
+                    தமிழ்-நாடு
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0 sm:self-center">
+                <span className="text-xs font-semibold text-[var(--color-semman)] font-tamil">
+                  {t.hub.launchTool}
+                </span>
+                <ArrowRight className="w-4 h-4 text-[var(--color-semman)]" />
               </div>
             </div>
           </div>

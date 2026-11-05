@@ -7,6 +7,7 @@ import { NumeralFormatter } from "./components/public-tools/NumeralFormatter";
 import { CalendarExplorer } from "./components/public-tools/CalendarExplorer";
 import { TextSorter } from "./components/public-tools/TextSorter";
 import { SymbolsExplorer } from "./components/public-tools/SymbolsExplorer";
+import { HyphenatorTool } from "./components/public-tools/HyphenatorTool";
 import { ScalarInspector } from "./components/developer-tools/ScalarInspector";
 import { LetterAnalyzer } from "./components/developer-tools/LetterAnalyzer";
 import { NormalizerTool } from "./components/developer-tools/NormalizerTool";
@@ -26,6 +27,7 @@ import {
   Calendar,
   ArrowDownAZ,
   BookOpen,
+  Scissors,
   ShieldCheck,
   Cpu,
   Terminal,
@@ -193,7 +195,8 @@ export function App() {
                 { id: "numeral", label: t.tools.numeral.title, icon: Banknote },
                 { id: "calendar", label: t.tools.calendar.title, icon: Calendar },
                 { id: "sorter", label: t.tools.sorter.title, icon: ArrowDownAZ },
-                { id: "symbols", label: t.tools.symbols.title, icon: BookOpen }
+                { id: "symbols", label: t.tools.symbols.title, icon: BookOpen },
+                { id: "hyphenator", label: t.tools.hyphenator.title, icon: Scissors }
               ].map((tool) => {
                 const Icon = tool.icon;
                 const isActive = activePublicTool === tool.id;
@@ -220,6 +223,7 @@ export function App() {
             {activePublicTool === "calendar" && <CalendarExplorer />}
             {activePublicTool === "sorter" && <TextSorter />}
             {activePublicTool === "symbols" && <SymbolsExplorer />}
+            {activePublicTool === "hyphenator" && <HyphenatorTool />}
           </div>
         )}
 

@@ -11,7 +11,17 @@ __all__.append("vakya_reduce_to_local_true_sunrise")
 __all__.append("vakya_cara_from_sayana_sun")
 __all__.append("vakya_desantara_from_yojana_distance")
 __all__.append("vakya_bhujaantara_from_true_sun")
-__all__ += ["format_tamil_date", "calendar_display_info", "compare_calendar_profiles", "thiruvalluvar_year_info", "calendar"]
+__all__ += [
+    "format_tamil_date",
+    "calendar_display_info",
+    "compare_calendar_profiles",
+    "thiruvalluvar_year_info",
+    "calendar",
+    "hyphenate_word",
+    "hyphenation_points",
+    "hyphenate_text",
+    "wrap_text",
+]
 
 
 def execute(request: dict[str, Any]) -> Any:
@@ -557,6 +567,78 @@ def thiruvalluvar_year_info(
     return execute({"op": "thiruvalluvar_year_info", "input": {
         "convention_id": convention_id, "date": date, "context": context,
     }})
+
+
+def hyphenate_word(
+    word: str,
+    delimiter: str = "\u00AD",
+    left_min: int = 2,
+    right_min: int = 2,
+) -> dict[str, Any]:
+    """Hyphenate a single Tamil word at valid syllable boundaries."""
+    return execute({
+        "op": "hyphenate_word",
+        "input": {
+            "word": word,
+            "delimiter": delimiter,
+            "left_min": left_min,
+            "right_min": right_min,
+        },
+    })
+
+
+def hyphenation_points(
+    word: str,
+    left_min: int = 2,
+    right_min: int = 2,
+) -> list[dict[str, Any]]:
+    """Return valid syllable hyphenation points within a Tamil word."""
+    return execute({
+        "op": "hyphenation_points",
+        "input": {
+            "word": word,
+            "left_min": left_min,
+            "right_min": right_min,
+        },
+    })
+
+
+def hyphenate_text(
+    text: str,
+    delimiter: str = "\u00AD",
+    left_min: int = 2,
+    right_min: int = 2,
+) -> str:
+    """Inject soft hyphens into Tamil words across full text or paragraphs."""
+    return execute({
+        "op": "hyphenate_text",
+        "input": {
+            "text": text,
+            "delimiter": delimiter,
+            "left_min": left_min,
+            "right_min": right_min,
+        },
+    })
+
+
+def wrap_text(
+    text: str,
+    max_width: int,
+    delimiter: str = "-",
+    left_min: int = 2,
+    right_min: int = 2,
+) -> dict[str, Any]:
+    """Wrap text to max_width Tamil letters using hyphenation."""
+    return execute({
+        "op": "wrap_text",
+        "input": {
+            "text": text,
+            "max_width": max_width,
+            "delimiter": delimiter,
+            "left_min": left_min,
+            "right_min": right_min,
+        },
+    })
 
 
 from . import calendar

@@ -1043,6 +1043,70 @@ class TamilToolkit {
           .toList(),
     );
   }
+
+  Map<String, dynamic> hyphenateWord(
+    String word, {
+    String delimiter = '\u00AD',
+    int leftMin = 2,
+    int rightMin = 2,
+  }) =>
+      execute({
+        'op': 'hyphenate_word',
+        'input': {
+          'word': word,
+          'delimiter': delimiter,
+          'left_min': leftMin,
+          'right_min': rightMin,
+        },
+      }) as Map<String, dynamic>;
+
+  List<dynamic> hyphenationPoints(
+    String word, {
+    int leftMin = 2,
+    int rightMin = 2,
+  }) =>
+      execute({
+        'op': 'hyphenation_points',
+        'input': {
+          'word': word,
+          'left_min': leftMin,
+          'right_min': rightMin,
+        },
+      }) as List<dynamic>;
+
+  String hyphenateText(
+    String text, {
+    String delimiter = '\u00AD',
+    int leftMin = 2,
+    int rightMin = 2,
+  }) =>
+      execute({
+        'op': 'hyphenate_text',
+        'input': {
+          'text': text,
+          'delimiter': delimiter,
+          'left_min': leftMin,
+          'right_min': rightMin,
+        },
+      }) as String;
+
+  Map<String, dynamic> wrapText(
+    String text,
+    int maxWidth, {
+    String delimiter = '-',
+    int leftMin = 2,
+    int rightMin = 2,
+  }) =>
+      execute({
+        'op': 'wrap_text',
+        'input': {
+          'text': text,
+          'max_width': maxWidth,
+          'delimiter': delimiter,
+          'left_min': leftMin,
+          'right_min': rightMin,
+        },
+      }) as Map<String, dynamic>;
 }
 
 class TamilCalendar {
