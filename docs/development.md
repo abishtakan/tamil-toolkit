@@ -46,6 +46,13 @@ documented `PYTEST_DEBUG_TEMPROOT` setting in `conftest.py`. This avoids the
 account's inaccessible system temp base and deleting the previous active test
 run on Windows. Explicit user `--basetemp` or environment settings are honored.
 
+## Playground development
+
+The interactive web playground lives in `playground/` and is powered by React 19, Vite 8, Tailwind CSS v4, and the WebAssembly bindings.
+- Dev server: `pnpm playground:dev` or `just playground-dev` (serves on `http://localhost:5173`)
+- Production build: `pnpm playground:build` or `just playground-build` (builds to `playground/dist/`)
+- Unit tests: `pnpm --filter tamil-toolkit-playground test`
+
 ## Handoff before ending or losing context
 
 Update `docs/status.md` with the objective, branch/commit and uncommitted work,

@@ -1,9 +1,17 @@
 # Project handoff
 
-Updated: 2026-11-02. Branch: master. Current release source:
+Updated: 2026-11-05. Branch: master. Current release source:
 147ade2f1b0579200c2d222c9546c85a5e56b258 (0.1.0-alpha.5). This immutable
 source SHA is tagged v0.1.0-alpha.5; post-release documentation commits do not
 change the published packages. See the [alpha-5 release record](releases/alpha-5.md).
+
+## Active Feature: 005-playground (Interactive Playground) - Completed
+
+Completed the Interactive Public & Developer Playground (`playground/` package) with 100% client-side WASM execution:
+- **Public tools**: Real-time legacy converter (Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM), Numeral/Cheque formatter, Tamil Calendar & Panchangam explorer, and Agara varisai sorter.
+- **Developer tools**: Unicode scalar inspector with invisible ZWJ/ZWNJ alerts, Dispatcher sandbox console, multi-language code generator (Rust, Python, TS, Dart), and background Web Worker batch converter.
+- **Ergonomics & Design**: Mobile-first responsive layout (>= 44px touch targets, sticky bottom action bar), authentic Tamil classical palette (Terracotta `#963824`, Palm Leaf `#faf7f2`, Sandalwood `#b88628`, Carbon Ink `#1f1a17`), and full bilingual interface (`தமிழ்` ↔ `English`) with auto-detection.
+- **Verification**: 8/8 playground test suites passed (21/21 tests), 35,880 core tests passed, `just agent-post-edit` and `just agent-pre-stop-gate` passed. Production build compiles in ~550ms with 102.9 KB gzipped JS.
 
 ## Current status: alpha 5 released
 

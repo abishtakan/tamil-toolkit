@@ -33,6 +33,20 @@ Normalization preserves joiners and non-Tamil text. Encoding conversion uses
 explicit profiles; callers choose the source encoding. Unsupported input is
 reported according to each profile's contract.
 
+## Interactive Playground
+
+An interactive web playground is available for exploring Tamil toolkit capabilities directly in your browser:
+- **Public Tools**: Real-time legacy font converter (Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM), Numeral and Cheque amount formatter, Tamil Calendar and Panchangam explorer, and Agara varisai alphabetical sorter.
+- **Developer Tools**: Unicode scalar & grapheme inspector, raw JSON dispatcher sandbox, multi-language code snippet generator (Rust, Python, TypeScript, Dart), and batch file converter.
+- **Privacy & Offline**: Runs 100% client-side via WebAssembly with zero network telemetry and full PWA offline support.
+
+```bash
+# Run playground locally
+pnpm playground:dev
+# or using just
+just playground-dev
+```
+
 ## Installation
 
 Choose the SDK for your application:

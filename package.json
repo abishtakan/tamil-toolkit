@@ -3,6 +3,8 @@
   "private": true,
   "packageManager": "pnpm@11.5.0",
   "scripts": {
-    "test": "pnpm --filter tamil-toolkit test"
+    "test": "pnpm --filter tamil-toolkit test",
+    "playground:dev": "pnpm --filter tamil-toolkit-playground dev",
+    "playground:build": "pnpm --filter tamil-toolkit-playground build"
   }
 }

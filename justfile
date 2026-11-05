@@ -73,3 +73,11 @@ release version *flags:
 # Ensure npm registry dist-tags reflect the active release on npmjs.com.
 npm-sync-tags *version:
     uv run --locked python tools/release_npm_tags.py {{version}}
+
+# Launch the interactive Tamil Toolkit Playground locally.
+playground-dev:
+    pnpm --filter tamil-toolkit-playground dev
+
+# Build the production static assets for the Playground.
+playground-build:
+    pnpm --filter tamil-toolkit-playground build

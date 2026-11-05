@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-canvas: #faf7f2;
+    --bg-surface: #ffffff;
+    --bg-raised: #f3eee6;
+    --color-semman: #963824;
+    --color-semman-hover: #7d2e1c;
+    --color-semman-light: #fbeee9;
+    --color-sandhanam: #b88628;
+    --color-mai: #1f1a17;
+    --color-muted: #6e645c;
+    --border-line: #e8e0d4;
+    --radius: 0.75rem;
+
+    font-family: "Noto Serif Tamil", "Mukta Malar", "Nirmala UI", "Latha", serif, system-ui;
+    color: var(--color-mai);
+    background-color: var(--bg-canvas);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .dark {
+    --bg-canvas: #141210;
+    --bg-surface: #1c1815;
+    --bg-raised: #26211d;
+    --color-semman: #d95c43;
+    --color-semman-hover: #e6725b;
+    --color-semman-light: #2b1915;
+    --color-sandhanam: #e0a638;
+    --color-mai: #f4efe8;
+    --color-muted: #a69a8f;
+    --border-line: #332b25;
+  }
+}
+
+/* Custom utility classes */
+.font-tamil {
+  font-family: "Noto Serif Tamil", "Mukta Malar", "Nirmala UI", "Latha", serif;
+}
+
+.font-tamil-sans {
+  font-family: "Inter", "Noto Sans Tamil", "Nirmala UI", sans-serif;
+}
+
+.font-mono-tamil {
+  font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", monospace;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-line);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}

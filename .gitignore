@@ -6,6 +6,7 @@
 /bindings/js-wasm/pkg-node/
 /bindings/js-wasm/pkg-web/
 /bindings/js-wasm/dist/
+/playground/dist/
 /bindings/python/python/tamil_toolkit/_native*.pyd
 /bindings/python/python/tamil_toolkit/_native*.so
 /bindings/python/python/tamil_toolkit/_native*.pdb

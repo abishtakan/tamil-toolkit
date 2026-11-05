@@ -8,13 +8,13 @@
 
 **Purpose**: Initialize the `playground` workspace package, configure Vite, React, TypeScript, Tailwind CSS, and shadcn/ui primitives.
 
-- [ ] T001 Update workspace configuration in `pnpm-workspace.yaml` to include `playground`
-- [ ] T002 Initialize `playground/package.json` with dependencies (`react`, `react-dom`, `lucide-react`, `@radix-ui/react-tabs`, `@radix-ui/react-toast`, `@radix-ui/react-dialog`, `tailwindcss`, `vite`, `vite-plugin-pwa`, `tamil-toolkit: "workspace:*"`)
-- [ ] T003 [P] Configure TypeScript compiler in `playground/tsconfig.json` and `playground/tsconfig.node.json`
-- [ ] T004 [P] Configure Vite 8 in `playground/vite.config.ts` with WASM support and PWA configuration
-- [ ] T005 [P] Setup Tailwind CSS v4 and design tokens per `specs/005-playground/design-standard.md` in `playground/src/index.css`
-- [ ] T006 [P] Create HTML template with mobile viewport, theme-color, and PWA manifest link in `playground/index.html`
-- [ ] T007 Add playground scripts to root `package.json` and `justfile` (`playground-dev`, `playground-build`)
+- [x] T001 Update workspace configuration in `pnpm-workspace.yaml` to include `playground`
+- [x] T002 Initialize `playground/package.json` with dependencies (`react`, `react-dom`, `lucide-react`, `@radix-ui/react-tabs`, `@radix-ui/react-toast`, `@radix-ui/react-dialog`, `tailwindcss`, `vite`, `vite-plugin-pwa`, `tamil-toolkit: "workspace:*"`)
+- [x] T003 [P] Configure TypeScript compiler in `playground/tsconfig.json` and `playground/tsconfig.node.json`
+- [x] T004 [P] Configure Vite 8 in `playground/vite.config.ts` with WASM support and PWA configuration
+- [x] T005 [P] Setup Tailwind CSS v4 and design tokens per `specs/005-playground/design-standard.md` in `playground/src/index.css`
+- [x] T006 [P] Create HTML template with mobile viewport, theme-color, and PWA manifest link in `playground/index.html`
+- [x] T007 Add playground scripts to root `package.json` and `justfile` (`playground-dev`, `playground-build`)
 
 ---
 
@@ -24,13 +24,13 @@
 
 **⚠️ CRITICAL**: No user story implementation can begin until the engine lifecycle and base layout are established.
 
-- [ ] T008 Implement WebAssembly engine loader and state manager in `playground/src/lib/engine.ts`
-- [ ] T009 [P] Implement utility functions and class merger in `playground/src/lib/utils.ts`
-- [ ] T010 [P] Implement accessible UI primitives (`Button`, `Card`, `Tabs`, `Badge`, `Textarea`, `Toast`) styled with terracotta/parchment tokens in `playground/src/components/ui/`
-- [ ] T011 [P] Implement single-tap clipboard copy component and mobile sticky action bar in `playground/src/components/common/CopyButton.tsx` and `playground/src/components/common/StickyActionBar.tsx`
-- [ ] T012 [P] Implement bilingual i18n translation dictionary and language context (`தமிழ்` / `English`) in `playground/src/lib/i18n.ts`
-- [ ] T013 Implement main application shell, header with language toggle, and top/bottom navigation in `playground/src/App.tsx`
-- [ ] T014 Implement React entry bootstrap and engine initialization in `playground/src/main.tsx`
+- [x] T008 Implement WebAssembly engine loader and state manager in `playground/src/lib/engine.ts`
+- [x] T009 [P] Implement utility functions and class merger in `playground/src/lib/utils.ts`
+- [x] T010 [P] Implement accessible UI primitives (`Button`, `Card`, `Tabs`, `Badge`, `Textarea`, `Toast`) styled with terracotta/parchment tokens in `playground/src/components/ui/`
+- [x] T011 [P] Implement single-tap clipboard copy component and mobile sticky action bar in `playground/src/components/common/CopyButton.tsx` and `playground/src/components/common/StickyActionBar.tsx`
+- [x] T012 [P] Implement bilingual i18n translation dictionary and language context (`தமிழ்` / `English`) in `playground/src/lib/i18n.ts`
+- [x] T013 Implement main application shell, header with language toggle, and top/bottom navigation in `playground/src/App.tsx`
+- [x] T014 Implement React entry bootstrap and engine initialization in `playground/src/main.tsx`
 
 **Checkpoint**: Foundation ready — the application shell loads, initializes the WASM engine, and renders responsive navigation.
 
@@ -43,17 +43,17 @@
 **Independent Test**: Open `http://localhost:5173` on a mobile viewport (390px), paste Bamini text; verify auto-detection identifies `bamini-v1` and renders converted Unicode in under 30ms without clicking "Convert"; tap Copy to verify toast confirmation; test numeral to words and calendar display.
 
 ### Tests for User Story 1
-- [ ] T015 [P] [US1] Unit test for real-time legacy conversion and auto-detection in `playground/src/tests/codec-converter.test.tsx`
-- [ ] T016 [P] [US1] Unit test for numeral and currency formatting in `playground/src/tests/numeral-formatter.test.tsx`
-- [ ] T017 [P] [US1] Unit test for calendar date conversion and panchangam lookup in `playground/src/tests/calendar-explorer.test.tsx`
-- [ ] T018 [P] [US1] Component test for mobile sticky action bar interactions in `playground/src/tests/mobile-ergonomics.test.tsx`
+- [x] T015 [P] [US1] Unit test for real-time legacy conversion and auto-detection in `playground/src/tests/codec-converter.test.tsx`
+- [x] T016 [P] [US1] Unit test for numeral and currency formatting in `playground/src/tests/numeral-formatter.test.tsx`
+- [x] T017 [P] [US1] Unit test for calendar date conversion and panchangam lookup in `playground/src/tests/calendar-explorer.test.tsx`
+- [x] T018 [P] [US1] Component test for mobile sticky action bar interactions in `playground/src/tests/mobile-ergonomics.test.tsx`
 
 ### Implementation for User Story 1
-- [ ] T019 [US1] Implement real-time Legacy Font & Encoding Converter component (`Bamini`, `TSCII`, `TAB`, `TAM`, `Anjal`, `Vanavil`, `LT-TM`, auto-detect chip row, swap button) in `playground/src/components/public-tools/CodecConverter.tsx`
-- [ ] T020 [US1] Implement Numeral & Currency Formatter component (formal words, spoken variants, cheque format, traditional numerals, fractions) in `playground/src/components/public-tools/NumeralFormatter.tsx`
-- [ ] T021 [US1] Implement Tamil Calendar & Panchangam Explorer component (Gregorian to Tamil solar date, Thiruvalluvar year, 60-year cycle title, nakshatra, tithi, daylight periods, official holidays) in `playground/src/components/public-tools/CalendarExplorer.tsx`
-- [ ] T022 [US1] Implement Agara Varisai Sorter component (alphabetical collation, duplicate filter, syllable breakdown) in `playground/src/components/public-tools/TextSorter.tsx`
-- [ ] T023 [US1] Integrate Public Tools into `playground/src/App.tsx` with mobile bottom action bar bindings (Copy, Clear, Swap)
+- [x] T019 [US1] Implement real-time Legacy Font & Encoding Converter component (`Bamini`, `TSCII`, `TAB`, `TAM`, `Anjal`, `Vanavil`, `LT-TM`, auto-detect chip row, swap button) in `playground/src/components/public-tools/CodecConverter.tsx`
+- [x] T020 [US1] Implement Numeral & Currency Formatter component (formal words, spoken variants, cheque format, traditional numerals, fractions) in `playground/src/components/public-tools/NumeralFormatter.tsx`
+- [x] T021 [US1] Implement Tamil Calendar & Panchangam Explorer component (Gregorian to Tamil solar date, Thiruvalluvar year, 60-year cycle title, nakshatra, tithi, daylight periods, official holidays) in `playground/src/components/public-tools/CalendarExplorer.tsx`
+- [x] T022 [US1] Implement Agara Varisai Sorter component (alphabetical collation, duplicate filter, syllable breakdown) in `playground/src/components/public-tools/TextSorter.tsx`
+- [x] T023 [US1] Integrate Public Tools into `playground/src/App.tsx` with mobile bottom action bar bindings (Copy, Clear, Swap)
 
 **Checkpoint**: User Story 1 (MVP) is fully functional, responsive, and testable independently.
 
@@ -66,14 +66,14 @@
 **Independent Test**: Navigate to the Developer tab, input complex Tamil text (e.g. `தமிழ்` with or without invisible ZWJ/ZWNJ); verify each scalar hex code (`\u{0B85}`) and grapheme boundary is visualised; inspect raw JSON request/response; copy generated Python/Rust/TS/Dart snippets.
 
 ### Tests for User Story 2
-- [ ] T024 [P] [US2] Unit test for Unicode scalar breakdown and invisible control detection in `playground/src/tests/scalar-inspector.test.tsx`
-- [ ] T025 [P] [US2] Unit test for code snippet generator accuracy in `playground/src/tests/code-generator.test.tsx`
+- [x] T024 [P] [US2] Unit test for Unicode scalar breakdown and invisible control detection in `playground/src/tests/scalar-inspector.test.tsx`
+- [x] T025 [P] [US2] Unit test for code snippet generator accuracy in `playground/src/tests/code-generator.test.tsx`
 
 ### Implementation for User Story 2
-- [ ] T026 [US2] Implement Unicode Scalar & Grapheme Inspector component (hex codepoint badges, cluster breakdown, ZWJ/ZWNJ alert badges) in `playground/src/components/developer-tools/ScalarInspector.tsx`
-- [ ] T027 [US2] Implement Interactive Dispatcher Sandbox component (monaco/textarea JSON editor, preset payload selector, latency display, raw JSON response) in `playground/src/components/developer-tools/DispatcherSandbox.tsx`
-- [ ] T028 [US2] Implement Multi-Language Code Snippet Generator component (`Rust`, `Python`, `TypeScript`, `Dart` templates for active operations) in `playground/src/components/developer-tools/CodeGenerator.tsx`
-- [ ] T029 [US2] Integrate Developer Tools into `playground/src/App.tsx` tabs
+- [x] T026 [US2] Implement Unicode Scalar & Grapheme Inspector component (hex codepoint badges, cluster breakdown, ZWJ/ZWNJ alert badges) in `playground/src/components/developer-tools/ScalarInspector.tsx`
+- [x] T027 [US2] Implement Interactive Dispatcher Sandbox component (monaco/textarea JSON editor, preset payload selector, latency display, raw JSON response) in `playground/src/components/developer-tools/DispatcherSandbox.tsx`
+- [x] T028 [US2] Implement Multi-Language Code Snippet Generator component (`Rust`, `Python`, `TypeScript`, `Dart` templates for active operations) in `playground/src/components/developer-tools/CodeGenerator.tsx`
+- [x] T029 [US2] Integrate Developer Tools into `playground/src/App.tsx` tabs
 
 **Checkpoint**: User Stories 1 and 2 are fully functional and testable independently.
 
@@ -86,15 +86,15 @@
 **Independent Test**: Drop a multi-page legacy text document into the batch converter; verify progress updates without UI stuttering; toggle browser DevTools to offline mode and verify all tools continue operating; verify zero outgoing network requests during all interactions.
 
 ### Tests for User Story 3
-- [ ] T030 [P] [US3] Unit test for Web Worker RPC communication in `playground/src/tests/worker-client.test.ts`
-- [ ] T031 [P] [US3] End-to-end network assertion verifying zero HTTP requests during conversions in `playground/src/tests/privacy.test.ts`
+- [x] T030 [P] [US3] Unit test for Web Worker RPC communication in `playground/src/tests/worker-client.test.ts`
+- [x] T031 [P] [US3] End-to-end network assertion verifying zero HTTP requests during conversions in `playground/src/tests/privacy.test.ts`
 
 ### Implementation for User Story 3
-- [ ] T032 [US3] Implement background Web Worker for batch file conversions and dispatcher execution in `playground/src/workers/playground.worker.ts`
-- [ ] T033 [US3] Implement worker RPC bridge client with progress reporting in `playground/src/lib/worker-client.ts`
-- [ ] T034 [US3] Implement Batch File Processor component (drag-and-drop file dropzone, encoding selector, download converted file) in `playground/src/components/developer-tools/BatchProcessor.tsx`
-- [ ] T035 [US3] Configure Progressive Web App manifest and service worker CacheFirst caching in `playground/vite.config.ts` and `playground/src/pwa.ts`
-- [ ] T036 [US3] Integrate batch processor into Developer Tools and register service worker in `playground/src/main.tsx`
+- [x] T032 [US3] Implement background Web Worker for batch file conversions and dispatcher execution in `playground/src/workers/playground.worker.ts`
+- [x] T033 [US3] Implement worker RPC bridge client with progress reporting in `playground/src/lib/worker-client.ts`
+- [x] T034 [US3] Implement Batch File Processor component (drag-and-drop file dropzone, encoding selector, download converted file) in `playground/src/components/developer-tools/BatchProcessor.tsx`
+- [x] T035 [US3] Configure Progressive Web App manifest and service worker CacheFirst caching in `playground/vite.config.ts` and `playground/src/pwa.ts`
+- [x] T036 [US3] Integrate batch processor into Developer Tools and register service worker in `playground/src/main.tsx`
 
 **Checkpoint**: All three user stories are complete, verified client-side, and functional offline.
 
@@ -104,10 +104,10 @@
 
 **Purpose**: Cross-viewport visual polishing, performance optimization, documentation, and validation.
 
-- [ ] T037 [P] Perform responsive layout audit across mobile viewports (360px, 390px, 768px, 1024px) ensuring no clipped text or horizontal overflow in `playground/src/App.tsx`
-- [ ] T038 [P] Optimize bundle splitting and chunking in `playground/vite.config.ts` to ensure gzipped JS bundle remains < 250 KB
-- [ ] T039 Execute all 5 validation scenarios defined in `specs/005-playground/quickstart.md`
-- [ ] T040 Update repository documentation in `README.md` and `docs/development.md` to reference the public playground and development commands
+- [x] T037 [P] Perform responsive layout audit across mobile viewports (360px, 390px, 768px, 1024px) ensuring no clipped text or horizontal overflow in `playground/src/App.tsx`
+- [x] T038 [P] Optimize bundle splitting and chunking in `playground/vite.config.ts` to ensure gzipped JS bundle remains < 250 KB
+- [x] T039 Execute all 5 validation scenarios defined in `specs/005-playground/quickstart.md`
+- [x] T040 Update repository documentation in `README.md` and `docs/development.md` to reference the public playground and development commands
 
 ---
 
