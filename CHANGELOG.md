@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.0-alpha.6 / Python 0.1.0a6 - 2026-11-05
+
 - Extract calendar modules, astronomical calculation engines (Vakiya and
   Thirukanitham), and ephemeris tables from `tamil-numerals` into the dedicated
   internal workspace crate `tamil-calendar`.
@@ -13,7 +15,6 @@
   `api.calendar` in WebAssembly/TypeScript, and `TamilCalendar` in Dart.
 - Add developer workbench support for `tamil-calendar` with a dedicated package
   card and operations in `workbench/main.ts`.
-
 
 ## 0.1.0-alpha.5 / Python 0.1.0a5 - 2026-11-02
 

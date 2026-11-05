@@ -4,7 +4,7 @@ members = ["crates/*", "bindings/python", "bindings/js-wasm", "bindings/dart-flu
 exclude = ["extensions/pg_tamil"]
 
 [workspace.package]
-version = "0.1.0-alpha.5"
+version = "0.1.0-alpha.6"
 edition = "2021"
 rust-version = "1.85"
 publish = false
@@ -12,18 +12,18 @@ license = "MIT"
 repository = "https://github.com/abishtakan/tamil-toolkit"
 
 [workspace.dependencies]
-tamil-core = { path = "crates/tamil-core", version = "=0.1.0-alpha.5" }
-tamil-norm = { path = "crates/tamil-norm", version = "=0.1.0-alpha.5" }
-tamil-collate = { path = "crates/tamil-collate", version = "=0.1.0-alpha.5" }
-tamil-numerals = { path = "crates/tamil-numerals", version = "=0.1.0-alpha.5" }
-tamil-calendar = { path = "crates/tamil-calendar", version = "=0.1.0-alpha.5" }
-tamil-codec = { path = "crates/tamil-codec", version = "=0.1.0-alpha.5" }
-tamil-punarchi = { path = "crates/tamil-punarchi", version = "=0.1.0-alpha.5" }
-tamil-morph = { path = "crates/tamil-morph", version = "=0.1.0-alpha.5" }
-tamil-dialect = { path = "crates/tamil-dialect", version = "=0.1.0-alpha.5" }
-tamil-hyphen = { path = "crates/tamil-hyphen", version = "=0.1.0-alpha.5" }
-tamil-yaappu = { path = "crates/tamil-yaappu", version = "=0.1.0-alpha.5" }
-tamil-toolkit = { path = "crates/tamil-toolkit", version = "=0.1.0-alpha.5" }
+tamil-core = { path = "crates/tamil-core", version = "=0.1.0-alpha.6" }
+tamil-norm = { path = "crates/tamil-norm", version = "=0.1.0-alpha.6" }
+tamil-collate = { path = "crates/tamil-collate", version = "=0.1.0-alpha.6" }
+tamil-numerals = { path = "crates/tamil-numerals", version = "=0.1.0-alpha.6" }
+tamil-calendar = { path = "crates/tamil-calendar", version = "=0.1.0-alpha.6" }
+tamil-codec = { path = "crates/tamil-codec", version = "=0.1.0-alpha.6" }
+tamil-punarchi = { path = "crates/tamil-punarchi", version = "=0.1.0-alpha.6" }
+tamil-morph = { path = "crates/tamil-morph", version = "=0.1.0-alpha.6" }
+tamil-dialect = { path = "crates/tamil-dialect", version = "=0.1.0-alpha.6" }
+tamil-hyphen = { path = "crates/tamil-hyphen", version = "=0.1.0-alpha.6" }
+tamil-yaappu = { path = "crates/tamil-yaappu", version = "=0.1.0-alpha.6" }
+tamil-toolkit = { path = "crates/tamil-toolkit", version = "=0.1.0-alpha.6" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 unicode-normalization = "0.1"

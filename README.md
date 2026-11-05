@@ -37,20 +37,20 @@ reported according to each profile's contract.
 
 Choose the SDK for your application:
 
-| SDK | Install alpha 5 | Version | Downloads |
+| SDK | Install alpha 6 | Version | Downloads |
 | --- | --- | --- | --- |
-| **Rust 1.85+** | `cargo add tamil-toolkit@=0.1.0-alpha.5` | [![crates.io][crates-version]][crates] | [![crates.io total downloads][crates-downloads]][crates] |
-| **Python 3.11+** | `python -m pip install tamil-toolkit==0.1.0a5` | [![PyPI][pypi-version]][pypi] | [![PyPI monthly downloads][pypi-downloads]][pypistats] |
+| **Rust 1.85+** | `cargo add tamil-toolkit@=0.1.0-alpha.6` | [![crates.io][crates-version]][crates] | [![crates.io total downloads][crates-downloads]][crates] |
+| **Python 3.11+** | `python -m pip install tamil-toolkit==0.1.0a6` | [![PyPI][pypi-version]][pypi] | [![PyPI monthly downloads][pypi-downloads]][pypistats] |
 | **Node.js 22+ / browsers** | `npm install tamil-toolkit@alpha` | [![npm alpha][npm-version]][npm] | [![npm monthly downloads][npm-downloads]][npm] |
 
-**Public alpha:** APIs may change. npm’s `alpha` tag points to alpha 5;
+**Public alpha:** APIs may change. npm’s `alpha` tag points to alpha 6;
 `latest` still points to alpha 1. See the [release notes](CHANGELOG.md) and
-[alpha 5 compatibility details](docs/releases/alpha-5.md#compatibility-and-scope).
+[alpha 6 compatibility details](docs/releases/alpha-6.md#compatibility-and-scope).
 
 Download badges track the umbrella package in each registry: total downloads
 on crates.io and monthly downloads on PyPI and npm.
 
-All six Rust crates are published at `0.1.0-alpha.5`: [`tamil-core`](https://crates.io/crates/tamil-core),
+All six Rust crates are published at `0.1.0-alpha.6`: [`tamil-core`](https://crates.io/crates/tamil-core),
 [`tamil-norm`](https://crates.io/crates/tamil-norm),
 [`tamil-collate`](https://crates.io/crates/tamil-collate),
 [`tamil-numerals`](https://crates.io/crates/tamil-numerals),
@@ -62,7 +62,7 @@ declared bounded profiles. LT-TM and Vanavil handle selected 16-bit CID/code seq
 they do not parse PDFs or detect fonts automatically. These profiles do not
 claim complete historical-font coverage. Other planned linguistic modules
 and a Dart/Pub distribution are outside the published alpha. See the
-[LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), and [alpha 5 compatibility details](docs/releases/alpha-5.md#compatibility-and-scope).
+[LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), and [alpha 6 compatibility details](docs/releases/alpha-6.md#compatibility-and-scope).
 
 ## Quick start
 
@@ -133,10 +133,10 @@ covers verification and contribution workflow.
 | Bounded Thirukanitham date conversion, panchangam, phases, arithmetic, daylight periods and cycle titles | [Profile contract](docs/specs/calendar-thirukanitham-v1.md) · [phase contract](docs/specs/calendar-lunar-phases-v1.md) · [arithmetic contract](docs/specs/calendar-solar-arithmetic-v1.md) · [cycle-title contract](docs/specs/calendar-year-cycle-v1.md) · [daylight-period contract](docs/specs/calendar-daylight-periods-v1.md) · [source research](docs/specs/numerals-calendar-source-research.md) |
 | Authority-published holiday schedule snapshots | [Official schedule contract](docs/specs/calendar-official-holidays-v1.md) · [source research](docs/specs/numerals-calendar-source-research.md) |
 | Bounded classical Vakiya civil, five-limb, arithmetic profile | [1962 edition contract](docs/specs/calendar-vakya-civil-v1.md) · [solar arithmetic contract](docs/specs/calendar-solar-arithmetic-v1.md) · [completion matrix](docs/specs/numerals-completion-plan.md) |
-| Bamini, bounded byte profiles, and LT-TM / Vanavil CID conversion | [Codec contract](docs/specs/codec-v0.1.md) · [LT-TM profile](docs/specs/codec-lt-tm.md) · [Vanavil profile](docs/specs/codec-vanavil.md) · [alpha 5 scope](docs/releases/alpha-5.md#compatibility-and-scope) |
-| Rust API reference | [docs.rs/tamil-toolkit](https://docs.rs/tamil-toolkit/0.1.0-alpha.5/tamil_toolkit/) |
+| Bamini, bounded byte profiles, and LT-TM / Vanavil CID conversion | [Codec contract](docs/specs/codec-v0.1.md) · [LT-TM profile](docs/specs/codec-lt-tm.md) · [Vanavil profile](docs/specs/codec-vanavil.md) · [alpha 6 scope](docs/releases/alpha-6.md#compatibility-and-scope) |
+| Rust API reference | [docs.rs/tamil-toolkit](https://docs.rs/tamil-toolkit/0.1.0-alpha.6/tamil_toolkit/) |
 | Python and JavaScript/WASM SDK guides | [Python](bindings/python/README.md) · [JavaScript/WASM](bindings/js-wasm/README.md) |
-| Published package list and release record | [Release policy](docs/releases/policy.md#what-can-ship) · [alpha 5](docs/releases/alpha-5.md) |
+| Published package list and release record | [Release policy](docs/releases/policy.md#what-can-ship) · [alpha 6](docs/releases/alpha-6.md) |
 | Contributing, development, and current status | [Contributing](CONTRIBUTING.md) · [development guide](docs/development.md) · [project status](docs/status.md) |
 
 The repository checks shared golden fixtures through Rust, Python, Node/browser
