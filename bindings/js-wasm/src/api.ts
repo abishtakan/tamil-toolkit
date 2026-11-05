@@ -1,5 +1,13 @@
 export interface Uyirmei { mei: string; uyir: string }
 export interface Request { op: string; input: unknown }
+export interface EncodingCandidate { encoding: string; confidence: number }
+export interface DetectionResult {
+  status: "detected" | "uncertain";
+  encoding: string | null;
+  confidence: number;
+  reason: string | null;
+  candidates: EncodingCandidate[];
+}
 export type Locale = "TN" | "SL";
 export type Currency = "INR" | "LKR";
 export type CodecErrorPolicy = "strict" | "preserve";
@@ -246,6 +254,70 @@ export function createApi(nativeExecute: (request: string) => string) {
     vanavil_text_to_unicode: (text: string, errors: CodecErrorPolicy = "strict") => execute({ op: "vanavil_text_to_unicode", input: { text, errors } }) as string,
     unicode_to_vanavil_codes: (text: string) => execute({ op: "unicode_to_vanavil_codes", input: { text } }) as number[],
     unicode_to_vanavil_text: (text: string) => execute({ op: "unicode_to_vanavil_text", input: { text } }) as string,
+    detect_encoding: (data: Uint8Array | Uint16Array | number[] | string) => {
+      let input: unknown;
+      if (typeof data === "string") {
+        input = { text: data };
+      } else if (data instanceof Uint8Array) {
+        input = { bytes: Array.from(data) };
+      } else if (data instanceof Uint16Array) {
+        input = { codes: Array.from(data) };
+      } else if (Array.isArray(data)) {
+        if (data.some((x) => x > 255)) {
+          input = { codes: data };
+        } else {
+          input = { bytes: data };
+        }
+      } else {
+        throw new Error("data must be Uint8Array, Uint16Array, number[], or string");
+      }
+      return execute({ op: "detect_encoding", input }) as DetectionResult;
+    },
+    detectEncoding: (data: Uint8Array | Uint16Array | number[] | string) => {
+      let input: unknown;
+      if (typeof data === "string") {
+        input = { text: data };
+      } else if (data instanceof Uint8Array) {
+        input = { bytes: Array.from(data) };
+      } else if (data instanceof Uint16Array) {
+        input = { codes: Array.from(data) };
+      } else if (Array.isArray(data)) {
+        if (data.some((x) => x > 255)) {
+          input = { codes: data };
+        } else {
+          input = { bytes: data };
+        }
+      } else {
+        throw new Error("data must be Uint8Array, Uint16Array, number[], or string");
+      }
+      return execute({ op: "detect_encoding", input }) as DetectionResult;
+    },
+    detect_and_decode: (data: Uint8Array | number[] | string) => {
+      let input: unknown;
+      if (typeof data === "string") {
+        input = { text: data };
+      } else if (data instanceof Uint8Array) {
+        input = { bytes: Array.from(data) };
+      } else if (Array.isArray(data)) {
+        input = { bytes: data };
+      } else {
+        throw new Error("data must be Uint8Array, number[], or string");
+      }
+      return execute({ op: "detect_and_decode", input }) as string;
+    },
+    detectAndDecode: (data: Uint8Array | number[] | string) => {
+      let input: unknown;
+      if (typeof data === "string") {
+        input = { text: data };
+      } else if (data instanceof Uint8Array) {
+        input = { bytes: Array.from(data) };
+      } else if (Array.isArray(data)) {
+        input = { bytes: data };
+      } else {
+        throw new Error("data must be Uint8Array, number[], or string");
+      }
+      return execute({ op: "detect_and_decode", input }) as string;
+    },
     format_fraction: (numerator: number, denominator: number, digits: DigitStyle = "latin") => execute({ op: "format_fraction", input: { numerator, denominator, digits } }) as string,
     fraction_to_words: (numerator: number, denominator: number, locale: Locale = "TN") => execute({ op: "fraction_to_words", input: { numerator, denominator, locale } }) as string,
     fraction_symbol: (numerator: number, denominator: number) => execute({ op: "fraction_symbol", input: { numerator, denominator } }) as string,

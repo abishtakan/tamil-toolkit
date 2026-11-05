@@ -374,4 +374,3 @@ fn main() {
     )
     .expect("write numeral tables");
 }
-

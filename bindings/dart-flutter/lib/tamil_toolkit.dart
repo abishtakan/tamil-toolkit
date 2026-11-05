@@ -6,6 +6,56 @@ typedef ExactDecimal = Map<String, Object?>;
 typedef NumericRangeEndpoint = Map<String, Object?>;
 typedef GregorianDate = Map<String, int>;
 
+class EncodingCandidate {
+  final String encoding;
+  final double confidence;
+  const EncodingCandidate({required this.encoding, required this.confidence});
+  factory EncodingCandidate.fromJson(Map<String, dynamic> json) =>
+      EncodingCandidate(
+        encoding: json['encoding'] as String,
+        confidence: (json['confidence'] as num).toDouble(),
+      );
+  Map<String, dynamic> toJson() => {
+        'encoding': encoding,
+        'confidence': confidence,
+      };
+}
+
+class DetectionResult {
+  final String status;
+  final String? encoding;
+  final double confidence;
+  final String? reason;
+  final List<EncodingCandidate> candidates;
+
+  const DetectionResult({
+    required this.status,
+    this.encoding,
+    required this.confidence,
+    this.reason,
+    required this.candidates,
+  });
+
+  factory DetectionResult.fromJson(Map<String, dynamic> json) =>
+      DetectionResult(
+        status: json['status'] as String,
+        encoding: json['encoding'] as String?,
+        confidence: (json['confidence'] as num).toDouble(),
+        reason: json['reason'] as String?,
+        candidates: (json['candidates'] as List)
+            .map((e) => EncodingCandidate.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'status': status,
+        'encoding': encoding,
+        'confidence': confidence,
+        'reason': reason,
+        'candidates': candidates.map((e) => e.toJson()).toList(),
+      };
+}
+
 abstract interface class CalendarContextInput {
   Map<String, Object?> toJson();
 }
@@ -350,6 +400,39 @@ class TamilToolkit {
         'op': 'unicode_to_vanavil_text',
         'input': {'text': text},
       }) as String;
+  DetectionResult detectEncoding(dynamic data) {
+    Map<String, dynamic> input;
+    if (data is String) {
+      input = {'text': data};
+    } else if (data is List<int>) {
+      if (data.any((x) => x > 255)) {
+        input = {'codes': data};
+      } else {
+        input = {'bytes': data};
+      }
+    } else {
+      throw ArgumentError('data must be String or List<int>');
+    }
+    final raw = execute({
+      'op': 'detect_encoding',
+      'input': input,
+    }) as Map<String, dynamic>;
+    return DetectionResult.fromJson(raw);
+  }
+  String detectAndDecode(dynamic data) {
+    Map<String, dynamic> input;
+    if (data is String) {
+      input = {'text': data};
+    } else if (data is List<int>) {
+      input = {'bytes': data};
+    } else {
+      throw ArgumentError('data must be String or List<int>');
+    }
+    return execute({
+      'op': 'detect_and_decode',
+      'input': input,
+    }) as String;
+  }
   String formatFraction(int numerator, int denominator,
           {String digits = 'latin'}) =>
       execute({

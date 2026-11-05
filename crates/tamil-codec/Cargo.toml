@@ -13,6 +13,11 @@ description = "Versioned legacy encodings and orthography conversion"
 
 [dependencies]
 tamil-core.workspace = true
+serde = { workspace = true, optional = true }
+
+[features]
+default = ["serde"]
+serde = ["dep:serde"]
 
 [build-dependencies]
 serde.workspace = true
@@ -24,3 +29,7 @@ proptest.workspace = true
 
 [lints]
 workspace = true
+
+[[bench]]
+name = "codec_detection"
+harness = false

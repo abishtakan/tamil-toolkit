@@ -4,6 +4,17 @@ class Uyirmei(TypedDict):
     mei: str
     uyir: str
 
+class EncodingCandidate(TypedDict):
+    encoding: str
+    confidence: float
+
+class DetectionResult(TypedDict):
+    status: str
+    encoding: str | None
+    confidence: float
+    reason: str | None
+    candidates: list[EncodingCandidate]
+
 class ExactDecimal(TypedDict):
     negative: bool
     coefficient: str
@@ -198,6 +209,8 @@ def vanavil_codes_to_unicode(codes: list[int], errors: str = "strict") -> str: .
 def vanavil_text_to_unicode(text: str, errors: str = "strict") -> str: ...
 def unicode_to_vanavil_codes(text: str) -> list[int]: ...
 def unicode_to_vanavil_text(text: str) -> str: ...
+def detect_encoding(data: bytes | bytearray | str | list[int]) -> DetectionResult: ...
+def detect_and_decode(data: bytes | bytearray | str | list[int]) -> str: ...
 def format_fraction(numerator: int, denominator: int, digits: str = "latin") -> str: ...
 def fraction_to_words(numerator: int, denominator: int, locale: str = "TN") -> str: ...
 def fraction_symbol(numerator: int, denominator: int) -> str: ...

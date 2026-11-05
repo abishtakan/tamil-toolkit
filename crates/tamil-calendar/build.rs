@@ -1460,7 +1460,6 @@ fn compile_official_holidays(output: &mut String) {
     ));
 }
 
-
 fn main() {
     let mut output = String::new();
     compile_vakya_solar(&mut output);

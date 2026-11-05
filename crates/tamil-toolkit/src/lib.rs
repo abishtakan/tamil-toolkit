@@ -837,6 +837,8 @@ pub const OPERATIONS: &[&str] = &[
     "vanavil_text_to_unicode",
     "unicode_to_vanavil_codes",
     "unicode_to_vanavil_text",
+    "detect_encoding",
+    "detect_and_decode",
     "format_fraction",
     "fraction_to_words",
     "fraction_symbol",
@@ -1339,6 +1341,76 @@ fn codec_error_policy(input: &Value) -> Result<codec::ErrorPolicy, String> {
     }
 }
 
+fn extract_byte_array(input: &Value, name: &str) -> Result<Vec<u8>, String> {
+    let error = || format!("expected {name} byte array");
+    input
+        .get("bytes")
+        .and_then(Value::as_array)
+        .ok_or_else(error)?
+        .iter()
+        .map(|value| {
+            let number = value.as_number().ok_or_else(error)?.to_string();
+            let value = number
+                .strip_suffix(".0")
+                .unwrap_or(&number)
+                .parse::<u8>()
+                .map_err(|_| error())?;
+            Ok(value)
+        })
+        .collect()
+}
+
+fn unified_detect_string(text: &str) -> codec::DetectionResult {
+    if text.is_empty() {
+        return codec::DetectionResult::uncertain("empty input", Vec::new());
+    }
+    let non_ws = text.chars().filter(|c| !c.is_whitespace()).count();
+    if non_ws < 4 {
+        return codec::DetectionResult::uncertain("insufficient input length", Vec::new());
+    }
+
+    let bytes_res = codec::detect_encoding(text.as_bytes());
+    let utf16_units: Vec<u16> = text.encode_utf16().collect();
+    let has_cid_units = utf16_units
+        .iter()
+        .any(|&c| c > 0x007F || (0xE000..=0xF8FF).contains(&c));
+
+    let cid_res = if has_cid_units {
+        codec::detect_encoding_cids(&utf16_units)
+    } else {
+        codec::DetectionResult::uncertain(
+            "no cid code units",
+            vec![
+                codec::EncodingCandidate {
+                    encoding: "lt-tm-cid-v1".into(),
+                    confidence: 0.0,
+                },
+                codec::EncodingCandidate {
+                    encoding: "vanavil-avvaiyar-cid-v1".into(),
+                    confidence: 0.0,
+                },
+            ],
+        )
+    };
+
+    let mut candidates = bytes_res.candidates;
+    for cid_cand in cid_res.candidates {
+        if !candidates.iter().any(|c| c.encoding == cid_cand.encoding) {
+            candidates.push(cid_cand);
+        }
+    }
+
+    let mut result = codec::DetectionResult::from_scored_candidates(candidates);
+    if result.status == codec::DetectionStatus::Uncertain {
+        if let Some(r) = bytes_res.reason {
+            if r != "low confidence" || result.reason.is_none() {
+                result.reason = Some(r);
+            }
+        }
+    }
+    result
+}
+
 /// Shared dispatcher used by every binding and the oracle CLI.
 pub fn execute(request: &Value) -> Result<Value, String> {
     let input = request.get("input").ok_or("missing input")?;
@@ -1638,6 +1710,68 @@ pub fn execute(request: &Value) -> Result<Value, String> {
             }
             .map(|text| json!(text))
         }
+        "detect_encoding" => {
+            let res = if input.get("bytes").is_some() {
+                let bytes = extract_byte_array(input, "detect_encoding")?;
+                codec::detect_encoding(&bytes)
+            } else if input.get("codes").is_some() {
+                let codes = cid_codes(input, "detect_encoding")?;
+                codec::detect_encoding_cids(&codes)
+            } else if input.get("text").is_some() {
+                let text = string(&input["text"])?;
+                unified_detect_string(text)
+            } else {
+                return Err("detect_encoding requires 'bytes', 'codes', or 'text'".into());
+            };
+            serde_json::to_value(&res).map_err(|e| e.to_string())
+        }
+        "detect_and_decode" => {
+            if input.get("bytes").is_some() {
+                let bytes = extract_byte_array(input, "detect_and_decode")?;
+                codec::detect_and_decode(&bytes).map(|text| json!(text))
+            } else if input.get("text").is_some() {
+                let text = string(&input["text"])?;
+                let res = unified_detect_string(text);
+                if res.status == codec::DetectionStatus::Detected {
+                    match res.encoding.as_deref() {
+                        Some("utf-8") => Ok(json!(norm::normalize_nfc(text))),
+                        Some("bamini-v1") => {
+                            codec::bamini_to_unicode(text, codec::ErrorPolicy::Strict)
+                                .map(|t| json!(t))
+                        }
+                        Some("tscii-1.7-v1") => {
+                            codec::tscii_bytes_to_unicode(text.as_bytes()).map(|t| json!(t))
+                        }
+                        Some("tab-v1") => {
+                            codec::tab_bytes_to_unicode(text.as_bytes()).map(|t| json!(t))
+                        }
+                        Some("tam-v1") => {
+                            codec::tam_bytes_to_unicode(text.as_bytes()).map(|t| json!(t))
+                        }
+                        Some("anjal-v1") => {
+                            codec::anjal_bytes_to_unicode(text.as_bytes()).map(|t| json!(t))
+                        }
+                        Some("lt-tm-cid-v1") => {
+                            codec::lt_tm_text_to_unicode(text, codec::ErrorPolicy::Strict)
+                                .map(|t| json!(t))
+                        }
+                        Some("vanavil-avvaiyar-cid-v1") => {
+                            codec::vanavil_text_to_unicode(text, codec::ErrorPolicy::Strict)
+                                .map(|t| json!(t))
+                        }
+                        Some(other) => Err(format!("unsupported decoding profile: {other}")),
+                        None => Err("missing detected encoding profile".into()),
+                    }
+                } else {
+                    Err(format!(
+                        "uncertain encoding: {}",
+                        res.reason.as_deref().unwrap_or("low confidence")
+                    ))
+                }
+            } else {
+                Err("detect_and_decode requires 'bytes' or 'text'".into())
+            }
+        }
         "format_fraction" | "fraction_to_words" | "fraction_symbol" => {
             let value = numerals::Fraction::new(
                 integer(&input["numerator"], numerals::MAX_INTEGER)?,
@@ -1701,5 +1835,3 @@ mod tests {
         assert!(execute_json("invalid JSON").is_err());
     }
 }
-
-

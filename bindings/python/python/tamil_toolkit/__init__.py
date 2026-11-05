@@ -5,7 +5,7 @@ from typing import Any
 
 from . import _native
 
-__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "anjal_bytes_to_unicode", "unicode_to_anjal_bytes", "tam_bytes_to_unicode", "unicode_to_tam_bytes", "tab_bytes_to_unicode", "unicode_to_tab_bytes", "tscii_bytes_to_unicode", "unicode_to_tscii_bytes", "lt_tm_codes_to_unicode", "lt_tm_text_to_unicode", "unicode_to_lt_tm_codes", "unicode_to_lt_tm_text", "vanavil_codes_to_unicode", "vanavil_text_to_unicode", "unicode_to_vanavil_codes", "unicode_to_vanavil_text", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date", "vakya_solar_transits", "vakya_true_sun_from_mesha_elapsed"]
+__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "anjal_bytes_to_unicode", "unicode_to_anjal_bytes", "tam_bytes_to_unicode", "unicode_to_tam_bytes", "tab_bytes_to_unicode", "unicode_to_tab_bytes", "tscii_bytes_to_unicode", "unicode_to_tscii_bytes", "lt_tm_codes_to_unicode", "lt_tm_text_to_unicode", "unicode_to_lt_tm_codes", "unicode_to_lt_tm_text", "vanavil_codes_to_unicode", "vanavil_text_to_unicode", "unicode_to_vanavil_codes", "unicode_to_vanavil_text", "detect_encoding", "detect_and_decode", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date", "vakya_solar_transits", "vakya_true_sun_from_mesha_elapsed"]
 __all__.append("vakya_true_moon_from_kali_day")
 __all__.append("vakya_reduce_to_local_true_sunrise")
 __all__.append("vakya_cara_from_sayana_sun")
@@ -140,6 +140,33 @@ def unicode_to_vanavil_codes(text: str) -> list[int]:
 
 def unicode_to_vanavil_text(text: str) -> str:
     return execute({"op": "unicode_to_vanavil_text", "input": {"text": text}})
+
+
+def detect_encoding(data: bytes | bytearray | str | list[int]) -> dict[str, Any]:
+    if isinstance(data, (bytes, bytearray)):
+        input_payload = {"bytes": list(data)}
+    elif isinstance(data, str):
+        input_payload = {"text": data}
+    elif isinstance(data, list):
+        if any(x > 255 for x in data):
+            input_payload = {"codes": data}
+        else:
+            input_payload = {"bytes": data}
+    else:
+        raise ValueError("data must be bytes, str, or list of ints")
+    return execute({"op": "detect_encoding", "input": input_payload})
+
+
+def detect_and_decode(data: bytes | bytearray | str | list[int]) -> str:
+    if isinstance(data, (bytes, bytearray)):
+        input_payload = {"bytes": list(data)}
+    elif isinstance(data, str):
+        input_payload = {"text": data}
+    elif isinstance(data, list):
+        input_payload = {"bytes": data}
+    else:
+        raise ValueError("data must be bytes or str")
+    return execute({"op": "detect_and_decode", "input": input_payload})
 
 
 def format_fraction(numerator: int, denominator: int, digits: str = "latin") -> str:

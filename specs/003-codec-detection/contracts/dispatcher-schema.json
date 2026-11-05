@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CodecDetectionDispatcherSchema",
+  "description": "JSON schema for detect_encoding and detect_and_decode operations in tamil-toolkit execute dispatcher",
+  "definitions": {
+    "EncodingCandidate": {
+      "type": "object",
+      "required": ["encoding", "confidence"],
+      "properties": {
+        "encoding": {
+          "type": "string",
+          "enum": [
+            "bamini-v1",
+            "tscii-1.7-v1",
+            "tab-v1",
+            "tam-v1",
+            "anjal-v1",
+            "lt-tm-cid-v1",
+            "vanavil-avvaiyar-cid-v1",
+            "utf-8"
+          ]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        }
+      },
+      "additionalProperties": false
+    },
+    "DetectionResult": {
+      "type": "object",
+      "required": ["status", "encoding", "confidence", "reason", "candidates"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["detected", "uncertain"]
+        },
+        "encoding": {
+          "type": ["string", "null"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "reason": {
+          "type": ["string", "null"]
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EncodingCandidate"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["op", "input"],
+      "properties": {
+        "op": { "const": "detect_encoding" },
+        "input": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": ["bytes"],
+              "properties": {
+                "bytes": {
+                  "type": "array",
+                  "items": { "type": "integer", "minimum": 0, "maximum": 255 }
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": ["text"],
+              "properties": {
+                "text": { "type": "string" }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": ["codes"],
+              "properties": {
+                "codes": {
+                  "type": "array",
+                  "items": { "type": "integer", "minimum": 0, "maximum": 65535 }
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": ["op", "input"],
+      "properties": {
+        "op": { "const": "detect_and_decode" },
+        "input": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": ["bytes"],
+              "properties": {
+                "bytes": {
+                  "type": "array",
+                  "items": { "type": "integer", "minimum": 0, "maximum": 255 }
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": ["text"],
+              "properties": {
+                "text": { "type": "string" }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}

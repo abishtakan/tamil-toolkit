@@ -1,49 +1,51 @@
-//! Explicit legacy Tamil encoding conversion profiles.
+//! Explicit legacy Tamil encoding conversion profiles and automatic codec detection.
 //! See the codec specifications for coverage, ambiguity, and non-reversibility.
+//! Supports automatic encoding detection (`detect_encoding`, `detect_encoding_cids`, `detect_and_decode`)
+//! across 7 legacy encodings (Bamini, TSCII, TAB, TAM, Anjal, LT-TM, Vanavil) and native UTF-8.
 #![forbid(unsafe_code)]
 
 use tamil_core::normalize_nfc;
 
 #[derive(Clone, Copy)]
-enum Terminal {
+pub(crate) enum Terminal {
     Text(&'static str),
     Ambiguous,
     Bytes(&'static [u8]),
     Cids(&'static [u16]),
 }
-struct Node {
-    edges: &'static [(u8, usize)],
-    terminal: Option<Terminal>,
+pub(crate) struct Node {
+    pub(crate) edges: &'static [(u8, usize)],
+    pub(crate) terminal: Option<Terminal>,
 }
-struct CidNode {
-    edges: &'static [(u16, usize)],
-    terminal: Option<&'static str>,
+pub(crate) struct CidNode {
+    pub(crate) edges: &'static [(u16, usize)],
+    pub(crate) terminal: Option<&'static str>,
 }
-mod tables {
+pub(crate) mod tables {
     use super::{Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/bamini_tables.rs"));
 }
-mod tscii_tables {
+pub(crate) mod tscii_tables {
     use super::{Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/tscii_tables.rs"));
 }
-mod tab_tables {
+pub(crate) mod tab_tables {
     use super::{Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/tab_tables.rs"));
 }
-mod tam_tables {
+pub(crate) mod tam_tables {
     use super::{Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/tam_tables.rs"));
 }
-mod anjal_tables {
+pub(crate) mod anjal_tables {
     use super::{Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/anjal_tables.rs"));
 }
-mod lt_tm_tables {
+pub(crate) mod lt_tm_tables {
     use super::{CidNode, Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/lt_tm_tables.rs"));
 }
-mod vanavil_tables {
+pub(crate) mod vanavil_tables {
     use super::{CidNode, Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/vanavil_tables.rs"));
 }
@@ -55,6 +57,52 @@ pub use tam_tables::PROFILE as TAM_PROFILE;
 pub use tscii_tables::PROFILE as TSCII_PROFILE;
 pub use vanavil_tables::PROFILE as VANAVIL_PROFILE;
 pub const ROUNDTRIP_ERROR: &str = "Bamini encoding is not reversible for this input";
+
+pub mod detection;
+pub use detection::{DetectionResult, DetectionStatus, EncodingCandidate, MAX_SAMPLE_BYTES};
+
+/// Automatically detects the legacy Tamil encoding of a byte slice.
+pub fn detect_encoding(input: &[u8]) -> DetectionResult {
+    detection::bytes::detect_8bit_encoding(input)
+}
+
+/// Automatically detects 16-bit font CID code units (LT-TM and Vanavil Avvaiyar).
+pub fn detect_encoding_cids(codes: &[u16]) -> DetectionResult {
+    detection::cids::detect_cid_encoding(codes)
+}
+
+/// Automatically detects the encoding and decodes to NFC Unicode.
+///
+/// Returns `Ok(String)` when detected with high confidence.
+/// Returns `Err(String)` if detection status is uncertain.
+pub fn detect_and_decode(input: &[u8]) -> Result<String, String> {
+    let result = detect_encoding(input);
+    if result.status == DetectionStatus::Detected {
+        match result.encoding.as_deref() {
+            Some("utf-8") => std::str::from_utf8(input)
+                .map(normalize_nfc)
+                .map_err(|e| format!("invalid UTF-8: {e}")),
+            Some("bamini-v1") => {
+                let s = std::str::from_utf8(input)
+                    .map_err(|e| format!("invalid UTF-8/ASCII for Bamini: {e}"))?;
+                bamini_to_unicode(s, ErrorPolicy::Strict)
+            }
+            Some("tscii-1.7-v1") => tscii_bytes_to_unicode(input),
+            Some("tab-v1") => tab_bytes_to_unicode(input),
+            Some("tam-v1") => tam_bytes_to_unicode(input),
+            Some("anjal-v1") => anjal_bytes_to_unicode(input),
+            Some(other) => Err(format!(
+                "unsupported decoding for detected profile: {other}"
+            )),
+            None => Err("missing detected encoding profile".into()),
+        }
+    } else {
+        Err(format!(
+            "uncertain encoding: {}",
+            result.reason.as_deref().unwrap_or("low confidence")
+        ))
+    }
+}
 
 /// Strict fails at the first unsupported/ambiguous scalar. Preserve retains it.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -72,7 +120,11 @@ impl ErrorPolicy {
     }
 }
 
-fn longest_match(input: &[u8], nodes: &[Node], maximum: usize) -> Option<(usize, Terminal)> {
+pub(crate) fn longest_match(
+    input: &[u8],
+    nodes: &[Node],
+    maximum: usize,
+) -> Option<(usize, Terminal)> {
     let mut current = 0;
     let mut found = None;
     for (index, byte) in input.iter().take(maximum).enumerate() {
@@ -265,7 +317,7 @@ pub fn bamini_to_unicode(text: &str, errors: ErrorPolicy) -> Result<String, Stri
     Ok(normalize_nfc(&output))
 }
 
-fn longest_cid_match(
+pub(crate) fn longest_cid_match(
     codes: &[u16],
     nodes: &[CidNode],
     maximum: usize,
@@ -286,7 +338,7 @@ fn longest_cid_match(
     found
 }
 
-fn cid_fallback(code: u16) -> bool {
+pub(crate) fn cid_fallback(code: u16) -> bool {
     let Some(scalar) = char::from_u32(u32::from(code)) else {
         return false;
     };

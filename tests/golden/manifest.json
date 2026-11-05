@@ -339,6 +339,14 @@
       ]
     },
     {
+      "file": "codec_detection.jsonl",
+      "status": "active",
+      "operations": [
+        "detect_encoding",
+        "detect_and_decode"
+      ]
+    },
+    {
       "file": "calendar_year_cycle.jsonl",
       "status": "planned",
       "operations": [

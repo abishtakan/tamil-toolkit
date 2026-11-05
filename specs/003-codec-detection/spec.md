@@ -24,6 +24,16 @@
   → A: When byte sequences are ambiguous (e.g. pure ASCII English text, or byte combinations shared by multiple font layouts) or the input is shorter than a minimum discriminative threshold (e.g. < 4 meaningful bytes), the engine MUST return `status: "uncertain"` with a candidate list and confidence scores rather than guessing.
 - Q: What input formats must be supported?
   → A: Both raw byte buffers (`&[u8]`) for 8-bit encodings (Bamini, TSCII, TAB, TAM, Anjal) and text strings / 16-bit code units (`&[u16]` / `&str`) for CID font runs (LT-TM and Vanavil).
+- Q: How should mixed English and legacy Tamil text in documents be evaluated and scored?
+  → A: Treat standard ASCII bytes (0x00..0x7F) as neutral for 8-bit encodings (TSCII, TAB, TAM), scoring them strictly on valid non-ASCII (0x80..0xFF) byte patterns and trie transitions. For typewriter encodings that overload ASCII (Bamini, Anjal), score using distinctive Tamil key digraphs/trigraphs while penalizing common English n-grams/words, classifying as uncertain unless distinctive Tamil patterns meet minimum density.
+- Q: Should `DetectionResult` include an explicit reason field, and how should candidate profiles be populated?
+  → A: `DetectionResult` MUST include `reason: Option<String>` (populated with descriptive error/ambiguity reasons like `"insufficient input length"` or `"empty input"` when `status == "uncertain"`, and `None` when `status == "detected"`), and MUST always populate `candidates` with all evaluated profiles sorted by descending confidence.
+- Q: What sample size limit should `detect_encoding` inspect when processing large input buffers?
+  → A: Automatically inspect up to the first 4,096 bytes (4 KB) for `&[u8]` or 4,096 code units for `&[u16]` by default, ensuring deterministic sub-5-microsecond latency while providing sufficient statistical power for accurate classification.
+- Q: How should the unified `detect_encoding` dispatcher evaluate string inputs that might contain either 8-bit typewriter text or 16-bit CID font code units?
+  → A: Perform unified string evaluation: inspect both 8-bit byte patterns (on UTF-8 bytes) and 16-bit CID code units (via UTF-16 code units when PUA or non-ASCII 16-bit units are present), ranking all 7 profile candidates uniformly in a single `DetectionResult`.
+- Q: Should `tamil-codec` and bindings provide a combined `detect_and_decode` convenience function alongside `detect_encoding`?
+  → A: Yes, provide `detect_and_decode` across Rust, Python, WASM, and Dart that automatically detects and decodes buffers to Unicode on high-confidence `status: "detected"`, returning a typed `UncertainEncoding` error if detection is uncertain.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -40,6 +50,7 @@ As an end user or developer processing legacy Tamil documents, websites, or data
 2. **Given** an ASCII text stream using Bamini typewriter glyph sequences, **When** calling `detect_encoding(bytes_or_str)`, **Then** the result returns `{ "encoding": "bamini-v1", "confidence": >= 0.90, "status": "detected" }`.
 3. **Given** a 16-bit CID stream from a Vanavil Avvaiyar PDF font run, **When** calling `detect_encoding_cids(codes)`, **Then** the result returns `{ "encoding": "vanavil-avvaiyar-cid-v1", "confidence": >= 0.90, "status": "detected" }`.
 4. **Given** a 16-bit CID stream from an LT-TM / IndoWord font run, **When** calling `detect_encoding_cids(codes)`, **Then** the result returns `{ "encoding": "lt-tm-cid-v1", "confidence": >= 0.90, "status": "detected" }`.
+5. **Given** a legacy byte buffer in a supported encoding, **When** calling `detect_and_decode(bytes)`, **Then** the decoded standard Unicode Tamil string is returned directly without intermediate caller decoding steps.
 
 ---
 
@@ -55,6 +66,7 @@ As a robust data pipeline engineer, I want the detection engine to explicitly fl
 1. **Given** a pure ASCII English sentence containing no distinctive Tamil typewriter patterns, **When** calling `detect_encoding(bytes)`, **Then** the result returns `{ "status": "uncertain", "encoding": null, "candidates": [...] }`.
 2. **Given** an input buffer with length < 4 bytes, **When** calling `detect_encoding(bytes)`, **Then** the result returns `{ "status": "uncertain", "reason": "insufficient input length" }`.
 3. **Given** an input containing invalid or reserved byte sequences for a candidate profile, **When** evaluating that profile, **Then** its confidence score drops to zero or is eliminated from candidate ranking.
+4. **Given** an ambiguous, short, or plain English input, **When** calling `detect_and_decode(bytes)`, **Then** it returns an `UncertainEncoding` error detailing the uncertainty reason without attempting arbitrary decoding.
 
 ---
 
@@ -76,7 +88,7 @@ As a Python, TypeScript, or Flutter developer, I want uniform detection APIs exp
 ### Edge Cases
 
 - What happens when input is already valid UTF-8 Tamil text (e.g. contains `\u{0B80}..\u{0BFF}`)? The engine MUST detect this and report `encoding: "utf-8"` with `confidence: 1.0` so consumers do not double-convert.
-- What happens when an input contains mixed English and legacy Tamil text? The detection engine MUST weight distinctive multi-byte n-gram sequences to identify the Tamil encoding embedded within the stream.
+- What happens when an input contains mixed English and legacy Tamil text? The engine treats ASCII bytes (0x00..0x7F) as neutral for 8-bit profiles (TSCII, TAB, TAM) and evaluates confidence on non-ASCII byte transitions. For ASCII-overloaded typewriter profiles (Bamini, Anjal), it weights distinctive Tamil consonant-vowel key digraphs against an English word penalty, requiring a minimum Tamil density threshold to prevent false positives on predominantly English documents.
 - What happens with empty inputs (`b""` or `""`)? It MUST return `status: "uncertain"` with `reason: "empty input"`.
 
 ## Requirements *(mandatory)*
@@ -91,8 +103,11 @@ As a Python, TypeScript, or Flutter developer, I want uniform detection APIs exp
   - Penalty for illegal or reserved byte positions.
 - **FR-004**: If the difference between the top two candidate confidence scores is below `0.15`, or the top confidence is below `0.60`, the engine MUST designate the result as `status: "uncertain"`.
 - **FR-005**: All detection operations MUST be deterministic, seek-safe, non-allocating during scoring where feasible, and thread-safe.
-- **FR-006**: The dispatcher in `crates/tamil-toolkit/src/lib.rs` MUST expose `detect_encoding` as a standard operation accepting either raw byte arrays or text strings.
+- **FR-006**: The dispatcher in `crates/tamil-toolkit/src/lib.rs` MUST expose `detect_encoding` as a unified operation accepting either raw byte arrays or text strings; for string inputs, it MUST evaluate 8-bit byte profiles (via UTF-8 bytes) and 16-bit CID profiles (via UTF-16 code units when PUA or non-ASCII units are present), ranking all candidate profiles uniformly.
 - **FR-007**: High-level bindings (Python, WebAssembly, Dart) MUST expose `detect_encoding` with idiomatic parameter types.
+- **FR-008**: In mixed English-Tamil documents, the scoring engine MUST treat standard ASCII bytes (0x00..0x7F) as neutral for 8-bit encodings (TSCII, TAB, TAM) and evaluate confidence on non-ASCII byte transitions; for ASCII typewriter encodings (Bamini, Anjal), it MUST use distinctive Tamil key digraphs and an English word penalty, falling back to `status: "uncertain"` if Tamil density is below discriminative threshold.
+- **FR-009**: The detection engine MUST cap inspection to at most the first 4,096 bytes (for `&[u8]`) or 4,096 code units (for `&[u16]`), ignoring subsequent data to guarantee sub-5-microsecond deterministic execution across inputs of arbitrary size.
+- **FR-010**: `tamil-codec` and umbrella bindings MUST provide a convenience `detect_and_decode` function that runs `detect_encoding`, decodes to standard Unicode if `status == "detected"`, and returns a typed `UncertainEncoding` error with the `reason` if detection is uncertain.
 
 ### Key Entities
 
@@ -100,7 +115,8 @@ As a Python, TypeScript, or Flutter developer, I want uniform detection APIs exp
   - `status`: `"detected" | "uncertain"`
   - `encoding`: `Option<String>` (e.g. `"bamini-v1"`, `"tscii-1.7-v1"`, or `None` if uncertain)
   - `confidence`: `f64` (normalized 0.0 to 1.0)
-  - `candidates`: `Vec<EncodingCandidate>` (list of scored encodings ordered by confidence)
+  - `reason`: `Option<String>` (e.g. `"insufficient input length"`, `"empty input"`, `"low confidence"`, or `None` if detected)
+  - `candidates`: `Vec<EncodingCandidate>` (all evaluated profiles ordered by descending confidence)
 - **EncodingCandidate**:
   - `encoding`: `String`
   - `confidence`: `f64`
@@ -116,5 +132,5 @@ As a Python, TypeScript, or Flutter developer, I want uniform detection APIs exp
 
 ## Assumptions
 
-- Analysis can be performed on the first 1KB to 4KB of a document with sufficient statistical power to classify the entire stream.
+- Inspection of up to the first 4,096 bytes (4 KB) provides sufficient statistical discriminative power to classify the encoding of an entire document or stream.
 - No new external crates or heavy statistical model dependencies are required; scoring relies on trie valid-path ratios and signature character n-grams compiled into `tamil-codec`.

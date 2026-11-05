@@ -42,7 +42,8 @@ fn test_thirukanitham_tamil_to_gregorian_roundtrip() {
             assert!(month_info.days >= 29 && month_info.days <= 32);
 
             let reverse = thirukanitham_tamil_to_gregorian_date(year, month, 1, ctx).unwrap();
-            let roundtrip = thirukanitham_gregorian_to_tamil_date(reverse.gregorian_date, ctx).unwrap();
+            let roundtrip =
+                thirukanitham_gregorian_to_tamil_date(reverse.gregorian_date, ctx).unwrap();
             assert_eq!(roundtrip.tamil_date.solar_year, year);
             assert_eq!(i64::from(roundtrip.tamil_date.month), month);
             assert_eq!(roundtrip.tamil_date.day, 1);
