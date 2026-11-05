@@ -108,19 +108,9 @@ console.log(tamil.format_currency(102550, "LKR", "SL")); // LKR 1,025.50
 Browser applications use the [`tamil-toolkit/web` entry point](bindings/js-wasm/README.md)
 and must call `await init()` before using the API.
 
-## Try the workbench locally
+## Playground
 
-The workbench lets you try operations interactively and inspect returned text,
-JSON, and Unicode scalars. With Rust 1.85+, Python 3.11+, Node 22+, pnpm 11.5+,
-`uv`, and `just` installed, run these commands from the repository root:
-
-```sh
-just bootstrap
-pnpm dev
-```
-
-Then open <http://127.0.0.1:5173/>. The [development guide](docs/development.md)
-covers verification and contribution workflow.
+A public playground offering practical, interactive tools powered by the toolkit packages is planned for a future release; planning and ideation will be handled in a later milestone.
 
 ## Capability contracts
 

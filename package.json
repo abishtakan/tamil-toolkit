@@ -3,10 +3,6 @@
   "private": true,
   "packageManager": "pnpm@11.5.0",
   "scripts": {
-    "test": "pnpm --filter tamil-toolkit test",
-    "build:wasm:web": "pnpm --dir workbench run build:wasm:web",
-    "dev": "pnpm --dir workbench run dev",
-    "build:workbench": "pnpm --dir workbench run build",
-    "check:workbench": "pnpm --dir workbench run check"
+    "test": "pnpm --filter tamil-toolkit test"
   }
 }

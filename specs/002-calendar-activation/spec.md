@@ -86,7 +86,7 @@ As a temple administrator or panchangam publisher, I want verified observance ru
 - **FR-003**: The dispatcher in `crates/tamil-toolkit/src/lib.rs` and `calendar_features.rs` MUST enforce safe JSON integer limits (`MAX_SAFE_CALENDAR_JSON_INTEGER = 9_007_199_254_740_991`) on all calendar inputs and outputs.
 - **FR-004**: Calendar suite activations MUST preserve source provenance tags (`source_id`, `source_sha256`, `sources`) for every golden vector.
 - **FR-005**: `tools/mcp-tamil-oracle/check_source_unicode.py` MUST validate all newly activated calendar vectors without Unicode errors or missing escapes.
-- **FR-006**: The developer workbench MUST execute all activated calendar operations directly against live WebAssembly binaries.
+- **FR-006** *(Superseded)*: The developer workbench MUST execute all activated calendar operations directly against live WebAssembly binaries. *(Superseded: developer workbench removed completely).*
 
 ### Key Entities
 

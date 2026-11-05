@@ -54,7 +54,7 @@ As a consumer accessing the toolkit through multi-language bindings (Python, Web
 
 **Acceptance Scenarios**:
 1. **Given** a query issued to the shared dispatcher for a calendar operation, **When** executed via Python (`tamil_toolkit.calendar`), WASM (`calendar` export), or Dart wrappers, **Then** the request delegates to the new calendar engine and produces identical results.
-2. **Given** the developer workbench, **When** inspecting available modules, **Then** calendar and numerals are presented as independent domains with dedicated controls.
+2. *(Superseded)* **Given** the developer workbench, **When** inspecting available modules, **Then** calendar and numerals are presented as independent domains with dedicated controls. *(Note: The developer workbench has been retired and removed from the repository).*
 
 ---
 
@@ -78,7 +78,7 @@ As a consumer accessing the toolkit through multi-language bindings (Python, Web
 - **FR-005**: High-level language wrappers (Python, WASM/TypeScript, Dart) MUST expose calendar operations under dedicated sub-namespaces (e.g. `tamil_toolkit.calendar` in Python, `calendar` object in WASM) while sharing the common Rust dispatcher.
 - **FR-006**: The new `tamil-calendar` crate MUST remain excluded from `release-policy.toml` as an internal/experimental crate, preserving `tamil-numerals`' existing approved public release status.
 - **FR-007**: The golden test manifest MUST assign all calendar suites and vectors directly to the `tamil-calendar` package.
-- **FR-008**: The developer workbench MUST present the calendar package as its own distinct domain with corresponding operation panels.
+- **FR-008** *(Superseded)*: The developer workbench MUST present the calendar package as its own distinct domain with corresponding operation panels. *(Superseded: developer workbench removed completely).*
 
 ### Key Entities
 

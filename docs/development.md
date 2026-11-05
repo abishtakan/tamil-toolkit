@@ -19,8 +19,7 @@ publication evidence.
    `just sync-release-files` before checks; generated copies are never edited
    directly. A changed public operation also needs binding declarations.
 4. Run `just agent-pre-stop-gate` at integration completion. When Dart or shared
-   behavior is affected, run `just test-dart`. Workbench changes additionally
-   need `pnpm run check:workbench` and `pnpm run build:workbench`. Treat fixture
+   behavior is affected, run `just test-dart`. Treat fixture
    activation and a public release allowlist change as separate reviewed steps.
 5. Record the outcome under Unreleased in `CHANGELOG.md`, update the module's
    acceptance evidence and `docs/status.md`, and report actual checks and
@@ -31,7 +30,7 @@ publication evidence.
 
 Ordinary GitHub pushes and pull requests run the small Ubuntu Rust/Unicode,
 release-policy, and workflow-lint gate. A newer run cancels an obsolete CI run.
-Full harness, Python/WASM/Dart parity, and workbench checks run locally.
+Full harness and Python/WASM/Dart parity checks run locally.
 The expensive cross-platform archive matrix is an explicit release dispatch.
 A passing small CI run does not replace local parity evidence.
 

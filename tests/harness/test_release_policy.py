@@ -18,7 +18,7 @@ POLICY = gate.load()
 def repository(tmp_path):
     root = tmp_path / "repository"
     paths = ["release-policy.toml", "Cargo.toml", "Cargo.lock", "package.json",
-             "workbench/package.json", "bindings/js-wasm/package.json",
+             "bindings/js-wasm/package.json",
              "bindings/python/pyproject.toml", "bindings/dart-flutter/pubspec.yaml",
              "extensions/pg_tamil/Cargo.toml", "tests/golden/manifest.json",
              "README.md", "bindings/python/README.md", "bindings/js-wasm/README.md",

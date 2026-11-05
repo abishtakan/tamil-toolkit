@@ -15,7 +15,7 @@ the list and the umbrella dependencies. Active suites and specifications are
 necessary evidence; their existence alone does not prove linguistic completion.
 
 The workspace defaults to `publish = false`. FFI support crates, planned
-modules, root npm workspace, workbench, Dart/Pub.dev, and PostgreSQL stay private
+modules, root npm workspace, Dart/Pub.dev, and PostgreSQL stay private
 or deferred. A module can develop locally without becoming publishable.
 
 Publication is an explicit release action using the session's existing user
@@ -61,8 +61,8 @@ When preparing a release:
 | Stage | Required evidence |
 | --- | --- |
 | During edits | `just agent-post-edit`; focused checks for affected behavior |
-| Feature integration | `just agent-pre-stop-gate`; Dart/workbench checks when affected |
-| Release preparation | `just release-prepare <version>`, full integration gate, `just test-dart`, workbench checks, `just release-check` |
+| Feature integration | `just agent-pre-stop-gate`; Dart checks when affected |
+| Release preparation | `just release-prepare <version>`, full integration gate, `just test-dart`, `just release-check` |
 | Normal GitHub CI | Ubuntu Rust/Unicode checks, release-policy regression tests, workflow lint |
 | Explicit distribution build | Rust archive/MSRV, Node 22/24, three wheel platforms, CPython consumers |
 | After publication | `just release-record <artifact_run_id>`, fresh public installs, active golden consumers, links and digests in release record |

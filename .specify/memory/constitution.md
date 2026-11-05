@@ -52,7 +52,6 @@ Performance, memory allocation, and linguistic coverage guarantees MUST be docum
   - WebAssembly bindings via `wasm-bindgen` (`bindings/js-wasm`) targeting both Node.js (CommonJS/ESM) and browser Web environments.
   - Dart bindings via C ABI (`bindings/dart`).
 - **Data Compilation**: Build-time compilation of declarative TOML/CSV lexicons into static byte tables and minimal FSTs using `build.rs`.
-- **Developer Workbench**: Interactive web environment in `workbench/` powered by Vite, TypeScript, and the browser WASM package for live manual and visual verification.
 
 ## Quality Gates & Verification Workflow
 

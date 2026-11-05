@@ -892,8 +892,9 @@ Continue to follow
 [development workflow](development.md),
 [publishing policy](releases/policy.md), and the agent constitution.
 
-### Local workbench handoff (2026-11-01)
+### Local workbench handoff (2026-11-01; retired)
 
+- Status: The developer workbench has been completely decommissioned and removed from the repository (`workbench/`, `tools/check_workbench_operations.py`, and root scripts). A dedicated public playground offering practical tools powered by the toolkit packages is planned for the future; planning and ideation will be handled in a later milestone. The entries below are preserved for historical record.
 - Objective: keep the browser workbench aligned with active package operations
   for manual testing. Base commit: `1f1eb23`; workbench implementation:
   `3c03992` on `master`.
@@ -910,10 +911,7 @@ Continue to follow
   browser WASM, and Vite production bundle); `git diff --check` passed. The
   local Vite page and updated module returned HTTP 200. Browser automation was
   unavailable, so rendered-browser interaction was not checked here.
-- The hot-reload server is running at `http://127.0.0.1:5173/`. Next action:
-  manually choose `tamil-codec`, select an LT-TM or Vanavil operation, and try
-  the provided examples or edit the inputs. Updated currency operations are
-  under `tamil-numerals`.
+- The hot-reload server is decommissioned.
 - Uncommitted work after saving this handoff: none.
 
 ### Punarchi handoff (2026-11-01; deferred)

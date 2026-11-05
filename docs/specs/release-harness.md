@@ -8,7 +8,7 @@ no Tamil behavior and leaves the published alpha versions unchanged.
 1. One release policy defines the public Rust crate allowlist in dependency
    order, permitted registries, branch, and release channel. Cargo's workspace
    version owns the release number; Python's equivalent and npm must match it.
-   Planned crates, FFI crates, Dart, PostgreSQL, the workbench, and the root npm
+   Planned crates, FFI crates, Dart, PostgreSQL, and the root npm
    workspace remain excluded from publication.
 2. A fast local command rejects version, dependency, package-scope, or channel
    drift. It runs in the edit gate and lightweight GitHub CI. Regression tests

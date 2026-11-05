@@ -23,21 +23,6 @@ importers:
         specifier: 0.15.1
         version: 0.15.1
 
-  workbench:
-    devDependencies:
-      '@types/node':
-        specifier: ^24.0.0
-        version: 24.19.2
-      typescript:
-        specifier: 7.0.2
-        version: 7.0.2
-      vite:
-        specifier: 8.3.5
-        version: 8.3.5(@types/node@24.19.2)
-      wasm-pack:
-        specifier: 0.15.1
-        version: 0.15.1
-
 packages:
 
   '@isaacs/fs-minipass@4.0.1':

@@ -131,8 +131,7 @@ def check(root=ROOT):
             "npm package identity/version/private drift")
     require(npm["publishConfig"] == {"access": "public", "tag": policy["npm_tag"]}, "npm release channel drift")
     require(npm.get("license") == "MIT", "npm license must be MIT")
-    for path in ("package.json", "workbench/package.json"):
-        require(read_json(root / path).get("private") is True, f"{path} must remain private")
+    require(read_json(root / "package.json").get("private") is True, "package.json must remain private")
     require(re.search(r"(?m)^publish_to:\s*none\s*$", (root / "bindings/dart-flutter/pubspec.yaml").read_text()),
             "Dart publishing is deferred")
     require(read_toml(root / "extensions/pg_tamil/Cargo.toml")["package"].get("publish") is False,

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Remove the developer workbench (`workbench/`), its operation coverage check (`tools/check_workbench_operations.py`), and associated npm scripts and workspace configuration.
+
 ## 0.1.0-alpha.6 / Python 0.1.0a6 - 2026-11-05
 
 - Extract calendar modules, astronomical calculation engines (Vakiya and
