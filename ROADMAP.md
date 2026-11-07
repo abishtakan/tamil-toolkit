@@ -28,9 +28,9 @@ The phased delivery strategy is detailed in [docs/integrations/word-googledocs-r
 ```mermaid
 flowchart LR
     P1["Phase 1: Web & Manual (Live)"] --> P2["Phase 2: DOCX Batch CLI (Live)"]
-    P2 --> P3["Phase 3: Word Office.js Add-in (v0.3.0)"]
-    P3 --> P4["Phase 4: Google Docs Add-on (v0.4.0)"]
-    P4 --> P5["Phase 5: System Proofing Services (v0.5.0+)"]
+    P2 --> P3["Phase 3: Word Office.js Add-in (Live)"]
+    P3 --> P4["Phase 4: Google Docs Add-on (Live)"]
+    P4 --> P5["Phase 5: System Proofing Services (Future)"]
 ```
 
 ### Milestone Timeline
@@ -49,20 +49,17 @@ flowchart LR
 - **SDK Support**: Rust API (`tamil_hyphen::docx::process_docx_file`), Python SDK (`tamil_toolkit.process_docx`), and `python-docx` integration.
 - **Guarantees**: Complete preservation of fonts, headings, comments, tables, and bold/italic styles; idempotent soft-hyphen insertion across `document.xml`, headers, footers, and footnotes.
 
-### Phase 3: Microsoft Word Web Add-in (`Office.js`) (Target: v0.3.0)
-- **Goal**: Cross-platform Taskpane Add-in for Microsoft Word (Word 2019+, Microsoft 365 on Windows, macOS, and Word Online).
-- **Architecture**:
-  - Built with Microsoft Office JavaScript API (`Office.js`).
-  - Powered by client-side WebAssembly (`tamil-toolkit-wasm`).
-  - 100% offline and private (no text leaves the user's computer).
-- **Features**: One-click "Hyphenate Selection" or "Hyphenate Entire Document", configurable minimum syllable margins (`left_min: 2`, `right_min: 2`).
+### Phase 3: Microsoft Word Web Add-in (`Office.js`) (Completed & Live)
+- **Status**: **Completed & Live** (v0.1.0-alpha.6 / feature `013-word-docs-addins`).
+- **Guide**: [Word Office.js Add-in Guide](docs/integrations/word-office-addin.md).
+- **Source**: [`integrations/office-word-addin/`](integrations/office-word-addin/).
+- **Features**: Native cross-platform Taskpane Add-in for Microsoft Word (Word 2019+, Microsoft 365 on Windows, macOS, and Word Online). Provides one-click "Hyphenate Selection" or "Hyphenate Entire Document", configurable minimum syllable margins (`left_min: 2`, `right_min: 2`). 100% offline and private.
 
-### Phase 4: Google Workspace Docs Add-on (Target: v0.4.0)
-- **Goal**: Cloud-first extension for Google Docs via Google Workspace Marketplace.
-- **Architecture**:
-  - Implemented as a Google Apps Script Container-bound or Standalone Add-on with WebAssembly / JavaScript execution.
-  - Sidebar interface providing paragraph-level and document-level syllabic hyphenation.
-  - Dual support for soft-hyphens (`\u{00AD}`) and discretionary break wrappers (`<wbr>` / zero-width spaces `\u{200B}`) for Google Docs web canvas quirks.
+### Phase 4: Google Workspace Docs Add-on (Completed & Live)
+- **Status**: **Completed & Live** (v0.1.0-alpha.6 / feature `013-word-docs-addins`).
+- **Guide**: [Google Docs Add-on Guide](docs/integrations/google-docs-addon.md).
+- **Source**: [`integrations/google-docs-addon/`](integrations/google-docs-addon/).
+- **Features**: Native Google Workspace Add-on via Google Apps Script (`Code.gs` & `Sidebar.html`). One-click paragraph-level and document-level syllabic hyphenation directly within Google Docs. Minimalist `documents.currentonly` OAuth permission. Zero data exfiltration.
 
 ### Phase 5: System-Level Linguistic & Proofing Services (Future Exploration)
 - **Windows**: Windows Linguistic Services / Spell Checking API Provider (`ISpellCheckProviderFactory`).

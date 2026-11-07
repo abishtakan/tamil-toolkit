@@ -1,0 +1,18 @@
+{
+  "timeZone": "Asia/Kolkata",
+  "dependencies": {
+    "enabledAdvancedServices": []
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/documents.currentonly"
+  ],
+  "addOns": {
+    "common": {
+      "name": "Tamil Hyphenator",
+      "logoUrl": "https://raw.githubusercontent.com/abishtakan/tamil-toolkit/master/assets/logo.png"
+    },
+    "docs": {}
+  }
+}

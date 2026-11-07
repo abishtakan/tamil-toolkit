@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tamil Hyphenation (தமிழ் மென்-இணைப்புக் குறியீடு)</title>
+  <!-- Office.js library from official Microsoft CDN -->
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="taskpane.css">
+</head>
+<body>
+  <header>
+    <span class="brand-badge">tamil-toolkit</span>
+    <h1>தமிழ் மென்-இணைப்பு</h1>
+    <div class="subtitle">Syllabic Soft-Hyphenator for Justified Word Documents</div>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="card-title">அளபுருக்கள் (Syllable Margins)</div>
+      <div class="form-group">
+        <label for="left-min">இடது குறைந்தபட்சம் (Left Min Syllables):</label>
+        <input type="number" id="left-min" value="2" min="1" max="5">
+      </div>
+      <div class="form-group">
+        <label for="right-min">வலது குறைந்தபட்சம் (Right Min Syllables):</label>
+        <input type="number" id="right-min" value="2" min="1" max="5">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">செயல்கள் (Actions)</div>
+      <div class="btn-group">
+        <button id="btn-hyphenate-selection" class="btn-primary">
+          <span>தேர்ந்தெடுத்ததை இணைக்கவும்</span>
+          <span style="font-size: 11px; opacity: 0.85;">(Hyphenate Selection)</span>
+        </button>
+        <button id="btn-hyphenate-document" class="btn-secondary">
+          <span>முழு ஆவணத்தையும் இணைக்கவும்</span>
+          <span style="font-size: 11px; opacity: 0.85;">(Hyphenate Entire Document)</span>
+        </button>
+      </div>
+
+      <div id="status-message" class="status-box"></div>
+    </div>
+
+    <div class="info-note">
+      <strong>குறிப்பு (Note):</strong> மென்-இணைப்புகள் (Soft Hyphens) வரிகளுக்கு நடுவே தெரியாது (0px). வரிகள் 'Justify' செய்யும்போது வலது ஓர முட்டல்களில் மட்டுமே அழகாகப் பிரியும். எழுத்து இடைவெளியோ மெய் எழுத்துக்களோ பாதிக்கப்படாது.
+    </div>
+  </main>
+
+  <script src="engine.js"></script>
+  <script src="taskpane.js"></script>
+</body>
+</html>
