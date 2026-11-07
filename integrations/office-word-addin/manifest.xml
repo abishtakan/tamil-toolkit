@@ -4,8 +4,8 @@
            xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
-  <Id>4cc1bfc9-21d9-486a-a6e9-967e39650281</Id>
-  <Version>1.1.0.0</Version>
+  <Id>8f9a1c30-55d2-4e7b-9a11-7e3c90650282</Id>
+  <Version>1.2.0.0</Version>
   <ProviderName>tamil-toolkit</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Tamil Hyphenation (தமிழ் மென்-இணைப்புக் குறியீடு)" />
@@ -105,7 +105,7 @@
         <bt:Image id="Icon.Del.80" DefaultValue="https://localhost:3000/assets/remove-hyphen-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html" />
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html?v=2" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="சொல் பிரிப்பு (Hyphenation)" />

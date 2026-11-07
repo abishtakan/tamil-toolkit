@@ -1,13 +1,19 @@
 const assert = require("assert");
 const { describe, it } = require("node:test");
-const { hyphenateText, hyphenateWord, removeHyphens, getTamilLetters, SOFT_HYPHEN } = require("../../integrations/office-word-addin/engine.js");
+const {
+  hyphenateText,
+  hyphenateWord,
+  removeHyphens,
+  hyphenateOoxml,
+  removeOoxmlHyphens,
+  getTamilLetters,
+  SOFT_HYPHEN
+} = require("../../integrations/office-word-addin/engine.js");
 
 describe("Word Add-in Engine & Office.js Contract Tests", () => {
   it("should soft-hyphenate Tamil words at phonotactic syllable boundaries", () => {
     const input = "தமிழ்நாடு";
     const result = hyphenateWord(input, 2, 2);
-    // த-மிழ்-நா-டு with leftMin=2, rightMin=2: syllables are ["த", "மிழ்", "நா", "டு"]
-    // valid boundaries after syllable 2 (after "மிழ்"): "தமிழ்\u00ADநாடு"
     assert(result.includes(SOFT_HYPHEN), "Expected soft hyphen in word");
     assert.strictEqual(result.replace(/\u00AD/g, ""), input, "Stripping soft hyphens must yield exact input");
   });
@@ -28,43 +34,21 @@ describe("Word Add-in Engine & Office.js Contract Tests", () => {
     assert.strictEqual(run2, run3, "Third run must match second run exactly");
   });
 
-  it("simulates Word.run paragraph traversal correctly", async () => {
-    // Mock Office Word environment
-    const mockDocument = {
-      body: {
-        paragraphs: {
-          items: [
-            {
-              text: "தமிழ்நாடு அரசு தொல்லியல் துறை வெளியீடு.",
-              insertText(newText, location) {
-                this.text = newText;
-              }
-            },
-            {
-              text: "English paragraph untouched.",
-              insertText(newText, location) {
-                this.text = newText;
-              }
-            }
-          ]
-        }
-      }
-    };
+  it("should inject native <w:softHyphen/> elements into Word OOXML and remain idempotent", () => {
+    const sampleOoxml = `<w:p><w:r><w:rPr><w:b/></w:rPr><w:t>பல்கலைக்கழகம் மற்றும் Welcome</w:t></w:r></w:p>`;
+    const ooxml1 = hyphenateOoxml(sampleOoxml, 2, 2);
+    assert(ooxml1.includes("<w:softHyphen/>"), "Must contain native <w:softHyphen/> tag");
+    assert(!ooxml1.includes(SOFT_HYPHEN), "Must NOT contain raw U+00AD inside <w:t>");
+    assert(ooxml1.includes("<w:rPr><w:b/></w:rPr>"), "Run properties must be preserved");
 
-    let modified = 0;
-    for (const para of mockDocument.body.paragraphs.items) {
-      if (/[\u0B80-\u0BFF]/.test(para.text)) {
-        const hyphenated = hyphenateText(para.text, 2, 2);
-        if (hyphenated !== para.text) {
-          para.insertText(hyphenated, "replace");
-          modified++;
-        }
-      }
-    }
+    // Idempotency check on OOXML
+    const ooxml2 = hyphenateOoxml(ooxml1, 2, 2);
+    assert.strictEqual(ooxml1, ooxml2, "hyphenateOoxml must be strictly idempotent");
 
-    assert.strictEqual(modified, 1, "Only the Tamil paragraph should be modified");
-    assert(mockDocument.body.paragraphs.items[0].text.includes(SOFT_HYPHEN));
-    assert.strictEqual(mockDocument.body.paragraphs.items[1].text, "English paragraph untouched.");
+    // Removal check on OOXML
+    const cleaned = removeOoxmlHyphens(ooxml2);
+    assert(!cleaned.includes("<w:softHyphen/>"), "removeOoxmlHyphens must remove all <w:softHyphen/> tags");
+    assert(cleaned.includes(">பல்கலைக்கழகம் மற்றும் Welcome</w:t>"), "Text must be cleanly merged back into single <w:t>");
   });
 
   it("should cleanly remove soft hyphens with removeHyphens", () => {

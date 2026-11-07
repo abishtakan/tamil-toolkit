@@ -32,6 +32,9 @@ const MIME_TYPES = {
 const server = https.createServer(options, (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
 
   let reqPath = req.url.split("?")[0];
   if (reqPath === "/" || reqPath === "") {

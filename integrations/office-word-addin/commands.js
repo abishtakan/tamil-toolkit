@@ -1,4 +1,4 @@
-/* global Office, Word, hyphenateText, removeHyphens */
+/* global Office, Word, hyphenateOoxml, removeOoxmlHyphens */
 
 Office.onReady(() => {
   // Office is ready
@@ -6,7 +6,8 @@ Office.onReady(() => {
 
 /**
  * Native Word Ribbon Command: Hyphenate Selection
- * Directly inserts soft-hyphens into the selected text (or active paragraph).
+ * Uses Word's native OOXML <w:softHyphen/> element so hyphens remain 100% invisible
+ * inside lines and only display at the right margin when a line breaks.
  */
 async function hyphenateSelectionCommand(event) {
   try {
@@ -15,27 +16,21 @@ async function hyphenateSelectionCommand(event) {
       selection.load("text");
       await context.sync();
 
+      // Determine target range: selection if non-empty, otherwise active paragraph
+      let targetRange = selection;
       if (!selection.text || selection.text.trim().length === 0) {
-        // Fallback: If cursor is just placed without dragging a selection,
-        // target the active paragraph at the cursor position
-        const currentParagraph = selection.paragraphs.getFirst();
-        currentParagraph.load("text");
-        await context.sync();
-
-        if (currentParagraph.text && currentParagraph.text.trim().length > 0) {
-          const hyphenated = hyphenateText(currentParagraph.text, 2, 2);
-          if (hyphenated !== currentParagraph.text) {
-            currentParagraph.insertText(hyphenated, Word.InsertLocation.replace);
-            await context.sync();
-          }
-        }
-        return;
+        targetRange = selection.paragraphs.getFirst();
       }
 
-      const hyphenated = hyphenateText(selection.text, 2, 2);
-      if (hyphenated !== selection.text) {
-        selection.insertText(hyphenated, Word.InsertLocation.replace);
-        await context.sync();
+      const ooxmlResult = targetRange.getOoxml();
+      await context.sync();
+
+      if (ooxmlResult && ooxmlResult.value) {
+        const updatedOoxml = hyphenateOoxml(ooxmlResult.value, 2, 2);
+        if (updatedOoxml !== ooxmlResult.value) {
+          targetRange.insertOoxml(updatedOoxml, Word.InsertLocation.replace);
+          await context.sync();
+        }
       }
     });
   } catch (error) {
@@ -47,7 +42,7 @@ async function hyphenateSelectionCommand(event) {
 
 /**
  * Native Word Ribbon Command: Hyphenate Entire Document
- * Processes all body paragraphs in the active Word document.
+ * Processes the document body OOXML using native <w:softHyphen/> elements.
  */
 async function hyphenateDocumentCommand(event) {
   try {
@@ -56,12 +51,24 @@ async function hyphenateDocumentCommand(event) {
       paragraphs.load("text");
       await context.sync();
 
+      const ooxmlResults = [];
       for (let i = 0; i < paragraphs.items.length; i++) {
         const para = paragraphs.items[i];
-        if (para.text && para.text.trim().length > 0) {
-          const hyphenated = hyphenateText(para.text, 2, 2);
-          if (hyphenated !== para.text) {
-            para.insertText(hyphenated, Word.InsertLocation.replace);
+        if (para.text && /[\u0B80-\u0BFF]/.test(para.text)) {
+          ooxmlResults.push({
+            para,
+            ooxml: para.getOoxml()
+          });
+        }
+      }
+      await context.sync();
+
+      for (let i = 0; i < ooxmlResults.length; i++) {
+        const { para, ooxml } = ooxmlResults[i];
+        if (ooxml && ooxml.value) {
+          const updatedOoxml = hyphenateOoxml(ooxml.value, 2, 2);
+          if (updatedOoxml !== ooxml.value) {
+            para.insertOoxml(updatedOoxml, Word.InsertLocation.replace);
           }
         }
       }
@@ -76,7 +83,7 @@ async function hyphenateDocumentCommand(event) {
 
 /**
  * Native Word Ribbon Command: Remove Hyphens
- * Strips all soft-hyphens from the selection (or entire document if nothing selected).
+ * Strips all <w:softHyphen/> tags and U+00AD characters from the selection or document.
  */
 async function removeHyphensCommand(event) {
   try {
@@ -86,22 +93,40 @@ async function removeHyphensCommand(event) {
       await context.sync();
 
       if (selection.text && selection.text.trim().length > 0) {
-        const cleaned = removeHyphens(selection.text);
-        if (cleaned !== selection.text) {
-          selection.insertText(cleaned, Word.InsertLocation.replace);
-          await context.sync();
+        const ooxmlResult = selection.getOoxml();
+        await context.sync();
+
+        if (ooxmlResult && ooxmlResult.value) {
+          const cleanedOoxml = removeOoxmlHyphens(ooxmlResult.value);
+          if (cleanedOoxml !== ooxmlResult.value) {
+            selection.insertOoxml(cleanedOoxml, Word.InsertLocation.replace);
+            await context.sync();
+          }
         }
       } else {
-        // Strip from entire document
         const paragraphs = context.document.body.paragraphs;
         paragraphs.load("text");
         await context.sync();
 
+        const ooxmlResults = [];
         for (let i = 0; i < paragraphs.items.length; i++) {
           const para = paragraphs.items[i];
-          if (para.text && para.text.includes("\u00AD")) {
-            const cleaned = removeHyphens(para.text);
-            para.insertText(cleaned, Word.InsertLocation.replace);
+          if (para.text && para.text.trim().length > 0) {
+            ooxmlResults.push({
+              para,
+              ooxml: para.getOoxml()
+            });
+          }
+        }
+        await context.sync();
+
+        for (let i = 0; i < ooxmlResults.length; i++) {
+          const { para, ooxml } = ooxmlResults[i];
+          if (ooxml && ooxml.value) {
+            const cleanedOoxml = removeOoxmlHyphens(ooxml.value);
+            if (cleanedOoxml !== ooxml.value) {
+              para.insertOoxml(cleanedOoxml, Word.InsertLocation.replace);
+            }
           }
         }
         await context.sync();
