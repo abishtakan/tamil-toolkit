@@ -5,13 +5,13 @@
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
   <Id>b78912e4-411f-4b07-bf39-82cf30a21f7a</Id>
-  <Version>1.0.0.0</Version>
+  <Version>1.1.0.0</Version>
   <ProviderName>tamil-toolkit</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Tamil Hyphenation (தமிழ் மென்-இணைப்புக் குறியீடு)" />
   <Description DefaultValue="Phonotactic syllabic soft-hyphenation for balanced Word justification without broken ligatures or letter spacing distortion." />
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png" />
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png" />
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-80.png" />
   <SupportUrl DefaultValue="https://github.com/abishtakan/tamil-toolkit" />
   <AppDomains>
     <AppDomain>https://localhost:3000</AppDomain>
@@ -20,41 +20,66 @@
     <Host Name="Document" />
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3000/index.html" />
+    <SourceLocation DefaultValue="https://localhost:3000/commands.html" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
     <Hosts>
       <Host xsi:type="Document">
         <DesktopFormFactor>
-          <GetStarted>
-            <Title resid="GetStarted.Title" />
-            <Description resid="GetStarted.Description" />
-            <LearnMoreUrl resid="GetStarted.LearnMoreUrl" />
-          </GetStarted>
+          <FunctionFile resid="Commands.Url" />
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <CustomTab id="TamilToolkit.Tab">
-              <Group id="TamilToolkit.Group">
+              <Group id="TamilToolkit.HyphenGroup">
                 <Label resid="GroupLabel" />
                 <Icon>
                   <bt:Image size="16" resid="Icon.16" />
                   <bt:Image size="32" resid="Icon.32" />
                   <bt:Image size="80" resid="Icon.80" />
                 </Icon>
-                <Control xsi:type="Button" id="TamilToolkit.TaskpaneButton">
-                  <Label resid="ButtonLabel" />
+                <Control xsi:type="Button" id="TamilToolkit.HyphenSelectionBtn">
+                  <Label resid="HyphenSelection.Label" />
                   <Supertip>
-                    <Title resid="ButtonLabel" />
-                    <Description resid="ButtonTooltip" />
+                    <Title resid="HyphenSelection.Label" />
+                    <Description resid="HyphenSelection.Tooltip" />
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="Icon.16" />
-                    <bt:Image size="32" resid="Icon.32" />
-                    <bt:Image size="80" resid="Icon.80" />
+                    <bt:Image size="16" resid="Icon.Sel.16" />
+                    <bt:Image size="32" resid="Icon.Sel.32" />
+                    <bt:Image size="80" resid="Icon.Sel.80" />
                   </Icon>
-                  <Action xsi:type="ShowTaskpane">
-                    <TaskpaneId>TamilHyphenTaskpane</TaskpaneId>
-                    <SourceLocation resid="Taskpane.Url" />
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>hyphenateSelectionCommand</FunctionName>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="TamilToolkit.HyphenDocBtn">
+                  <Label resid="HyphenDoc.Label" />
+                  <Supertip>
+                    <Title resid="HyphenDoc.Label" />
+                    <Description resid="HyphenDoc.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Doc.16" />
+                    <bt:Image size="32" resid="Icon.Doc.32" />
+                    <bt:Image size="80" resid="Icon.Doc.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>hyphenateDocumentCommand</FunctionName>
+                  </Action>
+                </Control>
+                <Control xsi:type="Button" id="TamilToolkit.RemoveHyphensBtn">
+                  <Label resid="RemoveHyphens.Label" />
+                  <Supertip>
+                    <Title resid="RemoveHyphens.Label" />
+                    <Description resid="RemoveHyphens.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Del.16" />
+                    <bt:Image size="32" resid="Icon.Del.32" />
+                    <bt:Image size="80" resid="Icon.Del.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>removeHyphensCommand</FunctionName>
                   </Action>
                 </Control>
               </Group>
@@ -69,20 +94,30 @@
         <bt:Image id="Icon.16" DefaultValue="https://localhost:3000/assets/icon-16.png" />
         <bt:Image id="Icon.32" DefaultValue="https://localhost:3000/assets/icon-32.png" />
         <bt:Image id="Icon.80" DefaultValue="https://localhost:3000/assets/icon-80.png" />
+        <bt:Image id="Icon.Sel.16" DefaultValue="https://localhost:3000/assets/hyphen-sel-16.png" />
+        <bt:Image id="Icon.Sel.32" DefaultValue="https://localhost:3000/assets/hyphen-sel-32.png" />
+        <bt:Image id="Icon.Sel.80" DefaultValue="https://localhost:3000/assets/hyphen-sel-80.png" />
+        <bt:Image id="Icon.Doc.16" DefaultValue="https://localhost:3000/assets/hyphen-doc-16.png" />
+        <bt:Image id="Icon.Doc.32" DefaultValue="https://localhost:3000/assets/hyphen-doc-32.png" />
+        <bt:Image id="Icon.Doc.80" DefaultValue="https://localhost:3000/assets/hyphen-doc-80.png" />
+        <bt:Image id="Icon.Del.16" DefaultValue="https://localhost:3000/assets/remove-hyphen-16.png" />
+        <bt:Image id="Icon.Del.32" DefaultValue="https://localhost:3000/assets/remove-hyphen-32.png" />
+        <bt:Image id="Icon.Del.80" DefaultValue="https://localhost:3000/assets/remove-hyphen-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://github.com/abishtakan/tamil-toolkit" />
-        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/index.html" />
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html" />
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GetStarted.Title" DefaultValue="Tamil Hyphenation" />
-        <bt:String id="GroupLabel" DefaultValue="Tamil Typography" />
-        <bt:String id="ButtonLabel" DefaultValue="Tamil Hyphenator" />
+        <bt:String id="GroupLabel" DefaultValue="சொல் பிரிப்பு (Hyphenation)" />
         <bt:String id="TabLabel" DefaultValue="தமிழ்" />
+        <bt:String id="HyphenSelection.Label" DefaultValue="தேர்ந்தெடுத்ததை இணை" />
+        <bt:String id="HyphenDoc.Label" DefaultValue="முழு ஆவணம்" />
+        <bt:String id="RemoveHyphens.Label" DefaultValue="இணைப்புகளை நீக்கு" />
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="GetStarted.Description" DefaultValue="Syllabic soft-hyphenation for balanced Tamil paragraph justification in Microsoft Word." />
-        <bt:String id="ButtonTooltip" DefaultValue="Open the Tamil Syllabic Hyphenation Taskpane to format selection or entire document." />
+        <bt:String id="HyphenSelection.Tooltip" DefaultValue="தேர்ந்தெடுக்கப்பட்ட உரையில் மென்-இணைப்புக் குறியீடுகளைச் சேர்க்கும் (Soft-hyphenate selection)." />
+        <bt:String id="HyphenDoc.Tooltip" DefaultValue="முழு ஆவணத்திலுள்ள தமிழ் பத்திகளிலும் மென்-இணைப்புக் குறியீடுகளைச் சேர்க்கும் (Soft-hyphenate entire document)." />
+        <bt:String id="RemoveHyphens.Tooltip" DefaultValue="உரையிலிருந்து மென்-இணைப்புக் குறியீடுகளை நீக்கும் (Remove soft-hyphens from selection or document)." />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

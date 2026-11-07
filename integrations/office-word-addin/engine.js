@@ -2,15 +2,15 @@
  * Tamil Soft-Hyphenation Core Engine (Standalone ECMAScript)
  *
  * Implements phonotactically verified syllabic hyphenation using Unicode soft hyphens (\u00AD).
- * Safe for Microsoft Word (Office.js) and Google Docs (Google Apps Script).
+ * Safe for Microsoft Word (Office.js) and other rich text processors.
  *
  * Rules:
- * 1. Independent vowels (Uyir \u0B85-\u0B94) start syllables.
- * 2. Consonants with vowel markers (Uyirmei) form syllabic nuclei.
- * 3. Pure consonants with pulli/virama (Mei \u0BCD) bind as codas to the preceding nucleus;
- *    a syllable NEVER begins with a pure consonant.
- * 4. Aytham (\u0B83) binds to the preceding nucleus.
- * 5. Minimum margins (leftMin=2, rightMin=2) protect short initial and final syllable runs.
+ * 1. Independent vowels (Uyir \u0B85-\u0B94) act as syllable nuclei.
+ * 2. Consonants with vowel markers (Uyirmei) or inherent-a consonants form syllable nuclei.
+ * 3. Pure consonants with pulli/virama (Mei \u0BCD) and Aytham (\u0B83) bind as codas to the preceding nucleus;
+ *    a segment NEVER begins with a pure consonant or Aytham.
+ * 4. Grantha conjuncts (Ksha \u0B95\u0BCD\u0BB7, Shri \u0BB8\u0BCD\u0BB0\u0BC0 / \u0BB6\u0BCD\u0BB0\u0BC0) are treated atomically.
+ * 5. Minimum margins (leftMin=2, rightMin=2) protect short initial and final letter runs.
  * 6. Idempotency: Multiple runs will never inject duplicate soft hyphens.
  */
 
@@ -19,7 +19,7 @@ const UYIR = new Set([
   0x0b8e, 0x0b8f, 0x0b90, 0x0b92, 0x0b93, 0x0b94
 ]);
 
-const MEI_BASES = new Set([
+const CONSONANTS = new Set([
   0x0b95, 0x0b99, 0x0b9a, 0x0b9c, 0x0b9e, 0x0b9f,
   0x0ba3, 0x0ba4, 0x0ba8, 0x0ba9, 0x0baa, 0x0bae,
   0x0baf, 0x0bb0, 0x0bb1, 0x0bb2, 0x0bb3, 0x0bb4,
@@ -36,90 +36,121 @@ const AYTHAM = 0x0b83;
 const SOFT_HYPHEN = '\u00AD';
 
 /**
- * Segment a Tamil word into orthographic graphemes/syllabic units.
+ * Split text into tailored Tamil letters (Ezhuthukkal).
  */
-function segmentTamilWord(word) {
-  // Strip existing soft hyphens to guarantee idempotency
-  const cleanWord = word.replace(/\u00AD/g, '');
-  const units = [];
-  const chars = Array.from(cleanWord);
+function getTamilLetters(text) {
+  const normalized = text.normalize('NFC');
+  const letters = [];
+  const chars = Array.from(normalized);
   let i = 0;
 
   while (i < chars.length) {
-    const code = chars[i].codePointAt(0);
+    const s = chars.slice(i).join('');
+    // Handle atomic Grantha sequences (ksha, shri)
+    if (s.startsWith('\u0B95\u0BCD\u0BB7')) {
+      let len = 3;
+      if (i + 3 < chars.length && (VOWEL_SIGNS.has(chars[i + 3].codePointAt(0)) || chars[i + 3].codePointAt(0) === VIRAMA)) {
+        len = 4;
+      }
+      letters.push(chars.slice(i, i + len).join(''));
+      i += len;
+      continue;
+    }
+    if (s.startsWith('\u0BB8\u0BCD\u0BB0\u0BC0') || s.startsWith('\u0BB6\u0BCD\u0BB0\u0BC0')) {
+      letters.push(chars.slice(i, i + 4).join(''));
+      i += 4;
+      continue;
+    }
 
+    const code = chars[i].codePointAt(0);
     if (UYIR.has(code) || code === AYTHAM) {
-      units.push(chars[i]);
+      letters.push(chars[i]);
       i++;
-    } else if (MEI_BASES.has(code)) {
-      let unit = chars[i];
+    } else if (CONSONANTS.has(code)) {
+      let letter = chars[i];
       i++;
       if (i < chars.length) {
         const nextCode = chars[i].codePointAt(0);
         if (nextCode === VIRAMA || VOWEL_SIGNS.has(nextCode)) {
-          unit += chars[i];
+          letter += chars[i];
           i++;
         }
       }
-      units.push(unit);
+      letters.push(letter);
     } else {
-      units.push(chars[i]);
+      letters.push(chars[i]);
       i++;
     }
   }
-
-  return units;
+  return letters;
 }
 
 /**
- * Group segmented graphemes into legal Tamil phonotactic syllables:
- * Pure consonants (Mei with pulli) and Aytham are bound as codas to the preceding nucleus.
+ * Classify a tailored letter into its phonotactic role.
  */
-function syllabifyTamil(word) {
-  const units = segmentTamilWord(word);
-  if (units.length <= 1) return units;
+function classifyLetter(letter) {
+  if (letter === '\u0B83') return 'aytham';
+  if (letter.endsWith('\u0BCD')) return 'mei';
+  if (letter.startsWith('\u0B95\u0BCD\u0BB7') || letter.startsWith('\u0BB8\u0BCD\u0BB0\u0BC0') || letter.startsWith('\u0BB6\u0BCD\u0BB0\u0BC0')) {
+    return 'atomic_grantha';
+  }
+  const firstCode = letter.codePointAt(0);
+  if (UYIR.has(firstCode)) return 'uyir';
+  if (CONSONANTS.has(firstCode)) return 'uyirmei';
+  return 'other';
+}
 
-  const syllables = [];
+function isSyllableNucleus(cls) {
+  return cls === 'uyir' || cls === 'uyirmei' || cls === 'atomic_grantha';
+}
 
-  for (let i = 0; i < units.length; i++) {
-    const unit = units[i];
-    const isMei = unit.length > 1 && unit.codePointAt(1) === VIRAMA;
-    const isAytham = unit.codePointAt(0) === AYTHAM;
+/**
+ * Hyphenate a single Tamil word respecting left and right letter margins.
+ */
+function hyphenateWord(word, leftMin = 2, rightMin = 2, delimiter = SOFT_HYPHEN) {
+  const cleanWord = word.normalize('NFC').replace(/\u00AD/g, '');
+  const letters = getTamilLetters(cleanWord);
+  const total = letters.length;
+  if (total < (leftMin + rightMin)) return cleanWord;
 
-    if ((isMei || isAytham) && syllables.length > 0) {
-      // Bind coda to the previous nucleus
-      syllables[syllables.length - 1] += unit;
-    } else {
-      syllables.push(unit);
-    }
+  const classes = letters.map(classifyLetter);
+
+  const hasNucleusBefore = new Array(total).fill(false);
+  let running = false;
+  for (let i = 0; i < total; i++) {
+    if (isSyllableNucleus(classes[i])) running = true;
+    hasNucleusBefore[i] = running;
   }
 
-  return syllables;
-}
-
-/**
- * Soft-hyphenate a single Tamil word respecting margins.
- */
-function hyphenateWord(word, leftMin = 2, rightMin = 2) {
-  // Check if word contains any Tamil characters
-  const hasTamil = /[\u0B80-\u0BFF]/.test(word);
-  if (!hasTamil) return word;
-
-  const syllables = syllabifyTamil(word);
-  if (syllables.length < (leftMin + rightMin)) {
-    return syllables.join('');
+  const hasNucleusAfter = new Array(total).fill(false);
+  running = false;
+  for (let i = total - 1; i >= 0; i--) {
+    if (isSyllableNucleus(classes[i])) running = true;
+    hasNucleusAfter[i] = running;
   }
 
   let result = '';
-  for (let i = 0; i < syllables.length; i++) {
-    result += syllables[i];
-    const leftCount = i + 1;
-    const rightCount = syllables.length - (i + 1);
-    if (leftCount >= leftMin && rightCount >= rightMin) {
-      result += SOFT_HYPHEN;
+  for (let i = 0; i < total; i++) {
+    result += letters[i];
+    if (i < total - 1) {
+      const leftCount = i + 1;
+      const rightCount = total - leftCount;
+      if (leftCount < leftMin || rightCount < rightMin) continue;
+      if (!hasNucleusBefore[i] || !hasNucleusAfter[i + 1]) continue;
+
+      const nextClass = classes[i + 1];
+      if (nextClass === 'mei' || nextClass === 'aytham') continue;
+      if (!isSyllableNucleus(nextClass)) continue;
+
+      // Joiner check: neither curr nor next letter can be adjacent to ZWJ or ZWNJ
+      if (letters[i].includes('\u200C') || letters[i].includes('\u200D') ||
+          letters[i + 1].includes('\u200C') || letters[i + 1].includes('\u200D')) {
+        continue;
+      }
+
+      result += delimiter;
     }
   }
-
   return result;
 }
 
@@ -129,16 +160,25 @@ function hyphenateWord(word, leftMin = 2, rightMin = 2) {
 function hyphenateText(text, leftMin = 2, rightMin = 2) {
   if (!text) return '';
   return text.replace(/[\u0B80-\u0BFF\u00AD]+/g, (match) => {
-    return hyphenateWord(match, leftMin, rightMin);
+    return hyphenateWord(match, leftMin, rightMin, SOFT_HYPHEN);
   });
+}
+
+/**
+ * Remove all soft hyphens from the text.
+ */
+function removeHyphens(text) {
+  if (!text) return '';
+  return text.replace(/\u00AD/g, '');
 }
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
-    segmentTamilWord,
-    syllabifyTamil,
+    getTamilLetters,
+    classifyLetter,
     hyphenateWord,
     hyphenateText,
+    removeHyphens,
     SOFT_HYPHEN
   };
 }

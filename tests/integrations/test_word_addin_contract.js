@@ -1,6 +1,6 @@
 const assert = require("assert");
 const { describe, it } = require("node:test");
-const { hyphenateText, hyphenateWord, SOFT_HYPHEN } = require("../../integrations/office-word-addin/engine.js");
+const { hyphenateText, hyphenateWord, removeHyphens, getTamilLetters, SOFT_HYPHEN } = require("../../integrations/office-word-addin/engine.js");
 
 describe("Word Add-in Engine & Office.js Contract Tests", () => {
   it("should soft-hyphenate Tamil words at phonotactic syllable boundaries", () => {
@@ -65,5 +65,20 @@ describe("Word Add-in Engine & Office.js Contract Tests", () => {
     assert.strictEqual(modified, 1, "Only the Tamil paragraph should be modified");
     assert(mockDocument.body.paragraphs.items[0].text.includes(SOFT_HYPHEN));
     assert.strictEqual(mockDocument.body.paragraphs.items[1].text, "English paragraph untouched.");
+  });
+
+  it("should cleanly remove soft hyphens with removeHyphens", () => {
+    const text = "வணக்\u00ADகம்";
+    const cleaned = removeHyphens(text);
+    assert.strictEqual(cleaned, "வணக்கம்");
+    assert.strictEqual(cleaned.includes(SOFT_HYPHEN), false);
+  });
+
+  it("should segment tailored Tamil letters including Grantha", () => {
+    const letters = getTamilLetters("தமிழ்நாடு மற்றும் ஶ்ரீலங்கா");
+    assert(letters.includes("த"));
+    assert(letters.includes("மி"));
+    assert(letters.includes("ழ்"));
+    assert(letters.includes("ஶ்ரீ"));
   });
 });

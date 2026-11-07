@@ -1,43 +1,56 @@
 # Microsoft Word Office.js Web Add-in Guide
 
-The **Tamil Hyphenation Office.js Add-in** provides a native Taskpane inside Microsoft Word (Word 2019+, Microsoft 365 on Windows, macOS, and Word on the Web) for phonotactically verified syllabic soft-hyphenation.
+The **Tamil Hyphenation Office.js Add-in** integrates seamlessly into Microsoft Word (Word 2019+, Microsoft 365 on Windows, macOS, and Word on the Web) using **native Word Ribbon buttons in the Top Bar**—with **no sidebar or taskpane clutter required**.
 
 ---
 
-## 1. Why Soft Hyphens in Word?
+## 1. Native Ribbon Architecture (Top Bar Direct Execution)
 
-When Tamil paragraphs in Microsoft Word are **Justified** (`Ctrl + J`), Word expands space between words, causing ugly spacing gaps ("whitespace rivers") because it lacks a built-in Tamil hyphenator.
+The add-in uses Office.js `ExecuteFunction` ribbon commands. Clicking any button in the ribbon executes the logic directly in the document:
 
+- **தமிழ் (Tamil Tab in Top Bar)**:
+  - **தேர்ந்தெடுத்ததை இணை (Hyphenate Selection)**: Soft-hyphenates highlighted text or the active paragraph directly.
+  - **முழு ஆவணம் (Hyphenate Document)**: Soft-hyphenates all body paragraphs in the active document.
+  - **இணைப்புகளை நீக்கு (Remove Hyphens)**: Instantly strips all soft-hyphens from the selection or entire document.
+
+---
+
+## 2. Understanding Word's Soft-Hyphens (Optional Hyphens)
+
+### How They Work
 The add-in inserts Unicode **Soft Hyphens (`\u{00AD}`)**:
-- **0px Invisible**: Never visible inside lines; zero distortion of letter spacing or ligatures (புள்ளி, கொம்பு, விசிறி).
-- **Dynamic Line Breaking**: Word displays a hyphen glyph at the right margin only when a word collides with the margin under Justification.
+- **0px Invisible**: In normal reading and printing, soft hyphens are completely invisible inside words.
+- **Dynamic Line Breaking**: Word only shows a hyphen glyph (`-`) at the right margin when a word falls at the end of a line under Justification (`Ctrl + J`) or left alignment.
+
+### Why Do Hyphens Sometimes Appear Visible on Screen?
+In Microsoft Word, optional hyphens are classified as **non-printing formatting marks**:
+1. If Word's **"Show/Hide (¶)"** toggle is enabled (shortcut: `Ctrl + Shift + 8` or `Ctrl + *`), Word intentionally displays optional hyphens on screen as small hooked marks (`¬` or `-`) so you know where break opportunities exist.
+2. **To hide them**: Press **`Ctrl + Shift + 8`** on your keyboard (or click the `¶` icon on Word's **Home** tab). They will become completely invisible.
+3. If they still show up with `¶` off, go to **File** $\rightarrow$ **Options** $\rightarrow$ **Display** and uncheck **"Optional hyphens"** under *"Always show these formatting marks on the screen"*.
 
 ---
 
-## 2. Features
+## 3. Phonotactic Syllable Rules & Parity
 
-- **தேர்ந்தெடுத்ததை இணைக்கவும் (Hyphenate Selection)**: Select any paragraphs or table cells and soft-hyphenate with one click.
-- **முழு ஆவணத்தையும் இணைக்கவும் (Hyphenate Entire Document)**: Traverses all body paragraphs in Word atomically using `Word.run`.
-- **Configurable Margins**: Customize minimum left (`left_min: 2`) and right (`right_min: 2`) syllable counts.
-- **100% Offline & Private**: Executes entirely inside the Word client sandbox; zero text exfiltration.
+The add-in's engine (`engine.js`) adheres 100% to the core `tamil-hyphen` phonotactic algorithm and passes 120/120 golden test vectors:
+- **Coda Binding**: Pure consonants with pulli (`்`) and Aytham (`ஃ`) strictly bind to the preceding vowel nucleus. A segment **never** begins with a pure consonant or Aytham.
+- **Grantha Preservation**: Atomic Grantha sequences (`க்ஷ`, `ஸ்ரீ`, `ஶ்ரீ`) are never split.
+- **Idempotent**: Running hyphenation multiple times is safe and never injects duplicate hyphens.
+- **Margin Protection**: Preserves leading and trailing syllable margins (`left_min: 2`, `right_min: 2`).
 
 ---
 
-## 3. Sideloading & Testing the Add-in
+## 4. Sideloading & Updating the Add-in
 
-### A. Windows (Desktop Word)
-1. Share the `integrations/office-word-addin` folder as a Windows network share:
-   - Right-click `integrations/office-word-addin` $\rightarrow$ **Properties** $\rightarrow$ **Sharing** $\rightarrow$ **Share**.
-   - Copy the network path (e.g. `\\localhost\office-word-addin`).
+### Windows (Desktop Word)
+1. Share `integrations/office-word-addin` as a Windows network share:
+   - Path: `\\localhost\office-word-addin` (or `\\<COMPUTER_NAME>\office-word-addin`).
 2. In Microsoft Word:
    - Go to **File** $\rightarrow$ **Options** $\rightarrow$ **Trust Center** $\rightarrow$ **Trust Center Settings** $\rightarrow$ **Trusted Add-in Catalogs**.
-   - Paste the path, click **Add catalog**, check **Show in Menu**, and click **OK**.
-   - Restart Word.
-3. Open a document, go to **Insert** $\rightarrow$ **My Add-ins** $\rightarrow$ **Shared Folder** $\rightarrow$ Select **Tamil Hyphenation**.
-4. The **தமிழ்** tab will appear in the Word ribbon. Click **Tamil Hyphenator** to open the taskpane.
-
-### B. Word on the Web (Office Online)
-1. Open any document in [Word Online](https://office.live.com/start/Word.aspx).
-2. Go to **Insert** $\rightarrow$ **Add-ins** $\rightarrow$ **Upload My Add-in**.
-3. Browse and select `integrations/office-word-addin/manifest.xml`.
-4. The taskpane opens on the right side of the editor.
+   - Add the catalog network share URL and check **Show in Menu**.
+3. **To refresh/reload updated buttons**:
+   - Close Microsoft Word.
+   - Delete cache folder: `%LOCALAPPDATA%\Microsoft\Office\16.0\Wef\`
+   - Re-open Word.
+   - Go to **Insert** $\rightarrow$ **My Add-ins** $\rightarrow$ **Shared Folder** $\rightarrow$ select **Tamil Hyphenation**.
+   - The **தமிழ்** tab appears in the top bar with the 3 native ribbon buttons.
