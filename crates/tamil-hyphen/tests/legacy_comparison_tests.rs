@@ -83,8 +83,10 @@ fn test_comparative_benchmark_legacy_smc_vs_tamil_toolkit() {
         let (smc_res, _) = smc_evaluator.hyphenate_word(word, "-");
         let (toolkit_res, _) = toolkit_evaluator.hyphenate_word(word, "-");
 
-        let smc_has_1char_prefix = smc_res.chars().count() > 2 && smc_res.chars().nth(1) == Some('-');
-        let toolkit_has_1char_prefix = toolkit_res.chars().count() > 2 && toolkit_res.chars().nth(1) == Some('-');
+        let smc_has_1char_prefix =
+            smc_res.chars().count() > 2 && smc_res.chars().nth(1) == Some('-');
+        let toolkit_has_1char_prefix =
+            toolkit_res.chars().count() > 2 && toolkit_res.chars().nth(1) == Some('-');
 
         if smc_has_1char_prefix {
             smc_single_letter_failures += 1;

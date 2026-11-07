@@ -83,12 +83,7 @@ fn test_word_hyphenation_asai_and_3_letter_segments() {
 
 #[test]
 fn test_never_start_with_mei_or_aytham() {
-    let words = [
-        "துர்ப்பிரயோகம்",
-        "வாழ்த்துகள்",
-        "ஆராய்ச்சிகள்",
-        "பல்கலைக்கழகம்",
-    ];
+    let words = ["துர்ப்பிரயோகம்", "வாழ்த்துகள்", "ஆராய்ச்சிகள்", "பல்கலைக்கழகம்"];
     for w in words {
         let res = hyphenate_word(w, None).expect("valid hyphenation");
         for seg in &res.segments {

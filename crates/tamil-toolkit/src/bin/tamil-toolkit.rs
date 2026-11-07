@@ -196,14 +196,7 @@ fn handle_export_dic(args: &[String]) {
 
     if verify {
         let evaluator = LiangEvaluator::new(&dict);
-        let sample_words = [
-            "தமிழ்நாடு",
-            "பல்கலைக்கழகம்",
-            "வணக்கம்",
-            "தக்ஷிணம்",
-            "ஸ்ரீரங்கம்",
-            "அஃது",
-        ];
+        let sample_words = ["தமிழ்நாடு", "பல்கலைக்கழகம்", "வணக்கம்", "தக்ஷிணம்", "ஸ்ரீரங்கம்", "அஃது"];
         let mut passed = 0;
         for word in &sample_words {
             let (hyphenated, segs) = evaluator.hyphenate_word(word, "-");
@@ -236,7 +229,10 @@ fn handle_export_dic(args: &[String]) {
                 eprintln!("Verification failure on word '{word}': {hyphenated}");
             }
         }
-        println!("Verified {passed}/{} sample words with zero orthographic violations.", sample_words.len());
+        println!(
+            "Verified {passed}/{} sample words with zero orthographic violations.",
+            sample_words.len()
+        );
     }
 }
 

@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-06
 
-**Status**: Draft
+**Status**: Partially Complete — dictionary and packaging implementation delivered; golden suite remains planned pending owner review
 
 **Input**: User description: "Build an upgraded, phonotactically verified Frank Liang / Hunspell hyphenation dictionary (`hyph_ta_IN.dic`) and LibreOffice extension (`.oxt`) powered by the `tamil-hyphen` engine: 1. Pattern Generation Engine; 2. Automated Verification & Testing; 3. LibreOffice & InDesign Packaging; 4. Upstream Fork & PR Kit (for external github.com/smc/hyphenation)."
 

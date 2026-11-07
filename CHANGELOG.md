@@ -1,6 +1,11 @@
 # Changelog
 
+
 ## Unreleased
+
+- Repair baseline validation blockers: preserve dictionary joiner patterns using explicit Unicode scalars, cover both controls, apply Rust formatting, resolve unused-variable/iterator warnings, and align the release acceptance test with the existing private hyphen exemption.
+
+- Spec 016: document dependency ranks, capability boundaries and 18-phase roadmap; enforce Cargo dependency DAG ranks across runtime, build, dev and target tables, including aliases. Reject manifest-free future-crate directories and varied placeholder sources; define lifecycle evidence and reconcile the release handoff.
 
 - Remove the developer workbench (`workbench/`), its operation coverage check (`tools/check_workbench_operations.py`), and associated npm scripts and workspace configuration.
 

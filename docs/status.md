@@ -1,9 +1,18 @@
 # Project handoff
 
-Updated: 2026-11-05. Branch: master. Current release source:
-147ade2f1b0579200c2d222c9546c85a5e56b258 (0.1.0-alpha.5). This immutable
-source SHA is tagged v0.1.0-alpha.5; post-release documentation commits do not
-change the published packages. See the [alpha-5 release record](releases/alpha-5.md).
+## Feature 016 handoff (2026-11-08)
+
+Feature 016 tasks T001–T018 are complete; the specification header now records this verified documentation/governance completion. See [canonical architecture](specs/architecture-roadmap.md) for the Tier 1–5 matrix, Phase 0–17 schedule and lifecycle evidence, and [tasks](../specs/016-crate-dependency-roadmap/tasks.md) for acceptance details. Rank checks cover 16 current manifests, four future names, target/build/dev tables and aliases; future placeholder directories are rejected even without manifests.
+
+The user's follow-up authorized baseline repairs: Rust formatting, explicit scalar construction preserving dictionary joiner patterns and their order, both-control assertions, behavior-preserving iterator cleanup and unused example imports/mutability. The stale release acceptance assertion now matches the existing private hyphen exemption and verifies hyphen remains unpublished. Cargo manifests, suite activation and public policy did not change.
+
+Final validation passed: `just agent-post-edit` (Unicode/schema, 61 release copies, workspace check), sequential `just agent-pre-stop-gate` (formatting, Clippy, Rust, 158 harness tests, rebuilt bindings, 35,890 active Rust golden vectors, 28 Python tests, 35,913 WASM checks), `just test-dart` (analysis, 35,909 checks), four focused dictionary tests and `git diff --check`. An initial overlapping Dart run locked a Windows DLL; the final gate passed after Dart completed. Logs: `target/feature016-post-edit.log`, `target/feature016-pre-stop.log`, `target/feature016-dart.log`. All changes remain uncommitted on `master`; no publication performed. Next action: review the completed diff.
+
+Current recorded release: `0.1.0-alpha.6` (Python `0.1.0a6`), reviewed source `f8ab0a600b37b7ec10120ada5026db5762c9efc5`, immutable tag `v0.1.0-alpha.6`. The [alpha-6 release record](releases/alpha-6.md) owns publication evidence. This is repository-record evidence; no registry recheck or publication was performed for Feature 016.
+
+## Historical feature handoffs
+
+The following entries preserve earlier feature reports and their checks; they do not establish current Feature 016 integration status. The [alpha-5 release record](releases/alpha-5.md) remains historical.
 
 ## Active Feature: 013-word-office-addin (Microsoft Word Office.js Web Add-in) - Completed
 

@@ -2,7 +2,7 @@
 
 **Feature Branch**: `013-word-docs-addins`  
 **Created**: 2026-11-07  
-**Status**: In Progress  
+**Status**: Partially Complete — Word add-in delivered; Google Docs add-on was evaluated and removed from scope per user direction
 **Input**: User request: "do them [Word & Docs] with spec kit lifecycle. also use subagents for confirming it"
 
 ---

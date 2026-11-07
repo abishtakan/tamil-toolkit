@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-07
 
-**Status**: Draft
+**Status**: Complete — listed implementation tasks and verification are complete (2026-11-08)
 
 **Input**: User description: "Phase 2 of the Word & Google Docs long-term integration roadmap: Implement headless OpenXML DOCX batch processing CLI subcommand (`tamil-toolkit hyphen process-docx`), Rust crate API, and Python SDK for Tamil soft-hyphenation."
 

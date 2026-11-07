@@ -20,6 +20,104 @@ from pathlib import Path, PurePosixPath
 ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = "abishtakan/tamil-toolkit"
 
+CRATE_RANKS = {
+    # Rank 0: Foundational Orthography & Phonological Primitives
+    "tamil-core": 0,
+    # Rank 1: Normalization, Codecs (+ Braille), Numerals (+ ITN), Classical Prosody
+    "tamil-norm": 1,
+    "tamil-codec": 1,
+    "tamil-numerals": 1,
+    "tamil-yaappu": 1,
+    # Rank 2: Contextual Engines, Sandhi, Typography, Transliteration, Phonetics, Tokenization
+    "tamil-calendar": 2,
+    "tamil-collate": 2,
+    "tamil-hyphen": 2,
+    "tamil-punarchi": 2,
+    "tamil-translit": 2,
+    "tamil-phonetics": 2,
+    "tamil-tokenize": 2,
+    # Rank 3: Morphological Analyzer & Lexicon
+    "tamil-morph": 3,
+    # Rank 4: High-Level Linguistic Applications & Isolated Database Extension
+    "tamil-dialect": 4,
+    "tamil-spell": 4,
+    "pg_tamil": 4,
+    # Rank 5: Unified Facade, Cross-Branch Orchestrator & CLI
+    "tamil-toolkit": 5,
+    # Rank 6: Multi-Runtime FFI Adapters
+    "tamil-python": 6,
+    "tamil-wasm": 6,
+    "tamil-dart": 6,
+}
+
+UNSCAFFOLDED_PLANNED_CRATES = frozenset({
+    "tamil-translit",
+    "tamil-phonetics",
+    "tamil-tokenize",
+    "tamil-spell",
+})
+
+
+def _iter_manifest_dependency_tables(manifest):
+    for section in ("dependencies", "build-dependencies", "dev-dependencies"):
+        table = manifest.get(section)
+        if isinstance(table, dict):
+            yield section, table
+    target_table = manifest.get("target")
+    if isinstance(target_table, dict):
+        for target_name, target_cfg in target_table.items():
+            if isinstance(target_cfg, dict):
+                for section in ("dependencies", "build-dependencies", "dev-dependencies"):
+                    table = target_cfg.get(section)
+                    if isinstance(table, dict):
+                        yield f"target.{target_name}.{section}", table
+
+
+def check_dependency_dag(root=ROOT):
+    # Inspect directories first: manifest-only enumeration misses empty scaffolds.
+    for name in sorted(UNSCAFFOLDED_PLANNED_CRATES):
+        directory = root / "crates" / name
+        if not directory.exists():
+            continue
+        sources = list((directory / "src").rglob("*.rs"))
+        substantive = False
+        for source in sources:
+            text = source.read_text(encoding="utf-8")
+            # This is a bounded placeholder guard, not a Rust parser or proof of behavior.
+            text = re.sub(r"/\*.*?\*/|//[^\n]*", "", text, flags=re.S)
+            text = re.sub(r"#!?\[[^\]]*\]", "", text)
+            text = re.sub(r'(?:pub(?:\([^)]*\))?\s+)?(?:const|static)\s+STATUS\s*:[^;]*;', "", text)
+            substantive |= bool(text.strip())
+        require((directory / "Cargo.toml").is_file() and substantive,
+                f"{name}: unscaffolded planned crate cannot be created as an empty placeholder")
+
+    manifests = list((root / "crates").glob("*/Cargo.toml"))
+    manifests += [root / "bindings" / path / "Cargo.toml" for path in
+                  ("python", "js-wasm", "dart-flutter/rust")]
+    pg_manifest = root / "extensions/pg_tamil/Cargo.toml"
+    if pg_manifest.exists():
+        manifests.append(pg_manifest)
+
+    workspace_deps = read_toml(root / "Cargo.toml")["workspace"].get("dependencies", {})
+    for path in manifests:
+        manifest = read_toml(path)
+        name = manifest["package"]["name"]
+        require(name in CRATE_RANKS, f"{name}: crate missing from CRATE_RANKS architectural DAG")
+        source_rank = CRATE_RANKS[name]
+        for section, table in _iter_manifest_dependency_tables(manifest):
+            for dep, settings in table.items():
+                if isinstance(settings, dict) and settings.get("workspace"):
+                    settings = workspace_deps.get(dep, settings)
+                dep_pkg = settings.get("package", dep) if isinstance(settings, dict) else dep
+                if dep_pkg not in CRATE_RANKS and not dep_pkg.startswith("tamil-"):
+                    continue
+                require(dep_pkg in CRATE_RANKS, f"{name}: unknown internal dependency {dep_pkg} in [{section}]")
+                dep_rank = CRATE_RANKS[dep_pkg]
+                require(
+                    dep_rank < source_rank,
+                    f"{name} (Rank {source_rank}): dependency {dep_pkg} (Rank {dep_rank}) in [{section}] violates acyclic DAG rank order",
+                )
+
 
 def require(condition, message):
     if not condition:
@@ -73,6 +171,7 @@ def load(root=ROOT):
 
 def check(root=ROOT):
     policy = load(root)
+    check_dependency_dag(root)
     workspace = read_toml(root / "Cargo.toml")["workspace"]
     public = policy["public_crates"]
     require(workspace["package"]["publish"] is False, "Workspace default must remain unpublished")

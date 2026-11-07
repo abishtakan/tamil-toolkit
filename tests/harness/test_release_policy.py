@@ -15,7 +15,8 @@ POLICY = gate.load()
 
 
 @pytest.fixture
-def repository(tmp_path):
+def repository(tmp_path, monkeypatch):
+    monkeypatch.setitem(gate.CRATE_RANKS, "tamil-unfinished", 4)
     root = tmp_path / "repository"
     paths = ["release-policy.toml", "Cargo.toml", "Cargo.lock", "package.json",
              "bindings/js-wasm/package.json",
@@ -368,3 +369,96 @@ def test_is_published_query(monkeypatch):
     assert gate.is_published("npm", "tamil-toolkit", "0.1.0-alpha.404") is False
     assert gate.is_published("pypi", "tamil-toolkit", "0.1.0-alpha.3") is True
     assert gate.is_published("pypi", "tamil-toolkit", "0.1.0-alpha.404") is False
+
+
+@pytest.mark.parametrize("manifest_rel,section,dep_line,expected_match", [
+    (
+        "crates/tamil-core/Cargo.toml",
+        "[dependencies]",
+        "tamil-norm.workspace = true",
+        "tamil-core \\(Rank 0\\): dependency tamil-norm \\(Rank 1\\) in \\[dependencies\\] violates acyclic DAG rank order",
+    ),
+    (
+        "crates/tamil-punarchi/Cargo.toml",
+        "[dependencies]",
+        "tamil-morph.workspace = true",
+        "tamil-punarchi \\(Rank 2\\): dependency tamil-morph \\(Rank 3\\) in \\[dependencies\\] violates acyclic DAG rank order",
+    ),
+    (
+        "crates/tamil-collate/Cargo.toml",
+        "[build-dependencies]",
+        "tamil-hyphen.workspace = true",
+        "tamil-collate \\(Rank 2\\): dependency tamil-hyphen \\(Rank 2\\) in \\[build-dependencies\\] violates acyclic DAG rank order",
+    ),
+    (
+        "crates/tamil-norm/Cargo.toml",
+        "[dev-dependencies]",
+        "tamil-toolkit.workspace = true",
+        "tamil-norm \\(Rank 1\\): dependency tamil-toolkit \\(Rank 5\\) in \\[dev-dependencies\\] violates acyclic DAG rank order",
+    ),
+])
+def test_dag_rejects_reverse_and_peer_dependencies(repository, manifest_rel, section, dep_line, expected_match):
+    manifest_path = repository / manifest_rel
+    text = manifest_path.read_text(encoding="utf-8")
+    if section in text:
+        text = text.replace(section, f"{section}\n{dep_line}", 1)
+    else:
+        text = f"{text}\n{section}\n{dep_line}\n"
+    manifest_path.write_text(text, encoding="utf-8")
+    with pytest.raises(ValueError, match=expected_match):
+        gate.check(repository)
+
+
+def test_dag_rejects_premature_empty_scaffold_for_planned_crates(repository):
+    translit_dir = repository / "crates/tamil-translit"
+    (translit_dir / "src").mkdir(parents=True)
+    (translit_dir / "Cargo.toml").write_text(
+        '[package]\nname = "tamil-translit"\nversion.workspace = true\npublish.workspace = true\n'
+        'license.workspace = true\nrepository.workspace = true\n',
+        encoding="utf-8",
+    )
+    (translit_dir / "src/lib.rs").write_text('pub const STATUS: &str = "planned";\n', encoding="utf-8")
+    with pytest.raises(ValueError, match="unscaffolded planned crate cannot be created as an empty placeholder"):
+        gate.check(repository)
+
+
+
+@pytest.mark.parametrize("section", ["dependencies", "build-dependencies", "dev-dependencies"])
+def test_target_dependency_alias_cannot_bypass_rank(repository, section):
+    path = repository / "crates/tamil-core/Cargo.toml"
+    with path.open("a") as out:
+        out.write(f'\n[target.\'cfg(windows)\'.{section}]\nrenamed = {{ package = "tamil-norm", path = "../tamil-norm" }}\n')
+    with pytest.raises(ValueError, match="violates acyclic DAG rank order"):
+        gate.check_dependency_dag(repository)
+
+
+def test_workspace_alias_cannot_bypass_rank(repository):
+    path = repository / "Cargo.toml"
+    text = path.read_text().replace("[workspace.dependencies]", '[workspace.dependencies]\nrenamed = { package = "tamil-norm", path = "crates/tamil-norm" }')
+    path.write_text(text)
+    path = repository / "crates/tamil-core/Cargo.toml"
+    path.write_text(path.read_text().replace("[dev-dependencies]", "[dev-dependencies]\nrenamed.workspace = true"))
+    with pytest.raises(ValueError, match="violates acyclic DAG rank order"):
+        gate.check_dependency_dag(repository)
+
+
+@pytest.mark.parametrize("name", sorted(gate.UNSCAFFOLDED_PLANNED_CRATES))
+@pytest.mark.parametrize("source", [None, "", '// placeholder\n', 'pub const STATUS : &str= "planned" ;\n', '#![forbid(unsafe_code)]\npub static STATUS: &str = "planned";\n'])
+def test_future_crate_placeholder_guard(repository, name, source):
+    directory = repository / "crates" / name
+    directory.mkdir()
+    if source is not None:
+        (directory / "src").mkdir()
+        (directory / "src/lib.rs").write_text(source, encoding="utf-8")
+        (directory / "Cargo.toml").write_text(f'[package]\nname = "{name}"\n', encoding="utf-8")
+    with pytest.raises(ValueError, match="empty placeholder"):
+        gate.check_dependency_dag(repository)
+
+
+@pytest.mark.parametrize("name", sorted(gate.UNSCAFFOLDED_PLANNED_CRATES))
+def test_future_crate_implementation_allowed(repository, name):
+    directory = repository / "crates" / name
+    (directory / "src").mkdir(parents=True)
+    (directory / "Cargo.toml").write_text(f'[package]\nname = "{name}"\n', encoding="utf-8")
+    (directory / "src/lib.rs").write_text('pub const STATUS: &str = "planned";\npub fn operation() -> usize { 1 }\n', encoding="utf-8")
+    gate.check_dependency_dag(repository)

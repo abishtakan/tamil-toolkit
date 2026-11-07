@@ -169,4 +169,3 @@ impl From<zip::result::ZipError> for DocxError {
         DocxError::Zip(e)
     }
 }
-

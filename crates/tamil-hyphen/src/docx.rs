@@ -113,8 +113,7 @@ pub fn process_xml_text(
                                     hyphenated.chars().filter(|&c| c == SOFT_HYPHEN).count();
 
                                 if post_soft_count > pre_soft_count {
-                                    stats.soft_hyphens_inserted +=
-                                        post_soft_count - pre_soft_count;
+                                    stats.soft_hyphens_inserted += post_soft_count - pre_soft_count;
                                 }
 
                                 out.push_str(&hyphenated);

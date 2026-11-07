@@ -1,10 +1,8 @@
-use std::collections::{BTreeMap, HashSet};
+use std::collections::HashSet;
 use std::fs::File;
-use std::io::{BufRead, BufReader, Write};
+use std::io::{BufRead, BufReader};
 use tamil_core::Letters;
 use tamil_hyphen::syllable::{classify_letter, is_syllable_nucleus, LetterClass};
-use tamil_hyphen::verify_dic::LiangEvaluator;
-use tamil_hyphen::{generate_patterns, DicExportOptions};
 use tamil_norm::normalize_nfc;
 
 #[derive(Debug, Clone)]
@@ -189,7 +187,7 @@ fn main() {
     }
 
     // Write a comprehensive JSON report with all raw data for inspection
-    let mut report = serde_json::json!({
+    let _report = serde_json::json!({
         "golden_count": golden_words.len(),
         "word_doc_tokens": word_doc_words.len(),
         "word_doc_unique": unique_word_doc.len(),
@@ -225,12 +223,15 @@ fn main() {
         for (_, w) in &golden_words {
             let a = analyze_word(w);
             let b = find_all_phonotactic_breaks(&a);
-            let count = b.iter().filter(|x| match unit {
-                "letter" => x.left_letters >= l_min && x.right_letters >= r_min,
-                "syllable" => x.left_syllables >= l_min && x.right_syllables >= r_min,
-                "scalar" => x.left_scalars >= l_min && x.right_scalars >= r_min,
-                _ => false,
-            }).count();
+            let count = b
+                .iter()
+                .filter(|x| match unit {
+                    "letter" => x.left_letters >= l_min && x.right_letters >= r_min,
+                    "syllable" => x.left_syllables >= l_min && x.right_syllables >= r_min,
+                    "scalar" => x.left_scalars >= l_min && x.right_scalars >= r_min,
+                    _ => false,
+                })
+                .count();
             if count > 0 {
                 g_hyphenated += 1;
                 g_breaks += count;
@@ -243,12 +244,15 @@ fn main() {
         for w in &unique_word_doc {
             let a = analyze_word(w);
             let b = find_all_phonotactic_breaks(&a);
-            let count = b.iter().filter(|x| match unit {
-                "letter" => x.left_letters >= l_min && x.right_letters >= r_min,
-                "syllable" => x.left_syllables >= l_min && x.right_syllables >= r_min,
-                "scalar" => x.left_scalars >= l_min && x.right_scalars >= r_min,
-                _ => false,
-            }).count();
+            let count = b
+                .iter()
+                .filter(|x| match unit {
+                    "letter" => x.left_letters >= l_min && x.right_letters >= r_min,
+                    "syllable" => x.left_syllables >= l_min && x.right_syllables >= r_min,
+                    "scalar" => x.left_scalars >= l_min && x.right_scalars >= r_min,
+                    _ => false,
+                })
+                .count();
             if count > 0 {
                 d_hyphenated += 1;
                 d_breaks += count;

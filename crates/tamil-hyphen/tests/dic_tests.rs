@@ -17,14 +17,21 @@ fn test_generate_patterns_contains_header_and_rules() {
     // Check specific critical rules exist
     let patterns_raw: Vec<&str> = dict.patterns.iter().map(|p| p.raw.as_str()).collect();
 
-    // 1. ZWJ protection
-    assert!(patterns_raw.iter().any(|p| *p == "2\u{200D}2"));
+    // 1. Both format controls remain protected, identified by explicit scalars.
+    for scalar in [0x200C, 0x200D] {
+        let joiner = char::from_u32(scalar).unwrap();
+        assert!(patterns_raw.contains(&format!("2{joiner}2").as_str()));
+    }
 
     // 2. Aytham protection (no break before Aytham)
-    assert!(patterns_raw.iter().any(|p| *p == "2\u{0B83}1" || *p == "2\u{0B83}"));
+    assert!(patterns_raw
+        .iter()
+        .any(|p| *p == "2\u{0B83}1" || *p == "2\u{0B83}"));
 
     // 3. Grantha ligature protection (never break inside Ksha க்ஷ)
-    assert!(patterns_raw.iter().any(|p| p.contains("க்2ஷ") || p.contains("க\u{0BCD}2ஷ")));
+    assert!(patterns_raw
+        .iter()
+        .any(|p| p.contains("க்2ஷ") || p.contains("க\u{0BCD}2ஷ")));
 
     // 4. Consecutive pure consonant cluster protection (no break between two pure consonants)
     assert!(patterns_raw.iter().any(|p| p.contains("\u{0BCD}2")));
@@ -39,7 +46,11 @@ fn test_liang_evaluator_preserves_grantha_ksha() {
     // தக்ஷிணம் (letters: த, க்ஷ, ி, ண, ம்) -> syllables: தக், ஷி, ணம் or த, க்ஷி, ணம்
     // Under no circumstances should க் and ஷ be separated across lines (க்-ஷ)!
     let (hyphenated, segments) = evaluator.hyphenate_word("தக்ஷிணம்", "-");
-    assert!(!hyphenated.contains("தக்-ஷ"), "Severed Grantha ligature க்-ஷ in தக்ஷிணம்: {}", hyphenated);
+    assert!(
+        !hyphenated.contains("தக்-ஷ"),
+        "Severed Grantha ligature க்-ஷ in தக்ஷிணம்: {}",
+        hyphenated
+    );
     for seg in &segments {
         assert!(!seg.ends_with("க்") || !seg.starts_with('ஷ'));
     }
@@ -67,7 +78,9 @@ fn test_liang_evaluator_never_starts_segment_with_pure_consonant() {
             assert!(
                 !seg.starts_with('\u{0BCD}'),
                 "Segment '{}' in word '{}' starts with naked virama! Full: {}",
-                seg, word, hyphenated
+                seg,
+                word,
+                hyphenated
             );
             if seg.chars().count() > 1 {
                 let second = seg.chars().nth(1).unwrap();
@@ -97,5 +110,9 @@ fn test_liang_evaluator_respects_margins() {
 
     // "அம்மா" (அ, ம், மா) - 1-letter prefix break (அ-ம்மா) must be forbidden by left_min = 2!
     let (h2, _) = evaluator.hyphenate_word("அம்மா", "-");
-    assert!(!h2.starts_with("அ-"), "Forbidden 1-letter prefix break in அம்மா: {}", h2);
+    assert!(
+        !h2.starts_with("அ-"),
+        "Forbidden 1-letter prefix break in அம்மா: {}",
+        h2
+    );
 }

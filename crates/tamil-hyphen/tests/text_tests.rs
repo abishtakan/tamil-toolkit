@@ -39,7 +39,8 @@ fn test_wrap_text_deterministic() {
     assert!(!res.lines.is_empty());
     // Verify lines do not exceed width unless an individual word couldn't break
     for line in &res.lines {
-        let _clusters = unicode_segmentation::UnicodeSegmentation::graphemes(line.as_str(), true).count();
+        let _clusters =
+            unicode_segmentation::UnicodeSegmentation::graphemes(line.as_str(), true).count();
         // Each broken line should fit within or cleanly wrap
         assert!(!line.is_empty() || res.lines.len() == 1);
     }

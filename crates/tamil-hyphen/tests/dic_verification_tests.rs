@@ -42,13 +42,21 @@ fn test_verify_all_golden_hyphen_vectors() {
             continue;
         }
 
-        let word = match val.get("input").and_then(|i| i.get("word")).and_then(|w| w.as_str()) {
+        let word = match val
+            .get("input")
+            .and_then(|i| i.get("word"))
+            .and_then(|w| w.as_str())
+        {
             Some(w) => w,
             None => continue,
         };
 
         let id = val.get("id").and_then(|i| i.as_str()).unwrap_or("unknown");
-        let left_min = val.get("input").and_then(|i| i.get("left_min")).and_then(|m| m.as_u64()).unwrap_or(2) as usize;
+        let left_min = val
+            .get("input")
+            .and_then(|i| i.get("left_min"))
+            .and_then(|m| m.as_u64())
+            .unwrap_or(2) as usize;
 
         let (hyphenated, segments) = evaluator.hyphenate_word(word, "-");
         tested_count += 1;
@@ -100,7 +108,8 @@ fn test_verify_all_golden_hyphen_vectors() {
         // Rule D: Respect left_min = 2 margin (no 1-character prefix breaks)
         if left_min >= 2 {
             assert!(
-                !hyphenated.starts_with(|c: char| c != '-' && hyphenated.chars().nth(1) == Some('-')),
+                !hyphenated
+                    .starts_with(|c: char| c != '-' && hyphenated.chars().nth(1) == Some('-')),
                 "[{}] Word '{}' has illegal 1-character prefix hyphenation: '{}'",
                 id,
                 word,
@@ -109,6 +118,10 @@ fn test_verify_all_golden_hyphen_vectors() {
         }
     }
 
-    assert!(tested_count > 100, "Expected >100 golden vectors, tested {}", tested_count);
+    assert!(
+        tested_count > 100,
+        "Expected >100 golden vectors, tested {}",
+        tested_count
+    );
     println!("Successfully verified {tested_count} golden test vectors against Liang pattern dictionary!");
 }

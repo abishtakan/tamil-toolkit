@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-08
 
-**Status**: Draft
+**Status**: In Progress — implementation tasks are checked, but the required hyphen golden suite remains planned pending owner review
 
 **Input**: User description: "what you found. Also research whether leftmin rightmin which is best 2 or 3. if 3 is best change it to 3."
 

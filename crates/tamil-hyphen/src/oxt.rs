@@ -80,8 +80,7 @@ pub fn package_oxt(
 
     let out_file = File::create(output_path)?;
     let mut zip = ZipWriter::new(out_file);
-    let options = SimpleFileOptions::default()
-        .compression_method(zip::CompressionMethod::Deflated);
+    let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
 
     // 1. META-INF/manifest.xml
     zip.start_file("META-INF/manifest.xml", options)?;

@@ -300,8 +300,8 @@ pub fn hyphenation_points(
 
     // Step 5: Emit valid break points between adjacent Asai segments
     let mut points = Vec::new();
-    for seg_idx in 0..asais.len().saturating_sub(1) {
-        let left_count = asais[seg_idx].end_letter_idx;
+    for segment in asais.iter().take(asais.len().saturating_sub(1)) {
+        let left_count = segment.end_letter_idx;
         let right_count = total_letters - left_count;
 
         if left_count < cfg.left_min || right_count < cfg.right_min {

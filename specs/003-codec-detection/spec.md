@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-05
 
-**Status**: Draft
+**Status**: Complete — listed implementation tasks and verification are complete (2026-11-08)
 
 **Input**: User description: "Specification for an automatic legacy Tamil encoding detection engine (`detect_encoding`) in tamil-codec."
 

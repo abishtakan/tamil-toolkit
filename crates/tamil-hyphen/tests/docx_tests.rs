@@ -78,8 +78,7 @@ fn test_process_xml_text_formatting_and_preservation() {
 
 #[test]
 fn test_process_xml_text_idempotency() {
-    let input_xml =
-        r#"<w:p><w:r><w:t>தமிழ்நாடு மற்றும் பல்கலைக்கழகம்</w:t></w:r></w:p>"#;
+    let input_xml = r#"<w:p><w:r><w:t>தமிழ்நாடு மற்றும் பல்கலைக்கழகம்</w:t></w:r></w:p>"#;
 
     let mut stats1 = DocxStats::default();
     let pass1 = process_xml_text(input_xml, None, &mut stats1).unwrap();
@@ -98,8 +97,7 @@ fn test_process_xml_text_idempotency() {
 
 #[test]
 fn test_process_xml_text_self_closing_and_empty() {
-    let input_xml =
-        r#"<w:p><w:r><w:t/><w:t></w:t><w:t>பல்கலைக்கழகம்</w:t></w:r></w:p>"#;
+    let input_xml = r#"<w:p><w:r><w:t/><w:t></w:t><w:t>பல்கலைக்கழகம்</w:t></w:r></w:p>"#;
     let mut stats = DocxStats::default();
     let result = process_xml_text(input_xml, None, &mut stats).unwrap();
 
@@ -161,9 +159,7 @@ fn create_test_docx_archive() -> Vec<u8> {
     writer.write_all(fn_xml.as_bytes()).unwrap();
 
     // 5. Binary passthrough: word/media/image1.png
-    writer
-        .start_file("word/media/image1.png", options)
-        .unwrap();
+    writer.start_file("word/media/image1.png", options).unwrap();
     writer
         .write_all(&[0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A])
         .unwrap();
@@ -223,8 +219,7 @@ fn test_process_docx_bytes_roundtrip_and_stats() {
         let mut fn_file = reader.by_name("word/footnotes.xml").unwrap();
         let mut fn_xml = String::new();
         fn_file.read_to_string(&mut fn_xml).unwrap();
-        let expected_fn =
-            tamil_hyphen::hyphenate_text("அடிக்குறிப்பு விளக்கம்", None).unwrap();
+        let expected_fn = tamil_hyphen::hyphenate_text("அடிக்குறிப்பு விளக்கம்", None).unwrap();
         assert!(fn_xml.contains(&expected_fn));
     }
 

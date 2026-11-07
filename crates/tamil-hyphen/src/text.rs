@@ -135,7 +135,7 @@ pub fn wrap_text(
 
         let words: Vec<&str> = paragraph.split_whitespace().collect();
 
-        for (_word_idx, &word) in words.iter().enumerate() {
+        for &word in &words {
             let word_clusters = word.graphemes(true).count();
             let space_needed = if current_line.is_empty() { 0 } else { 1 };
 

@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-05
 
-**Status**: Draft
+**Status**: Complete — listed implementation tasks and verification are complete (2026-11-08)
 
 **Input**: User description: "calendar-crate-split. since there are no users of this crates we doesn't mention deprecations."
 

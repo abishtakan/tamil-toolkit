@@ -24,17 +24,18 @@ impl Default for DicExportOptions {
 pub fn generate_patterns(options: &DicExportOptions) -> HyphenDictionary {
     let mut patterns = Vec::new();
 
-    // 1. Format controls (ZWJ and ZWNJ)
-    // Never break across or adjacent to ZERO-WIDTH JOINER (U+200D)
-    patterns.push("2\u{200D}2".to_string());
-    // Never break across ZERO-WIDTH NON JOINER (U+200C)
-    patterns.push("2\u{200C}2".to_string());
+    // 1. Format controls: U+200C ZWNJ and U+200D ZWJ.
+    // Preserve both controls and prohibit adjacent breaks.
+    for scalar in [0x200D, 0x200C] {
+        let joiner = char::from_u32(scalar).expect("valid Unicode format control");
+        patterns.push(format!("2{joiner}2"));
+    }
 
     // 2. Independent Vowels (Uyir)
     // Break permitted before independent vowels when occurring internally
     let uyir = [
-        '\u{0B85}', '\u{0B86}', '\u{0B87}', '\u{0B88}', '\u{0B89}', '\u{0B8A}',
-        '\u{0B8E}', '\u{0B8F}', '\u{0B90}', '\u{0B92}', '\u{0B93}', '\u{0B94}',
+        '\u{0B85}', '\u{0B86}', '\u{0B87}', '\u{0B88}', '\u{0B89}', '\u{0B8A}', '\u{0B8E}',
+        '\u{0B8F}', '\u{0B90}', '\u{0B92}', '\u{0B93}', '\u{0B94}',
     ];
     for &u in &uyir {
         patterns.push(format!("1{}", u));
@@ -43,8 +44,8 @@ pub fn generate_patterns(options: &DicExportOptions) -> HyphenDictionary {
     // 3. Dependent Vowel Signs (Uyirmei off-glides)
     // Break permitted AFTER dependent vowels (open syllable), never before
     let vowel_signs = [
-        '\u{0BBE}', '\u{0BBF}', '\u{0BC0}', '\u{0BC1}', '\u{0BC2}', '\u{0BC6}',
-        '\u{0BC7}', '\u{0BC8}', '\u{0BCA}', '\u{0BCB}', '\u{0BCC}', '\u{0BD7}',
+        '\u{0BBE}', '\u{0BBF}', '\u{0BC0}', '\u{0BC1}', '\u{0BC2}', '\u{0BC6}', '\u{0BC7}',
+        '\u{0BC8}', '\u{0BCA}', '\u{0BCB}', '\u{0BCC}', '\u{0BD7}',
     ];
     for &vs in &vowel_signs {
         // Never break before combining vowel sign
@@ -107,9 +108,9 @@ pub fn generate_patterns(options: &DicExportOptions) -> HyphenDictionary {
     // 7. Atomic Grantha Ligatures (Ksha க்ஷ and Shri/Sri ஸ்ரீ)
     // Ksha: க + ் + ஷ
     patterns.push("2\u{0B95}\u{0BCD}2\u{0BB7}".to_string());
-    patterns.push("1\u{0B95}\u{0BCD}2\u{0BB7}".to_string());  // Break allowed before Ksha
+    patterns.push("1\u{0B95}\u{0BCD}2\u{0BB7}".to_string()); // Break allowed before Ksha
     patterns.push("2\u{0B95}\u{0BCD}2\u{0BB7}1".to_string()); // Break allowed after Ksha vowel
-    // Pure consonant Ksha (க்ஷ்):
+                                                              // Pure consonant Ksha (க்ஷ்):
     patterns.push("2\u{0B95}\u{0BCD}2\u{0BB7}\u{0BCD}".to_string());
     patterns.push("2\u{0B95}\u{0BCD}2\u{0BB7}\u{0BCD}1".to_string());
 
@@ -159,7 +160,10 @@ pub fn export_dic_content(dict: &HyphenDictionary) -> String {
     out.push_str(&dict.header.encoding);
     out.push('\n');
     out.push_str(&format!("LEFTHYPHENMIN {}\n", dict.header.left_hyphen_min));
-    out.push_str(&format!("RIGHTHYPHENMIN {}\n", dict.header.right_hyphen_min));
+    out.push_str(&format!(
+        "RIGHTHYPHENMIN {}\n",
+        dict.header.right_hyphen_min
+    ));
     out.push_str(&dict.header.license_notice);
     out.push_str("\n\n");
 
