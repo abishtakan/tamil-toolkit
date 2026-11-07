@@ -14,7 +14,7 @@ This guide details how to build, verify, package, and install the phonotacticall
 
 Run the export command from the repository root:
 ```bash
-cargo run -p tamil-toolkit -- hyphen export-dic --output dist/dictionaries/hyph_ta_IN.dic
+cargo run -p tamil-toolkit --bin tamil-toolkit -- hyphen export-dic --output dist/dictionaries/hyph_ta_IN.dic
 ```
 
 **Expected Outcome**:
@@ -68,7 +68,7 @@ Tamil Toolkit 2026 (hyph_ta_IN.dic):
 
 Package the extension ZIP archive:
 ```bash
-cargo run -p tamil-toolkit -- hyphen package-oxt --input dist/dictionaries/hyph_ta_IN.dic --output dist/tamil-hyphenation.oxt
+cargo run -p tamil-toolkit --bin tamil-toolkit -- hyphen package-oxt --input dist/dictionaries/hyph_ta_IN.dic --output dist/tamil-hyphenation.oxt
 ```
 
 ---

@@ -105,15 +105,17 @@
 
 ---
 
-## Phase 8: Long-Term Integration Roadmap (Post-MVP Horizons)
+## Phase 8: Long-Term Integration Roadmap (Documentation & Future Horizons)
 
-**Purpose**: Multi-phase roadmap for consumer word processors (Microsoft Word & Google Docs) via Unicode Soft Hyphens (`\u{00AD}`). Spec: [docs/integrations/word-googledocs-roadmap.md](file:///C:/Users/abish/Documents/dev/tamil-toolkit/docs/integrations/word-googledocs-roadmap.md) and [ROADMAP.md](file:///C:/Users/abish/Documents/dev/tamil-toolkit/ROADMAP.md).
+**Purpose**: Formalize multi-phase roadmap for consumer word processors (Microsoft Word & Google Docs) via Unicode Soft Hyphens (`\u{00AD}`). Spec: [docs/integrations/word-googledocs-roadmap.md](file:///C:/Users/abish/Documents/dev/tamil-toolkit/docs/integrations/word-googledocs-roadmap.md) and [ROADMAP.md](file:///C:/Users/abish/Documents/dev/tamil-toolkit/ROADMAP.md).
 
 - [X] T023 [P] Document 5-phase long-term integration strategy in `docs/integrations/word-googledocs-roadmap.md` and repository `ROADMAP.md`
-- [ ] T024 (Phase 2 - Target v0.2.0) Implement headless OpenXML DOCX batch processing CLI subcommand (`tamil-toolkit hyphen process-docx`) and Python script
-- [ ] T025 (Phase 3 - Target v0.3.0) Build cross-platform Microsoft Word Web Add-in (`Office.js` Taskpane) running `tamil-toolkit-wasm` locally
-- [ ] T026 (Phase 4 - Target v0.4.0) Author Google Workspace Docs Add-on via Google Apps Script for cloud-first authoring
-- [ ] T027 (Phase 5 - Exploration) Research Windows Linguistic Services (`ISpellCheckProviderFactory`) and macOS `NSSpellServer` CoreText hyphenation registration
+
+### Future Release Horizons (Tracked in Separate Feature Specs)
+- **Phase 2 (Target v0.2.0)**: Headless OpenXML DOCX batch processing CLI subcommand (`tamil-toolkit hyphen process-docx`) and Python script
+- **Phase 3 (Target v0.3.0)**: Cross-platform Microsoft Word Web Add-in (`Office.js` Taskpane) running `tamil-toolkit-wasm` locally
+- **Phase 4 (Target v0.4.0)**: Google Workspace Docs Add-on via Google Apps Script for cloud-first authoring
+- **Phase 5 (Exploration)**: Windows Linguistic Services (`ISpellCheckProviderFactory`) and macOS `NSSpellServer` CoreText hyphenation registration
 
 ---
 
