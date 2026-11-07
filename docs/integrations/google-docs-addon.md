@@ -11,7 +11,9 @@ The **Tamil Hyphenator Google Docs Add-on** adds phonotactically verified syllab
 - **One-Click Actions**:
   - `தேர்ந்தெடுத்ததை இணைக்கவும் (Hyphenate Selection)`
   - `முழு ஆவணத்தையும் இணைக்கவும் (Hyphenate Document)`
-- **Minimal OAuth Scope**: Operates strictly within `https://www.googleapis.com/auth/documents.currentonly` (accesses only the active opened document, never your Google Drive or other files).
+- **Minimal OAuth Scope**: Operates strictly within:
+  - `https://www.googleapis.com/auth/documents.currentonly` (accesses only the active opened document, never your Google Drive or other files).
+  - `https://www.googleapis.com/auth/script.container.ui` (allows displaying the sidebar and custom menus inside the document UI).
 - **100% Private**: No document text leaves Google's infrastructure.
 
 ---
