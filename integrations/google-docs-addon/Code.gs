@@ -52,12 +52,17 @@ const VOWEL_SIGN_SET = new Set([
 const VIRAMA_CODE = 0x0bcd;
 const AYTHAM_CODE = 0x0b83;
 const SOFT_HYPHEN_CHAR = '\u00AD';
+const ZWSP_CHAR = '\u200B';
 
 /**
- * Syllabifies a Tamil word and soft-hyphenates it respecting margins.
+ * Syllabifies a Tamil word and inserts discretionary break characters.
+ * @param {string} word - The Tamil word.
+ * @param {number} leftMin - Minimum left syllables.
+ * @param {number} rightMin - Minimum right syllables.
+ * @param {string} breakChar - '\u200B' (ZWSP for Google Docs) or '\u00AD' (Soft Hyphen).
  */
-function hyphenateTamilWord(word, leftMin = 2, rightMin = 2) {
-  const clean = word.replace(/\u00AD/g, '');
+function hyphenateTamilWord(word, leftMin = 2, rightMin = 2, breakChar = ZWSP_CHAR) {
+  const clean = word.replace(/[\u00AD\u200B]/g, '');
   const chars = Array.from(clean);
   const units = [];
   let i = 0;
@@ -106,7 +111,7 @@ function hyphenateTamilWord(word, leftMin = 2, rightMin = 2) {
   for (let k = 0; k < syllables.length; k++) {
     out += syllables[k];
     if ((k + 1) >= leftMin && (syllables.length - (k + 1)) >= rightMin) {
-      out += SOFT_HYPHEN_CHAR;
+      out += breakChar;
     }
   }
   return out;
@@ -115,17 +120,17 @@ function hyphenateTamilWord(word, leftMin = 2, rightMin = 2) {
 /**
  * Hyphenates text string preserving non-Tamil tokens.
  */
-function hyphenateString(str, leftMin = 2, rightMin = 2) {
+function hyphenateString(str, leftMin = 2, rightMin = 2, breakChar = ZWSP_CHAR) {
   if (!str) return '';
-  return str.replace(/[\u0B80-\u0BFF\u00AD]+/g, (match) => {
-    return hyphenateTamilWord(match, leftMin, rightMin);
+  return str.replace(/[\u0B80-\u0BFF\u00AD\u200B]+/g, (match) => {
+    return hyphenateTamilWord(match, leftMin, rightMin, breakChar);
   });
 }
 
 /**
  * Hyphenates active selection in Google Docs.
  */
-function hyphenateSelection(leftMin = 2, rightMin = 2) {
+function hyphenateSelection(leftMin = 2, rightMin = 2, breakChar = ZWSP_CHAR) {
   const doc = DocumentApp.getActiveDocument();
   const selection = doc.getSelection();
 
@@ -145,7 +150,7 @@ function hyphenateSelection(leftMin = 2, rightMin = 2) {
       const start = el.getStartOffset();
       const end = el.getEndOffsetInclusive();
       const sub = textEl.getText().substring(start, end + 1);
-      const hyphenated = hyphenateString(sub, leftMin, rightMin);
+      const hyphenated = hyphenateString(sub, leftMin, rightMin, breakChar);
       if (hyphenated !== sub) {
         textEl.deleteText(start, end);
         textEl.insertText(start, hyphenated);
@@ -153,7 +158,7 @@ function hyphenateSelection(leftMin = 2, rightMin = 2) {
       }
     } else {
       const text = textEl.getText();
-      const hyphenated = hyphenateString(text, leftMin, rightMin);
+      const hyphenated = hyphenateString(text, leftMin, rightMin, breakChar);
       if (hyphenated !== text) {
         textEl.setText(hyphenated);
         count++;
@@ -163,14 +168,14 @@ function hyphenateSelection(leftMin = 2, rightMin = 2) {
 
   return {
     success: true,
-    message: `${count} பகுதிகள் இணைக்கப்பட்டன (${count} text elements soft-hyphenated).`
+    message: `${count} பகுதிகள் இணைக்கப்பட்டன (${count} text elements processed).`
   };
 }
 
 /**
  * Hyphenates all body paragraphs in Google Docs.
  */
-function hyphenateDocument(leftMin = 2, rightMin = 2) {
+function hyphenateDocument(leftMin = 2, rightMin = 2, breakChar = ZWSP_CHAR) {
   const doc = DocumentApp.getActiveDocument();
   const body = doc.getBody();
   const paragraphs = body.getParagraphs();
@@ -180,7 +185,7 @@ function hyphenateDocument(leftMin = 2, rightMin = 2) {
     const para = paragraphs[i];
     const text = para.getText();
     if (text && /[\u0B80-\u0BFF]/.test(text)) {
-      const hyphenated = hyphenateString(text, leftMin, rightMin);
+      const hyphenated = hyphenateString(text, leftMin, rightMin, breakChar);
       if (hyphenated !== text) {
         para.setText(hyphenated);
         count++;
@@ -190,7 +195,7 @@ function hyphenateDocument(leftMin = 2, rightMin = 2) {
 
   return {
     success: true,
-    message: `முழு ஆவணமும் முடிந்தது: ${count} பத்திகள் இணைக்கப்பட்டன (${count} paragraphs hyphenated).`
+    message: `முழு ஆவணமும் முடிந்தது: ${count} பத்திகள் இணைக்கப்பட்டன (${count} paragraphs processed).`
   };
 }
 
@@ -198,6 +203,7 @@ if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     hyphenateTamilWord,
     hyphenateString,
-    SOFT_HYPHEN_CHAR
+    SOFT_HYPHEN_CHAR,
+    ZWSP_CHAR
   };
 }

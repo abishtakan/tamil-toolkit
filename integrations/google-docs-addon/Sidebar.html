@@ -99,7 +99,14 @@
   </div>
 
   <div class="card">
-    <div style="font-weight: 600; font-size: 12px; margin-bottom: 8px;">அளபுருக்கள் (Margins)</div>
+    <div style="font-weight: 600; font-size: 12px; margin-bottom: 8px;">அளபுருக்கள் (Settings)</div>
+    <div class="form-row">
+      <span>இணைப்பு வகை (Break Mode):</span>
+      <select id="breakMode" style="font-size: 11px; padding: 2px;">
+        <option value="zwsp" selected>Zero-Width Break (\u200B - Docs Canvas)</option>
+        <option value="shy">Soft Hyphen (\u00AD - Word Compatible)</option>
+      </select>
+    </div>
     <div class="form-row">
       <span>இடது குறைந்தபட்சம் (Left Min):</span>
       <input type="number" id="leftMin" value="2" min="1" max="5">
@@ -117,14 +124,16 @@
   </div>
 
   <div class="note">
-    <strong>குறிப்பு:</strong> மென்-இணைப்புக் குறியீடு (Soft Hyphen \u00AD) வரிகள் நடுவே கண்ணுக்குத் தெரியாது (0px). பத்திகள் 'Justified' செய்யும்போது மட்டுமே வரிகளின் முடிவில் தானாகப் பிரியும்.
+    <strong>குறிப்பு:</strong> Google Docs கேன்வாஸ் (Canvas) இயந்திரத்தில் தமிழ் சொற்கள் Justify செய்யும்போது சீராகப் பிரிய <strong>Zero-Width Break (\u200B)</strong> பரிந்துரைக்கப்படுகிறது. சொற்கள் நடுவே இடைவெளி தெரியாது (0px).
   </div>
 
   <script>
-    function getMargins() {
+    function getOptions() {
+      var mode = document.getElementById('breakMode').value;
       return {
         leftMin: parseInt(document.getElementById('leftMin').value, 10) || 2,
-        rightMin: parseInt(document.getElementById('rightMin').value, 10) || 2
+        rightMin: parseInt(document.getElementById('rightMin').value, 10) || 2,
+        breakChar: mode === 'zwsp' ? '\u200B' : '\u00AD'
       };
     }
 
@@ -135,7 +144,7 @@
     }
 
     document.getElementById('btnSelection').onclick = function() {
-      var m = getMargins();
+      var opts = getOptions();
       showStatus('இணைக்கப்படுகிறது (Processing)...', false);
       google.script.run
         .withSuccessHandler(function(res) {
@@ -144,11 +153,11 @@
         .withFailureHandler(function(err) {
           showStatus('பிழை: ' + err.message, true);
         })
-        .hyphenateSelection(m.leftMin, m.rightMin);
+        .hyphenateSelection(opts.leftMin, opts.rightMin, opts.breakChar);
     };
 
     document.getElementById('btnDocument').onclick = function() {
-      var m = getMargins();
+      var opts = getOptions();
       showStatus('முழு ஆவணம் இணைக்கப்படுகிறது...', false);
       google.script.run
         .withSuccessHandler(function(res) {
@@ -157,7 +166,7 @@
         .withFailureHandler(function(err) {
           showStatus('பிழை: ' + err.message, true);
         })
-        .hyphenateDocument(m.leftMin, m.rightMin);
+        .hyphenateDocument(opts.leftMin, opts.rightMin, opts.breakChar);
     };
   </script>
 </body>
