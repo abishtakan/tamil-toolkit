@@ -226,6 +226,13 @@ export interface Translations {
       errOrphanedDiacritic: string;
       errPureConsonant: string;
       errAytham: string;
+      integrationsTitle: string;
+      integrationsDesc: string;
+      downloadOxtButton: string;
+      downloadDicButton: string;
+      libreofficeGuide: string;
+      indesignGuide: string;
+      scribusGuide: string;
     };
     letter: {
       title: string;
@@ -494,7 +501,14 @@ export const translations: Record<Language, Translations> = {
         errOrphanedVisiri: "(விசிறி மட்டும் தொடக்கம்!)",
         errOrphanedDiacritic: "(சிதைந்த குறியீடு தொடக்கம்!)",
         errPureConsonant: "(புள்ளி எழுத்தில் தொடக்கம்!)",
-        errAytham: "(ஆய்த எழுத்தில் தொடக்கம்!)"
+        errAytham: "(ஆய்த எழுத்தில் தொடக்கம்!)",
+        integrationsTitle: "டெஸ்க்டாப் மென்பொருள்கள் & பதிப்பக ஒருங்கிணைப்பு",
+        integrationsDesc: "LibreOffice, Adobe InDesign மற்றும் Scribus ஆகியவற்றிற்கான ஒருங்கமைக்கப்பட்ட சொல் பிரிப்பான் அகராதி (.oxt / .dic).",
+        downloadOxtButton: "LibreOffice நீட்டிப்பு (.oxt)",
+        downloadDicButton: "Hunspell அகராதி (.dic)",
+        libreofficeGuide: "LibreOffice வழிகாட்டி",
+        indesignGuide: "InDesign வழிகாட்டி",
+        scribusGuide: "Scribus வழிகாட்டி"
       },
       letter: {
         title: "சொல் & எழுத்து பகுப்பாய்வி",
@@ -761,7 +775,14 @@ export const translations: Record<Language, Translations> = {
         errOrphanedVisiri: "(Orphaned Visiri ி/ீ!)",
         errOrphanedDiacritic: "(Orphaned Diacritic!)",
         errPureConsonant: "(Starts with Pure Consonant / Mei!)",
-        errAytham: "(Starts with Aytham ஃ!)"
+        errAytham: "(Starts with Aytham ஃ!)",
+        integrationsTitle: "Desktop Publishing & Office Integrations",
+        integrationsDesc: "Verified Frank Liang / Hunspell hyphenation dictionaries for LibreOffice Writer, Adobe InDesign, and Scribus.",
+        downloadOxtButton: "Download LibreOffice Extension (.oxt)",
+        downloadDicButton: "Download Hunspell Dictionary (.dic)",
+        libreofficeGuide: "LibreOffice Guide",
+        indesignGuide: "InDesign Guide",
+        scribusGuide: "Scribus Guide"
       },
       letter: {
         title: "Letter & Syllable Analyzer",

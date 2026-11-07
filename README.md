@@ -10,7 +10,7 @@ Unicode letters · Agara ordering · Tamil numerals · Legacy encodings
 [![MIT license][license-badge]][license]
 [![GitHub stars][stars-badge]][stars]
 
-[Capabilities](#capability-contracts) · [Quick start](#quick-start) · [Install](#installation) · [Contributing](CONTRIBUTING.md)
+[Capabilities](#capability-contracts) · [Quick start](#quick-start) · [Install](#installation) · [Roadmap](ROADMAP.md) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -28,6 +28,7 @@ Python package and the Node.js and browser WASM bindings.
 | **Use a bounded Tamil calendar** | The unreleased `thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2` profile converts Gregorian and Tamil solar dates, computes month boundaries, reports five panchangam limbs and civil-day transitions, bounded primary lunar-phase UTC events, calendar-year/month information and date arithmetic, and Rahukalam/Yamagandam/Kuligai daylight intervals. Coverage is 2024–2027 in declared TN/SL location boxes. Additive display APIs provide source-backed Tamil or Romanized labels, explicit digit styles and fixed templates; a comparison API returns both named profiles with contexts and semantic bases intact. The Thiruvalluvar operation is a named TN Thai-1 profile convention for 2025–2027 and does not claim official Gazette-year equivalence. Separately, official annual holiday rows are available for TN 2025–26 and SL 2026–27. Calendar suites remain planned for separate review. |
 | **Use the classical Vakiya civil profile** | The unreleased `vakyakarana-1962-laghuprakashika-civil-ujjain-mean-sunrise-v1` profile converts Gregorian/Tamil solar dates, reports all five limbs at instants and Ujjain mean-sunrise days, enumerates source-model years/months, and supports profile-based date arithmetic in the exposed solar-equation range. It uses the unmodified 1962 edition and Ujjain reference station; true local horizon sunrise/sunset and arbitrary-location corrections remain unavailable. Its suite remains planned. |
 | **Convert legacy text** | Unicode ↔ Bamini text, bounded TSCII/TAB/TAM/Anjal byte profiles, and bounded LT-TM / IndoWord and Vanavil Avvaiyar 16-bit CID profiles. |
+| **Hyphenate & desktop publishing** | Syllabic hyphenation, soft-hyphen (`\u{00AD}`) injection, responsive line-wrapping, Frank Liang / Hunspell `.dic` dictionary generator, ready-to-use LibreOffice extension (`tamil-hyphenation.oxt`) with multi-locale support (`ta-IN`, `ta-LK`, `ta-SG`, `ta-MY`, `ta`), and [long-term Word & Google Docs integration roadmap](docs/integrations/word-googledocs-roadmap.md). |
 
 Normalization preserves joiners and non-Tamil text. Encoding conversion uses
 explicit profiles; callers choose the source encoding. Unsupported input is
@@ -138,11 +139,11 @@ A public playground offering practical, interactive tools powered by the toolkit
 | Authority-published holiday schedule snapshots | [Official schedule contract](docs/specs/calendar-official-holidays-v1.md) · [source research](docs/specs/numerals-calendar-source-research.md) |
 | Bounded classical Vakiya civil, five-limb, arithmetic profile | [1962 edition contract](docs/specs/calendar-vakya-civil-v1.md) · [solar arithmetic contract](docs/specs/calendar-solar-arithmetic-v1.md) · [completion matrix](docs/specs/numerals-completion-plan.md) |
 | Bamini, bounded byte profiles, and LT-TM / Vanavil CID conversion | [Codec contract](docs/specs/codec-v0.1.md) · [LT-TM profile](docs/specs/codec-lt-tm.md) · [Vanavil profile](docs/specs/codec-vanavil.md) · [alpha 6 scope](docs/releases/alpha-6.md#compatibility-and-scope) |
-| Syllable and orthographic boundary hyphenation | [Hyphenation specification](specs/009-tamil-hyphen/spec.md) |
+| Syllable and orthographic boundary hyphenation | [Hyphenation specification](specs/009-tamil-hyphen/spec.md) · [DTP dictionary spec](specs/011-tamil-hyphen-dic/spec.md) · [Word & Google Docs roadmap](docs/integrations/word-googledocs-roadmap.md) |
 | Rust API reference | [docs.rs/tamil-toolkit](https://docs.rs/tamil-toolkit/0.1.0-alpha.6/tamil_toolkit/) |
 | Python and JavaScript/WASM SDK guides | [Python](bindings/python/README.md) · [JavaScript/WASM](bindings/js-wasm/README.md) |
 | Published package list and release record | [Release policy](docs/releases/policy.md#what-can-ship) · [alpha 6](docs/releases/alpha-6.md) |
-| Contributing, development, and current status | [Contributing](CONTRIBUTING.md) · [development guide](docs/development.md) · [project status](docs/status.md) |
+| Contributing, development, roadmap, and status | [Contributing](CONTRIBUTING.md) · [development guide](docs/development.md) · [project status](docs/status.md) · [roadmap](ROADMAP.md) |
 
 The repository checks shared golden fixtures through Rust, Python, Node/browser
 WASM, and a host Dart adapter. No Dart/Pub package is published. The contracts
@@ -152,8 +153,9 @@ coverage.
 ## Contributing
 
 Bug reports, documentation improvements, and sourced test cases are welcome.
-Read [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and
-[current project status](docs/status.md) for active and deferred work.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow,
+[current project status](docs/status.md) for active and deferred work, and
+[ROADMAP.md](ROADMAP.md) for long-term integration milestones.
 
 ## License
 

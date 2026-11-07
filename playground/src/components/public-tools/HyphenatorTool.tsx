@@ -16,7 +16,9 @@ import {
   Sliders,
   FileText,
   ShieldCheck,
-  AlertCircle
+  AlertCircle,
+  Download,
+  BookOpen
 } from "lucide-react";
 
 export interface LineStartError {
@@ -767,6 +769,82 @@ export function HyphenatorTool() {
           </div>
         </div>
       )}
+
+      {/* Desktop Publishing & Office Integrations Card */}
+      <Card className="p-5 bg-[var(--bg-surface)] border-[var(--border-line)] rounded-2xl shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-line)] pb-3">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Download className="w-5 h-5 text-[var(--color-semman)]" />
+              <h3 className="text-sm sm:text-base font-tamil font-bold text-[var(--color-mai)]">
+                {t.tools.hyphenator.integrationsTitle}
+              </h3>
+            </div>
+            <p className="text-xs text-[var(--color-muted)] font-tamil-sans">
+              {t.tools.hyphenator.integrationsDesc}
+            </p>
+          </div>
+          <Badge variant="outline" className="border-emerald-300 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 self-start sm:self-auto font-mono text-[11px]">
+            ta-IN · ta-LK · ta-SG · ta-MY · ta
+          </Badge>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+          {/* Download Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href="/downloads/tamil-hyphenation.oxt"
+              download="tamil-hyphenation.oxt"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-tamil font-bold bg-[var(--color-semman)] text-[#faf7f2] hover:bg-[var(--color-semman)]/90 shadow-xs transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              {t.tools.hyphenator.downloadOxtButton}
+            </a>
+            <a
+              href="/downloads/hyph_ta_IN.dic"
+              download="hyph_ta_IN.dic"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-tamil font-medium bg-[var(--bg-raised)] text-[var(--color-mai)] border border-[var(--border-line)] hover:border-[var(--color-semman)] hover:text-[var(--color-semman)] transition-colors"
+            >
+              <Download className="w-4 h-4" />
+              {t.tools.hyphenator.downloadDicButton}
+            </a>
+          </div>
+
+          {/* Integration Setup Guides Links */}
+          <div className="flex flex-wrap items-center gap-2.5 text-xs font-tamil text-[var(--color-muted)]">
+            <span className="font-semibold text-[var(--color-mai)]">Setup Guides:</span>
+            <a
+              href="https://github.com/tamil-toolkit/tamil-toolkit/blob/main/docs/integrations/libreoffice.md"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-[var(--color-semman)] hover:underline"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              {t.tools.hyphenator.libreofficeGuide}
+            </a>
+            <span>·</span>
+            <a
+              href="https://github.com/tamil-toolkit/tamil-toolkit/blob/main/docs/integrations/indesign.md"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-[var(--color-semman)] hover:underline"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              {t.tools.hyphenator.indesignGuide}
+            </a>
+            <span>·</span>
+            <a
+              href="https://github.com/tamil-toolkit/tamil-toolkit/blob/main/docs/integrations/scribus.md"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-[var(--color-semman)] hover:underline"
+            >
+              <BookOpen className="w-3.5 h-3.5" />
+              {t.tools.hyphenator.scribusGuide}
+            </a>
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }

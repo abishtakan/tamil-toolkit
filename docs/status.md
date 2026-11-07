@@ -5,6 +5,23 @@ Updated: 2026-11-05. Branch: master. Current release source:
 source SHA is tagged v0.1.0-alpha.5; post-release documentation commits do not
 change the published packages. See the [alpha-5 release record](releases/alpha-5.md).
 
+## Active Feature: 011-tamil-hyphen-dic (Phonotactic DTP Dictionary & Extension) - Completed
+
+Completed the Frank Liang / Hunspell hyphenation generator, automated verification suite, LibreOffice extension packaging, and DTP integration guides:
+- **Core Engine & Synthesis**: Algorithmic Liang pattern synthesizer in `crates/tamil-hyphen/src/dic.rs` producing 167 deterministic patterns with strict virama coda binding (`2\u{0BCD}`), pure consonant coda rules (`2C\u{0BCD}1`), geminate protection, Grantha ligature safety (`2க்ஷ`, `1க்2ஷ`, `2க்2ஷ1`, `2ஸ்ரீ`), and minimum margins (`LEFTHYPHENMIN 2`, `RIGHTHYPHENMIN 2`).
+- **Verification**: Simulated Liang evaluator in `crates/tamil-hyphen/src/verify_dic.rs` achieves 100% compliance across `tests/golden/hyphen_syllable.jsonl` with zero broken diacritics and 100% elimination of legacy 2018 SMC defects.
+- **Packaging & Guides**: One-click LibreOffice extension (`dist/tamil-hyphenation.oxt`) with multi-locale bindings (`ta-IN`, `ta-LK`, `ta-SG`, `ta-MY`, `ta`), verified setup guides for LibreOffice, InDesign (Windows x64 `AdobeHunspellPlugin`), Scribus, and upstream PR kit (`dist/upstream-smc/UPSTREAM_PR.md`).
+- **Playground Downloads**: Added "Integrations & Downloads" card in the web Playground for one-click `.oxt` and `.dic` downloads with bilingual setup instructions.
+
+## Long-Term Integration Roadmap: Microsoft Word & Google Docs
+
+Documented in [docs/integrations/word-googledocs-roadmap.md](integrations/word-googledocs-roadmap.md) and [ROADMAP.md](../ROADMAP.md):
+- **Phase 1 (Live)**: Web Playground clipboard workflow with Unicode Soft-Hyphens (`\u{00AD}`) maintaining zero-width on the same line and breaking dynamically under Justify (`Ctrl + J`).
+- **Phase 2 (Target v0.2.0)**: Headless OpenXML DOCX batch processing via CLI (`tamil-toolkit hyphen process-docx`) and Python SDK.
+- **Phase 3 (Target v0.3.0)**: Microsoft Word cross-platform Web Add-in (`Office.js` taskpane) powered by local WebAssembly.
+- **Phase 4 (Target v0.4.0)**: Google Docs Workspace Add-on (Apps Script / canvas wrapper).
+- **Phase 5 (Exploration)**: Windows Linguistic Services and macOS CoreText system proofing providers.
+
 ## Active Feature: 005-playground (Interactive Playground) - Completed
 
 Completed the Interactive Public & Developer Playground (`playground/` package) with 100% client-side WASM execution:

@@ -53,3 +53,72 @@ pub struct WrapResult {
     /// Number of words split across lines using hyphenation.
     pub broken_words_count: usize,
 }
+
+/// An individual Frank Liang hyphenation pattern with interleaved weights.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct LiangPattern {
+    /// Raw pattern string, e.g. "2க்ஷ2", "2க1"
+    pub raw: String,
+    /// Clean string without numeric weight digits, e.g. "க்ஷ", "க"
+    pub text: String,
+    /// Weight numbers around and between characters. Length is text.chars().count() + 1.
+    pub weights: Vec<u8>,
+}
+
+impl LiangPattern {
+    /// Parse a pattern line such as "2க்ஷ2" or "1அ"
+    pub fn parse(pattern: &str) -> Option<Self> {
+        let trimmed = pattern.trim();
+        if trimmed.is_empty() || trimmed.starts_with('%') {
+            return None;
+        }
+
+        let mut text = String::new();
+        let mut weights = Vec::new();
+        let mut current_weight = 0u8;
+
+        for ch in trimmed.chars() {
+            if let Some(digit) = ch.to_digit(10) {
+                current_weight = digit as u8;
+            } else {
+                weights.push(current_weight);
+                current_weight = 0;
+                text.push(ch);
+            }
+        }
+        weights.push(current_weight);
+
+        Some(Self {
+            raw: trimmed.to_string(),
+            text,
+            weights,
+        })
+    }
+}
+
+/// Header metadata and parameters for a TeX / Hunspell hyphenation dictionary.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct DicHeader {
+    pub encoding: String,
+    pub left_hyphen_min: usize,
+    pub right_hyphen_min: usize,
+    pub license_notice: String,
+}
+
+impl Default for DicHeader {
+    fn default() -> Self {
+        Self {
+            encoding: "UTF-8".to_string(),
+            left_hyphen_min: 2,
+            right_hyphen_min: 2,
+            license_notice: "MIT / LGPL / GPL Tri-license".to_string(),
+        }
+    }
+}
+
+/// A complete TeX / Hunspell hyphenation dictionary.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct HyphenDictionary {
+    pub header: DicHeader,
+    pub patterns: Vec<LiangPattern>,
+}

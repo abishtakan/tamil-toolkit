@@ -13,6 +13,7 @@ tamil-core.workspace = true
 tamil-norm.workspace = true
 serde.workspace = true
 unicode-segmentation.workspace = true
+zip.workspace = true
 
 [dev-dependencies]
 proptest.workspace = true

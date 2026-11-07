@@ -22,6 +22,9 @@
 | **`hyphenation_points`** | Valid syllable boundary positions (`letter_index`, `byte_offset`) within a word. |
 | **`hyphenate_text`** | Soft-hyphen (`\u{00AD}`) injection across full paragraphs, preserving URLs and non-Tamil tokens. |
 | **`wrap_text`** | Deterministic line wrapping to target Tamil letter widths without breaking words at invalid points. |
+| **`generate_patterns`** | Synthesizes phonotactically verified Frank Liang / Hunspell hyphenation patterns. |
+| **`export_dic_file`** | Exports `hyph_ta_IN.dic` with `LEFTHYPHENMIN 2` and multi-locale support (`ta-IN`, `ta-LK`, `ta-SG`, `ta-MY`, `ta`). |
+| **`package_oxt`** | Bundles the dictionary into a one-click LibreOffice extension (`tamil-hyphenation.oxt`). |
 
 Experimental alpha `0.1.0-alpha.6`. APIs may change before stability. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage.
@@ -62,12 +65,16 @@ fn main() {
 }
 ```
 
-## Documentation
+## Documentation & Integrations
 
 - [API reference on docs.rs](https://docs.rs/tamil-hyphen/0.1.0-alpha.6)
-- [Feature specification](https://github.com/abishtakan/tamil-toolkit/blob/master/specs/009-tamil-hyphen/spec.md)
-- [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-6.md)
+- [Hyphenation specification](https://github.com/abishtakan/tamil-toolkit/blob/master/specs/009-tamil-hyphen/spec.md)
+- [DTP dictionary & extension specification](https://github.com/abishtakan/tamil-toolkit/blob/master/specs/011-tamil-hyphen-dic/spec.md)
+- [LibreOffice installation guide](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/integrations/libreoffice.md)
+- [Adobe InDesign installation guide](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/integrations/indesign.md)
+- [Scribus installation guide](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/integrations/scribus.md)
+- [Microsoft Word & Google Docs long-term integration roadmap](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/integrations/word-googledocs-roadmap.md)
+- [Project overview & roadmap](https://github.com/abishtakan/tamil-toolkit/blob/master/ROADMAP.md)
 
 ## License
 
