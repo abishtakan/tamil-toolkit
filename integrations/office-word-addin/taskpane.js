@@ -8,8 +8,8 @@ Office.onReady((info) => {
 });
 
 function getMargins() {
-  const leftMin = parseInt(document.getElementById("left-min").value, 10) || 2;
-  const rightMin = parseInt(document.getElementById("right-min").value, 10) || 2;
+  const leftMin = parseInt(document.getElementById("left-min").value, 10) || 3;
+  const rightMin = parseInt(document.getElementById("right-min").value, 10) || 3;
   return { leftMin, rightMin };
 }
 

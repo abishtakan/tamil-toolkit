@@ -80,8 +80,8 @@ async function hyphenateSelectionCommand(event) {
         await applyRangeTransform(
           context,
           range,
-          (xml) => hyphenateOoxml(xml, 2, 2, true),
-          (txt) => hyphenateText(txt, 2, 2)
+          (xml) => hyphenateOoxml(xml, 3, 3, true),
+          (txt) => hyphenateText(txt, 3, 3)
         );
       }
     });
@@ -103,8 +103,8 @@ async function hyphenateDocumentCommand(event) {
         await applyRangeTransform(
           context,
           range,
-          (xml) => hyphenateOoxml(xml, 2, 2, true),
-          (txt) => hyphenateText(txt, 2, 2)
+          (xml) => hyphenateOoxml(xml, 3, 3, true),
+          (txt) => hyphenateText(txt, 3, 3)
         );
       }
     });
@@ -127,8 +127,8 @@ async function wrapWithoutHyphenCommand(event) {
         await applyRangeTransform(
           context,
           range,
-          (xml) => hyphenateOoxml(xml, 2, 2, false),
-          (txt) => hyphenateText(txt, 2, 2, ZERO_WIDTH_SPACE)
+          (xml) => hyphenateOoxml(xml, 3, 3, false),
+          (txt) => hyphenateText(txt, 3, 3, ZERO_WIDTH_SPACE)
         );
       }
     });

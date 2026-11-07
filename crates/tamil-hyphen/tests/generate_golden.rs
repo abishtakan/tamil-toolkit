@@ -100,7 +100,7 @@ fn generate_golden_suite() {
     ];
 
     for w in common_words {
-        add_word(w, "-", 2, 2, "COMMON", None, vec!["common", "syllable"]);
+        add_word(w, "-", 3, 3, "COMMON", None, vec!["common", "syllable"]);
     }
 
     // 2. Consonant clusters and multi-pulli sequences
@@ -112,7 +112,7 @@ fn generate_golden_suite() {
     ];
 
     for w in cluster_words {
-        add_word(w, "-", 2, 2, "COMMON", None, vec!["cluster", "coda_binding"]);
+        add_word(w, "-", 3, 3, "COMMON", None, vec!["cluster", "coda_binding"]);
     }
 
     // 3. Grantha onsets and conjuncts
@@ -122,7 +122,7 @@ fn generate_golden_suite() {
     ];
 
     for w in grantha_words {
-        add_word(w, "-", 2, 2, "COMMON", None, vec!["grantha"]);
+        add_word(w, "-", 3, 3, "COMMON", None, vec!["grantha"]);
     }
 
     // 4. Tamil Nadu regional vocabulary (dialect: "TN", region: "TN")
@@ -133,7 +133,7 @@ fn generate_golden_suite() {
     ];
 
     for w in tn_words {
-        add_word(w, "-", 2, 2, "TN", Some("TN"), vec!["tn", "regional"]);
+        add_word(w, "-", 3, 3, "TN", Some("TN"), vec!["tn", "regional"]);
     }
 
     // 5. Sri Lanka regional vocabulary (dialect: "SL", region: "JAFFNA" / "BATTICALOA")
@@ -149,15 +149,15 @@ fn generate_golden_suite() {
     ];
 
     for (w, r) in sl_words {
-        add_word(w, "-", 2, 2, "SL", Some(r), vec!["sl", "regional"]);
+        add_word(w, "-", 3, 3, "SL", Some(r), vec!["sl", "regional"]);
     }
 
     // 6. Safe margin edge cases (short words, custom margins)
     let margin_cases = vec![
-        ("தமிழ்", 2, 2, vec!["short_word", "margin_enforced"]),
-        ("கல்வி", 2, 2, vec!["short_word", "margin_enforced"]),
-        ("நாடு", 2, 2, vec!["short_word", "margin_enforced"]),
-        ("மரம்", 2, 2, vec!["short_word", "margin_enforced"]),
+        ("தமிழ்", 3, 3, vec!["short_word", "margin_enforced"]),
+        ("கல்வி", 3, 3, vec!["short_word", "margin_enforced"]),
+        ("நாடு", 3, 3, vec!["short_word", "margin_enforced"]),
+        ("மரம்", 3, 3, vec!["short_word", "margin_enforced"]),
         ("தமிழ்நாடு", 1, 1, vec!["margin_1_1"]),
         ("பல்கலைக்கழகம்", 3, 3, vec!["margin_3_3"]),
         ("துர்ப்பிரயோகம்", 1, 1, vec!["margin_1_1"]),
@@ -172,8 +172,8 @@ fn generate_golden_suite() {
 
     // 7. Error cases
     let error_cases = vec![
-        ("தமிழ்நாடு", 0, 2, "left_min must be at least 1"),
-        ("தமிழ்நாடு", 2, 0, "right_min must be at least 1"),
+        ("தமிழ்நாடு", 0, 3, "left_min must be at least 1"),
+        ("தமிழ்நாடு", 3, 0, "right_min must be at least 1"),
     ];
 
     for (w, lm, rm, err) in error_cases {
@@ -210,8 +210,8 @@ fn generate_golden_suite() {
             op: "hyphenation_points".to_string(),
             input: serde_json::json!({
                 "word": w,
-                "left_min": 2,
-                "right_min": 2
+                "left_min": 3,
+                "right_min": 3
             }),
             expected: Some(serde_json::to_value(&pts).unwrap()),
             expected_error: None,
@@ -240,8 +240,8 @@ fn generate_golden_suite() {
             input: serde_json::json!({
                 "text": txt,
                 "delimiter": "\u{00AD}",
-                "left_min": 2,
-                "right_min": 2
+                "left_min": 3,
+                "right_min": 3
             }),
             expected: Some(serde_json::json!(res)),
             expected_error: None,
@@ -271,8 +271,8 @@ fn generate_golden_suite() {
                 "text": txt,
                 "max_width": width,
                 "delimiter": "-",
-                "left_min": 2,
-                "right_min": 2
+                "left_min": 3,
+                "right_min": 3
             }),
             expected: Some(serde_json::to_value(&res).unwrap()),
             expected_error: None,

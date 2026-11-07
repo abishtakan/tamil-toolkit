@@ -110,8 +110,8 @@ pub fn wrap_text(
 
     let default_cfg = HyphenationConfig {
         delimiter: "-".to_string(),
-        left_min: 2,
-        right_min: 2,
+        left_min: 3,
+        right_min: 3,
     };
     let cfg = config.unwrap_or(&default_cfg);
 

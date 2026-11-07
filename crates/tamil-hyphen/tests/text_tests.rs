@@ -17,10 +17,10 @@ fn test_tokenize_words() {
 
 #[test]
 fn test_hyphenate_text_preserves_non_tamil() {
-    let text = "Welcome to தமிழ்நாடு (Tamil Nadu) 2026!";
+    let text = "Welcome to தமிழ்நாடு பல்கலைக்கழகம் (Tamil Nadu) 2026!";
     let res = hyphenate_text(text, None).expect("hyphenate");
-    assert!(res.starts_with("Welcome to "));
-    assert!(res.contains("தமிழ்\u{00AD}நாடு"));
+    assert!(res.starts_with("Welcome to தமிழ்நாடு "));
+    assert!(res.contains("பல்கலைக்\u{00AD}கழகம்"));
     assert!(res.ends_with(" (Tamil Nadu) 2026!"));
 }
 

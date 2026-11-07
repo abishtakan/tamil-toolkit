@@ -5,9 +5,9 @@ use serde::{Deserialize, Serialize};
 pub struct HyphenationConfig {
     /// String delimiter inserted at valid break points. Default: "\u{00AD}" (soft hyphen).
     pub delimiter: String,
-    /// Minimum tailored Tamil letters required before the first break. Default: 2.
+    /// Minimum tailored Tamil letters required before the first break. Default: 3.
     pub left_min: usize,
-    /// Minimum tailored Tamil letters required after the last break. Default: 2.
+    /// Minimum tailored Tamil letters required after the last break. Default: 3.
     pub right_min: usize,
 }
 
@@ -15,8 +15,8 @@ impl Default for HyphenationConfig {
     fn default() -> Self {
         Self {
             delimiter: "\u{00AD}".to_string(),
-            left_min: 2,
-            right_min: 2,
+            left_min: 3,
+            right_min: 3,
         }
     }
 }
@@ -109,8 +109,8 @@ impl Default for DicHeader {
     fn default() -> Self {
         Self {
             encoding: "UTF-8".to_string(),
-            left_hyphen_min: 2,
-            right_hyphen_min: 2,
+            left_hyphen_min: 3,
+            right_hyphen_min: 3,
             license_notice: "MIT / LGPL / GPL Tri-license".to_string(),
         }
     }

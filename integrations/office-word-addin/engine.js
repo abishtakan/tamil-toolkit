@@ -12,7 +12,11 @@
  * 3. Pure consonants with pulli/virama (Mei \u0BCD) and Aytham (\u0B83) bind as codas to the preceding nucleus;
  *    a segment NEVER begins with a pure consonant or Aytham.
  * 4. Grantha conjuncts (Ksha \u0B95\u0BCD\u0BB7, Shri \u0BB8\u0BCD\u0BB0\u0BC0 / \u0BB6\u0BCD\u0BB0\u0BC0) are treated atomically.
- * 5. Minimum margins (leftMin=2, rightMin=2) protect short initial and final letter runs.
+ * 5. Canonical Tamil Asai + 3-Letter Minimum Segment Rule (leftMin=3, rightMin=3):
+ *    - Short words (< 6 Tamil letters, e.g., உலகம், சமூகம், வணிகம், திட்டம், வரலாறு, அறிவியல்) never break.
+ *    - Bigger words (>= 6 Tamil letters) are partitioned into Tamil Asai (நேரசை / நிரையசை) syllables and
+ *      merged so that NO segment (before a break, between breaks, or on the next line) ever has fewer than
+ *      3 tailored Tamil letters (eliminating 2-letter next-line orphans like -கம், -பம், -றல், -யம், -கள்).
  * 6. Idempotency: Multiple runs will never inject duplicate soft hyphens or zero-width spaces.
  */
 
@@ -33,10 +37,12 @@ const VOWEL_SIGNS = new Set([
   0x0bc7, 0x0bc8, 0x0bca, 0x0bcb, 0x0bcc, 0x0bd7
 ]);
 
+const U_OR_I_SIGNS = new Set([0x0bbf, 0x0bc1]); // -i (ி) or -u (ு) participle endings
 const VIRAMA = 0x0bcd;
 const AYTHAM = 0x0b83;
 const SOFT_HYPHEN = '\u00AD';
 const ZERO_WIDTH_SPACE = '\u200B';
+const MIN_WORD_LETTERS = 6;
 
 /**
  * Split text into tailored Tamil letters (Ezhuthukkal).
@@ -107,6 +113,113 @@ function isSyllableNucleus(cls) {
   return cls === 'uyir' || cls === 'uyirmei' || cls === 'atomic_grantha';
 }
 
+function isKurriyalUorI(syl) {
+  if (syl.length !== 1) return false;
+  const l = syl[0];
+  return l.length === 2 && U_OR_I_SIGNS.has(l.codePointAt(1));
+}
+
+/**
+ * Partition tailored Tamil letters into raw phonetic nuclei (1 vowel nucleus + trailing Mei/Aytham codas).
+ */
+function getRawSyllables(word) {
+  const letters = getTamilLetters(word);
+  if (letters.length === 0) return [];
+
+  const rawSyllables = [];
+  let current = [];
+
+  for (let i = 0; i < letters.length; i++) {
+    const letter = letters[i];
+    const cls = classifyLetter(letter);
+    if (isSyllableNucleus(cls)) {
+      if (current.length > 0) {
+        rawSyllables.push(current);
+        current = [];
+      }
+      current.push(letter);
+    } else {
+      current.push(letter);
+    }
+  }
+  if (current.length > 0) {
+    rawSyllables.push(current);
+  }
+  return rawSyllables;
+}
+
+/**
+ * Partition a Tamil word into canonical Tamil Asai (நேரசை / நிரையசை) segments where:
+ * - Final segment has >= rightMin (default 3) tailored letters
+ * - First segment has >= leftMin (default 3) tailored letters
+ * - Internal segments have >= Math.min(leftMin, rightMin) tailored letters
+ */
+function getTamilSyllables(word, leftMin = 3, rightMin = 3) {
+  const raw = getRawSyllables(word);
+  const totalLetters = raw.reduce((acc, s) => acc + s.length, 0);
+  const minSegLetters = Math.min(leftMin, rightMin);
+  if (totalLetters < leftMin + rightMin || raw.length < 2) {
+    return raw.length > 0 ? [raw.reduce((a, b) => a.concat(b), [])] : [];
+  }
+  if (minSegLetters <= 1) {
+    return raw;
+  }
+
+  const asais = [];
+  let i = 0;
+
+  // Step 1: Word-initial CVC + -u/-i participle stem (e.g. கண்டு, இன்றி, சுதந், கன்னி)
+  if (raw.length >= 3 && raw[0].length === 2 && isKurriyalUorI(raw[1])) {
+    asais.push(raw[0].concat(raw[1]));
+    i = 2;
+  }
+
+  // Step 2: Classical forward Nirai-asai grouping (any 1-letter open syllable joins with next syllable)
+  while (i < raw.length) {
+    if (raw[i].length === 1 && i + 1 < raw.length) {
+      asais.push(raw[i].concat(raw[i + 1]));
+      i += 2;
+    } else if (raw[i].length === 1 && i === raw.length - 1 && asais.length > 0) {
+      asais[asais.length - 1] = asais[asais.length - 1].concat(raw[i]);
+      i += 1;
+    } else {
+      asais.push(raw[i]);
+      i += 1;
+    }
+  }
+
+  // Step 3: Never leave < rightMin (default 3) on the next line (Tail merge: prevents -கம், -பம், -றல், -யம், -கள்)
+  while (asais.length >= 2 && asais[asais.length - 1].length < rightMin) {
+    const last = asais.pop();
+    asais[asais.length - 1] = asais[asais.length - 1].concat(last);
+  }
+
+  // Step 4: Never leave < leftMin (default 3) before the first break (Head merge: prevents 2-letter stubs)
+  while (asais.length >= 2 && asais[0].length < leftMin) {
+    const first = asais.shift();
+    asais[0] = first.concat(asais[0]);
+  }
+
+  // Step 5: Merge any internal < minSegLetters segment into its neighbor (preferring open neighbor over closed Mei coda)
+  let k = 1;
+  while (k < asais.length - 1) {
+    if (asais[k].length < minSegLetters) {
+      const prevEndsMei = classifyLetter(asais[k - 1][asais[k - 1].length - 1]) === 'mei';
+      if (!prevEndsMei) {
+        asais[k - 1] = asais[k - 1].concat(asais[k]);
+        asais.splice(k, 1);
+      } else {
+        asais[k + 1] = asais[k].concat(asais[k + 1]);
+        asais.splice(k, 1);
+      }
+    } else {
+      k++;
+    }
+  }
+
+  return asais;
+}
+
 /**
  * Strip existing hyphenation / break characters from a Tamil word or string.
  */
@@ -123,59 +236,33 @@ function removeHyphens(text) {
 }
 
 /**
- * Hyphenate a single Tamil word respecting left and right letter margins.
+ * Hyphenate a single Tamil word:
+ * - Short words (< leftMin + rightMin tailored Tamil letters, default 6: உலகம், சமூகம், திட்டம், அறிவியல்) are never broken.
+ * - Bigger words (>= 6 tailored Tamil letters) break strictly at canonical Tamil Asai boundaries where
+ *   every segment (left, internal, and next-line right) has at least 3 tailored Tamil letters by default.
  */
-function hyphenateWord(word, leftMin = 2, rightMin = 2, delimiter = SOFT_HYPHEN) {
+function hyphenateWord(word, leftMin = 3, rightMin = 3, delimiter = SOFT_HYPHEN, minWordLetters = null) {
   const cleanWord = removeHyphens(word.normalize('NFC'));
   const letters = getTamilLetters(cleanWord);
-  const total = letters.length;
-  if (total < (leftMin + rightMin)) return cleanWord;
+  const totalLetters = letters.length;
+  const effectiveMinWord = minWordLetters !== null ? Math.max(minWordLetters, leftMin + rightMin) : Math.max(2, leftMin + rightMin);
+  if (totalLetters < effectiveMinWord) return cleanWord;
 
-  const classes = letters.map(classifyLetter);
-
-  const hasNucleusBefore = new Array(total).fill(false);
-  let running = false;
-  for (let i = 0; i < total; i++) {
-    if (isSyllableNucleus(classes[i])) running = true;
-    hasNucleusBefore[i] = running;
+  // Reject words containing ZWJ or ZWNJ to protect forced conjuncts
+  if (cleanWord.includes('\u200C') || cleanWord.includes('\u200D')) {
+    return cleanWord;
   }
 
-  const hasNucleusAfter = new Array(total).fill(false);
-  running = false;
-  for (let i = total - 1; i >= 0; i--) {
-    if (isSyllableNucleus(classes[i])) running = true;
-    hasNucleusAfter[i] = running;
-  }
+  const segments = getTamilSyllables(cleanWord, leftMin, rightMin);
+  if (segments.length < 2) return cleanWord;
 
-  let result = '';
-  for (let i = 0; i < total; i++) {
-    result += letters[i];
-    if (i < total - 1) {
-      const leftCount = i + 1;
-      const rightCount = total - leftCount;
-      if (leftCount < leftMin || rightCount < rightMin) continue;
-      if (!hasNucleusBefore[i] || !hasNucleusAfter[i + 1]) continue;
-
-      const nextClass = classes[i + 1];
-      if (nextClass === 'mei' || nextClass === 'aytham') continue;
-      if (!isSyllableNucleus(nextClass)) continue;
-
-      // Joiner check: neither curr nor next letter can be adjacent to ZWJ or ZWNJ
-      if (letters[i].includes('\u200C') || letters[i].includes('\u200D') ||
-          letters[i + 1].includes('\u200C') || letters[i + 1].includes('\u200D')) {
-        continue;
-      }
-
-      result += delimiter;
-    }
-  }
-  return result;
+  return segments.map(s => s.join('')).join(delimiter);
 }
 
 /**
  * Soft-hyphenate any text, preserving punctuation, whitespace, and non-Tamil runs.
  */
-function hyphenateText(text, leftMin = 2, rightMin = 2, delimiter = SOFT_HYPHEN) {
+function hyphenateText(text, leftMin = 3, rightMin = 3, delimiter = SOFT_HYPHEN) {
   if (!text) return '';
   const cleaned = removeHyphens(text);
   return cleaned.replace(/[\u0B80-\u0BFF]+/g, (match) => {
@@ -215,7 +302,7 @@ function removeOoxmlHyphens(ooxml) {
  * - If useVisualHyphen = false: inserts Unicode Zero-Width Space (\u200B) at syllable boundaries
  *   so long words wrap cleanly at margins WITHOUT showing any '-' glyph at all.
  */
-function hyphenateOoxml(ooxml, leftMin = 2, rightMin = 2, useVisualHyphen = true) {
+function hyphenateOoxml(ooxml, leftMin = 3, rightMin = 3, useVisualHyphen = true) {
   if (!ooxml) return '';
   const cleanXml = removeOoxmlHyphens(ooxml);
 
@@ -243,6 +330,8 @@ function hyphenateOoxml(ooxml, leftMin = 2, rightMin = 2, useVisualHyphen = true
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = {
     getTamilLetters,
+    getRawSyllables,
+    getTamilSyllables,
     classifyLetter,
     hyphenateWord,
     hyphenateText,
@@ -250,6 +339,7 @@ if (typeof module !== 'undefined' && module.exports) {
     hyphenateOoxml,
     removeOoxmlHyphens,
     SOFT_HYPHEN,
-    ZERO_WIDTH_SPACE
+    ZERO_WIDTH_SPACE,
+    MIN_WORD_LETTERS
   };
 }

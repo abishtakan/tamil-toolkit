@@ -59,7 +59,7 @@ fn test_process_xml_text_formatting_and_preservation() {
     assert_eq!(stats.paragraphs_processed, 1);
     // Tamil words evaluated: தமிழ்நாடு, மற்றும், பல்கலைக்கழகம் = 3
     assert_eq!(stats.words_hyphenated, 3);
-    // Soft hyphens should be inserted
+    // Soft hyphens should be inserted on >=6-letter word பல்கலைக்கழகம்
     assert!(stats.soft_hyphens_inserted > 0);
 
     // Verify preservation of styles and attributes
@@ -71,13 +71,15 @@ fn test_process_xml_text_formatting_and_preservation() {
     // Verify non-Tamil text and XML entities are preserved verbatim
     assert!(result.contains("(Tamil Nadu &amp; University 2026)"));
 
-    // Verify soft hyphen presence in Tamil words
-    assert!(result.contains(&format!("தமிழ்{}நாடு", SOFT_HYPHEN)));
+    // Short words (<6 letters) remain unbroken, while பல்கலைக்கழகம் breaks cleanly at Asai boundary
+    assert!(result.contains("<w:t>தமிழ்நாடு</w:t>"));
+    assert!(result.contains(&format!("பல்கலைக்{}கழகம்", SOFT_HYPHEN)));
 }
 
 #[test]
 fn test_process_xml_text_idempotency() {
-    let input_xml = r#"<w:p><w:r><w:t>தமிழ்நாடு மற்றும் பல்கலைக்கழகம்</w:t></w:r></w:p>"#;
+    let input_xml =
+        r#"<w:p><w:r><w:t>தமிழ்நாடு மற்றும் பல்கலைக்கழகம்</w:t></w:r></w:p>"#;
 
     let mut stats1 = DocxStats::default();
     let pass1 = process_xml_text(input_xml, None, &mut stats1).unwrap();
@@ -96,13 +98,14 @@ fn test_process_xml_text_idempotency() {
 
 #[test]
 fn test_process_xml_text_self_closing_and_empty() {
-    let input_xml = r#"<w:p><w:r><w:t/><w:t></w:t><w:t>வணக்கம்</w:t></w:r></w:p>"#;
+    let input_xml =
+        r#"<w:p><w:r><w:t/><w:t></w:t><w:t>பல்கலைக்கழகம்</w:t></w:r></w:p>"#;
     let mut stats = DocxStats::default();
     let result = process_xml_text(input_xml, None, &mut stats).unwrap();
 
     assert!(result.contains("<w:t/>"));
     assert!(result.contains("<w:t></w:t>"));
-    assert!(result.contains(&format!("வணக்{}கம்", SOFT_HYPHEN)));
+    assert!(result.contains(&format!("பல்கலைக்{}கழகம்", SOFT_HYPHEN)));
 }
 
 /// Helper to create a minimal valid in-memory DOCX ZIP archive
@@ -143,7 +146,7 @@ fn create_test_docx_archive() -> Vec<u8> {
     writer.start_file("word/header1.xml", options).unwrap();
     let hdr = r#"<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:hdr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-  <w:p><w:r><w:t>அத்தியாயம் ஒன்று</w:t></w:r></w:p>
+  <w:p><w:r><w:t>தொழில்நுட்பம் ஒன்று</w:t></w:r></w:p>
 </w:hdr>"#;
     writer.write_all(hdr.as_bytes()).unwrap();
 
@@ -197,29 +200,22 @@ fn test_process_docx_bytes_roundtrip_and_stats() {
         );
     }
 
-    // Verify document.xml content
+    // Verify document.xml content: short words unbroken, பல்கலைக்கழகம் -> பல்கலைக்-கழகம்
     let doc_xml = {
         let mut doc_file = reader.by_name("word/document.xml").unwrap();
         let mut s = String::new();
         doc_file.read_to_string(&mut s).unwrap();
         s
     };
-    assert!(doc_xml.contains(&format!("வணக்{}கம்", SOFT_HYPHEN)));
-    assert!(doc_xml.contains(&format!("தமிழ்{}நாடு", SOFT_HYPHEN)));
-    assert!(doc_xml.contains(&format!(
-        "பல்{}க{}லைக்{}க{}ழ{}கம்",
-        SOFT_HYPHEN, SOFT_HYPHEN, SOFT_HYPHEN, SOFT_HYPHEN, SOFT_HYPHEN
-    )));
+    assert!(doc_xml.contains("வணக்கம் தமிழ்நாடு"));
+    assert!(doc_xml.contains(&format!("பல்கலைக்{}கழகம்", SOFT_HYPHEN)));
 
-    // Verify header1.xml content
+    // Verify header1.xml content: தொழில்நுட்பம் -> தொழில்-நுட்பம்
     {
         let mut hdr_file = reader.by_name("word/header1.xml").unwrap();
         let mut hdr_xml = String::new();
         hdr_file.read_to_string(&mut hdr_xml).unwrap();
-        assert!(hdr_xml.contains(&format!(
-            "அத்{}தி{}யா{}யம்",
-            SOFT_HYPHEN, SOFT_HYPHEN, SOFT_HYPHEN
-        )));
+        assert!(hdr_xml.contains(&format!("தொழில்{}நுட்பம்", SOFT_HYPHEN)));
     }
 
     // Verify footnotes.xml content

@@ -13,8 +13,8 @@ pub struct DicExportOptions {
 impl Default for DicExportOptions {
     fn default() -> Self {
         Self {
-            left_hyphen_min: 2,
-            right_hyphen_min: 2,
+            left_hyphen_min: 3,
+            right_hyphen_min: 3,
         }
     }
 }

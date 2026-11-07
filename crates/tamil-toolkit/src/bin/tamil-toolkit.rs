@@ -32,8 +32,8 @@ fn print_export_dic_usage() {
 
 OPTIONS:
     -o, --output <PATH>         Destination filepath [default: hyph_ta_IN.dic]
-    -l, --lefthyphenmin <N>     Minimum characters before hyphen [default: 2]
-    -r, --righthyphenmin <N>    Minimum characters after hyphen [default: 2]
+    -l, --lefthyphenmin <N>     Minimum characters before hyphen [default: 3]
+    -r, --righthyphenmin <N>    Minimum characters after hyphen [default: 3]
     --verify                    Run verification after export
     -h, --help                  Print help information
 "#
@@ -63,8 +63,8 @@ OPTIONS:
     -i, --input <PATH>          Source .docx file to process
     -o, --output <PATH>         Destination .docx path (required unless --inplace is set)
     --inplace                   Overwrite input file atomically
-    -l, --left-min <N>          Minimum characters before hyphen [default: 2]
-    -r, --right-min <N>         Minimum characters after hyphen [default: 2]
+    -l, --left-min <N>          Minimum characters before hyphen [default: 3]
+    -r, --right-min <N>         Minimum characters after hyphen [default: 3]
     -v, --verbose               Print detailed processing statistics
     -h, --help                  Print help information
 "#
@@ -112,8 +112,8 @@ fn main() {
 
 fn handle_export_dic(args: &[String]) {
     let mut output = PathBuf::from("hyph_ta_IN.dic");
-    let mut left_min = 2usize;
-    let mut right_min = 2usize;
+    let mut left_min = 3usize;
+    let mut right_min = 3usize;
     let mut verify = false;
 
     let mut i = 0;
@@ -314,8 +314,8 @@ fn handle_process_docx(args: &[String]) {
     let mut input: Option<PathBuf> = None;
     let mut output: Option<PathBuf> = None;
     let mut inplace = false;
-    let mut left_min = 2usize;
-    let mut right_min = 2usize;
+    let mut left_min = 3usize;
+    let mut right_min = 3usize;
     let mut verbose = false;
 
     let mut i = 0;

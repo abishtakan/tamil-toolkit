@@ -107,8 +107,8 @@ export function HyphenatorTool() {
   const [activeTab, setActiveTab] = useState<"word" | "text" | "wrap">("word");
 
   // Options State
-  const [leftMin, setLeftMin] = useState<number>(2);
-  const [rightMin, setRightMin] = useState<number>(2);
+  const [leftMin, setLeftMin] = useState<number>(3);
+  const [rightMin, setRightMin] = useState<number>(3);
   const [delimiter, setDelimiter] = useState<string>("-");
 
   // Tab 1 (Word) State

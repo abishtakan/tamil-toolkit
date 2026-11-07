@@ -5,7 +5,7 @@
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
   <Id>9c2e4f11-88a3-4d9c-b244-1f7a30650283</Id>
-  <Version>1.3.0.0</Version>
+  <Version>1.5.0.0</Version>
   <ProviderName>tamil-toolkit</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Tamil Hyphenation (தமிழ் மென்-இணைப்புக் குறியீடு)" />
@@ -20,7 +20,7 @@
     <Host Name="Document" />
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3000/commands.html?v=3" />
+    <SourceLocation DefaultValue="https://localhost:3000/commands.html?v=5" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -123,7 +123,7 @@
         <bt:Image id="Icon.Del.80" DefaultValue="https://localhost:3000/assets/remove-hyphen-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html?v=3" />
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html?v=5" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="சொல் பிரிப்பு (Hyphenation)" />
