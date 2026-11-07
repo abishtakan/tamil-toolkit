@@ -27,7 +27,7 @@ The phased delivery strategy is detailed in [docs/integrations/word-googledocs-r
 
 ```mermaid
 flowchart LR
-    P1["Phase 1: Web & Manual (Live)"] --> P2["Phase 2: DOCX Batch CLI (v0.2.0)"]
+    P1["Phase 1: Web & Manual (Live)"] --> P2["Phase 2: DOCX Batch CLI (Live)"]
     P2 --> P3["Phase 3: Word Office.js Add-in (v0.3.0)"]
     P3 --> P4["Phase 4: Google Docs Add-on (v0.4.0)"]
     P4 --> P5["Phase 5: System Proofing Services (v0.5.0+)"]
@@ -39,14 +39,15 @@ flowchart LR
 - **Playground Tool**: Syllabic Hyphenator & Line Wrapper tab 2 provides direct copy for `"Unicode Soft-Hyphen Text"` and `"Word (&shy;)"`.
 - **User Action**: Paste Tamil text into the Playground, click copy, paste into Word/Docs, and enable Justification (`Ctrl + J`).
 
-### Phase 2: Headless DOCX Batch CLI Processor (Target: v0.2.0)
-- **Goal**: Allow publishers, editors, and authors to batch-hyphenate entire `.docx` book manuscripts without manual copy-pasting.
+### Phase 2: Headless DOCX Batch CLI Processor (Completed & Live)
+- **Status**: **Completed & Live** (v0.1.0-alpha.6 / feature `012-docx-hyphen`).
+- **Guide**: [Word DOCX Batch Processing Guide](docs/integrations/word-docx-batch.md).
 - **CLI Subcommand**:
   ```bash
   tamil-toolkit hyphen process-docx --input manuscript.docx --output manuscript_justified.docx
   ```
-- **SDK Support**: Python SDK (`python-docx`) and Rust OpenXML DOM traversal.
-- **Guarantees**: Complete preservation of fonts, headings, comments, tables, and bold/italic styles; idempotent soft-hyphen insertion.
+- **SDK Support**: Rust API (`tamil_hyphen::docx::process_docx_file`), Python SDK (`tamil_toolkit.process_docx`), and `python-docx` integration.
+- **Guarantees**: Complete preservation of fonts, headings, comments, tables, and bold/italic styles; idempotent soft-hyphen insertion across `document.xml`, headers, footers, and footnotes.
 
 ### Phase 3: Microsoft Word Web Add-in (`Office.js`) (Target: v0.3.0)
 - **Goal**: Cross-platform Taskpane Add-in for Microsoft Word (Word 2019+, Microsoft 365 on Windows, macOS, and Word Online).

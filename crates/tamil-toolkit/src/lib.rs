@@ -893,6 +893,7 @@ pub const OPERATIONS: &[&str] = &[
     "hyphenation_points",
     "hyphenate_text",
     "wrap_text",
+    "process_docx",
 ];
 
 fn string(value: &Value) -> Result<&str, String> {
@@ -1869,6 +1870,20 @@ pub fn execute(request: &Value) -> Result<Value, String> {
             };
             let res = hyphen::wrap_text(text, max_width, Some(&cfg))?;
             serde_json::to_value(&res).map_err(|e| e.to_string())
+        }
+        "process_docx" => {
+            let input_path = string(&input["input_path"])?;
+            let output_path = string(&input["output_path"])?;
+            let left_min = input.get("left_min").and_then(Value::as_u64).unwrap_or(2) as usize;
+            let right_min = input.get("right_min").and_then(Value::as_u64).unwrap_or(2) as usize;
+            let cfg = hyphen::HyphenationConfig {
+                delimiter: "\u{00AD}".to_string(),
+                left_min,
+                right_min,
+            };
+            let stats = hyphen::docx::process_docx_file(input_path, output_path, Some(&cfg))
+                .map_err(|e| e.to_string())?;
+            serde_json::to_value(&stats).map_err(|e| e.to_string())
         }
         op => Err(format!("unsupported operation: {op}")),
     }

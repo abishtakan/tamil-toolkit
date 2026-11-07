@@ -641,4 +641,22 @@ def wrap_text(
     })
 
 
+def process_docx(
+    input_path: str,
+    output_path: str,
+    left_min: int = 2,
+    right_min: int = 2,
+) -> dict[str, Any]:
+    """Batch-hyphenate an OpenXML Word document (.docx), injecting soft-hyphens into Tamil text runs."""
+    return execute({
+        "op": "process_docx",
+        "input": {
+            "input_path": input_path,
+            "output_path": output_path,
+            "left_min": left_min,
+            "right_min": right_min,
+        },
+    })
+
+
 from . import calendar

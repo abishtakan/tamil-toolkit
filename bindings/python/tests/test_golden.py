@@ -306,3 +306,34 @@ def test_vanavil_convenience_apis():
     assert tamil.unicode_to_vanavil_text("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd") == "j\u00e4\u0153"
     with pytest.raises(ValueError, match="unsupported Unicode scalar for Vanavil"):
         tamil.unicode_to_vanavil_text("\u0bb6\u0bcd\u0bb0\u0bc0")
+
+
+def test_hyphen_convenience_apis():
+    res = tamil.hyphenate_word("தமிழ்நாடு")
+    assert res["hyphenated"] == "தமிழ்\u00adநாடு"
+    assert tamil.hyphenate_text("வணக்கம் தமிழ்நாடு") == "வணக்\u00adகம் தமிழ்\u00adநாடு"
+
+
+def test_process_docx_convenience_api(tmp_path):
+    import zipfile
+
+    docx_in = tmp_path / "test_in.docx"
+    docx_out = tmp_path / "test_out.docx"
+
+    with zipfile.ZipFile(docx_in, "w") as zf:
+        zf.writestr("[Content_Types].xml", b"<Types/>")
+        zf.writestr(
+            "word/document.xml",
+            "<w:document><w:body><w:p><w:r><w:t>தமிழ்நாடு</w:t></w:r></w:p></w:body></w:document>".encode("utf-8"),
+        )
+
+    stats = tamil.process_docx(str(docx_in), str(docx_out))
+    assert stats["parts_updated"] == 1
+    assert stats["paragraphs_processed"] == 1
+    assert stats["words_hyphenated"] >= 1
+    assert stats["soft_hyphens_inserted"] >= 1
+
+    with zipfile.ZipFile(docx_out, "r") as zf:
+        xml = zf.read("word/document.xml").decode("utf-8")
+        assert "தமிழ்\u00adநாடு" in xml
+

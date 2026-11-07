@@ -1,6 +1,8 @@
 use std::env;
 use std::path::PathBuf;
 use std::process::exit;
+use tamil_hyphen::docx::process_docx_file;
+use tamil_hyphen::types::HyphenationConfig;
 use tamil_hyphen::{
     export_dic_file, generate_patterns, package_oxt, DicExportOptions, LiangEvaluator,
 };
@@ -15,6 +17,7 @@ USAGE:
 COMMANDS:
     hyphen export-dic [OPTIONS]     Export Frank Liang hyphenation dictionary (.dic)
     hyphen package-oxt [OPTIONS]    Package LibreOffice extension (.oxt)
+    hyphen process-docx [OPTIONS]   Batch-hyphenate OpenXML Word (.docx) document
     help                            Print this message
 
 Run 'tamil-toolkit <COMMAND> --help' for command-specific options.
@@ -51,6 +54,23 @@ OPTIONS:
     );
 }
 
+fn print_process_docx_usage() {
+    eprintln!(
+        r#"USAGE:
+    tamil-toolkit hyphen process-docx [OPTIONS] --input <PATH>
+
+OPTIONS:
+    -i, --input <PATH>          Source .docx file to process
+    -o, --output <PATH>         Destination .docx path (required unless --inplace is set)
+    --inplace                   Overwrite input file atomically
+    -l, --left-min <N>          Minimum characters before hyphen [default: 2]
+    -r, --right-min <N>         Minimum characters after hyphen [default: 2]
+    -v, --verbose               Print detailed processing statistics
+    -h, --help                  Print help information
+"#
+    );
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
@@ -68,6 +88,7 @@ fn main() {
             match args[2].as_str() {
                 "export-dic" => handle_export_dic(&args[3..]),
                 "package-oxt" => handle_package_oxt(&args[3..]),
+                "process-docx" => handle_process_docx(&args[3..]),
                 "-h" | "--help" => {
                     print_usage();
                 }
@@ -287,4 +308,130 @@ fn handle_package_oxt(args: &[String]) {
         version
     );
     println!("Registered locales: ta-IN ta-LK ta-SG ta-MY ta");
+}
+
+fn handle_process_docx(args: &[String]) {
+    let mut input: Option<PathBuf> = None;
+    let mut output: Option<PathBuf> = None;
+    let mut inplace = false;
+    let mut left_min = 2usize;
+    let mut right_min = 2usize;
+    let mut verbose = false;
+
+    let mut i = 0;
+    while i < args.len() {
+        match args[i].as_str() {
+            "-i" | "--input" => {
+                if i + 1 >= args.len() {
+                    eprintln!("Error: --input requires a file path.");
+                    exit(1);
+                }
+                input = Some(PathBuf::from(&args[i + 1]));
+                i += 2;
+            }
+            "-o" | "--output" => {
+                if i + 1 >= args.len() {
+                    eprintln!("Error: --output requires a file path.");
+                    exit(1);
+                }
+                output = Some(PathBuf::from(&args[i + 1]));
+                i += 2;
+            }
+            "--inplace" => {
+                inplace = true;
+                i += 1;
+            }
+            "-l" | "--left-min" => {
+                if i + 1 >= args.len() {
+                    eprintln!("Error: --left-min requires a number.");
+                    exit(1);
+                }
+                left_min = args[i + 1].parse().unwrap_or_else(|_| {
+                    eprintln!("Error: Invalid integer for --left-min");
+                    exit(1);
+                });
+                i += 2;
+            }
+            "-r" | "--right-min" => {
+                if i + 1 >= args.len() {
+                    eprintln!("Error: --right-min requires a number.");
+                    exit(1);
+                }
+                right_min = args[i + 1].parse().unwrap_or_else(|_| {
+                    eprintln!("Error: Invalid integer for --right-min");
+                    exit(1);
+                });
+                i += 2;
+            }
+            "-v" | "--verbose" => {
+                verbose = true;
+                i += 1;
+            }
+            "-h" | "--help" => {
+                print_process_docx_usage();
+                return;
+            }
+            other => {
+                eprintln!("Error: Unrecognized option '{other}'");
+                print_process_docx_usage();
+                exit(1);
+            }
+        }
+    }
+
+    let input_path = match input {
+        Some(p) => p,
+        None => {
+            eprintln!("Error: Missing required option --input <PATH>.");
+            print_process_docx_usage();
+            exit(1);
+        }
+    };
+
+    if !input_path.exists() {
+        eprintln!("Error: Input file does not exist: {}", input_path.display());
+        exit(2);
+    }
+
+    let target_output = if inplace {
+        input_path.clone()
+    } else {
+        match output {
+            Some(p) => p,
+            None => {
+                eprintln!("Error: Either --output <PATH> or --inplace must be specified.");
+                print_process_docx_usage();
+                exit(1);
+            }
+        }
+    };
+
+    let config = HyphenationConfig {
+        delimiter: "\u{00AD}".to_string(),
+        left_min,
+        right_min,
+    };
+
+    match process_docx_file(&input_path, &target_output, Some(&config)) {
+        Ok(stats) => {
+            println!(
+                "Successfully processed docx: {} -> {}",
+                input_path.display(),
+                target_output.display()
+            );
+            if verbose || stats.soft_hyphens_inserted > 0 {
+                println!("  Parts updated: {}", stats.parts_updated);
+                println!("  Paragraphs scanned: {}", stats.paragraphs_processed);
+                println!("  Tamil words evaluated: {}", stats.words_hyphenated);
+                println!(
+                    "  Soft hyphens (U+00AD) injected: {}",
+                    stats.soft_hyphens_inserted
+                );
+            }
+        }
+        Err(e) => {
+            eprintln!("Failed to process docx file: {e}");
+            exit(3);
+        }
+    }
 }

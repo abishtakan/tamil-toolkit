@@ -122,3 +122,51 @@ pub struct HyphenDictionary {
     pub header: DicHeader,
     pub patterns: Vec<LiangPattern>,
 }
+
+/// Processing statistics for DOCX hyphenation.
+#[derive(Debug, Clone, PartialEq, Eq, Default, Serialize, Deserialize)]
+pub struct DocxStats {
+    /// Number of distinct XML parts inspected and updated (e.g. document.xml, headers, footers).
+    pub parts_updated: usize,
+    /// Total count of <w:p> paragraph elements traversed.
+    pub paragraphs_processed: usize,
+    /// Total count of Tamil words detected and evaluated.
+    pub words_hyphenated: usize,
+    /// Total count of soft hyphens (U+00AD) newly injected.
+    pub soft_hyphens_inserted: usize,
+}
+
+/// Errors that can occur during DOCX processing.
+#[derive(Debug)]
+pub enum DocxError {
+    Io(std::io::Error),
+    Zip(zip::result::ZipError),
+    InvalidArchive(String),
+    XmlError { part: String, error: String },
+}
+
+impl std::fmt::Display for DocxError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            DocxError::Io(e) => write!(f, "I/O error: {e}"),
+            DocxError::Zip(e) => write!(f, "ZIP archive error: {e}"),
+            DocxError::InvalidArchive(s) => write!(f, "Invalid OpenXML archive: {s}"),
+            DocxError::XmlError { part, error } => write!(f, "Malformed XML in '{part}': {error}"),
+        }
+    }
+}
+
+impl std::error::Error for DocxError {}
+
+impl From<std::io::Error> for DocxError {
+    fn from(e: std::io::Error) -> Self {
+        DocxError::Io(e)
+    }
+}
+
+impl From<zip::result::ZipError> for DocxError {
+    fn from(e: zip::result::ZipError) -> Self {
+        DocxError::Zip(e)
+    }
+}
+

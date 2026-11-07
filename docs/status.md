@@ -5,6 +5,16 @@ Updated: 2026-11-05. Branch: master. Current release source:
 source SHA is tagged v0.1.0-alpha.5; post-release documentation commits do not
 change the published packages. See the [alpha-5 release record](releases/alpha-5.md).
 
+## Active Feature: 012-docx-hyphen (Headless OpenXML DOCX Batch Processor) - Completed
+
+Completed the headless OpenXML DOCX processor for automated Tamil soft-hyphenation across Microsoft Word documents:
+- **Core OpenXML Engine**: Streaming XML processor in `crates/tamil-hyphen/src/docx.rs` using existing zero-dependency `zip = "2.2"`. Traverses `<w:t>` and `<m:t>` text runs in `word/document.xml`, `word/header*.xml`, `word/footer*.xml`, `word/footnotes.xml`, `word/endnotes.xml`, and `word/comments.xml` while preserving all surrounding formatting tags (`<w:rPr>`, bold, italics), non-Tamil runs, bookmarks, images, and tables byte-for-byte intact.
+- **Idempotency & Typography**: Zero-width soft hyphens (`\u{00AD}`) are injected only at syllable boundaries (`LEFTHYPHENMIN 2`, `RIGHTHYPHENMIN 2`). Repeated runs produce identical output without inserting duplicate hyphens. Soft hyphens remain 0px invisible on the same line and activate only at the right margin when justified (`Ctrl + J`).
+- **CLI Subcommand**: Added `tamil-toolkit hyphen process-docx` supporting `--input`, `--output`, `--inplace`, `--left-min`, `--right-min`, and `--verbose`.
+- **Python SDK**: Added `tamil_toolkit.process_docx(input_path, output_path, left_min=2, right_min=2)` convenience API and PyO3 dispatcher integration.
+- **Integration Guide**: Published [docs/integrations/word-docx-batch.md](integrations/word-docx-batch.md) covering Word justification, batch bash/PowerShell automation, and `python-docx` pipelines.
+- **Verification**: 5/5 Rust integration tests in `crates/tamil-hyphen/tests/docx_tests.rs` and Python golden tests in `bindings/python/tests/test_golden.py` passed.
+
 ## Active Feature: 011-tamil-hyphen-dic (Phonotactic DTP Dictionary & Extension) - Completed
 
 Completed the Frank Liang / Hunspell hyphenation generator, automated verification suite, LibreOffice extension packaging, and DTP integration guides:
@@ -17,7 +27,7 @@ Completed the Frank Liang / Hunspell hyphenation generator, automated verificati
 
 Documented in [docs/integrations/word-googledocs-roadmap.md](integrations/word-googledocs-roadmap.md) and [ROADMAP.md](../ROADMAP.md):
 - **Phase 1 (Live)**: Web Playground clipboard workflow with Unicode Soft-Hyphens (`\u{00AD}`) maintaining zero-width on the same line and breaking dynamically under Justify (`Ctrl + J`).
-- **Phase 2 (Target v0.2.0)**: Headless OpenXML DOCX batch processing via CLI (`tamil-toolkit hyphen process-docx`) and Python SDK.
+- **Phase 2 (Completed & Live)**: Headless OpenXML DOCX batch processing via CLI (`tamil-toolkit hyphen process-docx`), Rust API, and Python SDK (`012-docx-hyphen`).
 - **Phase 3 (Target v0.3.0)**: Microsoft Word cross-platform Web Add-in (`Office.js` taskpane) powered by local WebAssembly.
 - **Phase 4 (Target v0.4.0)**: Google Docs Workspace Add-on (Apps Script / canvas wrapper).
 - **Phase 5 (Exploration)**: Windows Linguistic Services and macOS CoreText system proofing providers.
