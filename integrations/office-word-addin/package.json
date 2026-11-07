@@ -1,0 +1,9 @@
+{
+  "name": "tamil-word-addin",
+  "version": "1.1.0",
+  "description": "Tamil Hyphenation Office.js Word Add-in with Native Top-Bar Ribbon Buttons",
+  "scripts": {
+    "start": "node server.js",
+    "validate": "office-addin-manifest validate manifest.xml"
+  }
+}
