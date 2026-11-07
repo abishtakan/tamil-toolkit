@@ -5,13 +5,13 @@ Updated: 2026-11-05. Branch: master. Current release source:
 source SHA is tagged v0.1.0-alpha.5; post-release documentation commits do not
 change the published packages. See the [alpha-5 release record](releases/alpha-5.md).
 
-## Active Feature: 013-word-docs-addins (Word Office.js & Google Docs Add-ons) - Completed
+## Active Feature: 013-word-office-addin (Microsoft Word Office.js Web Add-in) - Completed
 
-Completed native in-editor add-ins for Microsoft Word and Google Docs:
+Completed native in-editor taskpane add-in for Microsoft Word:
 - **Microsoft Word Office.js Web Add-in**: Native cross-platform Taskpane Add-in (`integrations/office-word-addin/`) for Word 2019+, Microsoft 365 (Windows/macOS), and Word Online. Manifest `manifest.xml` configured for `ReadWriteDocument` least privilege. Provides one-click "Hyphenate Selection" and "Hyphenate Entire Document" using `Word.run` context batching.
-- **Google Docs Workspace Add-on**: Native Google Apps Script add-on (`integrations/google-docs-addon/`) with custom top-level menu `தமிழ் (Tamil Toolkit)` and HTML sidebar `Sidebar.html`. Minimalist `documents.currentonly` OAuth permission.
 - **Security & Privacy**: Zero-data-exfiltration verified by automated subagent audit. 100% offline local processing without telemetry or external network calls.
-- **Verification**: Node.js contract test suites (`tests/integrations/test_word_addin_contract.js` and `test_gdocs_addon_contract.js`) passing 8/8 tests.
+- **Verification**: Node.js contract test suite (`tests/integrations/test_word_addin_contract.js`) passing 4/4 tests.
+- **Google Docs Evaluation**: Verified through technical testing that Google Docs' custom HTML5 `<canvas>` rendering engine ignores both soft hyphens (`\u{00AD}`) and zero-width spaces (`\u{200B}`) across all languages. Word-breaking at margins is physically unsupported by the Docs canvas engine. Google Docs add-on implementation removed per user direction, with official recommendation to export `.docx` to Word.
 
 ## Active Feature: 012-docx-hyphen (Headless OpenXML DOCX Batch Processor) - Completed
 
@@ -36,8 +36,8 @@ Completed the Frank Liang / Hunspell hyphenation generator, automated verificati
 Documented in [docs/integrations/word-googledocs-roadmap.md](integrations/word-googledocs-roadmap.md) and [ROADMAP.md](../ROADMAP.md):
 - **Phase 1 (Live)**: Web Playground clipboard workflow with Unicode Soft-Hyphens (`\u{00AD}`) maintaining zero-width on the same line and breaking dynamically under Justify (`Ctrl + J`).
 - **Phase 2 (Completed & Live)**: Headless OpenXML DOCX batch processing via CLI (`tamil-toolkit hyphen process-docx`), Rust API, and Python SDK (`012-docx-hyphen`).
-- **Phase 3 (Completed & Live)**: Microsoft Word cross-platform Web Add-in (`Office.js` taskpane) powered by local JavaScript/WASM (`013-word-docs-addins`).
-- **Phase 4 (Completed & Live)**: Google Docs Workspace Add-on via Google Apps Script (`013-word-docs-addins`).
+- **Phase 3 (Completed & Live)**: Microsoft Word cross-platform Web Add-in (`Office.js` taskpane) powered by local JavaScript/WASM (`013-word-office-addin`).
+- **Phase 4 (Evaluated & Closed)**: Google Docs evaluated and closed due to Google Docs' canvas engine limitation (discretionary line breaks unsupported).
 - **Phase 5 (Exploration)**: Windows Linguistic Services and macOS CoreText system proofing providers.
 
 ## Active Feature: 005-playground (Interactive Playground) - Completed

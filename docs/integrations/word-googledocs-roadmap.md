@@ -95,23 +95,15 @@ flowchart LR
 
 ---
 
-### Phase 4: Google Workspace Docs Add-on (Apps Script) (Target: v0.4.0)
+### Phase 4: Google Docs Architectural Evaluation & Finding (Closed: Engine Limitation)
 
-- **Goal**: A Google Docs Extension available via the Google Workspace Marketplace for cloud-first document authoring.
-- **User Experience**:
-  - In Google Docs: **Extensions** > **Tamil Toolkit** > **Syllabic Hyphenator**.
-  - Provides a sidebar to hyphenate selected paragraphs or whole documents.
-- **Technical Architecture**:
-  - Implemented as a **Google Apps Script** Container-bound or Standalone Add-on.
-  - Uses Google Docs DocumentApp API:
-    ```javascript
-    function hyphenateSelection() {
-      const selection = DocumentApp.getActiveDocument().getSelection();
-      // Iterate text elements, apply Tamil phonotactic syllable rules,
-      // and inject soft hyphens or zero-width break opportunities.
-    }
-    ```
-  - Addresses Google Docs' canvas rendering quirks by offering both soft-hyphens (`\u00AD`) and discretionary break wrappers (`<wbr>` / zero-width spaces `\u200B`) based on document format.
+- **Status**: **Evaluated & Definitively Closed**.
+- **The Core Issue**: Google Docs replaced the browser DOM layout with a custom **HTML5 `<canvas>` rendering pipeline**. Unlike Microsoft Word (which relies on standard OpenType DirectWrite/CoreText typography engines), Google Docs' canvas text measurement engine **hardcodes against discretionary word breaking**:
+  1. Google Docs completely ignores Unicode Soft Hyphens (`\u00AD`).
+  2. Google Docs completely ignores Zero-Width Spaces (`\u{200B}`).
+  3. Google Docs has zero native hyphenation support across *all* languages (English, German, Hindi, Tamil).
+- **Behavioral Finding**: Even when soft-hyphens or zero-width break points are inserted into the document data model via Apps Script (`DocumentApp`), Google Docs' canvas engine refuses to split words at right-margin collisions. Long Tamil words are pushed as indivisible blocks to the next line, leaving identical gaping whitespace holes under Justification (`Ctrl + Shift + J`).
+- **Official Recommendation**: Authors composing drafts in Google Docs must download their files as Microsoft Word format (**File $\rightarrow$ Download $\rightarrow$ Microsoft Word (.docx)**) and process them with `tamil-toolkit hyphen process-docx` to achieve clean, justified line breaks in Microsoft Word or LibreOffice.
 
 ---
 
@@ -127,10 +119,10 @@ flowchart LR
 
 ## 3. Summary of Deliverables & Timeline
 
-| Milestone | Deliverable | Target Platform | Primary Technology |
+| Milestone | Deliverable | Target Platform | Status / Technology |
 |---|---|---|---|
-| **Phase 1** | Playground Soft-Hyphen Copy-Paste | Web / Cross-platform | TypeScript / React / WASM |
-| **Phase 2** | `process-docx` CLI Subcommand & Python Script | Windows, Linux, macOS | Rust / OpenXML / Python |
-| **Phase 3** | Word Taskpane Add-in (`tamil-toolkit-word`) | Word 2019+, M365, Word Online | Office.js / React / WASM |
-| **Phase 4** | Google Docs Add-on (`tamil-toolkit-docs`) | Google Workspace Docs | Google Apps Script / Web API |
-| **Phase 5** | Windows & macOS System Proofing Handlers | Windows 11, macOS Sequoia | COM / Objective-C / FFI |
+| **Phase 1** | Playground Soft-Hyphen Copy-Paste | Web / Cross-platform | Completed & Live (TypeScript / React / WASM) |
+| **Phase 2** | `process-docx` CLI Subcommand & Python SDK | Windows, Linux, macOS | Completed & Live (Rust OpenXML / Python SDK) |
+| **Phase 3** | Word Taskpane Add-in (`integrations/office-word-addin/`) | Word 2019+, M365, Word Online | Completed & Live (Office.js / HTML / JS) |
+| **Phase 4** | Google Docs Evaluation | Google Workspace Docs | **Evaluated & Closed** (Not supported by Docs Canvas engine) |
+| **Phase 5** | Windows & macOS System Proofing Handlers | Windows 11, macOS | Future Exploration (COM / Objective-C / FFI) |
