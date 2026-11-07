@@ -36,13 +36,13 @@ describe("Word Add-in Engine & Office.js Contract Tests", () => {
 
   it("should inject native <w:softHyphen/> elements into Word OOXML and remain idempotent", () => {
     const sampleOoxml = `<w:p><w:r><w:rPr><w:b/></w:rPr><w:t>பல்கலைக்கழகம் மற்றும் Welcome</w:t></w:r></w:p>`;
-    const ooxml1 = hyphenateOoxml(sampleOoxml, 2, 2);
+    const ooxml1 = hyphenateOoxml(sampleOoxml, 2, 2, true);
     assert(ooxml1.includes("<w:softHyphen/>"), "Must contain native <w:softHyphen/> tag");
     assert(!ooxml1.includes(SOFT_HYPHEN), "Must NOT contain raw U+00AD inside <w:t>");
     assert(ooxml1.includes("<w:rPr><w:b/></w:rPr>"), "Run properties must be preserved");
 
     // Idempotency check on OOXML
-    const ooxml2 = hyphenateOoxml(ooxml1, 2, 2);
+    const ooxml2 = hyphenateOoxml(ooxml1, 2, 2, true);
     assert.strictEqual(ooxml1, ooxml2, "hyphenateOoxml must be strictly idempotent");
 
     // Removal check on OOXML
@@ -51,11 +51,25 @@ describe("Word Add-in Engine & Office.js Contract Tests", () => {
     assert(cleaned.includes(">பல்கலைக்கழகம் மற்றும் Welcome</w:t>"), "Text must be cleanly merged back into single <w:t>");
   });
 
-  it("should cleanly remove soft hyphens with removeHyphens", () => {
-    const text = "வணக்\u00ADகம்";
-    const cleaned = removeHyphens(text);
-    assert.strictEqual(cleaned, "வணக்கம்");
-    assert.strictEqual(cleaned.includes(SOFT_HYPHEN), false);
+  it("should support invisible wrap WITHOUT visual hyphen using Zero-Width Space (U+200B)", () => {
+    const sampleOoxml = `<w:p><w:r><w:t>பல்கலைக்கழகம்</w:t></w:r></w:p>`;
+    const wrappedXml = hyphenateOoxml(sampleOoxml, 2, 2, false);
+    assert(!wrappedXml.includes("<w:softHyphen/>"), "Must NOT contain <w:softHyphen/> in no-hyphen mode");
+    assert(!wrappedXml.includes(SOFT_HYPHEN), "Must NOT contain U+00AD in no-hyphen mode");
+    assert(wrappedXml.includes("\u200B"), "Must contain Zero-Width Space U+200B at syllable breaks");
+
+    // Clean removal of U+200B
+    const cleaned = removeOoxmlHyphens(wrappedXml);
+    assert(!cleaned.includes("\u200B"), "removeOoxmlHyphens must strip all U+200B characters");
+    assert(cleaned.includes(">பல்கலைக்கழகம்</w:t>"));
+  });
+
+  it("should cleanly remove soft hyphens, U+200B, and mid-word Tamil dashes with removeHyphens", () => {
+    const text1 = "வணக்\u00ADகம்";
+    assert.strictEqual(removeHyphens(text1), "வணக்கம்");
+
+    const text2 = "பல்-க-லை-கக்-க-ழம் திருக்-கு-றள்";
+    assert.strictEqual(removeHyphens(text2), "பல்கலைகக்கழம் திருக்குறள்");
   });
 
   it("should segment tailored Tamil letters including Grantha", () => {

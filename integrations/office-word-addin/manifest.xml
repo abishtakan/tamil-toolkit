@@ -4,8 +4,8 @@
            xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
-  <Id>8f9a1c30-55d2-4e7b-9a11-7e3c90650282</Id>
-  <Version>1.2.0.0</Version>
+  <Id>9c2e4f11-88a3-4d9c-b244-1f7a30650283</Id>
+  <Version>1.3.0.0</Version>
   <ProviderName>tamil-toolkit</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Tamil Hyphenation (தமிழ் மென்-இணைப்புக் குறியீடு)" />
@@ -20,7 +20,7 @@
     <Host Name="Document" />
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3000/commands.html" />
+    <SourceLocation DefaultValue="https://localhost:3000/commands.html?v=3" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -67,6 +67,21 @@
                     <FunctionName>hyphenateDocumentCommand</FunctionName>
                   </Action>
                 </Control>
+                <Control xsi:type="Button" id="TamilToolkit.WrapNoHyphenBtn">
+                  <Label resid="WrapNoHyphen.Label" />
+                  <Supertip>
+                    <Title resid="WrapNoHyphen.Label" />
+                    <Description resid="WrapNoHyphen.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.Wrap.16" />
+                    <bt:Image size="32" resid="Icon.Wrap.32" />
+                    <bt:Image size="80" resid="Icon.Wrap.80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>wrapWithoutHyphenCommand</FunctionName>
+                  </Action>
+                </Control>
                 <Control xsi:type="Button" id="TamilToolkit.RemoveHyphensBtn">
                   <Label resid="RemoveHyphens.Label" />
                   <Supertip>
@@ -100,24 +115,29 @@
         <bt:Image id="Icon.Doc.16" DefaultValue="https://localhost:3000/assets/hyphen-doc-16.png" />
         <bt:Image id="Icon.Doc.32" DefaultValue="https://localhost:3000/assets/hyphen-doc-32.png" />
         <bt:Image id="Icon.Doc.80" DefaultValue="https://localhost:3000/assets/hyphen-doc-80.png" />
+        <bt:Image id="Icon.Wrap.16" DefaultValue="https://localhost:3000/assets/wrap-nohyphen-16.png" />
+        <bt:Image id="Icon.Wrap.32" DefaultValue="https://localhost:3000/assets/wrap-nohyphen-32.png" />
+        <bt:Image id="Icon.Wrap.80" DefaultValue="https://localhost:3000/assets/wrap-nohyphen-80.png" />
         <bt:Image id="Icon.Del.16" DefaultValue="https://localhost:3000/assets/remove-hyphen-16.png" />
         <bt:Image id="Icon.Del.32" DefaultValue="https://localhost:3000/assets/remove-hyphen-32.png" />
         <bt:Image id="Icon.Del.80" DefaultValue="https://localhost:3000/assets/remove-hyphen-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html?v=2" />
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html?v=3" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="சொல் பிரிப்பு (Hyphenation)" />
         <bt:String id="TabLabel" DefaultValue="தமிழ்" />
         <bt:String id="HyphenSelection.Label" DefaultValue="தேர்ந்தெடுத்ததை இணை" />
-        <bt:String id="HyphenDoc.Label" DefaultValue="முழு ஆவணம்" />
+        <bt:String id="HyphenDoc.Label" DefaultValue="முழு ஆவணம் (-)" />
+        <bt:String id="WrapNoHyphen.Label" DefaultValue="குறியின்றி மடி (No -)" />
         <bt:String id="RemoveHyphens.Label" DefaultValue="இணைப்புகளை நீக்கு" />
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="HyphenSelection.Tooltip" DefaultValue="தேர்ந்தெடுக்கப்பட்ட உரையில் மென்-இணைப்புக் குறியீடுகளைச் சேர்க்கும் (Soft-hyphenate selection)." />
-        <bt:String id="HyphenDoc.Tooltip" DefaultValue="முழு ஆவணத்திலுள்ள தமிழ் பத்திகளிலும் மென்-இணைப்புக் குறியீடுகளைச் சேர்க்கும் (Soft-hyphenate entire document)." />
-        <bt:String id="RemoveHyphens.Tooltip" DefaultValue="உரையிலிருந்து மென்-இணைப்புக் குறியீடுகளை நீக்கும் (Remove soft-hyphens from selection or document)." />
+        <bt:String id="HyphenSelection.Tooltip" DefaultValue="தேர்ந்தெடுக்கப்பட்ட உரையை வரி இறுதியில் மட்டும் '-' குறியுடன் பிரிக்கும் (Hyphenate selection at line ends only)." />
+        <bt:String id="HyphenDoc.Tooltip" DefaultValue="முழு ஆவணத்தையும் வரி இறுதியில் மட்டும் '-' குறியுடன் பிரிக்கும் (Hyphenate entire document at line ends only)." />
+        <bt:String id="WrapNoHyphen.Tooltip" DefaultValue="எந்த '-' குறியீடும் இல்லாமல் அசைகளில் மட்டும் வரியை மடிக்கும் (Wrap syllables cleanly at line ends WITHOUT any visible hyphen)." />
+        <bt:String id="RemoveHyphens.Tooltip" DefaultValue="உரையிலிருந்து அனைத்து இணைப்புக் குறியீடுகளையும் நீக்கும் (Remove / disable all hyphenation)." />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

@@ -2,8 +2,9 @@
  * Tamil Soft-Hyphenation Core Engine (Standalone ECMAScript)
  *
  * Implements phonotactically verified syllabic hyphenation for Microsoft Word (Office.js).
- * Uses Word's native <w:softHyphen/> OOXML element so hyphens are 100% invisible inside lines
- * and ONLY appear at the end of a line when Word breaks the line.
+ * Supports two modes:
+ * 1. Native <w:softHyphen/> mode: Invisible inside lines, shows '-' only at end-of-line wrap.
+ * 2. Invisible Wrap (No Visual Hyphen) mode (\u200B): Wraps syllables cleanly at margins with ZERO visible hyphen.
  *
  * Rules:
  * 1. Independent vowels (Uyir \u0B85-\u0B94) act as syllable nuclei.
@@ -12,7 +13,7 @@
  *    a segment NEVER begins with a pure consonant or Aytham.
  * 4. Grantha conjuncts (Ksha \u0B95\u0BCD\u0BB7, Shri \u0BB8\u0BCD\u0BB0\u0BC0 / \u0BB6\u0BCD\u0BB0\u0BC0) are treated atomically.
  * 5. Minimum margins (leftMin=2, rightMin=2) protect short initial and final letter runs.
- * 6. Idempotency: Multiple runs will never inject duplicate soft hyphens.
+ * 6. Idempotency: Multiple runs will never inject duplicate soft hyphens or zero-width spaces.
  */
 
 const UYIR = new Set([
@@ -35,6 +36,7 @@ const VOWEL_SIGNS = new Set([
 const VIRAMA = 0x0bcd;
 const AYTHAM = 0x0b83;
 const SOFT_HYPHEN = '\u00AD';
+const ZERO_WIDTH_SPACE = '\u200B';
 
 /**
  * Split text into tailored Tamil letters (Ezhuthukkal).
@@ -106,10 +108,25 @@ function isSyllableNucleus(cls) {
 }
 
 /**
+ * Strip existing hyphenation / break characters from a Tamil word or string.
+ */
+function removeHyphens(text) {
+  if (!text) return '';
+  // 1. Remove soft hyphens, optional hyphens, and zero-width spaces
+  let cleaned = text.replace(/[\u00AD\u001F\u200B]/g, '');
+  // 2. Also remove ASCII hyphens '-' that sit strictly between two Tamil characters
+  // (in case a user had visible hyphens inserted inside Tamil words)
+  cleaned = cleaned.replace(/([\u0B80-\u0BFF])-+([\u0B80-\u0BFF])/g, '$1$2');
+  // Run twice for adjacent 1-letter syllables like க-ழ-க
+  cleaned = cleaned.replace(/([\u0B80-\u0BFF])-+([\u0B80-\u0BFF])/g, '$1$2');
+  return cleaned;
+}
+
+/**
  * Hyphenate a single Tamil word respecting left and right letter margins.
  */
 function hyphenateWord(word, leftMin = 2, rightMin = 2, delimiter = SOFT_HYPHEN) {
-  const cleanWord = word.normalize('NFC').replace(/[\u00AD\u001F]/g, '');
+  const cleanWord = removeHyphens(word.normalize('NFC'));
   const letters = getTamilLetters(cleanWord);
   const total = letters.length;
   if (total < (leftMin + rightMin)) return cleanWord;
@@ -158,51 +175,63 @@ function hyphenateWord(word, leftMin = 2, rightMin = 2, delimiter = SOFT_HYPHEN)
 /**
  * Soft-hyphenate any text, preserving punctuation, whitespace, and non-Tamil runs.
  */
-function hyphenateText(text, leftMin = 2, rightMin = 2) {
+function hyphenateText(text, leftMin = 2, rightMin = 2, delimiter = SOFT_HYPHEN) {
   if (!text) return '';
-  return text.replace(/[\u0B80-\u0BFF\u00AD\u001F]+/g, (match) => {
-    return hyphenateWord(match, leftMin, rightMin, SOFT_HYPHEN);
+  const cleaned = removeHyphens(text);
+  return cleaned.replace(/[\u0B80-\u0BFF]+/g, (match) => {
+    return hyphenateWord(match, leftMin, rightMin, delimiter);
   });
 }
 
 /**
- * Remove all soft hyphens from plain text.
- */
-function removeHyphens(text) {
-  if (!text) return '';
-  return text.replace(/[\u00AD\u001F]/g, '');
-}
-
-/**
- * Clean existing <w:softHyphen/> elements and U+00AD characters from Word OOXML,
+ * Clean existing <w:softHyphen/> elements, U+00AD, and U+200B characters from Word OOXML,
  * merging adjacent <w:t> nodes that were split by <w:softHyphen/>.
  */
 function removeOoxmlHyphens(ooxml) {
   if (!ooxml) return '';
-  // 1. Merge <w:t>A</w:t><w:softHyphen/><w:t>B</w:t> into <w:t>AB</w:t>
-  let cleaned = ooxml.replace(/<\/w:t>\s*<w:softHyphen\s*\/>\s*<w:t(?:\s+[^>]*)?>/g, '');
+  // 1. Repeatedly merge <w:t>A</w:t><w:softHyphen/><w:t>B</w:t> into <w:t>AB</w:t>
+  let cleaned = ooxml;
+  let prev;
+  do {
+    prev = cleaned;
+    cleaned = cleaned.replace(/<\/w:t>\s*<w:softHyphen\s*\/>\s*<w:t(?:\s+[^>]*)?>/g, '');
+  } while (cleaned !== prev);
+
   // 2. Remove any remaining standalone <w:softHyphen/> tags
   cleaned = cleaned.replace(/<w:softHyphen\s*\/>/g, '');
-  // 3. Remove any literal U+00AD or U+001F inside <w:t> tags
-  cleaned = cleaned.replace(/[\u00AD\u001F]/g, '');
+
+  // 3. Clean inside <w:t> tags (removes U+00AD, U+001F, U+200B, and mid-word Tamil '-')
+  cleaned = cleaned.replace(/(<w:t(?:\s+[^>]*)?>)([\s\S]*?)(<\/w:t>)/g, (match, openTag, innerText, closeTag) => {
+    return openTag + removeHyphens(innerText) + closeTag;
+  });
+
   return cleaned;
 }
 
 /**
  * Process Word OOXML package string:
- * Replaces Tamil words inside <w:t> elements with <w:t>part1</w:t><w:softHyphen/><w:t>part2</w:t>
- * so Microsoft Word uses its native <w:softHyphen/> layout tag (invisible mid-line, breaks only at line end).
+ * - If useVisualHyphen = true (default): splits <w:t> nodes with Word's native <w:softHyphen/> tag
+ *   so hyphens are invisible mid-line and appear as '-' ONLY at the right margin when wrapping.
+ * - If useVisualHyphen = false: inserts Unicode Zero-Width Space (\u200B) at syllable boundaries
+ *   so long words wrap cleanly at margins WITHOUT showing any '-' glyph at all.
  */
-function hyphenateOoxml(ooxml, leftMin = 2, rightMin = 2) {
+function hyphenateOoxml(ooxml, leftMin = 2, rightMin = 2, useVisualHyphen = true) {
   if (!ooxml) return '';
-  // First normalize/clean any pre-existing soft hyphens to guarantee strict idempotency
   const cleanXml = removeOoxmlHyphens(ooxml);
 
   return cleanXml.replace(/(<w:t(?:\s+[^>]*)?>)([\s\S]*?)(<\/w:t>)/g, (match, openTag, innerText, closeTag) => {
     if (!/[\u0B80-\u0BFF]/.test(innerText)) {
       return match;
     }
-    const hyphenated = hyphenateText(innerText, leftMin, rightMin);
+
+    if (!useVisualHyphen) {
+      // No visual hyphen mode: use Zero-Width Space (\u200B)
+      const wrapped = hyphenateText(innerText, leftMin, rightMin, ZERO_WIDTH_SPACE);
+      return `<w:t xml:space="preserve">${wrapped}</w:t>`;
+    }
+
+    // Visual hyphen at line-end mode: use native <w:softHyphen/>
+    const hyphenated = hyphenateText(innerText, leftMin, rightMin, SOFT_HYPHEN);
     if (!hyphenated.includes(SOFT_HYPHEN)) {
       return openTag + hyphenated + closeTag;
     }
@@ -220,6 +249,7 @@ if (typeof module !== 'undefined' && module.exports) {
     removeHyphens,
     hyphenateOoxml,
     removeOoxmlHyphens,
-    SOFT_HYPHEN
+    SOFT_HYPHEN,
+    ZERO_WIDTH_SPACE
   };
 }
