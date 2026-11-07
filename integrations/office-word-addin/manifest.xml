@@ -4,7 +4,7 @@
            xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
-  <Id>b78912e4-411f-4b07-bf39-82cf30a21f7a</Id>
+  <Id>4cc1bfc9-21d9-486a-a6e9-967e39650281</Id>
   <Version>1.1.0.0</Version>
   <ProviderName>tamil-toolkit</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
