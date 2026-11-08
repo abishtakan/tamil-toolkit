@@ -810,6 +810,8 @@ pub const OPERATIONS: &[&str] = &[
     "get_letters",
     "normalize_nfc",
     "normalize_nfd",
+    "repair_tamil_text",
+    "fold_for_search",
     "split_uyirmei",
     "compose_uyirmei",
     "inspect_tamil_string",
@@ -1440,6 +1442,45 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         }
         "normalize_nfc" => Ok(json!(norm::normalize_nfc(string(input)?))),
         "normalize_nfd" => Ok(json!(norm::normalize_nfd(string(input)?))),
+        "repair_tamil_text" => {
+            let text = if let Some(t) = input.as_str() {
+                t
+            } else if let Some(t) = input.get("text").and_then(Value::as_str) {
+                t
+            } else {
+                return Err("expected string or object with 'text' field".into());
+            };
+            let options = if let Some(opts) = input.get("options") {
+                Some(
+                    serde_json::from_value::<norm::RepairOptions>(opts.clone())
+                        .map_err(|e| e.to_string())?,
+                )
+            } else {
+                None
+            };
+            let default_opts = norm::RepairOptions::default();
+            let result =
+                norm::repair_tamil_text(text, options.as_ref().unwrap_or(&default_opts));
+            serde_json::to_value(&result).map_err(|e| e.to_string())
+        }
+        "fold_for_search" => {
+            let text = if let Some(t) = input.as_str() {
+                t
+            } else if let Some(t) = input.get("text").and_then(Value::as_str) {
+                t
+            } else {
+                return Err("expected string or object with 'text' field".into());
+            };
+            let profile = if let Some(p) = input.get("profile") {
+                let s = p.as_str().ok_or("expected string profile")?;
+                norm::FoldingProfile::parse(s)
+                    .ok_or_else(|| format!("unknown folding profile: {s}"))?
+            } else {
+                norm::FoldingProfile::Comprehensive
+            };
+            let result = norm::fold_for_search(text, profile);
+            Ok(json!(result))
+        }
         "split_uyirmei" => core::split_uyirmei(string(input)?).map(|parts| json!(parts)),
         "compose_uyirmei" => {
             core::compose_uyirmei(string(&input["mei"])?, string(&input["uyir"])?).map(|s| json!(s))

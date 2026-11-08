@@ -74,6 +74,20 @@
       ]
     },
     {
+      "file": "norm_repair.jsonl",
+      "status": "active",
+      "operations": [
+        "repair_tamil_text"
+      ]
+    },
+    {
+      "file": "norm_folding.jsonl",
+      "status": "active",
+      "operations": [
+        "fold_for_search"
+      ]
+    },
+    {
       "file": "collate_agara_varisai.jsonl",
       "status": "active",
       "operations": [

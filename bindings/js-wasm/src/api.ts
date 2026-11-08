@@ -12,6 +12,23 @@ export type LetterQuantity = "kuril" | "nedil" | "mei" | "aytham" | "other";
 export interface HyphenationPoint { letter_index: number; byte_offset: number }
 export interface HyphenationResult { word: string; syllables: string[]; hyphenated: string }
 export interface WrapResult { lines: string[]; wrapped: string }
+export interface RepairDiagnostics {
+  duplicate_pulli_count: number;
+  visual_kombu_count: number;
+  stripped_control_count: number;
+  total_repairs: number;
+}
+export interface RepairResult {
+  text: string;
+  diagnostics: RepairDiagnostics;
+}
+export interface RepairOptions {
+  collapse_duplicate_pulli?: boolean;
+  reorder_visual_kombu?: boolean;
+  strip_soft_hyphens?: boolean;
+  strip_joiners?: boolean;
+}
+export type FoldingProfile = "mayangoli" | "grantha" | "comprehensive";
 export interface Request { op: string; input: unknown }
 export interface EncodingCandidate { encoding: string; confidence: number }
 export interface DetectionResult {
@@ -239,6 +256,10 @@ export function createApi(nativeExecute: (request: string) => string) {
     get_letters: (text: string) => execute({ op: "get_letters", input: text }) as string[],
     normalize_nfc: (text: string) => execute({ op: "normalize_nfc", input: text }) as string,
     normalize_nfd: (text: string) => execute({ op: "normalize_nfd", input: text }) as string,
+    repair_tamil_text: (text: string, options?: RepairOptions) =>
+      execute({ op: "repair_tamil_text", input: options ? { text, options } : { text } }) as RepairResult,
+    fold_for_search: (text: string, profile: FoldingProfile = "comprehensive") =>
+      execute({ op: "fold_for_search", input: { text, profile } }) as string,
     split_uyirmei: (text: string) => execute({ op: "split_uyirmei", input: text }) as Uyirmei,
     compose_uyirmei: (mei: string, uyir: string) => execute({ op: "compose_uyirmei", input: { mei, uyir } }) as string,
     inspect_tamil_string: (text: string) => execute({ op: "inspect_tamil_string", input: text }) as Inspection,

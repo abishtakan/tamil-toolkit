@@ -370,3 +370,15 @@ test("Thirukanitham primary lunar phases on both WASM targets", () => {
     ]);
   }
 });
+
+test("normalization repair and search folding convenience APIs on both WASM targets", () => {
+  for (const api of [nodeApi, webApi]) {
+    const res = api.repair_tamil_text("\u0b95\u0bcd\u0bcd");
+    expect(res.text).toBe("\u0b95\u0bcd");
+    expect(res.diagnostics.duplicate_pulli_count).toBe(1);
+    expect(res.diagnostics.total_repairs).toBe(1);
+
+    expect(api.fold_for_search("\u0baa\u0bb4\u0bae\u0bcd", "mayangoli")).toBe("\u0baa\u0bb2\u0bae\u0bcd");
+    expect(api.fold_for_search("\u0bb0\u0bbe\u0b9c\u0bbe", "grantha")).toBe("\u0bb0\u0bbe\u0b9a\u0bbe");
+  }
+});

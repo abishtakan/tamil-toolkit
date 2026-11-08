@@ -5,7 +5,7 @@ from typing import Any
 
 from . import _native
 
-__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "anjal_bytes_to_unicode", "unicode_to_anjal_bytes", "tam_bytes_to_unicode", "unicode_to_tam_bytes", "tab_bytes_to_unicode", "unicode_to_tab_bytes", "tscii_bytes_to_unicode", "unicode_to_tscii_bytes", "lt_tm_codes_to_unicode", "lt_tm_text_to_unicode", "unicode_to_lt_tm_codes", "unicode_to_lt_tm_text", "vanavil_codes_to_unicode", "vanavil_text_to_unicode", "unicode_to_vanavil_codes", "unicode_to_vanavil_text", "detect_encoding", "detect_and_decode", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date", "vakya_solar_transits", "vakya_true_sun_from_mesha_elapsed"]
+__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "repair_tamil_text", "fold_for_search", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "anjal_bytes_to_unicode", "unicode_to_anjal_bytes", "tam_bytes_to_unicode", "unicode_to_tam_bytes", "tab_bytes_to_unicode", "unicode_to_tab_bytes", "tscii_bytes_to_unicode", "unicode_to_tscii_bytes", "lt_tm_codes_to_unicode", "lt_tm_text_to_unicode", "unicode_to_lt_tm_codes", "unicode_to_lt_tm_text", "vanavil_codes_to_unicode", "vanavil_text_to_unicode", "unicode_to_vanavil_codes", "unicode_to_vanavil_text", "detect_encoding", "detect_and_decode", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date", "vakya_solar_transits", "vakya_true_sun_from_mesha_elapsed"]
 __all__.append("vakya_true_moon_from_kali_day")
 __all__.append("vakya_reduce_to_local_true_sunrise")
 __all__.append("vakya_cara_from_sayana_sun")
@@ -48,6 +48,17 @@ def normalize_nfc(text: str) -> str:
 
 def normalize_nfd(text: str) -> str:
     return execute({"op": "normalize_nfd", "input": text})
+
+
+def repair_tamil_text(text: str, options: dict[str, Any] | None = None) -> dict[str, Any]:
+    input_payload: dict[str, Any] = {"text": text}
+    if options is not None:
+        input_payload["options"] = options
+    return execute({"op": "repair_tamil_text", "input": input_payload})
+
+
+def fold_for_search(text: str, profile: str = "comprehensive") -> str:
+    return execute({"op": "fold_for_search", "input": {"text": text, "profile": profile}})
 
 
 def split_uyirmei(text: str) -> dict[str, str]:

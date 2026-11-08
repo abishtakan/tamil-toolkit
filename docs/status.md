@@ -1,5 +1,20 @@
 # Project handoff
 
+## Feature 018 Phase 2 handoff (2026-11-08)
+
+Phase 2 (`018-tamil-norm-contracts`) tasks T001–T024 are complete:
+- **Canonical Unicode Normalization**: Exposed `normalize_nfc` and `normalize_nfd` in `tamil-norm` with `#![forbid(unsafe_code)]`, strict Unicode 17.0.0 canonical equivalence, and zero-loss preservation of format controls (`ZWJ` U+200D, `ZWNJ` U+200C), whitespace, and mixed scripts.
+- **Opt-in Orthographic Text Repair**: Built `repair_tamil_text` with `RepairOptions` and `RepairDiagnostics` in `crates/tamil-norm/src/repair.rs` to collapse contiguous duplicate pullis/viramas, reorder misplaced visual left-kombus (`\u{0bc6}`, `\u{0bc7}`, `\u{0bc8}`) before consonants into valid composite glyphs or two-part vowels (`\u{0bca}`, `\u{0bcb}`, `\u{0bcc}`), strip soft-hyphens (`U+00AD`) and unprintable controls, and provide accurate diagnostic telemetry (`duplicate_pulli_count`, `visual_kombu_count`, `stripped_control_count`, `total_repairs`).
+- **Versioned Lossy Search Folding**: Built `fold_for_search` with `FoldingProfile` (`Mayangoli`, `Grantha`, `Comprehensive`) in `crates/tamil-norm/src/folding.rs` to fold Mayangoli confusion sets (`ல/ள/ழ` -> `ல`, `ன/ண` -> `ன`, `ர/ற` -> `ர`) and Grantha consonants (`ஸ/ஷ` -> `ச`, `ஜ` -> `ச`, `ஹ` -> `க`, `க்ஷ` -> `ச`, `ஸ்ரீ` -> `சீ`), while preserving attached vowel diacritics via `tamil_core::split_uyirmei` / `compose_uyirmei`. Comprehensive profile additionally handles ASCII case-folding and whitespace collapsing.
+- **Tri-Runtime Parity & Dispatcher**: Integrated `"repair_tamil_text"` and `"fold_for_search"` into `tamil-toolkit` shared dispatcher, exposed typed Python bindings (`tamil_toolkit.repair_tamil_text`, `tamil_toolkit.fold_for_search`) with TypedDicts in `__init__.pyi`, and TypeScript/WASM bindings (`repair_tamil_text`, `fold_for_search`) in `bindings/js-wasm/src/api.ts`, `index.ts`, and `web.ts`.
+- **Golden Suites**: Registered 30 active vectors across `tests/golden/norm_repair.jsonl` (15 vectors) and `tests/golden/norm_folding.jsonl` (15 vectors) in `tests/golden/manifest.json`.
+- **Verification & Gates**:
+  - `cargo test -p tamil-norm` passed 13/13 tests.
+  - Rust golden runner passed 35,960 active vectors.
+  - Python Pytest passed 30/30 tests.
+  - Vitest passed 35,984/35,984 tests on both Node and Web WASM targets.
+  - Full repo gates passed: `just agent-post-edit` and `just agent-pre-stop-gate` clean with zero warnings.
+
 ## Feature 017 Phase 1 handoff (2026-11-08)
 
 Phase 1 (`017-tamil-core-primitives`) tasks T001–T023 are complete:

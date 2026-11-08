@@ -355,3 +355,13 @@ def test_process_docx_convenience_api(tmp_path):
         xml = zf.read("word/document.xml").decode("utf-8")
         assert "தமிழ்\u00adநாடு" in xml
 
+
+
+def test_norm_convenience_apis():
+    res = tamil.repair_tamil_text("\u0b95\u0bcd\u0bcd")
+    assert res["text"] == "\u0b95\u0bcd"
+    assert res["diagnostics"]["duplicate_pulli_count"] == 1
+    assert res["diagnostics"]["total_repairs"] == 1
+
+    assert tamil.fold_for_search("\u0baa\u0bb4\u0bae\u0bcd", "mayangoli") == "\u0baa\u0bb2\u0bae\u0bcd"
+    assert tamil.fold_for_search("\u0bb0\u0bbe\u0b9c\u0bbe", "grantha") == "\u0bb0\u0bbe\u0b9a\u0bbe"

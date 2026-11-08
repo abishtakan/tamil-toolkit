@@ -4,6 +4,24 @@ class Uyirmei(TypedDict):
     mei: str
     uyir: str
 
+class RepairDiagnostics(TypedDict):
+    duplicate_pulli_count: int
+    visual_kombu_count: int
+    stripped_control_count: int
+    total_repairs: int
+
+class RepairResult(TypedDict):
+    text: str
+    diagnostics: RepairDiagnostics
+
+class RepairOptions(TypedDict, total=False):
+    collapse_duplicate_pulli: bool
+    reorder_visual_kombu: bool
+    strip_soft_hyphens: bool
+    strip_joiners: bool
+
+FoldingProfile = Literal["mayangoli", "grantha", "comprehensive"]
+
 class HyphenationPoint(TypedDict):
     letter_index: int
     byte_offset: int
@@ -194,6 +212,8 @@ def execute(request: dict[str, Any]) -> Any: ...
 def get_letters(text: str) -> list[str]: ...
 def normalize_nfc(text: str) -> str: ...
 def normalize_nfd(text: str) -> str: ...
+def repair_tamil_text(text: str, options: RepairOptions | None = ...) -> RepairResult: ...
+def fold_for_search(text: str, profile: FoldingProfile | str = "comprehensive") -> str: ...
 def split_uyirmei(text: str) -> Uyirmei: ...
 def compose_uyirmei(mei: str, uyir: str) -> str: ...
 def inspect_tamil_string(text: str) -> dict[str, Any]: ...

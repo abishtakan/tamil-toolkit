@@ -614,6 +614,7 @@ version = "0.1.0-alpha.6"
 name = "tamil-norm"
 version = "0.1.0-alpha.6"
 dependencies = [
+ "serde",
  "tamil-core",
 ]
 
