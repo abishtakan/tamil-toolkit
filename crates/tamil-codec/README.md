@@ -6,7 +6,7 @@
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-codec?style=flat-square)](https://crates.io/crates/tamil-codec)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-codec?style=flat-square&label=downloads)](https://crates.io/crates/tamil-codec)
-[![docs.rs](https://docs.rs/tamil-codec/badge.svg)](https://docs.rs/tamil-codec/0.1.0-alpha.6)
+[![docs.rs](https://docs.rs/tamil-codec/badge.svg)](https://docs.rs/tamil-codec/0.1.0-alpha.7)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
 [![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 
@@ -23,20 +23,20 @@
 | **LT-TM / IndoWord and Vanavil** | Selected 16-bit CID/code conversion in both directions. |
 | **Limits** | No PDF parsing, automatic detection, or complete historical-font coverage. |
 
-Experimental alpha `0.1.0-alpha.6`. APIs may change before stability. This package provides bounded APIs and does not
+Experimental alpha `0.1.0-alpha.7`. APIs may change before stability. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage.
 
 ## Install
 
 ```sh
-cargo add tamil-codec@=0.1.0-alpha.6
+cargo add tamil-codec@=0.1.0-alpha.7
 ```
 
 Or add the exact alpha dependency to `Cargo.toml`:
 
 ```toml
 [dependencies]
-tamil-codec = "=0.1.0-alpha.6"
+tamil-codec = "=0.1.0-alpha.7"
 ```
 
 ## Example
@@ -58,10 +58,10 @@ fn main() -> Result<(), String> {
 
 ## Documentation
 
-- [API reference on docs.rs](https://docs.rs/tamil-codec/0.1.0-alpha.6)
+- [API reference on docs.rs](https://docs.rs/tamil-codec/0.1.0-alpha.7)
 - [Feature contract and examples](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md)
 - [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-6.md)
+- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-7.md)
 
 ## License
 

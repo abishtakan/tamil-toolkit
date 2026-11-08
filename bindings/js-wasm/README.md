@@ -40,7 +40,7 @@ Runs **100% client-side** with zero network tracking, zero external dependencies
 
 ## Install
 
-Node.js 22+ is supported. Install alpha 6 from npm’s `alpha` dist-tag:
+Node.js 22+ is supported. Install alpha 7 from npm’s `alpha` dist-tag:
 
 ```sh
 npm install tamil-toolkit@alpha
@@ -54,7 +54,7 @@ pnpm add tamil-toolkit@alpha
 yarn add tamil-toolkit@alpha
 ```
 
-The `alpha` tag points to `0.1.0-alpha.6`; npm’s `latest` tag still points to `0.1.0-alpha.1`. The version badge above tracks the `alpha` tag.
+The `alpha` tag points to `0.1.0-alpha.7`; npm’s `latest` tag still points to `0.1.0-alpha.1`. The version badge above tracks the `alpha` tag.
 
 ---
 
@@ -176,9 +176,9 @@ function convertClipboard(pastedText: string): string {
 
 ---
 
-## Alpha 6 scope
+## Alpha 7 scope
 
-The npm `0.1.0-alpha.6` package includes the capabilities listed above. The
+The npm `0.1.0-alpha.7` package includes the capabilities listed above. The
 shared `execute` API exposes `lt_tm_codes_to_unicode`, `lt_tm_text_to_unicode`,
 `unicode_to_lt_tm_codes`, and `unicode_to_lt_tm_text`. LT-TM conversion handles
 selected 16-bit code sequences; it does not parse PDFs, select font runs, or
@@ -210,7 +210,7 @@ const text = tamil.execute({ op: "lt_tm_codes_to_unicode", input: { codes } });
 - [Unicode/core contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/core-v0.1.md)
 - [Collation contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md)
 - [Numerals, fractions, and dates](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.2.md)
-- [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-6.md#compatibility-and-scope)
+- [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-7.md#compatibility-and-scope)
 - [LT-TM CID profile contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md)
 - [Third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md)
 

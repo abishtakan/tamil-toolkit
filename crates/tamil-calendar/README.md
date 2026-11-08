@@ -6,7 +6,7 @@
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-calendar?style=flat-square)](https://crates.io/crates/tamil-calendar)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-calendar?style=flat-square&label=downloads)](https://crates.io/crates/tamil-calendar)
-[![docs.rs](https://docs.rs/tamil-calendar/badge.svg)](https://docs.rs/tamil-calendar/0.1.0-alpha.6)
+[![docs.rs](https://docs.rs/tamil-calendar/badge.svg)](https://docs.rs/tamil-calendar/0.1.0-alpha.7)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
 [![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 
@@ -22,20 +22,20 @@
 | **Observances** | Tamil Nadu festival rules and official annual holiday schedules. |
 | **Historical kernels** | Classical Vākyakaraṇa solar, lunar, and civil timekeeping algorithms. |
 
-Experimental alpha `0.1.0-alpha.6`. APIs may change before stability. This package provides bounded APIs and does not
+Experimental alpha `0.1.0-alpha.7`. APIs may change before stability. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage.
 
 ## Install
 
 ```sh
-cargo add tamil-calendar@=0.1.0-alpha.6
+cargo add tamil-calendar@=0.1.0-alpha.7
 ```
 
 Or add the exact alpha dependency to `Cargo.toml`:
 
 ```toml
 [dependencies]
-tamil-calendar = "=0.1.0-alpha.6"
+tamil-calendar = "=0.1.0-alpha.7"
 ```
 
 ## Example
@@ -52,10 +52,10 @@ fn main() -> Result<(), String> {
 
 ## Documentation
 
-- [API reference on docs.rs](https://docs.rs/tamil-calendar/0.1.0-alpha.6)
+- [API reference on docs.rs](https://docs.rs/tamil-calendar/0.1.0-alpha.7)
 - [Feature contract and examples](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/calendar-year-cycle-v1.md)
 - [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-6.md)
+- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-7.md)
 
 ## License
 

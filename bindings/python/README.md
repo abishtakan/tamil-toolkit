@@ -52,7 +52,7 @@ Unlike legacy pure-Python packages (such as `open-tamil`), **tamil-toolkit** is 
 ## Install
 
 ```sh
-python -m pip install tamil-toolkit==0.1.0a6
+python -m pip install tamil-toolkit==0.1.0a7
 ```
 
 ---
@@ -170,9 +170,9 @@ assert tamil.are_cognates("ட்", "ண்") == True
 
 ---
 
-## Alpha 6 scope
+## Alpha 7 scope
 
-The PyPI `0.1.0a6` package includes the capabilities listed above. The shared
+The PyPI `0.1.0a7` package includes the capabilities listed above. The shared
 `execute` API exposes `lt_tm_codes_to_unicode`, `lt_tm_text_to_unicode`,
 `unicode_to_lt_tm_codes`, and `unicode_to_lt_tm_text`. LT-TM conversion handles
 selected 16-bit code sequences; it does not parse PDFs, select font runs, or
@@ -203,13 +203,13 @@ text = tamil.execute({"op": "lt_tm_codes_to_unicode", "input": {"codes": codes}}
 - [Unicode/core contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/core-v0.1.md)
 - [Collation contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md)
 - [Numerals, fractions, and dates](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.2.md)
-- [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-6.md#compatibility-and-scope)
+- [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-7.md#compatibility-and-scope)
 - [LT-TM CID profile contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md)
 - [Python package API declarations](https://github.com/abishtakan/tamil-toolkit/blob/master/bindings/python/python/tamil_toolkit/__init__.py)
 - [Third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md)
 
 The wheels target CPython 3.11+ through the stable abi3 interface. Source builds
-require Rust 1.85+. See the [alpha 6 release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-6.md)
+require Rust 1.85+. See the [alpha 7 release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-7.md)
 for artifact details.
 
 ---

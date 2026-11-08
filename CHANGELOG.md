@@ -3,6 +3,8 @@
 
 ## Unreleased
 
+## 0.1.0-alpha.7 / Python 0.1.0a7 - 2026-11-08
+
 - Repair baseline validation blockers: preserve dictionary joiner patterns using explicit Unicode scalars, cover both controls, apply Rust formatting, resolve unused-variable/iterator warnings, and align the release acceptance test with the existing private hyphen exemption.
 
 - Spec 016: document dependency ranks, capability boundaries and 18-phase roadmap; enforce Cargo dependency DAG ranks across runtime, build, dev and target tables, including aliases. Reject manifest-free future-crate directories and varied placeholder sources; define lifecycle evidence and reconcile the release handoff.
