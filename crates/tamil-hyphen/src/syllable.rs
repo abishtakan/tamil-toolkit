@@ -1,10 +1,10 @@
-use tamil_core::{inspect_tamil_string, split_uyirmei, Letters};
+use tamil_core::{
+    classify_quantity, inspect_tamil_string, is_aytham, is_mei, split_uyirmei, LetterQuantity,
+    Letters,
+};
 use tamil_norm::normalize_nfc;
 
 use crate::types::{HyphenationConfig, HyphenationPoint, HyphenationResult};
-
-const PULLI: &str = "\u{0BCD}";
-const AYTHAM: &str = "\u{0B83}";
 
 #[inline]
 fn contains_joiner(s: &str) -> bool {
@@ -68,20 +68,35 @@ impl AsaiSegment {
 
 /// Classifies a tailored Tamil letter into its orthographic syllable role.
 pub fn classify_letter(letter: &str) -> LetterClass {
-    if letter == AYTHAM {
+    if is_aytham(letter) {
         return LetterClass::Aytham;
     }
-    if letter.ends_with(PULLI) {
+    if is_mei(letter) {
         return LetterClass::Mei;
     }
-    if letter == "க்ஷ"
-        || letter.starts_with("ஸ்ரீ")
+    if letter == "\u{0B95}\u{0BCD}\u{0BB7}"
+        || letter.starts_with("\u{0BB8}\u{0BCD}\u{0BB0}\u{0BC0}")
         || letter.starts_with("\u{0BB6}\u{0BCD}\u{0BB0}\u{0BC0}")
     {
         return LetterClass::AtomicGrantha;
     }
     if split_uyirmei(letter).is_ok() {
         return LetterClass::Uyirmei;
+    }
+    let qty = classify_quantity(letter);
+    if qty == LetterQuantity::Kuril || qty == LetterQuantity::Nedil {
+        let inspected = inspect_tamil_string(letter);
+        if let Some(first) = inspected.letters.first() {
+            if first.classification == "uyir" {
+                return LetterClass::Uyir;
+            }
+            if matches!(
+                first.classification,
+                "vallinam" | "mellinam" | "idayinam" | "grantha"
+            ) {
+                return LetterClass::Uyirmei;
+            }
+        }
     }
     let inspected = inspect_tamil_string(letter);
     if let Some(first) = inspected.letters.first() {

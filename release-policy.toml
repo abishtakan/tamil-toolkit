@@ -7,5 +7,5 @@ registries = ["crates.io", "pypi", "npm"]
 # parity, packaging evidence, and explicit release review before joining this list.
 public_crates = [
   "tamil-core", "tamil-norm", "tamil-collate", "tamil-numerals",
-  "tamil-calendar", "tamil-codec", "tamil-toolkit",
+  "tamil-calendar", "tamil-codec", "tamil-hyphen", "tamil-toolkit",
 ]

@@ -49,6 +49,7 @@ SUMMARIES = {
     "tamil-numerals": "Bounded TN/SL number words, exact decimal and INR/LKR strings, Unicode 17 symbols, traditional numerals, fractions, Gregorian civil arithmetic, bounded Thirukanitham and classical Vākyakaraṇa calendar profiles, selected TN observance rules, and official annual holiday schedules.",
     "tamil-calendar": "Tamil calendar systems, Thirukanitham, Vakiya, panchangam, and observances.",
     "tamil-codec": "Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles.",
+    "tamil-hyphen": "Syllable breakdown, prosodic Asai segmentation, soft hyphenation, and publication-grade line wrapping.",
     "tamil-toolkit": "Unified high-performance Rust entry point for Tamil text, Agara ordering, bounded exact numerals, Tholkappiyam phonology, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, and legacy conversion APIs.",
 }
 FEATURE_TABLES = {
@@ -93,6 +94,12 @@ FEATURE_TABLES = {
 | **Tamil calendar** | Bounded Thirukanitham Drik conversion and panchangam reports, a named Nava Panchangam/Tamil-rule TN subset for solar festivals and Amavasya/Pournami Aparahna selection with sunrise fallback, and selected authority-published TN/SL annual holiday schedules; Vakiya and Sri Lanka observances are unsupported and calendar fixture suites remain planned. |
 | **Historical calendar kernels** | Unreleased source-pinned 1962 Vakiya solar and lunar calculations; full Vakiya date/location/five-limb coverage is not implemented. |
 | **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles. |""",
+    "tamil-hyphen": """| Area | Capabilities |
+| --- | --- |
+| **Syllable breakdown** | Orthographic syllable and prosodic *Asai* segment partitioning (`hyphenate_word`, `hyphenation_points`). |
+| **Text Hyphenation** | Full paragraph soft hyphenation preserving punctuation, whitespace, and non-Tamil runs (`hyphenate_text`). |
+| **Line Wrapping** | Publication-grade line wrapping with customizable margins and delimiters (`wrap_text`). |
+| **OpenXML & Dictionaries** | Batch OOXML Word document processing (`process_docx_file`), Frank Liang dictionary export (`export_dic_file`), and LibreOffice extension bundling (`package_oxt`). |""",
 }
 CONTRACTS = {
     "tamil-core": "docs/specs/core-v0.1.md",
@@ -101,6 +108,7 @@ CONTRACTS = {
     "tamil-numerals": "docs/specs/numerals-v0.3.md",
     "tamil-calendar": "docs/specs/calendar-year-cycle-v1.md",
     "tamil-codec": "docs/specs/codec-lt-tm.md",
+    "tamil-hyphen": "docs/specs/hyphen-v0.1.md",
     "tamil-toolkit": "README.md#capability-contracts",
 }
 UNRELEASED_NOTES = {
@@ -157,6 +165,19 @@ fn main() -> Result<(), String> {
     let codes = unicode_to_lt_tm_codes("தமிழ்")?;
     let decoded = lt_tm_codes_to_unicode(&codes, ErrorPolicy::Strict)?;
     println!("{codes:?} -> {decoded}");
+    Ok(())
+}''',
+    "tamil-hyphen": '''use tamil_hyphen::{hyphenate_word, HyphenationConfig};
+
+fn main() -> Result<(), String> {
+    let word = "\u0baa\u0bb2\u0bcd\u0b95\u0bb2\u0bc8\u0b95\u0bcd\u0b95\u0bb4\u0b95\u0bae\u0bcd";
+    let config = HyphenationConfig {
+        delimiter: "-".to_string(),
+        left_min: 3,
+        right_min: 3,
+    };
+    let result = hyphenate_word(word, Some(&config))?;
+    println!("{} -> {}", result.original, result.hyphenated);
     Ok(())
 }''',
     "tamil-toolkit": '''use tamil_toolkit::{codec, core, numerals};

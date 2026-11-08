@@ -410,8 +410,7 @@
     },
     {
       "file": "hyphen_syllable.jsonl",
-      "status": "planned",
-      "reason": "Tamil syllabic hyphenation fixtures cover open and closed syllables, consonant clusters, Grantha onsets, safe margins, and TN/SL dialect vocabulary; planned pending explicit owner review.",
+      "status": "active",
       "operations": [
         "hyphenate_word",
         "hyphenation_points",
