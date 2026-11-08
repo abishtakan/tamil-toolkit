@@ -7,7 +7,8 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { CopyButton } from "../common/CopyButton";
 import { StickyActionBar } from "../common/StickyActionBar";
-import { Sparkles, Layers, Code, Type } from "lucide-react";
+import { Sparkles, Layers, Code, Type, Clock, Scale, Link2 } from "lucide-react";
+import type * as tt from "tamil-toolkit";
 
 const SAMPLE_TEXT = "தமிழ்நாடு வாழ்க! அஃது சீரிளமைத் திறம்";
 
@@ -66,6 +67,21 @@ export function LetterAnalyzer() {
         return language === "ta" ? "கிரந்தம் (Grantha)" : "Grantha Loan Letter";
       default:
         return language === "ta" ? "பிற குறியீடு" : "Other / Symbol";
+    }
+  };
+
+  const getQuantityLabel = (quantity?: tt.LetterQuantity | null): string => {
+    switch (quantity) {
+      case "kuril":
+        return language === "ta" ? "குறில் (Short)" : "Short (Kuril)";
+      case "nedil":
+        return language === "ta" ? "நெடில் (Long)" : "Long (Nedil)";
+      case "mei":
+        return language === "ta" ? "மெய் / ஒற்று (Consonant)" : "Consonant (Mei)";
+      case "aytham":
+        return language === "ta" ? "ஆய்தம் (Visarga)" : "Aytham (Visarga)";
+      default:
+        return "-";
     }
   };
 
@@ -246,6 +262,45 @@ export function LetterAnalyzer() {
                     </span>
                     <span className="font-tamil font-bold text-sm text-[var(--color-sandhanam)]">
                       {selectedSyllable.vowel}
+                    </span>
+                  </div>
+                )}
+
+                {selectedSyllable.quantity && selectedSyllable.quantity !== "other" && (
+                  <div className="pt-2.5 flex items-center justify-between">
+                    <span className="text-[var(--color-muted)] flex items-center gap-1.5">
+                      <Scale className="w-3.5 h-3.5" />
+                      {t.tools.letter.quantityLabel}:
+                    </span>
+                    <Badge variant="outline" className="font-tamil font-semibold">
+                      {getQuantityLabel(selectedSyllable.quantity)}
+                    </Badge>
+                  </div>
+                )}
+
+                {selectedSyllable.maathirai != null && (
+                  <div className="pt-2.5 flex items-center justify-between">
+                    <span className="text-[var(--color-muted)] flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
+                      {t.tools.letter.moraLabel}:
+                    </span>
+                    <span className="font-mono-tamil font-bold text-sm text-[var(--color-mai)]">
+                      {selectedSyllable.maathirai}{" "}
+                      <span className="text-xs font-tamil text-[var(--color-muted)] font-normal">
+                        {language === "ta" ? "மாத்திரை" : "mora"}
+                      </span>
+                    </span>
+                  </div>
+                )}
+
+                {selectedSyllable.cognate && (
+                  <div className="pt-2.5 flex items-center justify-between">
+                    <span className="text-[var(--color-muted)] flex items-center gap-1.5">
+                      <Link2 className="w-3.5 h-3.5" />
+                      {t.tools.letter.cognateLabel}:
+                    </span>
+                    <span className="font-tamil font-bold text-sm text-[var(--color-sandhanam)]">
+                      {(selectedSyllable.base_consonant || selectedSyllable.raw)} ↔ {selectedSyllable.cognate}
                     </span>
                   </div>
                 )}

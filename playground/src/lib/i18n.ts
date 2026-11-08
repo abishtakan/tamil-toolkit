@@ -251,6 +251,9 @@ export interface Translations {
       codepointsLabel: string;
       classificationLabel: string;
       selectPrompt: string;
+      moraLabel: string;
+      cognateLabel: string;
+      quantityLabel: string;
     };
     normalizer: {
       title: string;
@@ -261,6 +264,7 @@ export interface Translations {
       nfcLabel: string;
       nfdLabel: string;
       repairedLabel: string;
+      foldLabel: string;
       statusClean: string;
       statusAnomalies: string;
       anomaliesFixedLabel: string;
@@ -272,7 +276,20 @@ export interface Translations {
       nfcBanner: string;
       nfdBanner: string;
       repairedBanner: string;
+      foldBanner: string;
       decomposedCountLabel: string;
+      profileComprehensive: string;
+      profileMayangoli: string;
+      profileGrantha: string;
+      repairOptionsHeading: string;
+      optCollapsePulli: string;
+      optReorderKombu: string;
+      optStripShy: string;
+      optStripJoiners: string;
+      diagDuplicatePulli: string;
+      diagVisualKombu: string;
+      diagStrippedControls: string;
+      diagTotalRepairs: string;
     };
   };
 }
@@ -526,7 +543,10 @@ export const translations: Record<Language, Translations> = {
         vowelSignLabel: "உயிர்மெய்க் குறியீடு (வடிவம்)",
         codepointsLabel: "ஒருங்குறித் தொடர்",
         classificationLabel: "இலக்கண வகை",
-        selectPrompt: "விவரங்களைக் காண மேலே உள்ள ஓர் எழுத்தைக் கிளிக் செய்க"
+        selectPrompt: "விவரங்களைக் காண மேலே உள்ள ஓர் எழுத்தைக் கிளிக் செய்க",
+        moraLabel: "மாத்திரை (Mora / Duration)",
+        cognateLabel: "இன எழுத்து (Cognate / Harmony)",
+        quantityLabel: "எழுத்துக் கால அளவு"
       },
       normalizer: {
         title: "ஒருங்குறி சீரமைப்பி",
@@ -537,6 +557,7 @@ export const translations: Record<Language, Translations> = {
         nfcLabel: "இயல்பு வடிவம் (NFC - பரிந்துரைக்கப்பட்டது)",
         nfdLabel: "பிரித்த வடிவம் (NFD - Decomposed)",
         repairedLabel: "பிழைதிருத்தம் (Repaired NFC)",
+        foldLabel: "தேடல் மடிப்பு (Search Folding)",
         statusClean: "உரையில் எவ்வித ஒருங்குறிப் பிழைகளும் இல்லை (தூய உரை)",
         statusAnomalies: "ஒருங்குறிப் பிழைகள் கண்டறியப்பட்டு சரிசெய்யப்பட்டன!",
         anomaliesFixedLabel: "சரிசெய்யப்பட்ட பிழைகள்:",
@@ -548,7 +569,20 @@ export const translations: Record<Language, Translations> = {
         nfcBanner: "NFC (ஒருங்கிணைந்த வடிவம்): இரட்டைக் குறியீடுகளை (கொம்பு + துணைக்கால்/ளகரம்) ஒற்றைக் குறியீடாக (ொ, ோ, ௌ) இணைத்துத் தருகிறது.",
         nfdBanner: "NFD (பிரித்த வடிவம்): இரட்டை உயிர்மெய்க் குறிகளை (ொ, ோ, ௌ) அவற்றின் அடிப்படைக் கொம்பு (ெ/ே) மற்றும் துணைக்கால்/ளகரக் கூறுகளாகப் (ா/ௗ) பிரிக்கிறது. உலாவி எழுத்துருவில் இரண்டும் ஒரே மாதிரி தெரிந்தாலும், கீழே உள்ள Codepoints ஆய்வில் பைட் வரிசை வேறுபாட்டைக் காணலாம்.",
         repairedBanner: "தூய பிழைதிருத்தம்: இரட்டைப் புள்ளிகள் சுருக்கப்பட்டு, மறைமுகத் தேவையற்ற குறியீடுகள் நீக்கப்பட்டு, தூய NFC வடிவில் தரப்பட்டுள்ளது.",
-        decomposedCountLabel: "இரட்டை உயிர்மெய்க் கூறுகள் பிரிக்கப்பட்டன"
+        foldBanner: "தேடல் மடிப்பு (Search Folding - Contract 3): மயங்கொலி வேறுபாடுகள் (ள/ழ/ல, ண/ந/ன, ற/ர) மற்றும் கிரந்த எழுத்துக்களை (ஜ, ஷ, ஸ, ஹ, ஸ்ரீ, க்ஷ) சீரமைத்து, துல்லியமான அகராதி மற்றும் தரவுத்தளத் தேடலுக்கு உகந்ததாக மாற்றுகிறது.",
+        decomposedCountLabel: "இரட்டை உயிர்மெய்க் கூறுகள் பிரிக்கப்பட்டன",
+        profileComprehensive: "முழு மடிப்பு (Comprehensive)",
+        profileMayangoli: "மயங்கொலி மட்டும் (Mayangoli)",
+        profileGrantha: "கிரந்தம் மட்டும் (Grantha)",
+        repairOptionsHeading: "சீரமைப்புத் தேர்வுகள் & விவரங்கள் (Repair Diagnostics)",
+        optCollapsePulli: "இரட்டைப் புள்ளி சுருக்குதல்",
+        optReorderKombu: "முன்நிற்கும் கொம்பு சீரமைப்பு",
+        optStripShy: "மென்-இணைப்புக் குறியீடு (SHY) நீக்கம்",
+        optStripJoiners: "மறைமுகக் குறியீடுகள் (ZWJ/ZWNJ) நீக்கம்",
+        diagDuplicatePulli: "இரட்டைப் புள்ளிகள்",
+        diagVisualKombu: "முன்நிற்கும் கொம்புகள்",
+        diagStrippedControls: "நீக்கப்பட்ட மறைமுகக் குறிகள்",
+        diagTotalRepairs: "மொத்தத் திருத்தங்கள்"
       }
     }
   },
@@ -800,7 +834,10 @@ export const translations: Record<Language, Translations> = {
         vowelSignLabel: "Vowel Sign Glyph",
         codepointsLabel: "Unicode Sequence",
         classificationLabel: "Grammatical Category",
-        selectPrompt: "Click any syllable above to view its morphological breakdown"
+        selectPrompt: "Click any syllable above to view its morphological breakdown",
+        moraLabel: "Duration (Māthirai / Mora)",
+        cognateLabel: "Cognate Consonant (Inam)",
+        quantityLabel: "Phonological Quantity"
       },
       normalizer: {
         title: "Unicode Text Normalizer",
@@ -811,6 +848,7 @@ export const translations: Record<Language, Translations> = {
         nfcLabel: "Canonical Composition (NFC - Recommended)",
         nfdLabel: "Canonical Decomposition (NFD)",
         repairedLabel: "Clean & Repaired (NFC)",
+        foldLabel: "Search Folding (Contract 3)",
         statusClean: "Text is in clean canonical Unicode standard (0 anomalies)",
         statusAnomalies: "Encoding anomalies detected and repaired!",
         anomaliesFixedLabel: "Repairs Performed:",
@@ -822,7 +860,20 @@ export const translations: Record<Language, Translations> = {
         nfcBanner: "NFC (Canonical Composition): Composes split two-part vowel sequences into single canonical Unicode characters (ொ, ோ, ௌ) for standard storage and database queries.",
         nfdBanner: "NFD (Canonical Decomposition): Decomposes two-part vowel signs (ொ, ோ, ௌ) into constituent kombu (ெ/ே) and auxiliary glyphs (ா/ௗ). While rendered identically by Tamil fonts, inspect the Codepoints breakdown below to verify byte-level decomposition.",
         repairedBanner: "Clean & Repaired: Collapses duplicate pulli marks, strips stray invisible format controls (ZWJ/ZWNJ/BOM), and emits canonical NFC.",
-        decomposedCountLabel: "Two-part vowel signs decomposed"
+        foldBanner: "Search Folding (Contract 3): Versioned lossy phonetic and loanword folding for robust search indexes. Folds Mayangoli confusion sets (ள/ழ/ல, ண/ந/ன, ற/ர) and Grantha letters (ஜ, ஷ, ஸ, ஹ, ஸ்ரீ, க்ஷ) to canonical search keys.",
+        decomposedCountLabel: "Two-part vowel signs decomposed",
+        profileComprehensive: "Comprehensive (All)",
+        profileMayangoli: "Mayangoli Confusion Sets",
+        profileGrantha: "Grantha Consonants",
+        repairOptionsHeading: "Repair Options & Diagnostics",
+        optCollapsePulli: "Collapse Duplicate Pulli",
+        optReorderKombu: "Reorder Visual Kombu",
+        optStripShy: "Strip Soft Hyphens (SHY)",
+        optStripJoiners: "Strip Joiners (ZWJ/ZWNJ)",
+        diagDuplicatePulli: "Duplicate Pulli Marks",
+        diagVisualKombu: "Visual Kombu Positions",
+        diagStrippedControls: "Stripped Control Chars",
+        diagTotalRepairs: "Total Repairs Performed"
       }
     }
   }
