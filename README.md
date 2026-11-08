@@ -310,6 +310,14 @@ The repository checks shared golden fixtures through Rust, Python, Node/browser 
 
 ---
 
+## Author & Maintainer
+
+**Abishtakan Sivachandrathevan**
+- GitHub: [@abishtakan](https://github.com/abishtakan)
+- Project: [tamil-toolkit](https://github.com/abishtakan/tamil-toolkit)
+
+---
+
 ## Contributing
 
 Bug reports, documentation improvements, and sourced test cases are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow, [current project status](docs/status.md) for active and deferred work, and [ROADMAP.md](ROADMAP.md) for long-term integration milestones.

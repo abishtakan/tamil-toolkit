@@ -103,6 +103,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ---
 
+## Author & Maintainer
+
+**Abishtakan Sivachandrathevan** ([@abishtakan](https://github.com/abishtakan))
+
+---
+
 ## License
 
 Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).

@@ -191,6 +191,12 @@ text = tamil.execute({"op": "lt_tm_codes_to_unicode", "input": {"codes": codes}}
 
 ---
 
+## Author & Maintainer
+
+**Abishtakan Sivachandrathevan** ([@abishtakan](https://github.com/abishtakan))
+
+---
+
 ## Documentation
 
 - [API and feature overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)

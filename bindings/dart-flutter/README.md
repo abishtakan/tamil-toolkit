@@ -94,6 +94,12 @@ This compiles the Rust C ABI dynamic library and executes tests verifying golden
 
 ---
 
+## Author & Maintainer
+
+**Abishtakan Sivachandrathevan** ([@abishtakan](https://github.com/abishtakan))
+
+---
+
 ## License
 
 Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
