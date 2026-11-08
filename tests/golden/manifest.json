@@ -63,6 +63,17 @@
       ]
     },
     {
+      "file": "core_phonology.jsonl",
+      "status": "active",
+      "operations": [
+        "classify_quantity",
+        "baseline_maathirai",
+        "get_cognate",
+        "are_cognates",
+        "get_olippasai"
+      ]
+    },
+    {
       "file": "collate_agara_varisai.jsonl",
       "status": "active",
       "operations": [

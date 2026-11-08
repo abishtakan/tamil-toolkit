@@ -1,5 +1,15 @@
 # Project handoff
 
+## Feature 017 Phase 1 handoff (2026-11-08)
+
+Phase 1 (`017-tamil-core-primitives`) tasks T001–T023 are complete:
+- **Phonological Duration & Quantity**: Implemented `LetterQuantity` (`Kuril`, `Nedil`, `Mei`, `Aytham`, `Other`), `Maathirai` mora unit struct (`KURIL = 1.0`, `NEDIL = 2.0`, `MEI = 0.5`, `AYTHAM = 0.5`, `ZERO = 0.0`), `classify_quantity`, `baseline_maathirai`, and boolean predicates `is_kuril`, `is_nedil`, `is_mei`, `is_otru`, `is_aytham` in `crates/tamil-core/src/phonology.rs`.
+- **Homorganic Cognates (*Ina Ezhuthu*)**: Sourced bidirectional consonant pairs (*Vallinam* <-> *Mellinam*: `க்` <-> `ங்`, `ச்` <-> `ஞ்`, `ட்` <-> `ண்`, `த்` <-> `ந்`, `ப்` <-> `ம்`, `ற்` <-> `ன்`), vowel cognates (`அ` <-> `ஆ`, `ஐ` <-> `இ`, `ஔ` <-> `உ`), and diacritic-preserving composite *Uyirmei* mappings (`கா` <-> `ஙா`) via `get_cognate` and `are_cognates`.
+- **Syllable Nucleus (*Olippasai*) Segmentation**: Zero-allocation iterator `OlippasaiIter` and `get_olippasai` in `crates/tamil-core/src/olippasai.rs` yielding borrowed byte and letter spans over tailored letters, attaching onset clusters and grouping trailing codas without heap allocation.
+- **Tri-Runtime Parity & Dispatcher**: Added dispatcher actions `core.classify_letter`, `core.get_cognate`, and `core.segment_olippasai`. Exposed typed bindings in Python (`tamil_toolkit`) and TypeScript/WASM (`tamil-toolkit`).
+- **Golden Test Coverage**: 40 active vectors in `tests/golden/core_phonology.jsonl` verifying letter quantity, mora calculations, cognate pairs, composite preservation, and nucleus spans across Rust, Python, and WASM runtimes.
+- **Verification**: `just agent-post-edit` and `just agent-pre-stop-gate` passing cleanly. All workspace crates, golden parity tests, and Clippy gates passing with zero warnings.
+
 ## Feature 016 handoff (2026-11-08)
 
 Feature 016 tasks T001–T018 are complete; the specification header now records this verified documentation/governance completion. See [canonical architecture](specs/architecture-roadmap.md) for the Tier 1–5 matrix, Phase 0–17 schedule and lifecycle evidence, and [tasks](../specs/016-crate-dependency-roadmap/tasks.md) for acceptance details. Rank checks cover 16 current manifests, four future names, target/build/dev tables and aliases; future placeholder directories are rejected even without manifests.

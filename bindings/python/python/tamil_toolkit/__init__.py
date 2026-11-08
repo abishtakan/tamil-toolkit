@@ -21,6 +21,16 @@ __all__ += [
     "hyphenation_points",
     "hyphenate_text",
     "wrap_text",
+    "classify_quantity",
+    "baseline_maathirai",
+    "is_kuril",
+    "is_nedil",
+    "is_mei",
+    "is_otru",
+    "is_aytham",
+    "get_cognate",
+    "are_cognates",
+    "get_olippasai",
 ]
 
 
@@ -50,6 +60,46 @@ def compose_uyirmei(mei: str, uyir: str) -> str:
 
 def inspect_tamil_string(text: str) -> dict[str, Any]:
     return execute({"op": "inspect_tamil_string", "input": text})
+
+
+def classify_quantity(letter: str) -> str:
+    return execute({"op": "classify_quantity", "input": letter})
+
+
+def baseline_maathirai(letter: str) -> float:
+    return execute({"op": "baseline_maathirai", "input": letter})
+
+
+def is_kuril(letter: str) -> bool:
+    return classify_quantity(letter) == "kuril"
+
+
+def is_nedil(letter: str) -> bool:
+    return classify_quantity(letter) == "nedil"
+
+
+def is_mei(letter: str) -> bool:
+    return classify_quantity(letter) == "mei"
+
+
+def is_otru(letter: str) -> bool:
+    return is_mei(letter)
+
+
+def is_aytham(letter: str) -> bool:
+    return classify_quantity(letter) == "aytham"
+
+
+def get_cognate(letter: str) -> str | None:
+    return execute({"op": "get_cognate", "input": letter})
+
+
+def are_cognates(left: str, right: str) -> bool:
+    return execute({"op": "are_cognates", "input": {"left": left, "right": right}})
+
+
+def get_olippasai(text: str) -> list[dict[str, Any]]:
+    return execute({"op": "get_olippasai", "input": text})
 
 
 def compare(left: str, right: str) -> int:

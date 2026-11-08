@@ -5,6 +5,15 @@ use serde::Serialize;
 use unicode_normalization::UnicodeNormalization;
 use unicode_segmentation::UnicodeSegmentation;
 
+pub mod olippasai;
+pub mod phonology;
+
+pub use olippasai::{get_olippasai, Olippasai, OlippasaiIter};
+pub use phonology::{
+    are_cognates, baseline_maathirai, classify_quantity, get_cognate, is_aytham, is_kuril, is_mei,
+    is_nedil, is_otru, LetterQuantity, Maathirai,
+};
+
 mod tables {
     include!(concat!(env!("OUT_DIR"), "/core_tables.rs"));
 }

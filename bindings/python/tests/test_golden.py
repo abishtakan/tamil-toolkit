@@ -18,6 +18,24 @@ def test_golden():
             assert tamil.execute(case) == case["expected"], case["id"]
 
 
+def test_phonology_and_olippasai_convenience_api():
+    assert tamil.classify_quantity("\u0b85") == "kuril"
+    assert tamil.classify_quantity("\u0b86") == "nedil"
+    assert tamil.baseline_maathirai("\u0b95") == 1.0
+    assert tamil.is_kuril("\u0b95\u0bbf")
+    assert tamil.is_nedil("\u0b95\u0bbe")
+    assert tamil.is_mei("\u0b95\u0bcd")
+    assert tamil.is_otru("\u0ba4\u0bcd")
+    assert tamil.is_aytham("\u0b83")
+    assert tamil.get_cognate("\u0b95\u0bbe") == "\u0b99\u0bbe"
+    assert tamil.are_cognates("\u0ba4\u0bcd", "\u0ba8\u0bcd")
+    assert not tamil.are_cognates("\u0ba4\u0bcd", "\u0bae\u0bcd")
+    syllables = tamil.get_olippasai("\u0ba4\u0bae\u0bbf\u0bb4\u0bcd")
+    assert len(syllables) == 2
+    assert syllables[0]["text"] == "\u0ba4"
+    assert syllables[1]["text"] == "\u0bae\u0bbf\u0bb4\u0bcd"
+
+
 def test_vakyakarana_true_moon_convenience_api():
     result = tamil.vakya_true_moon_from_kali_day(1_844_004)
     assert result["moon_vakya_number"] == 154

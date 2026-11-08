@@ -2,7 +2,7 @@
 
 # tamil-core
 
-**Unicode normalization, tailored Ezhuthu iteration, Mei/Uyir composition and scalar inspection.**
+**Tailored UAX #29 letter segmentation, Mei/Uyir splitting, Tholkappiyam phonology (mora/Maathirai, cognates/Ina Ezhuthu), zero-allocation syllable nuclei (Olippasai), and Unicode inspection.**
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-core?style=flat-square)](https://crates.io/crates/tamil-core)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-core?style=flat-square&label=downloads)](https://crates.io/crates/tamil-core)
@@ -18,9 +18,11 @@
 
 | Area | Capabilities |
 | --- | --- |
-| **Segmentation** | Tailored Tamil letter clusters via `get_letters` or the borrowed `Letters` iterator. |
-| **Normalization** | NFC/NFD normalization and scalar-level inspection. |
-| **Ezhuthu** | Mei/Uyir splitting and composition. |
+| **Segmentation** | Tailored Tamil grapheme clusters via `get_letters` or the borrowed `Letters` iterator (accurately preserving `க்ஷ` and `ஸ்ரீ`). |
+| **Phonology** | Tholkappiyam mora metrics (`Maathirai`, `baseline_maathirai`), letter quantity classification (`is_kuril`, `is_nedil`, `is_mei`, `is_otru`, `is_aytham`), and homorganic cognates (`get_cognate`, `are_cognates`). |
+| **Syllable Nuclei** | Zero-allocation orthographic syllable segmentation (`Olippasai`, `OlippasaiIter`) borrowing directly from input string slices. |
+| **Normalization** | NFC/NFD canonical normalization and scalar-level inspection. |
+| **Ezhuthu** | Mei/Uyir splitting and composition (`split_uyirmei`, `compose_uyirmei`). |
 
 Experimental alpha `0.1.0-alpha.6`. APIs may change before stability. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage.
@@ -41,12 +43,15 @@ tamil-core = "=0.1.0-alpha.6"
 ## Example
 
 ```rust
-use tamil_core::{get_letters, Letters};
+use tamil_core::{are_cognates, baseline_maathirai, get_letters, Letters};
 
 fn main() {
     let text = "தமிழ்";
     println!("{}", get_letters(text).join(" | "));
     assert_eq!(Letters::new(text).count(), 3);
+    assert_eq!(baseline_maathirai("த").as_fraction(), (1, 1)); // 1.0 mora (Kuril)
+    assert_eq!(baseline_maathirai("ழ்").as_fraction(), (1, 2)); // 0.5 mora (Mei)
+    assert!(are_cognates("க்", "ங்"));
 }
 ```
 

@@ -43,20 +43,22 @@ INPUTS = {
     "tamil-codec": ("bamini.toml", "tscii.toml", "tab.toml", "tam.toml", "anjal.toml", "lt_tm.toml", "vanavil.toml"),
 }
 SUMMARIES = {
-    "tamil-core": "Unicode normalization, tailored Ezhuthu iteration, Mei/Uyir composition and scalar inspection.",
+    "tamil-core": "Tailored UAX #29 letter segmentation, Mei/Uyir splitting, Tholkappiyam phonology (mora/Maathirai, cognates/Ina Ezhuthu), zero-allocation syllable nuclei (Olippasai), and Unicode inspection.",
     "tamil-norm": "NFC and NFD normalization for Tamil and mixed-script text, with joiners preserved.",
     "tamil-collate": "Versioned Mei-first Agara dictionary ordering and canonical sort/search keys.",
     "tamil-numerals": "Bounded TN/SL number words, exact decimal and INR/LKR strings, Unicode 17 symbols, traditional numerals, fractions, Gregorian civil arithmetic, bounded Thirukanitham and classical Vākyakaraṇa calendar profiles, selected TN observance rules, and official annual holiday schedules.",
     "tamil-calendar": "Tamil calendar systems, Thirukanitham, Vakiya, panchangam, and observances.",
     "tamil-codec": "Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles.",
-    "tamil-toolkit": "Unified Rust entry point for Tamil text, ordering, bounded exact numerals, civil arithmetic, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, and legacy conversion APIs.",
+    "tamil-toolkit": "Unified high-performance Rust entry point for Tamil text, Agara ordering, bounded exact numerals, Tholkappiyam phonology, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, and legacy conversion APIs.",
 }
 FEATURE_TABLES = {
     "tamil-core": """| Area | Capabilities |
 | --- | --- |
-| **Segmentation** | Tailored Tamil letter clusters via `get_letters` or the borrowed `Letters` iterator. |
-| **Normalization** | NFC/NFD normalization and scalar-level inspection. |
-| **Ezhuthu** | Mei/Uyir splitting and composition. |""",
+| **Segmentation** | Tailored Tamil grapheme clusters via `get_letters` or the borrowed `Letters` iterator (accurately preserving `க்ஷ` and `ஸ்ரீ`). |
+| **Phonology** | Tholkappiyam mora metrics (`Maathirai`, `baseline_maathirai`), letter quantity classification (`is_kuril`, `is_nedil`, `is_mei`, `is_otru`, `is_aytham`), and homorganic cognates (`get_cognate`, `are_cognates`). |
+| **Syllable Nuclei** | Zero-allocation orthographic syllable segmentation (`Olippasai`, `OlippasaiIter`) borrowing directly from input string slices. |
+| **Normalization** | NFC/NFD canonical normalization and scalar-level inspection. |
+| **Ezhuthu** | Mei/Uyir splitting and composition (`split_uyirmei`, `compose_uyirmei`). |""",
     "tamil-norm": """| Operation | Behavior |
 | --- | --- |
 | **NFC/NFD** | Canonical Unicode normalization for Tamil and mixed-script text. |
@@ -86,7 +88,7 @@ FEATURE_TABLES = {
 | **Limits** | No PDF parsing, automatic detection, or complete historical-font coverage. |""",
     "tamil-toolkit": """| Area | Capabilities |
 | --- | --- |
-| **Text** | Unicode letter operations, normalization, and inspection. |
+| **Text & Phonology** | Unicode letter operations, normalization, inspection, Tholkappiyam mora (`Maathirai`), homorganic cognates (`Ina Ezhuthu`), and zero-allocation syllable nuclei (`Olippasai`). |
 | **Ordering and numbers** | Agara sorting, Tamil number words, bounded exact numeric strings and currency amounts, symbol metadata, fractions, and Gregorian civil arithmetic. |
 | **Tamil calendar** | Bounded Thirukanitham Drik conversion and panchangam reports, a named Nava Panchangam/Tamil-rule TN subset for solar festivals and Amavasya/Pournami Aparahna selection with sunrise fallback, and selected authority-published TN/SL annual holiday schedules; Vakiya and Sri Lanka observances are unsupported and calendar fixture suites remain planned. |
 | **Historical calendar kernels** | Unreleased source-pinned 1962 Vakiya solar and lunar calculations; full Vakiya date/location/five-limb coverage is not implemented. |
@@ -111,12 +113,15 @@ UNRELEASED_NOTES = {
     ) for name in ("tamil-numerals", "tamil-toolkit")
 }
 EXAMPLES = {
-    "tamil-core": '''use tamil_core::{get_letters, Letters};
+    "tamil-core": '''use tamil_core::{are_cognates, baseline_maathirai, get_letters, Letters};
 
 fn main() {
     let text = "தமிழ்";
     println!("{}", get_letters(text).join(" | "));
     assert_eq!(Letters::new(text).count(), 3);
+    assert_eq!(baseline_maathirai("த").as_fraction(), (1, 1)); // 1.0 mora (Kuril)
+    assert_eq!(baseline_maathirai("ழ்").as_fraction(), (1, 2)); // 0.5 mora (Mei)
+    assert!(are_cognates("க்", "ங்"));
 }''',
     "tamil-norm": '''fn main() {
     let decomposed = tamil_norm::normalize_nfd("தமிழ்");

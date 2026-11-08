@@ -1,4 +1,14 @@
 export interface Uyirmei { mei: string; uyir: string }
+export interface Olippasai {
+  text: string;
+  start_byte: number;
+  end_byte: number;
+  start_letter_idx: number;
+  end_letter_idx: number;
+  has_coda: boolean;
+  coda_count: number;
+}
+export type LetterQuantity = "kuril" | "nedil" | "mei" | "aytham" | "other";
 export interface HyphenationPoint { letter_index: number; byte_offset: number }
 export interface HyphenationResult { word: string; syllables: string[]; hyphenated: string }
 export interface WrapResult { lines: string[]; wrapped: string }
@@ -232,6 +242,16 @@ export function createApi(nativeExecute: (request: string) => string) {
     split_uyirmei: (text: string) => execute({ op: "split_uyirmei", input: text }) as Uyirmei,
     compose_uyirmei: (mei: string, uyir: string) => execute({ op: "compose_uyirmei", input: { mei, uyir } }) as string,
     inspect_tamil_string: (text: string) => execute({ op: "inspect_tamil_string", input: text }) as Inspection,
+    classify_quantity: (letter: string) => execute({ op: "classify_quantity", input: letter }) as LetterQuantity,
+    baseline_maathirai: (letter: string) => execute({ op: "baseline_maathirai", input: letter }) as number,
+    is_kuril: (letter: string) => (execute({ op: "classify_quantity", input: letter }) as string) === "kuril",
+    is_nedil: (letter: string) => (execute({ op: "classify_quantity", input: letter }) as string) === "nedil",
+    is_mei: (letter: string) => (execute({ op: "classify_quantity", input: letter }) as string) === "mei",
+    is_otru: (letter: string) => (execute({ op: "classify_quantity", input: letter }) as string) === "mei",
+    is_aytham: (letter: string) => (execute({ op: "classify_quantity", input: letter }) as string) === "aytham",
+    get_cognate: (letter: string) => execute({ op: "get_cognate", input: letter }) as string | null,
+    are_cognates: (left: string, right: string) => execute({ op: "are_cognates", input: { left, right } }) as boolean,
+    get_olippasai: (text: string) => execute({ op: "get_olippasai", input: text }) as Olippasai[],
     compare: (left: string, right: string) => execute({ op: "compare", input: { left, right } }) as -1 | 0 | 1,
     sort_words: (words: string[]) => execute({ op: "sort_words", input: words }) as string[],
     sort_key: (text: string) => execute({ op: "sort_key", input: text }) as number[],

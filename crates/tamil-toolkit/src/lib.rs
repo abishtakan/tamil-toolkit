@@ -1426,6 +1426,18 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         .ok_or("missing op")?
     {
         "get_letters" => Ok(json!(core::get_letters(string(input)?))),
+        "classify_quantity" => Ok(json!(core::classify_quantity(string(input)?))),
+        "baseline_maathirai" => Ok(json!(core::baseline_maathirai(string(input)?).value())),
+        "get_cognate" => Ok(json!(core::get_cognate(string(input)?))),
+        "are_cognates" => {
+            let left = string(&input["left"])?;
+            let right = string(&input["right"])?;
+            Ok(json!(core::are_cognates(left, right)))
+        }
+        "get_olippasai" => {
+            let syllables: Vec<_> = core::get_olippasai(string(input)?).collect();
+            Ok(json!(syllables))
+        }
         "normalize_nfc" => Ok(json!(norm::normalize_nfc(string(input)?))),
         "normalize_nfd" => Ok(json!(norm::normalize_nfd(string(input)?))),
         "split_uyirmei" => core::split_uyirmei(string(input)?).map(|parts| json!(parts)),
