@@ -788,16 +788,36 @@ fn handle_norm(args: &[String]) {
             }
         }
         "fold" => {
-            if args.len() < 2 {
+            let mut text: Option<&str> = None;
+            let mut profile = tamil_norm::FoldingProfile::Comprehensive;
+            let mut i = 1;
+            while i < args.len() {
+                if args[i] == "--profile" {
+                    let Some(val) = args.get(i + 1) else {
+                        eprintln!("Error: Missing value for --profile.");
+                        exit(1);
+                    };
+                    profile = tamil_norm::FoldingProfile::parse(val).unwrap_or_else(|| {
+                        eprintln!(
+                            "Error: Unknown folding profile '{val}'. Expected: mayangoli, grantha, comprehensive."
+                        );
+                        exit(1);
+                    });
+                    i += 2;
+                } else if args[i].starts_with('-') {
+                    eprintln!("Error: Unknown option '{}' for fold.", args[i]);
+                    exit(1);
+                } else if text.is_none() {
+                    text = Some(&args[i]);
+                    i += 1;
+                } else {
+                    eprintln!("Error: Unexpected extra argument '{}' for fold.", args[i]);
+                    exit(1);
+                }
+            }
+            let Some(text) = text else {
                 eprintln!("Error: Missing text argument for fold.");
                 exit(1);
-            }
-            let text = &args[1];
-            let profile = if args.len() >= 4 && args[2] == "--profile" {
-                tamil_norm::FoldingProfile::parse(&args[3])
-                    .unwrap_or(tamil_norm::FoldingProfile::Comprehensive)
-            } else {
-                tamil_norm::FoldingProfile::Comprehensive
             };
             println!("{}", tamil_norm::fold_for_search(text, profile));
         }

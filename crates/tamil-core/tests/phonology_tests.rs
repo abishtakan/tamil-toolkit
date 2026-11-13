@@ -224,3 +224,118 @@ fn test_homorganic_cognate_pairs() {
     assert!(are_cognates("\u{0B95}\u{0BBE}", "\u{0B99}\u{0BBE}"));
     assert!(!are_cognates("\u{0B95}\u{0BBE}", "\u{0BAE}\u{0BBE}"));
 }
+
+mod feature_021_reuse_validation {
+    use tamil_core::{
+        are_cognates, baseline_maathirai, classify_quantity, compose_uyirmei, get_cognate,
+        get_letters, get_olippasai, inspect_tamil_string, normalize_nfc, normalize_nfd,
+        split_uyirmei, LetterQuantity, Letters,
+    };
+
+    fn scalars(codes: &[u32]) -> String {
+        codes.iter().filter_map(|&c| char::from_u32(c)).collect()
+    }
+
+    #[test]
+    fn get_letters_normalizes_while_letters_iter_borrows_slice() {
+        let nfd = scalars(&[0x0b95, 0x0bc6, 0x0bbe]);
+        let nfc = "\u{0b95}\u{0bca}";
+        assert_eq!(normalize_nfc(&nfd), nfc);
+        assert_eq!(normalize_nfd(nfc), nfd);
+
+        // get_letters normalizes NFD input to NFC
+        assert_eq!(get_letters(&nfd), vec![nfc.to_string()]);
+        assert_eq!(get_letters(""), Vec::<String>::new());
+
+        // Letters::new borrows NFC input without heap allocation
+        let borrowed: Vec<&str> =
+            Letters::new("\u{0ba4}\u{0bae}\u{0bbf}\u{0bb4}\u{0bcd}").collect();
+        assert_eq!(
+            borrowed,
+            vec!["\u{0ba4}", "\u{0bae}\u{0bbf}", "\u{0bb4}\u{0bcd}"]
+        );
+    }
+
+    #[test]
+    fn split_and_compose_uyirmei_contracts() {
+        let nfd = scalars(&[0x0b95, 0x0bc6, 0x0bbe]);
+        let parts = split_uyirmei(&nfd).expect("valid NFD ko");
+        assert_eq!(parts.mei, "\u{0b95}\u{0bcd}");
+        assert_eq!(parts.uyir, "\u{0b92}");
+
+        let recomposed = compose_uyirmei(&parts.mei, &parts.uyir).expect("valid compose");
+        assert_eq!(recomposed, "\u{0b95}\u{0bca}");
+
+        let ksha = split_uyirmei("\u{0b95}\u{0bcd}\u{0bb7}\u{0bca}").expect("valid ksho");
+        assert_eq!(ksha.mei, "\u{0b95}\u{0bcd}\u{0bb7}\u{0bcd}");
+        assert_eq!(ksha.uyir, "\u{0b92}");
+        assert_eq!(
+            compose_uyirmei(&ksha.mei, &ksha.uyir).expect("valid ksho compose"),
+            "\u{0b95}\u{0bcd}\u{0bb7}\u{0bca}"
+        );
+
+        assert!(split_uyirmei("\u{0b95}\u{0bcd}").is_err());
+        assert!(split_uyirmei("\u{0bb8}\u{0bcd}\u{0bb0}\u{0bc0}").is_err());
+        assert!(compose_uyirmei("\u{0b95}", "\u{0b85}").is_err());
+    }
+
+    #[test]
+    fn quantity_maathirai_cognate_and_olippasai_contracts() {
+        assert_eq!(classify_quantity("\u{0ba4}"), LetterQuantity::Kuril);
+        assert!((baseline_maathirai("\u{0ba4}").value() - 1.0).abs() < f32::EPSILON);
+
+        assert_eq!(classify_quantity("\u{0b95}\u{0bbe}"), LetterQuantity::Nedil);
+        assert!((baseline_maathirai("\u{0b95}\u{0bbe}").value() - 2.0).abs() < f32::EPSILON);
+
+        assert_eq!(classify_quantity("\u{0bb4}\u{0bcd}"), LetterQuantity::Mei);
+        assert!((baseline_maathirai("\u{0bb4}\u{0bcd}").value() - 0.5).abs() < f32::EPSILON);
+
+        assert_eq!(classify_quantity("\u{0b83}"), LetterQuantity::Aytham);
+        assert!((baseline_maathirai("\u{0b83}").value() - 0.5).abs() < f32::EPSILON);
+
+        // Documented single-letter boundary: multi-letter words return Other / 0.0
+        assert_eq!(
+            classify_quantity("\u{0ba4}\u{0bae}\u{0bbf}\u{0bb4}\u{0bcd}"),
+            LetterQuantity::Other
+        );
+        assert!(
+            (baseline_maathirai("\u{0ba4}\u{0bae}\u{0bbf}\u{0bb4}\u{0bcd}").value() - 0.0).abs()
+                < f32::EPSILON
+        );
+
+        assert_eq!(get_cognate("\u{0b95}"), Some("\u{0b99}".to_string()));
+        assert_eq!(
+            get_cognate("\u{0ba4}\u{0bae}\u{0bbf}\u{0bb4}\u{0bcd}"),
+            None
+        );
+        assert!(are_cognates("\u{0b95}", "\u{0b99}"));
+        assert!(!are_cognates("\u{0b95}", "\u{0baa}"));
+
+        let syllables: Vec<_> = get_olippasai("\u{0ba4}\u{0bae}\u{0bbf}\u{0bb4}\u{0bcd}").collect();
+        assert_eq!(syllables.len(), 2);
+        assert_eq!(syllables[0].text, "\u{0ba4}");
+        assert!(!syllables[0].has_coda);
+        assert_eq!(syllables[1].text, "\u{0bae}\u{0bbf}\u{0bb4}\u{0bcd}");
+        assert!(syllables[1].has_coda);
+    }
+
+    #[test]
+    fn inspect_tamil_string_joiner_and_nfd_contracts() {
+        let nfd = scalars(&[0x0b95, 0x0bc6, 0x0bbe]);
+        let ins_nfd = inspect_tamil_string(&nfd);
+        assert!(!ins_nfd.is_nfc);
+        assert!(ins_nfd.is_nfd);
+        assert_eq!(ins_nfd.nfc, "\u{0b95}\u{0bca}");
+        assert_eq!(ins_nfd.nfd, nfd);
+        assert_eq!(ins_nfd.grapheme_count, 1);
+        assert_eq!(ins_nfd.ezhuthu_count, 1);
+
+        let zwnj = scalars(&[0x0bb4, 0x0bcd, 0x200c, 0x0b95]);
+        let ins_zwnj = inspect_tamil_string(&zwnj);
+        assert_eq!(ins_zwnj.nfc, zwnj);
+        assert_eq!(ins_zwnj.grapheme_count, 2);
+        assert_eq!(ins_zwnj.ezhuthu_count, 1);
+        assert_eq!(ins_zwnj.letters[0].classification, "other");
+        assert_eq!(ins_zwnj.letters[1].classification, "vallinam");
+    }
+}

@@ -88,6 +88,17 @@
       ]
     },
     {
+      "file": "norm_canonical.jsonl",
+      "status": "active",
+      "operations": [
+        "normalize_nfc",
+        "normalize_nfd",
+        "fold_for_search",
+        "repair_tamil_text",
+        "inspect_tamil_string"
+      ]
+    },
+    {
       "file": "collate_agara_varisai.jsonl",
       "status": "active",
       "operations": [
@@ -232,7 +243,7 @@
     {
       "file": "calendar_vakya_local_sunrise.jsonl",
       "status": "planned",
-      "reason": "The 1962 correction takes the terms as caller inputs; Cara, Deśāntara and experimental longitude-linear Bhujaantara interpolation have separate calculations, while date/location derivation and calendar activation review remain open.",
+      "reason": "The 1962 correction takes the terms as caller inputs; Cara, De\u015b\u0101ntara and experimental longitude-linear Bhujaantara interpolation have separate calculations, while date/location derivation and calendar activation review remain open.",
       "operations": [
         "vakya_reduce_to_local_true_sunrise"
       ]

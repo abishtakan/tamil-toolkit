@@ -1,5 +1,29 @@
 # Project handoff
 
+## Feature 022 reused-Rust & NFC/NFD validation handoff (2026-11-13)
+
+- Completed full SpecKit lifecycle (`spec.md`, `research.md`, `data-model.md`,
+  `contracts/`, `quickstart.md`, `tasks.md`, consistency analysis, and
+  implementation) under [specs/022-validate-reused-rust-apis/](../specs/022-validate-reused-rust-apis/spec.md)
+  to validate `tamil-core`, `tamil-norm`, and `tamil-toolkit` ahead of Feature
+  021 without altering `specs/021-lexicon-curation/` or the 12 intake files.
+- Verified `tamil-norm` NFC & NFD canonical normalization (Unicode 17.0.0 UAX
+  #15 two-part vowels, CCC reordering, `ZWJ`/`ZWNJ`/`BOM`/`SHY` barriers,
+  Shri distinctions, non-repair of malformed sequences, idempotence, and NFD vs
+  NFC equivalence in `fold_for_search` and `repair_tamil_text`) with 30 new
+  escaped active golden vectors ([norm_canonical.jsonl](../tests/golden/norm_canonical.jsonl)),
+  10,000-case `proptest` invariants ([norm_tests.rs](../crates/tamil-norm/tests/norm_tests.rs)),
+  and 23-consonant sweeps ([folding_tests.rs](../crates/tamil-norm/tests/folding_tests.rs),
+  [repair_tests.rs](../crates/tamil-norm/tests/repair_tests.rs)).
+- Validated Feature 021-reused `tamil-core` primitives and `inspect_tamil_string`
+  joiner/NFD contracts ([phonology_tests.rs](../crates/tamil-core/tests/phonology_tests.rs)).
+- Fixed `tamil-toolkit` dispatcher/CLI gaps uncovered during validation: added 9
+  omitted implemented operations to `tamil_toolkit::OPERATIONS` ([lib.rs](../crates/tamil-toolkit/src/lib.rs))
+  and fixed `norm fold --profile` strict rejection & flag ordering ([tamil-toolkit.rs](../crates/tamil-toolkit/src/bin/tamil-toolkit.rs)),
+  backed by tests in [golden_suite.rs](../crates/tamil-toolkit/tests/golden_suite.rs).
+- Next: Resume Feature 021 with `speckit-analyze` and implementation on
+  [specs/021-lexicon-curation/tasks.md](../specs/021-lexicon-curation/tasks.md).
+
 ## Feature 021 tasks handoff (2026-11-13)
 
 - Completed `speckit-tasks` using the resolved project template and all design

@@ -3,6 +3,24 @@
 
 ## Unreleased
 
+- Validate reused Rust APIs across `tamil-core`, `tamil-norm`, and
+  `tamil-toolkit` ahead of Feature 021 (`specs/022-validate-reused-rust-apis`):
+  - Add 30 escaped canonical NFC/NFD, CCC mark reordering, format-control
+    barrier, Shri distinction, malformed-sequence, `inspect_tamil_string`, and
+    NFD-folding/repair golden vectors in `tests/golden/norm_canonical.jsonl`
+    registered in `tests/golden/manifest.json`.
+  - Add `proptest` (`10,000` cases per run) and 23-consonant Tamil/Grantha NFD
+    sweep tests in `tamil-norm`, confirming NFC/NFD correctness and identical
+    `fold_for_search` / `repair_tamil_text` outputs on canonically equivalent
+    NFC and NFD inputs.
+  - Lock Feature 021 reused `tamil-core` primitive contracts (`get_letters`,
+    `Letters`, `split_uyirmei`, `compose_uyirmei`, `classify_quantity`,
+    `baseline_maathirai`, `get_cognate`, `are_cognates`, `get_olippasai`, and
+    `inspect_tamil_string`).
+  - Sync `tamil_toolkit::OPERATIONS` with all operations handled by
+    `execute()` (adding 9 missing active operation names) and fix `tamil-toolkit
+    norm fold --profile <value>` to fail loudly on unknown profiles and handle
+    flag order before or after `<TEXT>`.
 - Generate 70 dependency-ordered Feature 021 tasks with independently testable
   stories, an executable structural-pilot slice, explicit later source/review
   gates, and separate runtime, activation, and archive acceptance.

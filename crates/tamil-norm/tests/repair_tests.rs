@@ -96,3 +96,72 @@ fn test_repair_clean_text_is_idempotent() {
     assert_eq!(res2.text, res.text);
     assert_eq!(res2.diagnostics.total_repairs, 0);
 }
+
+mod nfd_repair_validation {
+    use tamil_norm::{repair_tamil_text, RepairOptions};
+
+    const BASES: &[&str] = &[
+        "\u{0b95}",
+        "\u{0b99}",
+        "\u{0b9a}",
+        "\u{0b9e}",
+        "\u{0b9f}",
+        "\u{0ba3}",
+        "\u{0ba4}",
+        "\u{0ba8}",
+        "\u{0baa}",
+        "\u{0bae}",
+        "\u{0baf}",
+        "\u{0bb0}",
+        "\u{0bb2}",
+        "\u{0bb5}",
+        "\u{0bb4}",
+        "\u{0bb3}",
+        "\u{0bb1}",
+        "\u{0ba9}",
+        "\u{0b9c}",
+        "\u{0bb7}",
+        "\u{0bb8}",
+        "\u{0bb9}",
+        "\u{0b95}\u{0bcd}\u{0bb7}",
+    ];
+
+    fn scalars(codes: &[u32]) -> String {
+        codes.iter().filter_map(|&c| char::from_u32(c)).collect()
+    }
+
+    const SPLIT_VOWELS: &[(u32, [u32; 2])] = &[
+        (0x0bca, [0x0bc6, 0x0bbe]),
+        (0x0bcb, [0x0bc7, 0x0bbe]),
+        (0x0bcc, [0x0bc6, 0x0bd7]),
+    ];
+
+    #[test]
+    fn nfd_vs_nfc_23_consonant_repair_sweep() {
+        let opts = RepairOptions::default();
+        for base in BASES {
+            for &(nfc_c, ref nfd_codes) in SPLIT_VOWELS {
+                let nfc = format!("{base}{}", char::from_u32(nfc_c).unwrap());
+                let nfd = format!("{base}{}", scalars(nfd_codes));
+                let r_nfc = repair_tamil_text(&nfc, &opts);
+                let r_nfd = repair_tamil_text(&nfd, &opts);
+                assert_eq!(r_nfc.text, r_nfd.text);
+                assert_eq!(
+                    r_nfc.diagnostics.total_repairs,
+                    r_nfd.diagnostics.total_repairs
+                );
+                assert_eq!(r_nfc.text, nfc);
+                assert_eq!(r_nfc.diagnostics.total_repairs, 0);
+            }
+        }
+    }
+
+    #[test]
+    fn repair_default_preserves_zwj_zwnj() {
+        let s = scalars(&[0x0bb4, 0x0bcd, 0x200c, 0x0b95, 0x0bcd, 0x0bb7, 0x200d]);
+        let res = repair_tamil_text(&s, &RepairOptions::default());
+        assert_eq!(res.text, s);
+        assert_eq!(res.diagnostics.stripped_control_count, 0);
+        assert_eq!(res.diagnostics.total_repairs, 0);
+    }
+}

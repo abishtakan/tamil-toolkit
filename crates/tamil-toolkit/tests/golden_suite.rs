@@ -96,3 +96,107 @@ fn all_active_golden_vectors() {
         );
     }
 }
+
+mod feature_022_dispatcher_validation {
+    use std::process::Command;
+
+    #[test]
+    fn operations_list_includes_all_implemented_ops() {
+        let expected_present = [
+            "are_cognates",
+            "baseline_maathirai",
+            "calendar_display_info",
+            "classify_quantity",
+            "compare_calendar_profiles",
+            "format_tamil_date",
+            "get_cognate",
+            "get_olippasai",
+            "thiruvalluvar_year_info",
+        ];
+
+        for op in expected_present {
+            assert!(
+                tamil_toolkit::OPERATIONS.contains(&op),
+                "OPERATIONS is missing implemented operation '{op}'"
+            );
+        }
+
+        // Verify no duplicate entries in OPERATIONS
+        let unique: std::collections::BTreeSet<&str> =
+            tamil_toolkit::OPERATIONS.iter().copied().collect();
+        assert_eq!(
+            unique.len(),
+            tamil_toolkit::OPERATIONS.len(),
+            "OPERATIONS contains duplicate entries"
+        );
+    }
+
+    #[test]
+    fn dispatcher_rejects_invalid_fold_profile_and_unknown_op() {
+        let invalid_profile_req = serde_json::json!({
+            "op": "fold_for_search",
+            "input": {"text": "\u{0baa}\u{0bb4}\u{0bae}\u{0bcd}", "profile": "invalid"}
+        });
+        assert!(
+            tamil_toolkit::execute(&invalid_profile_req).is_err(),
+            "expected invalid folding profile error"
+        );
+
+        let unknown_op_req = serde_json::json!({"op": "nonexistent_op_xyz", "input": "test"});
+        assert!(
+            tamil_toolkit::execute(&unknown_op_req).is_err(),
+            "expected unsupported operation error"
+        );
+
+        let missing_op_req = serde_json::json!({"input": "test"});
+        assert!(
+            tamil_toolkit::execute(&missing_op_req).is_err(),
+            "expected missing op error"
+        );
+    }
+
+    #[test]
+    fn cli_norm_fold_rejects_invalid_profile() {
+        let bin = env!("CARGO_BIN_EXE_tamil-toolkit");
+
+        let after_text = Command::new(bin)
+            .args(["norm", "fold", "test", "--profile", "invalid"])
+            .output()
+            .expect("run tamil-toolkit norm fold test --profile invalid");
+        assert!(
+            !after_text.status.success(),
+            "expected non-zero exit for --profile invalid after text, got {:?}",
+            after_text.status
+        );
+
+        let before_text = Command::new(bin)
+            .args(["norm", "fold", "--profile", "invalid", "test"])
+            .output()
+            .expect("run tamil-toolkit norm fold --profile invalid test");
+        assert!(
+            !before_text.status.success(),
+            "expected non-zero exit for --profile invalid before text, got {:?}",
+            before_text.status
+        );
+
+        let valid = Command::new(bin)
+            .args([
+                "norm",
+                "fold",
+                "--profile",
+                "grantha",
+                "\u{0bb0}\u{0bbe}\u{0b9c}\u{0bbe}",
+            ])
+            .output()
+            .expect("run tamil-toolkit norm fold --profile grantha");
+        assert!(
+            valid.status.success(),
+            "expected zero exit for valid --profile grantha: stderr={}",
+            String::from_utf8_lossy(&valid.stderr)
+        );
+        assert_eq!(
+            String::from_utf8_lossy(&valid.stdout).trim(),
+            "\u{0bb0}\u{0bbe}\u{0b9a}\u{0bbe}"
+        );
+    }
+}

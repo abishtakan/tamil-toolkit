@@ -69,3 +69,64 @@ fn test_comprehensive_folding() {
     let folded = fold_for_search(input, FoldingProfile::Comprehensive);
     assert_eq!(folded, "சீ லச்மி pazham!");
 }
+
+mod nfd_folding_validation {
+    use tamil_norm::{fold_for_search, FoldingProfile};
+
+    const BASES: &[&str] = &[
+        "\u{0b95}",
+        "\u{0b99}",
+        "\u{0b9a}",
+        "\u{0b9e}",
+        "\u{0b9f}",
+        "\u{0ba3}",
+        "\u{0ba4}",
+        "\u{0ba8}",
+        "\u{0baa}",
+        "\u{0bae}",
+        "\u{0baf}",
+        "\u{0bb0}",
+        "\u{0bb2}",
+        "\u{0bb5}",
+        "\u{0bb4}",
+        "\u{0bb3}",
+        "\u{0bb1}",
+        "\u{0ba9}",
+        "\u{0b9c}",
+        "\u{0bb7}",
+        "\u{0bb8}",
+        "\u{0bb9}",
+        "\u{0b95}\u{0bcd}\u{0bb7}",
+    ];
+
+    fn scalars(codes: &[u32]) -> String {
+        codes.iter().filter_map(|&c| char::from_u32(c)).collect()
+    }
+
+    const SPLIT_VOWELS: &[(u32, [u32; 2])] = &[
+        (0x0bca, [0x0bc6, 0x0bbe]),
+        (0x0bcb, [0x0bc7, 0x0bbe]),
+        (0x0bcc, [0x0bc6, 0x0bd7]),
+    ];
+
+    #[test]
+    fn nfd_vs_nfc_23_consonant_sweep_across_all_profiles() {
+        for base in BASES {
+            for &(nfc_c, ref nfd_codes) in SPLIT_VOWELS {
+                let nfc = format!("{base}{}", char::from_u32(nfc_c).unwrap());
+                let nfd = format!("{base}{}", scalars(nfd_codes));
+                for profile in [
+                    FoldingProfile::Mayangoli,
+                    FoldingProfile::Grantha,
+                    FoldingProfile::Comprehensive,
+                ] {
+                    assert_eq!(
+                        fold_for_search(&nfc, profile),
+                        fold_for_search(&nfd, profile),
+                        "mismatch for {nfc:?} vs {nfd:?} under {profile:?}"
+                    );
+                }
+            }
+        }
+    }
+}

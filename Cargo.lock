@@ -615,6 +615,7 @@ version = "0.1.0-alpha.7"
 name = "tamil-norm"
 version = "0.1.0-alpha.7"
 dependencies = [
+ "proptest",
  "serde",
  "tamil-core",
 ]

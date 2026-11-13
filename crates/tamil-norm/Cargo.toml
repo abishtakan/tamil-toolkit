@@ -15,5 +15,8 @@ description = "Shared normalization facade for SDKs and future PostgreSQL integr
 tamil-core.workspace = true
 serde.workspace = true
 
+[dev-dependencies]
+proptest.workspace = true
+
 [lints]
 workspace = true
