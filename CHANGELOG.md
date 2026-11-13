@@ -3,6 +3,36 @@
 
 ## Unreleased
 
+- Generate 70 dependency-ordered Feature 021 tasks with independently testable
+  stories, an executable structural-pilot slice, explicit later source/review
+  gates, and separate runtime, activation, and archive acceptance.
+- Plan Feature 021's offline lexicon curation, evidence/review model, structural
+  pilot, approved optional packs, exact lookup, and validation workflow; add
+  research, data-model, interface, packaging, and quickstart design artifacts.
+- Clarify that the structural lexicon pilot can unblock numerals with zero
+  release-eligible content; approved data and verified runtime gates remain
+  separate requirements for lexical consumers.
+- Define lexicon regional filters to include attested regional matches and
+  reviewed unrestricted entries, excluding unknown geographic coverage.
+- Define lexicon exact lookup using NFC canonical equivalence, preserving
+  original spellings and format controls without repair or lossy folding.
+- Clarify lexicon review eligibility: automate acceptance of unchanged,
+  source-verified content while requiring human decisions for corrections,
+  inferred annotations, and ambiguous cases.
+- Specify Feature 021 lexicon curation and prioritize its reviewed pilot before
+  new numeral extensions. Align the main roadmap, canonical architecture, and
+  Feature 016 with separate provenance, curation, data-pack, and runtime gates;
+  preserve existing phase numbers and dependency ranks.
+
+- Audit the supplied lexicon across all CSV rows, primary references, Unicode,
+  native Rust count comparisons, and the supplied FST. Record editorial,
+  provenance, homograph lookup, and reproducibility gaps and a curation plan;
+  preserve every original source file.
+
+- Relocate the user-supplied lexicon source bundle to
+  `data/sources/tamil-lexicon/`, preserving all 12 files and recording SHA-256
+  checksums. Data review and runtime integration remain pending.
+
 ## 0.1.0-alpha.7 / Python 0.1.0a7 - 2026-11-08
 
 - Repair baseline validation blockers: preserve dictionary joiner patterns using explicit Unicode scalars, cover both controls, apply Rust formatting, resolve unused-variable/iterator warnings, and align the release acceptance test with the existing private hyphen exemption.

@@ -1,0 +1,1608 @@
+loanword_id,transliterated_ta,transliteration,source_word_en,origin_language,pure_tamil_equivalent,domain
+1,அக்கவுண்ட்,akkavuṇṭ,account,English,கணக்கு / பயனர் கணக்கு,Banking & Finance
+2,அக்மார்க்,akmārk,Agmark,English,வேளாண் தரக்குறியீடு,Agriculture & Commerce
+3,அக்ரிலிக்,akrilik,acrylic,English,அக்ரிலிக் செயற்கை இழை,Materials
+4,அகாடமி,akāṭami,academy,English,கல்விக்கழகம் / மன்றம்,Education
+5,அகோனைட்,akōṉaiṭ,aconite,Greek,அகோனைட்டு நச்சுத்தாவரம்,Botany
+6,அசல்,acal,asl,Arabic,மூலம் / மெய்,Documentation
+7,அசிடிக்,aciṭik,acidic,English,அமிலத்தன்மை கொண்ட,Chemistry
+8,அசிஸ்டன்ட்,acisṭaṉṭ,assistant,English,உதவியாளர்,Administration
+9,அட்டாக்,aṭṭāk,attack,English,தாக்குதல்,General
+10,அட்மிட்,aṭmiṭ,admit,English,சேர் / ஒப்புக்கொள் / அனுமதி,General
+11,அட்வகேட்,aṭvakēṭ,advocate,English,வழக்கறிஞர்,Law
+12,அட்ஜஸ்ட்,aṭjasṭ,adjust,English,சரிசெய் / இசைவி,General
+13,அதிகாரி,atikāri,adhikarin,Sanskrit,அலுவலர் / பொறுப்பாளர்,Administration
+14,அப்டேட்,apṭēṭ,update,English,புதுப்பி / அண்மையாக்கம்,Information Technology
+15,அப்லோட்,aplōṭ,upload,English,பதிவேற்று,Information Technology
+16,அர்த்தம்,arttam,artha,Sanskrit,பொருள்,Semantics
+17,அரசன்,aracaṉ,rajan,Sanskrit,வேந்தன் / மன்னன் / கோன்,Polity
+18,அல்டிமேட்,alṭimēṭ,ultimate,English,இறுதி / உச்சகட்ட,General
+19,அலமாரி,alamāri,armario,Portuguese,நிலைப்பேழை,Household
+20,அலர்ட்,alarṭ,alert,English,எச்சரிக்கை,Information Technology
+21,அலிடேட்,aliṭēṭ,alidade,English,நோக்கு அளவி / சுட்டுக்கோல்,Navigation & Surveying
+22,அவுட்,avuṭ,out,English,வெளியே / ஆட்டமிழப்பு,Sports & General
+23,அன்லிமிடெட்,aṉlimiṭeṭ,unlimited,English,வரம்பற்ற,General
+24,ஆஃப்,āḵp,off,English,அணை / முடக்கு,General
+25,ஆக்டிவேட்,ākṭivēṭ,activate,English,செயல்படுத்து / முடுக்கு,Information Technology
+26,ஆக்ஸிடன்ட்,āksiṭaṉṭ,accident,English,விபத்து,General
+27,ஆகஸ்ட்,ākasṭ,August,English,ஆகத்து மாதம்,Time & Calendar
+28,ஆகாயம்,ākāyam,akasha,Sanskrit,வான் / விண்,Astronomy
+29,ஆசிட்,āciṭ,acid,English,அமிலம்,Chemistry
+30,ஆட்டோகிராப்,āṭṭōkirāp,autograph,English,கையொப்பம் / கையெழுத்து,General
+31,ஆடிட்,āṭiṭ,audit,English,தணிக்கை,Commerce & Finance
+32,ஆண்ட்ராய்ட்,āṇṭrāyṭ,Android,English,ஆண்ட்ராய்டு இயங்குதளம்,Information Technology
+33,ஆந்திரசைட்,āntiracaiṭ,anthracite,Greek,உயர்தர நிலக்கரி / ஆந்திரசைட்டு,Geology
+34,ஆப்பிரிகாட்,āppirikāṭ,apricot,English,சர்க்கரை பாதாமி பழம்,Culinary
+35,ஆம்லெட்,āmleṭ,omelette,French,முட்டைப்பொரியல்,Culinary
+36,ஆர்கிட்,ārkiṭ,orchid,Greek,ஆர்க்கிட் வண்ண மலர்,Botany
+37,ஆர்ட்,ārṭ,art,English,கலை,General
+38,ஆர்ட்டிஸ்ட்,ārṭṭisṭ,artist,English,கலைஞர்,General
+39,ஆல்டிகைட்,ālṭikaiṭ,aldehyde,English,ஆல்டிகைடு வேதிமம்,Chemistry
+40,ஆலயம்,ālayam,alaya,Sanskrit,கோயில் / நகர்,Culture
+41,ஆனந்தம்,āṉantam,ananda,Sanskrit,மகிழ்ச்சி / உவகை,Philosophy
+42,ஆஸ்பத்திரி,āspattiri,hospital,English,மருத்துவமனை,Healthcare
+43,இசட்,icaṭ,Z,English,இசட் ஆங்கில எழுத்து,General
+44,இட்,iṭ,it,English,அது,Grammar
+45,இம்போர்ட்,impōrṭ,import,English,இறக்குமதி,Commerce
+46,இலாக்கா,ilākkā,ilaqa,Arabic,துறை,Administration
+47,இன்டர்நெட்,iṉṭarneṭ,internet,English,இணையம்,Information Technology
+48,இன்பில்ட்,iṉpilṭ,inbuilt,English,உள்ளமைந்த / பொதிந்த,Technology
+49,இன்ஸ்டன்ட்,iṉsṭaṉṭ,instant,English,உடனடி,General
+50,இன்ஸ்டிடியூட்,iṉsṭiṭiyūṭ,institute,English,நிறுவனம் / கழகம்,Education
+51,இனாம்,iṉām,inam,Arabic,நன்கொடை / மானியம்,Administration
+52,ஈமெயில்,īmeyil,email,English,மின்னஞ்சல்,Information Technology
+53,ஈஸ்ட்,īsṭ,yeast,English,நொதி / நுரைமம்,Biology & Culinary
+54,எட்,eṭ,ad / ed,English,விளம்பரம் / கல்வி,Media
+55,எடிட்,eṭiṭ,edit,English,தொகு / பதிப்பி,Information Technology
+56,எண்ட்,eṇṭ,end,English,முடிவு / இறுதி,General
+57,எண்டர்டெயின்மெண்ட்,eṇṭarṭeyiṉmeṇṭ,entertainment,English,பொழுதுபோக்கு,Media
+58,எபிசோட்,epicōṭ,episode,English,பகுதி / அத்தியாயம்,Media
+59,எபெக்ட்,epekṭ,effect,English,விளைவு,General
+60,எம்ஏஎச்,emēec,mAh (milliampere-hour),English,மில்லியாம்பியர்-மணி,Electronics
+61,எலிமினேட்,elimiṉēṭ,eliminate,English,நீக்கு / விலக்கு,General
+62,எலைட்,elaiṭ,elite,English,மேற்தட்டு / உயர்நிலை,Sociology
+63,எஸ்கேப்,eskēp,escape,English,தப்பித்தல் / விடுபடு,General
+64,எஸ்டேட்,esṭēṭ,estate,English,தோட்டம் / பண்ணை,Agriculture
+65,ஏஆர்,ēār,AR (Augmented Reality),English,மிகை மெய்ம்மை,Information Technology
+66,ஏஎம்,ēem,AM (Ante Meridiem),Latin,நண்பகலுக்கு முன் / முற்பகல்,Time & Calendar
+67,ஏஐ,ēai,AI (Artificial Intelligence),English,செயற்கை நுண்ணறிவு,Information Technology
+68,ஏர்போர்ட்,ērpōrṭ,airport,English,விமான நிலையம் / வானூர்தி நிலையம்,Transport
+69,ஏஜன்ட்,ējaṉṭ,agent,English,முகவர்,Commerce
+70,ஐகோர்ட்,aikōrṭ,High Court,English,உயர்நீதிமன்றம்,Law
+71,ஐபாட்,aipāṭ,iPod,English,ஐபாட் இசைக்கருவி,Technology
+72,ஐபேட்,aipēṭ,iPad,English,ஐபேட் பலகைக்கணினி,Technology
+73,ஒயிட்,oyiṭ,white,English,வெள்ளை / வெண்மை,General
+74,ஓல்ட்,ōlṭ,old,English,பழைய,General
+75,ஃப்ரியான்,ḵpriyāṉ,freon,English,குளிர்பதன வாயு,Environmental Science
+76,ஃப்ளாப்,ḵpḷāp,flop,English,தோல்வி / வீழ்ச்சி,Media
+77,ஃப்ளாஷ்பேக்,ḵpḷāṣpēk,flashback,English,பின்னோக்கு,Media
+78,ஃப்ளுகாய்ச்சல்,ḵpḷukāyccal,influenza,Italian,குளிர்காய்ச்சல்,Healthcare
+79,ஃபக்,ḵpak,fuck / fack,English,பக் (வட்டார வழக்கு / கொச்சைப் பேச்சு),Corpus Candidate
+80,ஃபண்ட்,ḵpaṇṭ,fund,English,நிதி / நிதியம்,Banking & Finance
+81,ஃபயர்,ḵpayar,fire,English,நெருப்பு / தீ,General
+82,ஃபர்ஸ்ட்,ḵparsṭ,first,English,முதல் / முதன்மை,General
+83,ஃபவுண்டேஷன்,ḵpavuṇṭēṣaṉ,foundation,English,அறக்கட்டளை / அடித்தளம்,Administration
+84,ஃபாசில்,ḵpācil,fossil,English,புதைபடிவம் / தொல்லுயிர் எச்சம்,Geology
+85,ஃபார்ம்,ḵpārm,form / farm,English,படிவம் / பண்ணை,General
+86,ஃபார்மலின்,ḵpārmaliṉ,formalin,English,பார்மலின் பாதுகாப்புக் கரைசல்,Chemistry
+87,ஃபார்மால்டிஹைடு,ḵpārmālṭihaiṭu,formaldehyde,English,பார்மால்டிகைடு வேதிமம்,Chemistry
+88,ஃபார்முலா,ḵpārmulā,formula,English,சூத்திரம் / வாய்பாடு,Science
+89,ஃபார்ஸி,ḵpārsi,Farsi,Persian,பாரசீக மொழி,Linguistics
+90,ஃபாலோ,ḵpālō,follow,English,பின்தொடர்,General
+91,ஃபாஸ்ட்,ḵpāsṭ,fast,English,வேகமான / விரைவு,General
+92,ஃபிட்,ḵpiṭ,fit,English,பொருத்தம் / தகுதி,General
+93,ஃபிபுலா,ḵpipulā,fibula,Latin,கணைக்கால் வெளிப்புற எலும்பு,Anatomy
+94,ஃபில்,ḵpil,fill,English,நிரப்பு,General
+95,ஃபிலிம்,ḵpilim,film,English,திரைப்படம் / படச்சுருள்,Media
+96,ஃபிளாஷ்,ḵpiḷāṣ,flash,English,மின்னொளி / மின்னல்,Media
+97,ஃபிளாக்ஷிப்,ḵpiḷākṣip,flagship,English,முதன்மைப் படைப்பு / கொடிக்கப்பல்,Technology & Business
+98,ஃபுட்,ḵpuṭ,food,English,உணவு,General
+99,ஃபுல்,ḵpul,full,English,முழு / நிரம்பிய,General
+100,ஃபேதம்,ḵpētam,fathom,English,பாகம் (ஆழ அலகு),Navigation
+101,ஃபேர்,ḵpēr,fare / fair,English,கட்டணம் / நியாயமான,General
+102,ஃபேவரைட்,ḵpēvaraiṭ,favourite,English,விருப்பமான,General
+103,ஃபேன்,ḵpēṉ,fan,English,மின்விசிறி,Home Appliances
+104,ஃபேஷன்,ḵpēṣaṉ,fashion,English,நடைமுறை நாகரிகம் / புதுப்பாங்கு,Fashion
+105,ஃபேஸ்,ḵpēs,face / phase,English,முகம் / கட்டம்,General
+106,ஃபேஸ்லிஃப்ட்,ḵpēsliḵpṭ,facelift,English,முகப்பொலிவு / புத்துருவாக்கம்,General
+107,ஃபைப்ரின்,ḵpaipriṉ,fibrin,English,குருதிநார்ப்பிரதம்,Biology
+108,ஃபைல்,ḵpail,file,English,கோப்பு,Information Technology
+109,ஃபைனல்,ḵpaiṉal,final,English,இறுதி / இறுதியாட்டம்,Sports & General
+110,ஃபைனான்ஸ்,ḵpaiṉāṉs,finance,English,நிதியியல் / நிதி,Banking & Finance
+111,ஃபோகஸ்,ḵpōkas,focus,English,குவியம் / கவனம்,General
+112,ஃபோட்டோ,ḵpōṭṭō,photo,English,புகைப்படம் / நிழற்படம்,Media
+113,ஃபோர்க்,ḵpōrk,fork,English,முட்கரண்டி,Household
+114,கட்,kaṭ,cut,English,வெட்டு / நறுக்கு,General
+115,கணிதம்,kaṇitam,ganita,Sanskrit,எண்ணியல் / கணக்கியல்,Mathematics
+116,கப்,kap,cup,English,கோப்பை / கிண்ணம்,Household & Sports
+117,கம்ப்யூட்டர்,kampyūṭṭar,computer,English,கணினி,Information Technology
+118,கம்பெனி,kampeṉi,company,English,நிறுவனம் / வணிகக் குழுமம்,Commerce
+119,கம்யூனிஸ்ட்,kamyūṉisṭ,communist,English,பொதுவுடைமைவாதி,Politics
+120,கமிட்,kamiṭ,commit,English,உறுதியளி / ஒப்படை / பதிவேற்று,General & IT
+121,கமெண்ட்,kameṇṭ,comment,English,கருத்துரை / குறிப்புரை,Information Technology
+122,கரண்ட்,karaṇṭ,current,English,மின்சாரம் / நடப்பு,Physics & General
+123,கரெக்ட்,karekṭ,correct,English,சரி / சரியானது,General
+124,கலெக்டர்,kalekṭar,collector,English,மாவட்ட ஆட்சியர்,Administration
+125,கனெக்ட்,kaṉekṭ,connect,English,இணை / தொடு,Information Technology
+126,கஜானா,kajāṉā,khazana,Arabic,கருவூலம்,Treasury
+127,காட்,kāṭ,cot / god,English,கட்டில்,Household
+128,காப்பி,kāppi,coffee,Arabic,குளம்பி,Culinary
+129,காமம்,kāmam,kama,Sanskrit,இன்பம் / காதலின்பம்,Ethics
+130,கார்,kār,car,English,மகிழுந்து,Transport
+131,கார்ட்,kārṭ,cart / card,English,வண்டி / அட்டை,Commerce
+132,கார்ட்டூனிஸ்ட்,kārṭṭūṉisṭ,cartoonist,English,கேலிச்சித்திரக் கலைஞர்,Media
+133,கார்ப்பரேட்,kārpparēṭ,corporate,English,பெருநிறுவனம்,Commerce
+134,கார்பைட்,kārpaiṭ,carbide,English,கார்பைடு வேதிமம்,Chemistry
+135,கார்போஹைட்ரேட்,kārpōhaiṭrēṭ,carbohydrate,English,மாவுச்சத்து,Nutrition & Chemistry
+136,காரட்,kāraṭ,carat,English,காரட்டு (தங்கத் தூய்மை அலகு),Commerce
+137,காரியாலயம்,kāriyālayam,karyalaya,Sanskrit,அலுவலகம் / பணியகம்,Administration
+138,கால்வெர்ட்,kālverṭ,culvert,English,சிறுபாலம் / வடிகுழாய்,Civil Engineering
+139,கான்செப்ட்,kāṉcepṭ,concept,English,கருத்துரு / கருதுகோள்,Philosophy & Science
+140,கான்வென்ட்,kāṉveṉṭ,convent,English,கன்னியர் மடம் / பள்ளிக்கூடம்,Education
+141,கிட்,kiṭ,kit,English,கருவித்தொகுதி,General
+142,கிரகம்,kirakam,graha,Sanskrit,கோள்,Astronomy
+143,கிரவுண்ட்,kiravuṇṭ,ground,English,திடல் / மைதானம்,Sports & Civil
+144,கிராக்கி,kirākki,ghiraqi,Arabic,தேவை / தட்டுப்பாடு,Commerce
+145,கிராண்ட்,kirāṇṭ,grand,English,பெருமைமிகு / பிரம்மாண்ட,General
+146,கிராமம்,kirāmam,grama,Sanskrit,சிற்றூர்,Administration
+147,கிரானைட்,kirāṉaiṭ,granite,English,கருங்கல் / பருக்கைக்கல்,Geology
+148,கிரிக்கெட்,kirikkeṭ,cricket,English,மட்டைப்பந்து,Sports
+149,கிரியேட்,kiriyēṭ,create,English,உருவாக்கு / படை,General
+150,கிரெடிட்,kireṭiṭ,credit,English,வரவு / நன்மதிப்பு,Banking & Finance
+151,கிரேட்,kirēṭ,grade / great,English,தரம் / பெருமைமிகு,General
+152,கிலோபைட்,kilōpaiṭ,kilobyte,English,கிலோபைட்டு (தரவு அலகு),Information Technology
+153,கிலோவாட்,kilōvāṭ,kilowatt,English,கிலோவாட்டு (மின் திறன் அலகு),Physics
+154,கிளப்,kiḷap,club,English,மன்றம் / சங்கம்,General
+155,கிளவுட்,kiḷavuṭ,cloud,English,மேகக்கணிமை / முகில்,Information Technology
+156,குட்,kuṭ,good,English,நல்ல / நன்று,General
+157,குவளை,kuvaḷai,copo,Portuguese,குவளை,Household
+158,குவாட்,kuvāṭ,quad,English,நால்வர் கூட்டியக்கம்,Geopolitics
+159,கெட்,keṭ,get,English,பெறு / அடை,General
+160,கெஸ்ட்,kesṭ,guest,English,விருந்தினர்,General
+161,கேட்,kēṭ,gate,English,வாயில் / கதவு,General
+162,கேபினட்,kēpiṉaṭ,cabinet,English,அமைச்சரவை / பேழை,Polity & Furniture
+163,கேரட்,kēraṭ,carrot,English,மஞ்சள் முள்ளங்கி / கேரட்,Culinary
+164,கேஷ்பேக்,kēṣpēk,cashback,English,பணத்திருப்பு / ரொக்கத் தள்ளுபடி,Commerce
+165,கைதி,kaiti,qaidi,Arabic,சிறைவாசி / பிணைக்கைதி,Law
+166,கைது,kaitu,qaid,Arabic,சிறைபிடிப்பு / கைதுசெய்தல்,Law
+167,கோட்,kōṭ,coat / code,English,மேலாடை / குறியீடு,General & IT
+168,கோபம்,kōpam,kopa,Sanskrit,சினம் / வெகுளி,Philosophy
+169,கோபால்ட்,kōpālṭ,cobalt,English,கோபால்ட்டு உலோகம்,Chemistry
+170,கோர்ட்,kōrṭ,court,English,நீதிமன்றம் / ஆடுகளம்,Law & Sports
+171,கோர்ட்டு,kōrṭṭu,court,English,நீதிமன்றம்,Law
+172,கோல்ட்,kōlṭ,gold / cold,English,தங்கம் / குளிர்,General
+173,சக்தி,cakti,shakti,Sanskrit,ஆற்றல் / வல்லமை,Physics & Philosophy
+174,சட்டம்,caṭṭam,shasana,Sanskrit,விதி / நெறிமுறை,Law
+175,சத்தியம்,cattiyam,satya,Sanskrit,வாய்மை / உண்மை,Ethics
+176,சந்தா,cantā,chanda,Persian,கட்டணம் / வரிகொடை,Commerce
+177,சந்திரன்,cantiraṉ,chandra,Sanskrit,திங்கள் / நிலா,Astronomy
+178,சந்தோஷம்,cantōṣam,santosha,Sanskrit,மகிழ்ச்சி / களிப்பு,Philosophy
+179,சப்போர்ட்,cappōrṭ,support,English,ஆதரவு / துணை,General
+180,சப்ஜெக்ட்,capjekṭ,subject,English,பாடம் / பொருள் / எழுவாய்,Education & Grammar
+181,சமுத்திரம்,camuttiram,samudra,Sanskrit,கடல் / ஆழி / பெருங்கடல்,Geography
+182,சயனைட்,cayaṉaiṭ,cyanide,English,சயனைடு நச்சு வேதிமம்,Chemistry
+183,சர்க்கார்,carkkār,sarkar,Persian,அரசு,Polity
+184,சர்க்யூட்,carkyūṭ,circuit,English,மின்சுற்று,Electronics
+185,சர்ட்,carṭ,shirt,English,சட்டை,Textiles
+186,சர்டிபிகேட்,carṭipikēṭ,certificate,English,சான்றிதழ்,Administration
+187,சர்வர்,carvar,server,English,வழங்கி,Information Technology
+188,சரித்திரம்,carittiram,charitra,Sanskrit,வரலாறு,History
+189,சல்யூட்,calyūṭ,salute,English,வணக்கம் / வந்தனம்,Defense & General
+190,சவுண்ட்,cavuṇṭ,sound,English,ஒலி / சத்தம்,General
+191,சஸ்பெண்ட்,caspeṇṭ,suspend,English,தற்காலிக நீக்கம் / இடைநீக்கம்,Administration
+192,சாஃப்ட்வேர்,cāḵpṭvēr,software,English,மென்பொருள்,Information Technology
+193,சாக்லேட்,cāklēṭ,chocolate,Spanish,சாக்கலேட்டு / இனிப்புப் பண்டம்,Culinary
+194,சாட்,cāṭ,chat,English,அரட்டை / உரைப்பரப்பு,Information Technology
+195,சாப்ட்,cāpṭ,soft,English,மென்மையான,General
+196,சாப்ட்வேர்,cāpṭvēr,software,English,மென்பொருள்,Information Technology
+197,சாம்பியன்ஷிப்,cāmpiyaṉṣip,championship,English,வாகைப்போட்டி / முதன்மைப்போட்டி,Sports
+198,சால்ட்,cālṭ,salt,English,உப்பு,General
+199,சாலட்,cālaṭ,salad,French,பச்சடி / காய்வகைக்கலவை,Culinary
+200,சாவி,cāvi,chave,Portuguese,திறவுகோல்,Household
+201,சிகரட்,cikaraṭ,cigarette,French,புகைச்சுருட்டு,General
+202,சிகரெட்,cikareṭ,cigarette,French,புகைச்சுருட்டு,General
+203,சிப்செட்,cipceṭ,chipset,English,சில்லுத்தொகுதி,Information Technology
+204,சிப்பந்தி,cippanti,sipahandi,Persian,பணியாளர்,Administration
+205,சிபாரிசு,cipāricu,sifarish,Persian,பரிந்துரை,Administration
+206,சிமெண்ட்,cimeṇṭ,cement,English,காரை / சாந்து,Construction
+207,சிலோவாட்,cilōvāṭ,kilowatt,English,கிலோவாட்டு மின் அலகு,Physics
+208,சுகம்,cukam,sukha,Sanskrit,நலம்,Philosophy
+209,சுதந்திரம்,cutantiram,svatantra,Sanskrit,விடுதலை,Polity
+210,சூட்,cūṭ,suit,English,வழக்கு / உடைத்தொகுதி,Law & Fashion
+211,சூரியன்,cūriyaṉ,surya,Sanskrit,ஞாயிறு / கதிரவன்,Astronomy
+212,செக்யூரிட்டி,cekyūriṭṭi,security,English,பாதுகாப்பு / காவலர்,General
+213,செகண்ட்,cekaṇṭ,second,English,நொடி / விநாடி,Time & Calendar
+214,செட்,ceṭ,set,English,கணம் / தொகுதி / அமை,General & Math
+215,செலக்ட்,celakṭ,select,English,தேர்ந்தெடு,General
+216,சென்ட்,ceṉṭ,cent,English,சென்ட்டு (நாணயம் / நில அலகு),Commerce & Land
+217,சென்டிமெண்ட்,ceṉṭimeṇṭ,sentiment,English,உணர்ச்சி / மனப்பாங்கு,General
+218,செனட்,ceṉaṭ,senate,English,மூதவை / ஆட்சிமன்றம்,Polity & Academia
+219,சைக்கிள்,caikkiḷ,cycle,English,மிதிவண்டி,Transport
+220,சைட்,caiṭ,site,English,மனை / களம் / வலைத்தளம்,Real Estate & IT
+221,ட்ரிப்,ṭrip,trip,English,பயணம் / உலா,Transport
+222,ட்விட்,ṭviṭ,tweet,English,ட்வீட் / சுட்டுரை,Information Technology
+223,ட்விஸ்ட்,ṭvisṭ,twist,English,திருப்பம் / முறுக்கு,General
+224,டயட்,ṭayaṭ,diet,English,உணவுக் கட்டுப்பாடு / பத்தியம்,Healthcare
+225,டவுட்,ṭavuṭ,doubt,English,ஐயம் / சந்தேகம்,General
+226,டவுன்லோட்,ṭavuṉlōṭ,download,English,பதிவிறக்கம்,Information Technology
+227,டாக்டர்,ṭākṭar,doctor,English,மருத்துவர் / முனைவர்,Healthcare & Academia
+228,டாகுமெண்ட்,ṭākumeṇṭ,document,English,ஆவணம்,Administration & IT
+229,டாப்,ṭāp,top,English,மேல் / உச்சி,General
+230,டாய்லெட்,ṭāyleṭ,toilet,French,கழிவறை,Household
+231,டார்கெட்,ṭārkeṭ,target,English,இலக்கு,General
+232,டாஸ்க்,ṭāsk,task,English,பணி / பொறுப்பு,General & IT
+233,டிக்கெட்,ṭikkeṭ,ticket,English,பயணச்சீட்டு / நுழைவுச்சீட்டு,Transport & Events
+234,டிமாண்ட்,ṭimāṇṭ,demand,English,கேட்பு / தேவை,Economics
+235,டிரஸ்ட்,ṭirasṭ,trust,English,அறக்கட்டளை / நம்பிக்கை,Administration
+236,டிராப்,ṭirāp,drop / trap,English,விடு / பொறி,General
+237,டிரெண்ட்,ṭireṇṭ,trend,English,போக்கு,General & Business
+238,டிரேட்,ṭirēṭ,trade,English,வணிகம் / வர்த்தகம்,Commerce
+239,டிஸ்க்,ṭisk,disk,English,வட்டு / வட்டத்தட்டு,Information Technology
+240,டீ,ṭī,tea,Chinese,தேநீர்,Culinary
+241,டீசர்ட்,ṭīcarṭ,T-shirt,English,குறுஞ்சட்டை / டி-சட்டை,Textiles
+242,டூயட்,ṭūyaṭ,duet,Italian,இரட்டைப்பாடல்,Music
+243,டெக்னாலஜி,ṭekṉālaji,technology,English,தொழில்நுட்பம்,Information Technology
+244,டெக்ஸ்ட்,ṭeksṭ,text,English,உரை,Information Technology
+245,டெட்,ṭeṭ,dead,English,இறந்த / செயலற்ற,General
+246,டெபாசிட்,ṭepāciṭ,deposit,English,வைப்பு / வைப்புத்தொகை,Banking & Finance
+247,டெபிட்,ṭepiṭ,debit,English,பற்று,Banking & Finance
+248,டெம்ப்ளேட்,ṭempḷēṭ,template,English,வார்ப்புரு,Information Technology
+249,டெலஸ்கோப்,ṭelaskōp,telescope,English,தொலைநோக்கி,Astronomy & Optics
+250,டெலிட்,ṭeliṭ,delete,English,நீக்கு / அழி,Information Technology
+251,டெஸ்க்டாப்,ṭeskṭāp,desktop,English,மேசைக்கணினி / திரைமுகப்பு,Information Technology
+252,டெஸ்ட்,ṭesṭ,test,English,தேர்வு / சோதனை,General
+253,டேட்டா,ṭēṭṭā,data,English,தரவு,Information Technology
+254,டேட்டாபேஸ்,ṭēṭṭāpēs,database,English,தரவுத்தளம்,Information Technology
+255,டேப்லெட்,ṭēpleṭ,tablet,English,மாத்திரை / பலகைக்கணினி,Healthcare & IT
+256,டேஸ்ட்,ṭēsṭ,taste,English,சுவை,General
+257,டைப்,ṭaip,type,English,தட்டச்சு / வகை,General
+258,டைமண்ட்,ṭaimaṇṭ,diamond,English,வைரம்,Gems & Minerals
+259,டைரக்ட்,ṭairakṭ,direct,English,நேரடி / இயக்கு,General
+260,டோஸ்ட்,ṭōsṭ,toast,English,வெதுப்பிய ரொட்டி,Culinary
+261,தர்பார்,tarpār,darbar,Persian,அரசவை,Polity
+262,தர்மம்,tarmam,dharma,Sanskrit,அறம்,Ethics
+263,தஸ்தாவேஜு,tastāvēju,dastawez,Persian,ஆவணம்,Documentation
+264,தாலுகா,tālukā,taalluqa,Arabic,வட்டம்,Administration
+265,திவான்,tivāṉ,diwan,Persian,முதன்மை அமைச்சர்,Polity
+266,துக்கம்,tukkam,duhkha,Sanskrit,துன்பம் / இன்னல்,Philosophy
+267,துக்கான்,tukkāṉ,dukkan,Arabic,கடை,Commerce
+268,தேசம்,tēcam,desha,Sanskrit,நாடு,Polity
+269,தைரியம்,tairiyam,dhairya,Sanskrit,துணிவு / ஊக்கம்,Philosophy
+270,நகரம்,nakaram,nagara,Sanskrit,பேரூர் / பெருநகர்,Administration
+271,நகல்,nakal,naql,Arabic,படி / பிரதி,Documentation
+272,நட்சத்திரம்,naṭcattiram,nakshatra,Sanskrit,விண்மீன்,Astronomy
+273,நதி,nati,nadi,Sanskrit,ஆறு,Geography
+274,நர்ஸ்,nars,nurse,English,செவிலியர்,Healthcare
+275,நாமினேட்,nāmiṉēṭ,nominate,English,பரிந்துரை / முன்மொழி,Polity & Administration
+276,நீதி,nīti,niti,Sanskrit,அறநெறி / முறைமை,Law
+277,நெக்ஸ்ட்,neksṭ,next,English,அடுத்து / அடுத்தது,General
+278,நெட்,neṭ,net,English,வலை / இணையம்,General & IT
+279,நெட்வொர்க்,neṭvork,network,English,பிணையம்,Information Technology
+280,நைட்,naiṭ,night,English,இரவு,General
+281,நோட்,nōṭ,note,English,குறிப்பு / பணத்தாள்,General & Banking
+282,ப்ளக்,pḷak,plug,English,செருகி,Electronics
+283,ப்ளாக்,pḷāk,block / blog,English,தொகுதி / வலைப்பதிவு,General & IT
+284,பசார்,pacār,bazar,Persian,அங்காடி / கடைவீதி,Commerce
+285,பட்ஜெட்,paṭjeṭ,budget,English,வரவு-செலவுத் திட்டம்,Economics & Finance
+286,பண்டிட்,paṇṭiṭ,pandit,Sanskrit,பண்டிதர் / பேரறிஞர்,Academia
+287,பத்திரிகை,pattirikai,patrika,Sanskrit,இதழ் / செய்தித்தாள்,Media
+288,பந்தயம்,pantayam,bandha,Sanskrit,சூளுரை / போட்டி,Sports & Culture
+289,பப்ளிக்,papḷik,public,English,பொது / மக்கள்,Polity
+290,பயம்,payam,bhaya,Sanskrit,அச்சம்,Philosophy
+291,பயோமெட்ரிக்,payōmeṭrik,biometric,English,உயிரளவியல்,Information Technology
+292,பரீட்சை,parīṭcai,pariksha,Sanskrit,தேர்வு,Education
+293,பருவதம்,paruvatam,parvata,Sanskrit,மலை,Geography
+294,பல்கலைக்கழகம்,palkalaikkaḻakam,vishvavidyalaya,Sanskrit,பல்கலைக்கழகம்,Education
+295,பலம்,palam,bala,Sanskrit,வலிமை / திண்மை,General
+296,பவர்பாய்ண்ட்,pavarpāyṇṭ,PowerPoint,English,விளக்கக்காட்சி மென்பொருள்,Information Technology
+297,பவுண்ட்,pavuṇṭ,pound,English,பவுண்டு நாணயம் / எடை அலகு,Commerce
+298,பஸ்,pas,bus,English,பேருந்து,Transport
+299,பாக்கெட்,pākkeṭ,pocket / packet,English,பை / பொட்டலம்,General
+300,பாண்ட்,pāṇṭ,bond,English,பத்திரம் / பிணைப்பு,Banking & Finance
+301,பாயிண்ட்,pāyiṇṭ,point,English,புள்ளி / கருத்து,General
+302,பார்க்,pārk,park,English,பூங்கா,Environment & Leisure
+303,பார்ட்,pārṭ,part,English,பகுதி / அங்கம்,General
+304,பார்மட்,pārmaṭ,format,English,வடிவம் / வடிவமைப்பு,Information Technology
+305,பார்மிக்,pārmik,formic,Latin,பார்மிக் அமிலம்,Chemistry
+306,பார்லிமென்ட்,pārlimeṉṭ,parliament,English,நாடாளுமன்றம்,Polity
+307,பாலிடெக்னிக்,pāliṭekṉik,polytechnic,English,தொழில்நுட்பக் கல்லூரி,Education
+308,பாஸ்போர்ட்,pāspōrṭ,passport,English,கடவுச்சீட்டு,Administration
+309,பாஸ்வேர்ட்,pāsvērṭ,password,English,கடவுச்சொல்,Information Technology
+310,பிக்கப்,pikkap,pick-up,English,ஏற்றிச்செல் / வேகம் பெறுதல்,Transport
+311,பிட்,piṭ,bit,English,துண்டு / இரும எண்,General & IT
+312,பிடிவாரண்ட்,piṭivāraṇṭ,arrest warrant,English,பிடி ஆணை / கைது ஆணை,Law
+313,பிடெக்,piṭek,B.Tech,English,தொழில்நுட்ப இளவல் பட்டம்,Education
+314,பியர்லைட்,piyarlaiṭ,pearlite,English,முத்துக்கல் பாறை / பியர்லைட்டு,Geology
+315,பிரவுசர்,piravucar,browser,English,உலாவி,Information Technology
+316,பிராட்,pirāṭ,broad / fraud,English,அகன்ற / மோசடி,General
+317,பிராட்பேண்ட்,pirāṭpēṇṭ,broadband,English,அகண்டவரிசை இணையம்,Telecommunications
+318,பிராண்ட்,pirāṇṭ,brand,English,வணிகக்குறி / தரக்குறி,Commerce
+319,பிரிண்ட்,piriṇṭ,print,English,அச்சிடு / அச்சு,Information Technology
+320,பிரெக்ஸிட்,pireksiṭ,Brexit,English,பிரித்தானிய ஐரோப்பிய வெளியேற்றம்,Polity
+321,பிரெட்,pireṭ,bread,English,வெதுப்பி / ரொட்டி,Culinary
+322,பிரெண்ட்,pireṇṭ,friend,English,நண்பர் / தோழர்,General
+323,பிரேக்,pirēk,break / brake,English,இடைவேளை / நிறுத்தி,General & Transport
+324,பிரைவேட்,piraivēṭ,private,English,தனியார்,General
+325,பில்ட்,pilṭ,build,English,கட்டு / உருவாக்கு,General & IT
+326,பிளட்,piḷaṭ,blood,English,குருதி / ரத்தம்,Healthcare
+327,பிளாட்,piḷāṭ,flat / plot,English,குடியிருப்பு / மனை,Real Estate
+328,பிளாஸ்டிக்,piḷāsṭik,plastic,English,நெகிழி,Materials
+329,பிளேட்,piḷēṭ,plate,English,தட்டு / தகடு,General
+330,பிளைட்,piḷaiṭ,flight,English,விமானம் / பறத்தல்,Transport
+331,பிஷப்,piṣap,bishop,English,பேராயர்,Religion
+332,பிஸ்கெட்,piskeṭ,biscuit,English,பிஸ்கோத்து / மொறுமொறு ரொட்டி,Culinary
+333,பீங்கான்,pīṅkāṉ,pingan,Chinese,மண்கலம் / பீங்கான்,Ceramics
+334,பீட்ரூட்,pīṭrūṭ,beetroot,English,செங்கிழங்கு,Culinary
+335,புக்,puk,book,English,புத்தகம் / நூல்,General
+336,புக்மார்க்,pukmārk,bookmark,English,நினைவுக்குறி / பக்கக்குறி,Information Technology
+337,புத்தகம்,puttakam,pustaka,Sanskrit,நூல் / ஏடு,Literature
+338,புராஜெக்ட்,purājekṭ,project,English,செயல்திட்டம் / திட்டம்,General & IT
+339,புல்லட்,pullaṭ,bullet,English,தோட்டா,Defense
+340,பூகோளம்,pūkōḷam,bhugola,Sanskrit,புவியியல்,Geography
+341,பூட்,pūṭ,boot,English,தொடங்கு / காலணி,Information Technology & Fashion
+342,பூமி,pūmi,bhumi,Sanskrit,நிலம் / மண் / ஞாலம்,Geography
+343,பெட்,peṭ,bed,English,படுக்கை / கட்டில்,Household
+344,பெயிண்ட்,peyiṇṭ,paint,English,வண்ணப்பூச்சு,Construction & Art
+345,பெல்ட்,pelṭ,belt,English,வார் / கச்சை,Fashion & Mechanics
+346,பென்டோனைட்,peṉṭōṉaiṭ,bentonite,English,பென்டோனைட்டு களிமண்,Geology
+347,பெஸ்ட்,pesṭ,best,English,சிறந்தது / மிகச்சிறந்த,General
+348,பேக்,pēk,bag / back,English,பை / பின்புறம்,General
+349,பேக்கப்,pēkkap,backup,English,காப்புநகல்,Information Technology
+350,பேகலைட்,pēkalaiṭ,bakelite,English,பேக்கலைட்டு செயற்கை நெகிழி,Materials
+351,பேட்,pēṭ,pad / bat,English,திண்டு / மட்டை,Sports & Stationary
+352,பேண்ட்,pēṇṭ,pant / band,English,கால்சட்டை / இசைக்குழு,Fashion & Music
+353,பேஸ்ட்,pēsṭ,paste,English,பசை / ஒட்டு,General & IT
+354,பைக்,paik,bike,English,ஈருருளி / மோட்டார் சைக்கிள்,Transport
+355,பைசல்,paical,faisal,Arabic,தீர்ப்பு / முடிவு,Law & Administration
+356,பைட்,paiṭ,byte,English,பைட்டு / எண்ம எண்,Information Technology
+357,பைலட்,pailaṭ,pilot,English,விமானி / முன்னோடி,Aviation
+358,போட்,pōṭ,boat,English,படகு,Transport
+359,போட்டோஷாப்,pōṭṭōṣāp,Photoshop,English,நிழற்படப் பதிப்பகம்,Information Technology
+360,போர்ட்,pōrṭ,board / port,English,பலகை / துறைமுகம்,General
+361,போல்ட்,pōlṭ,bolt / bold,English,மரை / தடித்த எழுத்து,Hardware & IT
+362,போலீஸ்,pōlīs,police,English,காவல்துறை / காவலர்,Administration
+363,போஸ்ட்,pōsṭ,post,English,அஞ்சல் / பதிவு,Communication & IT
+364,மந்திரி,mantiri,mantrin,Sanskrit,அமைச்சர்,Polity
+365,மவுண்ட்,mavuṇṭ,mount,English,மலை / பொருத்து,Geography & IT
+366,மனு,maṉu,manu,Sanskrit,விண்ணப்பம்,Administration
+367,மஸ்க்,mask,musk,English,கஸ்தூரி,Perfumes
+368,மாக்னசைட்,mākṉacaiṭ,magnesite,English,மாக்னசைட்டு தாது,Geology
+369,மாதம்,mātam,masa,Sanskrit,திங்கள்,Time & Calendar
+370,மார்க்,mārk,mark,English,மதிப்பெண் / குறி,Education & General
+371,மார்க்கெட்,mārkkeṭ,market,English,சந்தை,Commerce
+372,மார்க்சிஸ்ட்,mārkcisṭ,Marxist,English,மார்க்சியவாதி,Politics
+373,மார்ட்,mārṭ,mart,English,அங்காடி / சந்தை,Commerce
+374,மாவோயிஸ்ட்,māvōyisṭ,Maoist,English,மாவோயிசவாதி,Politics
+375,மாஜிஸ்திரேட்,mājistirēṭ,magistrate,English,குற்றவியல் நடுவர்,Law
+376,மாஸ்க்,māsk,mask,English,முகக்கவசம்,Healthcare & Safety
+377,மாஸ்டிக்,māsṭik,mastic,English,பிசின் / மாஸ்டிக்கு வச்சிரம்,Materials
+378,மிட்,miṭ,mid,English,நடு / இடை,General
+379,மிட்நைட்,miṭnaiṭ,midnight,English,நள்ளிரவு,Time & Calendar
+380,மியூசிக்,miyūcik,music,English,இசை,Arts
+381,முத்தலாக்,muttalāk,triple talaq,Arabic,முத்தலாக் விவாகரத்து,Law & Society
+382,முத்திரை,muttirai,mudra,Sanskrit,இலச்சினை,Administration
+383,மூட்,mūṭ,mood,English,மனநிலை,Psychology
+384,மெகாவாட்,mekāvāṭ,megawatt,English,மெகாவாட் (மின்திறன் அலகு),Physics
+385,மெடிக்கல்,meṭikkal,medical,English,மருத்துவ / மருத்துவத்துறை,Healthcare
+386,மேக்கப்,mēkkap,makeup,English,ஒப்பனை,Beauty & Fashion
+387,மேக்புக்,mēkpuk,MacBook,English,ஆப்பிள் மடிக்கணினி,Information Technology
+388,மேட்,mēṭ,mat / mate,English,பாய் / தோழன்,Household
+389,மேப்,mēp,map,English,வரைபடம்,Geography
+390,மேனேஜ்மெண்ட்,mēṉējmeṇṭ,management,English,மேலாண்மை,Administration
+391,மேஜிக்,mējik,magic,English,மாயாஜாலம் / மாயக்கலை,Arts
+392,மேஜை,mējai,mesa,Portuguese,பலகை / எழுதுமேசை,Household
+393,மைண்ட்,maiṇṭ,mind,English,மனம்,Psychology
+394,மொபைல்,mopail,mobile,English,கைபேசி / அலைபேசி,Telecommunications
+395,மோட்,mōṭ,mode,English,முறைமை / பயன்முறை,Information Technology
+396,மோட்சம்,mōṭcam,moksha,Sanskrit,வீடுபேறு,Philosophy
+397,யுனைடெட்,yuṉaiṭeṭ,united,English,ஒன்றிணைந்த,General
+398,யூசர்நேம்,yūcarnēm,username,English,பயனர்பெயர்,Information Technology
+399,யூனிட்,yūṉiṭ,unit,English,அலகு,Science & Administration
+400,ரசீது,racītu,rasid,Arabic,பற்றுச்சீட்டு,Commerce
+401,ரயில்,rayil,rail,English,தொடர்வண்டி,Transport
+402,ரவுண்ட்,ravuṇṭ,round,English,சுற்று / வட்டம்,General
+403,ராக்,rāk,rock,English,பாறை / ராக் இசை,Geology & Music
+404,ராக்கெட்,rākkeṭ,rocket,English,விண்கலம் / ஏவுகணை,Aerospace & Defense
+405,ரிசல்ட்,ricalṭ,result,English,முடிவு / விளைவு,Education & General
+406,ரிப்போர்ட்,rippōrṭ,report,English,அறிக்கை,Administration
+407,ரிமோட்,rimōṭ,remote,English,தொலைவியக்கி / தொலைதூர,Technology
+408,ரிஸ்க்,risk,risk,English,இடர்ப்பாடு / துணிவு,General & Finance
+409,ரூட்,rūṭ,route / root,English,பாதை / வழித்தடம்,Transport
+410,ரெக்கார்ட்,rekkārṭ,record,English,பதிவு / ஆவணம்,General
+411,ரெட்,reṭ,red,English,சிவப்பு நிறம்,General
+412,ரெஸ்ட்,resṭ,rest,English,ஓய்வு,General
+413,ரேட்,rēṭ,rate,English,விகிதம் / விலை,Commerce
+414,ரைட்,raiṭ,right / write,English,சரி / உரிமை / எழுது,General
+415,ரொமாண்டிக்,romāṇṭik,romantic,English,காதல்வயப்பட்ட / கற்பனைநயம் மிக்க,Arts & Culture
+416,ரோட்,rōṭ,road,English,சாலை / நெடுஞ்சாலை,Transport
+417,ரோபோ,rōpō,robot,English,தானியங்கி / இயந்திர மனிதன்,Robotics
+418,ரோபோட்,rōpōṭ,robot,English,தானியங்கி / இயந்திர மனிதன்,Robotics
+419,லாக்,lāk,lock / log,English,பூட்டு / பதிவேடு,General & IT
+420,லாரி,lāri,lorry,English,சுமையுந்து,Transport
+421,லாஜிக்,lājik,logic,English,தர்க்கம் / ஏரணம்,Philosophy & IT
+422,லாஸ்ட்,lāsṭ,last,English,கடைசி / இறுதி,General
+423,லிங்க்,liṅk,link,English,இணைப்பு / தொடுப்பு,Information Technology
+424,லிப்ட்,lipṭ,lift,English,மின்தூக்கி,Engineering
+425,லிப்ஸ்டிக்,lipsṭik,lipstick,English,உதட்டுச்சாயம்,Beauty & Fashion
+426,லிமிட்,limiṭ,limit,English,வரம்பு / எல்லை,General
+427,லிமிடெட்,limiṭeṭ,limited,English,வரையறுக்கப்பட்ட,Commerce
+428,லிஸ்ட்,lisṭ,list,English,பட்டியல்,General
+429,லெட்,leṭ,let / lead,English,அனுமதி / காரீயம்,General
+430,லெப்டினன்ட்,lepṭiṉaṉṭ,lieutenant,English,துணைநிலைப்படை அதிகாரி,Defense
+431,லேட்டஸ்ட்,lēṭṭasṭ,latest,English,அண்மைய / நவீன,General
+432,லேண்ட்,lēṇṭ,land,English,நிலம்,Real Estate
+433,லேப்டாப்,lēpṭāp,laptop,English,மடிக்கணினி,Information Technology
+434,லைட்,laiṭ,light,English,விளக்கு / ஒளி,General
+435,லோட்,lōṭ,load,English,சுமை / ஏற்றுதல்,Transport & IT
+436,வக்கீல்,vakkīl,wakil,Arabic,வழக்கறிஞர்,Law
+437,வயலட்,vayalaṭ,violet,English,ஊதா நிறம்,General
+438,வர்ஷம்,varṣam,varsha,Sanskrit,வருடம் / ஆண்டு,Time & Calendar
+439,வராந்தா,varāntā,varanda,Portuguese,தாழ்வாரம்,Architecture
+440,வாக்,vāk,walk,English,நடை / நடைபயிற்சி,General
+441,வாட்,vāṭ,watt,English,வாட்டு (மின்திறன் அலகு),Physics
+442,வாபஸ்,vāpas,wapas,Persian,திரும்பப்பெறல்,General
+443,வாரிசு,vāricu,waris,Arabic,வழித்தோன்றல் / மரபுரிமையாளர்,Family & Law
+444,வால்ட்,vālṭ,vault,English,பாதாளவறை / பெட்டகம்,Architecture & Banking
+445,வால்நட்,vālnaṭ,walnut,English,அக்ரூட் பருப்பு,Culinary
+446,விக்கெட்,vikkeṭ,wicket,English,இலக்கு (மட்டைப்பந்து),Sports
+447,விசிட்,viciṭ,visit,English,வருகை,General
+448,விஞ்ஞானம்,viññāṉam,vijnana,Sanskrit,அறிவியல்,Science
+449,விமானம்,vimāṉam,vimana,Sanskrit,வானூர்தி,Aviation
+450,வெசாக்,vecāk,Vesak,Pali,விசாகத் திருநாள் (புத்த பூர்ணிமா),Religion & Culture
+451,வெப்சைட்,vepcaiṭ,website,English,வலைத்தளம்,Information Technology
+452,வெயிட்,veyiṭ,weight / wait,English,எடை / காத்திருப்பு,General
+453,வெல்வெட்,velveṭ,velvet,English,மென்பட்டு,Textiles
+454,வெஸ்ட்,vesṭ,west,English,மேற்கு,Geography
+455,வேர்ட்,vērṭ,word,English,சொல்,Linguistics & IT
+456,வேர்ல்ட்,vērlṭ,world,English,உலகம்,General
+457,வேரியண்ட்,vēriyaṇṭ,variant,English,உருமாற்றம் / மாற்றுவகை,Science & Tech
+458,வேஸ்ட்,vēsṭ,waste,English,கழிவு / வீண்,Environment & General
+459,வைட்,vaiṭ,white / wide,English,வெள்ளை / அகன்ற,General
+460,வைத்தியர்,vaittiyar,vaidya,Sanskrit,மருத்துவர்,Medicine
+461,வொர்க்,vork,work,English,வேலை / பணி,General
+462,வோட்,vōṭ,vote,English,வாக்கு,Polity
+463,வோல்ட்,vōlṭ,volt,English,வோல்ட்டு (மின்னழுத்த அலகு),Physics
+464,ஜட்ஜ்,jaṭj,judge,English,நீதிபதி,Law
+465,ஜப்தி,japti,zabti,Arabic,பறிமுதல்,Law
+466,ஜம்ப்,jamp,jump,English,குதி / தாண்டு,General
+467,ஜமீன்தார்,jamīṉtār,zamindar,Persian,நிலக்கிழார்,Land & Agriculture
+468,ஜவாப்,javāp,jawab,Arabic,விடை / மறுமொழி,Communication
+469,ஜன்னல்,jaṉṉal,janela,Portuguese,காலதர் / சாளரம்,Architecture
+470,ஜனம்,jaṉam,jana,Sanskrit,மக்கள் / மாந்தர்,Sociology
+471,ஜஸ்ட்,jasṭ,just,English,மட்டும் / வெறும்,General
+472,ஜாக்,jāk,jack,English,நெம்புகருவி / துருப்புச்சீட்டு,Automotive & Games
+473,ஜாக்கெட்,jākkeṭ,jacket,English,குட்டைச்சட்டை / மேலாடை,Textiles
+474,ஜாக்பாட்,jākpāṭ,jackpot,English,பெரும்பரிசு / அதிர்ஷ்டப் பரிசு,Games & Finance
+475,ஜாமீன்,jāmīṉ,zamin,Arabic,பிணை,Law
+476,ஜாயின்ட்,jāyiṉṭ,joint,English,இணைப்பு / மூட்டு,Anatomy & General
+477,ஜிங்க்,jiṅk,zinc,English,துத்தநாகம்,Chemistry
+478,ஜிம்னாஸ்டிக்,jimṉāsṭik,gymnastics,English,உடற்பயிற்சிக்கலை / வித்தை,Sports
+479,ஜிராஃப்,jirāḵp,giraffe,Arabic,ஒட்டகச்சிவிங்கி,Zoology
+480,ஜெட்,jeṭ,jet,English,தாரை ஊர்தி / ஜெட் வானூர்தி,Aviation
+481,ஜெனரிக்,jeṉarik,generic,English,பொதுவான / மூலக்கூறு மருந்து,Healthcare & General
+482,ஜோக்,jōk,joke,English,நகைச்சுவை / கேலி,Entertainment
+483,ஷர்ட்,ṣarṭ,shirt,English,சட்டை,Textiles
+484,ஷாக்,ṣāk,shock,English,அதிர்ச்சி,General
+485,ஷாட்,ṣāṭ,shot,English,காட்சி / சுடுதல் / அடி,Media & Sports
+486,ஷாப்,ṣāp,shop,English,கடை / அங்காடி,Commerce
+487,ஷார்க்,ṣārk,shark,English,சுறா மீன்,Zoology
+488,ஷார்ட்,ṣārṭ,short,English,குறுகிய,General
+489,ஷார்ப்,ṣārp,sharp,English,கூர்மையான,General
+490,ஷிப்ட்,ṣipṭ,shift,English,முறைப்பணி / மாற்று,Administration
+491,ஷூட்,ṣūṭ,shoot,English,சுடு / படப்பிடிப்பு செய்,Media & Defense
+492,ஷேக்,ṣēk,shake,English,குலுக்கு / குலுக்குப்பால்,Culinary & General
+493,ஸ்கிரிப்ட்,skiripṭ,script,English,திரைக்கதை / வரிவடிவம்,Media & IT
+494,ஸ்கூட்டர்,skūṭṭar,scooter,English,துள்ளுந்து,Transport
+495,ஸ்கைப்,skaip,Skype,English,இணையக் காணொளி அழைப்புத் தளம்,Information Technology
+496,ஸ்ட்ரோக்,sṭrōk,stroke,English,பக்கவாதம் / வீச்சு,Healthcare & Sports
+497,ஸ்டண்ட்,sṭaṇṭ,stunt,English,வீரதீரச் செயல் / சாகசம்,Media
+498,ஸ்டாக்,sṭāk,stock,English,பங்கு / இருப்பு,Commerce & Finance
+499,ஸ்டாண்ட்,sṭāṇṭ,stand,English,நிலையம் / தாங்கி,General
+500,ஸ்டாண்டர்ட்,sṭāṇṭarṭ,standard,English,தரம் / நிலையான,General
+501,ஸ்டாப்,sṭāp,stop,English,நிறுத்தம் / நிறுத்து,General
+502,ஸ்டாம்ப்,sṭāmp,stamp,English,அஞ்சல்தலை / முத்திரை,Postal & Administration
+503,ஸ்டார்ட்,sṭārṭ,start,English,தொடங்கு,General
+504,ஸ்டார்ட்அப்,sṭārṭap,startup,English,தொடக்க நிறுவனம்,Commerce & Technology
+505,ஸ்டிக்,sṭik,stick,English,குச்சி / தடி,General
+506,ஸ்டிரைக்,sṭiraik,strike,English,வேலைநிறுத்தம்,Labor & Politics
+507,ஸ்டெப்,sṭep,step,English,படி / படிநிலை,General
+508,ஸ்டேட்,sṭēṭ,state,English,மாநிலம் / நிலை,Polity
+509,ஸ்பாட்,spāṭ,spot,English,இடம் / புள்ளி,General
+510,ஸ்போர்ட்,spōrṭ,sport,English,விளையாட்டு,Sports
+511,ஸ்மார்ட்,smārṭ,smart,English,திறன்மிகு / சாதுரியமான,Technology & General
+512,ஸ்லாட்,slāṭ,slot,English,செருகுவாய் / நேர இடைவெளி,Technology & Aviation
+513,ஸ்விஃப்ட்,sviḵpṭ,Swift,English,விரைவு / ஸ்விஃப்ட் நிரலாக்க மொழி,Information Technology
+514,ஸ்வைப்,svaip,swipe,English,தேய்த்தல் / வருடுதல்,Technology
+515,ஹக்,hak,hug,English,அணைப்பு,General
+516,ஹாக்,hāk,hawk,English,பருந்து / வல்லூறு,Zoology
+517,ஹாட்,hāṭ,hot,English,சூடான,General
+518,ஹாட்ரிக்,hāṭrik,hat-trick,English,மும்முறை சாதனை,Sports
+519,ஹார்ட்,hārṭ,hard / heart,English,கடினமான / இதயம்,General & Healthcare
+520,ஹார்ட்வேர்,hārṭvēr,hardware,English,வன்பொருள்,Information Technology
+521,ஹிட்,hiṭ,hit,English,வெற்றி / அடி,Media & General
+522,ஹிஜாப்,hijāp,hijab,Arabic,தலையங்கி / முகத்திரை,Culture & Religion
+523,ஹெட்,heṭ,head,English,தலைவர் / தலை,Administration & General
+524,ஹெட்செட்,heṭceṭ,headset,English,தலைப்பேசுகருவி,Electronics
+525,ஹெல்ப்,help,help,English,உதவி,General
+526,ஹெல்மெட்,helmeṭ,helmet,English,தலைக்கவசம்,Safety
+527,ஹேக்,hēk,hack,English,ஊடுருவல்,Information Technology
+528,ஹேட்ச்பேக்,hēṭcpēk,hatchback,English,பின்புறக் கதவு கொண்ட சிறிய மகிழுந்து,Automotive
+529,ஹேண்ட்,hēṇṭ,hand,English,கை,General
+530,ஹேஷ்டேக்,hēṣṭēk,hashtag,English,குறிச்சொல் / கருத்துக்குறி,Information Technology
+531,ஹைகோர்ட்,haikōrṭ,High Court,English,உயர்நீதிமன்றம்,Law
+532,ஹைபிரிட்,haipiriṭ,hybrid,English,கலப்பினம்,Science & Automotive
+533,ஹைலைட்,hailaiṭ,highlight,English,முக்கிய அம்சம் / முன்னிலைப்படுத்து,General
+534,அக்சஸ்,akcas,akcas,Foreign,அக்சஸ்,General
+535,அக்டேவியஸ்,akṭēviyas,akṭēviyas,Foreign,அக்டேவியஸ்,General
+536,அகிலவிராஜ்,akilavirāj,akilavirāj,Foreign,அகிலவிராஜ்,General
+537,அகிலேஷ்,akilēṣ,akilēṣ,Foreign,அகிலேஷ்,General
+538,அசிஸ்,acis,acis,Foreign,அசிஸ்,General
+539,அட்ரஸ்,aṭras,aṭras,Foreign,அட்ரஸ்,General
+540,அட்வான்ஸ்,aṭvāṉs,aṭvāṉs,Foreign,அட்வான்ஸ்,General
+541,அட்வைஸ்,aṭvais,aṭvais,Foreign,அட்வைஸ்,General
+542,அதிர்ஷ்ட,atirṣṭa,atirṣṭa,Foreign,அதிர்ஷ்ட,General
+543,அதிஷா,atiṣā,atiṣā,Foreign,அதிஷா,General
+544,அப்துல்லாஹ்,aptullāh,aptullāh,Foreign,அப்துல்லாஹ்,General
+545,அப்பாஸ்,appās,appās,Foreign,அப்பாஸ்,General
+546,அப்போஸ்தல,appōstala,appōstala,Foreign,அப்போஸ்தல,General
+547,அபிலாஷ்,apilāṣ,apilāṣ,Foreign,அபிலாஷ்,General
+548,அபிஷேக,apiṣēka,apiṣēka,Foreign,அபிஷேக,General
+549,அபூஹுரைரா,apūhurairā,apūhurairā,Foreign,அபூஹுரைரா,General
+550,அபேஸ்,apēs,apēs,Foreign,அபேஸ்,General
+551,அம்புரோஸ்,ampurōs,ampurōs,Foreign,அம்புரோஸ்,General
+552,அம்புலன்ஸ்,ampulaṉs,ampulaṉs,Foreign,அம்புலன்ஸ்,General
+553,அமல்ராஜ்,amalrāj,amalrāj,Foreign,அமல்ராஜ்,General
+554,அமானுஷ்ய,amāṉuṣya,amāṉuṣya,Foreign,அமானுஷ்ய,General
+555,அமித்ஷா,amitṣā,amitṣā,Foreign,அமித்ஷா,General
+556,அமேஸ்,amēs,amēs,Foreign,அமேஸ்,General
+557,அர்ஜுனா,arjuṉā,arjuṉā,Foreign,அர்ஜுனா,General
+558,அர்ஜூனா,arjūṉā,arjūṉā,Foreign,அர்ஜூனா,General
+559,அர்ஜெண்டினா,arjeṇṭiṉā,arjeṇṭiṉā,Foreign,அர்ஜெண்டினா,General
+560,அராஜக,arājaka,arājaka,Foreign,அராஜக,General
+561,அருட்பெருஞ்ஜோதி,aruṭperuñjōti,aruṭperuñjōti,Foreign,அருட்பெருஞ்ஜோதி,General
+562,அருண்விஜய்,aruṇvijay,aruṇvijay,Foreign,அருண்விஜய்,General
+563,அருண்ஜெட்லி,aruṇjeṭli,aruṇjeṭli,Foreign,அருண்ஜெட்லி,General
+564,அல்போன்ஸ்,alpōṉs,alpōṉs,Foreign,அல்போன்ஸ்,General
+565,அல்லாஹ்,allāh,allāh,Foreign,அல்லாஹ்,General
+566,அல்லாஹ்வுக்கே,allāhvukkē,allāhvukkē,Foreign,அல்லாஹ்வுக்கே,General
+567,அல்லாஹ்வே,allāhvē,allāhvē,Foreign,அல்லாஹ்வே,General
+568,அல்ஜீப்ரா,aljīprā,aljīprā,Foreign,அல்ஜீப்ரா,General
+569,அல்ஹம்துலில்லாஹ்,alhamtulillāh,alhamtulillāh,Foreign,அல்ஹம்துலில்லாஹ்,General
+570,அல்ஹாஜ்,alhāj,alhāj,Foreign,அல்ஹாஜ்,General
+571,அலெக்ஸ்,aleks,aleks,Foreign,அலெக்ஸ்,General
+572,அலைஹி,alaihi,alaihi,Foreign,அலைஹி,General
+573,அலோசியஸ்,alōciyas,alōciyas,Foreign,அலோசியஸ்,General
+574,அவுஸ்திரேலிய,avustirēliya,avustirēliya,Foreign,அவுஸ்திரேலிய,General
+575,அவுஸ்ரேலிய,avusrēliya,avusrēliya,Foreign,அவுஸ்ரேலிய,General
+576,அவுஸ்ரேலியா,avusrēliyā,avusrēliyā,Foreign,அவுஸ்ரேலியா,General
+577,அவெஞ்சர்ஸ்,aveñcars,aveñcars,Foreign,அவெஞ்சர்ஸ்,General
+578,அன்ஹா,aṉhā,aṉhā,Foreign,அன்ஹா,General
+579,அன்ஹு,aṉhu,aṉhu,Foreign,அன்ஹு,General
+580,அனஸ்,aṉas,aṉas,Foreign,அனஸ்,General
+581,அனானிமஸ்,aṉāṉimas,aṉāṉimas,Foreign,அனானிமஸ்,General
+582,அனுஷ்கா,aṉuṣkā,aṉuṣkā,Foreign,அனுஷ்கா,General
+583,அனுஷ்டிக்க,aṉuṣṭikka,aṉuṣṭikka,Foreign,அனுஷ்டிக்க,General
+584,அனெக்ஸ்,aṉeks,aṉeks,Foreign,அனெக்ஸ்,General
+585,அஜ்ஜோ,ajjō,ajjō,Foreign,அஜ்ஜோ,General
+586,அஜந்தா,ajantā,ajantā,Foreign,அஜந்தா,General
+587,அஜய்,ajay,ajay,Foreign,அஜய்,General
+588,அஷ்ட,aṣṭa,aṣṭa,Foreign,அஷ்ட,General
+589,அஸ்மா,asmā,asmā,Foreign,அஸ்மா,General
+590,அஸ்ஸலாமு,assalāmu,assalāmu,Foreign,அஸ்ஸலாமு,General
+591,அஹ்மது,ahmatu,ahmatu,Foreign,அஹ்மது,General
+592,அஹமது,ahamatu,ahamatu,Foreign,அஹமது,General
+593,அக்ஷய்,akṣay,akṣay,Foreign,அக்ஷய்,General
+594,அக்ஷரா,akṣarā,akṣarā,Foreign,அக்ஷரா,General
+595,ஆஃபிஸ்,āḵpis,āḵpis,Foreign,ஆஃபிஸ்,General
+596,ஆக்டோபஸ்,ākṭōpas,ākṭōpas,Foreign,ஆக்டோபஸ்,General
+597,ஆக்ரோஷமான,ākrōṣamāṉa,ākrōṣamāṉa,Foreign,ஆக்ரோஷமான,General
+598,ஆக்ஸ்ஃபோர்டு,āksḵpōrṭu,āksḵpōrṭu,Foreign,ஆக்ஸ்ஃபோர்டு,General
+599,ஆக்ஸ்போர்டு,ākspōrṭu,ākspōrṭu,Foreign,ஆக்ஸ்போர்டு,General
+600,ஆக்ஸைடு,āksaiṭu,āksaiṭu,Foreign,ஆக்ஸைடு,General
+601,ஆகாஷ்,ākāṣ,ākāṣ,Foreign,ஆகாஷ்,General
+602,ஆட்சென்ஸ்,āṭceṉs,āṭceṉs,Foreign,ஆட்சென்ஸ்,General
+603,ஆடியன்ஸ்,āṭiyaṉs,āṭiyaṉs,Foreign,ஆடியன்ஸ்,General
+604,ஆண்ட்ரூஸ்,āṇṭrūs,āṇṭrūs,Foreign,ஆண்ட்ரூஸ்,General
+605,ஆப்ஸ்,āps,āps,Foreign,ஆப்ஸ்,General
+606,ஆபிஸ்,āpis,āpis,Foreign,ஆபிஸ்,General
+607,ஆம்புலன்ஸ்,āmpulaṉs,āmpulaṉs,Foreign,ஆம்புலன்ஸ்,General
+608,ஆயிஷா,āyiṣā,āyiṣā,Foreign,ஆயிஷா,General
+609,ஆர்ட்ஸ்,ārṭs,ārṭs,Foreign,ஆர்ட்ஸ்,General
+610,ஆர்லியன்ஸ்,ārliyaṉs,ārliyaṉs,Foreign,ஆர்லியன்ஸ்,General
+611,ஆல்ப்ஸ்,ālps,ālps,Foreign,ஆல்ப்ஸ்,General
+612,ஆனந்தராஜ்,āṉantarāj,āṉantarāj,Foreign,ஆனந்தராஜ்,General
+613,ஆஜராக,ājarāka,ājarāka,Foreign,ஆஜராக,General
+614,ஆஜராகி,ājarāki,ājarāki,Foreign,ஆஜராகி,General
+615,ஆஜராகுமாறு,ājarākumāṟu,ājarākumāṟu,Foreign,ஆஜராகுமாறு,General
+616,ஆஜரான,ājarāṉa,ājarāṉa,Foreign,ஆஜரான,General
+617,ஆஷா,āṣā,āṣā,Foreign,ஆஷா,General
+618,ஆஷிஷ்,āṣiṣ,āṣiṣ,Foreign,ஆஷிஷ்,General
+619,ஆஸ்தான,āstāṉa,āstāṉa,Foreign,ஆஸ்தான,General
+620,ஆஸ்திரிய,āstiriya,āstiriya,Foreign,ஆஸ்திரிய,General
+621,ஆஸ்திரேலிய,āstirēliya,āstirēliya,Foreign,ஆஸ்திரேலிய,General
+622,ஆஸ்திரேலியாவிற்கு,āstirēliyāviṟku,āstirēliyāviṟku,Foreign,ஆஸ்திரேலியாவிற்கு,General
+623,ஆஸி,āsi,āsi,Foreign,ஆஸி,General
+624,இட்ஸ்,iṭs,iṭs,Foreign,இட்ஸ்,General
+625,இண்டெக்ஸ்,iṇṭeks,iṇṭeks,Foreign,இண்டெக்ஸ்,General
+626,இந்தியன்ஸ்,intiyaṉs,intiyaṉs,Foreign,இந்தியன்ஸ்,General
+627,இந்துஜா,intujā,intujā,Foreign,இந்துஜா,General
+628,இந்தோனேஷிய,intōṉēṣiya,intōṉēṣiya,Foreign,இந்தோனேஷிய,General
+629,இந்தோனேஷியா,intōṉēṣiyā,intōṉēṣiyā,Foreign,இந்தோனேஷியா,General
+630,இமேஜ்,imēj,imēj,Foreign,இமேஜ்,General
+631,இராமகிருஷ்ண,irāmakiruṣṇa,irāmakiruṣṇa,Foreign,இராமகிருஷ்ண,General
+632,இராஜ,irāja,irāja,Foreign,இராஜ,General
+633,இராஜதந்திர,irājatantira,irājatantira,Foreign,இராஜதந்திர,General
+634,இராஜராஜேஸ்வரி,irājarājēsvari,irājarājēsvari,Foreign,இராஜராஜேஸ்வரி,General
+635,இராஜினாமா,irājiṉāmā,irājiṉāmā,Foreign,இராஜினாமா,General
+636,இல்லல்லாஹ்,illallāh,illallāh,Foreign,இல்லல்லாஹ்,General
+637,இன்ஃபோசிஸ்,iṉḵpōcis,iṉḵpōcis,Foreign,இன்ஃபோசிஸ்,General
+638,இன்ச்ஸ்,iṉcs,iṉcs,Foreign,இன்ச்ஸ்,General
+639,இன்சூரன்ஸ்,iṉcūraṉs,iṉcūraṉs,Foreign,இன்சூரன்ஸ்,General
+640,இன்டெக்ஸ்,iṉṭeks,iṉṭeks,Foreign,இன்டெக்ஸ்,General
+641,இன்போசிஸ்,iṉpōcis,iṉpōcis,Foreign,இன்போசிஸ்,General
+642,இன்ஜி,iṉji,iṉji,Foreign,இன்ஜி,General
+643,இன்ஷா,iṉṣā,iṉṣā,Foreign,இன்ஷா,General
+644,இஷ்ட,iṣṭa,iṣṭa,Foreign,இஷ்ட,General
+645,இஷ்டப்படு,iṣṭappaṭu,iṣṭappaṭu,Foreign,இஷ்டப்படு,General
+646,இஸ்,is,is,Foreign,இஸ்,General
+647,இஸ்ரேலிய,isrēliya,isrēliya,Foreign,இஸ்ரேலிய,General
+648,இஸ்ரோ,isrō,isrō,Foreign,இஸ்ரோ,General
+649,இஸ்லாமே,islāmē,islāmē,Foreign,இஸ்லாமே,General
+650,ஈகாமர்ஸ்,īkāmars,īkāmars,Foreign,ஈகாமர்ஸ்,General
+651,ஈரோஸ்,īrōs,īrōs,Foreign,ஈரோஸ்,General
+652,ஈஷா,īṣā,īṣā,Foreign,ஈஷா,General
+653,ஈஸ்,īs,īs,Foreign,ஈஸ்,General
+654,ஈஸா,īsā,īsā,Foreign,ஈஸா,General
+655,ஈஸி,īsi,īsi,Foreign,ஈஸி,General
+656,ஈஸியா,īsiyā,īsiyā,Foreign,ஈஸியா,General
+657,உம்ராஹ்,umrāh,umrāh,Foreign,உம்ராஹ்,General
+658,உமேஷ்,umēṣ,umēṣ,Foreign,உமேஷ்,General
+659,உஷா,uṣā,uṣā,Foreign,உஷா,General
+660,உஷாராக,uṣārāka,uṣārāka,Foreign,உஷாராக,General
+661,எக்ஸ்,eks,eks,Foreign,எக்ஸ்,General
+662,எக்ஸ்ட்ரா,eksṭrā,eksṭrā,Foreign,எக்ஸ்ட்ரா,General
+663,எக்ஸ்பி,ekspi,ekspi,Foreign,எக்ஸ்பி,General
+664,எக்ஸ்பிரஸ்,ekspiras,ekspiras,Foreign,எக்ஸ்பிரஸ்,General
+665,எக்ஸ்ரே,eksrē,eksrē,Foreign,எக்ஸ்ரே,General
+666,எட்ஜ்,eṭj,eṭj,Foreign,எட்ஜ்,General
+667,எண்டர்பிரைசஸ்,eṇṭarpiraicas,eṇṭarpiraicas,Foreign,எண்டர்பிரைசஸ்,General
+668,எமர்ஜென்சி,emarjeṉci,emarjeṉci,Foreign,எமர்ஜென்சி,General
+669,எமிரேட்ஸ்,emirēṭs,emirēṭs,Foreign,எமிரேட்ஸ்,General
+670,எமோஜி,emōji,emōji,Foreign,எமோஜி,General
+671,எய்ம்ஸ்,eyms,eyms,Foreign,எய்ம்ஸ்,General
+672,எயிட்ஸ்,eyiṭs,eyiṭs,Foreign,எயிட்ஸ்,General
+673,எல்லிஸ்,ellis,ellis,Foreign,எல்லிஸ்,General
+674,எல்ஜி,elji,elji,Foreign,எல்ஜி,General
+675,எலக்ட்ரானிக்ஸ்,elakṭrāṉiks,elakṭrāṉiks,Foreign,எலக்ட்ரானிக்ஸ்,General
+676,எலெக்ட்ரானிக்ஸ்,elekṭrāṉiks,elekṭrāṉiks,Foreign,எலெக்ட்ரானிக்ஸ்,General
+677,என்ஜாய்,eṉjāy,eṉjāy,Foreign,என்ஜாய்,General
+678,எனர்ஜி,eṉarji,eṉarji,Foreign,எனர்ஜி,General
+679,எஸ்,es,es,Foreign,எஸ்,General
+680,எஸ்சி,esci,esci,Foreign,எஸ்சி,General
+681,எஸ்டி,esṭi,esṭi,Foreign,எஸ்டி,General
+682,எஸ்பி,espi,espi,Foreign,எஸ்பி,General
+683,எஸ்யூவி,esyūvi,esyūvi,Foreign,எஸ்யூவி,General
+684,எஸ்வி,esvi,esvi,Foreign,எஸ்வி,General
+685,எஸ்ஸி,essi,essi,Foreign,எஸ்ஸி,General
+686,ஏஞ்சல்ஸ்,ēñcals,ēñcals,Foreign,ஏஞ்சல்ஸ்,General
+687,ஏப்ஸ்,ēps,ēps,Foreign,ஏப்ஸ்,General
+688,ஏர்லைன்ஸ்,ērlaiṉs,ērlaiṉs,Foreign,ஏர்லைன்ஸ்,General
+689,ஏர்வேஸ்,ērvēs,ērvēs,Foreign,ஏர்வேஸ்,General
+690,ஏவிஜி,ēviji,ēviji,Foreign,ஏவிஜி,General
+691,ஏஜெண்டாக,ējeṇṭāka,ējeṇṭāka,Foreign,ஏஜெண்டாக,General
+692,ஏஜென்சி,ējeṉci,ējeṉci,Foreign,ஏஜென்சி,General
+693,ஐரிஷ்,airiṣ,airiṣ,Foreign,ஐரிஷ்,General
+694,ஐஜி,aiji,aiji,Foreign,ஐஜி,General
+695,ஐஸ்வர்யா,aisvaryā,aisvaryā,Foreign,ஐஸ்வர்யா,General
+696,ஐஸ்வர்யாராய்,aisvaryārāy,aisvaryārāy,Foreign,ஐஸ்வர்யாராய்,General
+697,ஒலிம்பிக்ஸ்,olimpiks,olimpiks,Foreign,ஒலிம்பிக்ஸ்,General
+698,ஒன்பிளஸ்,oṉpiḷas,oṉpiḷas,Foreign,ஒன்பிளஸ்,General
+699,ஓக்ஸ்,ōks,ōks,Foreign,ஓக்ஸ்,General
+700,ஓஷோ,ōṣō,ōṣō,Foreign,ஓஷோ,General
+701,க்ரஷ்,kraṣ,kraṣ,Foreign,க்ரஷ்,General
+702,க்ரூஸ்,krūs,krūs,Foreign,க்ரூஸ்,General
+703,க்ளாஸ்,kḷās,kḷās,Foreign,க்ளாஸ்,General
+704,க்ளைமாக்ஸ்,kḷaimāks,kḷaimāks,Foreign,க்ளைமாக்ஸ்,General
+705,க்ளைமேக்ஸ்,kḷaimēks,kḷaimēks,Foreign,க்ளைமேக்ஸ்,General
+706,க்ளோஸ்,kḷōs,kḷōs,Foreign,க்ளோஸ்,General
+707,கணேஷ்,kaṇēṣ,kaṇēṣ,Foreign,கணேஷ்,General
+708,கந்தசஷ்டி,kantacaṣṭi,kantacaṣṭi,Foreign,கந்தசஷ்டி,General
+709,கம்பஹா,kampahā,kampahā,Foreign,கம்பஹா,General
+710,கம்போஸ்,kampōs,kampōs,Foreign,கம்போஸ்,General
+711,கம்யூனிஸ்டு,kamyūṉisṭu,kamyūṉisṭu,Foreign,கம்யூனிஸ்டு,General
+712,கம்யூனிஸ,kamyūṉisa,kamyūṉisa,Foreign,கம்யூனிஸ,General
+713,கமிஷனராக,kamiṣaṉarāka,kamiṣaṉarāka,Foreign,கமிஷனராக,General
+714,கமெண்ட்ஸ்,kameṇṭs,kameṇṭs,Foreign,கமெண்ட்ஸ்,General
+715,கருணாஸ்,karuṇās,karuṇās,Foreign,கருணாஸ்,General
+716,கருஜயசூரிய,karujayacūriya,karujayacūriya,Foreign,கருஜயசூரிய,General
+717,கல்யாண்ஜி,kalyāṇji,kalyāṇji,Foreign,கல்யாண்ஜி,General
+718,கல்விநியூஸ்,kalviniyūs,kalviniyūs,Foreign,கல்விநியூஸ்,General
+719,கவரேஜ்,kavarēj,kavarēj,Foreign,கவரேஜ்,General
+720,கன்னியாஸ்திரி,kaṉṉiyāstiri,kaṉṉiyāstiri,Foreign,கன்னியாஸ்திரி,General
+721,கனகராஜ்,kaṉakarāj,kaṉakarāj,Foreign,கனகராஜ்,General
+722,கஜ,kaja,kaja,Foreign,கஜ,General
+723,கஜபதி,kajapati,kajapati,Foreign,கஜபதி,General
+724,கஜா,kajā,kajā,Foreign,கஜா,General
+725,கஜினி,kajiṉi,kajiṉi,Foreign,கஜினி,General
+726,கஜேந்திர,kajēntira,kajēntira,Foreign,கஜேந்திர,General
+727,கஷ்ட,kaṣṭa,kaṣṭa,Foreign,கஷ்ட,General
+728,கஷ்டமா,kaṣṭamā,kaṣṭamā,Foreign,கஷ்டமா,General
+729,கஷ்டமான,kaṣṭamāṉa,kaṣṭamāṉa,Foreign,கஷ்டமான,General
+730,கஷோக்கி,kaṣōkki,kaṣōkki,Foreign,கஷோக்கி,General
+731,கஷோகி,kaṣōki,kaṣōki,Foreign,கஷோகி,General
+732,காந்திஜி,kāntiji,kāntiji,Foreign,காந்திஜி,General
+733,காமர்ஸ்,kāmars,kāmars,Foreign,காமர்ஸ்,General
+734,காமராஜ்,kāmarāj,kāmarāj,Foreign,காமராஜ்,General
+735,காமிக்ஸ்,kāmiks,kāmiks,Foreign,காமிக்ஸ்,General
+736,கார்ஸ்,kārs,kārs,Foreign,கார்ஸ்,General
+737,காலேஜ்,kālēj,kālēj,Foreign,காலேஜ்,General
+738,காளிதாஸ்,kāḷitās,kāḷitās,Foreign,காளிதாஸ்,General
+739,கான்ஸ்டபிள்,kāṉsṭapiḷ,kāṉsṭapiḷ,Foreign,கான்ஸ்டபிள்,General
+740,காஸ்ட்ரோ,kāsṭrō,kāsṭrō,Foreign,காஸ்ட்ரோ,General
+741,காஸ்ட்லி,kāsṭli,kāsṭli,Foreign,காஸ்ட்லி,General
+742,கிட்ஸ்,kiṭs,kiṭs,Foreign,கிட்ஸ்,General
+743,கியாஸ்,kiyās,kiyās,Foreign,கியாஸ்,General
+744,கிராஃபிக்ஸ்,kirāḵpiks,kirāḵpiks,Foreign,கிராஃபிக்ஸ்,General
+745,கிராபிக்ஸ்,kirāpiks,kirāpiks,Foreign,கிராபிக்ஸ்,General
+746,கிராஸ்,kirās,kirās,Foreign,கிராஸ்,General
+747,கிரியேஷன்ஸ்,kiriyēṣaṉs,kiriyēṣaṉs,Foreign,கிரியேஷன்ஸ்,General
+748,கிரிஜா,kirijā,kirijā,Foreign,கிரிஜா,General
+749,கிரிஷ்,kiriṣ,kiriṣ,Foreign,கிரிஷ்,General
+750,கிரிஸ்,kiris,kiris,Foreign,கிரிஸ்,General
+751,கிருஷ்,kiruṣ,kiruṣ,Foreign,கிருஷ்,General
+752,கிருஷ்ண,kiruṣṇa,kiruṣṇa,Foreign,கிருஷ்ண,General
+753,கிருஷ்ணவேணி,kiruṣṇavēṇi,kiruṣṇavēṇi,Foreign,கிருஷ்ணவேணி,General
+754,கிருஷ்ணஜெயந்தி,kiruṣṇajeyanti,kiruṣṇajeyanti,Foreign,கிருஷ்ணஜெயந்தி,General
+755,கிருஸ்துவ,kirustuva,kirustuva,Foreign,கிருஸ்துவ,General
+756,கிரேசியஸ்,kirēciyas,kirēciyas,Foreign,கிரேசியஸ்,General
+757,கிரேஸ்,kirēs,kirēs,Foreign,கிரேஸ்,General
+758,கில்லர்ஜி,killarji,killarji,Foreign,கில்லர்ஜி,General
+759,கிளாஸ்கோ,kiḷāskō,kiḷāskō,Foreign,கிளாஸ்கோ,General
+760,கிளைமாக்ஸ்,kiḷaimāks,kiḷaimāks,Foreign,கிளைமாக்ஸ்,General
+761,கிளைமேக்ஸ்,kiḷaimēks,kiḷaimēks,Foreign,கிளைமேக்ஸ்,General
+762,கிறிஸ்,kiṟis,kiṟis,Foreign,கிறிஸ்,General
+763,கிறிஸ்டி,kiṟisṭi,kiṟisṭi,Foreign,கிறிஸ்டி,General
+764,கிறிஸ்டியானோ,kiṟisṭiyāṉō,kiṟisṭiyāṉō,Foreign,கிறிஸ்டியானோ,General
+765,கிறிஸ்த்தவ,kiṟisttava,kiṟisttava,Foreign,கிறிஸ்த்தவ,General
+766,கிறிஸ்தவ,kiṟistava,kiṟistava,Foreign,கிறிஸ்தவ,General
+767,கிறிஸ்துவ,kiṟistuva,kiṟistuva,Foreign,கிறிஸ்துவ,General
+768,கின்னஸ்,kiṉṉas,kiṉṉas,Foreign,கின்னஸ்,General
+769,கிஸ்,kis,kis,Foreign,கிஸ்,General
+770,கிஸ்மிஸ்,kismis,kismis,Foreign,கிஸ்மிஸ்,General
+771,குட்ரிட்டன்ஸ்,kuṭriṭṭaṉs,kuṭriṭṭaṉs,Foreign,குட்ரிட்டன்ஸ்,General
+772,கும்பாபிஷேக,kumpāpiṣēka,kumpāpiṣēka,Foreign,கும்பாபிஷேக,General
+773,குர்திஷ்,kurtiṣ,kurtiṣ,Foreign,குர்திஷ்,General
+774,குருஜி,kuruji,kuruji,Foreign,குருஜி,General
+775,குரேஷி,kurēṣi,kurēṣi,Foreign,குரேஷி,General
+776,குரேஷியா,kurēṣiyā,kurēṣiyā,Foreign,குரேஷியா,General
+777,குரோஷிய,kurōṣiya,kurōṣiya,Foreign,குரோஷிய,General
+778,குல்பிஸ்,kulpis,kulpis,Foreign,குல்பிஸ்,General
+779,குளுக்கோஸ்,kuḷukkōs,kuḷukkōs,Foreign,குளுக்கோஸ்,General
+780,குளுகோஸ்,kuḷukōs,kuḷukōs,Foreign,குளுகோஸ்,General
+781,குளோஸ்,kuḷōs,kuḷōs,Foreign,குளோஸ்,General
+782,குஷ்பு,kuṣpu,kuṣpu,Foreign,குஷ்பு,General
+783,குஷ்பூ,kuṣpū,kuṣpū,Foreign,குஷ்பூ,General
+784,கெமிஸ்ட்ரி,kemisṭri,kemisṭri,Foreign,கெமிஸ்ட்ரி,General
+785,கெஹலிய,kehaliya,kehaliya,Foreign,கெஹலிய,General
+786,கேட்ஸ்,kēṭs,kēṭs,Foreign,கேட்ஸ்,General
+787,கேம்பஸ்,kēmpas,kēmpas,Foreign,கேம்பஸ்,General
+788,கேம்பிரிட்ஜ்,kēmpiriṭj,kēmpiriṭj,Foreign,கேம்பிரிட்ஜ்,General
+789,கேம்ஸ்,kēms,kēms,Foreign,கேம்ஸ்,General
+790,கேலக்ஸி,kēlaksi,kēlaksi,Foreign,கேலக்ஸி,General
+791,கேன்வாஸ்,kēṉvās,kēṉvās,Foreign,கேன்வாஸ்,General
+792,கேன்ஸ்,kēṉs,kēṉs,Foreign,கேன்ஸ்,General
+793,கேஷ்,kēṣ,kēṣ,Foreign,கேஷ்,General
+794,கேஸ்,kēs,kēs,Foreign,கேஸ்,General
+795,கைலாஷ்,kailāṣ,kailāṣ,Foreign,கைலாஷ்,General
+796,கொத்ஸ்,kots,kots,Foreign,கொத்ஸ்,General
+797,கொஸ்கம,koskama,koskama,Foreign,கொஸ்கம,General
+798,கோகுல்ராஜ்,kōkulrāj,kōkulrāj,Foreign,கோகுல்ராஜ்,General
+799,கோபாலகிருஷ்ண,kōpālakiruṣṇa,kōpālakiruṣṇa,Foreign,கோபாலகிருஷ்ண,General
+800,கோர்ஸ்,kōrs,kōrs,Foreign,கோர்ஸ்,General
+801,கோவிந்தராஜ்,kōvintarāj,kōvintarāj,Foreign,கோவிந்தராஜ்,General
+802,கோஷ்,kōṣ,kōṣ,Foreign,கோஷ்,General
+803,கோஷமிட்ட,kōṣamiṭṭa,kōṣamiṭṭa,Foreign,கோஷமிட்ட,General
+804,கோஸ்டா,kōsṭā,kōsṭā,Foreign,கோஸ்டா,General
+805,கோஹ்லி,kōhli,kōhli,Foreign,கோஹ்லி,General
+806,சகஜ,cakaja,cakaja,Foreign,சகஜ,General
+807,சகஜமான,cakajamāṉa,cakajamāṉa,Foreign,சகஜமான,General
+808,சங்கோஜப்படு,caṅkōjappaṭu,caṅkōjappaṭu,Foreign,சங்கோஜப்படு,General
+809,சடோஷி,caṭōṣi,caṭōṣi,Foreign,சடோஷி,General
+810,சத்தியராஜ்,cattiyarāj,cattiyarāj,Foreign,சத்தியராஜ்,General
+811,சத்யராஜ்,catyarāj,catyarāj,Foreign,சத்யராஜ்,General
+812,சத்யஜோதி,catyajōti,catyajōti,Foreign,சத்யஜோதி,General
+813,சதிஷ்,catiṣ,catiṣ,Foreign,சதிஷ்,General
+814,சந்திரபோஸ்,cantirapōs,cantirapōs,Foreign,சந்திரபோஸ்,General
+815,சந்தோஷ்,cantōṣ,cantōṣ,Foreign,சந்தோஷ்,General
+816,சந்தோஷ,cantōṣa,cantōṣa,Foreign,சந்தோஷ,General
+817,சந்தோஷமா,cantōṣamā,cantōṣamā,Foreign,சந்தோஷமா,General
+818,சந்தோஷமாய்,cantōṣamāy,cantōṣamāy,Foreign,சந்தோஷமாய்,General
+819,சந்தோஷமான,cantōṣamāṉa,cantōṣamāṉa,Foreign,சந்தோஷமான,General
+820,சந்தோஷமே,cantōṣamē,cantōṣamē,Foreign,சந்தோஷமே,General
+821,சம்ஸ்கிருத,camskiruta,camskiruta,Foreign,சம்ஸ்கிருத,General
+822,சமஸ்,camas,camas,Foreign,சமஸ்,General
+823,சமஸ்கிருத,camaskiruta,camaskiruta,Foreign,சமஸ்கிருத,General
+824,சமஸ்டி,camasṭi,camasṭi,Foreign,சமஸ்டி,General
+825,சமாஜ்,camāj,camāj,Foreign,சமாஜ்,General
+826,சமாஜ்வாடி,camājvāṭi,camājvāṭi,Foreign,சமாஜ்வாடி,General
+827,சமாஜ்வாதி,camājvāti,camājvāti,Foreign,சமாஜ்வாதி,General
+828,சயின்ஸ்,cayiṉs,cayiṉs,Foreign,சயின்ஸ்,General
+829,சர்ஃபேஸ்,carḵpēs,carḵpēs,Foreign,சர்ஃபேஸ்,General
+830,சர்க்கஸ்,carkkas,carkkas,Foreign,சர்க்கஸ்,General
+831,சர்தார்ஜி,cartārji,cartārji,Foreign,சர்தார்ஜி,General
+832,சர்ப்ரைஸ்,carprais,carprais,Foreign,சர்ப்ரைஸ்,General
+833,சர்வஜன,carvajaṉa,carvajaṉa,Foreign,சர்வஜன,General
+834,சர்ஜரி,carjari,carjari,Foreign,சர்ஜரி,General
+835,சரோஜா,carōjā,carōjā,Foreign,சரோஜா,General
+836,சன்ரைசர்ஸ்,caṉraicars,caṉraicars,Foreign,சன்ரைசர்ஸ்,General
+837,சன்ஸ்,caṉs,caṉs,Foreign,சன்ஸ்,General
+838,சஸ்பென்ஸ்,caspeṉs,caspeṉs,Foreign,சஸ்பென்ஸ்,General
+839,சாட்டர்ஜி,cāṭṭarji,cāṭṭarji,Foreign,சாட்டர்ஜி,General
+840,சாம்பியன்ஸ்,cāmpiyaṉs,cāmpiyaṉs,Foreign,சாம்பியன்ஸ்,General
+841,சாய்ஸ்,cāys,cāys,Foreign,சாய்ஸ்,General
+842,சாயிஷா,cāyiṣā,cāyiṣā,Foreign,சாயிஷா,General
+843,சார்ல்ஸ்,cārls,cārls,Foreign,சார்ல்ஸ்,General
+844,சார்லஸ்,cārlas,cārlas,Foreign,சார்லஸ்,General
+845,சார்ள்ஸ்,cārḷs,cārḷs,Foreign,சார்ள்ஸ்,General
+846,சார்ஜ்,cārj,cārj,Foreign,சார்ஜ்,General
+847,சாள்ஸ்,cāḷs,cāḷs,Foreign,சாள்ஸ்,General
+848,சான்ஸ்,cāṉs,cāṉs,Foreign,சான்ஸ்,General
+849,சாஸ்,cās,cās,Foreign,சாஸ்,General
+850,சாஸ்திர,cāstira,cāstira,Foreign,சாஸ்திர,General
+851,சாஸ்திரப்படி,cāstirappaṭi,cāstirappaṭi,Foreign,சாஸ்திரப்படி,General
+852,சிக்ஸ்,ciks,ciks,Foreign,சிக்ஸ்,General
+853,சிப்ஸ்,cips,cips,Foreign,சிப்ஸ்,General
+854,சிபிராஜ்,cipirāj,cipirāj,Foreign,சிபிராஜ்,General
+855,சிம்ஹா,cimhā,cimhā,Foreign,சிம்ஹா,General
+856,சிராஜ்,cirāj,cirāj,Foreign,சிராஜ்,General
+857,சிரிஷ்,ciriṣ,ciriṣ,Foreign,சிரிஷ்,General
+858,சிரேஸ்ட,cirēsṭa,cirēsṭa,Foreign,சிரேஸ்ட,General
+859,சிவராஜ்,civarāj,civarāj,Foreign,சிவராஜ்,General
+860,சிவாஜி,civāji,civāji,Foreign,சிவாஜி,General
+861,சின்ஹா,ciṉhā,ciṉhā,Foreign,சின்ஹா,General
+862,சினிமாஸ்,ciṉimās,ciṉimās,Foreign,சினிமாஸ்,General
+863,சிஸ்டம்ஸ்,cisṭams,cisṭams,Foreign,சிஸ்டம்ஸ்,General
+864,சுகேஷ்,cukēṣ,cukēṣ,Foreign,சுகேஷ்,General
+865,சுப்பராஜ்,cupparāj,cupparāj,Foreign,சுப்பராஜ்,General
+866,சுப்புராஜ்,cuppurāj,cuppurāj,Foreign,சுப்புராஜ்,General
+867,சுபாஷ்,cupāṣ,cupāṣ,Foreign,சுபாஷ்,General
+868,சுபாஸ்,cupās,cupās,Foreign,சுபாஸ்,General
+869,சுராஜ்,curāj,curāj,Foreign,சுராஜ்,General
+870,சுரேஷ்,curēṣ,curēṣ,Foreign,சுரேஷ்,General
+871,சுரேஸ்,curēs,curēs,Foreign,சுரேஸ்,General
+872,சுவராஜ்,cuvarāj,cuvarāj,Foreign,சுவராஜ்,General
+873,சுவாமிஜி,cuvāmiji,cuvāmiji,Foreign,சுவாமிஜி,General
+874,சுவாரஸ்ய,cuvārasya,cuvārasya,Foreign,சுவாரஸ்ய,General
+875,சுவாரஸ்யமான,cuvārasyamāṉa,cuvārasyamāṉa,Foreign,சுவாரஸ்யமான,General
+876,சுவாரஸ்யமானது,cuvārasyamāṉatu,cuvārasyamāṉatu,Foreign,சுவாரஸ்யமானது,General
+877,சுவிசேஷ,cuvicēṣa,cuvicēṣa,Foreign,சுவிசேஷ,General
+878,சுவிஷேச,cuviṣēca,cuviṣēca,Foreign,சுவிஷேச,General
+879,சுவிஸ்,cuvis,cuvis,Foreign,சுவிஸ்,General
+880,சுஜா,cujā,cujā,Foreign,சுஜா,General
+881,சுஜாதா,cujātā,cujātā,Foreign,சுஜாதா,General
+882,சுஷ்மா,cuṣmā,cuṣmā,Foreign,சுஷ்மா,General
+883,சுஷ்மிதா,cuṣmitā,cuṣmitā,Foreign,சுஷ்மிதா,General
+884,சுஸுகி,cusuki,cusuki,Foreign,சுஸுகி,General
+885,சுஸூகி,cusūki,cusūki,Foreign,சுஸூகி,General
+886,சுஹாசினி,cuhāciṉi,cuhāciṉi,Foreign,சுஹாசினி,General
+887,சூடோமோனாஸ்,cūṭōmōṉās,cūṭōmōṉās,Foreign,சூடோமோனாஸ்,General
+888,சூப்பர்ஹீரோ,cūpparhīrō,cūpparhīrō,Foreign,சூப்பர்ஹீரோ,General
+889,சூரசம்ஹார,cūracamhāra,cūracamhāra,Foreign,சூரசம்ஹார,General
+890,செக்ஸ்,ceks,ceks,Foreign,செக்ஸ்,General
+891,செல்சியஸ்,celciyas,celciyas,Foreign,செல்சியஸ்,General
+892,செல்வராஜ்,celvarāj,celvarāj,Foreign,செல்வராஜ்,General
+893,சென்செக்ஸ்,ceṉceks,ceṉceks,Foreign,சென்செக்ஸ்,General
+894,சென்ஸ்,ceṉs,ceṉs,Foreign,சென்ஸ்,General
+895,செஸ்,ces,ces,Foreign,செஸ்,General
+896,செக்ஷ்,cekṣ,cekṣ,Foreign,செக்ஷ்,General
+897,சேல்ஸ்,cēls,cēls,Foreign,சேல்ஸ்,General
+898,சேஷாத்ரி,cēṣātri,cēṣātri,Foreign,சேஷாத்ரி,General
+899,சைனஸ்,caiṉas,caiṉas,Foreign,சைனஸ்,General
+900,சைஸ்,cais,cais,Foreign,சைஸ்,General
+901,சொரியாசிஸ்,coriyācis,coriyācis,Foreign,சொரியாசிஸ்,General
+902,சோர்ஸ்,cōrs,cōrs,Foreign,சோர்ஸ்,General
+903,சோஷலிச,cōṣalica,cōṣalica,Foreign,சோஷலிச,General
+904,ட்ரிக்ஸ்,ṭriks,ṭriks,Foreign,ட்ரிக்ஸ்,General
+905,டக்ளஸ்,ṭakḷas,ṭakḷas,Foreign,டக்ளஸ்,General
+906,டமாஸ்கஸ்,ṭamāskas,ṭamāskas,Foreign,டமாஸ்கஸ்,General
+907,டயஸ்,ṭayas,ṭayas,Foreign,டயஸ்,General
+908,டயாலிசிஸ்,ṭayālicis,ṭayālicis,Foreign,டயாலிசிஸ்,General
+909,டல்லாஸ்,ṭallās,ṭallās,Foreign,டல்லாஸ்,General
+910,டலஸ்,ṭalas,ṭalas,Foreign,டலஸ்,General
+911,டவர்ஸ்,ṭavars,ṭavars,Foreign,டவர்ஸ்,General
+912,டாக்ஸ்,ṭāks,ṭāks,Foreign,டாக்ஸ்,General
+913,டாக்ஸி,ṭāksi,ṭāksi,Foreign,டாக்ஸி,General
+914,டாப்ஸி,ṭāpsi,ṭāpsi,Foreign,டாப்ஸி,General
+915,டால்ஸ்டாய்,ṭālsṭāy,ṭālsṭāy,Foreign,டால்ஸ்டாய்,General
+916,டான்ஸ்,ṭāṉs,ṭāṉs,Foreign,டான்ஸ்,General
+917,டாஸ்,ṭās,ṭās,Foreign,டாஸ்,General
+918,டிப்ஸ்,ṭips,ṭips,Foreign,டிப்ஸ்,General
+919,டிமென்ஷியா,ṭimeṉṣiyā,ṭimeṉṣiyā,Foreign,டிமென்ஷியா,General
+920,டிரஸ்,ṭiras,ṭiras,Foreign,டிரஸ்,General
+921,டிராவல்ஸ்,ṭirāvals,ṭirāvals,Foreign,டிராவல்ஸ்,General
+922,டிவைஸ்,ṭivais,ṭivais,Foreign,டிவைஸ்,General
+923,டிஜிபி,ṭijipi,ṭijipi,Foreign,டிஜிபி,General
+924,டிஷ்,ṭiṣ,ṭiṣ,Foreign,டிஷ்,General
+925,டிஸ்கவரி,ṭiskavari,ṭiskavari,Foreign,டிஸ்கவரி,General
+926,டிஸ்கி,ṭiski,ṭiski,Foreign,டிஸ்கி,General
+927,டிஸ்சார்ஜ்,ṭiscārj,ṭiscārj,Foreign,டிஸ்சார்ஜ்,General
+928,டிஸ்ப்ளே,ṭispḷē,ṭispḷē,Foreign,டிஸ்ப்ளே,General
+929,டிஸ்பிளே,ṭispiḷē,ṭispiḷē,Foreign,டிஸ்பிளே,General
+930,டிஸ்மிஸ்,ṭismis,ṭismis,Foreign,டிஸ்மிஸ்,General
+931,டிஸ்னி,ṭisṉi,ṭisṉi,Foreign,டிஸ்னி,General
+932,டெக்சாஸ்,ṭekcās,ṭekcās,Foreign,டெக்சாஸ்,General
+933,டெக்ஸ்,ṭeks,ṭeks,Foreign,டெக்ஸ்,General
+934,டெக்ஸாஸ்,ṭeksās,ṭeksās,Foreign,டெக்ஸாஸ்,General
+935,டென்னிஸ்,ṭeṉṉis,ṭeṉṉis,Foreign,டென்னிஸ்,General
+936,டெனிஸ்,ṭeṉis,ṭeṉis,Foreign,டெனிஸ்,General
+937,டெஸ்லா,ṭeslā,ṭeslā,Foreign,டெஸ்லா,General
+938,டேவிஸ்,ṭēvis,ṭēvis,Foreign,டேவிஸ்,General
+939,டேஸ்,ṭēs,ṭēs,Foreign,டேஸ்,General
+940,டைம்பாஸ்,ṭaimpās,ṭaimpās,Foreign,டைம்பாஸ்,General
+941,டைம்ஸ்,ṭaims,ṭaims,Foreign,டைம்ஸ்,General
+942,டைல்ஸ்,ṭails,ṭails,Foreign,டைல்ஸ்,General
+943,டைவர்ஸ்,ṭaivars,ṭaivars,Foreign,டைவர்ஸ்,General
+944,த்ரிஷா,triṣā,triṣā,Foreign,த்ரிஷா,General
+945,தட்ஸ்தமிழ்,taṭstamiḻ,taṭstamiḻ,Foreign,தட்ஸ்தமிழ்,General
+946,தபஸ்,tapas,tapas,Foreign,தபஸ்,General
+947,தமிழ்ஹிந்து,tamiḻhintu,tamiḻhintu,Foreign,தமிழ்ஹிந்து,General
+948,தர்பூஸ்,tarpūs,tarpūs,Foreign,தர்பூஸ்,General
+949,தலைவாஸ்,talaivās,talaivās,Foreign,தலைவாஸ்,General
+950,தன்ஷிகா,taṉṣikā,taṉṣikā,Foreign,தன்ஷிகா,General
+951,தனஞ்ஜய,taṉañjaya,taṉañjaya,Foreign,தனஞ்ஜய,General
+952,தனுஷ்,taṉuṣ,taṉuṣ,Foreign,தனுஷ்,General
+953,தஸ்தவேசுப்புரட்டு,tastavēcuppuraṭṭu,tastavēcuppuraṭṭu,Foreign,தஸ்தவேசுப்புரட்டு,General
+954,தக்ஷிணபீடபூமி,takṣiṇapīṭapūmi,takṣiṇapīṭapūmi,Foreign,தக்ஷிணபீடபூமி,General
+955,தாமஸ்,tāmas,tāmas,Foreign,தாமஸ்,General
+956,தாஜ்,tāj,tāj,Foreign,தாஜ்,General
+957,தாஸ்,tās,tās,Foreign,தாஸ்,General
+958,தியாகராஜ,tiyākarāja,tiyākarāja,Foreign,தியாகராஜ,General
+959,திரிஷா,tiriṣā,tiriṣā,Foreign,திரிஷா,General
+960,திவ்யதர்ஷினி,tivyatarṣiṉi,tivyatarṣiṉi,Foreign,திவ்யதர்ஷினி,General
+961,தினேஷ்,tiṉēṣ,tiṉēṣ,Foreign,தினேஷ்,General
+962,தினேஸ்,tiṉēs,tiṉēs,Foreign,தினேஸ்,General
+963,திஷா,tiṣā,tiṣā,Foreign,திஷா,General
+964,திஸ்,tis,tis,Foreign,திஸ்,General
+965,திஸ்ஸ,tissa,tissa,Foreign,திஸ்ஸ,General
+966,திஸாநாயக்க,tisānāyakka,tisānāyakka,Foreign,திஸாநாயக்க,General
+967,துரைராஜ்,turairāj,turairāj,Foreign,துரைராஜ்,General
+968,துல்ஹஜ்,tulhaj,tulhaj,Foreign,துல்ஹஜ்,General
+969,துல்ஹாதா,tulhātā,tulhātā,Foreign,துல்ஹாதா,General
+970,தேம்ஸ்,tēms,tēms,Foreign,தேம்ஸ்,General
+971,தேவராஜ்,tēvarāj,tēvarāj,Foreign,தேவராஜ்,General
+972,தேவஸ்தான,tēvastāṉa,tēvastāṉa,Foreign,தேவஸ்தான,General
+973,தேஜா,tējā,tējā,Foreign,தேஜா,General
+974,தோமஸ்,tōmas,tōmas,Foreign,தோமஸ்,General
+975,தோஷ,tōṣa,tōṣa,Foreign,தோஷ,General
+976,தோஹா,tōhā,tōhā,Foreign,தோஹா,General
+977,நட்ராஜ்,naṭrāj,naṭrāj,Foreign,நட்ராஜ்,General
+978,நட்ஸ்,naṭs,naṭs,Foreign,நட்ஸ்,General
+979,நடராஜ்,naṭarāj,naṭarāj,Foreign,நடராஜ்,General
+980,நமஸ்,namas,namas,Foreign,நமஸ்,General
+981,நரேஷ்,narēṣ,narēṣ,Foreign,நரேஷ்,General
+982,நவாஸ்,navās,navās,Foreign,நவாஸ்,General
+983,நஷ்ட,naṣṭa,naṣṭa,Foreign,நஷ்ட,General
+984,நஸ்ரியா,nasriyā,nasriyā,Foreign,நஸ்ரியா,General
+985,நாகராஜ்,nākarāj,nākarāj,Foreign,நாகராஜ்,General
+986,நாகார்ஜுனா,nākārjuṉā,nākārjuṉā,Foreign,நாகார்ஜுனா,General
+987,நாகேஷ்,nākēṣ,nākēṣ,Foreign,நாகேஷ்,General
+988,நாதஸ்வர,nātasvara,nātasvara,Foreign,நாதஸ்வர,General
+989,நாஜி,nāji,nāji,Foreign,நாஜி,General
+990,நாஸா,nāsā,nāsā,Foreign,நாஸா,General
+991,நிக்கோலஸ்,nikkōlas,nikkōlas,Foreign,நிக்கோலஸ்,General
+992,நிகோலஸ்,nikōlas,nikōlas,Foreign,நிகோலஸ்,General
+993,நிதிஷ்,nitiṣ,nitiṣ,Foreign,நிதிஷ்,General
+994,நியூஸ்,niyūs,niyūs,Foreign,நியூஸ்,General
+995,நியூஸிலாந்து,niyūsilāntu,niyūsilāntu,Foreign,நியூஸிலாந்து,General
+996,நிவாஸ்,nivās,nivās,Foreign,நிவாஸ்,General
+997,நிஜ,nija,nija,Foreign,நிஜ,General
+998,நிஜமாகவே,nijamākavē,nijamākavē,Foreign,நிஜமாகவே,General
+999,நிஜமான,nijamāṉa,nijamāṉa,Foreign,நிஜமான,General
+1000,நிஷா,niṣā,niṣā,Foreign,நிஷா,General
+1001,நிஷாந்த,niṣānta,niṣānta,Foreign,நிஷாந்த,General
+1002,நூடுல்ஸ்,nūṭuls,nūṭuls,Foreign,நூடுல்ஸ்,General
+1003,நூஹ்,nūh,nūh,Foreign,நூஹ்,General
+1004,நெக்சஸ்,nekcas,nekcas,Foreign,நெக்சஸ்,General
+1005,நெட்டிசன்ஸ்,neṭṭicaṉs,neṭṭicaṉs,Foreign,நெட்டிசன்ஸ்,General
+1006,நெஸ்லே,neslē,neslē,Foreign,நெஸ்லே,General
+1007,நேதாஜி,nētāji,nētāji,Foreign,நேதாஜி,General
+1008,நேஹா,nēhā,nēhā,Foreign,நேஹா,General
+1009,நைஸாக,naisāka,naisāka,Foreign,நைஸாக,General
+1010,நோட்ஸ்,nōṭs,nōṭs,Foreign,நோட்ஸ்,General
+1011,ப்ளஸ்,pḷas,pḷas,Foreign,ப்ளஸ்,General
+1012,ப்ளாஷ்,pḷāṣ,pḷāṣ,Foreign,ப்ளாஷ்,General
+1013,பக்ஸ்,paks,paks,Foreign,பக்ஸ்,General
+1014,பங்களாதேஷ்,paṅkaḷātēṣ,paṅkaḷātēṣ,Foreign,பங்களாதேஷ்,General
+1015,பட்னாவிஸ்,paṭṉāvis,paṭṉāvis,Foreign,பட்னாவிஸ்,General
+1016,பட்ஸ்,paṭs,paṭs,Foreign,பட்ஸ்,General
+1017,பயர்பாக்ஸ்,payarpāks,payarpāks,Foreign,பயர்பாக்ஸ்,General
+1018,பயஸ்,payas,payas,Foreign,பயஸ்,General
+1019,பரத்வாஜ்,paratvāj,paratvāj,Foreign,பரத்வாஜ்,General
+1020,பரமேஸ்வரி,paramēsvari,paramēsvari,Foreign,பரமேஸ்வரி,General
+1021,பரஸ்பர,paraspara,paraspara,Foreign,பரஸ்பர,General
+1022,பரிஸ்,paris,paris,Foreign,பரிஸ்,General
+1023,பல்ஸ்,pals,pals,Foreign,பல்ஸ்,General
+1024,பவுண்ட்ஸ்,pavuṇṭs,pavuṇṭs,Foreign,பவுண்ட்ஸ்,General
+1025,பஜாஜ்,pajāj,pajāj,Foreign,பஜாஜ்,General
+1026,பஸ்கா,paskā,paskā,Foreign,பஸ்கா,General
+1027,பஸ்ல,pasla,pasla,Foreign,பஸ்ல,General
+1028,பக்ஷ,pakṣa,pakṣa,Foreign,பக்ஷ,General
+1029,பாக்கியராஜ்,pākkiyarāj,pākkiyarāj,Foreign,பாக்கியராஜ்,General
+1030,பாக்யராஜ்,pākyarāj,pākyarāj,Foreign,பாக்யராஜ்,General
+1031,பாக்ஸ்,pāks,pāks,Foreign,பாக்ஸ்,General
+1032,பாகிஸ்தானி,pākistāṉi,pākistāṉi,Foreign,பாகிஸ்தானி,General
+1033,பாகிஸ்தானிய,pākistāṉiya,pākistāṉiya,Foreign,பாகிஸ்தானிய,General
+1034,பாட்ஷா,pāṭṣā,pāṭṣā,Foreign,பாட்ஷா,General
+1035,பாண்டிராஜ்,pāṇṭirāj,pāṇṭirāj,Foreign,பாண்டிராஜ்,General
+1036,பாய்ஸ்,pāys,pāys,Foreign,பாய்ஸ்,General
+1037,பால்ராஜ்,pālrāj,pālrāj,Foreign,பால்ராஜ்,General
+1038,பாலகிருஷ்ணா,pālakiruṣṇā,pālakiruṣṇā,Foreign,பாலகிருஷ்ணா,General
+1039,பாலாஜி,pālāji,pālāji,Foreign,பாலாஜி,General
+1040,பாலிஷ்,pāliṣ,pāliṣ,Foreign,பாலிஷ்,General
+1041,பானர்ஜி,pāṉarji,pāṉarji,Foreign,பானர்ஜி,General
+1042,பாஜ்வா,pājvā,pājvā,Foreign,பாஜ்வா,General
+1043,பாஜ,pāja,pāja,Foreign,பாஜ,General
+1044,பாஜகவிற்கு,pājakaviṟku,pājakaviṟku,Foreign,பாஜகவிற்கு,General
+1045,பாஷா,pāṣā,pāṣā,Foreign,பாஷா,General
+1046,பாஸ்,pās,pās,Foreign,பாஸ்,General
+1047,பாஸ்தா,pāstā,pāstā,Foreign,பாஸ்தா,General
+1048,பாஸ்வேர்டு,pāsvērṭu,pāsvērṭu,Foreign,பாஸ்வேர்டு,General
+1049,பிக்சர்ஸ்,pikcars,pikcars,Foreign,பிக்சர்ஸ்,General
+1050,பிக்பாஸ்,pikpās,pikpās,Foreign,பிக்பாஸ்,General
+1051,பிசினஸ்,piciṉas,piciṉas,Foreign,பிசினஸ்,General
+1052,பியூஷ்,piyūṣ,piyūṣ,Foreign,பியூஷ்,General
+1053,பியூஸ்,piyūs,piyūs,Foreign,பியூஸ்,General
+1054,பிரகாஷ்,pirakāṣ,pirakāṣ,Foreign,பிரகாஷ்,General
+1055,பிரகாஷ்ராஜ்,pirakāṣrāj,pirakāṣrāj,Foreign,பிரகாஷ்ராஜ்,General
+1056,பிரகாஸ்,pirakās,pirakās,Foreign,பிரகாஸ்,General
+1057,பிரதர்ஸ்,piratars,piratars,Foreign,பிரதர்ஸ்,General
+1058,பிரதோஷ,piratōṣa,piratōṣa,Foreign,பிரதோஷ,General
+1059,பிரபாஸ்,pirapās,pirapās,Foreign,பிரபாஸ்,General
+1060,பிரயோஜனப்படு,pirayōjaṉappaṭu,pirayōjaṉappaṭu,Foreign,பிரயோஜனப்படு,General
+1061,பிரஜா,pirajā,pirajā,Foreign,பிரஜா,General
+1062,பிரஷ்,piraṣ,piraṣ,Foreign,பிரஷ்,General
+1063,பிரஸ்,piras,piras,Foreign,பிரஸ்,General
+1064,பிரான்சிஸ்,pirāṉcis,pirāṉcis,Foreign,பிரான்சிஸ்,General
+1065,பிரிக்ஸ்,piriks,piriks,Foreign,பிரிக்ஸ்,General
+1066,பிரிட்டிஷ்,piriṭṭiṣ,piriṭṭiṣ,Foreign,பிரிட்டிஷ்,General
+1067,பிரிட்ஜ்,piriṭj,piriṭj,Foreign,பிரிட்ஜ்,General
+1068,பிரின்ஸ்,piriṉs,piriṉs,Foreign,பிரின்ஸ்,General
+1069,பிருத்விராஜ்,pirutvirāj,pirutvirāj,Foreign,பிருத்விராஜ்,General
+1070,பிரேம்ஜி,pirēmji,pirēmji,Foreign,பிரேம்ஜி,General
+1071,பிரேமஜயந்த,pirēmajayanta,pirēmajayanta,Foreign,பிரேமஜயந்த,General
+1072,பில்கேட்ஸ்,pilkēṭs,pilkēṭs,Foreign,பில்கேட்ஸ்,General
+1073,பிலிப்ஸ்,pilips,pilips,Foreign,பிலிப்ஸ்,General
+1074,பிலிம்ஸ்,pilims,pilims,Foreign,பிலிம்ஸ்,General
+1075,பிளவுஸ்,piḷavus,piḷavus,Foreign,பிளவுஸ்,General
+1076,பிளஸ்,piḷas,piḷas,Foreign,பிளஸ்,General
+1077,பிளாக்ஸ்,piḷāks,piḷāks,Foreign,பிளாக்ஸ்,General
+1078,பிளாஷ்,piḷāṣ,piḷāṣ,Foreign,பிளாஷ்,General
+1079,பிளேஸ்,piḷēs,piḷēs,Foreign,பிளேஸ்,General
+1080,பிஜு,piju,piju,Foreign,பிஜு,General
+1081,பிஜூ,pijū,pijū,Foreign,பிஜூ,General
+1082,பிஜேபி,pijēpi,pijēpi,Foreign,பிஜேபி,General
+1083,பிஸ்னஸ்,pisṉas,pisṉas,Foreign,பிஸ்னஸ்,General
+1084,பிஸி,pisi,pisi,Foreign,பிஸி,General
+1085,பிஸினஸ்,pisiṉas,pisiṉas,Foreign,பிஸினஸ்,General
+1086,பிஹாரி,pihāri,pihāri,Foreign,பிஹாரி,General
+1087,புக்ஸ்,puks,puks,Foreign,புக்ஸ்,General
+1088,புருஷ,puruṣa,puruṣa,Foreign,புருஷ,General
+1089,புரூஸ்,purūs,purūs,Foreign,புரூஸ்,General
+1090,புரொடக்ஷன்ஸ்,puroṭakṣaṉs,puroṭakṣaṉs,Foreign,புரொடக்ஷன்ஸ்,General
+1091,புவனேஸ்வரி,puvaṉēsvari,puvaṉēsvari,Foreign,புவனேஸ்வரி,General
+1092,புளோரன்ஸ்,puḷōraṉs,puḷōraṉs,Foreign,புளோரன்ஸ்,General
+1093,புஜாரா,pujārā,pujārā,Foreign,புஜாரா,General
+1094,புஷ்,puṣ,puṣ,Foreign,புஷ்,General
+1095,புஷ்கர,puṣkara,puṣkara,Foreign,புஷ்கர,General
+1096,புஷ்பா,puṣpā,puṣpā,Foreign,புஷ்பா,General
+1097,புஹாரி,puhāri,puhāri,Foreign,புஹாரி,General
+1098,பூஜா,pūjā,pūjā,Foreign,பூஜா,General
+1099,பூஜித,pūjita,pūjita,Foreign,பூஜித,General
+1100,பெத்துராஜ்,petturāj,petturāj,Foreign,பெத்துராஜ்,General
+1101,பெப்ஸி,pepsi,pepsi,Foreign,பெப்ஸி,General
+1102,பெர்னாட்ஷா,perṉāṭṣā,perṉāṭṣā,Foreign,பெர்னாட்ஷா,General
+1103,பெர்னாண்டஸ்,perṉāṇṭas,perṉāṇṭas,Foreign,பெர்னாண்டஸ்,General
+1104,பெல்ஜிய,peljiya,peljiya,Foreign,பெல்ஜிய,General
+1105,பென்ஸ்,peṉs,peṉs,Foreign,பென்ஸ்,General
+1106,பேக்கேஜ்,pēkkēj,pēkkēj,Foreign,பேக்கேஜ்,General
+1107,பேக்ஸ்,pēks,pēks,Foreign,பேக்ஸ்,General
+1108,பேட்ஸ்,pēṭs,pēṭs,Foreign,பேட்ஸ்,General
+1109,பேமஸ்,pēmas,pēmas,Foreign,பேமஸ்,General
+1110,பேர்ச்சஸ்,pērccas,pērccas,Foreign,பேர்ச்சஸ்,General
+1111,பேலன்ஸ்,pēlaṉs,pēlaṉs,Foreign,பேலன்ஸ்,General
+1112,பேஜ்,pēj,pēj,Foreign,பேஜ்,General
+1113,பைபாஸ்,paipās,paipās,Foreign,பைபாஸ்,General
+1114,பைனான்ஸ்,paiṉāṉs,paiṉāṉs,Foreign,பைனான்ஸ்,General
+1115,பொக்கிஷ,pokkiṣa,pokkiṣa,Foreign,பொக்கிஷ,General
+1116,பொதுஜன,potujaṉa,potujaṉa,Foreign,பொதுஜன,General
+1117,பொல்கஹவெல,polkahavela,polkahavela,Foreign,பொல்கஹவெல,General
+1118,பொலிஸ்,polis,polis,Foreign,பொலிஸ்,General
+1119,பொலிஸ்மா,polismā,polismā,Foreign,பொலிஸ்மா,General
+1120,போதைவஸ்து,pōtaivastu,pōtaivastu,Foreign,போதைவஸ்து,General
+1121,போயஸ்,pōyas,pōyas,Foreign,போயஸ்,General
+1122,போர்ப்ஸ்,pōrps,pōrps,Foreign,போர்ப்ஸ்,General
+1123,போரிஸ்,pōris,pōris,Foreign,போரிஸ்,General
+1124,போலிஸ்,pōlis,pōlis,Foreign,போலிஸ்,General
+1125,போலீஸ்காரி,pōlīskāri,pōlīskāri,Foreign,போலீஸ்காரி,General
+1126,போவாஸ்,pōvās,pōvās,Foreign,போவாஸ்,General
+1127,போனஸ்,pōṉas,pōṉas,Foreign,போனஸ்,General
+1128,போஸ்,pōs,pōs,Foreign,போஸ்,General
+1129,போஸ்கோ,pōskō,pōskō,Foreign,போஸ்கோ,General
+1130,மக்ரூஹ்,makrūh,makrūh,Foreign,மக்ரூஹ்,General
+1131,மகாராஜ்,makārāj,makārāj,Foreign,மகாராஜ்,General
+1132,மகாராஷ்ட்ரா,makārāṣṭrā,makārāṣṭrā,Foreign,மகாராஷ்ட்ரா,General
+1133,மகாராஷ்டிர,makārāṣṭira,makārāṣṭira,Foreign,மகாராஷ்டிர,General
+1134,மகேஷ்,makēṣ,makēṣ,Foreign,மகேஷ்,General
+1135,மகேஷ்பாபு,makēṣpāpu,makēṣpāpu,Foreign,மகேஷ்பாபு,General
+1136,மகேஷ்வரி,makēṣvari,makēṣvari,Foreign,மகேஷ்வரி,General
+1137,மகேஸ்வரி,makēsvari,makēsvari,Foreign,மகேஸ்வரி,General
+1138,மசாஜ்,macāj,macāj,Foreign,மசாஜ்,General
+1139,மதரஸா,matarasā,matarasā,Foreign,மதரஸா,General
+1140,மதராஸ்,matarās,matarās,Foreign,மதராஸ்,General
+1141,மனிஷா,maṉiṣā,maṉiṣā,Foreign,மனிஷா,General
+1142,மனுஷ்,maṉuṣ,maṉuṣ,Foreign,மனுஷ்,General
+1143,மனுஷ்ய,maṉuṣya,maṉuṣya,Foreign,மனுஷ்ய,General
+1144,மனுஷ,maṉuṣa,maṉuṣa,Foreign,மனுஷ,General
+1145,மனோஜ்,maṉōj,maṉōj,Foreign,மனோஜ்,General
+1146,மஸ்கெலியா,maskeliyā,maskeliyā,Foreign,மஸ்கெலியா,General
+1147,மஹரகம,maharakama,maharakama,Foreign,மஹரகம,General
+1148,மஹரிஷி,mahariṣi,mahariṣi,Foreign,மஹரிஷி,General
+1149,மஹாத்மா,mahātmā,mahātmā,Foreign,மஹாத்மா,General
+1150,மஹாதேவகி,mahātēvaki,mahātēvaki,Foreign,மஹாதேவகி,General
+1151,மஹிந்த,mahinta,mahinta,Foreign,மஹிந்த,General
+1152,மஹிந்தானந்த,mahintāṉanta,mahintāṉanta,Foreign,மஹிந்தானந்த,General
+1153,மஹிந்திரா,mahintirā,mahintirā,Foreign,மஹிந்திரா,General
+1154,மாசசூசெட்ஸ்,mācacūceṭs,mācacūceṭs,Foreign,மாசசூசெட்ஸ்,General
+1155,மாதவராஜ்,mātavarāj,mātavarāj,Foreign,மாதவராஜ்,General
+1156,மாம்ஸ்,māms,māms,Foreign,மாம்ஸ்,General
+1157,மார்க்ஸ்,mārks,mārks,Foreign,மார்க்ஸ்,General
+1158,மார்க்ஸிய,mārksiya,mārksiya,Foreign,மார்க்ஸிய,General
+1159,மாஜிஸ்திரேட்டு,mājistirēṭṭu,mājistirēṭṭu,Foreign,மாஜிஸ்திரேட்டு,General
+1160,மாஸ்டர்ஸ்,māsṭars,māsṭars,Foreign,மாஸ்டர்ஸ்,General
+1161,மிக்ஸ்,miks,miks,Foreign,மிக்ஸ்,General
+1162,மிட்சுபிஷி,miṭcupiṣi,miṭcupiṣi,Foreign,மிட்சுபிஷி,General
+1163,மிஸ்,mis,mis,Foreign,மிஸ்,General
+1164,மிஸ்ரா,misrā,misrā,Foreign,மிஸ்ரா,General
+1165,முகர்ஜி,mukarji,mukarji,Foreign,முகர்ஜி,General
+1166,முகேஷ்,mukēṣ,mukēṣ,Foreign,முகேஷ்,General
+1167,முட்டைகோஸ்,muṭṭaikōs,muṭṭaikōs,Foreign,முட்டைகோஸ்,General
+1168,முத்துராஜவெல,mutturājavela,mutturājavela,Foreign,முத்துராஜவெல,General
+1169,மும்தாஜ்,mumtāj,mumtāj,Foreign,மும்தாஜ்,General
+1170,முருகதாஸ்,murukatās,murukatās,Foreign,முருகதாஸ்,General
+1171,முஸ்தபா,mustapā,mustapā,Foreign,முஸ்தபா,General
+1172,முஹம்மது,muhammatu,muhammatu,Foreign,முஹம்மது,General
+1173,மூவிஸ்,mūvis,mūvis,Foreign,மூவிஸ்,General
+1174,மெக்ஸிக்கோ,meksikkō,meksikkō,Foreign,மெக்ஸிக்கோ,General
+1175,மெக்ஸிகோ,meksikō,meksikō,Foreign,மெக்ஸிகோ,General
+1176,மெசேஜ்,mecēj,mecēj,Foreign,மெசேஜ்,General
+1177,மெர்சிடஸ்,merciṭas,merciṭas,Foreign,மெர்சிடஸ்,General
+1178,மென்டிஸ்,meṉṭis,meṉṭis,Foreign,மென்டிஸ்,General
+1179,மெனோபாஸ்,meṉōpās,meṉōpās,Foreign,மெனோபாஸ்,General
+1180,மெஜாரிட்டி,mejāriṭṭi,mejāriṭṭi,Foreign,மெஜாரிட்டி,General
+1181,மெஸ்,mes,mes,Foreign,மெஸ்,General
+1182,மெஸ்சி,mesci,mesci,Foreign,மெஸ்சி,General
+1183,மெஸ்ஸி,messi,messi,Foreign,மெஸ்ஸி,General
+1184,மெஸேஜ்,mesēj,mesēj,Foreign,மெஸேஜ்,General
+1185,மேக்சிஸ்,mēkcis,mēkcis,Foreign,மேக்சிஸ்,General
+1186,மேக்ஸ்,mēks,mēks,Foreign,மேக்ஸ்,General
+1187,மேப்ஸ்,mēps,mēps,Foreign,மேப்ஸ்,General
+1188,மேரேஜ்,mērēj,mērēj,Foreign,மேரேஜ்,General
+1189,மேஷ,mēṣa,mēṣa,Foreign,மேஷ,General
+1190,மைக்ரோமேக்ஸ்,maikrōmēks,maikrōmēks,Foreign,மைக்ரோமேக்ஸ்,General
+1191,மைலேஜ்,mailēj,mailēj,Foreign,மைலேஜ்,General
+1192,மைனஸ்,maiṉas,maiṉas,Foreign,மைனஸ்,General
+1193,மொரார்ஜி,morārji,morārji,Foreign,மொரார்ஜி,General
+1194,மொரிஷியஸ்,moriṣiyas,moriṣiyas,Foreign,மொரிஷியஸ்,General
+1195,மொஸில்லா,mosillā,mosillā,Foreign,மொஸில்லா,General
+1196,மோகன்தாஸ்,mōkaṉtās,mōkaṉtās,Foreign,மோகன்தாஸ்,General
+1197,மோட்டார்ஸ்,mōṭṭārs,mōṭṭārs,Foreign,மோட்டார்ஸ்,General
+1198,யமஹா,yamahā,yamahā,Foreign,யமஹா,General
+1199,யாஷிகா,yāṣikā,yāṣikā,Foreign,யாஷிகா,General
+1200,யாஹூ,yāhū,yāhū,Foreign,யாஹூ,General
+1201,யுவர்ஸ்டோரி,yuvarsṭōri,yuvarsṭōri,Foreign,யுவர்ஸ்டோரி,General
+1202,யுவராஜ்,yuvarāj,yuvarāj,Foreign,யுவராஜ்,General
+1203,யுனெஸ்கோ,yuṉeskō,yuṉeskō,Foreign,யுனெஸ்கோ,General
+1204,யுஜிசி,yujici,yujici,Foreign,யுஜிசி,General
+1205,யூஸ்,yūs,yūs,Foreign,யூஸ்,General
+1206,யெஸ்,yes,yes,Foreign,யெஸ்,General
+1207,யேசுதாஸ்,yēcutās,yēcutās,Foreign,யேசுதாஸ்,General
+1208,யோகேஸ்வரி,yōkēsvari,yōkēsvari,Foreign,யோகேஸ்வரி,General
+1209,யோஜனா,yōjaṉā,yōjaṉā,Foreign,யோஜனா,General
+1210,ரமேஷ்,ramēṣ,ramēṣ,Foreign,ரமேஷ்,General
+1211,ரலியல்லாஹு,raliyallāhu,raliyallāhu,Foreign,ரலியல்லாஹு,General
+1212,ரவிதேஜா,ravitējā,ravitējā,Foreign,ரவிதேஜா,General
+1213,ரவிராஜ்,ravirāj,ravirāj,Foreign,ரவிராஜ்,General
+1214,ரழியல்லாஹு,raḻiyallāhu,raḻiyallāhu,Foreign,ரழியல்லாஹு,General
+1215,ரளியல்லாஹு,raḷiyallāhu,raḷiyallāhu,Foreign,ரளியல்லாஹு,General
+1216,ரஜனி,rajaṉi,rajaṉi,Foreign,ரஜனி,General
+1217,ரஜினி,rajiṉi,rajiṉi,Foreign,ரஜினி,General
+1218,ரஷ்ய,raṣya,raṣya,Foreign,ரஷ்ய,General
+1219,ரஷிய,raṣiya,raṣiya,Foreign,ரஷிய,General
+1220,ரஷியா,raṣiyā,raṣiyā,Foreign,ரஷியா,General
+1221,ரஸ்ய,rasya,rasya,Foreign,ரஸ்ய,General
+1222,ரஹ்,rah,rah,Foreign,ரஹ்,General
+1223,ரஹானே,rahāṉē,rahāṉē,Foreign,ரஹானே,General
+1224,ராக்கர்ஸ்,rākkars,rākkars,Foreign,ராக்கர்ஸ்,General
+1225,ராகேஷ்,rākēṣ,rākēṣ,Foreign,ராகேஷ்,General
+1226,ராம்தாஸ்,rāmtās,rāmtās,Foreign,ராம்தாஸ்,General
+1227,ராமகிருஷ்ண,rāmakiruṣṇa,rāmakiruṣṇa,Foreign,ராமகிருஷ்ண,General
+1228,ராமகிருஷ்ணா,rāmakiruṣṇā,rāmakiruṣṇā,Foreign,ராமகிருஷ்ணா,General
+1229,ராமதாஸ்,rāmatās,rāmatās,Foreign,ராமதாஸ்,General
+1230,ராமேஸ்வர,rāmēsvara,rāmēsvara,Foreign,ராமேஸ்வர,General
+1231,ராய்ட்டர்ஸ்,rāyṭṭars,rāyṭṭars,Foreign,ராய்ட்டர்ஸ்,General
+1232,ராய்ஸ்,rāys,rāys,Foreign,ராய்ஸ்,General
+1233,ராயல்ஸ்,rāyals,rāyals,Foreign,ராயல்ஸ்,General
+1234,ராஜ்,rāj,rāj,Foreign,ராஜ்,General
+1235,ராஜ்கிரண்,rājkiraṇ,rājkiraṇ,Foreign,ராஜ்கிரண்,General
+1236,ராஜ்ய,rājya,rājya,Foreign,ராஜ்ய,General
+1237,ராஜ்யசபா,rājyacapā,rājyacapā,Foreign,ராஜ்யசபா,General
+1238,ராஜ்ஜிய,rājjiya,rājjiya,Foreign,ராஜ்ஜிய,General
+1239,ராஜ,rāja,rāja,Foreign,ராஜ,General
+1240,ராஜதந்திர,rājatantira,rājatantira,Foreign,ராஜதந்திர,General
+1241,ராஜபக்ச,rājapakca,rājapakca,Foreign,ராஜபக்ச,General
+1242,ராஜபக்சே,rājapakcē,rājapakcē,Foreign,ராஜபக்சே,General
+1243,ராஜபக்ஸ,rājapaksa,rājapaksa,Foreign,ராஜபக்ஸ,General
+1244,ராஜபக்ஷ,rājapakṣa,rājapakṣa,Foreign,ராஜபக்ஷ,General
+1245,ராஜபக்ஷவிற்கு,rājapakṣaviṟku,rājapakṣaviṟku,Foreign,ராஜபக்ஷவிற்கு,General
+1246,ராஜம்மாள்,rājammāḷ,rājammāḷ,Foreign,ராஜம்மாள்,General
+1247,ராஜமவுலி,rājamavuli,rājamavuli,Foreign,ராஜமவுலி,General
+1248,ராஜமௌலி,rājamauli,rājamauli,Foreign,ராஜமௌலி,General
+1249,ராஜராஜ,rājarāja,rājarāja,Foreign,ராஜராஜ,General
+1250,ராஜலட்சுமி,rājalaṭcumi,rājalaṭcumi,Foreign,ராஜலட்சுமி,General
+1251,ராஜலஷ்மி,rājalaṣmi,rājalaṣmi,Foreign,ராஜலஷ்மி,General
+1252,ராஜாஜி,rājāji,rājāji,Foreign,ராஜாஜி,General
+1253,ராஜித்த,rājitta,rājitta,Foreign,ராஜித்த,General
+1254,ராஜித,rājita,rājita,Foreign,ராஜித,General
+1255,ராஜிவ்,rājiv,rājiv,Foreign,ராஜிவ்,General
+1256,ராஜேந்திர,rājēntira,rājēntira,Foreign,ராஜேந்திர,General
+1257,ராஜேந்திரபாலாஜி,rājēntirapālāji,rājēntirapālāji,Foreign,ராஜேந்திரபாலாஜி,General
+1258,ராஜேஷ்,rājēṣ,rājēṣ,Foreign,ராஜேஷ்,General
+1259,ராஜேஸ்,rājēs,rājēs,Foreign,ராஜேஸ்,General
+1260,ராஜேஸ்வரி,rājēsvari,rājēsvari,Foreign,ராஜேஸ்வரி,General
+1261,ராஷி,rāṣi,rāṣi,Foreign,ராஷி,General
+1262,ராஸ்லீலா,rāslīlā,rāslīlā,Foreign,ராஸ்லீலா,General
+1263,ரியாஸ்,riyās,riyās,Foreign,ரியாஸ்,General
+1264,ரிலாக்ஸ்,rilāks,rilāks,Foreign,ரிலாக்ஸ்,General
+1265,ரிலிஸ்,rilis,rilis,Foreign,ரிலிஸ்,General
+1266,ரிலையன்ஸ்,rilaiyaṉs,rilaiyaṉs,Foreign,ரிலையன்ஸ்,General
+1267,ரிஷப,riṣapa,riṣapa,Foreign,ரிஷப,General
+1268,ரிஹானா,rihāṉā,rihāṉā,Foreign,ரிஹானா,General
+1269,ரெக்ஸ்,reks,reks,Foreign,ரெக்ஸ்,General
+1270,ரெஜினா,rejiṉā,rejiṉā,Foreign,ரெஜினா,General
+1271,ரெஸ்,res,res,Foreign,ரெஸ்,General
+1272,ரெஹானா,rehāṉā,rehāṉā,Foreign,ரெஹானா,General
+1273,ரேஷ்மா,rēṣmā,rēṣmā,Foreign,ரேஷ்மா,General
+1274,ரேஸ்,rēs,rēs,Foreign,ரேஸ்,General
+1275,ரைடர்ஸ்,raiṭars,raiṭars,Foreign,ரைடர்ஸ்,General
+1276,ரைம்ஸ்,raims,raims,Foreign,ரைம்ஸ்,General
+1277,ரைஸ்,rais,rais,Foreign,ரைஸ்,General
+1278,ரொமான்ஸ்,romāṉs,romāṉs,Foreign,ரொமான்ஸ்,General
+1279,ரோல்ஸ்,rōls,rōls,Foreign,ரோல்ஸ்,General
+1280,ரோஷப்படு,rōṣappaṭu,rōṣappaṭu,Foreign,ரோஷப்படு,General
+1281,ரோஸ்,rōs,rōs,Foreign,ரோஸ்,General
+1282,ரோஹண,rōhaṇa,rōhaṇa,Foreign,ரோஹண,General
+1283,ரோஹன,rōhaṉa,rōhaṉa,Foreign,ரோஹன,General
+1284,ரோஹித,rōhita,rōhita,Foreign,ரோஹித,General
+1285,லக்கேஜ்,lakkēj,lakkēj,Foreign,லக்கேஜ்,General
+1286,லக்ஸ்,laks,laks,Foreign,லக்ஸ்,General
+1287,லஷ்மி,laṣmi,laṣmi,Foreign,லஷ்மி,General
+1288,லாயிலாஹ,lāyilāha,lāyilāha,Foreign,லாயிலாஹ,General
+1289,லாரன்ஸ்,lāraṉs,lāraṉs,Foreign,லாரன்ஸ்,General
+1290,லாஸ்,lās,lās,Foreign,லாஸ்,General
+1291,லினக்ஸ்,liṉaks,liṉaks,Foreign,லினக்ஸ்,General
+1292,லூகாஸ்,lūkās,lūkās,Foreign,லூகாஸ்,General
+1293,லூயிஸ்,lūyis,lūyis,Foreign,லூயிஸ்,General
+1294,லெக்கின்ஸ்,lekkiṉs,lekkiṉs,Foreign,லெக்கின்ஸ்,General
+1295,லெஸ்,les,les,Foreign,லெஸ்,General
+1296,லைக்ஸ்,laiks,laiks,Foreign,லைக்ஸ்,General
+1297,லைசன்ஸ்,laicaṉs,laicaṉs,Foreign,லைசன்ஸ்,General
+1298,லைசென்ஸ்,laiceṉs,laiceṉs,Foreign,லைசென்ஸ்,General
+1299,லோகேஷ்,lōkēṣ,lōkēṣ,Foreign,லோகேஷ்,General
+1300,லோகேஸ்வரி,lōkēsvari,lōkēsvari,Foreign,லோகேஸ்வரி,General
+1301,வசிஷ்ட,vaciṣṭa,vaciṣṭa,Foreign,வசிஷ்ட,General
+1302,வட்ஸ்,vaṭs,vaṭs,Foreign,வட்ஸ்,General
+1303,வயர்லெஸ்,vayarles,vayarles,Foreign,வயர்லெஸ்,General
+1304,வரதராஜ,varatarāja,varatarāja,Foreign,வரதராஜ,General
+1305,வரலக்ஷ்மி,varalakṣmi,varalakṣmi,Foreign,வரலக்ஷ்மி,General
+1306,வரஹ்,varah,varah,Foreign,வரஹ்,General
+1307,வருஷ,varuṣa,varuṣa,Foreign,வருஷ,General
+1308,வருஷமா,varuṣamā,varuṣamā,Foreign,வருஷமா,General
+1309,வனஜா,vaṉajā,vaṉajā,Foreign,வனஜா,General
+1310,வஜிர,vajira,vajira,Foreign,வஜிர,General
+1311,வாட்ஸ்,vāṭs,vāṭs,Foreign,வாட்ஸ்,General
+1312,வாய்ஸ்,vāys,vāys,Foreign,வாய்ஸ்,General
+1313,வாலாஜா,vālājā,vālājā,Foreign,வாலாஜா,General
+1314,வாஜ்பாய்,vājpāy,vājpāy,Foreign,வாஜ்பாய்,General
+1315,வாஜ்பேயி,vājpēyi,vājpēyi,Foreign,வாஜ்பேயி,General
+1316,வாஷ்,vāṣ,vāṣ,Foreign,வாஷ்,General
+1317,வாஸ்,vās,vās,Foreign,வாஸ்,General
+1318,விக்னேஷ்,vikṉēṣ,vikṉēṣ,Foreign,விக்னேஷ்,General
+1319,விகாஸ்,vikās,vikās,Foreign,விகாஸ்,General
+1320,விசேஷமான,vicēṣamāṉa,vicēṣamāṉa,Foreign,விசேஷமான,General
+1321,விண்டோஸ்,viṇṭōs,viṇṭōs,Foreign,விண்டோஸ்,General
+1322,விநாயகஷஷ்டி,vināyakaṣaṣṭi,vināyakaṣaṣṭi,Foreign,விநாயகஷஷ்டி,General
+1323,விர்ஜினியா,virjiṉiyā,virjiṉiyā,Foreign,விர்ஜினியா,General
+1324,விராஜ்,virāj,virāj,Foreign,விராஜ்,General
+1325,வில்லியம்ஸ்,villiyams,villiyams,Foreign,வில்லியம்ஸ்,General
+1326,வில்லியர்ஸ்,villiyars,villiyars,Foreign,வில்லியர்ஸ்,General
+1327,விலாஸ்,vilās,vilās,Foreign,விலாஸ்,General
+1328,விஜய்,vijay,vijay,Foreign,விஜய்,General
+1329,விஜய்சேதுபதி,vijaycētupati,vijaycētupati,Foreign,விஜய்சேதுபதி,General
+1330,விஜயகலா,vijayakalā,vijayakalā,Foreign,விஜயகலா,General
+1331,விஜயசேதுபதி,vijayacētupati,vijayacētupati,Foreign,விஜயசேதுபதி,General
+1332,விஜயதாச,vijayatāca,vijayatāca,Foreign,விஜயதாச,General
+1333,விஜயநகர,vijayanakara,vijayanakara,Foreign,விஜயநகர,General
+1334,விஜயராணி,vijayarāṇi,vijayarāṇi,Foreign,விஜயராணி,General
+1335,விஜயலட்சுமி,vijayalaṭcumi,vijayalaṭcumi,Foreign,விஜயலட்சுமி,General
+1336,விஜயா,vijayā,vijayā,Foreign,விஜயா,General
+1337,விஜி,viji,viji,Foreign,விஜி,General
+1338,விஜித,vijita,vijita,Foreign,விஜித,General
+1339,விஜிலென்ஸ்,vijileṉs,vijileṉs,Foreign,விஜிலென்ஸ்,General
+1340,விஜேதாச,vijētāca,vijētāca,Foreign,விஜேதாச,General
+1341,விஷ்வ,viṣva,viṣva,Foreign,விஷ்வ,General
+1342,விஷ,viṣa,viṣa,Foreign,விஷ,General
+1343,விஷயமல்ல,viṣayamalla,viṣayamalla,Foreign,விஷயமல்ல,General
+1344,விஷயமா,viṣayamā,viṣayamā,Foreign,விஷயமா,General
+1345,விஷயமே,viṣayamē,viṣayamē,Foreign,விஷயமே,General
+1346,விஷவாயு,viṣavāyu,viṣavāyu,Foreign,விஷவாயு,General
+1347,விஷேச,viṣēca,viṣēca,Foreign,விஷேச,General
+1348,விஷேட,viṣēṭa,viṣēṭa,Foreign,விஷேட,General
+1349,விஸ்கி,viski,viski,Foreign,விஸ்கி,General
+1350,விஸ்டா,visṭā,visṭā,Foreign,விஸ்டா,General
+1351,விஸ்வ,visva,visva,Foreign,விஸ்வ,General
+1352,விஸ்வகர்மா,visvakarmā,visvakarmā,Foreign,விஸ்வகர்மா,General
+1353,விஸ்வரூப,visvarūpa,visvarūpa,Foreign,விஸ்வரூப,General
+1354,விஹாரி,vihāri,vihāri,Foreign,விஹாரி,General
+1355,வெகுஜன,vekujaṉa,vekujaṉa,Foreign,வெகுஜன,General
+1356,வெயிட்டேஜ்,veyiṭṭēj,veyiṭṭēj,Foreign,வெயிட்டேஜ்,General
+1357,வெனிஸ்,veṉis,veṉis,Foreign,வெனிஸ்,General
+1358,வெஜ்,vej,vej,Foreign,வெஜ்,General
+1359,வெஜிடபிள்,vejiṭapiḷ,vejiṭapiḷ,Foreign,வெஜிடபிள்,General
+1360,வேகாஸ்,vēkās,vēkās,Foreign,வேகாஸ்,General
+1361,வேதபிரகாஷ்,vētapirakāṣ,vētapirakāṣ,Foreign,வேதபிரகாஷ்,General
+1362,வேர்ட்பிரஸ்,vērṭpiras,vērṭpiras,Foreign,வேர்ட்பிரஸ்,General
+1363,வேல்ராஜ்,vēlrāj,vēlrāj,Foreign,வேல்ராஜ்,General
+1364,வேல்ஸ்,vēls,vēls,Foreign,வேல்ஸ்,General
+1365,வைஷ்ணவ,vaiṣṇava,vaiṣṇava,Foreign,வைஷ்ணவ,General
+1366,வைஸ்,vais,vais,Foreign,வைஸ்,General
+1367,வோல்டேஜ்,vōlṭēj,vōlṭēj,Foreign,வோல்டேஜ்,General
+1368,றேடியோஸ்பதி,ṟēṭiyōspati,ṟēṭiyōspati,Foreign,றேடியோஸ்பதி,General
+1369,ஜக்கி,jakki,jakki,Foreign,ஜக்கி,General
+1370,ஜக்கிய,jakkiya,jakkiya,Foreign,ஜக்கிய,General
+1371,ஜடேஜா,jaṭējā,jaṭējā,Foreign,ஜடேஜா,General
+1372,ஜப்பானிய,jappāṉiya,jappāṉiya,Foreign,ஜப்பானிய,General
+1373,ஜயசுந்தர,jayacuntara,jayacuntara,Foreign,ஜயசுந்தர,General
+1374,ஜயசூரிய,jayacūriya,jayacūriya,Foreign,ஜயசூரிய,General
+1375,ஜயசேகர,jayacēkara,jayacēkara,Foreign,ஜயசேகர,General
+1376,ஜயரத்ன,jayaratṉa,jayaratṉa,Foreign,ஜயரத்ன,General
+1377,ஜல்லிகட்டு,jallikaṭṭu,jallikaṭṭu,Foreign,ஜல்லிகட்டு,General
+1378,ஜவனா,javaṉā,javaṉā,Foreign,ஜவனா,General
+1379,ஜவாஹிருல்லா,javāhirullā,javāhirullā,Foreign,ஜவாஹிருல்லா,General
+1380,ஜன்ம,jaṉma,jaṉma,Foreign,ஜன்ம,General
+1381,ஜன,jaṉa,jaṉa,Foreign,ஜன,General
+1382,ஜனநாயக,jaṉanāyaka,jaṉanāyaka,Foreign,ஜனநாயக,General
+1383,ஜனன,jaṉaṉa,jaṉaṉa,Foreign,ஜனன,General
+1384,ஜனா,jaṉā,jaṉā,Foreign,ஜனா,General
+1385,ஜனாதி,jaṉāti,jaṉāti,Foreign,ஜனாதி,General
+1386,ஜனாதிபதியான,jaṉātipatiyāṉa,jaṉātipatiyāṉa,Foreign,ஜனாதிபதியான,General
+1387,ஜாக்டோ,jākṭō,jākṭō,Foreign,ஜாக்டோ,General
+1388,ஜாதக,jātaka,jātaka,Foreign,ஜாதக,General
+1389,ஜாதகத்துல,jātakattula,jātakattula,Foreign,ஜாதகத்துல,General
+1390,ஜாதகப்படி,jātakappaṭi,jātakappaṭi,Foreign,ஜாதகப்படி,General
+1391,ஜாதவ்,jātav,jātav,Foreign,ஜாதவ்,General
+1392,ஜாதிக,jātika,jātika,Foreign,ஜாதிக,General
+1393,ஜாய்,jāy,jāy,Foreign,ஜாய்,General
+1394,ஜார்ஜ்,jārj,jārj,Foreign,ஜார்ஜ்,General
+1395,ஜாலியா,jāliyā,jāliyā,Foreign,ஜாலியா,General
+1396,ஜாலியான,jāliyāṉa,jāliyāṉa,Foreign,ஜாலியான,General
+1397,ஜான்சி,jāṉci,jāṉci,Foreign,ஜான்சி,General
+1398,ஜாஸ்,jās,jās,Foreign,ஜாஸ்,General
+1399,ஜிக்னேஷ்,jikṉēṣ,jikṉēṣ,Foreign,ஜிக்னேஷ்,General
+1400,ஜிகாஹெர்ட்ஸ்,jikāherṭs,jikāherṭs,Foreign,ஜிகாஹெர்ட்ஸ்,General
+1401,ஜிடிபி,jiṭipi,jiṭipi,Foreign,ஜிடிபி,General
+1402,ஜித்தா,jittā,jittā,Foreign,ஜித்தா,General
+1403,ஜிபி,jipi,jipi,Foreign,ஜிபி,General
+1404,ஜியா,jiyā,jiyā,Foreign,ஜியா,General
+1405,ஜியோ,jiyō,jiyō,Foreign,ஜியோ,General
+1406,ஜியோமி,jiyōmi,jiyōmi,Foreign,ஜியோமி,General
+1407,ஜில்லென்று,jilleṉṟu,jilleṉṟu,Foreign,ஜில்லென்று,General
+1408,ஜிவி,jivi,jivi,Foreign,ஜிவி,General
+1409,ஜின்னா,jiṉṉā,jiṉṉā,Foreign,ஜின்னா,General
+1410,ஜீசஸ்,jīcas,jīcas,Foreign,ஜீசஸ்,General
+1411,ஜூலி,jūli,jūli,Foreign,ஜூலி,General
+1412,ஜூஸ்,jūs,jūs,Foreign,ஜூஸ்,General
+1413,ஜெசிந்தா,jecintā,jecintā,Foreign,ஜெசிந்தா,General
+1414,ஜெட்லி,jeṭli,jeṭli,Foreign,ஜெட்லி,General
+1415,ஜெபிக்க,jepikka,jepikka,Foreign,ஜெபிக்க,General
+1416,ஜெமினி,jemiṉi,jemiṉi,Foreign,ஜெமினி,General
+1417,ஜெமோ,jemō,jemō,Foreign,ஜெமோ,General
+1418,ஜெய்,jey,jey,Foreign,ஜெய்,General
+1419,ஜெய,jeya,jeya,Foreign,ஜெய,General
+1420,ஜெயசுதா,jeyacutā,jeyacutā,Foreign,ஜெயசுதா,General
+1421,ஜெயசூர்யா,jeyacūryā,jeyacūryā,Foreign,ஜெயசூர்யா,General
+1422,ஜெயசூரிய,jeyacūriya,jeyacūriya,Foreign,ஜெயசூரிய,General
+1423,ஜெயதேவ்,jeyatēv,jeyatēv,Foreign,ஜெயதேவ்,General
+1424,ஜெயப்பிரகாஷ்,jeyappirakāṣ,jeyappirakāṣ,Foreign,ஜெயப்பிரகாஷ்,General
+1425,ஜெயபிரகாஷ்,jeyapirakāṣ,jeyapirakāṣ,Foreign,ஜெயபிரகாஷ்,General
+1426,ஜெயம்ரவி,jeyamravi,jeyamravi,Foreign,ஜெயம்ரவி,General
+1427,ஜெயராசா,jeyarācā,jeyarācā,Foreign,ஜெயராசா,General
+1428,ஜெயராஜ்,jeyarāj,jeyarāj,Foreign,ஜெயராஜ்,General
+1429,ஜெயலட்சுமி,jeyalaṭcumi,jeyalaṭcumi,Foreign,ஜெயலட்சுமி,General
+1430,ஜெயலலிதா,jeyalalitā,jeyalalitā,Foreign,ஜெயலலிதா,General
+1431,ஜெயலலிதாவிற்கு,jeyalalitāviṟku,jeyalalitāviṟku,Foreign,ஜெயலலிதாவிற்கு,General
+1432,ஜெயலலிதாவே,jeyalalitāvē,jeyalalitāvē,Foreign,ஜெயலலிதாவே,General
+1433,ஜெயா,jeyā,jeyā,Foreign,ஜெயா,General
+1434,ஜெயிக்க,jeyikka,jeyikka,Foreign,ஜெயிக்க,General
+1435,ஜெயித்த,jeyitta,jeyitta,Foreign,ஜெயித்த,General
+1436,ஜெயித்து,jeyittu,jeyittu,Foreign,ஜெயித்து,General
+1437,ஜெர்சி,jerci,jerci,Foreign,ஜெர்சி,General
+1438,ஜெர்மனிய,jermaṉiya,jermaṉiya,Foreign,ஜெர்மனிய,General
+1439,ஜெர்மானிய,jermāṉiya,jermāṉiya,Foreign,ஜெர்மானிய,General
+1440,ஜெர்ரி,jerri,jerri,Foreign,ஜெர்ரி,General
+1441,ஜெரமி,jerami,jerami,Foreign,ஜெரமி,General
+1442,ஜென்ம,jeṉma,jeṉma,Foreign,ஜென்ம,General
+1443,ஜெனிலியா,jeṉiliyā,jeṉiliyā,Foreign,ஜெனிலியா,General
+1444,ஜெனிவா,jeṉivā,jeṉivā,Foreign,ஜெனிவா,General
+1445,ஜெஸ்ஸி,jessi,jessi,Foreign,ஜெஸ்ஸி,General
+1446,ஜேகே,jēkē,jēkē,Foreign,ஜேகே,General
+1447,ஜேசுதாஸ்,jēcutās,jēcutās,Foreign,ஜேசுதாஸ்,General
+1448,ஜேட்லி,jēṭli,jēṭli,Foreign,ஜேட்லி,General
+1449,ஜேம்ஸ்,jēms,jēms,Foreign,ஜேம்ஸ்,General
+1450,ஜேர்மனி,jērmaṉi,jērmaṉi,Foreign,ஜேர்மனி,General
+1451,ஜேர்மனிய,jērmaṉiya,jērmaṉiya,Foreign,ஜேர்மனிய,General
+1452,ஜைன,jaiṉa,jaiṉa,Foreign,ஜைன,General
+1453,ஜொலிக்க,jolikka,jolikka,Foreign,ஜொலிக்க,General
+1454,ஜோக்ஸ்,jōks,jōks,Foreign,ஜோக்ஸ்,General
+1455,ஜோடியான,jōṭiyāṉa,jōṭiyāṉa,Foreign,ஜோடியான,General
+1456,ஜோதிகா,jōtikā,jōtikā,Foreign,ஜோதிகா,General
+1457,ஜோதிட,jōtiṭa,jōtiṭa,Foreign,ஜோதிட,General
+1458,ஜோதிடரத்னா,jōtiṭaratṉā,jōtiṭaratṉā,Foreign,ஜோதிடரத்னா,General
+1459,ஜோர்ஜ்,jōrj,jōrj,Foreign,ஜோர்ஜ்,General
+1460,ஜோன்ஸ்,jōṉs,jōṉs,Foreign,ஜோன்ஸ்,General
+1461,ஜோஷி,jōṣi,jōṣi,Foreign,ஜோஷி,General
+1462,ஜோஸ்,jōs,jōs,Foreign,ஜோஸ்,General
+1463,ஷ்ரியா,ṣriyā,ṣriyā,Foreign,ஷ்ரியா,General
+1464,ஷக்தி,ṣakti,ṣakti,Foreign,ஷக்தி,General
+1465,ஷகிலா,ṣakilā,ṣakilā,Foreign,ஷகிலா,General
+1466,ஷமி,ṣami,ṣami,Foreign,ஷமி,General
+1467,ஷர்மா,ṣarmā,ṣarmā,Foreign,ஷர்மா,General
+1468,ஷரபோவா,ṣarapōvā,ṣarapōvā,Foreign,ஷரபோவா,General
+1469,ஷாம்பு,ṣāmpu,ṣāmpu,Foreign,ஷாம்பு,General
+1470,ஷாம்பூ,ṣāmpū,ṣāmpū,Foreign,ஷாம்பூ,General
+1471,ஷாலினி,ṣāliṉi,ṣāliṉi,Foreign,ஷாலினி,General
+1472,ஷிப்லி,ṣipli,ṣipli,Foreign,ஷிப்லி,General
+1473,ஷில்பா,ṣilpā,ṣilpā,Foreign,ஷில்பா,General
+1474,ஷின்சோ,ṣiṉcō,ṣiṉcō,Foreign,ஷின்சோ,General
+1475,ஷின்ஸோ,ṣiṉsō,ṣiṉsō,Foreign,ஷின்ஸோ,General
+1476,ஷெட்டி,ṣeṭṭi,ṣeṭṭi,Foreign,ஷெட்டி,General
+1477,ஷெய்குனா,ṣeykuṉā,ṣeykuṉā,Foreign,ஷெய்குனா,General
+1478,ஷேப்டு,ṣēpṭu,ṣēpṭu,Foreign,ஷேப்டு,General
+1479,ஷேவ்,ṣēv,ṣēv,Foreign,ஷேவ்,General
+1480,ஷோபா,ṣōpā,ṣōpā,Foreign,ஷோபா,General
+1481,ஷோபியா,ṣōpiyā,ṣōpiyā,Foreign,ஷோபியா,General
+1482,ஸ்காட்லாந்து,skāṭlāntu,skāṭlāntu,Foreign,ஸ்காட்லாந்து,General
+1483,ஸ்குவாஷ்,skuvāṣ,skuvāṣ,Foreign,ஸ்குவாஷ்,General
+1484,ஸ்கூட்டி,skūṭṭi,skūṭṭi,Foreign,ஸ்கூட்டி,General
+1485,ஸ்கூல்ல,skūlla,skūlla,Foreign,ஸ்கூல்ல,General
+1486,ஸ்கொட்லாந்து,skoṭlāntu,skoṭlāntu,Foreign,ஸ்கொட்லாந்து,General
+1487,ஸ்கோடா,skōṭā,skōṭā,Foreign,ஸ்கோடா,General
+1488,ஸ்ட்ரா,sṭrā,sṭrā,Foreign,ஸ்ட்ரா,General
+1489,ஸ்ட்ராபெரி,sṭrāperi,sṭrāperi,Foreign,ஸ்ட்ராபெரி,General
+1490,ஸ்ட்ரெஸ்,sṭres,sṭres,Foreign,ஸ்ட்ரெஸ்,General
+1491,ஸ்டடி,sṭaṭi,sṭaṭi,Foreign,ஸ்டடி,General
+1492,ஸ்டாராக,sṭārāka,sṭārāka,Foreign,ஸ்டாராக,General
+1493,ஸ்டான்லி,sṭāṉli,sṭāṉli,Foreign,ஸ்டான்லி,General
+1494,ஸ்டில்ஸ்,sṭils,sṭils,Foreign,ஸ்டில்ஸ்,General
+1495,ஸ்டுடியோ,sṭuṭiyō,sṭuṭiyō,Foreign,ஸ்டுடியோ,General
+1496,ஸ்டுடியோஸ்,sṭuṭiyōs,sṭuṭiyōs,Foreign,ஸ்டுடியோஸ்,General
+1497,ஸ்டூடியோ,sṭūṭiyō,sṭūṭiyō,Foreign,ஸ்டூடியோ,General
+1498,ஸ்டூடியோஸ்,sṭūṭiyōs,sṭūṭiyōs,Foreign,ஸ்டூடியோஸ்,General
+1499,ஸ்டேட்டஸ்,sṭēṭṭas,sṭēṭṭas,Foreign,ஸ்டேட்டஸ்,General
+1500,ஸ்டேடஸ்,sṭēṭas,sṭēṭas,Foreign,ஸ்டேடஸ்,General
+1501,ஸ்டேஜ்,sṭēj,sṭēj,Foreign,ஸ்டேஜ்,General
+1502,ஸ்டைலிஷ்,sṭailiṣ,sṭailiṣ,Foreign,ஸ்டைலிஷ்,General
+1503,ஸ்டோக்ஸ்,sṭōks,sṭōks,Foreign,ஸ்டோக்ஸ்,General
+1504,ஸ்டோரி,sṭōri,sṭōri,Foreign,ஸ்டோரி,General
+1505,ஸ்டோரேஜ்,sṭōrēj,sṭōrēj,Foreign,ஸ்டோரேஜ்,General
+1506,ஸ்தம்பிக்க,stampikka,stampikka,Foreign,ஸ்தம்பிக்க,General
+1507,ஸ்தம்பித்து,stampittu,stampittu,Foreign,ஸ்தம்பித்து,General
+1508,ஸ்தலத்திலேயே,stalattilēyē,stalattilēyē,Foreign,ஸ்தலத்திலேயே,General
+1509,ஸ்தானமான,stāṉamāṉa,stāṉamāṉa,Foreign,ஸ்தானமான,General
+1510,ஸ்நாக்ஸ்,snāks,snāks,Foreign,ஸ்நாக்ஸ்,General
+1511,ஸ்பா,spā,spā,Foreign,ஸ்பா,General
+1512,ஸ்பானிஷ்,spāṉiṣ,spāṉiṣ,Foreign,ஸ்பானிஷ்,General
+1513,ஸ்பிரே,spirē,spirē,Foreign,ஸ்பிரே,General
+1514,ஸ்பேஸ்,spēs,spēs,Foreign,ஸ்பேஸ்,General
+1515,ஸ்பைஸ்,spais,spais,Foreign,ஸ்பைஸ்,General
+1516,ஸ்போர்ட்ஸ்,spōrṭs,spōrṭs,Foreign,ஸ்போர்ட்ஸ்,General
+1517,ஸ்ம்ருதி,smruti,smruti,Foreign,ஸ்ம்ருதி,General
+1518,ஸ்மார்ட்போனாக,smārṭpōṉāka,smārṭpōṉāka,Foreign,ஸ்மார்ட்போனாக,General
+1519,ஸ்மிதா,smitā,smitā,Foreign,ஸ்மிதா,General
+1520,ஸ்மிரிதி,smiriti,smiriti,Foreign,ஸ்மிரிதி,General
+1521,ஸ்மைலி,smaili,smaili,Foreign,ஸ்மைலி,General
+1522,ஸ்ரீ,srī,srī,Foreign,ஸ்ரீ,General
+1523,ஸ்ருதி,sruti,sruti,Foreign,ஸ்ருதி,General
+1524,ஸ்ரேயா,srēyā,srēyā,Foreign,ஸ்ரேயா,General
+1525,ஸ்லோ,slō,slō,Foreign,ஸ்லோ,General
+1526,ஸ்வர்ணலதா,svarṇalatā,svarṇalatā,Foreign,ஸ்வர்ணலதா,General
+1527,ஸ்வரா,svarā,svarā,Foreign,ஸ்வரா,General
+1528,ஸ்வராஜ்,svarāj,svarāj,Foreign,ஸ்வராஜ்,General
+1529,ஸ்வேதா,svētā,svētā,Foreign,ஸ்வேதா,General
+1530,ஸல்லல்லாஹு,sallallāhu,sallallāhu,Foreign,ஸல்லல்லாஹு,General
+1531,ஸாரி,sāri,sāri,Foreign,ஸாரி,General
+1532,ஸெக்ஸ்,seks,seks,Foreign,ஸெக்ஸ்,General
+1533,ஸோலா,sōlā,sōlā,Foreign,ஸோலா,General
+1534,ஹசாரே,hacārē,hacārē,Foreign,ஹசாரே,General
+1535,ஹட,haṭa,haṭa,Foreign,ஹட,General
+1536,ஹம்பி,hampi,hampi,Foreign,ஹம்பி,General
+1537,ஹம்ஸநாவாய்,hamsanāvāy,hamsanāvāy,Foreign,ஹம்ஸநாவாய்,General
+1538,ஹமாஸ்,hamās,hamās,Foreign,ஹமாஸ்,General
+1539,ஹர்ஷ,harṣa,harṣa,Foreign,ஹர்ஷ,General
+1540,ஹர,hara,hara,Foreign,ஹர,General
+1541,ஹரஹர,harahara,harahara,Foreign,ஹரஹர,General
+1542,ஹரிகிருஷ்ணா,harikiruṣṇā,harikiruṣṇā,Foreign,ஹரிகிருஷ்ணா,General
+1543,ஹரிணி,hariṇi,hariṇi,Foreign,ஹரிணி,General
+1544,ஹரியாணா,hariyāṇā,hariyāṇā,Foreign,ஹரியாணா,General
+1545,ஹரிஷ்,hariṣ,hariṣ,Foreign,ஹரிஷ்,General
+1546,ஹரிஸ்,haris,haris,Foreign,ஹரிஸ்,General
+1547,ஹரே,harē,harē,Foreign,ஹரே,General
+1548,ஹலோ,halō,halō,Foreign,ஹலோ,General
+1549,ஹவ்,hav,hav,Foreign,ஹவ்,General
+1550,ஹவாய்,havāy,havāy,Foreign,ஹவாய்,General
+1551,ஹவுத்தி,havutti,havutti,Foreign,ஹவுத்தி,General
+1552,ஹவுஸ்,havus,havus,Foreign,ஹவுஸ்,General
+1553,ஹன்சிகா,haṉcikā,haṉcikā,Foreign,ஹன்சிகா,General
+1554,ஹனி,haṉi,haṉi,Foreign,ஹனி,General
+1555,ஹஸ்புல்லாஹ்,haspullāh,haspullāh,Foreign,ஹஸ்புல்லாஹ்,General
+1556,ஹஸாரே,hasārē,hasārē,Foreign,ஹஸாரே,General
+1557,ஹாக்கி,hākki,hākki,Foreign,ஹாக்கி,General
+1558,ஹாசினி,hāciṉi,hāciṉi,Foreign,ஹாசினி,General
+1559,ஹாய்,hāy,hāy,Foreign,ஹாய்,General
+1560,ஹார்டு,hārṭu,hārṭu,Foreign,ஹார்டு,General
+1561,ஹார்லி,hārli,hārli,Foreign,ஹார்லி,General
+1562,ஹார்வர்டு,hārvarṭu,hārvarṭu,Foreign,ஹார்வர்டு,General
+1563,ஹாரி,hāri,hāri,Foreign,ஹாரி,General
+1564,ஹாரிஸ்,hāris,hāris,Foreign,ஹாரிஸ்,General
+1565,ஹாலே,hālē,hālē,Foreign,ஹாலே,General
+1566,ஹான்ஸ்,hāṉs,hāṉs,Foreign,ஹான்ஸ்,General
+1567,ஹிக்ஸ்,hiks,hiks,Foreign,ஹிக்ஸ்,General
+1568,ஹிட்டான,hiṭṭāṉa,hiṭṭāṉa,Foreign,ஹிட்டான,General
+1569,ஹிட்டானது,hiṭṭāṉatu,hiṭṭāṉatu,Foreign,ஹிட்டானது,General
+1570,ஹிட்ஸ்,hiṭs,hiṭs,Foreign,ஹிட்ஸ்,General
+1571,ஹிந்துத்துவா,hintuttuvā,hintuttuvā,Foreign,ஹிந்துத்துவா,General
+1572,ஹிலரி,hilari,hilari,Foreign,ஹிலரி,General
+1573,ஹிலாரி,hilāri,hilāri,Foreign,ஹிலாரி,General
+1574,ஹிஸ்டரி,hisṭari,hisṭari,Foreign,ஹிஸ்டரி,General
+1575,ஹிஸ்புல்லாஹ்,hispullāh,hispullāh,Foreign,ஹிஸ்புல்லாஹ்,General
+1576,ஹிஹி,hihi,hihi,Foreign,ஹிஹி,General
+1577,ஹிஹிஹி,hihihi,hihihi,Foreign,ஹிஹிஹி,General
+1578,ஹீப்ரு,hīpru,hīpru,Foreign,ஹீப்ரு,General
+1579,ஹீரோ,hīrō,hīrō,Foreign,ஹீரோ,General
+1580,ஹுசைனம்மா,hucaiṉammā,hucaiṉammā,Foreign,ஹுசைனம்மா,General
+1581,ஹூண்டாய்,hūṇṭāy,hūṇṭāy,Foreign,ஹூண்டாய்,General
+1582,ஹூதி,hūti,hūti,Foreign,ஹூதி,General
+1583,ஹூவாய்,hūvāy,hūvāy,Foreign,ஹூவாய்,General
+1584,ஹூன்டாய்,hūṉṭāy,hūṉṭāy,Foreign,ஹூன்டாய்,General
+1585,ஹெச்டி,hecṭi,hecṭi,Foreign,ஹெச்டி,General
+1586,ஹெச்பி,hecpi,hecpi,Foreign,ஹெச்பி,General
+1587,ஹெட்டியாராச்சி,heṭṭiyārācci,heṭṭiyārācci,Foreign,ஹெட்டியாராச்சி,General
+1588,ஹெட்ஸ்,heṭs,heṭs,Foreign,ஹெட்ஸ்,General
+1589,ஹெபடைடிஸ்,hepaṭaiṭis,hepaṭaiṭis,Foreign,ஹெபடைடிஸ்,General
+1590,ஹெர்ட்ஸ்,herṭs,herṭs,Foreign,ஹெர்ட்ஸ்,General
+1591,ஹெர்னியா,herṉiyā,herṉiyā,Foreign,ஹெர்னியா,General
+1592,ஹெரிடேஜ்,heriṭēj,heriṭēj,Foreign,ஹெரிடேஜ்,General
+1593,ஹெல,hela,hela,Foreign,ஹெல,General
+1594,ஹென்றி,heṉṟi,heṉṟi,Foreign,ஹென்றி,General
+1595,ஹேமமாலினி,hēmamāliṉi,hēmamāliṉi,Foreign,ஹேமமாலினி,General
+1596,ஹேமலதா,hēmalatā,hēmalatā,Foreign,ஹேமலதா,General
+1597,ஹேமா,hēmā,hēmā,Foreign,ஹேமா,General
+1598,ஹைக்கூ,haikkū,haikkū,Foreign,ஹைக்கூ,General
+1599,ஹைட்ரோ,haiṭrō,haiṭrō,Foreign,ஹைட்ரோ,General
+1600,ஹைந்தவ,haintava,haintava,Foreign,ஹைந்தவ,General
+1601,ஹையோ,haiyō,haiyō,Foreign,ஹையோ,General
+1602,ஹோண்டா,hōṇṭā,hōṇṭā,Foreign,ஹோண்டா,General
+1603,ஹோம்ஸ்,hōms,hōms,Foreign,ஹோம்ஸ்,General
+1604,ஹோமாகம,hōmākama,hōmākama,Foreign,ஹோமாகம,General
+1605,ஹோரமானி,hōramāṉi,hōramāṉi,Foreign,ஹோரமானி,General
+1606,ஹோலி,hōli,hōli,Foreign,ஹோலி,General
+1607,ஹோன்டா,hōṉṭā,hōṉṭā,Foreign,ஹோன்டா,General

@@ -1,0 +1,62 @@
+[
+  {
+    "file": "primary_lemmas.csv",
+    "bytes": 14658578,
+    "sha256": "bf359191f33b6049db8f5ce3bfc7b872dcfedc64726c02128c375218a5c7d0b7"
+  },
+  {
+    "file": "primary_lexicon.fst",
+    "bytes": 622166,
+    "sha256": "3f2401b8fe0325e48741281ce43ebd64b62ea01e6f3b65b9ac4b8096ace9a996"
+  },
+  {
+    "file": "primary_meanings.csv",
+    "bytes": 17795300,
+    "sha256": "9e8b73ce0bc255730e0e0ae72e711e50d22055df9765b9817fa4a2f9b60acf47"
+  },
+  {
+    "file": "primary_relationships.csv",
+    "bytes": 1711212,
+    "sha256": "5606f595966ee117eaf379764a745dc02efb4ef14dd1c1781b44b9cc42936351"
+  },
+  {
+    "file": "secondary_archaic_literary_terms.csv",
+    "bytes": 288422,
+    "sha256": "8cbcba66b75903ee067be55ff0e63074169d2d1b2f4522dfc6e58b6894b43f0e"
+  },
+  {
+    "file": "secondary_dialect_colloquialisms.csv",
+    "bytes": 520690,
+    "sha256": "8278dfb47a431dafa0bd3d2d9cbb477135a689e683f563560ee3237f5b09e3b2"
+  },
+  {
+    "file": "secondary_phrases_mwes.csv",
+    "bytes": 1774531,
+    "sha256": "1a27b48ff6e656b775a77ab30f6cdd5910c554c1d75b932316ae71406d478ec6"
+  },
+  {
+    "file": "secondary_proper_names_toponyms.csv",
+    "bytes": 54357,
+    "sha256": "a62a5f271a4a5e9fd4dc30c9278b7348b53448751cf17060292ad234b8caf1bd"
+  },
+  {
+    "file": "secondary_scientific_taxa.csv",
+    "bytes": 24941,
+    "sha256": "2183823d4ef222f4c50f63e895866904e09f5483ce21cca08ddbed996860a8a0"
+  },
+  {
+    "file": "secondary_specialized_technical_terms.csv",
+    "bytes": 18663651,
+    "sha256": "5153aae564d46447a3ef32edc921ef0888c2394c376b57e297eb402f20d4f6c8"
+  },
+  {
+    "file": "secondary_transliterations_loanwords.csv",
+    "bytes": 148296,
+    "sha256": "7213bb06af9207cd27b5a6311cf7a7d602258675d00bc148f6812256cb1da879"
+  },
+  {
+    "file": "unified_master_30col.csv",
+    "bytes": 36354629,
+    "sha256": "135b443aff7c7f1b90236696464709729e6f83f68ca99215b0e9ef42be971764"
+  }
+]

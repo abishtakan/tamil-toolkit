@@ -1,5 +1,139 @@
 # Project handoff
 
+## Feature 021 tasks handoff (2026-11-13)
+
+- Completed `speckit-tasks` using the resolved project template and all design
+  artifacts. Created [tasks.md](../specs/021-lexicon-curation/tasks.md): 70
+  unchecked tasks; US1 9, US2 14, US4 17, US3 16, with 14 setup/foundation/
+  integration tasks. The equal-priority P2 stories place US4 packs before US3
+  lookup so their dependencies point forward in execution order.
+- T001–T018 is the traceable-intake MVP; T001–T037 is the structural L2 slice,
+  permitting zero eligible content. Source/reuse recovery and actual reviewer
+  decisions gate T038 onward; no synthetic fixture or all-quarantine pilot can
+  satisfy nonempty L3/L4, activation, or archive criteria. All four clarification
+  decisions remain intact; originals and implementation files are unchanged.
+- Tasks include per-story independent tests, parallel waves/examples, field
+  constraints, requirement/outcome traceability and explicit source/evidence/
+  owner-activation boundaries. Generation creates no curated data, active suite,
+  runtime implementation, registry publication or Git commit.
+- Validation passed: 70 sequential IDs, required story labels and exact paths,
+  earlier-only inline dependencies, 17 parallelizable tasks in explicit waves,
+  all 22 requirements/eight outcomes mapped, four clarifications preserved,
+  links/code fences, and all 12 original source hashes. `agent-post-edit`
+  passed (`target/lexicon-tasks-post-edit.log`), as did `git diff --check`.
+  No task hooks configured; no runtime/parity/archive completion is claimed.
+- Next: `speckit-analyze` to check cross-artifact consistency, then implement
+  the authorized structural slice using `speckit-implement`. Keep external
+  evidence-gated work pending when inputs are unavailable, without weakening
+  its acceptance conditions. Actual branch remains `master`; edits uncommitted.
+
+## Feature 021 planning handoff (2026-11-13)
+
+- Completed `speckit-plan` Phase 0 research and Phase 1 design. The setup
+  script resolved feature context `021-lexicon-curation`; actual Git branch
+  remains `master`. No branch switch, implementation, or task generation.
+- Added [plan](../specs/021-lexicon-curation/plan.md), research, data model,
+  curation/lookup/pack contracts, and quickstart in the same feature directory.
+  Gemini 4 Hydrogen researched schema/editorial design; `gpt-6.1-sol` with
+  `reasoningEffort=xhigh` researched Rust ownership and integration. Both
+  completed read-only tasks; findings were consolidated with local/official
+  source evidence.
+- Design: immutable intake, editorial workspace, and only approved canonical
+  projections; per-claim source/review decisions and repeatable identities;
+  structural L2 permits zero eligible content; L3/L4 require a nonempty approved
+  subset and actual runtime evidence. Runtime stays in the existing Rust facade
+  with optional data features off by default and complete homograph postings.
+- No source tables, runtime module, new Cargo dependencies, binding features,
+  active suite, data pack, or public release were created. Proposed quickstart
+  commands are explicitly marked unavailable until implementation. Source
+  recovery remains an external data-approval dependency, not guessed evidence.
+- Checks passed: `agent-post-edit` via `tools/tasks.py` (log:
+  `target/lexicon-plan-post-edit.log`), `git diff --check`, links/code fences
+  across seven design artifacts, four preserved clarifications and FR/SC IDs,
+  no `tasks.md`, unchanged actual branch, and all 12 source hashes. Pre/post
+  constitution checks pass at design level; full runtime/parity/archive gates
+  remain unrun and required at implementation integration. No plan hooks exist.
+- Task generation is recorded in the newer handoff above. Preserve the four
+  clarification decisions and human review/reuse requirements during execution.
+
+## Feature 021 specification handoff (2026-11-13)
+
+- Clarification completed (four questions answered): Q1 answered B. Unchanged source-verified content
+  may pass automated acceptance checks; corrections, inferred annotations,
+  and ambiguous cases require human review. Recorded in Feature 021
+  Clarifications, Story 2, FR-007, and SC-002. Automated acceptance is distinct
+  from human linguistic review.
+- Q2 answered A: exact lookup compares NFC-normalized input and accepted
+  canonical spelling, returning identical ordered results for canonical
+  equivalents. Original source text and controls remain preserved; repair and
+  lossy folding are excluded. Recorded in Clarifications, Story 3, FR-013,
+  and SC-004.
+- Q3 answered A: region-filtered results include attested regional matches
+  and explicitly reviewed geographically unrestricted entries, excluding
+  unknown coverage. Missing region labels do not imply unrestricted usage;
+  unfiltered lookup retains otherwise eligible unknown-coverage entries.
+  Recorded in Clarifications, Story 3, FR-014, and SC-004.
+- Q4 answered C: L2 requires the pilot sampling minima, completed structural
+  review, and validated dispositions/accounting; zero release-eligible content
+  is permitted. Unresolved evidence remains quarantined or excluded. Phase 6
+  can resume after L2 acceptance; lexical consumer claims still require relevant
+  L3-approved data and L4 runtime verification. Aligned Feature 021 and all
+  three roadmap documents; source/reuse and human-review gates remain intact.
+- Clarification validation: quality checklist 16/16 → 16/16, no marker changes;
+  four accepted answers integrated without remaining conflicting pilot gates.
+  `agent-post-edit` passed (`target/lexicon-clarify-post-edit.log`), as did
+  whitespace, roadmap agreement/phase preservation, and all 12 source hashes.
+  Operational performance/pack-size budgets remain planning work; proceed to
+  `speckit-plan`. No clarification hooks configured or source files changed.
+- User requested `speckit-specify`, Gemini Hydrogen and Sol xhigh subagents,
+  and roadmap alignment for professional lexicon curation before numerals.
+- Created [Feature 021](../specs/021-lexicon-curation/spec.md) and its
+  [quality checklist](../specs/021-lexicon-curation/checklists/requirements.md).
+  Gemini 4 Hydrogen and `gpt-6.1-sol` with `reasoningEffort=xhigh` completed
+  read-only source/schema and integration/DAG reviews; recommendations are
+  reflected in the specification and roadmap data gates.
+- Updated `ROADMAP.md`, `docs/specs/architecture-roadmap.md`, and Feature 016
+  with named lexicon milestones L0–L4, preserving Phase 0–17 and crate ranks.
+  Phase 6 resumes after L2 structural-pilot acceptance; relevant L3-approved subsets
+  gate morphology/dialect/spelling, with pronunciation evidence required for
+  lexical G2P exceptions/evaluation. Independent tracks retain their scope.
+- Specification checklist passes; no curated pilot, active lexicon runtime,
+  new crate, suite activation, or publication is claimed. The 12 source files
+  are preserved. `.specify/feature.json` selects Feature 021 locally (ignored
+  by Git); branch remains `master`, with all session edits uncommitted.
+- Verification passed: `agent-post-edit` via `tools/tasks.py` (log:
+  `target/lexicon-spec-post-edit.log`), `git diff --check`, requirement/outcome
+  completeness, identical L0–L4 roadmap text, preserved phase numbering/rank-6
+  dependency rows, and all 12 original SHA-256 hashes. No runtime changes;
+  full parity and archive tests were not rerun.
+- Planning is now recorded in the newer handoff above. Recover source evidence
+  while implementing the structural pilot after task generation.
+
+## Lexicon intake (2026-11-13)
+
+- Priority: organize the user-supplied lexicon before further numerals work.
+- Moved the root `tamil-lexicon/` bundle to `data/sources/tamil-lexicon/`.
+  All 12 original files are unchanged; SHA-256 comparisons passed after moving.
+  Inventory: `data/sources/tamil-lexicon.sha256.json`; intake scope and pending
+  reviews: `data/sources/README.md`.
+- No runtime integration or release-data changes. Provenance, licensing,
+  schema, Unicode, regional coverage, and FST reproducibility are unreviewed.
+- Audit completed: [findings and plan](audits/lexicon-2026-11-13.md), with full
+  metrics beside the report and a reusable `tools/audit_lexicon_source.py`.
+  All CSVs parse; primary references and sense counts agree. FST integrity
+  passes but stores one ID per spelling, omitting direct access to 398 entry
+  IDs. Source records, sense extraction, annotation evidence, regional labels,
+  and reproducible builds need work. All 12 original hashes still match.
+- Checks: full-row audit and native Rust count comparison completed; isolated
+  FST integrity/key export passed; `agent-post-edit` and `git diff --check`
+  passed. Log: `target/lexicon-audit-post-edit.log`. No runtime change or new
+  suite activation; full parity/release tests were not rerun.
+- Owner reports public online sources combined with Python extraction.
+  Exact URLs, extraction scripts, terms, and annotation origins remain unknown.
+- Next: recover source/extraction records and use Feature 021 planning to define
+  the canonical model and curate a representative pilot before bulk transformation.
+  Relocation, audit tools/report, and intake notes remain uncommitted.
+
 ## Feature 018 Phase 2 handoff (2026-11-08)
 
 Phase 2 (`018-tamil-norm-contracts`) tasks T001–T024 are complete:

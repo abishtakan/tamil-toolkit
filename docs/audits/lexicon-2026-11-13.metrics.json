@@ -1,0 +1,1690 @@
+{
+  "python": "3.14.6",
+  "unicode_version": "16.0.0",
+  "files": {
+    "primary_lemmas.csv": {
+      "bytes": 14658578,
+      "sha256": "bf359191f33b6049db8f5ce3bfc7b872dcfedc64726c02128c375218a5c7d0b7",
+      "utf8_valid": true,
+      "columns": [
+        "word_id",
+        "lexeme_id",
+        "headword_ta",
+        "transliteration",
+        "pronunciation_ipa",
+        "part_of_speech",
+        "sol_vagai",
+        "grammatical_subclass",
+        "animacy_gender",
+        "padham_type",
+        "lexical_stratum",
+        "root_word",
+        "verb_class",
+        "register",
+        "language_variety",
+        "status",
+        "confidence"
+      ],
+      "rows": 44229,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "word_id": 0,
+        "lexeme_id": 0,
+        "headword_ta": 0,
+        "transliteration": 0,
+        "pronunciation_ipa": 0,
+        "part_of_speech": 0,
+        "sol_vagai": 0,
+        "grammatical_subclass": 0,
+        "animacy_gender": 0,
+        "padham_type": 0,
+        "lexical_stratum": 0,
+        "root_word": 0,
+        "verb_class": 40576,
+        "register": 0,
+        "language_variety": 0,
+        "status": 0,
+        "confidence": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {
+        "part_of_speech": {
+          "NOUN": 39196,
+          "VERB": 3653,
+          "ADV": 756,
+          "ADJ": 430,
+          "PART": 102,
+          "PRON": 45,
+          "CONJ": 26,
+          "INTJ": 21
+        },
+        "sol_vagai": {
+          "\u0baa\u0bc6\u0baf\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd": 39241,
+          "\u0bb5\u0bbf\u0ba9\u0bc8\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd": 3653,
+          "\u0b89\u0bb0\u0bbf\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd": 1186,
+          "\u0b87\u0b9f\u0bc8\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd": 149
+        },
+        "padham_type": {
+          "\u0baa\u0b95\u0bbe\u0baa\u0bcd\u0baa\u0ba4\u0bae\u0bcd": 41962,
+          "\u0baa\u0b95\u0bc1\u0baa\u0ba4\u0bae\u0bcd": 2267
+        },
+        "lexical_stratum": {
+          "\u0b87\u0baf\u0bb1\u0bcd\u0b9a\u0bca\u0bb2\u0bcd": 41135,
+          "\u0bb5\u0b9f\u0b9a\u0bca\u0bb2\u0bcd (\u0b95\u0bbf\u0bb0\u0ba8\u0bcd\u0ba4\u0bae\u0bcd)": 1248,
+          "\u0bb5\u0b9f\u0b9a\u0bca\u0bb2\u0bcd (\u0ba4\u0bb1\u0bcd\u0baa\u0bb5\u0bae\u0bcd)": 1245,
+          "\u0ba4\u0bbf\u0b9a\u0bc8\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd": 381,
+          "\u0b95\u0bb2\u0bc8\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd": 212,
+          "\u0ba4\u0bbf\u0bb0\u0bbf\u0b9a\u0bca\u0bb2\u0bcd": 8
+        },
+        "verb_class": {
+          "": 40576,
+          "3": 1507,
+          "6": 786,
+          "4": 676,
+          "2": 437,
+          "7": 99,
+          "1": 93,
+          "5": 55
+        },
+        "register": {
+          "standard": 43902,
+          "literary": 323,
+          "colloquial": 4
+        },
+        "language_variety": {
+          "TA-GEN": 43902,
+          "TA-LIT": 323,
+          "TA-SPOK": 4
+        },
+        "status": {
+          "verified": 44229
+        },
+        "confidence": {
+          "1.0": 44229
+        }
+      },
+      "unicode_issues": {},
+      "issue_examples": {},
+      "headwords": {
+        "field": "headword_ta",
+        "unique": 43831,
+        "unique_nfc": 43831,
+        "duplicate_extra_rows": 398,
+        "duplicate_examples": [
+          [
+            "\u0b85",
+            2
+          ],
+          [
+            "\u0b85\u0b83\u0b95\u0bc1",
+            2
+          ],
+          [
+            "\u0b85\u0b95\u0bcd\u0b95\u0bb0\u0bc8",
+            2
+          ],
+          [
+            "\u0b85\u0b95\u0bcd\u0b95\u0bc1\u0bb3\u0bc1",
+            2
+          ]
+        ],
+        "with_whitespace": 0,
+        "without_tamil_scalars": 0,
+        "initial_scalars": {
+          "\u0b85": 9197,
+          "\u0b87": 5303,
+          "\u0b95": 4352,
+          "\u0baa": 4262,
+          "\u0b86": 2928,
+          "\u0b9a": 2912,
+          "\u0bae": 2834,
+          "\u0b89": 2750,
+          "\u0ba4": 2628,
+          "\u0bb5": 2426,
+          "\u0ba8": 1731,
+          "\u0b88": 662,
+          "\u0b8e": 483,
+          "\u0b92": 402,
+          "\u0b8f": 204,
+          "\u0b8a": 182,
+          "\u0bb0": 179,
+          "\u0b9c": 176,
+          "\u0b93": 132,
+          "\u0bb2": 115,
+          "\u0baf": 113,
+          "\u0b90": 66,
+          "\u0b9f": 53,
+          "\u0bb8": 47,
+          "\u0b9e": 34,
+          "\u0bb9": 33,
+          "\u0bb7": 9,
+          "\u0b94": 7,
+          "\u0bb6": 7,
+          "\u0bb4": 1,
+          "\u0bb1": 1
+        }
+      }
+    },
+    "primary_lexicon.fst": {
+      "bytes": 622166,
+      "sha256": "3f2401b8fe0325e48741281ce43ebd64b62ea01e6f3b65b9ac4b8096ace9a996",
+      "header_hex": "030000000000000000000000000000000010bf80aec0e0c000108d80afc0e0c0"
+    },
+    "primary_meanings.csv": {
+      "bytes": 17795300,
+      "sha256": "9e8b73ce0bc255730e0e0ae72e711e50d22055df9765b9817fa4a2f9b60acf47",
+      "utf8_valid": true,
+      "columns": [
+        "meaning_id",
+        "word_id",
+        "headword_ta",
+        "sense_number",
+        "meaning_ta",
+        "meaning_en",
+        "definition_ta",
+        "definition_en",
+        "domain",
+        "register",
+        "status"
+      ],
+      "rows": 63633,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "meaning_id": 0,
+        "word_id": 0,
+        "headword_ta": 0,
+        "sense_number": 0,
+        "meaning_ta": 46529,
+        "meaning_en": 153,
+        "definition_ta": 34188,
+        "definition_en": 146,
+        "domain": 0,
+        "register": 0,
+        "status": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {
+        "domain": {
+          "General": 49550,
+          "Classical & Etymological": 7196,
+          "Home Science": 557,
+          "Administration": 556,
+          "Modern Technology & Administration": 472,
+          "Vetenary  Science": 365,
+          "Agriculture": 298,
+          "Banking": 212,
+          "Biology": 206,
+          "Mathematics": 198,
+          "History": 181,
+          "Forestry": 150,
+          "Law": 146,
+          "Philosophy": 141,
+          "Fisheries": 133,
+          "Physics": 116,
+          "Information Technology": 112,
+          "Vetenary Science": 102,
+          "Astronomy": 92,
+          "Environmental Science": 92,
+          "Sociology": 83,
+          "Classical": 65,
+          "Politics": 43,
+          "Psychology": 39,
+          "Statistics": 38,
+          "geography": 37,
+          "action": 37,
+          "Linguistics": 34,
+          "Botany": 33,
+          "Literature": 31,
+          "Epigraphy": 29,
+          "general": 28,
+          "noun.person": 25,
+          "kinship_society": 18,
+          "Economics": 17,
+          "nature": 17,
+          "noun.state": 16,
+          "noun.object": 14,
+          "noun.artifact": 14,
+          "noun.cognition": 13
+        },
+        "register": {
+          "standard": 55563,
+          "literary": 8070
+        },
+        "status": {
+          "verified": 63633
+        }
+      },
+      "unicode_issues": {
+        "control_U+FEFF": 2,
+        "control_or_format_cells": 2,
+        "outer_whitespace_cells": 6,
+        "non_nfc_cells": 9
+      },
+      "issue_examples": {
+        "control_or_format_cells": [
+          {
+            "record": 86,
+            "field": "meaning_en",
+            "value": "\ufeffpellitory root"
+          },
+          {
+            "record": 86,
+            "field": "definition_en",
+            "value": "\ufeffpellitory root"
+          }
+        ],
+        "outer_whitespace_cells": [
+          {
+            "record": 967,
+            "field": "meaning_en",
+            "value": ", 4 v.intr . 1. To flourish; \u0b9a\u0bc6\u0bb4\u0bbf\u0ba4\u0bcd\u0ba4\u0bb2\u0bcd. \u0b95\u0baf\u0bae\u0b95\u0bc8\u0baf \u0bb5\u0baf\u0ba9\u0bbf\u0bb1\u0bc8\u0b95\u0bcd\u0b95\u0bc1\u0bae\u0bcd ( \u0bae\u0ba4\u0bc1\u0bb0\u0bc8\u0b95\u0bcd . 92). 2. To sprout; \u0ba4\u0bb3\u0bbf\u0bb0\u0bcd\u0ba4\u0bcd\u0ba4\u0bb2\u0bcd. \u0b95\u0bca\u0baf\u0bcd\u0b95\u0bc1\u0bb4\u0bc8 \u0baf\u0b95\u0bc8\u0b95\u0bbe\u0b9e\u0bcd\u0b9a\u0bbf ( \u0b95\u0bb2\u0bbf\u0ba4\u0bcd . 74). 3. To burn; \u0b8e\u0bb0\u0bbf\u0ba4\u0bb2\u0bcd. \u0b85\u0b95\u0bc8\u0baf\u0bc6\u0bb0\u0bbf \u0baf\u0bbe \u0ba9\u0bbe\u0ba4\u0bc1 ( \u0b95\u0bb2\u0bbf\u0ba4\u0bcd"
+          },
+          {
+            "record": 3457,
+            "field": "meaning_en",
+            "value": ", 12 v. intr . < id. [K. a\u1e47\u1e47e , M. Tu. a\u1e47\u1e47\u0101 .] 1. To look upward; \u0bae\u0bc7\u0bb2\u0bcd\u0ba8\u0bcb\u0b95\u0bcd\u0b95\u0bc1\u0ba4\u0bb2\u0bcd . ( \u0ba8\u0bb1\u0bcd . 10.) 2. To gape, open the mouth; \u0bb5\u0bbe\u0baf\u0bcd\u0ba4\u0bbf\u0bb1\u0ba4\u0bcd\u0ba4\u0bb2\u0bcd. \u0b85\u0ba3\u0bcd\u0ba3\u0bbe\u0ba4\u0bcd\u0ba4\u0bb2\u0bcd \u0b9a\u0bc6\u0baf\u0bcd\u0baf\u0bbe \u0ba4\u0bb3\u0bb1\u0bc1 ( \u0b95\u0bc1\u0bb1\u0bb3\u0bcd , 255). 3. T"
+          },
+          {
+            "record": 3610,
+            "field": "meaning_en",
+            "value": ", 4 v.intr . 1. To be beautiful; \u0b85\u0bb4\u0b95\u0bbe\u0ba4\u0bb2\u0bcd. \u0baa\u0bbe\u0bb1\u0bc8\u0baf\u0ba3\u0bbf\u0ba8\u0bcd\u0ba4\u0bc1 ( \u0bae\u0ba4\u0bc1\u0bb0\u0bc8\u0b95\u0bcd . 278). 2. To be an ornament; \u0b85\u0bb2\u0b99\u0bcd\u0b95\u0bbe\u0bb0\u0bae\u0bbe\u0ba4\u0bb2\u0bcd. \u0b90\u0baf\u0bbf\u0bb0\u0bc1 \u0ba4\u0bbf\u0b9a\u0bc8\u0baf\u0bbf\u0ba9\u0bc1 \u0bae\u0ba3\u0bbf\u0ba8\u0bcd\u0ba4\u0bc1 \u0b9a\u0bc6\u0bb2\u0bcd\u0bb5\u0ba9 ( \u0b95\u0ba8\u0bcd\u0ba4\u0baa\u0bc1. \u0ba4\u0bc6\u0baf\u0bcd\u0bb5 . 65). \u2014 v.tr . 1. To ador"
+          },
+          {
+            "record": 24057,
+            "field": "meaning_en",
+            "value": ", 4 v . [M. uri .] intr . To peel, as skin, bark; \u0ba4\u0bcb\u0bb2\u0bcd \u0bae\u0bc1\u0ba4\u0bb2\u0bbf\u0baf\u0bb5\u0bc8 \u0b95\u0bb4\u0bb2\u0bc1\u0ba4\u0bb2\u0bcd . \u2014 tr . 1. To strip off, as clothes; to divest; \u0b86\u0b9f\u0bc8 \u0b95\u0bb3\u0bc8\u0ba4\u0bb2\u0bcd. \u0b89\u0bb0\u0bbf\u0ba8\u0bcd\u0ba4 \u0b95\u0bc2\u0bb1\u0bc8 \u0baf\u0bc1\u0bb0\u0bc1\u0bb5\u0ba4\u0bcd\u0ba4\u0bca\u0b9f\u0bc1 ( \u0ba4\u0bc7\u0bb5\u0bbe . 1011, 10). 2. "
+          }
+        ],
+        "non_nfc_cells": [
+          {
+            "record": 4793,
+            "field": "domain",
+            "value": "\u0b85\u0baf\u0bb2\u0bcd \u0b95\u0bc7\u0bbe\u0bb3\u0bb0\u0bcd"
+          },
+          {
+            "record": 5395,
+            "field": "meaning_en",
+            "value": "Younger brother, Loc. Br\u0307\u0101h"
+          },
+          {
+            "record": 5395,
+            "field": "definition_en",
+            "value": "Younger brother, Loc. Br\u0307\u0101h"
+          },
+          {
+            "record": 16644,
+            "field": "meaning_en",
+            "value": "Vi\u1e63a\u0323u, the consort of Lak\u1e63m\u012b, \u0ba4\u0bbf\u0bb0\u0bc1\u0bae\u0bbe\u0bb2\u0bcd . ( \u0baa\u0bbe\u0bb0\u0ba4. \u0b87\u0ba8\u0bcd\u0ba4\u0bbf\u0bb0\u0baa\u0bcd . 14.)"
+          }
+        ]
+      },
+      "headwords": {
+        "field": "headword_ta",
+        "unique": 43831,
+        "unique_nfc": 43831,
+        "duplicate_extra_rows": 19802,
+        "duplicate_examples": [
+          [
+            "\u0b85",
+            6
+          ],
+          [
+            "\u0b85\u0b83\u0b95\u0b9f\u0bbf",
+            2
+          ],
+          [
+            "\u0b85\u0b83\u0b95\u0bae\u0bcd",
+            6
+          ],
+          [
+            "\u0b85\u0b83\u0b95\u0bc1",
+            3
+          ]
+        ],
+        "with_whitespace": 0,
+        "without_tamil_scalars": 0,
+        "initial_scalars": {
+          "\u0b85": 11202,
+          "\u0b95": 7151,
+          "\u0baa": 6844,
+          "\u0b87": 6295,
+          "\u0ba4": 4626,
+          "\u0bae": 4557,
+          "\u0b9a": 4549,
+          "\u0bb5": 4082,
+          "\u0b89": 3589,
+          "\u0b86": 3538,
+          "\u0ba8": 2859,
+          "\u0b8e": 799,
+          "\u0b88": 776,
+          "\u0b92": 633,
+          "\u0b8f": 353,
+          "\u0b8a": 313,
+          "\u0b9c": 266,
+          "\u0bb0": 249,
+          "\u0baf": 223,
+          "\u0b93": 195,
+          "\u0bb2": 128,
+          "\u0b90": 114,
+          "\u0bb8": 95,
+          "\u0b9f": 62,
+          "\u0b9e": 45,
+          "\u0bb9": 39,
+          "\u0bb6": 30,
+          "\u0b94": 10,
+          "\u0bb7": 9,
+          "\u0bb4": 1,
+          "\u0bb1": 1
+        }
+      }
+    },
+    "primary_relationships.csv": {
+      "bytes": 1711212,
+      "sha256": "5606f595966ee117eaf379764a745dc02efb4ef14dd1c1781b44b9cc42936351",
+      "utf8_valid": true,
+      "columns": [
+        "relationship_id",
+        "source_word_id",
+        "source_headword_ta",
+        "target_word_id",
+        "target_headword_ta",
+        "relation_code",
+        "directionality",
+        "confidence",
+        "status"
+      ],
+      "rows": 19849,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "relationship_id": 0,
+        "source_word_id": 0,
+        "source_headword_ta": 0,
+        "target_word_id": 0,
+        "target_headword_ta": 0,
+        "relation_code": 0,
+        "directionality": 0,
+        "confidence": 0,
+        "status": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {
+        "relation_code": {
+          "SYNONYM": 16290,
+          "RELATED": 2955,
+          "synonym": 389,
+          "ANTONYM": 132,
+          "has_classical_or_short_name": 14,
+          "short_or_classical_name_of": 14,
+          "compound_head": 12,
+          "pure_tamil_equivalent": 12,
+          "standard_administrative_name": 12,
+          "causative_pair": 7,
+          "compound_modifier": 6,
+          "HYPERNYM": 6
+        },
+        "directionality": {
+          "directed": 19460,
+          "bidirectional": 389
+        },
+        "confidence": {
+          "1.0": 19849
+        },
+        "status": {
+          "verified": 19849
+        }
+      },
+      "unicode_issues": {},
+      "issue_examples": {}
+    },
+    "secondary_archaic_literary_terms.csv": {
+      "bytes": 288422,
+      "sha256": "8cbcba66b75903ee067be55ff0e63074169d2d1b2f4522dfc6e58b6894b43f0e",
+      "utf8_valid": true,
+      "columns": [
+        "archaic_id",
+        "term_ta",
+        "transliteration",
+        "meaning_ta",
+        "meaning_en",
+        "literary_source",
+        "period_era"
+      ],
+      "rows": 495,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "archaic_id": 0,
+        "term_ta": 0,
+        "transliteration": 0,
+        "meaning_ta": 0,
+        "meaning_en": 0,
+        "literary_source": 0,
+        "period_era": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {
+        "literary_source": {
+          "Thirukkural": 495
+        },
+        "period_era": {
+          "Classical Sangam": 495
+        }
+      },
+      "unicode_issues": {},
+      "issue_examples": {},
+      "headwords": {
+        "field": "term_ta",
+        "unique": 495,
+        "unique_nfc": 495,
+        "duplicate_extra_rows": 0,
+        "duplicate_examples": [],
+        "with_whitespace": 0,
+        "without_tamil_scalars": 0,
+        "initial_scalars": {
+          "\u0baa": 61,
+          "\u0ba4": 57,
+          "\u0b85": 54,
+          "\u0bb5": 49,
+          "\u0b95": 38,
+          "\u0ba8": 37,
+          "\u0b9a": 34,
+          "\u0b87": 32,
+          "\u0bae": 29,
+          "\u0b8e": 25,
+          "\u0b89": 23,
+          "\u0b92": 10,
+          "\u0b86": 9,
+          "\u0baf": 6,
+          "\u0b93": 5,
+          "\u0bb1": 5,
+          "\u0b90": 4,
+          "\u0b88": 3,
+          "\u0b8f": 3,
+          "\u0bb2": 3,
+          "\u0b8a": 2,
+          "\u0b9e": 2,
+          "\u0b9f": 1,
+          "\u0bb0": 1,
+          "\u0bb3": 1,
+          "\u0ba9": 1
+        }
+      }
+    },
+    "secondary_dialect_colloquialisms.csv": {
+      "bytes": 520690,
+      "sha256": "8278dfb47a431dafa0bd3d2d9cbb477135a689e683f563560ee3237f5b09e3b2",
+      "utf8_valid": true,
+      "columns": [
+        "colloquial_id",
+        "term_ta",
+        "transliteration",
+        "pronunciation_ipa",
+        "standard_equivalent",
+        "region_dialect",
+        "meaning_ta",
+        "notes"
+      ],
+      "rows": 1323,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "colloquial_id": 0,
+        "term_ta": 0,
+        "transliteration": 0,
+        "pronunciation_ipa": 0,
+        "standard_equivalent": 0,
+        "region_dialect": 0,
+        "meaning_ta": 0,
+        "notes": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {
+        "region_dialect": {
+          "Kongu": 469,
+          "Madras Baashai": 342,
+          "Jaffna": 310,
+          "General Spoken": 106,
+          "Gen-Z / Cinema": 39,
+          "Madurai": 34,
+          "Nellai": 23
+        }
+      },
+      "unicode_issues": {},
+      "issue_examples": {},
+      "headwords": {
+        "field": "term_ta",
+        "unique": 1323,
+        "unique_nfc": 1323,
+        "duplicate_extra_rows": 0,
+        "duplicate_examples": [],
+        "with_whitespace": 93,
+        "without_tamil_scalars": 0,
+        "initial_scalars": {
+          "\u0b95": 198,
+          "\u0baa": 196,
+          "\u0b9a": 140,
+          "\u0b85": 127,
+          "\u0bae": 118,
+          "\u0bb5": 103,
+          "\u0ba4": 87,
+          "\u0ba8": 56,
+          "\u0b87": 52,
+          "\u0b8e": 49,
+          "\u0b89": 29,
+          "\u0b92": 27,
+          "\u0b86": 23,
+          "\u0b93": 18,
+          "\u0b9f": 17,
+          "\u0bb0": 15,
+          "\u0b8f": 14,
+          "\u0bb2": 14,
+          "\u0b9c": 10,
+          "\u0b8a": 8,
+          "\u0b83": 7,
+          "\u0baf": 5,
+          "\u0bb8": 4,
+          "\u0b88": 2,
+          "\u0b99": 1,
+          "\u0b9e": 1,
+          "\u0bb7": 1,
+          "\u0bb9": 1
+        }
+      }
+    },
+    "secondary_phrases_mwes.csv": {
+      "bytes": 1774531,
+      "sha256": "1a27b48ff6e656b775a77ab30f6cdd5910c554c1d75b932316ae71406d478ec6",
+      "utf8_valid": true,
+      "columns": [
+        "phrase_id",
+        "phrase_ta",
+        "transliteration",
+        "component_count",
+        "domain_category",
+        "english_gloss",
+        "source_code"
+      ],
+      "rows": 10719,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "phrase_id": 0,
+        "phrase_ta": 0,
+        "transliteration": 0,
+        "component_count": 0,
+        "domain_category": 0,
+        "english_gloss": 408,
+        "source_code": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {
+        "domain_category": {
+          "General": 3429,
+          "General Modern Tamil": 2187,
+          "compound_phrase": 942,
+          "Engineering and Technology": 388,
+          "Banking": 359,
+          "Home Science": 344,
+          "General Medicine": 280,
+          "Classical & Etymological": 217,
+          "Agriculture": 204,
+          "Information Technology": 172,
+          "Geology": 160,
+          "Biology": 136,
+          "Physics": 133,
+          "Vetenary  Science": 119,
+          "Law": 109,
+          "Astronomy": 101,
+          "Mathematics": 100,
+          "general": 92,
+          "Chemistry": 89,
+          "Administration": 89,
+          "Environmental Science": 59,
+          "Fisheries": 59,
+          "noun.person": 56,
+          "noun.artifact": 54,
+          "Forestry": 51,
+          "Anthropology": 45,
+          "noun.communication": 45,
+          "noun.group": 39,
+          "Statistics": 37,
+          "Philosophy": 35,
+          "Politics": 34,
+          "noun.object": 28,
+          "Psychology": 27,
+          "noun.cognition": 27,
+          "noun.act": 26,
+          "noun.location": 23,
+          "Linguistics": 22,
+          "noun.state": 22,
+          "Economics": 20,
+          "classical_literature": 18
+        },
+        "source_code": {
+          "Tamilcube Bilingual Dictionary": 2981,
+          "technical_compound_deconstruction": 2336,
+          "SRC-OXFORD-APPLE": 2187,
+          "exhaustive_compound_deconstruction": 1715,
+          "glued_phrase_deconstruction": 942,
+          "lexicon_mwe": 361,
+          "primary_mwe_cleanup": 150,
+          "ahtu_sandhi_deconstruction": 18,
+          "spaced_compound_variant": 18,
+          "primary_triage": 7,
+          "primary_mwe_migration": 3,
+          "\u0baa\u0bca\u0ba4\u0bc1\u0b95\u0bcd \u0b95\u0bc8\u0ba4\u0bcd\u0ba4\u0bca\u0bb4\u0bbf\u0bb2\u0bcd \u0b9a\u0bbf\u0bb1\u0baa\u0bcd\u0baa\u0bc1\u0b9a\u0bcd \u0b9a\u0bca\u0bb1\u0bcd\u0b95\u0bb3\u0bcd \u0b85\u0b95\u0bb0\u0bbe\u0ba4\u0bbf": 1
+        }
+      },
+      "unicode_issues": {},
+      "issue_examples": {},
+      "headwords": {
+        "field": "phrase_ta",
+        "unique": 10719,
+        "unique_nfc": 10719,
+        "duplicate_extra_rows": 0,
+        "duplicate_examples": [],
+        "with_whitespace": 10719,
+        "without_tamil_scalars": 0,
+        "initial_scalars": {
+          "\u0b85": 2161,
+          "\u0b87": 2053,
+          "\u0b95": 978,
+          "\u0baa": 913,
+          "\u0bae": 757,
+          "\u0b86": 691,
+          "\u0b9a": 575,
+          "\u0ba4": 571,
+          "\u0bb5": 530,
+          "\u0ba8": 504,
+          "\u0b89": 335,
+          "\u0b88": 160,
+          "\u0b8e": 134,
+          "\u0b92": 100,
+          "\u0b8a": 39,
+          "\u0b8f": 32,
+          "\u0b93": 30,
+          "\u0b9c": 30,
+          "\u0bb0": 29,
+          "\u0b9f": 20,
+          "\u0baf": 20,
+          "\u0bb2": 14,
+          "\u0b90": 12,
+          "\u0bb8": 11,
+          "\u0b83": 6,
+          "\u0bb9": 6,
+          "\u0b9e": 5,
+          "\u0bb6": 2,
+          "\u0bb7": 1
+        }
+      }
+    },
+    "secondary_proper_names_toponyms.csv": {
+      "bytes": 54357,
+      "sha256": "a62a5f271a4a5e9fd4dc30c9278b7348b53448751cf17060292ad234b8caf1bd",
+      "utf8_valid": true,
+      "columns": [
+        "proper_id",
+        "name_ta",
+        "english_name",
+        "name_type",
+        "transliteration",
+        "notes"
+      ],
+      "rows": 484,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "proper_id": 0,
+        "name_ta": 0,
+        "english_name": 0,
+        "name_type": 0,
+        "transliteration": 0,
+        "notes": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {
+        "name_type": {
+          "person_or_toponym": 198,
+          "country": 134,
+          "person": 51,
+          "city_toponym": 38,
+          "organization_brand": 30,
+          "state_region": 20,
+          "water_body": 12,
+          "literary_work": 1
+        }
+      },
+      "unicode_issues": {},
+      "issue_examples": {},
+      "headwords": {
+        "field": "name_ta",
+        "unique": 484,
+        "unique_nfc": 484,
+        "duplicate_extra_rows": 0,
+        "duplicate_examples": [],
+        "with_whitespace": 43,
+        "without_tamil_scalars": 0,
+        "initial_scalars": {
+          "\u0b9a": 66,
+          "\u0baa": 58,
+          "\u0b95": 55,
+          "\u0b85": 36,
+          "\u0bae": 35,
+          "\u0bb0": 30,
+          "\u0bb5": 29,
+          "\u0ba4": 26,
+          "\u0ba8": 25,
+          "\u0b86": 18,
+          "\u0b9c": 15,
+          "\u0b87": 13,
+          "\u0b89": 10,
+          "\u0b9f": 10,
+          "\u0b90": 8,
+          "\u0b8e": 7,
+          "\u0bb2": 7,
+          "\u0bb9": 7,
+          "\u0b83": 5,
+          "\u0baf": 5,
+          "\u0bb7": 5,
+          "\u0bb8": 5,
+          "\u0b92": 3,
+          "\u0b88": 2,
+          "\u0b93": 2,
+          "\u0b8f": 1,
+          "\u0b9e": 1
+        }
+      }
+    },
+    "secondary_scientific_taxa.csv": {
+      "bytes": 24941,
+      "sha256": "2183823d4ef222f4c50f63e895866904e09f5483ce21cca08ddbed996860a8a0",
+      "utf8_valid": true,
+      "columns": [
+        "taxa_id",
+        "scientific_name",
+        "tamil_name",
+        "transliteration",
+        "taxonomic_rank",
+        "kingdom_phylum",
+        "notes"
+      ],
+      "rows": 193,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "taxa_id": 0,
+        "scientific_name": 0,
+        "tamil_name": 0,
+        "transliteration": 0,
+        "taxonomic_rank": 0,
+        "kingdom_phylum": 0,
+        "notes": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {},
+      "unicode_issues": {},
+      "issue_examples": {},
+      "headwords": {
+        "field": "tamil_name",
+        "unique": 192,
+        "unique_nfc": 192,
+        "duplicate_extra_rows": 1,
+        "duplicate_examples": [
+          [
+            "\u0b9a\u0bc6\u0ba3\u0bcd\u0baa\u0b95\u0bae\u0bcd",
+            2
+          ]
+        ],
+        "with_whitespace": 34,
+        "without_tamil_scalars": 0,
+        "initial_scalars": {
+          "\u0b95": 38,
+          "\u0baa": 27,
+          "\u0b9a": 26,
+          "\u0bae": 22,
+          "\u0bb5": 20,
+          "\u0ba4": 15,
+          "\u0ba8": 14,
+          "\u0b85": 8,
+          "\u0b86": 4,
+          "\u0b87": 4,
+          "\u0b89": 3,
+          "\u0b8e": 3,
+          "\u0b8f": 2,
+          "\u0b93": 2,
+          "\u0bb0": 2,
+          "\u0b92": 1,
+          "\u0baf": 1,
+          "\u0b9c": 1
+        }
+      }
+    },
+    "secondary_specialized_technical_terms.csv": {
+      "bytes": 18663651,
+      "sha256": "5153aae564d46447a3ef32edc921ef0888c2394c376b57e297eb402f20d4f6c8",
+      "utf8_valid": true,
+      "columns": [
+        "term_id",
+        "term_ta",
+        "transliteration",
+        "english_term",
+        "domain_field",
+        "definition_ta",
+        "definition_en",
+        "specialization_tier",
+        "source_code"
+      ],
+      "rows": 120482,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "term_id": 0,
+        "term_ta": 0,
+        "transliteration": 0,
+        "english_term": 0,
+        "domain_field": 0,
+        "definition_ta": 120482,
+        "definition_en": 120482,
+        "specialization_tier": 0,
+        "source_code": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {
+        "domain_field": {
+          "Home Science": 14476,
+          "Banking": 12287,
+          "Engineering and Technology": 11239,
+          "General Medicine": 10532,
+          "Agriculture": 9088,
+          "Geology": 6298,
+          "Physics": 6293,
+          "Information Technology": 4847,
+          "Mathematics": 4499,
+          "Vetenary Science": 4091,
+          "Biology": 3890,
+          "Administration": 3878,
+          "Law": 3791,
+          "Chemistry": 3704,
+          "Environmental Science": 3413,
+          "Astronomy": 2701,
+          "Forestry": 2572,
+          "Fisheries": 1825,
+          "Anthropology": 1764,
+          "Economics": 1334,
+          "Statistics": 1239,
+          "Sociology": 1139,
+          "Philosophy": 1057,
+          "Psychology": 1016,
+          "Politics": 976,
+          "History": 808,
+          "Linguistics": 598,
+          "Names of the Animal Variety": 413,
+          "Epigraphy": 386,
+          "Folk lore": 183,
+          "Names of the Fish Variety": 125,
+          "Anatomy": 11,
+          "Vocational Crafts & Engineering": 8,
+          "Civil Engineering / Archaeology": 1
+        },
+        "specialization_tier": {
+          "specialized_kalaisol": 120482
+        },
+        "source_code": {
+          "TVA_KALAICHOL": 117121,
+          "sorkuvai_technical": 3361
+        }
+      },
+      "unicode_issues": {},
+      "issue_examples": {},
+      "headwords": {
+        "field": "term_ta",
+        "unique": 120482,
+        "unique_nfc": 120482,
+        "duplicate_extra_rows": 0,
+        "duplicate_examples": [],
+        "with_whitespace": 116592,
+        "without_tamil_scalars": 0,
+        "initial_scalars": {
+          "\u0b95": 16433,
+          "\u0baa": 15415,
+          "\u0bae": 13853,
+          "\u0ba4": 11298,
+          "\u0bb5": 11239,
+          "\u0b9a": 9897,
+          "\u0ba8": 9129,
+          "\u0b87": 7803,
+          "\u0b85": 7662,
+          "\u0b89": 6183,
+          "\u0b92": 2909,
+          "\u0b86": 2361,
+          "\u0b8e": 2302,
+          "\u0b88": 720,
+          "\u0b8a": 698,
+          "\u0b8f": 635,
+          "\u0b93": 547,
+          "\u0b9f": 234,
+          "\u0bb0": 165,
+          "\u0bb9": 157,
+          "\u0b9c": 139,
+          "\u0b90": 132,
+          "\u0bb2": 111,
+          "\u0baf": 102,
+          "\u0bb8": 72,
+          "\u0b83": 69,
+          "\u2018": 60,
+          "(": 58,
+          "\u0b9e": 52,
+          "X": 7,
+          "\u0bb7": 5,
+          "\u0ba3": 3,
+          "B": 3,
+          "Y": 3,
+          "\u0bb1": 2,
+          "2": 2,
+          "4": 2,
+          "D": 2,
+          "S": 2,
+          "Z": 2
+        }
+      }
+    },
+    "secondary_transliterations_loanwords.csv": {
+      "bytes": 148296,
+      "sha256": "7213bb06af9207cd27b5a6311cf7a7d602258675d00bc148f6812256cb1da879",
+      "utf8_valid": true,
+      "columns": [
+        "loanword_id",
+        "transliterated_ta",
+        "transliteration",
+        "source_word_en",
+        "origin_language",
+        "pure_tamil_equivalent",
+        "domain"
+      ],
+      "rows": 1607,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "loanword_id": 0,
+        "transliterated_ta": 0,
+        "transliteration": 0,
+        "source_word_en": 0,
+        "origin_language": 0,
+        "pure_tamil_equivalent": 0,
+        "domain": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {
+        "origin_language": {
+          "Foreign": 1074,
+          "English": 427,
+          "Sanskrit": 51,
+          "Arabic": 21,
+          "Persian": 11,
+          "Portuguese": 6,
+          "French": 5,
+          "Greek": 3,
+          "Latin": 3,
+          "Italian": 2,
+          "Chinese": 2,
+          "Spanish": 1,
+          "Pali": 1
+        },
+        "domain": {
+          "General": 1189,
+          "Information Technology": 53,
+          "Administration": 22,
+          "Commerce": 20,
+          "Law": 14,
+          "Transport": 14,
+          "Polity": 12,
+          "Culinary": 12,
+          "Media": 11,
+          "Chemistry": 10,
+          "General & IT": 10,
+          "Household": 9,
+          "Philosophy": 8,
+          "Banking & Finance": 7,
+          "Education": 7,
+          "Geography": 7,
+          "Time & Calendar": 6,
+          "Geology": 6,
+          "Healthcare": 6,
+          "Sports": 6,
+          "Astronomy": 5,
+          "Technology": 5,
+          "Physics": 5,
+          "Textiles": 5,
+          "Materials": 4,
+          "Electronics": 4,
+          "Documentation": 3,
+          "Politics": 3,
+          "Ethics": 3,
+          "Aviation": 3,
+          "Zoology": 3,
+          "Botany": 2,
+          "Sports & General": 2,
+          "Commerce & Finance": 2,
+          "Sociology": 2,
+          "Science": 2,
+          "Telecommunications": 2,
+          "Real Estate": 2,
+          "Defense": 2,
+          "Education & General": 2
+        }
+      },
+      "unicode_issues": {},
+      "issue_examples": {},
+      "headwords": {
+        "field": "transliterated_ta",
+        "unique": 1607,
+        "unique_nfc": 1607,
+        "duplicate_extra_rows": 0,
+        "duplicate_examples": [],
+        "with_whitespace": 0,
+        "without_tamil_scalars": 0,
+        "initial_scalars": {
+          "\u0baa": 201,
+          "\u0b95": 164,
+          "\u0b9a": 146,
+          "\u0b9c": 113,
+          "\u0bae": 101,
+          "\u0bb5": 95,
+          "\u0bb0": 94,
+          "\u0bb9": 93,
+          "\u0b85": 84,
+          "\u0b9f": 80,
+          "\u0bb8": 74,
+          "\u0b86": 48,
+          "\u0ba8": 46,
+          "\u0ba4": 42,
+          "\u0b83": 39,
+          "\u0b8e": 36,
+          "\u0b87": 35,
+          "\u0bb2": 33,
+          "\u0bb7": 29,
+          "\u0baf": 15,
+          "\u0b8f": 12,
+          "\u0b88": 9,
+          "\u0b90": 7,
+          "\u0b89": 4,
+          "\u0b92": 3,
+          "\u0b93": 3,
+          "\u0bb1": 1
+        }
+      }
+    },
+    "unified_master_30col.csv": {
+      "bytes": 36354629,
+      "sha256": "135b443aff7c7f1b90236696464709729e6f83f68ca99215b0e9ef42be971764",
+      "utf8_valid": true,
+      "columns": [
+        "word_id",
+        "lexeme_id",
+        "headword_ta",
+        "headword_normalized",
+        "transliteration",
+        "pronunciation_ipa",
+        "part_of_speech",
+        "grammatical_subclass",
+        "animacy_gender",
+        "matra_count",
+        "grapheme_count",
+        "syllable_structure",
+        "phonetic_weight",
+        "sandhi_behavior",
+        "root_word",
+        "etymology_type",
+        "dedr_id",
+        "meaning_ta",
+        "meaning_en",
+        "definition_ta",
+        "definition_en",
+        "domain",
+        "register",
+        "synonyms",
+        "antonyms",
+        "corpus_frequency_tier",
+        "example_sentence_ta",
+        "status",
+        "confidence",
+        "sense_count"
+      ],
+      "rows": 44229,
+      "malformed_width_records": [],
+      "empty_cells": {
+        "word_id": 0,
+        "lexeme_id": 0,
+        "headword_ta": 0,
+        "headword_normalized": 0,
+        "transliteration": 0,
+        "pronunciation_ipa": 0,
+        "part_of_speech": 0,
+        "grammatical_subclass": 0,
+        "animacy_gender": 0,
+        "matra_count": 0,
+        "grapheme_count": 0,
+        "syllable_structure": 0,
+        "phonetic_weight": 0,
+        "sandhi_behavior": 0,
+        "root_word": 0,
+        "etymology_type": 0,
+        "dedr_id": 39771,
+        "meaning_ta": 30026,
+        "meaning_en": 153,
+        "definition_ta": 17685,
+        "definition_en": 146,
+        "domain": 0,
+        "register": 0,
+        "synonyms": 40147,
+        "antonyms": 44109,
+        "corpus_frequency_tier": 0,
+        "example_sentence_ta": 33820,
+        "status": 0,
+        "confidence": 0,
+        "sense_count": 0
+      },
+      "duplicate_primary_ids": 0,
+      "duplicate_full_records": 0,
+      "categories": {
+        "part_of_speech": {
+          "NOUN": 39196,
+          "VERB": 3653,
+          "ADV": 756,
+          "ADJ": 430,
+          "PART": 102,
+          "PRON": 45,
+          "CONJ": 26,
+          "INTJ": 21
+        },
+        "syllable_structure": {
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 5859,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 4374,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8": 3867,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 3863,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 3180,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8": 3153,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 2905,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 2851,
+          "\u0ba8\u0bbf\u0bb0\u0bc8": 1496,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 1458,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8": 1169,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 1073,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8": 1064,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 842,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 842,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 781,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 712,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8": 644,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8": 624,
+          "\u0ba8\u0bc7\u0bb0\u0bcd": 344,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 331,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 327,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8": 177,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8": 176,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 175,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8": 162,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 120,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 116,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8": 109,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 101,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 101,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8": 100,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 83,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 81,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8": 80,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd": 70,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8": 54,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 48,
+          "\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bc7\u0bb0\u0bcd-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bc7\u0bb0\u0bcd": 47,
+          "\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8-\u0ba8\u0bbf\u0bb0\u0bc8": 41
+        },
+        "sandhi_behavior": {
+          "\u0b87 \u0b88 \u0b90 \u0bb5\u0bb4\u0bbf \u0baf\u0b95\u0bb0 \u0b89\u0b9f\u0bae\u0bcd\u0baa\u0b9f\u0bc1\u0bae\u0bc6\u0baf\u0bcd / \u0bb5\u0bb2\u0bcd\u0bb2\u0bbf\u0ba9\u0bae\u0bcd \u0bae\u0bbf\u0b95\u0bc1\u0bae\u0bcd": 11912,
+          "\u0bae\u0b95\u0bb0 \u0b88\u0bb1\u0bcd\u0bb1\u0bc1\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf (\u0b95\u0bc6\u0b9f\u0bc1\u0ba4\u0bb2\u0bcd / \u0bb5\u0bb2\u0bcd\u0bb2\u0bbf\u0ba9\u0bae\u0bcd \u0bae\u0bbf\u0b95\u0bb2\u0bcd)": 9001,
+          "\u0bb2\u0b95\u0bb0 \u0bb3\u0b95\u0bb0\u0ba4\u0bcd \u0ba4\u0bbf\u0bb0\u0bbf\u0baa\u0bc1\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf (\u0bb1\u0bcd / \u0b9f\u0bcd)": 3734,
+          "\u0bb5\u0bbf\u0ba9\u0bc8\u0baa\u0bcd \u0baa\u0b95\u0bc1\u0ba4\u0bbf\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf": 3653,
+          "\u0ba9\u0b95\u0bb0 \u0ba3\u0b95\u0bb0\u0ba4\u0bcd \u0ba4\u0bbf\u0bb0\u0bbf\u0baa\u0bc1\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf": 2970,
+          "\u0bae\u0bc6\u0baf\u0bcd\u0baf\u0bc0\u0bb1\u0bcd\u0bb1\u0bc1 \u0b87\u0baf\u0bb2\u0bcd\u0baa\u0bc1 / \u0bb5\u0bb2\u0bcd\u0bb2\u0bbf\u0ba9\u0bae\u0bcd \u0bae\u0bbf\u0b95\u0bb2\u0bcd": 2748,
+          "\u0bb5\u0ba9\u0bcd\u0bb1\u0bca\u0b9f\u0bb0\u0bcd\u0b95\u0bcd \u0b95\u0bc1\u0bb1\u0bcd\u0bb1\u0bbf\u0baf\u0bb2\u0bc1\u0b95\u0bb0\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf (\u0bb5\u0bb2\u0bcd\u0bb2\u0bbf\u0ba9\u0bae\u0bcd \u0bae\u0bbf\u0b95\u0bc1\u0bae\u0bcd)": 2456,
+          "\u0b89\u0baf\u0bbf\u0bb0\u0bcd \u0b88\u0bb1\u0bcd\u0bb1\u0bc1 \u0b87\u0baf\u0bb2\u0bcd\u0baa\u0bc1 / \u0b89\u0b9f\u0bae\u0bcd\u0baa\u0b9f\u0bc1\u0bae\u0bc6\u0baf\u0bcd\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf": 2204,
+          "\u0b89\u0baf\u0bbf\u0bb0\u0bcd\u0ba4\u0bcd\u0ba4\u0bca\u0b9f\u0bb0\u0bcd\u0b95\u0bcd \u0b95\u0bc1\u0bb1\u0bcd\u0bb1\u0bbf\u0baf\u0bb2\u0bc1\u0b95\u0bb0\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf": 1832,
+          "\u0ba8\u0bc6\u0b9f\u0bbf\u0bb2\u0bcd \u0b89\u0baf\u0bbf\u0bb0\u0bcd \u0b88\u0bb1\u0bc1 (\u0bb5\u0bb2\u0bcd\u0bb2\u0bbf\u0ba9\u0bae\u0bcd \u0bae\u0bbf\u0b95\u0bc1\u0bae\u0bcd / \u0bb5\u0b95\u0bb0 \u0b89\u0b9f\u0bae\u0bcd\u0baa\u0b9f\u0bc1\u0bae\u0bc6\u0baf\u0bcd)": 1261,
+          "\u0bae\u0bc1\u0bb1\u0bcd\u0bb1\u0bbf\u0baf\u0bb2\u0bc1\u0b95\u0bb0\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf": 1187,
+          "\u0bae\u0bc6\u0ba9\u0bcd\u0bb1\u0bca\u0b9f\u0bb0\u0bcd\u0b95\u0bcd \u0b95\u0bc1\u0bb1\u0bcd\u0bb1\u0bbf\u0baf\u0bb2\u0bc1\u0b95\u0bb0\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf": 1040,
+          "\u0bae\u0bc6\u0baf\u0bcd\u0baf\u0bc0\u0bb1\u0bcd\u0bb1\u0bc1 \u0b87\u0baf\u0bb2\u0bcd\u0baa\u0bc1\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf": 96,
+          "\u0ba8\u0bc6\u0b9f\u0bbf\u0bb2\u0bcd\u0ba4\u0bca\u0b9f\u0bb0\u0bcd\u0b95\u0bcd \u0b95\u0bc1\u0bb1\u0bcd\u0bb1\u0bbf\u0baf\u0bb2\u0bc1\u0b95\u0bb0\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf (\u0bb5\u0bb2\u0bcd\u0bb2\u0bbf\u0ba9\u0bae\u0bcd \u0bae\u0bbf\u0b95\u0bc1\u0bae\u0bcd)": 73,
+          "\u0b87\u0b9f\u0bc8\u0ba4\u0bcd\u0ba4\u0bca\u0b9f\u0bb0\u0bcd\u0b95\u0bcd \u0b95\u0bc1\u0bb1\u0bcd\u0bb1\u0bbf\u0baf\u0bb2\u0bc1\u0b95\u0bb0\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf": 54,
+          "\u0b86\u0baf\u0bcd\u0ba4\u0ba4\u0bcd\u0ba4\u0bca\u0b9f\u0bb0\u0bcd\u0b95\u0bcd \u0b95\u0bc1\u0bb1\u0bcd\u0bb1\u0bbf\u0baf\u0bb2\u0bc1\u0b95\u0bb0\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf": 8
+        },
+        "etymology_type": {
+          "\u0b87\u0baf\u0bb1\u0bcd\u0b9a\u0bca\u0bb2\u0bcd": 41135,
+          "\u0bb5\u0b9f\u0b9a\u0bca\u0bb2\u0bcd (\u0b95\u0bbf\u0bb0\u0ba8\u0bcd\u0ba4\u0bae\u0bcd)": 1248,
+          "\u0bb5\u0b9f\u0b9a\u0bca\u0bb2\u0bcd (\u0ba4\u0bb1\u0bcd\u0baa\u0bb5\u0bae\u0bcd)": 1245,
+          "\u0ba4\u0bbf\u0b9a\u0bc8\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd": 381,
+          "\u0b95\u0bb2\u0bc8\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd": 212,
+          "\u0ba4\u0bbf\u0bb0\u0bbf\u0b9a\u0bca\u0bb2\u0bcd": 8
+        },
+        "domain": {
+          "General": 30158,
+          "Classical & Etymological": 7196,
+          "Home Science": 557,
+          "Administration": 556,
+          "Modern Technology & Administration": 472,
+          "Vetenary  Science": 365,
+          "Agriculture": 298,
+          "Banking": 212,
+          "Biology": 206,
+          "Mathematics": 198,
+          "History": 181,
+          "Forestry": 150,
+          "Law": 146,
+          "Philosophy": 141,
+          "Fisheries": 133,
+          "Physics": 116,
+          "Information Technology": 112,
+          "Vetenary Science": 102,
+          "Astronomy": 92,
+          "Environmental Science": 92,
+          "Sociology": 83,
+          "Classical": 65,
+          "Politics": 43,
+          "Psychology": 39,
+          "Statistics": 38,
+          "geography": 37,
+          "action": 35,
+          "Linguistics": 34,
+          "Botany": 33,
+          "Literature": 31,
+          "Epigraphy": 29,
+          "general": 28,
+          "noun.person": 25,
+          "Economics": 17,
+          "nature": 17,
+          "noun.state": 16,
+          "kinship_society": 15,
+          "noun.object": 14,
+          "noun.artifact": 14,
+          "noun.cognition": 13
+        },
+        "register": {
+          "standard": 43902,
+          "literary": 323,
+          "colloquial": 4
+        },
+        "corpus_frequency_tier": {
+          "Lexical Entry": 38594,
+          "Tier 3 (Attested Corpus)": 3401,
+          "Tier 2 (Medium Frequency)": 1661,
+          "Tier 1 (High Frequency)": 573
+        },
+        "status": {
+          "verified": 44229
+        },
+        "confidence": {
+          "1.00": 44229
+        }
+      },
+      "unicode_issues": {
+        "control_U+FEFF": 2,
+        "control_or_format_cells": 2,
+        "outer_whitespace_cells": 6,
+        "non_nfc_cells": 7
+      },
+      "issue_examples": {
+        "control_or_format_cells": [
+          {
+            "record": 62,
+            "field": "meaning_en",
+            "value": "\ufeffpellitory root"
+          },
+          {
+            "record": 62,
+            "field": "definition_en",
+            "value": "\ufeffpellitory root"
+          }
+        ],
+        "outer_whitespace_cells": [
+          {
+            "record": 818,
+            "field": "meaning_en",
+            "value": ", 4 v.intr . 1. To flourish; \u0b9a\u0bc6\u0bb4\u0bbf\u0ba4\u0bcd\u0ba4\u0bb2\u0bcd. \u0b95\u0baf\u0bae\u0b95\u0bc8\u0baf \u0bb5\u0baf\u0ba9\u0bbf\u0bb1\u0bc8\u0b95\u0bcd\u0b95\u0bc1\u0bae\u0bcd ( \u0bae\u0ba4\u0bc1\u0bb0\u0bc8\u0b95\u0bcd . 92). 2. To sprout; \u0ba4\u0bb3\u0bbf\u0bb0\u0bcd\u0ba4\u0bcd\u0ba4\u0bb2\u0bcd. \u0b95\u0bca\u0baf\u0bcd\u0b95\u0bc1\u0bb4\u0bc8 \u0baf\u0b95\u0bc8\u0b95\u0bbe\u0b9e\u0bcd\u0b9a\u0bbf ( \u0b95\u0bb2\u0bbf\u0ba4\u0bcd . 74). 3. To burn; \u0b8e\u0bb0\u0bbf\u0ba4\u0bb2\u0bcd. \u0b85\u0b95\u0bc8\u0baf\u0bc6\u0bb0\u0bbf \u0baf\u0bbe \u0ba9\u0bbe\u0ba4\u0bc1 ( \u0b95\u0bb2\u0bbf\u0ba4\u0bcd"
+          },
+          {
+            "record": 2828,
+            "field": "meaning_en",
+            "value": ", 12 v. intr . < id. [K. a\u1e47\u1e47e , M. Tu. a\u1e47\u1e47\u0101 .] 1. To look upward; \u0bae\u0bc7\u0bb2\u0bcd\u0ba8\u0bcb\u0b95\u0bcd\u0b95\u0bc1\u0ba4\u0bb2\u0bcd . ( \u0ba8\u0bb1\u0bcd . 10.) 2. To gape, open the mouth; \u0bb5\u0bbe\u0baf\u0bcd\u0ba4\u0bbf\u0bb1\u0ba4\u0bcd\u0ba4\u0bb2\u0bcd. \u0b85\u0ba3\u0bcd\u0ba3\u0bbe\u0ba4\u0bcd\u0ba4\u0bb2\u0bcd \u0b9a\u0bc6\u0baf\u0bcd\u0baf\u0bbe \u0ba4\u0bb3\u0bb1\u0bc1 ( \u0b95\u0bc1\u0bb1\u0bb3\u0bcd , 255). 3. T"
+          },
+          {
+            "record": 2935,
+            "field": "meaning_en",
+            "value": ", 4 v.intr . 1. To be beautiful; \u0b85\u0bb4\u0b95\u0bbe\u0ba4\u0bb2\u0bcd. \u0baa\u0bbe\u0bb1\u0bc8\u0baf\u0ba3\u0bbf\u0ba8\u0bcd\u0ba4\u0bc1 ( \u0bae\u0ba4\u0bc1\u0bb0\u0bc8\u0b95\u0bcd . 278). 2. To be an ornament; \u0b85\u0bb2\u0b99\u0bcd\u0b95\u0bbe\u0bb0\u0bae\u0bbe\u0ba4\u0bb2\u0bcd. \u0b90\u0baf\u0bbf\u0bb0\u0bc1 \u0ba4\u0bbf\u0b9a\u0bc8\u0baf\u0bbf\u0ba9\u0bc1 \u0bae\u0ba3\u0bbf\u0ba8\u0bcd\u0ba4\u0bc1 \u0b9a\u0bc6\u0bb2\u0bcd\u0bb5\u0ba9 ( \u0b95\u0ba8\u0bcd\u0ba4\u0baa\u0bc1. \u0ba4\u0bc6\u0baf\u0bcd\u0bb5 . 65). \u2014 v.tr . 1. To ador"
+          },
+          {
+            "record": 19888,
+            "field": "meaning_en",
+            "value": ", 4 v . [M. uri .] intr . To peel, as skin, bark; \u0ba4\u0bcb\u0bb2\u0bcd \u0bae\u0bc1\u0ba4\u0bb2\u0bbf\u0baf\u0bb5\u0bc8 \u0b95\u0bb4\u0bb2\u0bc1\u0ba4\u0bb2\u0bcd . \u2014 tr . 1. To strip off, as clothes; to divest; \u0b86\u0b9f\u0bc8 \u0b95\u0bb3\u0bc8\u0ba4\u0bb2\u0bcd. \u0b89\u0bb0\u0bbf\u0ba8\u0bcd\u0ba4 \u0b95\u0bc2\u0bb1\u0bc8 \u0baf\u0bc1\u0bb0\u0bc1\u0bb5\u0ba4\u0bcd\u0ba4\u0bca\u0b9f\u0bc1 ( \u0ba4\u0bc7\u0bb5\u0bbe . 1011, 10). 2. "
+          }
+        ],
+        "non_nfc_cells": [
+          {
+            "record": 3906,
+            "field": "domain",
+            "value": "\u0b85\u0baf\u0bb2\u0bcd \u0b95\u0bc7\u0bbe\u0bb3\u0bb0\u0bcd"
+          },
+          {
+            "record": 13726,
+            "field": "meaning_en",
+            "value": "Vi\u1e63a\u0323u, the consort of Lak\u1e63m\u012b, \u0ba4\u0bbf\u0bb0\u0bc1\u0bae\u0bbe\u0bb2\u0bcd . ( \u0baa\u0bbe\u0bb0\u0ba4. \u0b87\u0ba8\u0bcd\u0ba4\u0bbf\u0bb0\u0baa\u0bcd . 14.)"
+          },
+          {
+            "record": 13726,
+            "field": "definition_en",
+            "value": "Vi\u1e63a\u0323u, the consort of Lak\u1e63m\u012b, \u0ba4\u0bbf\u0bb0\u0bc1\u0bae\u0bbe\u0bb2\u0bcd . ( \u0baa\u0bbe\u0bb0\u0ba4. \u0b87\u0ba8\u0bcd\u0ba4\u0bbf\u0bb0\u0baa\u0bcd . 14.)"
+          },
+          {
+            "record": 17409,
+            "field": "meaning_en",
+            "value": "ishte\u0306h\u0101r . Proclamation, notice, advertisement, \u0bb5\u0bbf\u0bb3\u0bae\u0bcd \u0baa\u0bb0\u0bae\u0bcd"
+          }
+        ]
+      },
+      "headwords": {
+        "field": "headword_ta",
+        "unique": 43831,
+        "unique_nfc": 43831,
+        "duplicate_extra_rows": 398,
+        "duplicate_examples": [
+          [
+            "\u0b85",
+            2
+          ],
+          [
+            "\u0b85\u0b83\u0b95\u0bc1",
+            2
+          ],
+          [
+            "\u0b85\u0b95\u0bcd\u0b95\u0bb0\u0bc8",
+            2
+          ],
+          [
+            "\u0b85\u0b95\u0bcd\u0b95\u0bc1\u0bb3\u0bc1",
+            2
+          ]
+        ],
+        "with_whitespace": 0,
+        "without_tamil_scalars": 0,
+        "initial_scalars": {
+          "\u0b85": 9197,
+          "\u0b87": 5303,
+          "\u0b95": 4352,
+          "\u0baa": 4262,
+          "\u0b86": 2928,
+          "\u0b9a": 2912,
+          "\u0bae": 2834,
+          "\u0b89": 2750,
+          "\u0ba4": 2628,
+          "\u0bb5": 2426,
+          "\u0ba8": 1731,
+          "\u0b88": 662,
+          "\u0b8e": 483,
+          "\u0b92": 402,
+          "\u0b8f": 204,
+          "\u0b8a": 182,
+          "\u0bb0": 179,
+          "\u0b9c": 176,
+          "\u0b93": 132,
+          "\u0bb2": 115,
+          "\u0baf": 113,
+          "\u0b90": 66,
+          "\u0b9f": 53,
+          "\u0bb8": 47,
+          "\u0b9e": 34,
+          "\u0bb9": 33,
+          "\u0bb7": 9,
+          "\u0b94": 7,
+          "\u0bb6": 7,
+          "\u0bb4": 1,
+          "\u0bb1": 1
+        }
+      }
+    }
+  },
+  "integrity": {
+    "duplicate_lexeme_ids": 0,
+    "master_missing_lemma_ids": 0,
+    "master_extra_ids": 0,
+    "master_lemma_field_mismatches": {
+      "animacy_gender": 0,
+      "grammatical_subclass": 0,
+      "headword_ta": 0,
+      "lexeme_id": 0,
+      "part_of_speech": 0,
+      "pronunciation_ipa": 0,
+      "register": 0,
+      "root_word": 0,
+      "status": 0,
+      "transliteration": 0,
+      "word_id": 0
+    },
+    "meanings_missing_parent": 0,
+    "meaning_headword_mismatches": 0,
+    "lemmas_without_senses": 0,
+    "duplicate_sense_numbers": 0,
+    "master_sense_count_mismatches": 0,
+    "master_non_nfc_normalized_headwords": 0,
+    "relationships_missing_source": 0,
+    "relationships_source_headword_mismatches": 0,
+    "relationships_missing_target": 0,
+    "relationships_target_headword_mismatches": 0,
+    "relationships_self_links": 0,
+    "duplicate_relationship_triples": 0,
+    "relationships_targets_with_multiple_lexemes": 542
+  },
+  "content": {
+    "english_meanings_containing_tamil": 13894,
+    "identical_meaning_and_definition_en": 51835,
+    "lemma_root_equals_headword": 42786,
+    "master_example_equals_headword": 0,
+    "secondary_overlap_primary": {
+      "secondary_archaic_literary_terms": 10,
+      "secondary_dialect_colloquialisms": 615,
+      "secondary_phrases_mwes": 0,
+      "secondary_proper_names_toponyms": 66,
+      "secondary_scientific_taxa": 136,
+      "secondary_specialized_technical_terms": 568,
+      "secondary_transliterations_loanwords": 93
+    },
+    "duplicate_headword_pos_extra_rows": 0,
+    "sense_blobs_with_multiple_numbered_segments": 4278
+  },
+  "source_checksums_match": true,
+  "total_bytes": 92616773,
+  "runtime_comparison": {
+    "rows": 44229,
+    "disagreement_counts": {
+      "grapheme_count": 63,
+      "matra_count": 63
+    },
+    "examples": {
+      "grapheme_count": [
+        {
+          "word_id": "4188",
+          "headword": "\u0b85\u0baa\u0bb0\u0bbe\u0ba4\u0b95\u0bcd\u0bb7\u0bbe\u0baa\u0ba3\u0bae\u0bcd",
+          "supplied": 9,
+          "current_rust": 8
+        },
+        {
+          "word_id": "4848",
+          "headword": "\u0b85\u0bae\u0bc1\u0ba4\u0bc1\u0bbe\u0bb0\u0bcd",
+          "supplied": 5,
+          "current_rust": 4
+        },
+        {
+          "word_id": "7251",
+          "headword": "\u0b85\u0bb5\u0b95\u0bcd\u0bb7\u0bc7\u0baa\u0ba3\u0bae\u0bcd",
+          "supplied": 7,
+          "current_rust": 6
+        },
+        {
+          "word_id": "9138",
+          "headword": "\u0b85\u0bb7\u0bcd\u0b9f\u0bb2\u0b95\u0bcd\u0bb7\u0bcd\u0bae\u0bbf",
+          "supplied": 7,
+          "current_rust": 6
+        },
+        {
+          "word_id": "9151",
+          "headword": "\u0b85\u0bb7\u0bcd\u0b9f\u0bbe\u0b95\u0bcd\u0bb7\u0bb0\u0bae\u0bcd",
+          "supplied": 7,
+          "current_rust": 6
+        },
+        {
+          "word_id": "9152",
+          "headword": "\u0b85\u0bb7\u0bcd\u0b9f\u0bbe\u0b95\u0bcd\u0bb7\u0bb0\u0bbf",
+          "supplied": 6,
+          "current_rust": 5
+        },
+        {
+          "word_id": "9178",
+          "headword": "\u0b85\u0bb8\u0bcd\u0ba4\u0bbf\u0bb0\u0baa\u0bb0\u0bc0\u0b95\u0bcd\u0bb7\u0bc8",
+          "supplied": 8,
+          "current_rust": 7
+        },
+        {
+          "word_id": "9197",
+          "headword": "\u0b85\u0b95\u0bcd\u0bb7\u0baa\u0bbe\u0ba4\u0bae\u0ba4\u0bae\u0bcd",
+          "supplied": 8,
+          "current_rust": 7
+        }
+      ],
+      "matra_count": [
+        {
+          "word_id": "4188",
+          "headword": "\u0b85\u0baa\u0bb0\u0bbe\u0ba4\u0b95\u0bcd\u0bb7\u0bbe\u0baa\u0ba3\u0bae\u0bcd",
+          "supplied": 10.0,
+          "current_rust": 9.5
+        },
+        {
+          "word_id": "4848",
+          "headword": "\u0b85\u0bae\u0bc1\u0ba4\u0bc1\u0bbe\u0bb0\u0bcd",
+          "supplied": 3.5,
+          "current_rust": 2.5
+        },
+        {
+          "word_id": "7251",
+          "headword": "\u0b85\u0bb5\u0b95\u0bcd\u0bb7\u0bc7\u0baa\u0ba3\u0bae\u0bcd",
+          "supplied": 7.0,
+          "current_rust": 6.5
+        },
+        {
+          "word_id": "9138",
+          "headword": "\u0b85\u0bb7\u0bcd\u0b9f\u0bb2\u0b95\u0bcd\u0bb7\u0bcd\u0bae\u0bbf",
+          "supplied": 5.5,
+          "current_rust": 5.0
+        },
+        {
+          "word_id": "9151",
+          "headword": "\u0b85\u0bb7\u0bcd\u0b9f\u0bbe\u0b95\u0bcd\u0bb7\u0bb0\u0bae\u0bcd",
+          "supplied": 6.5,
+          "current_rust": 6.0
+        },
+        {
+          "word_id": "9152",
+          "headword": "\u0b85\u0bb7\u0bcd\u0b9f\u0bbe\u0b95\u0bcd\u0bb7\u0bb0\u0bbf",
+          "supplied": 6.0,
+          "current_rust": 5.5
+        },
+        {
+          "word_id": "9178",
+          "headword": "\u0b85\u0bb8\u0bcd\u0ba4\u0bbf\u0bb0\u0baa\u0bb0\u0bc0\u0b95\u0bcd\u0bb7\u0bc8",
+          "supplied": 9.0,
+          "current_rust": 8.5
+        },
+        {
+          "word_id": "9197",
+          "headword": "\u0b85\u0b95\u0bcd\u0bb7\u0baa\u0bbe\u0ba4\u0bae\u0ba4\u0bae\u0bcd",
+          "supplied": 8.0,
+          "current_rust": 7.5
+        }
+      ]
+    },
+    "scope": "Current local native Rust binding; not independent linguistic adjudication."
+  },
+  "index_comparison": {
+    "fst_keys": 43831,
+    "missing_headword_keys": 0,
+    "extra_headword_keys": 0,
+    "values_match_same_headword_word_id": 43831,
+    "word_ids_not_directly_addressed": 398,
+    "multiple_entry_headwords": 389,
+    "examples": [
+      {
+        "headword": "\u0b85",
+        "word_ids": [
+          "1",
+          "2"
+        ],
+        "fst_value": "1"
+      },
+      {
+        "headword": "\u0b85\u0b83\u0b95\u0bc1",
+        "word_ids": [
+          "10",
+          "11"
+        ],
+        "fst_value": "10"
+      },
+      {
+        "headword": "\u0b85\u0b95\u0bcd\u0b95\u0bb0\u0bc8",
+        "word_ids": [
+          "69",
+          "70"
+        ],
+        "fst_value": "69"
+      },
+      {
+        "headword": "\u0b85\u0b95\u0bcd\u0b95\u0bc1\u0bb3\u0bc1",
+        "word_ids": [
+          "252",
+          "253"
+        ],
+        "fst_value": "252"
+      },
+      {
+        "headword": "\u0b85\u0b95\u0ba8\u0b95\u0bc8",
+        "word_ids": [
+          "436",
+          "437"
+        ],
+        "fst_value": "436"
+      },
+      {
+        "headword": "\u0b85\u0b95\u0bb2\u0bcd",
+        "word_ids": [
+          "594",
+          "595"
+        ],
+        "fst_value": "594"
+      },
+      {
+        "headword": "\u0b85\u0b95\u0bb2\u0bbf",
+        "word_ids": [
+          "626",
+          "627"
+        ],
+        "fst_value": "626"
+      },
+      {
+        "headword": "\u0b85\u0b95\u0bb5\u0bc1",
+        "word_ids": [
+          "676",
+          "677"
+        ],
+        "fst_value": "676"
+      }
+    ]
+  }
+}
