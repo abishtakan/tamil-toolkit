@@ -14,7 +14,7 @@ PUBLIC = tuple(POLICY["public_crates"])
 RELEASE_RECORD = POLICY["record_name"]
 INPUTS = {
     "tamil-core": ("core.toml",),
-    "tamil-collate": ("collate.toml",),
+    "tamil-collate": ("collate.toml", "collate_uyirmei_first.toml"),
     "tamil-numerals": (
         "numerals.toml",
         "numerals-formats.toml",

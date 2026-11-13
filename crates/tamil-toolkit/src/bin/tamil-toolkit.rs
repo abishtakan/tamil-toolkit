@@ -924,10 +924,11 @@ fn print_collate_usage() {
     tamil-toolkit collate <SUBCOMMAND> [ARGUMENTS]
 
 SUBCOMMANDS:
-    compare <STR1> <STR2>                   Compare two Tamil strings (-1, 0, 1)
-    key <TEXT> [--profile PROFILE]          Generate collation sort key
-    sort <FILE>                             Sort lines of Tamil text from file
-    -h, --help                              Print help information
+    compare <STR1> <STR2> [--profile PROFILE]            Compare two Tamil strings (-1, 0, 1)
+    key <TEXT> [--profile PROFILE]                       Generate collation sort key
+    search-key <TEXT> [--fold FOLD] [--profile PROFILE]  Generate folded search key
+    sort <FILE> [--profile PROFILE]                      Sort lines of Tamil text from file
+    -h, --help                                           Print help information
 "#
     );
 }
@@ -939,13 +940,39 @@ fn handle_collate(args: &[String]) {
     }
     match args[0].as_str() {
         "compare" => {
-            if args.len() < 3 {
-                eprintln!("Error: compare requires two string arguments.");
-                exit(1);
+            let mut str1: Option<String> = None;
+            let mut str2: Option<String> = None;
+            let mut profile = tamil_collate::CollationProfile::AgaraV1;
+            let mut i = 1;
+            while i < args.len() {
+                match args[i].as_str() {
+                    "--profile" if i + 1 < args.len() => {
+                        if let Ok(p) = args[i + 1].parse() {
+                            profile = p;
+                        }
+                        i += 2;
+                    }
+                    s if !s.starts_with('-') => {
+                        if str1.is_none() {
+                            str1 = Some(s.to_string());
+                        } else if str2.is_none() {
+                            str2 = Some(s.to_string());
+                        }
+                        i += 1;
+                    }
+                    _ => {
+                        i += 1;
+                    }
+                }
             }
-            let a = &args[1];
-            let b = &args[2];
-            let cmp = tamil_collate::compare(a, b);
+            let (a, b) = match (str1, str2) {
+                (Some(a), Some(b)) => (a, b),
+                _ => {
+                    eprintln!("Error: compare requires two string arguments.");
+                    exit(1);
+                }
+            };
+            let cmp = tamil_collate::compare_with_profile(&a, &b, profile);
             let res = match cmp {
                 std::cmp::Ordering::Less => -1,
                 std::cmp::Ordering::Equal => 0,
@@ -954,24 +981,110 @@ fn handle_collate(args: &[String]) {
             println!("{res}");
         }
         "key" => {
-            if args.len() < 2 {
-                eprintln!("Error: Missing text argument for key.");
-                exit(1);
+            let mut text: Option<String> = None;
+            let mut profile = tamil_collate::CollationProfile::AgaraV1;
+            let mut i = 1;
+            while i < args.len() {
+                match args[i].as_str() {
+                    "--profile" if i + 1 < args.len() => {
+                        if let Ok(p) = args[i + 1].parse() {
+                            profile = p;
+                        }
+                        i += 2;
+                    }
+                    s if !s.starts_with('-') && text.is_none() => {
+                        text = Some(s.to_string());
+                        i += 1;
+                    }
+                    _ => {
+                        i += 1;
+                    }
+                }
             }
-            let text = &args[1];
-            let key = tamil_collate::sort_key(text);
+            let text = match text {
+                Some(t) => t,
+                None => {
+                    eprintln!("Error: Missing text argument for key.");
+                    exit(1);
+                }
+            };
+            let key = tamil_collate::sort_key_with_profile(&text, profile);
+            println!(
+                "{}",
+                key.iter().map(|b| format!("{b:02x}")).collect::<String>()
+            );
+        }
+        "search-key" => {
+            let mut text: Option<String> = None;
+            let mut fold_profile = tamil_norm::FoldingProfile::Comprehensive;
+            let mut collate_profile = tamil_collate::CollationProfile::AgaraV1;
+            let mut i = 1;
+            while i < args.len() {
+                match args[i].as_str() {
+                    "--fold" if i + 1 < args.len() => {
+                        if let Some(fp) = tamil_norm::FoldingProfile::parse(&args[i + 1]) {
+                            fold_profile = fp;
+                        }
+                        i += 2;
+                    }
+                    "--profile" if i + 1 < args.len() => {
+                        if let Ok(cp) = args[i + 1].parse() {
+                            collate_profile = cp;
+                        }
+                        i += 2;
+                    }
+                    s if !s.starts_with('-') && text.is_none() => {
+                        text = Some(s.to_string());
+                        i += 1;
+                    }
+                    _ => {
+                        i += 1;
+                    }
+                }
+            }
+            let text = match text {
+                Some(t) => t,
+                None => {
+                    eprintln!("Error: Missing text argument for search-key.");
+                    exit(1);
+                }
+            };
+            let key =
+                tamil_collate::folded_search_key_with_profile(&text, fold_profile, collate_profile);
             println!(
                 "{}",
                 key.iter().map(|b| format!("{b:02x}")).collect::<String>()
             );
         }
         "sort" => {
-            if args.len() < 2 {
-                eprintln!("Error: Missing file argument for sort.");
-                exit(1);
+            let mut file_path: Option<String> = None;
+            let mut profile = tamil_collate::CollationProfile::AgaraV1;
+            let mut i = 1;
+            while i < args.len() {
+                match args[i].as_str() {
+                    "--profile" if i + 1 < args.len() => {
+                        if let Ok(p) = args[i + 1].parse() {
+                            profile = p;
+                        }
+                        i += 2;
+                    }
+                    s if !s.starts_with('-') && file_path.is_none() => {
+                        file_path = Some(s.to_string());
+                        i += 1;
+                    }
+                    _ => {
+                        i += 1;
+                    }
+                }
             }
-            let file_path = &args[1];
-            let content = match fs::read_to_string(file_path) {
+            let file_path = match file_path {
+                Some(p) => p,
+                None => {
+                    eprintln!("Error: Missing file argument for sort.");
+                    exit(1);
+                }
+            };
+            let content = match fs::read_to_string(&file_path) {
                 Ok(c) => c,
                 Err(e) => {
                     eprintln!("Failed to read file '{file_path}': {e}");
@@ -979,7 +1092,7 @@ fn handle_collate(args: &[String]) {
                 }
             };
             let mut lines: Vec<String> = content.lines().map(str::to_string).collect();
-            lines.sort_by(|a, b| tamil_collate::compare(a, b));
+            lines.sort_by(|a, b| tamil_collate::compare_with_profile(a, b, profile));
             for line in lines {
                 println!("{line}");
             }

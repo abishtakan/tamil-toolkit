@@ -819,6 +819,7 @@ pub const OPERATIONS: &[&str] = &[
     "sort_words",
     "sort_key",
     "search_key",
+    "folded_search_key",
     "to_words",
     "format_currency",
     "currency_to_words",
@@ -1487,7 +1488,16 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         }
         "inspect_tamil_string" => Ok(json!(core::inspect_tamil_string(string(input)?))),
         "compare" => {
-            let order = collate::compare(string(&input["left"])?, string(&input["right"])?);
+            let profile = if let Some(p) = input.get("profile").and_then(Value::as_str) {
+                p.parse::<collate::CollationProfile>()?
+            } else {
+                collate::CollationProfile::AgaraV1
+            };
+            let order = collate::compare_with_profile(
+                string(&input["left"])?,
+                string(&input["right"])?,
+                profile,
+            );
             Ok(json!(match order {
                 std::cmp::Ordering::Less => -1,
                 std::cmp::Ordering::Equal => 0,
@@ -1495,16 +1505,104 @@ pub fn execute(request: &Value) -> Result<Value, String> {
             }))
         }
         "sort_words" => {
-            let words = input
+            let (words_val, profile) = if input.is_array() {
+                (input, collate::CollationProfile::AgaraV1)
+            } else if let Some(obj) = input.as_object() {
+                if !obj.contains_key("words") {
+                    return Err("expected an array of strings".into());
+                }
+                let p = if let Some(ps) = obj.get("profile").and_then(Value::as_str) {
+                    ps.parse::<collate::CollationProfile>()?
+                } else {
+                    collate::CollationProfile::AgaraV1
+                };
+                (obj.get("words").ok_or("expected an array of strings")?, p)
+            } else {
+                return Err("expected an array of strings".into());
+            };
+            let words = words_val
                 .as_array()
                 .ok_or("expected an array of strings")?
                 .iter()
                 .map(|value| string(value).map(str::to_owned))
                 .collect::<Result<Vec<_>, _>>()?;
-            Ok(json!(collate::sort_words(&words)))
+            Ok(json!(collate::sort_words_with_profile(&words, profile)))
         }
-        "sort_key" => Ok(json!(collate::sort_key(string(input)?))),
-        "search_key" => Ok(json!(collate::search_key(string(input)?))),
+        "sort_key" => {
+            let (text, profile) = if let Some(s) = input.as_str() {
+                (s, collate::CollationProfile::AgaraV1)
+            } else if let Some(obj) = input.as_object() {
+                let t = obj
+                    .get("text")
+                    .and_then(Value::as_str)
+                    .ok_or_else(|| "expected a string input".to_owned())?;
+                let p = if let Some(ps) = obj.get("profile").and_then(Value::as_str) {
+                    ps.parse::<collate::CollationProfile>()?
+                } else {
+                    collate::CollationProfile::AgaraV1
+                };
+                (t, p)
+            } else {
+                return Err("expected a string input".into());
+            };
+            Ok(json!(collate::sort_key_with_profile(text, profile)))
+        }
+        "search_key" => {
+            let (text, profile) = if let Some(s) = input.as_str() {
+                (s, collate::CollationProfile::AgaraV1)
+            } else if let Some(obj) = input.as_object() {
+                let t = obj
+                    .get("text")
+                    .and_then(Value::as_str)
+                    .ok_or_else(|| "expected a string input".to_owned())?;
+                let p = if let Some(ps) = obj.get("profile").and_then(Value::as_str) {
+                    ps.parse::<collate::CollationProfile>()?
+                } else {
+                    collate::CollationProfile::AgaraV1
+                };
+                (t, p)
+            } else {
+                return Err("expected a string input".into());
+            };
+            Ok(json!(collate::search_key_with_profile(text, profile)))
+        }
+        "folded_search_key" => {
+            let (text, fold_profile, collate_profile) = if let Some(s) = input.as_str() {
+                (
+                    s,
+                    norm::FoldingProfile::Comprehensive,
+                    collate::CollationProfile::AgaraV1,
+                )
+            } else if let Some(obj) = input.as_object() {
+                let t = obj
+                    .get("text")
+                    .and_then(Value::as_str)
+                    .ok_or("expected 'text' string")?;
+                let fp = if let Some(fps) = obj
+                    .get("fold_profile")
+                    .or_else(|| obj.get("profile"))
+                    .and_then(Value::as_str)
+                {
+                    norm::FoldingProfile::parse(fps)
+                        .ok_or_else(|| format!("unknown folding profile: {fps}"))?
+                } else {
+                    norm::FoldingProfile::Comprehensive
+                };
+                let cp = if let Some(cps) = obj.get("collate_profile").and_then(Value::as_str) {
+                    cps.parse::<collate::CollationProfile>()?
+                } else {
+                    collate::CollationProfile::AgaraV1
+                };
+                (t, fp, cp)
+            } else {
+                return Err("expected a string or object input".into());
+            };
+            Ok(json!(collate::folded_search_key_with_profile(
+                text,
+                fold_profile,
+                collate_profile
+            )))
+        }
         "to_words" => {
             let value = integer(&input["value"], numerals::MAX_INTEGER)?;
             numerals::to_words(value, locale(input)?).map(|words| json!(words))

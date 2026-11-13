@@ -566,6 +566,7 @@ dependencies = [
  "proptest",
  "serde",
  "tamil-core",
+ "tamil-norm",
  "toml",
  "unicode-normalization",
 ]

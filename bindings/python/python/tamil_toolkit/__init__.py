@@ -113,20 +113,24 @@ def get_olippasai(text: str) -> list[dict[str, Any]]:
     return execute({"op": "get_olippasai", "input": text})
 
 
-def compare(left: str, right: str) -> int:
-    return execute({"op": "compare", "input": {"left": left, "right": right}})
+def compare(left: str, right: str, profile: str = "agara-v1") -> int:
+    return execute({"op": "compare", "input": {"left": left, "right": right, "profile": profile}})
 
 
-def sort_words(words: list[str]) -> list[str]:
-    return execute({"op": "sort_words", "input": words})
+def sort_words(words: list[str], profile: str = "agara-v1") -> list[str]:
+    return execute({"op": "sort_words", "input": {"words": words, "profile": profile}})
 
 
-def sort_key(text: str) -> list[int]:
-    return execute({"op": "sort_key", "input": text})
+def sort_key(text: str, profile: str = "agara-v1") -> list[int]:
+    return execute({"op": "sort_key", "input": {"text": text, "profile": profile}})
 
 
-def search_key(text: str) -> list[int]:
-    return execute({"op": "search_key", "input": text})
+def search_key(text: str, profile: str = "agara-v1") -> list[int]:
+    return execute({"op": "search_key", "input": {"text": text, "profile": profile}})
+
+
+def folded_search_key(text: str, profile: str = "comprehensive", collate_profile: str = "agara-v1") -> list[int]:
+    return execute({"op": "folded_search_key", "input": {"text": text, "fold_profile": profile, "collate_profile": collate_profile}})
 
 
 def to_words(value: int, locale: str = "TN") -> str:

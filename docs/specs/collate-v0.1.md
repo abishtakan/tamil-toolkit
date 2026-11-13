@@ -46,6 +46,22 @@ Core Unicode behavior has the same profile for TN and SL. Tests label TN,
 Jaffna, Batticaloa, Vanni, Up-Country, Kongu, and Chennai. This scope introduces
 no unverified regional spelling substitutions or alternate dictionary profiles.
 
+## Uyirmei-First Profile (`uyirmei-first-v1`)
+
+Alongside the classical `agara-v1` Mei-first profile, `tamil-collate` supports the
+modern school dictionary collation profile `uyirmei-first-v1` where Uyirmei
+syllables precede pure consonants (e.g. க followed by கா...கௌ, before க்).
+This profile uses the declarative table in `lexicon/collate_uyirmei_first.toml`
+and is accessible via `sort_key_with_profile`, `compare_with_profile`,
+`sort_words_with_profile`, and CLI flag `--profile uyirmei-first-v1`.
+
+## Folded Search Keys (`folded_search_key`)
+
+`folded_search_key` normalizes Mayangoli (ழ/ல/ள, ண/ன, ற/ர) and Grantha (ஜ, ஷ, ஸ, ஹ, க்ஷ)
+orthographic variations using `tamil-norm`'s search folding before generating collation keys.
+This allows fuzzy/error-tolerant search indexing without polluting canonical Agara sort keys.
+Profiles supported: `mayangoli`, `grantha`, and `comprehensive` (default).
+
 ## APIs and keys
 
 - Rust `compare(left, right) -> Ordering`; JSON/bindings `compare` returns -1/0/1

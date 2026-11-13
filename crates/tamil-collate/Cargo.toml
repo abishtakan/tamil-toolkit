@@ -13,6 +13,7 @@ description = "Agara Varisai collation and search keys"
 
 [dependencies]
 tamil-core.workspace = true
+tamil-norm.workspace = true
 
 [build-dependencies]
 serde.workspace = true

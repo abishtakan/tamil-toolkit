@@ -9,6 +9,7 @@ export interface Olippasai {
   coda_count: number;
 }
 export type LetterQuantity = "kuril" | "nedil" | "mei" | "aytham" | "other";
+export type CollationProfile = "agara-v1" | "uyirmei-first-v1";
 export interface HyphenationPoint { letter_index: number; byte_offset: number }
 export interface HyphenationResult { word: string; syllables: string[]; hyphenated: string }
 export interface WrapResult { lines: string[]; wrapped: string }
@@ -273,10 +274,23 @@ export function createApi(nativeExecute: (request: string) => string) {
     get_cognate: (letter: string) => execute({ op: "get_cognate", input: letter }) as string | null,
     are_cognates: (left: string, right: string) => execute({ op: "are_cognates", input: { left, right } }) as boolean,
     get_olippasai: (text: string) => execute({ op: "get_olippasai", input: text }) as Olippasai[],
-    compare: (left: string, right: string) => execute({ op: "compare", input: { left, right } }) as -1 | 0 | 1,
-    sort_words: (words: string[]) => execute({ op: "sort_words", input: words }) as string[],
-    sort_key: (text: string) => execute({ op: "sort_key", input: text }) as number[],
-    search_key: (text: string) => execute({ op: "search_key", input: text }) as number[],
+    compare: (left: string, right: string, profile: CollationProfile = "agara-v1") =>
+      execute({ op: "compare", input: { left, right, profile } }) as -1 | 0 | 1,
+    sort_words: (words: string[], profile: CollationProfile = "agara-v1") =>
+      execute({ op: "sort_words", input: { words, profile } }) as string[],
+    sort_key: (text: string, profile: CollationProfile = "agara-v1") =>
+      execute({ op: "sort_key", input: { text, profile } }) as number[],
+    search_key: (text: string, profile: CollationProfile = "agara-v1") =>
+      execute({ op: "search_key", input: { text, profile } }) as number[],
+    folded_search_key: (
+      text: string,
+      profile: FoldingProfile = "comprehensive",
+      collate_profile: CollationProfile = "agara-v1"
+    ) =>
+      execute({
+        op: "folded_search_key",
+        input: { text, fold_profile: profile, collate_profile },
+      }) as number[],
     to_words: (value: number, locale: Locale = "TN") => execute({ op: "to_words", input: { value, locale } }) as string,
     format_currency: (amount_minor: number, currency: Currency, locale: Locale = "TN") => execute({ op: "format_currency", input: { amount_minor, currency, locale } }) as string,
     currency_to_words: (amount_minor: number, currency: Currency, locale: Locale = "TN") => execute({ op: "currency_to_words", input: { amount_minor, currency, locale } }) as string,

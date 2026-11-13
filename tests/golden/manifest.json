@@ -98,6 +98,22 @@
       ]
     },
     {
+      "file": "collate_folded_search.jsonl",
+      "status": "active",
+      "operations": [
+        "folded_search_key"
+      ]
+    },
+    {
+      "file": "collate_uyirmei_first.jsonl",
+      "status": "active",
+      "operations": [
+        "compare",
+        "sort_key",
+        "sort_words"
+      ]
+    },
+    {
       "file": "numerals_lkr_inr.jsonl",
       "status": "active",
       "operations": [

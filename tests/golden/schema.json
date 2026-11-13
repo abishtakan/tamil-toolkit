@@ -124,9 +124,7 @@
               "normalize_nfc",
               "normalize_nfd",
               "split_uyirmei",
-              "inspect_tamil_string",
-              "sort_key",
-              "search_key"
+              "inspect_tamil_string"
             ]
           }
         },
@@ -140,6 +138,56 @@
         "properties": {
           "input": {
             "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "enum": [
+              "sort_key",
+              "search_key",
+              "folded_search_key"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "text"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "profile": {
+                    "type": "string"
+                  },
+                  "fold_profile": {
+                    "type": "string"
+                  },
+                  "collate_profile": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
           }
         }
       }
@@ -226,7 +274,8 @@
           "op": {
             "enum": [
               "sort_key",
-              "search_key"
+              "search_key",
+              "folded_search_key"
             ]
           }
         }
@@ -278,6 +327,9 @@
               },
               "right": {
                 "type": "string"
+              },
+              "profile": {
+                "type": "string"
               }
             }
           }
@@ -320,10 +372,32 @@
       "then": {
         "properties": {
           "input": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "words"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "words": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "profile": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
           }
         }
       }
