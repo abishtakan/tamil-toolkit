@@ -47,6 +47,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - run: python tools/release_files.py sync
       - run: python tools/release.py rust
       - run: python tools/release_policy.py record --directory target/alpha
       - uses: actions/upload-artifact@v4
