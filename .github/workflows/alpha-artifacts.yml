@@ -54,7 +54,7 @@ jobs:
       - run: uv sync --locked --python 3.13
       - run: uv run --locked maturin develop --manifest-path bindings/python/Cargo.toml --locked
       - run: uv run --locked python tools/release_files.py sync
-      - run: uv run --locked python tools/release.py rust
+      - run: uv run --locked python tools/release.py rust --lexicon-profile default
       - run: uv run --locked python tools/release_policy.py record --directory target/alpha
       - uses: actions/upload-artifact@v4
         with:
@@ -106,7 +106,7 @@ jobs:
       - run: uv run --locked maturin develop --manifest-path bindings/python/Cargo.toml --locked
       - run: uv run --locked python tools/release_files.py sync
       - run: pnpm install --frozen-lockfile
-      - run: uv run --locked python tools/release.py npm
+      - run: uv run --locked python tools/release.py npm --lexicon-profile default
       - run: uv run --locked python tools/release_policy.py record --directory target/alpha
       - uses: actions/upload-artifact@v4
         with:
@@ -147,7 +147,7 @@ jobs:
       - run: uv sync --locked --python 3.13
       - run: uv run --locked maturin develop --manifest-path bindings/python/Cargo.toml --locked
       - run: uv run --locked python tools/release_files.py sync
-      - run: uv run --locked python tools/release.py stage-python
+      - run: uv run --locked python tools/release.py stage-python --lexicon-profile default
       - uses: PyO3/maturin-action@v1
         with:
           command: build
@@ -192,4 +192,4 @@ jobs:
           path: wheel-artifacts
       - name: Test the installed wheel, without editable bindings
         shell: bash
-        run: python tools/release.py verify-wheel --wheel wheel-artifacts/*.whl
+        run: python tools/release.py verify-wheel --lexicon-profile default --wheel wheel-artifacts/*.whl
