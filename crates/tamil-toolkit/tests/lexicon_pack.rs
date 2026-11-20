@@ -179,11 +179,195 @@ fn recompute_packs_toml_manifest(pack_dir: &Path) {
     fs::write(&packs_path, rendered.replace("\r\n", "\n")).expect("write packs.toml");
 }
 
-fn clone_core_pack_to_temp(label: &str) -> (TempDirGuard, PathBuf, PathBuf) {
+fn clone_full_core_pack_to_temp(label: &str) -> (TempDirGuard, PathBuf, PathBuf) {
     let tmp = TempDirGuard::new(label);
     let pack_dir = tmp.path().join("dictionary");
     let schemas_dir = tmp.path().join("schemas");
     copy_dir_recursive(&package_dictionary_dir(), &pack_dir);
+    copy_dir_recursive(&package_schemas_dir(), &schemas_dir);
+    (tmp, pack_dir, schemas_dir)
+}
+
+fn filter_csv_rows(
+    src: &Path,
+    dst: &Path,
+    mut keep: impl FnMut(&csv::StringRecord) -> bool,
+) -> usize {
+    let mut rdr = csv::ReaderBuilder::new()
+        .has_headers(true)
+        .from_path(src)
+        .expect("read csv");
+    let headers = rdr.headers().expect("headers").clone();
+    let mut wtr = csv::WriterBuilder::new()
+        .terminator(csv::Terminator::Any(b'\n'))
+        .from_path(dst)
+        .expect("write csv");
+    wtr.write_record(&headers).expect("write headers");
+    let mut count = 0usize;
+    for rec in rdr.records() {
+        let rec = rec.expect("csv record");
+        if keep(&rec) {
+            wtr.write_record(&rec).expect("write record");
+            count += 1;
+        }
+    }
+    wtr.flush().expect("flush csv");
+    count
+}
+
+fn pilot_core_template_dir() -> &'static PathBuf {
+    static TEMPLATE: std::sync::OnceLock<(TempDirGuard, PathBuf)> = std::sync::OnceLock::new();
+    &TEMPLATE
+        .get_or_init(|| {
+            let tmp = TempDirGuard::new("pilot-core-template");
+            let dst = tmp.path().join("dictionary");
+            let src = package_dictionary_dir();
+            fs::create_dir_all(&dst).expect("create pilot dst");
+            // Copy static non-CSV files & notices directory
+            for entry in fs::read_dir(&src).expect("read src") {
+                let entry = entry.expect("entry");
+                let name = entry.file_name();
+                let target = dst.join(&name);
+                if entry.file_type().expect("ty").is_dir() {
+                    copy_dir_recursive(&entry.path(), &target);
+                } else if !name.to_string_lossy().ends_with(".csv") {
+                    fs::copy(entry.path(), target).expect("copy static file");
+                }
+            }
+
+            // Keep only the 6 human-reviewed pilot entries (structural_kind != "wiktionary_bulk")
+            let mut kept_entries = std::collections::BTreeSet::new();
+            let mut kept_subjects = std::collections::BTreeSet::new();
+            let entry_count =
+                filter_csv_rows(&src.join("entries.csv"), &dst.join("entries.csv"), |r| {
+                    let keep = r.get(5) != Some("wiktionary_bulk");
+                    if keep {
+                        let eid = r.get(0).unwrap().to_owned();
+                        kept_entries.insert(eid.clone());
+                        kept_subjects.insert(eid);
+                    }
+                    keep
+                });
+            let form_count = filter_csv_rows(&src.join("forms.csv"), &dst.join("forms.csv"), |r| {
+                let keep = r.get(1).is_some_and(|eid| kept_entries.contains(eid));
+                if keep {
+                    kept_subjects.insert(r.get(0).unwrap().to_owned());
+                }
+                keep
+            });
+            let sense_count =
+                filter_csv_rows(&src.join("senses.csv"), &dst.join("senses.csv"), |r| {
+                    let keep = r.get(1).is_some_and(|eid| kept_entries.contains(eid));
+                    if keep {
+                        kept_subjects.insert(r.get(0).unwrap().to_owned());
+                    }
+                    keep
+                });
+            let text_count = filter_csv_rows(&src.join("texts.csv"), &dst.join("texts.csv"), |r| {
+                let keep = r.get(2).is_some_and(|oid| kept_subjects.contains(oid));
+                if keep {
+                    kept_subjects.insert(r.get(0).unwrap().to_owned());
+                }
+                keep
+            });
+            filter_csv_rows(
+                &src.join("pack_members.csv"),
+                &dst.join("pack_members.csv"),
+                |r| r.get(1).is_some_and(|eid| kept_entries.contains(eid)),
+            );
+            filter_csv_rows(&src.join("scopes.csv"), &dst.join("scopes.csv"), |r| {
+                r.get(1).is_some_and(|sid| kept_subjects.contains(sid))
+            });
+            let mut kept_assertions = std::collections::BTreeSet::new();
+            let assertion_count = filter_csv_rows(
+                &src.join("assertions.csv"),
+                &dst.join("assertions.csv"),
+                |r| {
+                    let keep = r.get(2).is_some_and(|sid| kept_subjects.contains(sid));
+                    if keep {
+                        kept_assertions.insert(r.get(0).unwrap().to_owned());
+                    }
+                    keep
+                },
+            );
+            let mut kept_sources = std::collections::BTreeSet::new();
+            filter_csv_rows(&src.join("evidence.csv"), &dst.join("evidence.csv"), |r| {
+                let keep = r.get(0).is_some_and(|aid| kept_assertions.contains(aid));
+                if keep {
+                    kept_sources.insert(r.get(1).unwrap().to_owned());
+                }
+                keep
+            });
+            filter_csv_rows(
+                &src.join("decisions.csv"),
+                &dst.join("decisions.csv"),
+                |r| r.get(1).is_some_and(|aid| kept_assertions.contains(aid)),
+            );
+            filter_csv_rows(
+                &src.join("identities.csv"),
+                &dst.join("identities.csv"),
+                |r| r.get(0).is_some_and(|id| kept_subjects.contains(id)),
+            );
+            filter_csv_rows(&src.join("sources.csv"), &dst.join("sources.csv"), |r| {
+                r.get(0).is_some_and(|sid| kept_sources.contains(sid))
+            });
+            for empty_csv in ["labels.csv", "relations.csv", "unicode_exceptions.csv"] {
+                filter_csv_rows(&src.join(empty_csv), &dst.join(empty_csv), |_| false);
+            }
+
+            // Update packs.toml counts, coverage, and entry_revisions for the 6 pilot entries
+            let packs_path = dst.join("packs.toml");
+            let mut doc: toml::Value =
+                toml::from_str(&fs::read_to_string(&packs_path).expect("read packs.toml"))
+                    .expect("parse packs.toml");
+            let table = doc.as_table_mut().expect("root table");
+            table.insert(
+                "entry_count".to_owned(),
+                toml::Value::Integer(entry_count as i64),
+            );
+            table.insert(
+                "sense_count".to_owned(),
+                toml::Value::Integer(sense_count as i64),
+            );
+            table.insert(
+                "form_count".to_owned(),
+                toml::Value::Integer(form_count as i64),
+            );
+            table.insert(
+                "text_count".to_owned(),
+                toml::Value::Integer(text_count as i64),
+            );
+            table.insert(
+                "assertion_count".to_owned(),
+                toml::Value::Integer(assertion_count as i64),
+            );
+            if let Some(toml::Value::Table(cov)) = table.get_mut("coverage") {
+                cov.insert("region_codes".to_owned(), toml::Value::Array(Vec::new()));
+                cov.insert("register_codes".to_owned(), toml::Value::Array(Vec::new()));
+                cov.insert(
+                    "unknown_region_entries".to_owned(),
+                    toml::Value::Integer(entry_count as i64),
+                );
+            }
+            if let Some(toml::Value::Table(revs)) = table.get_mut("entry_revisions") {
+                revs.retain(|k, _| kept_entries.contains(k));
+            }
+            fs::write(
+                &packs_path,
+                toml::to_string_pretty(&doc).expect("serialize packs.toml"),
+            )
+            .expect("write packs.toml");
+            sync_full_packs_toml(&dst);
+            (tmp, dst)
+        })
+        .1
+}
+
+fn clone_core_pack_to_temp(label: &str) -> (TempDirGuard, PathBuf, PathBuf) {
+    let tmp = TempDirGuard::new(label);
+    let pack_dir = tmp.path().join("dictionary");
+    let schemas_dir = tmp.path().join("schemas");
+    copy_dir_recursive(pilot_core_template_dir(), &pack_dir);
     copy_dir_recursive(&package_schemas_dir(), &schemas_dir);
     (tmp, pack_dir, schemas_dir)
 }
@@ -283,8 +467,8 @@ fn embedded_feature_profile_respects_defaults_and_approval_boundary() {
 
 #[test]
 fn real_core_pack_compiles_reproducibly_and_uses_compact_utf8_payloads() {
-    let (_tmp_a, dir_a, schemas_a) = clone_core_pack_to_temp("repro-a");
-    let (_tmp_b, dir_b, schemas_b) = clone_core_pack_to_temp("repro-b");
+    let (_tmp_a, dir_a, schemas_a) = clone_full_core_pack_to_temp("repro-a");
+    let (_tmp_b, dir_b, schemas_b) = clone_full_core_pack_to_temp("repro-b");
 
     let out_a = build_lexicon::compile_pack_dir(&dir_a, Some(&schemas_a), Some("core"))
         .expect("compile isolated core pack A");
@@ -397,10 +581,12 @@ fn compiler_rejects_missing_extra_path_traversal_and_manifest_tampering() {
     {
         let (_tmp, dir, schemas) = clone_core_pack_to_temp("tamper-manifest");
         let p = dir.join("packs.toml");
-        let txt = fs::read_to_string(&p)
-            .unwrap()
-            .replace(CORE_MANIFEST_SHA256, &"0".repeat(64));
-        fs::write(&p, txt).unwrap();
+        let mut doc: toml::Value = toml::from_str(&fs::read_to_string(&p).unwrap()).unwrap();
+        doc.as_table_mut().unwrap().insert(
+            "manifest_sha256".to_owned(),
+            toml::Value::String("0".repeat(64)),
+        );
+        fs::write(&p, toml::to_string_pretty(&doc).unwrap()).unwrap();
         assert!(build_lexicon::compile_pack_dir(&dir, Some(&schemas), Some("core")).is_err());
     }
 
@@ -2482,7 +2668,7 @@ fn recompute_tlpack_checksum(bytes: &mut [u8]) {
 
 #[test]
 fn compact_interned_pack_matches_legacy_json_round_trip_and_shrinks_core() {
-    let (_tmp, dir, schemas) = clone_core_pack_to_temp("compact-vs-legacy");
+    let (_tmp, dir, schemas) = clone_full_core_pack_to_temp("compact-vs-legacy");
     let legacy = build_lexicon::compile_pack_dir_with_flags(&dir, Some(&schemas), Some("core"), 0)
         .expect("compile legacy core pack");
     let compact = build_lexicon::compile_pack_dir_with_flags(
