@@ -1,0 +1,6 @@
+record_id,entity_id,target_role
+rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ent_a08297c3-424d-5a37-aaf0-4135d7476669,candidate_entry_noun
+rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ent_f063763c-36ac-55c6-b288-8da7f9ab6fff,candidate_entry_intj
+rec_67949120-2bf7-5c51-aa22-abbe5b456d75,sen_0b8e7d9e-d369-5dd8-a905-47ed39c673c6,candidate_sense_noun_1
+rec_67949120-2bf7-5c51-aa22-abbe5b456d75,sen_4ccafa9b-eb17-53a8-a571-69e0a63dc992,candidate_sense_intj_1
+rec_67949120-2bf7-5c51-aa22-abbe5b456d75,sen_bf8afb40-f31a-5e1e-bd37-7c515bbfbfb7,candidate_sense_noun_2

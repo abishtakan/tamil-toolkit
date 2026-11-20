@@ -1,0 +1,56 @@
+{
+  "roundtrip_texts": [
+    {
+      "name": "known_empty",
+      "text": "",
+      "encoded": "\"\""
+    },
+    {
+      "name": "literal_backslashes",
+      "text": "a\\b\\c\\n",
+      "encoded": "\"a\\\\b\\\\c\\\\n\""
+    },
+    {
+      "name": "escaped_controls",
+      "text": "line1\nline2\r\n\tcol\u0000\u001f",
+      "encoded": "\"line1\\nline2\\r\\n\\tcol\\u0000\\u001f\""
+    },
+    {
+      "name": "supplementary_scalars",
+      "text": "frac:\ud804\udfc0 laptop:\ud83d\udcbb",
+      "encoded": "\"frac:\\ud804\\udfc0 laptop:\\ud83d\\udcbb\"",
+      "note": "JSON surrogate-pair escapes for U+11FC0 and U+1F4BB; decoded Python str holds actual astral codepoints."
+    },
+    {
+      "name": "tamil_with_joiners",
+      "text": "\u0b95\u200d\u0bcd \u0b85\u0bae\u0bcd\u0bae\u0bbe",
+      "encoded": "\"\\u0b95\\u200d\\u0bcd \\u0b85\\u0bae\\u0bcd\\u0bae\\u0bbe\""
+    }
+  ],
+  "invalid_decode_cells": [
+    {
+      "name": "lone_high_surrogate",
+      "cell": "\"\\ud800\""
+    },
+    {
+      "name": "lone_low_surrogate",
+      "cell": "\"\\udfff\""
+    },
+    {
+      "name": "invalid_json_unquoted",
+      "cell": "unquoted"
+    },
+    {
+      "name": "json_number_not_string",
+      "cell": "123"
+    },
+    {
+      "name": "json_null_not_string",
+      "cell": "null"
+    },
+    {
+      "name": "empty_cell",
+      "cell": ""
+    }
+  ]
+}

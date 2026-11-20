@@ -1,0 +1,9 @@
+snapshot_id,dataset_id,relative_path,byte_length,sha256,media_type,logical_row_count
+snp_0910aa94-afeb-57d5-9ef2-3564d26e3edf,wiktionary-en-tamil-candidate,snapshots/enwikt_rev_61485513_ceppam.wikitext,524,844ff53b3d33176f07d8a92189b3b08f23ce5cb259fbea9f27581d0e66f1846e,text/plain; charset=utf-8,27
+snp_1bfbde54-04b4-5150-95bc-b78af9c2375e,wiktionary-en-tamil-candidate,snapshots/enwikt_rev_88382210_arikkai.wikitext,773,8bf77bf23d7c241f236575fcff535bc24d71d00287e288ab4d2238f857ccbed8,text/plain; charset=utf-8,30
+snp_2886b891-9a07-5c44-8219-74f628db80cf,wiktionary-en-tamil-candidate,snapshots/enwikt_rev_85842017_atataa.wikitext,526,ffa17f0eaa27f7ccf3b6bb55f9e7da0532e7e7f634fa4b9afb993847c609d063,text/plain; charset=utf-8,21
+snp_46ae6111-66c7-52cb-9630-d8b626c0a881,wiktionary-en-tamil-candidate,snapshots/enwikt_rev_85842017_atataa.json,1400,cbb0090456c4bd19375cd8096e06ea5029ad397920dfb8fee07c62ffda923c2c,application/json,
+snp_6ab9c824-372a-5aab-94e9-37305311df8c,wiktionary-en-tamil-candidate,snapshots/enwikt_rev_61485513_ceppam.json,1107,6934755c5194cd9fff0e1335bbecdedc9ef0873941e056b601d83fd19dd9c895,application/json,
+snp_88dd2d75-ccd2-52a5-8809-1195daf2d99b,wiktionary-en-tamil-candidate,snapshots/enwikt_rev_89903937_annilai.wikitext,431,527c5be08b52b9db426a1da8fb5b143e4faebb310be12375995a4d4392ecefa3,text/plain; charset=utf-8,21
+snp_b44d3296-1be5-5997-8ad6-29cff7408ce1,wiktionary-en-tamil-candidate,snapshots/enwikt_rev_89903937_annilai.json,882,1ea97c546b67963a757179143807f25338318f54fb4c6a07202af2c03568f0af,application/json,
+snp_d5266a8b-e912-5912-9563-2b3269c04275,wiktionary-en-tamil-candidate,snapshots/enwikt_rev_88382210_arikkai.json,1241,4c0e2de40110d99d6bc40c36c45c4cec8db09ddc9bf44a016b35a41ca795249e,application/json,

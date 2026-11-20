@@ -1,0 +1,69 @@
+schema_version = 1
+vocabulary_version = "1"
+language_ids = ["eng", "tam"]
+parts_of_speech = ["ADJ", "ADV", "INTJ", "NOUN", "PART", "PRON", "VERB"]
+relation_codes = []
+annotation_properties = []
+registers = ["childish", "colloquial", "derogatory", "dialectal", "elevated", "endearing", "figurative", "formal", "honorific", "impolite", "informal", "literary", "non_honorific", "offensive", "poetic", "slang", "vulgar"]
+domains = ["anatomy", "architecture", "arithmetic", "astronomy", "botany", "chemistry", "chess", "christianity", "construction", "electronics", "games", "grammar", "hinduism", "logic", "music", "rhetoric", "vaishnavism", "zodiac"]
+temporals = ["archaic", "dated", "historical", "obsolete", "rare"]
+
+[[regions]]
+code = "BATTICALOA"
+parent_code = "SL"
+
+[[regions]]
+code = "CHENNAI"
+parent_code = "TN"
+
+[[regions]]
+code = "JAFFNA"
+parent_code = "SL"
+
+[[regions]]
+code = "KANYAKUMARI"
+parent_code = "TN"
+
+[[regions]]
+code = "KONGU"
+parent_code = "TN"
+
+[[regions]]
+code = "MADURAI"
+parent_code = "TN"
+
+[[regions]]
+code = "MY"
+
+[[regions]]
+code = "NELLAI"
+parent_code = "TN"
+
+[[regions]]
+code = "PUDUKKOTTAI"
+parent_code = "TN"
+
+[[regions]]
+code = "SG"
+
+[[regions]]
+code = "SL"
+
+[[regions]]
+code = "THANJAVUR"
+parent_code = "TN"
+
+[[regions]]
+code = "TN"
+
+[[regions]]
+code = "TRINCOMALEE"
+parent_code = "SL"
+
+[[regions]]
+code = "UP_COUNTRY"
+parent_code = "SL"
+
+[[regions]]
+code = "VANNI"
+parent_code = "SL"

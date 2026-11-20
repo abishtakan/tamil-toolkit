@@ -1,22 +1,13 @@
 <!--
-Sync Impact Report
-- Version change: 0.0.0 (uninitialized template) -> 1.0.0
-- Ratification Date: 2026-10-31
-- Last Amended Date: 2026-11-05
-- Principles defined:
-  1. I. Rust Owns Linguistic Behavior (Single Source of Truth)
-  2. II. Inspect Tamil by Scalars (No Visual Guesses)
-  3. III. Golden Vectors Precede Implementation (Tri-Runtime Parity)
-  4. IV. Separation of Lexical Data and Engine Logic
-  5. V. Pluricentric Dialect Scope & Regional Invariance
-  6. VI. Platform-Conforming Distribution & Policy-Governed Releases
-  7. VII. Explicit Guarantees & Rigorous Quality Gates
-- Added sections:
-  - Technology Stack & Multi-Runtime Architecture
-  - Quality Gates & Verification Workflow
-- Governance:
-  - Formalized amendment procedure, semantic versioning policy, and compliance review rules.
-- Follow-up TODOs: None.
+Sync Impact Report — 2026-11-14
+- Version: 1.0.0 -> 2.0.0 (major: narrow modification to Principle II).
+- User direction: readable UTF-8 for large dictionary data; retain escaped
+  exact-character tests/diagnostics and compact measured runtime artifacts.
+- Rationale/impact/migration: docs/decisions/lexicon-text-storage.md.
+- Synced: AGENTS.md, development/bootstrap guidance, Feature 021 specification,
+  research, plan, data model, contracts, tasks, quickstart and roadmaps.
+- Unreleased legacy staging removed at user request; clean UTF-8 rebuild pending.
+- Source/review approval, Rust ownership and required gates are unchanged.
 -->
 
 # tamil-toolkit Constitution
@@ -27,7 +18,7 @@ Sync Impact Report
 All core algorithms, tokenization, orthographic logic, collation, transliteration, and numeric/calendar operations MUST reside in `crates/tamil-*`. Python, TypeScript/WebAssembly, and Dart packages MUST act as thin serialization and FFI wrappers around the compiled Rust engine. No adapter or external tool may implement duplicate or secondary Tamil processing logic; all consumers and test harnesses MUST use the same unified Rust dispatcher.
 
 ### II. Inspect Tamil by Scalars (No Visual Guesses)
-Character boundaries, grapheme cluster composition, and invisible code points MUST NEVER be inferred from rendered or visually presented text. Inspection MUST be performed using scalar-level tools (such as the `tamil-oracle` MCP tool `inspect_tamil_string` / `inspect_codepoints`) or explicit hexadecimal Unicode escape sequences (`\u{0B85}`). All golden test cases and declarative datasets MUST keep non-ASCII Tamil sequences escaped and auditable. Systems and transformations MUST NEVER silently drop or alter invisible format controls such as Zero-Width Joiner (ZWJ, U+200D) or Zero-Width Non-Joiner (ZWNJ, U+200C).
+Character boundaries, grapheme cluster composition, and invisible code points MUST NEVER be inferred from rendered or visually presented text. Inspection MUST be performed using scalar-level tools (such as the `tamil-oracle` MCP tool `inspect_tamil_string` / `inspect_codepoints`) or explicit hexadecimal Unicode escape sequences (`\u{0B85}`). Golden test cases and small declarative rule tables MUST keep non-ASCII Tamil sequences escaped and auditable. Large editorial and approved lexicon CSV tables MUST instead retain readable UTF-8 Tamil with a versioned reversible cell codec, escaped audit-sensitive controls and exact scalar diagnostics. Runtime lookup artifacts MAY use a measured deterministic compact representation. This narrow storage exception does not waive scalar inspection, review, source evidence, or control preservation; see `docs/decisions/lexicon-text-storage.md`. Systems and transformations MUST NEVER silently drop or alter invisible format controls such as Zero-Width Joiner (ZWJ, U+200D) or Zero-Width Non-Joiner (ZWNJ, U+200C).
 
 ### III. Golden Vectors Precede Implementation (Test-First & Tri-Runtime Parity)
 Every linguistic behavior and feature MUST be defined by sourced test vectors in `tests/golden/<module>.jsonl` before implementing the underlying algorithms. Active golden test cases MUST execute and pass identically without mocks across Rust, Python, and WebAssembly runtimes. Experimental or planned suites MUST remain explicitly categorized as planned and MUST NEVER be counted as passing in release metrics.
@@ -73,4 +64,4 @@ This Constitution supersedes all informal practices and serves as the non-negoti
    - Clarifications, non-semantic wording adjustments, and typography corrections constitute a PATCH version bump.
 3. **Guidance References**: Runtime agent execution and role delegation MUST consult `AGENTS.md`, `CLAUDE.md`, and `docs/development.md`.
 
-**Version**: 1.0.0 | **Ratified**: 2026-10-31 | **Last Amended**: 2026-11-05
+**Version**: 2.0.0 | **Ratified**: 2026-10-31 | **Last Amended**: 2026-11-14

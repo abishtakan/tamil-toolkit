@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tamil-toolkit.local/schemas/lexicon/cldf/cldf-export-report.schema.json",
+  "title": "CLDF Export and Roundtrip Validation Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "command",
+    "pack",
+    "check",
+    "cldf_version",
+    "validator_pins",
+    "schema_manifest_sha256",
+    "dataset_version",
+    "l2_structural_accepted",
+    "l3_pack_eligible",
+    "runtime_verified",
+    "cldf_valid",
+    "roundtrip_ok",
+    "eligible_assertions",
+    "counts",
+    "input_digests",
+    "export_sha256",
+    "files",
+    "findings"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "lexicon-cldf-report-v1" },
+    "command": { "type": "string", "const": "export-cldf" },
+    "pack": { "type": "string", "enum": ["core", "terminology", "names_taxa", "regional"] },
+    "check": { "type": "boolean" },
+    "cldf_version": { "type": "string", "const": "1.3" },
+    "validator_pins": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "required": ["pycldf", "csvw"]
+    },
+    "schema_manifest_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "dataset_version": { "type": ["string", "null"] },
+    "l2_structural_accepted": { "type": "boolean" },
+    "l3_pack_eligible": { "type": "boolean" },
+    "runtime_verified": { "type": ["boolean", "null"] },
+    "cldf_valid": { "type": "boolean" },
+    "roundtrip_ok": { "type": "boolean" },
+    "eligible_assertions": { "type": "integer", "minimum": 0 },
+    "counts": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "input_digests": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+    },
+    "export_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "bytes"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "bytes": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "severity", "entity_id", "field", "reason"],
+        "properties": {
+          "code": { "type": "string", "minLength": 1 },
+          "severity": { "type": "string", "enum": ["error", "warning", "info"] },
+          "entity_id": { "type": "string" },
+          "field": { "type": "string" },
+          "scalar_positions": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 0 }
+          },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "wiktionary-candidate-snapshots-v1",
+  "entries": [
+    {
+      "legacy_word_id": "32793",
+      "slug": "nanri",
+      "title": "நன்றி",
+      "pageid": 4593930,
+      "revid": 93647113,
+      "parentid": 91084863,
+      "revision_timestamp": "2026-10-17T21:53:52Z",
+      "user": "FenaBot",
+      "api_url": "https://en.wiktionary.org/w/api.php?action=query&prop=revisions&titles=%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%BF&rvprop=ids%7Ctimestamp%7Cuser%7Ccomment%7Ccontent&rvslots=main&rvlimit=15&format=json&formatversion=2",
+      "permalink_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%BF&oldid=93647113",
+      "history_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%BF&action=history",
+      "retrieved_utc": "2026-11-14T07:44:20Z",
+      "api_response_file": "enwikt_rev_93647113_nanri.json",
+      "api_response_sha256": "45c7c96b07034397c0ef1428b6c068d607e15161d83564b5fa44628b7d9dc2e8",
+      "api_response_bytes": 12430,
+      "wikitext_file": "enwikt_rev_93647113_nanri.wikitext",
+      "wikitext_sha256": "d0c85376de17daab66cdce055a36ca1d208dcd0135edfa44856ae31ea6dabbad",
+      "wikitext_sha1": "0fcd30dd8b964da923d3b42a2734fdea03a01239",
+      "wikitext_bytes": 2023,
+      "matched_saved_candidate_check": "enwikt_rev_10.json",
+      "license_route": "CC-BY-SA-4.0"
+    }
+  ]
+}

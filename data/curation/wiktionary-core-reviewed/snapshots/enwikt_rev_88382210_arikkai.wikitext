@@ -1,0 +1,30 @@
+==Tamil==
+
+===Etymology===
+From {{suf|ta|அறி|-க்-|-கை|t1=to know}}.
+
+===Pronunciation===
+{{ta-IPA}}
+* {{audio|ta|LL-Q5885 (tam)-Sriveenkat-அறிக்கை.wav}}
+
+===Noun===
+{{ta-noun}}
+
+# [[notice]]
+#: {{syn|ta|அறிவிப்பு}}
+# [[report]]; an [[account]] of [[event]]s
+# {{q|written}} [[appeal]]; [[announcement]]
+#: {{syn|ta|அறிவிப்பு}}
+# {{lb|ta|catholicism}} [[confession]]
+
+====Declension====
+{{ta-decl}}
+
+====Derived terms====
+{{col3|ta|அறிக்கைப்பத்திரம்|அறிக்கைபண்ணு|அறிக்கையிடு|அறிக்கையோலை|அறிக்கைவாசி}}
+
+===References===
+* {{R:TAL}}
+* {{R:Cre-A 1992}}
+
+{{C|ta|Communication|Christianity}}

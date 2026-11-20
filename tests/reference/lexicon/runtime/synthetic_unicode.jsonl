@@ -1,0 +1,5 @@
+{"id":"nfd_ko","value":"\u0b95\u0bc6\u0bbe","json":"\"\\u0b95\\u0bc6\\u0bbe\"","scalars":[2965,3014,3006],"reason":"Synthetic positive canonical-equivalence posting and rejected unexcepted assertion."}
+{"id":"zwj","value":"\u200d","json":"\"\\u200d\"","scalars":[8205],"reason":"Intentional joiner retained in compiler exception tests."}
+{"id":"raw_zwj_text","value":"that\u200dmoment","json":"\"that\\u200dmoment\"","scalars":[116,104,97,116,8205,109,111,109,101,110,116],"reason":"Reject raw unescaped audit control in a CSV JSON cell."}
+{"id":"nfd_space_zwj","value":"\u0b95\u0bc6\u0bbe \u200d","json":"\"\\u0b95\\u0bc6\\u0bbe \\u200d\"","scalars":[2965,3014,3006,32,8205],"reason":"Synthetic reviewed non-NFC/control exception; space separates the control from the Tamil grapheme."}
+{"id":"nfd_zwj","value":"\u0b95\u0bc6\u0bbe\u200d","json":"\"\\u0b95\\u0bc6\\u0bbe\\u200d\"","scalars":[2965,3014,3006,8205],"reason":"Reject non-waivable orthography even when scalar exceptions exist."}

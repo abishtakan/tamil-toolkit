@@ -1,0 +1,8 @@
+schema_version = 1
+dataset_id = "wiktionary-core-reviewed"
+dataset_version = "1"
+id_namespace = "a3f5c8e2-910b-5d4e-b772-19e4e8d316c7"
+text_codec = "json-string-utf8-v1"
+registry_version = 1
+transformation_version = "wiktionary-core-reviewed-v1"
+snapshots_manifest_sha256 = "af2c786674f1c2521bf55f0a662fa553dc196a087e12855edfbac646647e8947"

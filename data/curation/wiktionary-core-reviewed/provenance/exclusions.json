@@ -1,0 +1,1024 @@
+{
+  "entries": [
+    {
+      "excluded_legacy_unverified_claims": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "excluded_wikitext_lines": [
+        {
+          "byte_range": [
+            11,
+            26
+          ],
+          "char_range": [
+            11,
+            26
+          ],
+          "line_number": 3,
+          "raw_line": "===Etymology===",
+          "reason_code": "ETYMOLOGY_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            27,
+            83
+          ],
+          "char_range": [
+            27,
+            71
+          ],
+          "line_number": 4,
+          "raw_line": "From {{com|ta|அடா|அடா}}.<ref>{{R:TAL}}</ref>",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            85,
+            104
+          ],
+          "char_range": [
+            73,
+            92
+          ],
+          "line_number": 6,
+          "raw_line": "===Pronunciation===",
+          "reason_code": "PRONUNCIATION_SECTION_EXCLUDED_UNPINNED_TA_IPA"
+        },
+        {
+          "byte_range": [
+            105,
+            115
+          ],
+          "char_range": [
+            93,
+            103
+          ],
+          "line_number": 7,
+          "raw_line": "{{ta-IPA}}",
+          "reason_code": "TEMPLATE_GENERATED_TA_IPA_EXCLUDED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            116,
+            150
+          ],
+          "char_range": [
+            104,
+            130
+          ],
+          "line_number": 8,
+          "raw_line": "* {{audio|ta|Ta-அடடா.ogg}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            151,
+            216
+          ],
+          "char_range": [
+            131,
+            188
+          ],
+          "line_number": 9,
+          "raw_line": "* {{audio|ta|LL-Q5885 (tam)-Sriveenkat-அடடா.wav|a=India}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            237,
+            250
+          ],
+          "char_range": [
+            209,
+            222
+          ],
+          "line_number": 12,
+          "raw_line": "{{ta-interj}}",
+          "reason_code": "HEADWORD_TEMPLATE_IGNORED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            367,
+            461
+          ],
+          "char_range": [
+            339,
+            403
+          ],
+          "line_number": 16,
+          "raw_line": "#: {{ux|ta|'''அடடா'''! மோசம் போனேனே.|'''Argh'''. I was conned!}}",
+          "reason_code": "USAGE_EXAMPLE_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            463,
+            479
+          ],
+          "char_range": [
+            405,
+            421
+          ],
+          "line_number": 18,
+          "raw_line": "===References===",
+          "reason_code": "REFERENCES_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            480,
+            491
+          ],
+          "char_range": [
+            422,
+            433
+          ],
+          "line_number": 19,
+          "raw_line": "{{reflist}}",
+          "reason_code": "REFERENCE_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            492,
+            510
+          ],
+          "char_range": [
+            434,
+            452
+          ],
+          "line_number": 20,
+          "raw_line": "* {{R:Cre-A 1992}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            511,
+            526
+          ],
+          "char_range": [
+            453,
+            468
+          ],
+          "line_number": 21,
+          "raw_line": "* {{R:Winslow}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        }
+      ],
+      "legacy_word_id": "1921",
+      "page_title": "அடடா",
+      "revid": 85842017
+    },
+    {
+      "excluded_legacy_unverified_claims": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "excluded_wikitext_lines": [
+        {
+          "byte_range": [
+            11,
+            26
+          ],
+          "char_range": [
+            11,
+            26
+          ],
+          "line_number": 3,
+          "raw_line": "===Etymology===",
+          "reason_code": "ETYMOLOGY_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            27,
+            104
+          ],
+          "char_range": [
+            27,
+            94
+          ],
+          "line_number": 4,
+          "raw_line": "{{ety|ta|id=that moment|:af|அ-<id:that>|நிலை<id:condition>|tree=1}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            105,
+            174
+          ],
+          "char_range": [
+            95,
+            154
+          ],
+          "line_number": 5,
+          "raw_line": "From {{af|ta|அ-|நிலை|t2=[[time]], [[moment]]|t1=[[that]]}}.",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            176,
+            195
+          ],
+          "char_range": [
+            156,
+            175
+          ],
+          "line_number": 7,
+          "raw_line": "===Pronunciation===",
+          "reason_code": "PRONUNCIATION_SECTION_EXCLUDED_UNPINNED_TA_IPA"
+        },
+        {
+          "byte_range": [
+            196,
+            206
+          ],
+          "char_range": [
+            176,
+            186
+          ],
+          "line_number": 8,
+          "raw_line": "{{ta-IPA}}",
+          "reason_code": "TEMPLATE_GENERATED_TA_IPA_EXCLUDED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            207,
+            273
+          ],
+          "char_range": [
+            187,
+            239
+          ],
+          "line_number": 9,
+          "raw_line": "* {{audio|ta|LL-Q5885 (tam)-Sriveenkat-அந்நிலை.wav}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            286,
+            297
+          ],
+          "char_range": [
+            252,
+            263
+          ],
+          "line_number": 12,
+          "raw_line": "{{ta-noun}}",
+          "reason_code": "HEADWORD_TEMPLATE_IGNORED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            321,
+            362
+          ],
+          "char_range": [
+            287,
+            310
+          ],
+          "line_number": 15,
+          "raw_line": "#: {{syn|ta|அப்பொழுது}}",
+          "reason_code": "SYNONYM_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            364,
+            382
+          ],
+          "char_range": [
+            312,
+            330
+          ],
+          "line_number": 17,
+          "raw_line": "====Declension====",
+          "reason_code": "SUBSECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            383,
+            401
+          ],
+          "char_range": [
+            331,
+            349
+          ],
+          "line_number": 18,
+          "raw_line": "{{ta-decl|num=sg}}",
+          "reason_code": "DECLENSION_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            403,
+            419
+          ],
+          "char_range": [
+            351,
+            367
+          ],
+          "line_number": 20,
+          "raw_line": "===References===",
+          "reason_code": "REFERENCES_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            420,
+            431
+          ],
+          "char_range": [
+            368,
+            379
+          ],
+          "line_number": 21,
+          "raw_line": "* {{R:TAL}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        }
+      ],
+      "legacy_word_id": "3906",
+      "page_title": "அந்நிலை",
+      "revid": 89903937
+    },
+    {
+      "excluded_legacy_unverified_claims": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "excluded_wikitext_lines": [
+        {
+          "byte_range": [
+            11,
+            26
+          ],
+          "char_range": [
+            11,
+            26
+          ],
+          "line_number": 3,
+          "raw_line": "===Etymology===",
+          "reason_code": "ETYMOLOGY_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            27,
+            81
+          ],
+          "char_range": [
+            27,
+            67
+          ],
+          "line_number": 4,
+          "raw_line": "From {{suf|ta|அறி|-க்-|-கை|t1=to know}}.",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            83,
+            102
+          ],
+          "char_range": [
+            69,
+            88
+          ],
+          "line_number": 6,
+          "raw_line": "===Pronunciation===",
+          "reason_code": "PRONUNCIATION_SECTION_EXCLUDED_UNPINNED_TA_IPA"
+        },
+        {
+          "byte_range": [
+            103,
+            113
+          ],
+          "char_range": [
+            89,
+            99
+          ],
+          "line_number": 7,
+          "raw_line": "{{ta-IPA}}",
+          "reason_code": "TEMPLATE_GENERATED_TA_IPA_EXCLUDED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            114,
+            180
+          ],
+          "char_range": [
+            100,
+            152
+          ],
+          "line_number": 8,
+          "raw_line": "* {{audio|ta|LL-Q5885 (tam)-Sriveenkat-அறிக்கை.wav}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            193,
+            204
+          ],
+          "char_range": [
+            165,
+            176
+          ],
+          "line_number": 11,
+          "raw_line": "{{ta-noun}}",
+          "reason_code": "HEADWORD_TEMPLATE_IGNORED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            219,
+            260
+          ],
+          "char_range": [
+            191,
+            214
+          ],
+          "line_number": 14,
+          "raw_line": "#: {{syn|ta|அறிவிப்பு}}",
+          "reason_code": "SYNONYM_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            349,
+            390
+          ],
+          "char_range": [
+            303,
+            326
+          ],
+          "line_number": 17,
+          "raw_line": "#: {{syn|ta|அறிவிப்பு}}",
+          "reason_code": "SYNONYM_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            431,
+            449
+          ],
+          "char_range": [
+            367,
+            385
+          ],
+          "line_number": 20,
+          "raw_line": "====Declension====",
+          "reason_code": "SUBSECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            450,
+            461
+          ],
+          "char_range": [
+            386,
+            397
+          ],
+          "line_number": 21,
+          "raw_line": "{{ta-decl}}",
+          "reason_code": "DECLENSION_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            463,
+            484
+          ],
+          "char_range": [
+            399,
+            420
+          ],
+          "line_number": 23,
+          "raw_line": "====Derived terms====",
+          "reason_code": "SUBSECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            485,
+            687
+          ],
+          "char_range": [
+            421,
+            499
+          ],
+          "line_number": 24,
+          "raw_line": "{{col3|ta|அறிக்கைப்பத்திரம்|அறிக்கைபண்ணு|அறிக்கையிடு|அறிக்கையோலை|அறிக்கைவாசி}}",
+          "reason_code": "DERIVED_TERMS_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            689,
+            705
+          ],
+          "char_range": [
+            501,
+            517
+          ],
+          "line_number": 26,
+          "raw_line": "===References===",
+          "reason_code": "REFERENCES_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            706,
+            717
+          ],
+          "char_range": [
+            518,
+            529
+          ],
+          "line_number": 27,
+          "raw_line": "* {{R:TAL}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            718,
+            736
+          ],
+          "char_range": [
+            530,
+            548
+          ],
+          "line_number": 28,
+          "raw_line": "* {{R:Cre-A 1992}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            738,
+            773
+          ],
+          "char_range": [
+            550,
+            585
+          ],
+          "line_number": 30,
+          "raw_line": "{{C|ta|Communication|Christianity}}",
+          "reason_code": "CATEGORY_TEMPLATE_EXCLUDED"
+        }
+      ],
+      "legacy_word_id": "8218",
+      "page_title": "அறிக்கை",
+      "revid": 88382210
+    },
+    {
+      "excluded_legacy_unverified_claims": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "excluded_wikitext_lines": [
+        {
+          "byte_range": [
+            11,
+            26
+          ],
+          "char_range": [
+            11,
+            26
+          ],
+          "line_number": 3,
+          "raw_line": "===Etymology===",
+          "reason_code": "ETYMOLOGY_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            27,
+            59
+          ],
+          "char_range": [
+            27,
+            47
+          ],
+          "line_number": 4,
+          "raw_line": "See {{m|ta|செம்மை}}.",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            61,
+            80
+          ],
+          "char_range": [
+            49,
+            68
+          ],
+          "line_number": 6,
+          "raw_line": "===Pronunciation===",
+          "reason_code": "PRONUNCIATION_SECTION_EXCLUDED_UNPINNED_TA_IPA"
+        },
+        {
+          "byte_range": [
+            81,
+            93
+          ],
+          "char_range": [
+            69,
+            81
+          ],
+          "line_number": 7,
+          "raw_line": "* {{ta-IPA}}",
+          "reason_code": "TEMPLATE_GENERATED_TA_IPA_EXCLUDED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            106,
+            117
+          ],
+          "char_range": [
+            94,
+            105
+          ],
+          "line_number": 10,
+          "raw_line": "{{ta-noun}}",
+          "reason_code": "HEADWORD_TEMPLATE_IGNORED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            411,
+            425
+          ],
+          "char_range": [
+            399,
+            413
+          ],
+          "line_number": 22,
+          "raw_line": "===See also===",
+          "reason_code": "SEE_ALSO_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            426,
+            455
+          ],
+          "char_range": [
+            414,
+            431
+          ],
+          "line_number": 23,
+          "raw_line": "* {{l|ta|செப்பட}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            456,
+            494
+          ],
+          "char_range": [
+            432,
+            452
+          ],
+          "line_number": 24,
+          "raw_line": "* {{l|ta|செப்பனிடு}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            496,
+            512
+          ],
+          "char_range": [
+            454,
+            470
+          ],
+          "line_number": 26,
+          "raw_line": "===References===",
+          "reason_code": "REFERENCES_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            513,
+            524
+          ],
+          "char_range": [
+            471,
+            482
+          ],
+          "line_number": 27,
+          "raw_line": "* {{R:TAL}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        }
+      ],
+      "legacy_word_id": "28857",
+      "page_title": "செப்பம்",
+      "revid": 61485513
+    },
+    {
+      "excluded_legacy_unverified_claims": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "excluded_wikitext_lines": [
+        {
+          "byte_range": [
+            10,
+            27
+          ],
+          "char_range": [
+            10,
+            27
+          ],
+          "line_number": 2,
+          "raw_line": "{{phrasebook|ta}}",
+          "reason_code": "PHRASEBOOK_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            29,
+            52
+          ],
+          "char_range": [
+            29,
+            52
+          ],
+          "line_number": 4,
+          "raw_line": "===Alternative forms===",
+          "reason_code": "ALTERNATIVE_FORMS_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            53,
+            188
+          ],
+          "char_range": [
+            53,
+            168
+          ],
+          "line_number": 5,
+          "raw_line": "* {{alt|ta|நண்ணி||colloquial|uncommon|ref={{R:Fabricius}}<<name:Fabricius>> !!! {{R:Winslow}} !!! {{R:TAL|நண்ணி}}}}",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            190,
+            205
+          ],
+          "char_range": [
+            170,
+            185
+          ],
+          "line_number": 7,
+          "raw_line": "===Etymology===",
+          "reason_code": "ETYMOLOGY_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            206,
+            353
+          ],
+          "char_range": [
+            186,
+            317
+          ],
+          "line_number": 8,
+          "raw_line": "From {{m|ta|நல்||good}},<ref name=\"Fabricius\"/><ref>{{R:TAL}}</ref> from {{der|ta|dra-sou-pro|*nal||good}}. Compare {{m|ta|நன்று}}.",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            355,
+            450
+          ],
+          "char_range": [
+            319,
+            384
+          ],
+          "line_number": 10,
+          "raw_line": "Cognate with {{cog|kn|ನನ್ನಿ}}, {{cog|ml|നന്ദി}} / {{m|ml|നന്നി}}.",
+          "reason_code": "NON_DEFINITION_LINE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            452,
+            471
+          ],
+          "char_range": [
+            386,
+            405
+          ],
+          "line_number": 12,
+          "raw_line": "===Pronunciation===",
+          "reason_code": "PRONUNCIATION_SECTION_EXCLUDED_UNPINNED_TA_IPA"
+        },
+        {
+          "byte_range": [
+            472,
+            482
+          ],
+          "char_range": [
+            406,
+            416
+          ],
+          "line_number": 13,
+          "raw_line": "{{ta-IPA}}",
+          "reason_code": "TEMPLATE_GENERATED_TA_IPA_EXCLUDED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            503,
+            516
+          ],
+          "char_range": [
+            437,
+            450
+          ],
+          "line_number": 16,
+          "raw_line": "{{ta-interj}}",
+          "reason_code": "HEADWORD_TEMPLATE_IGNORED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            558,
+            569
+          ],
+          "char_range": [
+            492,
+            503
+          ],
+          "line_number": 21,
+          "raw_line": "{{ta-noun}}",
+          "reason_code": "HEADWORD_TEMPLATE_IGNORED_UNPINNED"
+        },
+        {
+          "byte_range": [
+            621,
+            650
+          ],
+          "char_range": [
+            555,
+            574
+          ],
+          "line_number": 24,
+          "raw_line": "#: {{syn|ta|நன்மை}}",
+          "reason_code": "SYNONYM_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            651,
+            1363
+          ],
+          "char_range": [
+            575,
+            1139
+          ],
+          "line_number": 25,
+          "raw_line": "#* {{quote-book|ta|year=c. 300 {{BCE}}–500 {{CE}}|author={{w|Tiruvalluvar}}|title={{w|Tirukkural}}|chapter=Gratitude|section_plain=Kural 108|url=https://www.thirukkural.net/en/kural/kural-0108.html|text='''நன்றி''' [[மறப்பது]] [[நன்று|நன்ற]][[அன்று|ன்று]] [[நன்று|நன்ற]][[அல்லது|ல்லது]]<br>[[அன்று|அன்]][[-ஏ|றே]] [[மறப்பது]] [[நன்று]].|t=To forget a '''good turn''' is not good, and good it is<br>To forget at once what isn't good.|archiveurl=https://web.archive.org/web/20260605133550/https://www.thirukkural.net/en/kural/kural-0108.html|archivedate=5 June 2026}}",
+          "reason_code": "QUOTATION_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            1398,
+            1445
+          ],
+          "char_range": [
+            1174,
+            1199
+          ],
+          "line_number": 27,
+          "raw_line": "#: {{syn|ta|செய்ந்நன்றி}}",
+          "reason_code": "SYNONYM_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            1447,
+            1465
+          ],
+          "char_range": [
+            1201,
+            1219
+          ],
+          "line_number": 29,
+          "raw_line": "====Declension====",
+          "reason_code": "SUBSECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            1466,
+            1477
+          ],
+          "char_range": [
+            1220,
+            1231
+          ],
+          "line_number": 30,
+          "raw_line": "{{ta-decl}}",
+          "reason_code": "DECLENSION_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            1479,
+            1500
+          ],
+          "char_range": [
+            1233,
+            1254
+          ],
+          "line_number": 32,
+          "raw_line": "====Derived terms====",
+          "reason_code": "SUBSECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            1501,
+            1852
+          ],
+          "char_range": [
+            1255,
+            1386
+          ],
+          "line_number": 33,
+          "raw_line": "{{col|ta|நன்றிக்கடன்|நன்றிகூறு|நன்றிகெடு|நன்றிகெட்டவன்|நன்றிசொல்|நன்றியறி|நன்றியற்றவன்|செய்ந்நன்றி|நன்றியீனம்|நன்றிகோறல்|நன்றிநடு}}",
+          "reason_code": "DERIVED_TERMS_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            1854,
+            1868
+          ],
+          "char_range": [
+            1388,
+            1402
+          ],
+          "line_number": 35,
+          "raw_line": "===See also===",
+          "reason_code": "SEE_ALSO_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            1869,
+            1938
+          ],
+          "char_range": [
+            1403,
+            1434
+          ],
+          "line_number": 36,
+          "raw_line": "{{col|ta|வரவேற்கிறேன்|வணக்கம்}}",
+          "reason_code": "DERIVED_TERMS_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            1940,
+            1956
+          ],
+          "char_range": [
+            1436,
+            1452
+          ],
+          "line_number": 38,
+          "raw_line": "===References===",
+          "reason_code": "REFERENCES_SECTION_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            1957,
+            1968
+          ],
+          "char_range": [
+            1453,
+            1464
+          ],
+          "line_number": 39,
+          "raw_line": "{{reflist}}",
+          "reason_code": "REFERENCE_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            1970,
+            2005
+          ],
+          "char_range": [
+            1466,
+            1501
+          ],
+          "line_number": 41,
+          "raw_line": "{{cln|ta|expressions of gratitude}}",
+          "reason_code": "CATEGORY_TEMPLATE_EXCLUDED"
+        },
+        {
+          "byte_range": [
+            2006,
+            2023
+          ],
+          "char_range": [
+            1502,
+            1519
+          ],
+          "line_number": 42,
+          "raw_line": "{{C|ta|Emotions}}",
+          "reason_code": "CATEGORY_TEMPLATE_EXCLUDED"
+        }
+      ],
+      "legacy_word_id": "32793",
+      "page_title": "நன்றி",
+      "revid": 93647113
+    }
+  ],
+  "schema": "wiktionary-reviewed-exclusions-v1"
+}

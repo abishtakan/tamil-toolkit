@@ -1,0 +1,8 @@
+schema_version = 1
+dataset_id = "wiktionary-en-tamil-candidate"
+dataset_version = "2"
+id_namespace = "7a5a7f6c-7f1e-5b2e-94c8-2f4b8e6b4f01"
+text_codec = "json-string-utf8-v1"
+registry_version = 1
+transformation_version = "wiktionary-candidate-v2+utf8-v1"
+snapshots_manifest_sha256 = "2473714b6bce332d774497dc8ffed92743096d09a3ed7ec281a467f4c264798d"

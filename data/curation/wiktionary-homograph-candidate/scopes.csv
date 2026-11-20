@@ -1,0 +1,13 @@
+subject_kind,subject_id,dimension,state,label_code,supporting_assertion_id,decision_id
+entry,ent_a08297c3-424d-5a37-aaf0-4135d7476669,domain,unknown,,,
+entry,ent_a08297c3-424d-5a37-aaf0-4135d7476669,grammar_system,unknown,,,
+entry,ent_a08297c3-424d-5a37-aaf0-4135d7476669,period,unknown,,,
+entry,ent_a08297c3-424d-5a37-aaf0-4135d7476669,region,unknown,,,
+entry,ent_a08297c3-424d-5a37-aaf0-4135d7476669,register,unknown,,,
+entry,ent_a08297c3-424d-5a37-aaf0-4135d7476669,social_usage,unknown,,,
+entry,ent_f063763c-36ac-55c6-b288-8da7f9ab6fff,domain,unknown,,,
+entry,ent_f063763c-36ac-55c6-b288-8da7f9ab6fff,grammar_system,unknown,,,
+entry,ent_f063763c-36ac-55c6-b288-8da7f9ab6fff,period,unknown,,,
+entry,ent_f063763c-36ac-55c6-b288-8da7f9ab6fff,region,unknown,,,
+entry,ent_f063763c-36ac-55c6-b288-8da7f9ab6fff,register,unknown,,,
+entry,ent_f063763c-36ac-55c6-b288-8da7f9ab6fff,social_usage,unknown,,,

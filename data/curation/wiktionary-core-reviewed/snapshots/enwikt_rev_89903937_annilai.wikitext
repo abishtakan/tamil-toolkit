@@ -1,0 +1,21 @@
+==Tamil==
+
+===Etymology===
+{{ety|ta|id=that moment|:af|அ-<id:that>|நிலை<id:condition>|tree=1}}
+From {{af|ta|அ-|நிலை|t2=[[time]], [[moment]]|t1=[[that]]}}.
+
+===Pronunciation===
+{{ta-IPA}}
+* {{audio|ta|LL-Q5885 (tam)-Sriveenkat-அந்நிலை.wav}}
+
+===Noun===
+{{ta-noun}}
+
+# [[that]] [[moment]]
+#: {{syn|ta|அப்பொழுது}}
+
+====Declension====
+{{ta-decl|num=sg}}
+
+===References===
+* {{R:TAL}}

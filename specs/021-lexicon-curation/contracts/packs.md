@@ -1,5 +1,14 @@
 # Pack Compilation and Distribution Contract v1
 
+Large dictionary CSV uses readable UTF-8 with the versioned
+`json-string-utf8-v1` reversible cell codec. Golden tests and scalar diagnostics
+retain escapes. Runtime FST/posting/text bytes use the deterministic compact
+format selected by Rust build tooling; do not serialize ASCII escapes into a
+runtime pack merely to copy the editorial representation. Measure actual source,
+archive and runtime bytes separately. The
+[storage decision](../../../docs/decisions/lexicon-text-storage.md) requires an
+explicit verified clean UTF-8 rebuild and grants no pack/source approval.
+
 **Status**: Proposed L3/L4 design. None of the supplied source text is approved
 for bundling by this plan. [Research](../research.md) records alternatives.
 
@@ -100,6 +109,14 @@ and large-result cases; never drop senses or homographs to meet a target. L3
 approval records a measured pack-specific size budget before any distribution;
 no default embedding or unknown full-corpus guarantee is permitted.
 
+The structural workload measures inventory, staging and structural validation
+of all 307,243 CSV records and the 12 source file hashes into fresh outputs.
+Report each stage and end-to-end wall time, peak process-tree RSS and its
+sampling method, reference machine/OS/toolchain, input hashes and target misses.
+Exclude environment installation/compilation, not executed data-processing
+stages. Lookup is a separate workload; a pilot run or lookup timing cannot stand
+in for the full structural 60-second/512-MiB measurement.
+
 ## Milestone boundary
 
 A structurally valid L2 pilot with zero eligible content is a successful pilot
@@ -107,3 +124,14 @@ and an unavailable dictionary. It cannot produce a release-approved pack, pass
 nonempty CLDF exchange acceptance, activate a runtime suite, or establish L4.
 L3 needs actual approved assertions; L4 needs unchanged real-runtime fixtures,
 Dart host ABI checks, standalone archives and separate activation/release review.
+
+## Dataset compatibility and content identity
+
+`dataset_version` retains the complete published value, including the per-pack
+content hash in its `+` build metadata suffix. When combining packs, compare the
+release portion before `+`; build metadata identifies content and does not select
+a different release compatibility epoch. Schema, index-format and vocabulary
+versions must still agree, as must overlapping entry revisions and region-parent
+definitions. Different release portions or conflicting shared records fail with
+`lexicon: incompatible pack versions`. Full per-pack manifest hashes and version
+strings remain visible in `PackInfo`; this rule grants no approval to new data.

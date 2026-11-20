@@ -1,0 +1,26 @@
+schema_version = 1
+format = "tamil-toolkit-canonical-lexicon-v1"
+csv_encoding = "json-string-utf8-v1"
+pack_id = "names_taxa"
+lookup_id_pattern = "^[A-Za-z][A-Za-z0-9_.:-]*$"
+undirected_lookup_directionality = "symmetric"
+acceptance_auto_source_nullable_actor = true
+acceptance_human_requires_nonempty_actor = true
+entry_provenance_rule = "dedup_union(canonical_headword, pos_assertion, entry_annotations)"
+sense_provenance_rule = "dedup_union(accepted_components, examples, sense_annotations)"
+
+[tables]
+identities = ["entity_id", "kind", "allocation_key", "lifecycle", "identity_decision_id"]
+entries = ["entry_id", "language_id", "variety_id", "canonical_form_id", "pos_assertion_id", "structural_kind", "revision"]
+forms = ["form_id", "entry_id", "representation", "role", "text_assertion_id", "convention_assertion_id"]
+senses = ["sense_id", "entry_id", "display_order", "parent_sense_id"]
+texts = ["text_id", "owner_kind", "owner_id", "component", "language_id", "text_assertion_id", "paired_translation_id", "cited_source_locator_json"]
+relations = ["relation_id", "source_kind", "source_id", "target_kind", "target_id", "relation_code_assertion_id", "directionality", "inverse_relation_id"]
+assertions = ["assertion_id", "subject_kind", "subject_id", "property_code", "value_state", "value_json", "origin", "source_fidelity_state", "ambiguity_state", "algorithm_reference", "convention_reference", "imported_status_json", "imported_confidence_json", "claim_revision_sha256"]
+evidence = ["assertion_id", "source_id", "source_record_id", "locator_json", "evidence_role", "extraction_version", "extraction_sha256"]
+decisions = ["decision_id", "assertion_id", "assertion_revision_sha256", "evidence_bundle_sha256", "outcome", "actor_type", "actor_id", "method_version", "decision_date", "note_json", "predecessor_decision_id"]
+sources = ["source_id", "label_json", "publication_json", "url_json", "edition_json", "locator_json", "snapshot_id", "retrieval_date_state", "retrieval_date_json", "extraction_method", "extraction_version", "evidence_verification_state", "reuse_basis_json", "reuse_state", "attribution_text_json", "attribution_reference_json"]
+scopes = ["subject_kind", "subject_id", "dimension", "state", "label_code", "supporting_assertion_id", "decision_id"]
+labels = ["registry_id", "registry_version", "code", "category", "display_label_json", "definition_json", "evidence_reference", "parent_code"]
+unicode_exceptions = ["assertion_id", "claim_revision_sha256", "value_sha256", "kind", "scalar_sequence", "scalar_position", "reason_json", "decision_id"]
+pack_members = ["pack_id", "entry_id", "included_revision", "relation_inclusion_policy"]

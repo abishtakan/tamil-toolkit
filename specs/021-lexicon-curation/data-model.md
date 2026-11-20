@@ -1,7 +1,11 @@
 # Data Model: Lexicon Dataset v1
 
-**Status**: Proposed design for Feature 021; no tables or approved data are
-created by this planning command. See [research](research.md) and
+**Status**: L1/L2 schemas (`schemas/lexicon/*.schema.json`) and editorial
+workspace tables (`data/curation/tamil-lexicon/`) are implemented under
+`json-string-utf8-v1` with L2 structural acceptance recorded in
+[l2-acceptance.json](../../target/lexicon/l2-acceptance.json) (`0` eligible
+assertions). `lexicon/dictionary/` remains unpopulated pending L3 source/review
+approval. See [research](research.md) and
 [validation/promotion contracts](contracts/curation.md).
 
 ## Locations and representation
@@ -20,8 +24,9 @@ created by this planning command. See [research](research.md) and
 CSV uses UTF-8 without BOM, comma delimiter, a fixed header, RFC-style quoting,
 and LF endings. Table row order is bytewise primary-ID order. Multi-value
 relationships use link rows, not delimiter-separated values. Free text is
-stored with `json-string-v1`: each such CSV cell contains one valid JSON string
-literal with non-ASCII/control scalars escaped. CSV quoting is applied outside
+stored with `json-string-utf8-v1`: each such CSV cell contains one valid JSON string
+literal with visible Tamil retained as UTF-8. JSON-required and audit-sensitive
+control scalars are escaped; ordinary non-ASCII letters are not expanded. CSV quoting is applied outside
 JSON encoding. Decode CSV, then JSON exactly once; encode in the reverse order.
 `value_json` may contain typed numbers, booleans or null as specified per field.
 Objects/arrays are allowed only where schema explicitly declares their shape;
@@ -33,6 +38,16 @@ but is forbidden for headwords, definitions, IDs, and required locators. Do not
 interpret literal `NA`, `null`, or backslash text as an implicit missing value.
 Optional foreign-key columns use an empty CSV cell only as the documented null
 foreign key; all required keys must be populated.
+
+The uncommitted legacy escaped staging was deleted and rebuilt cleanly into
+`json-string-utf8-v1` from the 12 immutable originals with the retained
+namespace (`0` legacy payload archives or migration commands retained); exact
+decoded payload equality ([source-content-proof-final.json](../../target/lexicon/source-content-proof-final.json))
+and pre-projection replay ([us1-proof.json](../../target/lexicon/us1-proof.json))
+passed. See [storage decision](../../docs/decisions/lexicon-text-storage.md).
+Storage encoding stays separate from canonical hash serialization; all rebuilt
+claims start pending (`0` decisions, `0` eligible assertions) and cannot inherit
+an acceptance.
 
 ## Identity rules
 
@@ -141,18 +156,23 @@ excluded when a register filter is present. Social usage is not a register alias
 
 ## Milestone transitions and completeness
 
-- **L0**: file inventory/hash comparison and audit exist; actual source rights
-  remain unknown until evidence is recovered.
-- **L1**: implement schema/registries and source/accounting workflows; planning
-  artifacts alone do not claim L1 schema implementation.
-- **L2**: select at least 100 primary entries and 20 records per secondary dataset,
-  plus linked rows needed for the specified issue classes. Select all entries
-  for each of at least 10 homographic spellings. Record 10 verbs, 10 mixed-sense
-  cases, 10 technical MWEs, 10 TN/Jaffna regional cases, and every observed
-  Unicode/count-disagreement class. Match classes using explicit audit locators
-  and source rows; do not infer new linguistic truth from imported labels.
-  Validated dispositions and findings may all be quarantine. No eligible-content
-  minimum, public lookup, or linguistic adjudication is required to resume Phase 6.
+- **L0**: file inventory/hash comparison and audit completed (`data/sources/tamil-lexicon.sha256.json`);
+  actual source rights remain unknown until primary-dictionary and secondary
+  evidence is recovered.
+- **L1**: schemas (`schemas/lexicon/`), registries, `json-string-utf8-v1`
+  editorial intake (`data/curation/tamil-lexicon/`), payload proof
+  ([source-content-proof-final.json](../../target/lexicon/source-content-proof-final.json)),
+  and pre-projection clean replay ([us1-proof.json](../../target/lexicon/us1-proof.json))
+  are implemented and verified (`263,014` initial identities, `307,243` intake records).
+- **L2**: accepted ([l2-acceptance.json](../../target/lexicon/l2-acceptance.json),
+  [structural-final.json](../../target/lexicon/structural-final.json)): `739`
+  selected records (`101` primary entries, `20`–`22` per secondary dataset, `11`
+  homograph spellings / `22` entries, `20` verbs, `74` mixed-sense cases, `18`
+  technical MWEs, `22` TN/Jaffna regional cases, and all `9` observed audit issue
+  classes) projected (`264,402` identities, `243` entries, `363` senses) with
+  `307,243` validated quarantined dispositions, `0` eligible assertions, and
+  fail-closed release rejection ([release-rejection-final.json](../../target/lexicon/release-rejection-final.json)).
+  Phase 6 numerals scheduling is unblocked without granting data-release or runtime approval.
 - **L3**: a nonempty relevant approved subset, with full accounting of its intake
   scope and source/review/pack closure. Full-bundle completion additionally needs
   one disposition for every one of the 307,243 logical CSV records. The supplied

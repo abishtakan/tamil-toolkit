@@ -1,0 +1,420 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "intake.schema.json",
+  "$comment": "Each $defs entry validates one decoded table row. All declared columns are required; nullable columns carry explicit JSON null. Host enforces all cross-table, uniqueness, registry and release-eligibility constraints described in row comments. The root schema is a definitions resource, not a row validator.",
+  "$defs": {
+    "snapshots": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "snapshot_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "dataset_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "relative_path": {
+          "$ref": "common.schema.json#/$defs/relativePath"
+        },
+        "byte_length": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "media_type": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "logical_row_count": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "snapshot_id",
+        "dataset_id",
+        "relative_path",
+        "byte_length",
+        "sha256",
+        "media_type",
+        "logical_row_count"
+      ],
+      "$comment": "Host requires exactly the 12 frozen intake files, verifies bytes/digests and inventory membership; CSV row counts include the header.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "media_type": {
+                "const": "text/csv"
+              }
+            },
+            "required": [
+              "media_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "logical_row_count": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "label_json": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "publication_json": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/scalar"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "url_json": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/scalar"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "edition_json": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/scalar"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "locator_json": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/locator"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "snapshot_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "retrieval_date_state": {
+          "$ref": "common.schema.json#/$defs/valueState"
+        },
+        "retrieval_date_json": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "extraction_method": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/nonemptyString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "extraction_version": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/nonemptyString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_verification_state": {
+          "enum": [
+            "unknown",
+            "unverified",
+            "verified",
+            "failed"
+          ]
+        },
+        "reuse_basis_json": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/nonemptyString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reuse_state": {
+          "enum": [
+            "unknown",
+            "permitted",
+            "restricted",
+            "prohibited"
+          ]
+        },
+        "attribution_text_json": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/scalar"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attribution_reference_json": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/locator"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "source_id",
+        "label_json",
+        "publication_json",
+        "url_json",
+        "edition_json",
+        "locator_json",
+        "snapshot_id",
+        "retrieval_date_state",
+        "retrieval_date_json",
+        "extraction_method",
+        "extraction_version",
+        "evidence_verification_state",
+        "reuse_basis_json",
+        "reuse_state",
+        "attribution_text_json",
+        "attribution_reference_json"
+      ],
+      "$comment": "Host independently verifies publication fidelity, reuse basis and attribution; an unrecovered label is only a lead.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "retrieval_date_state": {
+                "const": "known"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "retrieval_date_json": {
+                "$ref": "common.schema.json#/$defs/date"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "retrieval_date_json": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "identities": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entity_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "kind": {
+          "$ref": "common.schema.json#/$defs/entityKind"
+        },
+        "allocation_key": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "lifecycle": {
+          "enum": [
+            "active",
+            "merged",
+            "split",
+            "retired"
+          ]
+        },
+        "identity_decision_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        }
+      },
+      "required": [
+        "entity_id",
+        "kind",
+        "allocation_key",
+        "lifecycle",
+        "identity_decision_id"
+      ],
+      "$comment": "Host enforces permanent unique allocations, namespace UUIDv5 and explicit identity decisions; IDs never depend on spelling/POS/order. Retired IDs are retained.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "lifecycle": {
+                "enum": [
+                  "merged",
+                  "split",
+                  "retired"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "identity_decision_id": {
+                "$ref": "common.schema.json#/$defs/id"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "source_records": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "record_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "snapshot_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "physical_line_start": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "physical_line_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "legacy_key_json": {
+          "$ref": "common.schema.json#/$defs/jsonScalar"
+        },
+        "raw_row_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "required": [
+        "record_id",
+        "snapshot_id",
+        "ordinal",
+        "physical_line_start",
+        "physical_line_end",
+        "legacy_key_json",
+        "raw_row_sha256"
+      ],
+      "$comment": "Host enforces unique (snapshot_id, ordinal), physical_line_end >= physical_line_start and immutable snapshot/ordinal/row-digest record identity. Header is ordinal 1."
+    },
+    "dispositions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "record_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "disposition": {
+          "enum": [
+            "mapped",
+            "merged",
+            "split",
+            "excluded",
+            "quarantined"
+          ]
+        },
+        "structural_state": {
+          "enum": [
+            "pending",
+            "validated"
+          ]
+        },
+        "reason_code": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "note_json": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "finding_set_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "method": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "method_version": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        }
+      },
+      "required": [
+        "record_id",
+        "disposition",
+        "structural_state",
+        "reason_code",
+        "note_json",
+        "finding_set_sha256",
+        "method",
+        "method_version"
+      ],
+      "$comment": "Host enforces exactly one disposition per source record. Mapped/merged require >=1 target; split requires >=2 targets; excluded/quarantined have no approved targets. Reasons must explain exclusions."
+    },
+    "record_targets": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "record_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "entity_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "target_role": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        }
+      },
+      "required": [
+        "record_id",
+        "entity_id",
+        "target_role"
+      ],
+      "$comment": "Host enforces unique (record_id, entity_id, target_role), existing references and disposition-dependent mapping cardinality."
+    }
+  }
+}

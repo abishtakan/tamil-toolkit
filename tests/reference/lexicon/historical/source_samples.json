@@ -1,0 +1,197 @@
+[
+  {
+    "source_file": "primary_lemmas.csv",
+    "source_row": 1,
+    "query": "\u0b85",
+    "fields": {
+      "word_id": "1",
+      "lexeme_id": "LEM_NOM_000001",
+      "headword_ta": "\u0b85",
+      "transliteration": "a",
+      "pronunciation_ipa": "/\u0250/",
+      "part_of_speech": "NOUN",
+      "sol_vagai": "\u0baa\u0bc6\u0baf\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd",
+      "grammatical_subclass": "\u0baa\u0bca\u0bb0\u0bc1\u0b9f\u0bcd\u0baa\u0bc6\u0baf\u0bb0\u0bcd (\u0b89\u0baf\u0bb0\u0bcd\u0ba4\u0bbf\u0ba3\u0bc8)",
+      "animacy_gender": "\u0b89\u0baf\u0bb0\u0bcd\u0ba4\u0bbf\u0ba3\u0bc8\u0baa\u0bcd \u0baa\u0bca\u0ba4\u0bc1",
+      "padham_type": "\u0baa\u0b95\u0bbe\u0baa\u0bcd\u0baa\u0ba4\u0bae\u0bcd",
+      "lexical_stratum": "\u0b87\u0baf\u0bb1\u0bcd\u0b9a\u0bca\u0bb2\u0bcd",
+      "root_word": "\u0b85",
+      "verb_class": "",
+      "register": "standard",
+      "language_variety": "TA-GEN",
+      "status": "verified",
+      "confidence": "1.0"
+    }
+  },
+  {
+    "source_file": "primary_meanings.csv",
+    "source_row": 1,
+    "query": "\u0b85",
+    "fields": {
+      "meaning_id": "1",
+      "word_id": "1",
+      "headword_ta": "\u0b85",
+      "sense_number": "1",
+      "meaning_ta": "",
+      "meaning_en": "First letter and vowel of the alphabet, \u0ba8\u0bc6\u0b9f\u0bc1\u0b99\u0bcd\u0b95\u0ba3\u0b95\u0bcd\u0b95\u0bbf\u0bb2\u0bcd \u0bae\u0bc1\u0ba4\u0bb2\u0bc1\u0baf\u0bbf\u0bb0\u0bc6\u0bb4\u0bc1\u0ba4\u0bcd\u0ba4\u0bc1",
+      "definition_ta": "",
+      "definition_en": "First letter and vowel of the alphabet, \u0ba8\u0bc6\u0b9f\u0bc1\u0b99\u0bcd\u0b95\u0ba3\u0b95\u0bcd\u0b95\u0bbf\u0bb2\u0bcd \u0bae\u0bc1\u0ba4\u0bb2\u0bc1\u0baf\u0bbf\u0bb0\u0bc6\u0bb4\u0bc1\u0ba4\u0bcd\u0ba4\u0bc1",
+      "domain": "General",
+      "register": "literary",
+      "status": "verified"
+    }
+  },
+  {
+    "source_file": "primary_relationships.csv",
+    "source_row": 1,
+    "query": "\u0b85\u0b83\u0b95\u0b9f\u0bbf",
+    "fields": {
+      "relationship_id": "1",
+      "source_word_id": "4",
+      "source_headword_ta": "\u0b85\u0b83\u0b95\u0b9f\u0bbf",
+      "target_word_id": "31521",
+      "target_headword_ta": "\u0ba4\u0bc1\u0ba9\u0bcd\u0baa\u0bae\u0bcd",
+      "relation_code": "SYNONYM",
+      "directionality": "directed",
+      "confidence": "1.0",
+      "status": "verified"
+    }
+  },
+  {
+    "source_file": "secondary_archaic_literary_terms.csv",
+    "source_row": 1,
+    "query": "\u0b85\u0b95\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bbe\u0bae\u0bcd",
+    "fields": {
+      "archaic_id": "1",
+      "term_ta": "\u0b85\u0b95\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bbe\u0bae\u0bcd",
+      "transliteration": "akatt\u0101\u1e49\u0101m",
+      "meaning_ta": "\u0b95\u0bc1\u0bb1\u0bb3\u0bcd 93 \u0b9a\u0bca\u0bb2\u0bcd \u0bb5\u0bbf\u0bb3\u0b95\u0bcd\u0b95\u0bae\u0bcd - \u0bae\u0bc1\u0b95\u0bae\u0bcd \u0bae\u0bb2\u0bb0 \u0ba8\u0bcb\u0b95\u0bcd\u0b95\u0bbf, \u0b85\u0b95\u0bae\u0bcd \u0bae\u0bb2\u0bb0 \u0b87\u0ba9\u0bbf\u0baf \u0b9a\u0bca\u0bb1\u0bcd\u0b95\u0bb3\u0bc8\u0b95\u0bcd \u0b95\u0bc2\u0bb1\u0bc1\u0bb5\u0ba4\u0bc7 \u0b85\u0bb1\u0bb5\u0bb4\u0bbf\u0baf\u0bbf\u0bb2\u0bcd \u0b85\u0bae\u0bc8\u0ba8\u0bcd\u0ba4 \u0baa\u0ba3\u0bcd\u0baa\u0bbe\u0b95\u0bc1\u0bae\u0bcd.",
+      "meaning_en": "With brightly beaming smile, and kindly light of loving eye, And heart sincere, to utter pleasant words is charity.",
+      "literary_source": "Thirukkural",
+      "period_era": "Classical Sangam"
+    }
+  },
+  {
+    "source_file": "secondary_dialect_colloquialisms.csv",
+    "source_row": 1,
+    "query": "\u0b85\u0b95\u0bcd\u0b95\u0b9f\u0bcd\u0b9f",
+    "fields": {
+      "colloquial_id": "1",
+      "term_ta": "\u0b85\u0b95\u0bcd\u0b95\u0b9f\u0bcd\u0b9f",
+      "transliteration": "akka\u1e6d\u1e6da",
+      "pronunciation_ipa": "/\u028ck\u02d0\u028c\u0288\u02d0\u028c/",
+      "standard_equivalent": "\u0baa\u0b95\u0bcd\u0b95\u0bae\u0bcd",
+      "region_dialect": "Kongu",
+      "meaning_ta": "\u0b85\u0ba8\u0bcd\u0ba4\u0baa\u0bcd \u0baa\u0b95\u0bcd\u0b95\u0bae\u0bcd",
+      "notes": "\u0b95\u0bca\u0b99\u0bcd\u0b95\u0bc1 \u0bb5\u0b9f\u0bcd\u0b9f\u0bbe\u0bb0 \u0bb5\u0bb4\u0b95\u0bcd\u0b95\u0bc1\u0ba4\u0bcd \u0ba4\u0bbf\u0bb0\u0b9f\u0bcd\u0b9f\u0bc1 (\u0bb5\u0bbf\u0b95\u0bcd\u0b9a\u0bcb\u0bb0\u0bcd\u0bb8\u0bcd). IPA /\u028ck\u02d0\u028c\u0288\u02d0\u028c/. \u0b8e\u0b9f\u0bc1\u0ba4\u0bcd\u0ba4\u0bc1\u0b95\u0bcd\u0b95\u0bbe\u0b9f\u0bcd\u0b9f\u0bc1 \u2014 \u0b85\u0b9f\u0bc1\u0baa\u0bcd\u0baa\u0bc1\u0b95\u0bcd\u0b95\u0bbf\u0b9f\u0bcd\u0b9f \u0ba8\u0bbf\u0b95\u0bcd\u0b95\u0bbe\u0ba4. \u0ba4\u0bc0 \u0bae\u0bc2\u0b9e\u0bcd\u0b9a\u0bbf\u0bb2\u0bc8\u0baf\u0bc7 \u0b85\u0b9f\u0bbf\u0b95\u0bcd\u0b95\u0bc1\u0ba4\u0bc1. \u0b85\u0b95\u0bcd\u0b95\u0b9f\u0bcd\u0b9f \u0baa\u0bcb\u0b9f\u0bbe."
+    }
+  },
+  {
+    "source_file": "secondary_phrases_mwes.csv",
+    "source_row": 1,
+    "query": "\u0b85\u0b83\u0ba4\u0bc1 \u0b85\u0b9f\u0bc1\u0b99\u0bcd\u0b95\u0bbe\u0bb2\u0bcd",
+    "fields": {
+      "phrase_id": "1",
+      "phrase_ta": "\u0b85\u0b83\u0ba4\u0bc1 \u0b85\u0b9f\u0bc1\u0b99\u0bcd\u0b95\u0bbe\u0bb2\u0bcd",
+      "transliteration": "a\u1e35tu a\u1e6du\u1e45k\u0101l",
+      "component_count": "2",
+      "domain_category": "classical_literature",
+      "english_gloss": "when that destroys",
+      "source_code": "ahtu_sandhi_deconstruction"
+    }
+  },
+  {
+    "source_file": "secondary_proper_names_toponyms.csv",
+    "source_row": 1,
+    "query": "\u0b85\u0b95\u0ba4\u0bcd\u0ba4\u0bbf\u0baf\u0bb0\u0bcd",
+    "fields": {
+      "proper_id": "1",
+      "name_ta": "\u0b85\u0b95\u0ba4\u0bcd\u0ba4\u0bbf\u0baf\u0bb0\u0bcd",
+      "english_name": "Agastya",
+      "name_type": "person",
+      "transliteration": "akattiyar",
+      "notes": "Venerated progenitor sage of Tamil grammar and Siddha medicine"
+    }
+  },
+  {
+    "source_file": "secondary_scientific_taxa.csv",
+    "source_row": 1,
+    "query": "\u0b85\u0b9a\u0bcb\u0b95\u0bae\u0bb0\u0bae\u0bcd",
+    "fields": {
+      "taxa_id": "1",
+      "scientific_name": "Saraca asoca",
+      "tamil_name": "\u0b85\u0b9a\u0bcb\u0b95\u0bae\u0bb0\u0bae\u0bcd",
+      "transliteration": "ac\u014dkamaram",
+      "taxonomic_rank": "species",
+      "kingdom_phylum": "Plantae",
+      "notes": "Fabaceae | True sorrowless Ashoka tree"
+    }
+  },
+  {
+    "source_file": "secondary_specialized_technical_terms.csv",
+    "source_row": 1,
+    "query": "\u0b85\u0b83\u0bb1\u0bbf\u0ba3\u0bc8 \u0b92\u0ba9\u0bcd\u0bb1\u0ba9\u0bcd\u0baa\u0bbe\u0bb2\u0bcd",
+    "fields": {
+      "term_id": "1",
+      "term_ta": "\u0b85\u0b83\u0bb1\u0bbf\u0ba3\u0bc8 \u0b92\u0ba9\u0bcd\u0bb1\u0ba9\u0bcd\u0baa\u0bbe\u0bb2\u0bcd",
+      "transliteration": "a\u1e35\u1e5fi\u1e47ai o\u1e49\u1e5fa\u1e49p\u0101l",
+      "english_term": "neuter singular",
+      "domain_field": "Linguistics",
+      "definition_ta": "",
+      "definition_en": "",
+      "specialization_tier": "specialized_kalaisol",
+      "source_code": "TVA_KALAICHOL"
+    }
+  },
+  {
+    "source_file": "secondary_transliterations_loanwords.csv",
+    "source_row": 1,
+    "query": "\u0b85\u0b95\u0bcd\u0b95\u0bb5\u0bc1\u0ba3\u0bcd\u0b9f\u0bcd",
+    "fields": {
+      "loanword_id": "1",
+      "transliterated_ta": "\u0b85\u0b95\u0bcd\u0b95\u0bb5\u0bc1\u0ba3\u0bcd\u0b9f\u0bcd",
+      "transliteration": "akkavu\u1e47\u1e6d",
+      "source_word_en": "account",
+      "origin_language": "English",
+      "pure_tamil_equivalent": "\u0b95\u0ba3\u0b95\u0bcd\u0b95\u0bc1 / \u0baa\u0baf\u0ba9\u0bb0\u0bcd \u0b95\u0ba3\u0b95\u0bcd\u0b95\u0bc1",
+      "domain": "Banking & Finance"
+    }
+  },
+  {
+    "source_file": "unified_master_30col.csv",
+    "source_row": 1,
+    "query": "\u0b85",
+    "fields": {
+      "word_id": "1",
+      "lexeme_id": "LEM_NOM_000001",
+      "headword_ta": "\u0b85",
+      "headword_normalized": "\u0b85",
+      "transliteration": "a",
+      "pronunciation_ipa": "/\u0250/",
+      "part_of_speech": "NOUN",
+      "grammatical_subclass": "\u0baa\u0bca\u0bb0\u0bc1\u0b9f\u0bcd\u0baa\u0bc6\u0baf\u0bb0\u0bcd (\u0b89\u0baf\u0bb0\u0bcd\u0ba4\u0bbf\u0ba3\u0bc8)",
+      "animacy_gender": "\u0b89\u0baf\u0bb0\u0bcd\u0ba4\u0bbf\u0ba3\u0bc8\u0baa\u0bcd \u0baa\u0bca\u0ba4\u0bc1",
+      "matra_count": "1.0",
+      "grapheme_count": "1",
+      "syllable_structure": "\u0ba8\u0bc7\u0bb0\u0bcd",
+      "phonetic_weight": "1.0 \u0bae\u0bbe\u0ba4\u0bcd\u0ba4\u0bbf\u0bb0\u0bc8 (1 \u0b85\u0b9a\u0bc8)",
+      "sandhi_behavior": "\u0b89\u0baf\u0bbf\u0bb0\u0bcd \u0b88\u0bb1\u0bcd\u0bb1\u0bc1 \u0b87\u0baf\u0bb2\u0bcd\u0baa\u0bc1 / \u0b89\u0b9f\u0bae\u0bcd\u0baa\u0b9f\u0bc1\u0bae\u0bc6\u0baf\u0bcd\u0baa\u0bcd \u0baa\u0bc1\u0ba3\u0bb0\u0bcd\u0b9a\u0bcd\u0b9a\u0bbf",
+      "root_word": "\u0b85",
+      "etymology_type": "\u0b87\u0baf\u0bb1\u0bcd\u0b9a\u0bca\u0bb2\u0bcd",
+      "dedr_id": "",
+      "meaning_ta": "",
+      "meaning_en": "First letter and vowel of the alphabet, \u0ba8\u0bc6\u0b9f\u0bc1\u0b99\u0bcd\u0b95\u0ba3\u0b95\u0bcd\u0b95\u0bbf\u0bb2\u0bcd \u0bae\u0bc1\u0ba4\u0bb2\u0bc1\u0baf\u0bbf\u0bb0\u0bc6\u0bb4\u0bc1\u0ba4\u0bcd\u0ba4\u0bc1",
+      "definition_ta": "",
+      "definition_en": "First letter and vowel of the alphabet, \u0ba8\u0bc6\u0b9f\u0bc1\u0b99\u0bcd\u0b95\u0ba3\u0b95\u0bcd\u0b95\u0bbf\u0bb2\u0bcd \u0bae\u0bc1\u0ba4\u0bb2\u0bc1\u0baf\u0bbf\u0bb0\u0bc6\u0bb4\u0bc1\u0ba4\u0bcd\u0ba4\u0bc1",
+      "domain": "General",
+      "register": "standard",
+      "synonyms": "",
+      "antonyms": "",
+      "corpus_frequency_tier": "Lexical Entry",
+      "example_sentence_ta": "",
+      "status": "verified",
+      "confidence": "1.00",
+      "sense_count": "5"
+    }
+  }
+]

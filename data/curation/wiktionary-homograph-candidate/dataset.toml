@@ -1,0 +1,8 @@
+schema_version = 1
+dataset_id = "wiktionary-en-tamil-homograph-candidate"
+dataset_version = "1"
+id_namespace = "4f8c3162-a2c9-5a18-9d25-6d8d2d37b110"
+text_codec = "json-string-utf8-v1"
+registry_version = 1
+transformation_version = "wiktionary-candidate-v2+utf8-v1"
+snapshots_manifest_sha256 = "9efa73796c3755fe92bebac303cb2fed18072f8626e56c146a2caad457d9ff9d"

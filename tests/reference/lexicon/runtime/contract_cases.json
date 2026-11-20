@@ -1,0 +1,292 @@
+{
+  "schema_version": 1,
+  "contract_source": "specs/021-lexicon-curation/contracts/lookup.md",
+  "max_input_utf8_bytes": 65536,
+  "default_packs": [
+    "core"
+  ],
+  "known_pack_ids": [
+    "core",
+    "terminology",
+    "names_taxa",
+    "regional"
+  ],
+  "profiles": [
+    {
+      "id": "default_zero",
+      "cargo_features": [],
+      "expected_packs": []
+    },
+    {
+      "id": "lexicon_core",
+      "cargo_features": [
+        "lexicon-core"
+      ],
+      "expected_pack_ids": [
+        "core"
+      ],
+      "expected_core_dataset_version": "0.1.0+a211334e3659",
+      "expected_core_manifest_sha256": "a211334e3659647deb4fc30a1c5c6778f4fa9ef98815ed44674a7d5d7dc05bdf"
+    }
+  ],
+  "cases": [
+    {
+      "id": "runtime_lookup_default_zero_unavailable_001",
+      "profile": "default_zero",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf"
+      },
+      "expected_error": "lexicon: pack unavailable 'core'"
+    },
+    {
+      "id": "runtime_packs_default_zero_empty_002",
+      "profile": "default_zero",
+      "request": {
+        "op": "lexicon_packs",
+        "input": null
+      },
+      "expected_packs": []
+    },
+    {
+      "id": "runtime_lookup_core_matched_003",
+      "profile": "lexicon_core",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0b85\u0b9f\u0b9f\u0bbe"
+      },
+      "expected_status": "matched",
+      "expected_canonical_query": "\u0b85\u0b9f\u0b9f\u0bbe"
+    },
+    {
+      "id": "runtime_lookup_core_not_found_004",
+      "profile": "lexicon_core",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0b9a\u0bc6\u0baf\u0bb1\u0bcd\u0b95\u0bc8\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd"
+      },
+      "expected_status": "not_found",
+      "expected_canonical_query": "\u0b9a\u0bc6\u0baf\u0bb1\u0bcd\u0b95\u0bc8\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd",
+      "expected_entries": []
+    },
+    {
+      "id": "runtime_lookup_not_found_vs_unavailable_005",
+      "profile": "lexicon_core",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0b9a\u0bc6\u0baf\u0bb1\u0bcd\u0b95\u0bc8\u0b9a\u0bcd\u0b9a\u0bca\u0bb2\u0bcd",
+        "packs": [
+          "regional"
+        ]
+      },
+      "expected_error": "lexicon: pack unavailable 'regional'"
+    },
+    {
+      "id": "runtime_lookup_boundary_65536_bytes_006",
+      "profile": "lexicon_core",
+      "request_template": {
+        "op": "lexicon_lookup",
+        "input_spec": {
+          "unit": "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd",
+          "repeat": 4369,
+          "suffix": "a",
+          "expected_utf8_bytes": 65536
+        }
+      },
+      "expected_status": "not_found"
+    },
+    {
+      "id": "runtime_lookup_err_exceeds_65536_bytes_007",
+      "profile": "lexicon_core",
+      "request_template": {
+        "op": "lexicon_lookup",
+        "input_spec": {
+          "unit": "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd",
+          "repeat": 4369,
+          "suffix": "ab",
+          "expected_utf8_bytes": 65537
+        }
+      },
+      "expected_error": "lexicon: input exceeds 65536 UTF-8 bytes"
+    },
+    {
+      "id": "runtime_lookup_err_non_string_input_008",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": 42
+      },
+      "expected_error": "lexicon: input must be a string"
+    },
+    {
+      "id": "runtime_lookup_err_unknown_option_009",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "foo": 1
+      },
+      "expected_error": "lexicon: invalid options"
+    },
+    {
+      "id": "runtime_lookup_err_packs_empty_010",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "packs": []
+      },
+      "expected_error": "lexicon: packs must be a nonempty string array"
+    },
+    {
+      "id": "runtime_lookup_err_packs_null_011",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "packs": null
+      },
+      "expected_error": "lexicon: packs must be a nonempty string array"
+    },
+    {
+      "id": "runtime_lookup_err_packs_non_string_element_012",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "packs": [
+          "core",
+          123
+        ]
+      },
+      "expected_error": "lexicon: packs must be a nonempty string array"
+    },
+    {
+      "id": "runtime_lookup_err_unknown_pack_013",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "packs": [
+          "nonexistent_pack"
+        ]
+      },
+      "expected_error": "lexicon: unknown pack 'nonexistent_pack'"
+    },
+    {
+      "id": "runtime_lookup_err_region_null_014",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "region": null
+      },
+      "expected_error": "lexicon: invalid options"
+    },
+    {
+      "id": "runtime_lookup_err_region_empty_015",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "region": ""
+      },
+      "expected_error": "lexicon: invalid options"
+    },
+    {
+      "id": "runtime_lookup_err_unknown_region_016",
+      "profile": "lexicon_core",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "region": "XX-UNKNOWN"
+      },
+      "expected_error": "lexicon: unknown region 'XX-UNKNOWN'"
+    },
+    {
+      "id": "runtime_lookup_err_unknown_register_017",
+      "profile": "lexicon_core",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "register": "unknown-register"
+      },
+      "expected_error": "lexicon: unknown register 'unknown-register'"
+    },
+    {
+      "id": "runtime_packs_err_non_null_input_018",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_packs",
+        "input": "core"
+      },
+      "expected_error": "lexicon: invalid options"
+    },
+    {
+      "id": "runtime_lookup_order_option_before_unknown_pack_019",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "packs": [
+          "nonexistent_pack"
+        ],
+        "foo": 1
+      },
+      "expected_error": "lexicon: invalid options"
+    },
+    {
+      "id": "runtime_lookup_order_non_string_input_before_options_020",
+      "profile": "any",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": 42,
+        "packs": [],
+        "foo": 1,
+        "region": 99
+      },
+      "expected_error": "lexicon: input must be a string"
+    },
+    {
+      "id": "runtime_lookup_order_oversize_input_before_options_021",
+      "profile": "any",
+      "request_template": {
+        "op": "lexicon_lookup",
+        "input_spec": {
+          "unit": "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd",
+          "repeat": 4369,
+          "suffix": "ab",
+          "expected_utf8_bytes": 65537
+        },
+        "packs": [
+          "nonexistent_pack"
+        ],
+        "region": 99,
+        "foo": 1
+      },
+      "expected_error": "lexicon: input exceeds 65536 UTF-8 bytes"
+    },
+    {
+      "id": "runtime_lookup_zwj_preserved_in_adapter_022",
+      "profile": "adapter_serialization",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u200d\u0bb1\u0bbf"
+      },
+      "expected_status": "adapter_passthrough"
+    },
+    {
+      "id": "runtime_lookup_err_incompatible_pack_versions_023",
+      "profile": "multi_pack_mismatch",
+      "request": {
+        "op": "lexicon_lookup",
+        "input": "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf",
+        "packs": [
+          "core",
+          "regional"
+        ]
+      },
+      "expected_error": "lexicon: incompatible pack versions"
+    }
+  ]
+}

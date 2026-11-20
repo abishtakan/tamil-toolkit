@@ -1,0 +1,38 @@
+{
+  "cldf_version": "1.3",
+  "files": {
+    "v1.3/components/EntryTable-metadata.json": {
+      "bytes": 1216,
+      "sha256": "b397254f8e125b910e58155e58a6f7dd94f5ae3184275dcd55a84e429f99eb03"
+    },
+    "v1.3/components/ExampleTable-metadata.json": {
+      "bytes": 3264,
+      "sha256": "896fb486f947a894fd7168366a53c41cc78e9f585652526ae60dfbce9eb7dd98"
+    },
+    "v1.3/components/FormTable-metadata.json": {
+      "bytes": 2643,
+      "sha256": "57e35c25287d5283b15259fe75779cd2b0d23c7bb07896fa5346ee984fbe82ff"
+    },
+    "v1.3/components/LanguageTable-metadata.json": {
+      "bytes": 2292,
+      "sha256": "e38aed90d798410c0fea11bf6a5778d4401cd6e0ab893dffcf0016fffcf3f80d"
+    },
+    "v1.3/components/SenseTable-metadata.json": {
+      "bytes": 899,
+      "sha256": "70a7e0515963b7f0ec977a422ffa44eea605eb6bc7bbb544427a81208ba0bf77"
+    },
+    "v1.3/modules/Dictionary-metadata.json": {
+      "bytes": 2908,
+      "sha256": "44d1163587e652211264878a852035ba01f13775d9ae2005fb745862bc42a5fb"
+    },
+    "v1.3/terms.rdf": {
+      "bytes": 58253,
+      "sha256": "763b9f2587af9cdbb452c997cbc10328a316eeecdcc235f1a615e2bd2466385e"
+    }
+  },
+  "source_repo": "https://github.com/cldf/cldf/tree/v1.3",
+  "validator_pins": {
+    "csvw": "4.2.0",
+    "pycldf": "2.2.0"
+  }
+}

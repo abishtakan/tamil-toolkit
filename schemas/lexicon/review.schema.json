@@ -1,0 +1,781 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "review.schema.json",
+  "$comment": "Each $defs entry validates one decoded table row. All declared columns are required; nullable columns carry explicit JSON null. Host enforces all cross-table, uniqueness, registry and release-eligibility constraints described in row comments. The root schema is a definitions resource, not a row validator.",
+  "$defs": {
+    "assertions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assertion_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "subject_kind": {
+          "$ref": "common.schema.json#/$defs/entityKind"
+        },
+        "subject_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "property_code": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "value_state": {
+          "$ref": "common.schema.json#/$defs/valueState"
+        },
+        "value_json": {
+          "$ref": "common.schema.json#/$defs/jsonValue"
+        },
+        "origin": {
+          "enum": [
+            "verbatim_source",
+            "correction",
+            "inferred",
+            "derived",
+            "editorial"
+          ]
+        },
+        "source_fidelity_state": {
+          "enum": [
+            "unknown",
+            "unverified",
+            "verified",
+            "changed"
+          ]
+        },
+        "ambiguity_state": {
+          "enum": [
+            "unknown",
+            "unambiguous",
+            "ambiguous"
+          ]
+        },
+        "algorithm_reference": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "convention_reference": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "imported_status_json": {
+          "$ref": "common.schema.json#/$defs/jsonScalar"
+        },
+        "imported_confidence_json": {
+          "$ref": "common.schema.json#/$defs/jsonScalar"
+        },
+        "claim_revision_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "required": [
+        "assertion_id",
+        "subject_kind",
+        "subject_id",
+        "property_code",
+        "value_state",
+        "value_json",
+        "origin",
+        "source_fidelity_state",
+        "ambiguity_state",
+        "algorithm_reference",
+        "convention_reference",
+        "imported_status_json",
+        "imported_confidence_json",
+        "claim_revision_sha256"
+      ],
+      "$comment": "Host constrains value_json to the registered property type/shape, nonempty headwords/definitions/required locators, scalar validity, Unicode policy and recomputed revision digest. Imported labels/confidence imply no approval.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "value_state": {
+                "const": "known"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value_json": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value_json": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "property_code": {
+                "enum": [
+                  "headword",
+                  "definition"
+                ]
+              },
+              "value_state": {
+                "const": "known"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value_json": {
+                "$ref": "common.schema.json#/$defs/nonemptyString"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assertion_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "source_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "source_record_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "locator_json": {
+          "$ref": "common.schema.json#/$defs/locator"
+        },
+        "evidence_role": {
+          "enum": [
+            "supports",
+            "contradicts",
+            "transcribes"
+          ]
+        },
+        "extraction_version": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "extraction_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "required": [
+        "assertion_id",
+        "source_id",
+        "source_record_id",
+        "locator_json",
+        "evidence_role",
+        "extraction_version",
+        "extraction_sha256"
+      ],
+      "$comment": "Host requires at least one verified supporting source for every public claim, verifies locators/digests and source-record lineage, and hashes the evidence bundle deterministically."
+    },
+    "decisions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "assertion_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "assertion_revision_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "evidence_bundle_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "outcome": {
+          "enum": [
+            "pending",
+            "accepted_auto_source",
+            "accepted_human",
+            "rejected",
+            "needs_review"
+          ]
+        },
+        "actor_type": {
+          "enum": [
+            "human",
+            "automated"
+          ]
+        },
+        "actor_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "method_version": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/nonemptyString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decision_date": {
+          "$ref": "common.schema.json#/$defs/date"
+        },
+        "note_json": {
+          "$ref": "common.schema.json#/$defs/scalar"
+        },
+        "predecessor_decision_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        }
+      },
+      "required": [
+        "decision_id",
+        "assertion_id",
+        "assertion_revision_sha256",
+        "evidence_bundle_sha256",
+        "outcome",
+        "actor_type",
+        "actor_id",
+        "method_version",
+        "decision_date",
+        "note_json",
+        "predecessor_decision_id"
+      ],
+      "$comment": "Host binds decisions to exact claim revision and evidence hashes; accepted decisions cannot transfer to changed revisions. Auto acceptance requires unchanged verified unambiguous source text and valid reuse/attribution; corrections/inferences require human review. History is append-only.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "accepted_human"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "actor_type": {
+                "const": "human"
+              },
+              "actor_id": {
+                "$ref": "common.schema.json#/$defs/id"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "outcome": {
+                "const": "accepted_auto_source"
+              }
+            },
+            "required": [
+              "outcome"
+            ]
+          },
+          "then": {
+            "properties": {
+              "actor_type": {
+                "const": "automated"
+              },
+              "method_version": {
+                "$ref": "common.schema.json#/$defs/nonemptyString"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "actor_type": {
+                "const": "human"
+              }
+            },
+            "required": [
+              "actor_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "actor_id": {
+                "$ref": "common.schema.json#/$defs/id"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "actor_type": {
+                "const": "automated"
+              }
+            },
+            "required": [
+              "actor_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "method_version": {
+                "$ref": "common.schema.json#/$defs/nonemptyString"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "changes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "change_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "subject_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "old_assertion_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "new_assertion_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "reason_json": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "evidence_reference": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "decision_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "inverse_change_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        }
+      },
+      "required": [
+        "change_id",
+        "subject_id",
+        "old_assertion_id",
+        "new_assertion_id",
+        "reason_json",
+        "evidence_reference",
+        "decision_id",
+        "inverse_change_id"
+      ],
+      "$comment": "Host checks subject/assertion ownership, append-only history and compensating reversals.",
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "properties": {
+                "old_assertion_id": {
+                  "$ref": "common.schema.json#/$defs/id"
+                }
+              }
+            },
+            {
+              "properties": {
+                "new_assertion_id": {
+                  "$ref": "common.schema.json#/$defs/id"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "successors": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "retired_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "successor_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "role": {
+          "enum": [
+            "merge",
+            "split"
+          ]
+        },
+        "identity_decision_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        }
+      },
+      "required": [
+        "retired_id",
+        "successor_id",
+        "role",
+        "identity_decision_id"
+      ],
+      "$comment": "Host permits retired entry/sense identities only, enforces lifecycle/identity decisions and acyclic successor graph. IDs are never recycled."
+    },
+    "findings": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "finding_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "record_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "assertion_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "issue_code": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "warning",
+            "error"
+          ]
+        },
+        "scalar_positions": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/scalarPosition"
+          },
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "excluded"
+          ]
+        },
+        "resolution_reason_json": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/nonemptyString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "finding_id",
+        "record_id",
+        "assertion_id",
+        "issue_code",
+        "severity",
+        "scalar_positions",
+        "status",
+        "resolution_reason_json"
+      ],
+      "$comment": "Host checks referenced records/assertions and scalar positions against original values. Reporting never repairs source text.",
+      "allOf": [
+        {
+          "anyOf": [
+            {
+              "properties": {
+                "record_id": {
+                  "$ref": "common.schema.json#/$defs/id"
+                }
+              }
+            },
+            {
+              "properties": {
+                "assertion_id": {
+                  "$ref": "common.schema.json#/$defs/id"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "resolved",
+                  "excluded"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "resolution_reason_json": {
+                "$ref": "common.schema.json#/$defs/nonemptyString"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "unicode_exceptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assertion_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "claim_revision_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "value_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "kind": {
+          "enum": [
+            "non_nfc_original",
+            "intentional_control"
+          ]
+        },
+        "scalar_sequence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "common.schema.json#/$defs/codepoint"
+          }
+        },
+        "scalar_position": {
+          "$ref": "common.schema.json#/$defs/scalarPosition"
+        },
+        "reason_json": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "decision_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        }
+      },
+      "required": [
+        "assertion_id",
+        "claim_revision_sha256",
+        "value_sha256",
+        "kind",
+        "scalar_sequence",
+        "scalar_position",
+        "reason_json",
+        "decision_id"
+      ],
+      "$comment": "Host matches exact assertion revision/value hash, scalar sequence and position and supporting accepted decision. Unused/stale exceptions fail; invalid scalars cannot be waived."
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "registry_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "registry_version": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "code": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "category": {
+          "$ref": "common.schema.json#/$defs/scopeDimension"
+        },
+        "display_label_json": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "definition_json": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "evidence_reference": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "parent_code": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        }
+      },
+      "required": [
+        "registry_id",
+        "registry_version",
+        "code",
+        "category",
+        "display_label_json",
+        "definition_json",
+        "evidence_reference",
+        "parent_code"
+      ],
+      "$comment": "Host checks registry/version/code uniqueness, reviewed parent codes and acyclic geography. Language tags remain separate from custom region IDs."
+    },
+    "scopes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "subject_kind": {
+          "enum": [
+            "entry",
+            "sense",
+            "form",
+            "text",
+            "relation",
+            "assertion"
+          ]
+        },
+        "subject_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "dimension": {
+          "$ref": "common.schema.json#/$defs/scopeDimension"
+        },
+        "state": {
+          "enum": [
+            "attested",
+            "unrestricted",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "label_code": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "supporting_assertion_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "decision_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        }
+      },
+      "required": [
+        "subject_kind",
+        "subject_id",
+        "dimension",
+        "state",
+        "label_code",
+        "supporting_assertion_id",
+        "decision_id"
+      ],
+      "$comment": "Host requires accepted affirmative evidence for unrestricted and attested scopes, category-compatible labels and valid decision hashes. Unknown never implies unrestricted; not_applicable is permitted only for register with null label_code; narrower/unknown/not_applicable sense overrides entry inheritance.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "attested"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label_code": {
+                "$ref": "common.schema.json#/$defs/id"
+              },
+              "supporting_assertion_id": {
+                "$ref": "common.schema.json#/$defs/id"
+              },
+              "decision_id": {
+                "$ref": "common.schema.json#/$defs/id"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "unrestricted"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label_code": {
+                "type": "null"
+              },
+              "supporting_assertion_id": {
+                "$ref": "common.schema.json#/$defs/id"
+              },
+              "decision_id": {
+                "$ref": "common.schema.json#/$defs/id"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "unknown"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "label_code": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "not_applicable"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dimension": {
+                "const": "register"
+              },
+              "label_code": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "pack_members": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pack_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "entry_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "included_revision": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "relation_inclusion_policy": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/nonemptyString"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "pack_id",
+        "entry_id",
+        "included_revision",
+        "relation_inclusion_policy"
+      ],
+      "$comment": "Host verifies reviewed membership, exact included revision, nonempty eligible pack and complete dependency/evidence/reuse/decision closure; never derives approval solely from filenames."
+    }
+  }
+}

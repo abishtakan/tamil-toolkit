@@ -1,0 +1,133 @@
+[
+  {
+    "file": "official_metadata/kaikki_tamil_index.html",
+    "url": "https://kaikki.org/dictionary/Tamil/",
+    "final_url": "https://kaikki.org/dictionary/Tamil/",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:42:20Z",
+    "bytes": 16716,
+    "sha256": "f29aad3600c9d84f932ad36252178a6cf1631de4ac1ea6493dba8f0154a932af"
+  },
+  {
+    "file": "official_metadata/kaikki_rawdata.html",
+    "url": "https://kaikki.org/dictionary/rawdata.html",
+    "final_url": "https://kaikki.org/dictionary/rawdata.html",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:42:21Z",
+    "bytes": 27252,
+    "sha256": "919f4b79486f1d437551adf158e0d8d62a0287bda27b3c8288b7441f894afeda"
+  },
+  {
+    "file": "official_metadata/wikimedia_enwiktionary_dumps.html",
+    "url": "https://dumps.wikimedia.org/enwiktionary/",
+    "final_url": "https://dumps.wikimedia.org/enwiktionary/",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:42:22Z",
+    "bytes": 1413,
+    "sha256": "1afcf5adfeec728c72700e3e3a5c9e0ff27d9198b447a9add5c9a4d4631f5295"
+  },
+  {
+    "file": "official_metadata/wikimedia_tawiktionary_dumps.html",
+    "url": "https://dumps.wikimedia.org/tawiktionary/",
+    "final_url": "https://dumps.wikimedia.org/tawiktionary/",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:42:23Z",
+    "bytes": 1413,
+    "sha256": "46f7397eff95c81a31d531b5e25e228079fe75a4612946f026c056c1d69d3448"
+  },
+  {
+    "file": "official_metadata/wiktionary_copyrights_api.json",
+    "url": "https://en.wiktionary.org/w/api.php?action=query&prop=revisions&titles=Wiktionary:Copyrights&rvprop=ids|timestamp|content&rvslots=main&format=json&formatversion=2",
+    "final_url": "https://en.wiktionary.org/w/api.php?action=query&prop=revisions&titles=Wiktionary:Copyrights&rvprop=ids|timestamp|content&rvslots=main&format=json&formatversion=2",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:42:23Z",
+    "bytes": 9993,
+    "sha256": "049a09491de163dc85b77e6f260705bb5e59052c27b4e0f75ea49dd5d3e4fe4c"
+  },
+  {
+    "file": "official_metadata/wiktextract_readme.md",
+    "url": "https://raw.githubusercontent.com/tatuylonen/wiktextract/master/README.md",
+    "final_url": "https://raw.githubusercontent.com/tatuylonen/wiktextract/master/README.md",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:42:24Z",
+    "bytes": 41010,
+    "sha256": "e03e4f284cf7fc2f37375cbf343b22954a20f6dc7d4f39f8a9598f82fd0fdbe6"
+  },
+  {
+    "file": "official_metadata/wiktextract_license.txt",
+    "url": "https://raw.githubusercontent.com/tatuylonen/wiktextract/master/LICENSE",
+    "final_url": "https://raw.githubusercontent.com/tatuylonen/wiktextract/master/LICENSE",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:42:25Z",
+    "bytes": 1291,
+    "sha256": "5506352ca350dc33ce7acb818991667566058ff4d5c79466e12453b294c9dd74"
+  },
+  {
+    "file": "official_metadata/wikimedia_tou_api.json",
+    "url": "https://foundation.wikimedia.org/w/api.php?action=query&prop=revisions&titles=Policy:Terms_of_Use&rvprop=ids|timestamp|content&rvslots=main&format=json&formatversion=2",
+    "final_url": "https://foundation.wikimedia.org/w/api.php?action=query&prop=revisions&titles=Policy:Terms_of_Use&rvprop=ids|timestamp|content&rvslots=main&format=json&formatversion=2",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:43:11Z",
+    "bytes": 55571,
+    "sha256": "c3e0bff8b859941468d6895dff392d893bd13cfae2ea0ae8565db74aaaab1123"
+  },
+  {
+    "file": "official_metadata/enwikt_20261001_dumpstatus.json",
+    "url": "https://dumps.wikimedia.org/enwiktionary/20261001/dumpstatus.json",
+    "final_url": "https://dumps.wikimedia.org/enwiktionary/20261001/dumpstatus.json",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:43:12Z",
+    "bytes": 61033,
+    "sha256": "bfa67c15c717e3e4c134d18de4f7c9a6ae0d579e1816cc693f36c28f8c2e060d"
+  },
+  {
+    "file": "official_metadata/enwikt_20261101_dumpstatus.json",
+    "url": "https://dumps.wikimedia.org/enwiktionary/20261101/dumpstatus.json",
+    "final_url": "https://dumps.wikimedia.org/enwiktionary/20261101/dumpstatus.json",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:43:13Z",
+    "bytes": 61602,
+    "sha256": "ea35e754df02a69f95ec545e80a0e259e279ee92b6924c1a5856054bef91291e"
+  },
+  {
+    "file": "official_metadata/wiktextract_issue_1178.json",
+    "url": "https://api.github.com/repos/tatuylonen/wiktextract/issues/1178",
+    "final_url": "https://api.github.com/repos/tatuylonen/wiktextract/issues/1178",
+    "status": 200,
+    "retrieval_utc": "2026-11-14T07:43:14Z",
+    "bytes": 4514,
+    "sha256": "f92cc96c03d794feed9d4f4495344c38836f9f8a98b798953cd4b4745c882013"
+  },
+  {
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/legalcode.txt",
+    "path": "C:/Users/abish/Documents/dev/tamil-toolkit/target/lexicon/wiktionary-recovery/official_metadata/cc_by_sa_4_0_legalcode.txt",
+    "status": 200,
+    "retrieved_utc": "2026-11-14T07:46:33Z",
+    "bytes": 20138,
+    "sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5"
+  },
+  {
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/legalcode.en",
+    "path": "C:/Users/abish/Documents/dev/tamil-toolkit/target/lexicon/wiktionary-recovery/official_metadata/cc_by_sa_4_0_legalcode.html",
+    "status": 200,
+    "retrieved_utc": "2026-11-14T07:46:34Z",
+    "bytes": 51645,
+    "sha256": "47c0a954c88d793bdefe92fb007ae3c038fb3807f1a27083433d01aa7542c0d8"
+  },
+  {
+    "url": "https://web.archive.org/cdx/search/cdx?url=kaikki.org/dictionary/Tamil/*&output=json&limit=20&fl=timestamp,original,statuscode,digest,length",
+    "path": "C:/Users/abish/Documents/dev/tamil-toolkit/target/lexicon/wiktionary-recovery/official_metadata/wayback_kaikki_tamil_cdx.json",
+    "status": 200,
+    "retrieved_utc": "2026-11-14T07:46:36Z",
+    "bytes": 2430,
+    "sha256": "18f4d48ab9be6c19847fbaa5357f885c8a9c57e058897701d08c93103963bffc"
+  },
+  {
+    "url": "https://web.archive.org/cdx/search/cdx?url=kaikki.org/dictionary/Tamil/kaikki.org-dictionary-Tamil*&output=json&limit=20&fl=timestamp,original,statuscode,mimetype,length",
+    "path": "C:/Users/abish/Documents/dev/tamil-toolkit/target/lexicon/wiktionary-recovery/official_metadata/wayback_kaikki_jsonl_cdx.json",
+    "status": 200,
+    "retrieved_utc": "2026-11-14T07:47:12Z",
+    "bytes": 588,
+    "sha256": "66f4e7cb8c38cb9b6f79c27bb3b54e3fb310d94f776c5fb42bd9068b5239323a"
+  }
+]

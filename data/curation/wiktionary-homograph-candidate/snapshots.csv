@@ -1,0 +1,3 @@
+snapshot_id,dataset_id,relative_path,byte_length,sha256,media_type,logical_row_count
+snp_05e1038a-b7bb-5aac-851c-ff21e1c9758c,wiktionary-en-tamil-homograph-candidate,snapshots/enwikt_rev_93647113_nanri.json,12430,45c7c96b07034397c0ef1428b6c068d607e15161d83564b5fa44628b7d9dc2e8,application/json,
+snp_65ce288b-b5aa-58b2-aa6d-3488abe7499e,wiktionary-en-tamil-homograph-candidate,snapshots/enwikt_rev_93647113_nanri.wikitext,2023,d0c85376de17daab66cdce055a36ca1d208dcd0135edfa44856ae31ea6dabbad,text/plain; charset=utf-8,42

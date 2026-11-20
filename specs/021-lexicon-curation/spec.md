@@ -4,9 +4,31 @@
 
 **Created**: 2026-11-13
 
-**Status**: Draft — clarified and planned; implementation, source recovery, and linguistic review pending
+**Status**: Reviewed six-entry / 19-sense core passes L1–L3 and bounded L4 functional, performance, full integration and isolated archive checks. Owner activation approval was recorded on 2026-11-15 for the 44 core-profile vectors. Historical bulk-source rights remain unverified.
 
 **Input**: Prioritize the supplied Tamil lexicon before numerals; organize it to professional lexicographic standards, preserve its sources, and make reviewed data reusable by tamil-toolkit. Use the existing audit and update the project roadmaps.
+
+## Storage decision — 2026-11-14
+
+Large lexicon CSV datasets retain ordinary UTF-8 Tamil. Use the versioned
+`json-string-utf8-v1` cell codec with reversible JSON/control escaping, rather
+than expanding every non-ASCII character. Golden tests and exact scalar
+inspection remain escaped; future runtime artifacts use a measured compact
+format. This follows the user's storage/readability direction and the narrow
+Constitution 2.0.0 amendment. See
+[decision and migration acceptance](../../docs/decisions/lexicon-text-storage.md).
+Uncommitted legacy staging and temporary copies were deleted with no legacy
+archive retained; the clean `json-string-utf8-v1` rebuild, exact source-content
+equality ([source-content-proof-final.json](../../target/lexicon/source-content-proof-final.json)),
+pre-projection replay ([us1-proof.json](../../target/lexicon/us1-proof.json)),
+739-record structural pilot ([l2-acceptance.json](../../target/lexicon/l2-acceptance.json),
+[structural-final.json](../../target/lexicon/structural-final.json)), fail-closed
+release guard ([release-rejection-final.json](../../target/lexicon/release-rejection-final.json)),
+and full `just agent-pre-stop-gate` ([pre-stop-utf8-final-retry.log](../../target/lexicon/pre-stop-utf8-final-retry.log))
+are complete (`0` accepted decisions, `0` eligible assertions).
+L2 unblocks Phase 6 numerals scheduling. The separate revision-pinned six-entry
+core now satisfies L3 source/reuse/human review and bounded L4 runtime acceptance;
+the historical merged-source intake remains quarantined.
 
 ## Clarifications
 

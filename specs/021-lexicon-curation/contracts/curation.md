@@ -1,27 +1,51 @@
 # Curation and Promotion Contract v1
 
-**Status**: Proposed interfaces for implementation; none of these commands is
-implemented by the planning step. Run the existing audit today; run the proposed
-interfaces only after their tasks are implemented. See [data model](../data-model.md).
+**Status**: L1/L2 structural curation interfaces (`inventory`, `stage`,
+`select-pilot`, `curate`, `review-ingest` across 9 tables, `pilot`,
+`validate --mode structural`, and the fail-closed `validate --mode release`
+guard in `tools/lexicon.py`, plus `tools/lexicon_proof.py` /
+`tools/lexicon_validate.py`) are implemented and L2-verified
+(`../../../target/lexicon/l2-acceptance.json`). L3 commands (`validate --mode release`
+nonempty closure, `promote`, and `export-cldf --check`) are implemented and
+L3-verified on the human-approved six-entry / 19-sense Wiktionary core
+(`../../../target/lexicon/l3-acceptance.json`, canonical manifest
+`4d1309d05391be1087c11590d664b8669b49ef8312b6c32e4bb32aa86b135079`). The
+307,243-record historical intake under `data/curation/tamil-lexicon/` remains
+quarantined (`0` eligible assertions). See [data model](../data-model.md).
 
 ## Host tool boundary
 
-`tools/lexicon.py` is the single proposed host entry point. It owns file I/O,
+Large dictionary CSV uses `json-string-utf8-v1`: visible Tamil remains UTF-8,
+while JSON-required escapes and audit-sensitive controls remain reversible.
+Golden test/scalar diagnostics retain explicit escapes. Canonical hash
+serialization is separate from storage encoding. Under the
+[storage decision](../../../docs/decisions/lexicon-text-storage.md), uncommitted
+legacy staging was deleted with no legacy archive or migration command retained;
+the clean UTF-8 rebuild, exact decoded source-content proof
+([source-content-proof-final.json](../../../target/lexicon/source-content-proof-final.json)),
+pre-projection clean replay ([us1-proof.json](../../../target/lexicon/us1-proof.json)),
+and L2 structural acceptance ([l2-acceptance.json](../../../target/lexicon/l2-acceptance.json))
+are complete, while L3 source/review/pack promotion remains pending.
+
+`tools/lexicon.py` is the single host entry point. It owns file I/O,
 CSV/JSON/TOML codecs, ID bookkeeping, source/review manifests, structural schema
 validation, and deterministic reports. Linguistic inspection calls the rebuilt
 native Rust adapter; a missing adapter is a clear prerequisite error, never a
 Python normalization/segmentation fallback. Pure inventory/quarantine acceptance
-must not require an invented linguistic result or an approved data pack.
+does not require an invented linguistic result or an approved data pack.
 
-| Subcommand | Inputs and output | Mutation behavior |
+| Subcommand | Status & inputs/output | Mutation behavior |
 |---|---|---|
-| `inventory --source PATH --output PATH` | Strict CSV/file scan, 12 file digests and all record locators/digests; default source is the frozen bundle | Only output staging under the chosen target directory |
-| `stage --inventory PATH --workspace PATH` | Idempotent proposed claims, identity allocations, source leads, findings and dispositions | Explicitly writes only editorial workspace; conflicting existing revisions fail |
-| `pilot --workspace PATH --selection PATH --output PATH` | Validate a committed deterministic pilot selection and report FR-019 minima and disposition completeness | Writes report only; does not approve claims |
-| `validate --workspace PATH --mode structural --selection PATH --output PATH` | Schema, IDs, references, source snapshot hashes, selected-record accounting, review queues and L2 status | Read-only inputs; report output only |
-| `validate --workspace PATH --mode release --pack ID --output PATH` | Nonempty pack, assertion eligibility, current review/evidence hashes, source/reuse/attribution, scope and reference closure | Read-only inputs; fail on any public-ineligible selected assertion |
-| `promote --workspace PATH --pack ID --output PATH` | Generate eligible canonical tables and source/terms manifests after release validation | Explicit command writes declared canonical staging; no registry upload, automatic human review, or original-data edits |
-| `export-cldf --canonical PATH --pack ID --output PATH --check` | Nonempty approved pack to CLDF with custom extensions, pinned schema validation and round-trip report | Only chosen generated export directory |
+| `inventory --source PATH --output PATH` | **Implemented (L1)**: strict CSV/file scan, 12 file digests and all record locators/digests; default source is the frozen bundle | Only output staging under the chosen target directory |
+| `stage --inventory PATH --workspace PATH` | **Implemented (L1)**: idempotent proposed claims, identity allocations, source leads, findings and dispositions | Explicitly writes only editorial workspace; conflicting existing revisions fail |
+| `select-pilot --selection PATH [--source PATH]` | **Implemented (L2)**: one-time creation of deterministic coverage-first `pilot-selection.toml`; checks rather than replacing an existing selection | Writes selection TOML only if absent; errors on conflict with existing file |
+| `curate --workspace PATH --selection PATH` | **Implemented (L2)**: lossless unapproved structural projection of selected records into `entries`/`forms`/`senses`/`texts`/`relations`/`scopes`/`labels`/`findings` | Explicitly writes editorial workspace tables; conflicting existing revisions fail |
+| `review-ingest --workspace PATH --table sources\|evidence\|decisions\|pack_members\|scopes\|labels\|unicode_exceptions\|changes\|successors --input PATH` | **Implemented (L2/L3)**: append-only ingestion of externally supplied curation/review CSV records across the 9 supported tables | Writes target workspace table only; rejects inputs inside workspace or stale revisions |
+| `pilot --workspace PATH --selection PATH --output PATH` | **Implemented (L2)**: validate a committed deterministic pilot selection and report FR-019 minima and disposition completeness | Writes report only; does not approve claims |
+| `validate --workspace PATH --mode structural --selection PATH --output PATH` | **Implemented (L2)**: schema, IDs, references, source snapshot hashes, selected-record accounting, review queues and L2 status (exit `0` on L2) | Read-only inputs; report output only |
+| `validate --workspace PATH --mode release [--pack ID] --output PATH` | **Implemented (L2/L3)**: fail-closed exit `1` on `0` eligible assertions (L2 guard) and nonempty pack, revision/evidence review validity, source/terms closure, and dependency checks (exit `0` on L3-eligible workspace; default `--pack core`) | Read-only inputs; fails on any zero-eligible or public-ineligible selected assertion |
+| `promote --workspace PATH [--pack ID] [--output PATH] [--report PATH]` | **Implemented (L3)**: generate deterministic eligible canonical tables (`.csv`, `.toml`, `.md`) and source/terms manifests after release validation (default `--pack core`, default output `target/lexicon/<pack>-canonical`) | Explicit command writes declared canonical staging; no registry upload, automatic human review, or original-data edits |
+| `export-cldf --canonical PATH --pack core\|terminology\|names_taxa\|regional --output PATH [--check] [--report-output PATH]` | **Implemented (L3)**: nonempty approved pack to offline CLDF 1.3 with custom extensions, pinned `pycldf==2.2.0`/`csvw==4.2.0` schema validation (`schemas/lexicon/cldf/`), and lossless round-trip report (`--check`) | Only chosen generated export directory (plus optional `--report-output`) |
 
 No command infers source URLs or permissions from labels; no command sets
 `accepted_human` on behalf of an automated agent. Source verification and reuse
@@ -57,6 +81,13 @@ quarantined. Its report must say why and must not use `published`, `active`, or
 `runtime_verified=true`. Full-bundle structural accounting requires 307,243 CSV
 record dispositions; pilot validation applies only to the explicit selected set
 and linked dependencies. Never imply full import accounting from a pilot report.
+
+Before the L2 checkpoint, implement an actual fail-closed release guard using
+computed eligibility: a zero-eligible/all-quarantine candidate returns validation
+exit 1 with an eligibility/nonempty-pack finding. Unsupported-command or missing-
+dependency exit 2 is not evidence of correct release rejection. Positive release
+acceptance, promotion and CLDF tests are introduced with their later implementations;
+no failing future test, skip, xfail or weakened gate is carried across L2.
 
 ## Pilot selection
 

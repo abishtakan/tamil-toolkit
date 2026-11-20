@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:tamil-toolkit:lexicon:common:v1",
+  "$comment": "Schemas validate decoded CSV row objects, after exactly one JSON-cell decode. Null foreign keys originate only from documented empty CSV cells. Host enforces UUIDv5 namespace/allocation keys, typed ID prefixes, foreign keys, bytewise row order, scalar normalization policy and registry-controlled property shapes. No schema performs linguistic normalization. Register this resource under its URN and the local common.schema.json retrieval URI.",
+  "$defs": {
+    "scalar": {
+      "type": "string",
+      "pattern": "^[^\\uD800-\\uDFFF]*$"
+    },
+    "nonemptyString": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/scalar"
+        }
+      ],
+      "minLength": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$",
+      "$comment": "Nonempty ASCII identity/reference token. Host checks entity kind, committed allocation, typed UUIDv5 identities and registry membership."
+    },
+    "nullableId": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "jsonScalar": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/scalar"
+        },
+        {
+          "type": [
+            "number",
+            "boolean",
+            "null"
+          ]
+        }
+      ]
+    },
+    "jsonValue": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/jsonScalar"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/jsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/jsonValue"
+          }
+        }
+      ],
+      "$comment": "Reusable JSON domain only; field/property registries must explicitly authorize any object/array shape before use."
+    },
+    "locator": {
+      "$ref": "#/$defs/nonemptyString",
+      "$comment": "Decoded json-string-utf8-v1 locator; known empty locators are forbidden."
+    },
+    "valueState": {
+      "enum": [
+        "known",
+        "unknown",
+        "not_applicable"
+      ]
+    },
+    "statefulValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value_state": {
+          "$ref": "#/$defs/valueState"
+        },
+        "value_json": {
+          "$ref": "#/$defs/jsonValue"
+        }
+      },
+      "required": [
+        "value_state",
+        "value_json"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "value_state": {
+                "const": "known"
+              }
+            },
+            "required": [
+              "value_state"
+            ]
+          },
+          "then": {
+            "properties": {
+              "value_json": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value_json": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?![A-Za-z]:)(?![/\\\\])(?!.*(?:^|[/\\\\])\\.\\.(?:[/\\\\]|$))[^\\uD800-\\uDFFF]+$",
+      "$comment": "Host resolves paths and rejects source/output overlap and escaping symlinks."
+    },
+    "entityKind": {
+      "enum": [
+        "entry",
+        "form",
+        "sense",
+        "text",
+        "relation",
+        "assertion"
+      ]
+    },
+    "scopeDimension": {
+      "enum": [
+        "region",
+        "register",
+        "domain",
+        "social_usage",
+        "period",
+        "grammar_system"
+      ]
+    },
+    "scalarPosition": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "codepoint": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1114111,
+      "not": {
+        "minimum": 55296,
+        "maximum": 57343
+      }
+    }
+  }
+}

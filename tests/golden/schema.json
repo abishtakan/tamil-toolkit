@@ -61,17 +61,9 @@
         "SL"
       ]
     },
-    "region": {
-      "enum": [
-        "TN",
-        "JAFFNA",
-        "BATTICALOA",
-        "VANNI",
-        "UP_COUNTRY",
-        "KONGU",
-        "CHENNAI"
-      ]
-    },
+    "region": {},
+    "packs": {},
+    "register": {},
     "tags": {
       "type": "array",
       "minItems": 1,
@@ -111,6 +103,47 @@
             "minLength": 12
           }
         }
+      }
+    }
+  },
+  "if": {
+    "required": [
+      "op"
+    ],
+    "properties": {
+      "op": {
+        "not": {
+          "const": "lexicon_lookup"
+        }
+      }
+    }
+  },
+  "then": {
+    "not": {
+      "anyOf": [
+        {
+          "required": [
+            "packs"
+          ]
+        },
+        {
+          "required": [
+            "register"
+          ]
+        }
+      ]
+    },
+    "properties": {
+      "region": {
+        "enum": [
+          "TN",
+          "JAFFNA",
+          "BATTICALOA",
+          "VANNI",
+          "UP_COUNTRY",
+          "KONGU",
+          "CHENNAI"
+        ]
       }
     }
   },
@@ -5552,6 +5585,91 @@
           }
         }
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "lexicon_lookup"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "string"
+          },
+          "packs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "enum": [
+                "core",
+                "terminology",
+                "names_taxa",
+                "regional"
+              ]
+            }
+          },
+          "region": {
+            "oneOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "register": {
+            "oneOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "expected": {
+            "$ref": "#/$defs/lexiconLookupResponse"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "op": {
+            "const": "lexicon_packs"
+          }
+        },
+        "not": {
+          "required": [
+            "expected_error"
+          ]
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "type": "null"
+          },
+          "expected": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/lexiconPackInfo"
+            }
+          }
+        }
+      }
     }
   ],
   "$defs": {
@@ -6288,6 +6406,822 @@
           "maximum": 35
         }
       }
+    },
+    "lexiconLookupResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "status",
+        "canonical_query",
+        "packs",
+        "entries"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "status": {
+          "enum": [
+            "matched",
+            "not_found"
+          ]
+        },
+        "canonical_query": {
+          "type": "string"
+        },
+        "packs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconPackInfo"
+          },
+          "minItems": 1
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconEntry"
+          },
+          "minItems": 0
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "matched"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "entries": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "entries": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "lexiconAcceptance": {
+      "type": "object",
+      "properties": {
+        "decision_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "kind": {
+          "enum": [
+            "accepted_auto_source",
+            "accepted_human"
+          ]
+        },
+        "actor_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "method": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decided_on": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "decision_id",
+        "kind",
+        "actor_id",
+        "method",
+        "decided_on"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "accepted_auto_source"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "method": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "accepted_human"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "actor_id": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "lexiconProvenance": {
+      "type": "object",
+      "properties": {
+        "assertion_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "revision_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "source_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "acceptance": {
+          "$ref": "#/$defs/lexiconAcceptance"
+        }
+      },
+      "required": [
+        "assertion_id",
+        "revision_sha256",
+        "source_id",
+        "locator",
+        "acceptance"
+      ],
+      "additionalProperties": false
+    },
+    "lexiconScope": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "enum": [
+            "attested",
+            "unrestricted",
+            "unknown"
+          ]
+        },
+        "codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconProvenance"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "state",
+        "codes",
+        "provenance"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "attested"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "codes": {
+                "minItems": 1
+              },
+              "provenance": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "codes": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "unrestricted"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "provenance": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "unknown"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "provenance": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "lexiconField": {
+      "type": "object",
+      "properties": {
+        "availability": {
+          "enum": [
+            "available",
+            "unknown",
+            "not_applicable",
+            "withheld"
+          ]
+        },
+        "value": {
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        },
+        "convention": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconProvenance"
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "availability",
+        "value",
+        "convention",
+        "provenance"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "availability": {
+                "const": "available"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean"
+                ]
+              },
+              "provenance": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "value": {
+                "type": "null"
+              },
+              "convention": {
+                "type": "null"
+              },
+              "provenance": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "lexiconLabelField": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/lexiconField"
+        },
+        {
+          "properties": {
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "lexiconAnnotation": {
+      "type": "object",
+      "properties": {
+        "property": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "field": {
+          "$ref": "#/$defs/lexiconField"
+        }
+      },
+      "required": [
+        "property",
+        "field"
+      ],
+      "additionalProperties": false
+    },
+    "lexiconForm": {
+      "type": "object",
+      "properties": {
+        "form_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "representation": {
+          "enum": [
+            "written",
+            "romanization",
+            "ipa"
+          ]
+        },
+        "role": {
+          "enum": [
+            "canonical",
+            "variant"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "convention": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconProvenance"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "form_id",
+        "representation",
+        "role",
+        "text",
+        "convention",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "lexiconText": {
+      "type": "object",
+      "properties": {
+        "text_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "kind": {
+          "enum": [
+            "definition",
+            "gloss",
+            "translation",
+            "citation",
+            "example"
+          ]
+        },
+        "language_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconProvenance"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "text_id",
+        "kind",
+        "language_id",
+        "text",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "lexiconEndpoint": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "entry",
+            "sense"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        }
+      },
+      "required": [
+        "kind",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "lexiconRelation": {
+      "type": "object",
+      "properties": {
+        "relation_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "directionality": {
+          "enum": [
+            "directed",
+            "symmetric"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/lexiconEndpoint"
+        },
+        "target": {
+          "$ref": "#/$defs/lexiconEndpoint"
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconProvenance"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "relation_id",
+        "code",
+        "directionality",
+        "source",
+        "target",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "lexiconSense": {
+      "type": "object",
+      "properties": {
+        "sense_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "display_order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "parent_sense_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/lexiconText"
+              },
+              {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "definition",
+                      "gloss",
+                      "translation",
+                      "citation"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "minItems": 1
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/lexiconText"
+              },
+              {
+                "properties": {
+                  "kind": {
+                    "const": "example"
+                  }
+                }
+              }
+            ]
+          },
+          "minItems": 0
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconRelation"
+          },
+          "minItems": 0
+        },
+        "region": {
+          "$ref": "#/$defs/lexiconScope"
+        },
+        "register": {
+          "$ref": "#/$defs/lexiconLabelField"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconAnnotation"
+          },
+          "minItems": 0
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconProvenance"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "sense_id",
+        "display_order",
+        "parent_sense_id",
+        "components",
+        "examples",
+        "relations",
+        "region",
+        "register",
+        "annotations",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "lexiconEntry": {
+      "type": "object",
+      "properties": {
+        "entry_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "headword": {
+          "type": "string",
+          "minLength": 1
+        },
+        "language_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+        },
+        "part_of_speech": {
+          "$ref": "#/$defs/lexiconLabelField"
+        },
+        "forms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconForm"
+          },
+          "minItems": 1
+        },
+        "senses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconSense"
+          },
+          "minItems": 1
+        },
+        "region": {
+          "$ref": "#/$defs/lexiconScope"
+        },
+        "register": {
+          "$ref": "#/$defs/lexiconLabelField"
+        },
+        "annotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconAnnotation"
+          },
+          "minItems": 0
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lexiconProvenance"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "entry_id",
+        "revision",
+        "headword",
+        "language_id",
+        "part_of_speech",
+        "forms",
+        "senses",
+        "region",
+        "register",
+        "annotations",
+        "provenance"
+      ],
+      "additionalProperties": false
+    },
+    "lexiconCoverage": {
+      "type": "object",
+      "properties": {
+        "language_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true
+        },
+        "region_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true
+        },
+        "register_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"
+          },
+          "uniqueItems": true
+        },
+        "unknown_region_entries": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "language_ids",
+        "region_codes",
+        "register_codes",
+        "unknown_region_entries"
+      ],
+      "additionalProperties": false
+    },
+    "lexiconPackInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "enum": [
+            "core",
+            "terminology",
+            "names_taxa",
+            "regional"
+          ]
+        },
+        "dataset_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "index_format_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "available": {
+          "const": true
+        },
+        "coverage": {
+          "$ref": "#/$defs/lexiconCoverage"
+        }
+      },
+      "required": [
+        "id",
+        "dataset_version",
+        "schema_version",
+        "index_format_version",
+        "manifest_sha256",
+        "available",
+        "coverage"
+      ],
+      "additionalProperties": false
     }
   }
 }

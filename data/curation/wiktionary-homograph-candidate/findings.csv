@@ -1,0 +1,12 @@
+finding_id,record_id,assertion_id,issue_code,severity,scalar_positions,status,resolution_reason_json
+fnd_3c0d095a-4086-5346-8029-1da12a4797d0,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_ab0270e5-52a1-5d4f-8c57-907b80324f6f,MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE,warning,[],open,null
+fnd_468563f8-ae88-5e75-8281-9750d950e6ea,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_b6b9fee7-db6e-5b54-aa33-b7270003280c,WIKILINK_MARKUP_UNWRAPPED,warning,[],open,null
+fnd_53d6be7a-4d44-5a55-9a0a-02e54b6e9179,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_ab0270e5-52a1-5d4f-8c57-907b80324f6f,PENDING_GENUINE_HUMAN_REVIEW,warning,[],open,null
+fnd_56d3ecfe-7138-506e-973f-8bae8d546788,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_8ae52e6f-c478-5c99-8d9d-8eaa27408fc4,WIKILINK_MARKUP_UNWRAPPED,warning,[],open,null
+fnd_59626725-8242-5d1f-b970-6e9e0d214141,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_b6b9fee7-db6e-5b54-aa33-b7270003280c,PENDING_GENUINE_HUMAN_REVIEW,warning,[],open,null
+fnd_62b431ef-f9b3-57d3-a8a4-535f21df7ee1,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_ab0270e5-52a1-5d4f-8c57-907b80324f6f,WIKILINK_MARKUP_UNWRAPPED,warning,[],open,null
+fnd_767cd405-f56c-58d8-bbae-d236f3f2a934,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_8ae52e6f-c478-5c99-8d9d-8eaa27408fc4,PENDING_GENUINE_HUMAN_REVIEW,warning,[],open,null
+fnd_8f0190a6-bed2-52f6-bd84-e5e7ae21c42e,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_b6b9fee7-db6e-5b54-aa33-b7270003280c,MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE,warning,[],open,null
+fnd_b8bf4346-5cf1-56cb-b2a2-d49040435e32,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_98d03e35-bb49-5699-8cea-7a915788fff4,POS_HEADING_MAPPING_REQUIRES_REVIEW,warning,[],open,null
+fnd_d2958c98-7c12-5e51-b517-0b430af5a7e8,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_8ae52e6f-c478-5c99-8d9d-8eaa27408fc4,MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE,warning,[],open,null
+fnd_f3dcb3b9-4446-5611-b790-ab9f42b65b11,rec_67949120-2bf7-5c51-aa22-abbe5b456d75,ast_873332a2-3011-58bd-a2d8-a89708190dbd,POS_HEADING_MAPPING_REQUIRES_REVIEW,warning,[],open,null

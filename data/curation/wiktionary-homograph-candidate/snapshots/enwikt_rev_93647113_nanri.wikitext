@@ -1,0 +1,42 @@
+==Tamil==
+{{phrasebook|ta}}
+
+===Alternative forms===
+* {{alt|ta|நண்ணி||colloquial|uncommon|ref={{R:Fabricius}}<<name:Fabricius>> !!! {{R:Winslow}} !!! {{R:TAL|நண்ணி}}}}
+
+===Etymology===
+From {{m|ta|நல்||good}},<ref name="Fabricius"/><ref>{{R:TAL}}</ref> from {{der|ta|dra-sou-pro|*nal||good}}. Compare {{m|ta|நன்று}}.
+
+Cognate with {{cog|kn|ನನ್ನಿ}}, {{cog|ml|നന്ദി}} / {{m|ml|നന്നി}}.
+
+===Pronunciation===
+{{ta-IPA}}
+
+===Interjection===
+{{ta-interj}}
+
+# [[thanks]], [[thank you]]
+
+===Noun===
+{{ta-noun}}
+
+# [[help]], [[kindness]], [[benefit]], [[favour]]
+#: {{syn|ta|நன்மை}}
+#* {{quote-book|ta|year=c. 300 {{BCE}}–500 {{CE}}|author={{w|Tiruvalluvar}}|title={{w|Tirukkural}}|chapter=Gratitude|section_plain=Kural 108|url=https://www.thirukkural.net/en/kural/kural-0108.html|text='''நன்றி''' [[மறப்பது]] [[நன்று|நன்ற]][[அன்று|ன்று]] [[நன்று|நன்ற]][[அல்லது|ல்லது]]<br>[[அன்று|அன்]][[-ஏ|றே]] [[மறப்பது]] [[நன்று]].|t=To forget a '''good turn''' is not good, and good it is<br>To forget at once what isn't good.|archiveurl=https://web.archive.org/web/20260605133550/https://www.thirukkural.net/en/kural/kural-0108.html|archivedate=5 June 2026}}
+# [[gratitude]], [[gratefulness]]
+#: {{syn|ta|செய்ந்நன்றி}}
+
+====Declension====
+{{ta-decl}}
+
+====Derived terms====
+{{col|ta|நன்றிக்கடன்|நன்றிகூறு|நன்றிகெடு|நன்றிகெட்டவன்|நன்றிசொல்|நன்றியறி|நன்றியற்றவன்|செய்ந்நன்றி|நன்றியீனம்|நன்றிகோறல்|நன்றிநடு}}
+
+===See also===
+{{col|ta|வரவேற்கிறேன்|வணக்கம்}}
+
+===References===
+{{reflist}}
+
+{{cln|ta|expressions of gratitude}}
+{{C|ta|Emotions}}

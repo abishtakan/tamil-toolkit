@@ -1,0 +1,2 @@
+record_id,disposition,structural_state,reason_code,note_json,finding_set_sha256,method,method_version
+rec_67949120-2bf7-5c51-aa22-abbe5b456d75,mapped,pending,CANDIDATE_WIKTIONARY_PINNED_EXTRACTION,"""Mapped 3 literal sense lines across 2 POS section(s) from pinned enwiktionary revid=93647113 (excluded 23 non-definition/unpinned lines); all claims pending human review.""",e2681e3fdde15c7d515685e1c6d6c2db1fabdec52d17cffbf7b0e6ee0e3776c1,wiktionary-candidate-allowlist,wiktionary-candidate-v2

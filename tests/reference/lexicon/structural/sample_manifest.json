@@ -1,0 +1,12 @@
+[
+  {
+    "file": "derived_sample.fst",
+    "bytes": 16,
+    "sha256": "c7fd196a77cb7e3ac0e0d0813ca703f34521bfba163d791f40eae025c4d0c71a"
+  },
+  {
+    "file": "entries_sample.csv",
+    "bytes": 106,
+    "sha256": "870d712553a98781997933055619b30668940ef9211a32005f25aff11607fc64"
+  }
+]

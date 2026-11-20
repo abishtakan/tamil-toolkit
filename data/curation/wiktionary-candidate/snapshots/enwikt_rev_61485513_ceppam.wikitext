@@ -1,0 +1,27 @@
+==Tamil==
+
+===Etymology===
+See {{m|ta|செம்மை}}.
+
+===Pronunciation===
+* {{ta-IPA}}
+
+===Noun===
+{{ta-noun}}
+
+# [[straightness]], [[correctness]], [[exactness]], [[smoothness]], [[uprightness]]
+# [[impartiality]], [[evenness]], [[equity]]
+# [[repair]], [[renewal]]
+# [[preparedness]], [[fitness]]
+# [[protection]]
+# [[straight]] [[path]]
+# [[street]]
+# [[heart]]
+# [[satisfaction]], [[agreeableness]]
+
+===See also===
+* {{l|ta|செப்பட}}
+* {{l|ta|செப்பனிடு}}
+
+===References===
+* {{R:TAL}}

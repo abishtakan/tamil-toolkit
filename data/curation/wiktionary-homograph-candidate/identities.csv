@@ -1,0 +1,11 @@
+entity_id,kind,allocation_key,lifecycle,identity_decision_id
+ent_a08297c3-424d-5a37-aaf0-4135d7476669,entry,enwiktionary:page:4593930:rev:93647113:tam:noun:2,active,
+ent_f063763c-36ac-55c6-b288-8da7f9ab6fff,entry,enwiktionary:page:4593930:rev:93647113:tam:intj:1,active,
+frm_353647c6-e72e-53a7-a53f-dc89b18f2716,form,enwiktionary:page:4593930:rev:93647113:tam:noun:2:canonical-written,active,
+frm_cdc74139-e27f-531e-baec-b03630aab8e3,form,enwiktionary:page:4593930:rev:93647113:tam:intj:1:canonical-written,active,
+sen_0b8e7d9e-d369-5dd8-a905-47ed39c673c6,sense,enwiktionary:page:4593930:rev:93647113:tam:noun:2:sense:1,active,
+sen_4ccafa9b-eb17-53a8-a571-69e0a63dc992,sense,enwiktionary:page:4593930:rev:93647113:tam:intj:1:sense:1,active,
+sen_bf8afb40-f31a-5e1e-bd37-7c515bbfbfb7,sense,enwiktionary:page:4593930:rev:93647113:tam:noun:2:sense:2,active,
+txt_3ec54084-a50a-5908-a739-d83f7f9698d2,text,enwiktionary:page:4593930:rev:93647113:tam:noun:2:sense:2:definition,active,
+txt_5547f5a6-fa7e-54e3-98a9-223fa93f6757,text,enwiktionary:page:4593930:rev:93647113:tam:intj:1:sense:1:definition,active,
+txt_d4367808-d549-5d44-b4cc-1f793f80d6b3,text,enwiktionary:page:4593930:rev:93647113:tam:noun:2:sense:1:definition,active,

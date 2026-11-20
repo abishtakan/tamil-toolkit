@@ -82,35 +82,82 @@ invalid filter codes, and unsupported options are errors. No silent fallback.
 
 ## Response
 
+The normative closed JSON Schema is [lookup-response.schema.json](lookup-response.schema.json).
+Every listed property is required; extra properties are rejected. The complete
+[matched example](lookup-response.example.json) demonstrates shape only: its
+`example` IDs, zero digests and source/acceptance metadata are deliberately
+illustrative. It is not a real source decision, approved dataset, golden vector,
+or evidence of successful lookup. Real goldens must replace it with actual
+source-backed eligible records before implementation.
+
+| Object | Required fields and constraints |
+|---|---|
+| LookupResponse | `schema_version: 1`, `status: matched \| not_found`, `canonical_query: string`, nonempty `packs: PackInfo[]`, `entries: Entry[]`; matched requires at least one entry and not_found requires zero |
+| PackInfo | `id: core \| terminology \| names_taxa \| regional`, nonempty `dataset_version`, `schema_version: 1`, positive `index_format_version`, full `manifest_sha256`, `available: true`, `coverage: Coverage` |
+| Coverage | Unique `language_ids`, `region_codes`, `register_codes` arrays and nonnegative integer `unknown_region_entries` |
+| Entry | Nonempty `entry_id`, SHA-256 `revision`, nonempty NFC `headword`, `language_id`, `part_of_speech: LabelField`, nonempty `forms: Form[]`, nonempty `senses: Sense[]`, `region: Scope`, `register: LabelField`, `annotations: Annotation[]`, nonempty `provenance: Provenance[]` |
+| Sense | `sense_id`, positive integer `display_order`, `parent_sense_id: ID or null`, nonempty `components: Text[]`, `examples: Text[]`, `relations: Relation[]`, `region`, `register`, `annotations`, nonempty `provenance` |
+| Form | `form_id`, `representation: written \| romanization \| ipa`, `role: canonical \| variant`, nonempty `text`, `convention: nonempty string or null`, nonempty `provenance` |
+| Text | `text_id`, `kind`, `language_id`, nonempty `text`, nonempty `provenance`; components permit definition/gloss/translation/citation, examples require kind example |
+| Scope | `state: attested \| unrestricted \| unknown`, unique `codes: ID[]`, `provenance`; attested requires codes and evidence, unrestricted requires evidence and no codes, unknown requires no codes/evidence |
+| Field | `availability: available \| unknown \| not_applicable \| withheld`, `value: string/number/boolean or null`, `convention: string or null`, `provenance`; available requires nonnull value and evidence, other states require null value/convention and empty evidence |
+| LabelField | Field with value restricted to a nonempty string or null; used for POS and register |
+| Annotation | `property: ID` and `field: Field`; property codes come from the declared registry |
+| Relation | `relation_id`, `code`, `directionality: directed \| symmetric`, typed `source`/`target: Endpoint`, nonempty `provenance` |
+| Endpoint | `kind: entry \| sense`, `id: ID`, resolving inside the selected approved pack union |
+| Provenance | `assertion_id`, `revision_sha256`, `source_id`, nonempty `locator`, `acceptance: Acceptance` |
+| Acceptance | `decision_id`, `kind: accepted_auto_source \| accepted_human`, `actor_id: ID or null`, `method: nonempty string or null`, ISO date `decided_on`; human acceptance requires an actual nonempty actor ID, automatic acceptance requires a nonempty method |
+
+IDs match `[A-Za-z][A-Za-z0-9_.:-]*`; digests are exactly 64 lowercase hex digits.
+JSON null is a value, not a string. `withheld` is public projection availability
+for an ineligible/unselected optional annotation, not a new curated `value_state`:
+its text, convention, source evidence and private review details are not exposed.
+`unknown` preserves genuinely unknown values; it never asserts lexical absence.
+Only emit optional annotations selected by the profile, with their availability
+visible; empty repeated arrays mean no selected records, not lack of all evidence.
+Confidence is exposed only with an approved method and evidence.
+
+Schema validation is necessary but insufficient for eligibility. In addition,
+validate registry references, dates, unique IDs/pack IDs, exact approved revisions,
+source/review/terms eligibility, canonical NFC, exactly one canonical written
+form agreeing with the headword, parent/target reference closure, accepted scopes,
+and the documented ordering. Filtered senses reference approved pack identities;
+no unapproved source text or private review note is returned. A decision-shaped
+JSON object alone can never approve a real claim.
+
+Entry and sense region/register fields report effective accepted scope after
+inheritance and overrides have been applied; they are not raw editorial scope
+records. A missing editorial override and an explicit unknown override remain
+distinct during computation even when the final result reports unknown scope.
+
+`lexicon_packs` returns an array of the same PackInfo objects (the schema's
+`$defs/PackInfo`), sorted by pack ID; the empty array is valid in a no-data build.
+Lookup returns selected compatible pack metadata only. A not-found result has
+this exact root shape, with actual compatible PackInfo objects in `packs`:
+
 ```json
 {
   "schema_version": 1,
   "status": "not_found",
-  "canonical_query": "\u0b85",
-  "packs": [{"id": "core", "dataset_version": "1", "manifest_sha256": "..."}],
+  "canonical_query": "demo",
+  "packs": [{
+    "id": "core",
+    "dataset_version": "example-only",
+    "schema_version": 1,
+    "index_format_version": 1,
+    "manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "available": true,
+    "coverage": {"language_ids": ["lang_example"], "region_codes": [], "register_codes": [], "unknown_region_entries": 1}
+  }],
   "entries": []
 }
 ```
 
-`status = matched | not_found`. Both empty dictionary matching and complete
-filter exclusion produce not-found; they do not assert that a word does not
-exist in Tamil or is absent from a geographic variety. The caller can inspect
-pack scope/review metadata to assess coverage. `manifest_sha256` is a full hash
-in actual responses; the ellipsis above is illustrative only.
-
-A matched entry includes `entry_id`, `revision`, `headword`, language/variety ID,
-known/unknown optional POS, effective region/register states, source/decision
-summaries, and ordered `senses`. Each sense includes stable ID/order, typed
-language-tagged text components, approved examples/relations when present, and
-scope/provenance summaries. Original source text is exposed only if it is itself
-eligible and selected; no raw intake or unparsed unreviewed paragraph leaks.
-Return unknown optional properties as null with their availability states;
-empty arrays mean no selected records, not a claim that no such evidence exists.
-
-Every returned assertion references source IDs and locators and distinguishes
-`accepted_auto_source` from `accepted_human`. Confidence is returned only when
-its method and evidence are approved. Public responses omit private review notes.
-No runtime networking, corpus frequency guesses, user-input logging, or telemetry.
+This is also a schema illustration, not an available pack. Complete filter
+exclusion and absent spelling both yield not_found; neither asserts that the
+word is absent from Tamil or a geographic variety. Unavailable requested data
+is an error, not not_found. No runtime networking, telemetry, user-input logging,
+or synthesized missing definitions is part of the response contract.
 
 ## Error contract
 
@@ -160,3 +207,26 @@ optional relations. Use the same declared pack snapshot in Rust, Python, Node
 and browser WASM, and Dart. No missing-pack skip, mock, or all-quarantine substitute
 satisfies active parity. Explicit manifest activation and publication review remain
 separate actions from test execution.
+
+## Editorial-to-public projection rules
+
+Public identifiers retain recorded dots and colons as well as letters, digits,
+underscores and hyphens; they are never rewritten to fit a narrower output regex.
+Accepted human decisions require their actual nonempty reviewer ID. Automatic
+source decisions retain a null actor ID when none was recorded, alongside the
+required nonempty method; projection must not invent an actor.
+
+Editorial relation directionality `undirected` projects to public `symmetric`;
+`directed` remains `directed`. Both typed endpoints are preserved. This is a
+serialization mapping, not inference of an inverse or a new lexical relationship.
+
+Entry provenance is the deduplicated accepted evidence supporting its canonical
+written form and POS; sense provenance comes from its accepted definition/gloss
+components. Parent provenance never licenses unaccepted child claims. Quarantined
+`unparsed` passages are excluded. An accepted entry-owned text that cannot be
+represented by the response needs an explicit reviewed reparenting or documented
+omission policy; it must not disappear silently during promotion.
+
+Published region/register and other code vocabularies are finite, versioned pack
+metadata validated before lookup. Identifier syntax alone does not establish
+membership, attestation or geographic hierarchy.

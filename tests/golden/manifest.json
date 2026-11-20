@@ -444,6 +444,34 @@
         "hyphenate_text",
         "wrap_text"
       ]
+    },
+    {
+      "file": "lexicon_lookup.jsonl",
+      "status": "active",
+      "reason": "Activated by owner abish on 2026-11-15 for the data-enabled core profile after real Rust/Python/Node/browser WASM/Dart parity, isolated archive checks and full-corpus performance acceptance. Cargo default data features remain off; no version, crate/registry scope or publishing change.",
+      "operations": [
+        "lexicon_lookup",
+        "lexicon_packs"
+      ],
+      "required_profile": "core"
+    },
+    {
+      "file": "lexicon_gap_recovery.jsonl",
+      "status": "planned",
+      "required_profile": "core",
+      "reason": "Seven source-backed exact-title recovery entries; explicitly exercised for pre-activation review. Activation awaits owner review; not counted as active parity.",
+      "operations": [
+        "lexicon_lookup"
+      ]
+    },
+    {
+      "file": "lexicon_source_records.jsonl",
+      "status": "planned",
+      "reason": "Owner-directed full supplied record explorer; source rights and linguistic claims unresolved. Requires explicit real-runtime review; not active parity.",
+      "operations": [
+        "lexicon_source_bucket",
+        "lexicon_source_lookup"
+      ]
     }
   ]
 }

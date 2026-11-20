@@ -1,0 +1,2 @@
+record_id,snapshot_id,ordinal,physical_line_start,physical_line_end,legacy_key_json,raw_row_sha256
+rec_67949120-2bf7-5c51-aa22-abbe5b456d75,snp_65ce288b-b5aa-58b2-aa6d-3488abe7499e,2,1,42,"""{\""enwikt_pageid\"":4593930,\""enwikt_revid\"":93647113,\""legacy_meanings_ids\"":[\""59633\"",\""59634\"",\""59635\""],\""legacy_word_id\"":\""32793\""}""",d0c85376de17daab66cdce055a36ca1d208dcd0135edfa44856ae31ea6dabbad

@@ -1,0 +1,828 @@
+{
+  "schema": "wiktionary-core-review-packet-v1",
+  "generated_date": "2026-11-14",
+  "status": "pending_human_review_and_license_policy_decision",
+  "accepted_decisions_count": 0,
+  "reuse_state_in_sources_csv": "restricted",
+  "official_license_and_policy_sources": [
+    {
+      "name": "Wikimedia Foundation Terms of Use §7 & §15",
+      "canonical_url": "https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use",
+      "pinned_revid": 598588,
+      "pinned_timestamp": "2026-10-25T01:07:30Z",
+      "local_snapshot": "data/curation/wiktionary-candidate/notices/wikimedia_tou_api.json",
+      "sha256": "c3e0bff8b859941468d6895dff392d893bd13cfae2ea0ae8565db74aaaab1123"
+    },
+    {
+      "name": "English Wiktionary Copyrights Policy",
+      "canonical_url": "https://en.wiktionary.org/wiki/Wiktionary:Copyrights",
+      "pinned_revid": 87545419,
+      "pinned_timestamp": "2025-10-22T20:09:50Z",
+      "local_snapshot": "data/curation/wiktionary-candidate/notices/wiktionary_copyrights_api.json",
+      "sha256": "049a09491de163dc85b77e6f260705bb5e59052c27b4e0f75ea49dd5d3e4fe4c"
+    },
+    {
+      "name": "Creative Commons Attribution-ShareAlike 4.0 International Legal Code",
+      "canonical_url": "https://creativecommons.org/licenses/by-sa/4.0/legalcode.txt",
+      "local_snapshot": "data/curation/wiktionary-candidate/notices/cc_by_sa_4_0_legalcode.txt",
+      "sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5"
+    }
+  ],
+  "proposed_licensing_packaging_model": {
+    "data_license_proposed": "CC-BY-SA-4.0",
+    "code_and_engine_license": "MIT",
+    "separation_rule": "CC-BY-SA-4.0 governs only Wiktionary-derived lexical data/packs; Rust core crates (crates/*), CLI/bindings, and non-Wiktionary code remain MIT.",
+    "unresolved_policy_decisions": [
+      "Approve setting reuse_state=permitted under proposed CC-BY-SA-4.0 data-only pack packaging (with GFDL upstream dual-license notice where applicable and Wikimedia ToU §7 attribution/history links).",
+      "Confirm separate pack packaging boundaries for any distributable CC-BY-SA-4.0 lexicon pack vs MIT runtime engine crates."
+    ]
+  },
+  "source_closure_gaps": [
+    "Historical archived Kaikki snapshot checksum/URL recovery remains blocked (archived snapshot absent/unverified; fresh pinned en.wiktionary.org API snapshots replace it).",
+    "Template/Lua expansions unpinned by page oldid: Module:ta-IPA ({{ta-IPA}}), etymology templates, {{ta-decl}}, {{ux}}, {{syn}}, {{quote-book}}, {{R:...}}, DEDR, and legacy classifications remain excluded.",
+    "All candidate assertions remain automated pending/needs_review (0 accepted_human, 0 accepted_auto_source); literal qualified definitions, POS mappings, multi-gloss senses, and scope labels require explicit human linguistic decision.",
+    "Human reviewer actor_id (format ^[A-Za-z][A-Za-z0-9_.:-]*$) and explicit decision_date + per-claim approve/reject/edit decisions are required before any L2 acceptance or L3 pack build."
+  ],
+  "sensible_early_core_subset_recommendation": {
+    "rationale": "Minimal human-reviewable 5-page / 6-entry set keeping early senses concise for initial Feature 021 L2/L3 pipeline closure while exercising qualifier preservation (arikkai) and single-page multi-POS homograph split (nanri).",
+    "minimal_first_pass_focus": [
+      "1921 அடடா (INTJ, 2 senses)",
+      "3906 அந்நிலை (NOUN, 1 sense)",
+      "8218 அறிக்கை (NOUN, senses 1-4; specifically confirm s3 (written) and s4 (catholicism) scope/text form)",
+      "28857 செப்பம் (NOUN, minimally sense 1 or senses 1-9)",
+      "32793 நன்றி (INTJ 1 sense + NOUN senses 1-2 homograph pair)"
+    ]
+  },
+  "candidate_labels_pending": [
+    {
+      "registry_id": "enwiktionary-ta-qualifiers",
+      "registry_version": "1",
+      "code": "catholicism",
+      "category": "domain",
+      "display_label_json": "Catholicism",
+      "definition_json": "Catholicism religious-domain label preserved literally from pinned {{lb|ta|catholicism}} template; pending human review.",
+      "evidence_reference": "ast_7bc6ae93-e652-5508-a6cb-451ae6fd370c",
+      "parent_code": null
+    },
+    {
+      "registry_id": "enwiktionary-ta-qualifiers",
+      "registry_version": "1",
+      "code": "written",
+      "category": "register",
+      "display_label_json": "written",
+      "definition_json": "Written usage qualifier preserved literally from pinned {{q|written}} template; pending human review.",
+      "evidence_reference": "ast_a10c862d-d53d-5613-87cd-1d6bef2e4176",
+      "parent_code": null
+    }
+  ],
+  "candidate_entries": [
+    {
+      "workspace": "data\\curation\\wiktionary-candidate",
+      "entry_id": "ent_9469d6ba-b9ac-563d-9a16-c5d77397f148",
+      "entry_revision_sha256": "a70e3c7e0b57c57e00b993b9c1bc8e93632c47b452ffa2a05324fbeb6fc99c73",
+      "legacy_word_id": "1921",
+      "headword": "அடடா",
+      "headword_codepoints": [
+        "U+0B85",
+        "U+0B9F",
+        "U+0B9F",
+        "U+0BBE"
+      ],
+      "headword_nfc": true,
+      "headword_assertion_id": "ast_caa07ff5-ba46-5d6a-aff9-8fc611d64212",
+      "headword_claim_revision_sha256": "a8099b8f542c833eb975255b1bf31f02f0e79d465acd403c962a28d3ae31fdf6",
+      "headword_evidence_bundle_sha256": "1b0403a23dbaf6efb5addb191454fce36e9c79920d54883139326d14f6966301",
+      "headword_decision_id": "dec_8ca2ef52-8877-57ae-8772-4c2aec1eff4a",
+      "pos_heading": "===Interjection===",
+      "pos_code": "INTJ",
+      "pos_assertion_id": "ast_dee6f3c3-1cac-57ca-bea3-864de1b45bdf",
+      "pos_claim_revision_sha256": "3db5107085113f9d4ac9efaff95e80850ec72ce6a024dcf8f86cd336cb966de6",
+      "pos_evidence_bundle_sha256": "fa115ca56f8c8c317f29b494de70342e7948fd1d9f40ce9e23e3198f5d2ea699",
+      "pos_decision_id": "dec_bb6313b7-7034-574b-9427-2218296093b3",
+      "source_id": "src_9feaeda1-42d8-547c-9af6-f5c533c20c03",
+      "pageid": 11100687,
+      "revid": 85842017,
+      "revision_timestamp": "2025-08-09T18:54:09Z",
+      "revision_user": "Pixelpito",
+      "wikitext_sha256": "ffa17f0eaa27f7ccf3b6bb55f9e7da0532e7e7f634fa4b9afb993847c609d063",
+      "api_response_sha256": "cbb0090456c4bd19375cd8096e06ea5029ad397920dfb8fee07c62ffda923c2c",
+      "permalink_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%85%E0%AE%9F%E0%AE%9F%E0%AE%BE&oldid=85842017",
+      "history_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%85%E0%AE%9F%E0%AE%9F%E0%AE%BE&action=history",
+      "api_url": "https://en.wiktionary.org/w/api.php?action=query&prop=revisions&revids=85842017&rvprop=ids%7Ctimestamp%7Cuser%7Ccomment%7Csha1%7Csize%7Ccontent&rvslots=main&format=json&formatversion=2",
+      "reuse_state": "restricted",
+      "reuse_basis": "CC-BY-SA-4.0 (proposed; upstream dual-licensed CC-BY-SA-4.0/GFDL; ShareAlike & attribution policy clearance pending L3 review)",
+      "excluded_line_count": 12,
+      "excluded_categories": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "senses": [
+        {
+          "sense_id": "sen_ea2a4fec-432f-5169-b87b-6da425f40134",
+          "ordinal": 1,
+          "component": "gloss",
+          "raw_wikitext_line": "# {{ng|an exclamation of [[surprise]].}}",
+          "line_number": 14,
+          "candidate_text": "an exclamation of surprise.",
+          "text_id": "txt_3a52b7bf-0616-5ad9-87b7-aba15c87e3fc",
+          "assertion_id": "ast_4ffcad28-9a6c-56eb-9a84-29dec5a2d12d",
+          "claim_revision_sha256": "bf803fcce449ca925c8f3632be4089f6d7ed2e192429d7e7c93430edd57856a7",
+          "evidence_bundle_sha256": "059dc16a55cc55654840cea67cb929a7f23df93dd12e97275c0e6d1be1fe9576",
+          "decision_id": "dec_290d9d11-1304-52cc-a072-8593d789f1c6",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "NG_TEMPLATE_UNWRAPPED_AND_TRAILING_PUNCTUATION_UNEDITED",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_75717b2b-97de-58b6-aace-0d92381376ca",
+          "ordinal": 2,
+          "component": "gloss",
+          "raw_wikitext_line": "# {{ng|an exclamation of [[vexation]], [[grief]], [[pity]], [[regret]].}}",
+          "line_number": 15,
+          "candidate_text": "an exclamation of vexation, grief, pity, regret.",
+          "text_id": "txt_1f7ccb5e-2d79-516e-9038-040eac8e2f4e",
+          "assertion_id": "ast_c8563f42-c884-54b5-b4ee-630373da5e53",
+          "claim_revision_sha256": "8d457238f7e12a8aa9d014cb715bae401f3fd2952a23c95c6250f042aa2a9b54",
+          "evidence_bundle_sha256": "45c22f6103d09633e84fa37f7237b0740320cb6625180e00bddc20f492b7e34b",
+          "decision_id": "dec_2cbef4e2-c083-5111-9689-389184c2270a",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "NG_TEMPLATE_UNWRAPPED_AND_TRAILING_PUNCTUATION_UNEDITED",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        }
+      ]
+    },
+    {
+      "workspace": "data\\curation\\wiktionary-candidate",
+      "entry_id": "ent_9cbc0af9-5299-543f-8e6f-288b9e4d6424",
+      "entry_revision_sha256": "d1950f68226115f29b9341b2584ba15785bf8cd5b18c5df2ad77ec6ef0dab4f5",
+      "legacy_word_id": "3906",
+      "headword": "அந்நிலை",
+      "headword_codepoints": [
+        "U+0B85",
+        "U+0BA8",
+        "U+0BCD",
+        "U+0BA8",
+        "U+0BBF",
+        "U+0BB2",
+        "U+0BC8"
+      ],
+      "headword_nfc": true,
+      "headword_assertion_id": "ast_1c2d7143-f154-5703-8291-76b4727f5948",
+      "headword_claim_revision_sha256": "27393d8a7f2fee6e33bf5a7e351bf3e68269d7f47563a910aed15b96e1f992af",
+      "headword_evidence_bundle_sha256": "213017ee52a4c8aba14af8753ba18fba0c24342d882ca5b79e5cef86fb82bfb6",
+      "headword_decision_id": "dec_de2ca1ba-3baf-58d4-b080-d138209fb696",
+      "pos_heading": "===Noun===",
+      "pos_code": "NOUN",
+      "pos_assertion_id": "ast_429209cd-e65f-5689-b396-92150a3781cd",
+      "pos_claim_revision_sha256": "e8927e292f1abbe9eaf46d01f855485bd9b4bef6b8bed04989c686f04efb7724",
+      "pos_evidence_bundle_sha256": "52503d419f94f7dd79bf484070ceb24e5c414de38cc9ca78632d66b59263c7b5",
+      "pos_decision_id": "dec_e002ee99-1a4f-5337-9697-8b92c194a35d",
+      "source_id": "src_2b7f1069-5437-5079-ac9a-77778e972340",
+      "pageid": 7769127,
+      "revid": 89903937,
+      "revision_timestamp": "2026-03-20T08:41:52Z",
+      "revision_user": "Pixelpito",
+      "wikitext_sha256": "527c5be08b52b9db426a1da8fb5b143e4faebb310be12375995a4d4392ecefa3",
+      "api_response_sha256": "1ea97c546b67963a757179143807f25338318f54fb4c6a07202af2c03568f0af",
+      "permalink_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%85%E0%AE%A8%E0%AF%8D%E0%AE%A8%E0%AE%BF%E0%AE%B2%E0%AF%88&oldid=89903937",
+      "history_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%85%E0%AE%A8%E0%AF%8D%E0%AE%A8%E0%AE%BF%E0%AE%B2%E0%AF%88&action=history",
+      "api_url": "https://en.wiktionary.org/w/api.php?action=query&prop=revisions&revids=89903937&rvprop=ids%7Ctimestamp%7Cuser%7Ccomment%7Csha1%7Csize%7Ccontent&rvslots=main&format=json&formatversion=2",
+      "reuse_state": "restricted",
+      "reuse_basis": "CC-BY-SA-4.0 (proposed; upstream dual-licensed CC-BY-SA-4.0/GFDL; ShareAlike & attribution policy clearance pending L3 review)",
+      "excluded_line_count": 12,
+      "excluded_categories": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "senses": [
+        {
+          "sense_id": "sen_b074cf21-c6a1-5fff-8bdd-539375007d04",
+          "ordinal": 1,
+          "component": "definition",
+          "raw_wikitext_line": "# [[that]] [[moment]]",
+          "line_number": 14,
+          "candidate_text": "that moment",
+          "text_id": "txt_c67c843a-042b-5751-8c55-4c80e8e1bde1",
+          "assertion_id": "ast_fa1a7419-7fd2-5166-80f4-d0c6225e3a1f",
+          "claim_revision_sha256": "36afa48898b7b6e9d33e279e325f2e1fc78fc41d8327afd75716e20421f0f0b3",
+          "evidence_bundle_sha256": "66f96189e1261873965924567cf740cfc7cd00a8907270755c6c3a0fb172a635",
+          "decision_id": "dec_1e045000-a8ef-5236-a3c8-6a2e888416ba",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "unknown",
+          "pending_reasons": [
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        }
+      ]
+    },
+    {
+      "workspace": "data\\curation\\wiktionary-candidate",
+      "entry_id": "ent_5e50b59e-3d35-52af-a248-fd4a0de475de",
+      "entry_revision_sha256": "9ea09631faf2ac5bcd5ae349815642cdf6bb4a42634fd3f97cbfb253814e8b7d",
+      "legacy_word_id": "8218",
+      "headword": "அறிக்கை",
+      "headword_codepoints": [
+        "U+0B85",
+        "U+0BB1",
+        "U+0BBF",
+        "U+0B95",
+        "U+0BCD",
+        "U+0B95",
+        "U+0BC8"
+      ],
+      "headword_nfc": true,
+      "headword_assertion_id": "ast_a4597b3d-2c6c-54b6-86bb-c19e33f5b21c",
+      "headword_claim_revision_sha256": "ad8bee45176ac95aef6b139001f3a5a081572179173f7c960dc2866173dce3ea",
+      "headword_evidence_bundle_sha256": "160aa7782b27137c8734480c7ac5acc8af9f9a6e9608f1e834111af28e0e2059",
+      "headword_decision_id": "dec_c68e9dee-2ef9-5b20-a69c-5911d55b101a",
+      "pos_heading": "===Noun===",
+      "pos_code": "NOUN",
+      "pos_assertion_id": "ast_ab7bb9c7-d672-5347-a7b9-e578cf07e411",
+      "pos_claim_revision_sha256": "54368e9db8b695ae238ce491e94074b2bc8d5dba3b6851c64cd6b65c127a5908",
+      "pos_evidence_bundle_sha256": "342f9e36c41b61f0f4bf058ccc46d99e508eac86909dc59a0c9f63420ea765bf",
+      "pos_decision_id": "dec_5bc482c9-22f3-5858-af46-49dc0027c692",
+      "source_id": "src_2f067835-ab2f-5e90-99a1-51e19822a4a3",
+      "pageid": 9685129,
+      "revid": 88382210,
+      "revision_timestamp": "2025-12-05T06:44:33Z",
+      "revision_user": "~2025-38205-63",
+      "wikitext_sha256": "8bf77bf23d7c241f236575fcff535bc24d71d00287e288ab4d2238f857ccbed8",
+      "api_response_sha256": "4c0e2de40110d99d6bc40c36c45c4cec8db09ddc9bf44a016b35a41ca795249e",
+      "permalink_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%85%E0%AE%B1%E0%AE%BF%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AF%88&oldid=88382210",
+      "history_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%85%E0%AE%B1%E0%AE%BF%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AF%88&action=history",
+      "api_url": "https://en.wiktionary.org/w/api.php?action=query&prop=revisions&revids=88382210&rvprop=ids%7Ctimestamp%7Cuser%7Ccomment%7Csha1%7Csize%7Ccontent&rvslots=main&format=json&formatversion=2",
+      "reuse_state": "restricted",
+      "reuse_basis": "CC-BY-SA-4.0 (proposed; upstream dual-licensed CC-BY-SA-4.0/GFDL; ShareAlike & attribution policy clearance pending L3 review)",
+      "excluded_line_count": 16,
+      "excluded_categories": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "senses": [
+        {
+          "sense_id": "sen_d2b06f5a-95d4-5c51-b375-44a18136c2ec",
+          "ordinal": 1,
+          "component": "definition",
+          "raw_wikitext_line": "# [[notice]]",
+          "line_number": 13,
+          "candidate_text": "notice",
+          "text_id": "txt_b5b047d7-2a91-54ff-9217-ff3f6f3c45a8",
+          "assertion_id": "ast_8303bcab-041b-5645-9bb9-b5f56efc01ff",
+          "claim_revision_sha256": "519fb28b5ea463f30c1c261ab92848af83ca0300c0ab63a6e102c1c4009a0a8e",
+          "evidence_bundle_sha256": "3767979199e82b53d3baac4302b12ad966de609036024d338d4c7ac7bc721429",
+          "decision_id": "dec_f55fac91-9bbf-5f7c-b0cd-f417d579d7cd",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "unknown",
+          "pending_reasons": [
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_13f405ce-a43b-56ac-9b2f-7e0d476cce5b",
+          "ordinal": 2,
+          "component": "definition",
+          "raw_wikitext_line": "# [[report]]; an [[account]] of [[event]]s",
+          "line_number": 15,
+          "candidate_text": "report; an account of events",
+          "text_id": "txt_0db7c2e7-03b2-557b-b2f9-d1465e6fcef6",
+          "assertion_id": "ast_e60b0ffd-22d4-5e10-9cc8-93a04537c986",
+          "claim_revision_sha256": "46905ab888ab1e555e0e80a86a64c37a163459b502049ab5074000a71d2bc35b",
+          "evidence_bundle_sha256": "ae3ac8c7649c90a6239c7b5010a6b82385a4c22b3769609eb68194a3ca267429",
+          "decision_id": "dec_a90faef9-e178-5be7-a1ed-83f9e5e5e27e",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "POSTFIX_INFLECTION_OUTSIDE_WIKILINK",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_64d6c824-9c3d-52bf-abae-78e9c5d9ff3c",
+          "ordinal": 3,
+          "component": "definition",
+          "raw_wikitext_line": "# {{q|written}} [[appeal]]; [[announcement]]",
+          "line_number": 16,
+          "candidate_text": "(written) appeal; announcement",
+          "text_id": "txt_61630435-ebc8-5d61-b2e6-c3dcb745bab2",
+          "assertion_id": "ast_560c194e-bc99-56ff-915e-e9f9f7c6cf8e",
+          "claim_revision_sha256": "8dbbc0ce3ff37072fb93d0bb9a60eaf46b0f69979adeafd4959af1b72fa2c477",
+          "evidence_bundle_sha256": "d2a6bdc350157b5ba51ffc28f89382a3c1d98f8eb416cd21efe73565c77ec915",
+          "decision_id": "dec_0f8869da-24d1-53cf-9406-2163087613a2",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "QUALIFIER_TEMPLATE_REQUIRES_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [
+            {
+              "code": "written",
+              "definition": "Written usage qualifier preserved literally from pinned {{q|written}} template; pending human review.",
+              "dimension": "register",
+              "display_label": "written",
+              "raw_template": "{{q|written}}",
+              "scope_proposal_assertion_id": "ast_a10c862d-d53d-5613-87cd-1d6bef2e4176",
+              "scope_proposal_decision_id": "dec_9353d015-90c6-564e-ae0d-a0695341ec01",
+              "scope_state_until_reviewed": "unknown"
+            }
+          ],
+          "v1_to_v2_changes": [
+            {
+              "change_id": "chg_f99d3bf6-f207-5d0b-b6fb-a9d0700b1c77",
+              "subject_id": "txt_61630435-ebc8-5d61-b2e6-c3dcb745bab2",
+              "old_assertion_id": "ast_fe25618c-674e-58cf-9cda-ac8e65aa0ef7",
+              "new_assertion_id": "ast_560c194e-bc99-56ff-915e-e9f9f7c6cf8e",
+              "reason_json": "Preserved raw qualifier/label template literally in wiktionary-candidate-v2 after v1 stripped source scope.",
+              "evidence_reference": "ast_560c194e-bc99-56ff-915e-e9f9f7c6cf8e",
+              "decision_id": "dec_0f8869da-24d1-53cf-9406-2163087613a2",
+              "inverse_change_id": null
+            }
+          ]
+        },
+        {
+          "sense_id": "sen_28f47fad-a25a-5f7b-8a52-d80aecf26084",
+          "ordinal": 4,
+          "component": "definition",
+          "raw_wikitext_line": "# {{lb|ta|catholicism}} [[confession]]",
+          "line_number": 18,
+          "candidate_text": "(catholicism) confession",
+          "text_id": "txt_42a3e955-b4e7-51bc-a533-d34db434abc3",
+          "assertion_id": "ast_1227cd3b-3c12-5a85-baeb-d5bd14bf9d99",
+          "claim_revision_sha256": "d9afdd576d555a8b773b663ceb61947d38b243701b9750944d540bd50e1ef41a",
+          "evidence_bundle_sha256": "dc29472dde69f8c4a3298f90331921ca2938d6209d41bcc1d1e9e47ff8814cea",
+          "decision_id": "dec_c4bfc488-3010-5c6a-9bd0-3eeaca64f93a",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "LABEL_TEMPLATE_REQUIRES_REVIEW",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [
+            {
+              "code": "catholicism",
+              "definition": "Catholicism religious-domain label preserved literally from pinned {{lb|ta|catholicism}} template; pending human review.",
+              "dimension": "domain",
+              "display_label": "Catholicism",
+              "raw_template": "{{lb|ta|catholicism}}",
+              "scope_proposal_assertion_id": "ast_7bc6ae93-e652-5508-a6cb-451ae6fd370c",
+              "scope_proposal_decision_id": "dec_249cee79-0e92-5d49-a14a-4e47b65efab4",
+              "scope_state_until_reviewed": "unknown"
+            }
+          ],
+          "v1_to_v2_changes": [
+            {
+              "change_id": "chg_29b06b08-8151-562a-938e-cd4b1cbd721a",
+              "subject_id": "txt_42a3e955-b4e7-51bc-a533-d34db434abc3",
+              "old_assertion_id": "ast_90a3b38c-927b-5ec0-a9d7-1eb9963062b4",
+              "new_assertion_id": "ast_1227cd3b-3c12-5a85-baeb-d5bd14bf9d99",
+              "reason_json": "Preserved raw qualifier/label template literally in wiktionary-candidate-v2 after v1 stripped source scope.",
+              "evidence_reference": "ast_1227cd3b-3c12-5a85-baeb-d5bd14bf9d99",
+              "decision_id": "dec_c4bfc488-3010-5c6a-9bd0-3eeaca64f93a",
+              "inverse_change_id": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workspace": "data\\curation\\wiktionary-candidate",
+      "entry_id": "ent_b52ae202-3f3a-5538-9db1-51b82d92d78f",
+      "entry_revision_sha256": "a59b910d7ef7a611c2a46db4744c17cf082ad02565f90a430a5cff997dc7d9ae",
+      "legacy_word_id": "28857",
+      "headword": "செப்பம்",
+      "headword_codepoints": [
+        "U+0B9A",
+        "U+0BC6",
+        "U+0BAA",
+        "U+0BCD",
+        "U+0BAA",
+        "U+0BAE",
+        "U+0BCD"
+      ],
+      "headword_nfc": true,
+      "headword_assertion_id": "ast_3f1023c6-13dc-51c6-a097-0f006af44d92",
+      "headword_claim_revision_sha256": "53506f718ab0574268f2316e1720f43314f3776105a1b1d901689d1b18f1209a",
+      "headword_evidence_bundle_sha256": "e8fcf8d3a6bb9bcdb88db7268c6971cc5bb5176f67b61083771506f4b682b3d4",
+      "headword_decision_id": "dec_d0b06985-a216-5ad9-bcf2-7cc000815a3b",
+      "pos_heading": "===Noun===",
+      "pos_code": "NOUN",
+      "pos_assertion_id": "ast_a3813180-4ffb-5826-860f-076b0897c4cb",
+      "pos_claim_revision_sha256": "ad736a027d0a2883ab29a95d0e9c5dba53ac4386874b7f9eb29c55dc939f89ff",
+      "pos_evidence_bundle_sha256": "b43ca89ca9aee02ec2d8d6e9e1a3bf5f79a456d887a405084ecd9dc369b57ac5",
+      "pos_decision_id": "dec_46dae6d3-20c9-5a96-8316-a69731d27858",
+      "source_id": "src_5487700e-9258-5179-ac23-19dce7123368",
+      "pageid": 7902117,
+      "revid": 61485513,
+      "revision_timestamp": "2021-01-04T16:15:52Z",
+      "revision_user": "Hk5183",
+      "wikitext_sha256": "844ff53b3d33176f07d8a92189b3b08f23ce5cb259fbea9f27581d0e66f1846e",
+      "api_response_sha256": "6934755c5194cd9fff0e1335bbecdedc9ef0873941e056b601d83fd19dd9c895",
+      "permalink_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%9A%E0%AF%86%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%AE%E0%AF%8D&oldid=61485513",
+      "history_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%9A%E0%AF%86%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%AE%E0%AF%8D&action=history",
+      "api_url": "https://en.wiktionary.org/w/api.php?action=query&prop=revisions&revids=61485513&rvprop=ids%7Ctimestamp%7Cuser%7Ccomment%7Csha1%7Csize%7Ccontent&rvslots=main&format=json&formatversion=2",
+      "reuse_state": "restricted",
+      "reuse_basis": "CC-BY-SA-4.0 (proposed; upstream dual-licensed CC-BY-SA-4.0/GFDL; ShareAlike & attribution policy clearance pending L3 review)",
+      "excluded_line_count": 10,
+      "excluded_categories": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "senses": [
+        {
+          "sense_id": "sen_a21b830b-21fe-5221-a4b6-4de23a906431",
+          "ordinal": 1,
+          "component": "definition",
+          "raw_wikitext_line": "# [[straightness]], [[correctness]], [[exactness]], [[smoothness]], [[uprightness]]",
+          "line_number": 12,
+          "candidate_text": "straightness, correctness, exactness, smoothness, uprightness",
+          "text_id": "txt_250c172c-329f-59e1-b930-9f25ab18b70c",
+          "assertion_id": "ast_71b11ddc-01b3-5061-acc4-010229d79957",
+          "claim_revision_sha256": "48437ecb8d581bcd8d1512983155f1062415a8923b3f0737027c4c4a9f88102e",
+          "evidence_bundle_sha256": "295a2f6f309c9a74bcee8eba26e2f37efbc6f5f6d262b9556043be79e080d2ea",
+          "decision_id": "dec_ee8fcc89-8a39-5bad-968f-79a078778aaa",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_3b27a4ef-ed80-5e24-9a79-c8a5b68fcbea",
+          "ordinal": 2,
+          "component": "definition",
+          "raw_wikitext_line": "# [[impartiality]], [[evenness]], [[equity]]",
+          "line_number": 13,
+          "candidate_text": "impartiality, evenness, equity",
+          "text_id": "txt_b3796bb5-97d5-509b-9a9e-a89d3e589bfb",
+          "assertion_id": "ast_37c5bf98-9ff2-5625-9cf7-9874c28e6bf7",
+          "claim_revision_sha256": "89328b4c2fe2235a86b7abf17bb1c1fee121c94c5ad2957517c2ccf62f5c0827",
+          "evidence_bundle_sha256": "b55987a8700f3a42d95ad7c5373c9284381f4123b68f209b4c7d2162b8ecee66",
+          "decision_id": "dec_06a1b2c9-fb1a-510e-8be8-020b15e6b739",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_de5841c5-2b10-591c-86d6-732bd721b067",
+          "ordinal": 3,
+          "component": "definition",
+          "raw_wikitext_line": "# [[repair]], [[renewal]]",
+          "line_number": 14,
+          "candidate_text": "repair, renewal",
+          "text_id": "txt_0305d69a-56a1-570d-8209-2d8e1195f9da",
+          "assertion_id": "ast_f237dcfb-321b-5b66-b14b-d0b724b181af",
+          "claim_revision_sha256": "7ef2ac58b65fd263a651850b734175f368cd49227585470cb12a313104cd0af4",
+          "evidence_bundle_sha256": "27fe1fc4b4c4133f3963c31b2439cd7cdd80dddeb40a43ade2a7c26d45ef66a4",
+          "decision_id": "dec_142c86d5-0f9d-58a3-8d03-19702397da32",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_f927f96b-c86d-5d6c-88ab-939af448e25e",
+          "ordinal": 4,
+          "component": "definition",
+          "raw_wikitext_line": "# [[preparedness]], [[fitness]]",
+          "line_number": 15,
+          "candidate_text": "preparedness, fitness",
+          "text_id": "txt_d9fafdb2-fd60-5120-a3b5-a2f5c15550c4",
+          "assertion_id": "ast_ebd55d0f-87c3-52d4-b600-051338074731",
+          "claim_revision_sha256": "611a637194b618e1222e8663b435e8c08fd0303113ac420b05111c678e52afbd",
+          "evidence_bundle_sha256": "8357781ba61bda82054c59863f906574f3c0e36153e8634ac1291018d1f6b665",
+          "decision_id": "dec_def18733-b236-5e3c-83a4-267b4d95ff2e",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_9f578697-944c-5d42-b05f-4c35b3e501d2",
+          "ordinal": 5,
+          "component": "definition",
+          "raw_wikitext_line": "# [[protection]]",
+          "line_number": 16,
+          "candidate_text": "protection",
+          "text_id": "txt_b5cee524-eeca-5b88-9ce6-dad0533ca946",
+          "assertion_id": "ast_af54d74b-feb7-513e-9837-81c463971633",
+          "claim_revision_sha256": "c1e7628fdbb72c08e6f398b3298651fafa0967f68a1b2a063f6f97c1c8c3bf49",
+          "evidence_bundle_sha256": "779467844dd2a28297a30641ccd952e92e63ffc16170be794d3033b052e63993",
+          "decision_id": "dec_9bc06a1e-327b-58d4-a202-7a9d59ae4b3c",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "unknown",
+          "pending_reasons": [
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_3b213234-7be9-55a4-8ab5-917bcc682de5",
+          "ordinal": 6,
+          "component": "definition",
+          "raw_wikitext_line": "# [[straight]] [[path]]",
+          "line_number": 17,
+          "candidate_text": "straight path",
+          "text_id": "txt_ed8c3e24-30cb-5bf2-8e94-c60531ac78b0",
+          "assertion_id": "ast_59b994c7-7085-5d90-9c71-42d97ced2027",
+          "claim_revision_sha256": "53f0fa2109db6772f7ac25db69f00cc4ba35e4601e852a65db21e40d51513e3c",
+          "evidence_bundle_sha256": "24cde1582bf8609406293c5c7a19f3d39f42b98e3146e1ef459f736b8e75ad11",
+          "decision_id": "dec_823a78a1-6e3a-51f1-a9a8-72b58def2040",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "unknown",
+          "pending_reasons": [
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_585d0207-9d60-5fd9-a98e-5e186b05e870",
+          "ordinal": 7,
+          "component": "definition",
+          "raw_wikitext_line": "# [[street]]",
+          "line_number": 18,
+          "candidate_text": "street",
+          "text_id": "txt_5ad35c86-b983-59eb-b83c-f8287166c90a",
+          "assertion_id": "ast_67afd4dc-4bb0-517c-b07b-4514e0c5d86b",
+          "claim_revision_sha256": "e54660a865acc8b173e506f6b0afe5e7592e2e025cd0fcaae5357c560472d15f",
+          "evidence_bundle_sha256": "2acc83a7845fbaa1655cf4a0f01fbd10492e246a4fa051456a57e3f1d16a0556",
+          "decision_id": "dec_ee1b2ea8-afea-54dd-a57a-65dcb048deee",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "unknown",
+          "pending_reasons": [
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_dd7d2cbe-c589-50fa-a905-ca2ff4f65694",
+          "ordinal": 8,
+          "component": "definition",
+          "raw_wikitext_line": "# [[heart]]",
+          "line_number": 19,
+          "candidate_text": "heart",
+          "text_id": "txt_29992dd2-0ff7-5fbd-a454-af158b548f9d",
+          "assertion_id": "ast_ac725863-bb6c-50d9-8a9f-2967112affa2",
+          "claim_revision_sha256": "c17de83cf1331bae32908f5ba74b9e0db7d74a3d903b8cd3953f4c52c2bbfb4b",
+          "evidence_bundle_sha256": "7274ba33b095b916bd4538c41343305a680ab635f42cb26ffd5fe4c5757d8718",
+          "decision_id": "dec_2c89a3ff-894a-54ff-a3c0-d236adbf796b",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "unknown",
+          "pending_reasons": [
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_0e84d481-917c-5472-8f7c-abdf764e64f5",
+          "ordinal": 9,
+          "component": "definition",
+          "raw_wikitext_line": "# [[satisfaction]], [[agreeableness]]",
+          "line_number": 20,
+          "candidate_text": "satisfaction, agreeableness",
+          "text_id": "txt_6f9301b0-6eba-5355-9d8a-61394a91c1f3",
+          "assertion_id": "ast_b8ea41ef-e9ba-5127-ad92-e6a0d8f69e50",
+          "claim_revision_sha256": "87f7888d687dbc56cc98c54306f45f14721862fd010d907c3bfdd281427fe39c",
+          "evidence_bundle_sha256": "1f699f13577c2c656cbb09bdd49543d02db3ef61c275c3d91739074627673156",
+          "decision_id": "dec_92af80a6-689a-5952-9a05-6107ed3c93a5",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        }
+      ]
+    }
+  ],
+  "homograph_entries": [
+    {
+      "workspace": "data\\curation\\wiktionary-homograph-candidate",
+      "entry_id": "ent_f063763c-36ac-55c6-b288-8da7f9ab6fff",
+      "entry_revision_sha256": "526a2bb46b0e3865456bc324bf8bbd612ffddfb656d781643ad83efd69385c64",
+      "legacy_word_id": "32793",
+      "headword": "நன்றி",
+      "headword_codepoints": [
+        "U+0BA8",
+        "U+0BA9",
+        "U+0BCD",
+        "U+0BB1",
+        "U+0BBF"
+      ],
+      "headword_nfc": true,
+      "headword_assertion_id": "ast_dfcda0e1-9e2f-5f9a-8995-503bda38f738",
+      "headword_claim_revision_sha256": "963ab871a1dc5796910c6501d7474b755362330c4edd7e3754f20f3fa8f0575e",
+      "headword_evidence_bundle_sha256": "528b00923aec87e5fdaab072412d1092abac394d8e21a76e70a54c0c461b4ca1",
+      "headword_decision_id": "dec_695abf3f-bea9-58e8-848e-c36f9c338511",
+      "pos_heading": "===Interjection===",
+      "pos_code": "INTJ",
+      "pos_assertion_id": "ast_98d03e35-bb49-5699-8cea-7a915788fff4",
+      "pos_claim_revision_sha256": "9e154b947d670f2dff68cbbaead2f5204853875dda914dec44ec6379f4c0f835",
+      "pos_evidence_bundle_sha256": "be448647968f7b99668c2818b0f25bdd53a9585e94b4b692eae10e12f676eaf4",
+      "pos_decision_id": "dec_2da80ec1-05e1-57d8-bf2f-82f85309bef2",
+      "source_id": "src_4cb39d90-06c5-59e2-a1bc-489d7d6a234c",
+      "pageid": 4593930,
+      "revid": 93647113,
+      "revision_timestamp": "2026-10-17T21:53:52Z",
+      "revision_user": "FenaBot",
+      "wikitext_sha256": "d0c85376de17daab66cdce055a36ca1d208dcd0135edfa44856ae31ea6dabbad",
+      "api_response_sha256": "45c7c96b07034397c0ef1428b6c068d607e15161d83564b5fa44628b7d9dc2e8",
+      "permalink_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%BF&oldid=93647113",
+      "history_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%BF&action=history",
+      "api_url": "https://en.wiktionary.org/w/api.php?action=query&prop=revisions&titles=%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%BF&rvprop=ids%7Ctimestamp%7Cuser%7Ccomment%7Ccontent&rvslots=main&rvlimit=15&format=json&formatversion=2",
+      "reuse_state": "restricted",
+      "reuse_basis": "CC-BY-SA-4.0 (proposed; upstream dual-licensed CC-BY-SA-4.0/GFDL; ShareAlike & attribution policy clearance pending L3 review)",
+      "excluded_line_count": 23,
+      "excluded_categories": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "senses": [
+        {
+          "sense_id": "sen_4ccafa9b-eb17-53a8-a571-69e0a63dc992",
+          "ordinal": 1,
+          "component": "definition",
+          "raw_wikitext_line": "# [[thanks]], [[thank you]]",
+          "line_number": 18,
+          "candidate_text": "thanks, thank you",
+          "text_id": "txt_5547f5a6-fa7e-54e3-98a9-223fa93f6757",
+          "assertion_id": "ast_b6b9fee7-db6e-5b54-aa33-b7270003280c",
+          "claim_revision_sha256": "394ff9886619b557fa68662a50129db76b0e83c6e69ef82d46ae18b58367a356",
+          "evidence_bundle_sha256": "1ebfa592527215c294cbb338e36045370d56aac26f4219148ed8e21487a22975",
+          "decision_id": "dec_3692f779-f50b-5aa2-933e-972e9552bb87",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        }
+      ]
+    },
+    {
+      "workspace": "data\\curation\\wiktionary-homograph-candidate",
+      "entry_id": "ent_a08297c3-424d-5a37-aaf0-4135d7476669",
+      "entry_revision_sha256": "7cacc794fc4be56aba14d196211e0c92a8935cba139c8018390792d02c64d5d2",
+      "legacy_word_id": "32793",
+      "headword": "நன்றி",
+      "headword_codepoints": [
+        "U+0BA8",
+        "U+0BA9",
+        "U+0BCD",
+        "U+0BB1",
+        "U+0BBF"
+      ],
+      "headword_nfc": true,
+      "headword_assertion_id": "ast_1b690444-c35d-5759-b14e-60e8ac20f536",
+      "headword_claim_revision_sha256": "275c821c854855bab9272dca85ec2f30eee8c39322777b7809189c4db5f1b630",
+      "headword_evidence_bundle_sha256": "2958c856e9a2e85a4b634716411b291ea800ac65bab6f3207b23fbc6424f76ea",
+      "headword_decision_id": "dec_c656b49a-8a12-5264-925d-b78031a5e6cd",
+      "pos_heading": "===Noun===",
+      "pos_code": "NOUN",
+      "pos_assertion_id": "ast_873332a2-3011-58bd-a2d8-a89708190dbd",
+      "pos_claim_revision_sha256": "8dca4bc7f8d9f6675dca30f90e25676f4a0d650ba4a3b701573eb7a98e5ea32c",
+      "pos_evidence_bundle_sha256": "1eb82eaca26d2e734f1be86e5bea32376378f5fee34ecdf85dac29a3c80e2651",
+      "pos_decision_id": "dec_1f9240f5-1158-5041-9f0d-5e4b3887c07a",
+      "source_id": "src_4cb39d90-06c5-59e2-a1bc-489d7d6a234c",
+      "pageid": 4593930,
+      "revid": 93647113,
+      "revision_timestamp": "2026-10-17T21:53:52Z",
+      "revision_user": "FenaBot",
+      "wikitext_sha256": "d0c85376de17daab66cdce055a36ca1d208dcd0135edfa44856ae31ea6dabbad",
+      "api_response_sha256": "45c7c96b07034397c0ef1428b6c068d607e15161d83564b5fa44628b7d9dc2e8",
+      "permalink_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%BF&oldid=93647113",
+      "history_url": "https://en.wiktionary.org/w/index.php?title=%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%BF&action=history",
+      "api_url": "https://en.wiktionary.org/w/api.php?action=query&prop=revisions&titles=%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%B1%E0%AE%BF&rvprop=ids%7Ctimestamp%7Cuser%7Ccomment%7Ccontent&rvslots=main&rvlimit=15&format=json&formatversion=2",
+      "reuse_state": "restricted",
+      "reuse_basis": "CC-BY-SA-4.0 (proposed; upstream dual-licensed CC-BY-SA-4.0/GFDL; ShareAlike & attribution policy clearance pending L3 review)",
+      "excluded_line_count": 23,
+      "excluded_categories": [
+        "phonetic_transcription / {{ta-IPA}} (Module:ta-IPA unpinned by oldid; known historical drift)",
+        "etymology ({{ety}}, {{com}}, {{af}}, {{suf}}, {{m}}) & synthetic proto-forms (*aṯ-V-, *PDr-2747)",
+        "DEDR citations (DEDR 314, DEDR 2747) & external reference templates ({{R:TAL}}, {{R:Cre-A 1992}}, {{R:Winslow}})",
+        "usage examples ({{ux}}), quotations ({{quote-book}}), audio ({{audio}}), synonyms ({{syn}}), declension ({{ta-decl}}), derived terms ({{col}}/{{col3}}), categories ({{C}}/{{cln}})",
+        "unverified legacy grammar/domain/region classifications from external snapshot"
+      ],
+      "senses": [
+        {
+          "sense_id": "sen_0b8e7d9e-d369-5dd8-a905-47ed39c673c6",
+          "ordinal": 1,
+          "component": "definition",
+          "raw_wikitext_line": "# [[help]], [[kindness]], [[benefit]], [[favour]]",
+          "line_number": 23,
+          "candidate_text": "help, kindness, benefit, favour",
+          "text_id": "txt_d4367808-d549-5d44-b4cc-1f793f80d6b3",
+          "assertion_id": "ast_8ae52e6f-c478-5c99-8d9d-8eaa27408fc4",
+          "claim_revision_sha256": "0e2eb18f2315f593910a848deb0d02f78f845f748546111253ef54d063d12f96",
+          "evidence_bundle_sha256": "c1da772548c7218beb35bcdb0c30350fda48063f2b5b14822dd3ced99e5813d7",
+          "decision_id": "dec_875cf01c-3fd0-51d7-ad75-ca9f93071a05",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        },
+        {
+          "sense_id": "sen_bf8afb40-f31a-5e1e-bd37-7c515bbfbfb7",
+          "ordinal": 2,
+          "component": "definition",
+          "raw_wikitext_line": "# [[gratitude]], [[gratefulness]]",
+          "line_number": 26,
+          "candidate_text": "gratitude, gratefulness",
+          "text_id": "txt_3ec54084-a50a-5908-a739-d83f7f9698d2",
+          "assertion_id": "ast_ab0270e5-52a1-5d4f-8c57-907b80324f6f",
+          "claim_revision_sha256": "c4306dc396a94f94f481fddb33fd68f008e5ec97f9724988d1c3eef453a0f946",
+          "evidence_bundle_sha256": "b25b1befdf95e7c779c8bce2f712a77f007c588bdfa676ba85812fae56af4579",
+          "decision_id": "dec_26a398c6-5429-5349-a760-a40c3b967f69",
+          "decision_outcome": "needs_review",
+          "ambiguity_state": "ambiguous",
+          "pending_reasons": [
+            "MULTI_GLOSS_OR_COMPOUND_CLAUSE_SENSE",
+            "PENDING_GENUINE_HUMAN_REVIEW",
+            "WIKILINK_MARKUP_UNWRAPPED"
+          ],
+          "qualifiers": [],
+          "v1_to_v2_changes": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "gaps": [
+    {
+      "description": "intake.schema.json enforces ordinal >= 2 (assuming line 1 CSV header) and unique (snapshot_id, ordinal). Single-page wikitext snapshots have no CSV header, so ordinal=2 is recorded for the whole pinned wikitext revision file while line spans record 1..N.",
+      "id": "GAP_SOURCE_RECORDS_NON_CSV_ORDINAL",
+      "table": "source_records"
+    },
+    {
+      "description": "intake.schema.json has no dedicated columns for MediaWiki pageid, revid, revision_timestamp, wikitext_sha256, permalink_url, history_url, or dual-license notice (GFDL). These are stored deterministically in edition_json / locator_json and snapshots/snapshots_manifest.json.",
+      "id": "GAP_SOURCES_NO_DEDICATED_REVID_PAGEID_COLUMNS",
+      "table": "sources"
+    },
+    {
+      "description": "Structured scope proposals (written, catholicism) remain outcome='needs_review' with open SCOPE_QUALIFIER_REQUIRES_REVIEW findings and scopes.csv state='unknown'; core pack L3 promotion admits only the 31 receipt-approved headword, POS, and definition/gloss claims.",
+      "id": "GAP_PACK_UNREVIEWED_SCOPES_DEFERRED",
+      "table": "scopes/findings"
+    }
+  ],
+  "schema": "wiktionary-reviewed-schema-gaps-v1"
+}

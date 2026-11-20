@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lexical.schema.json",
+  "$comment": "Each $defs entry validates one decoded table row. All declared columns are required; nullable columns carry explicit JSON null. Host enforces all cross-table, uniqueness, registry and release-eligibility constraints described in row comments. The root schema is a definitions resource, not a row validator.",
+  "$defs": {
+    "entries": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entry_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "language_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "variety_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "canonical_form_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "pos_assertion_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "structural_kind": {
+          "$ref": "common.schema.json#/$defs/nonemptyString"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        }
+      },
+      "required": [
+        "entry_id",
+        "language_id",
+        "variety_id",
+        "canonical_form_id",
+        "pos_assertion_id",
+        "structural_kind",
+        "revision"
+      ],
+      "$comment": "Host requires active approved entries to have a canonical written form and at least one accepted sense; language/variety resolve to declared metadata. Homographs remain separate entries."
+    },
+    "forms": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "form_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "entry_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "representation": {
+          "enum": [
+            "written",
+            "romanization",
+            "ipa"
+          ]
+        },
+        "role": {
+          "enum": [
+            "canonical",
+            "variant"
+          ]
+        },
+        "text_assertion_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "convention_assertion_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        }
+      },
+      "required": [
+        "form_id",
+        "entry_id",
+        "representation",
+        "role",
+        "text_assertion_id",
+        "convention_assertion_id"
+      ],
+      "$comment": "Host requires exactly one approved canonical written form per entry, nonempty headwords, assertion ownership and a convention when the representation requires one."
+    },
+    "senses": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sense_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "entry_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "display_order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "parent_sense_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        }
+      },
+      "required": [
+        "sense_id",
+        "entry_id",
+        "display_order",
+        "parent_sense_id"
+      ],
+      "$comment": "Host requires parent sense in the same entry and an acyclic hierarchy; display order is mutable, never identity."
+    },
+    "texts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "text_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "owner_kind": {
+          "enum": [
+            "entry",
+            "sense"
+          ]
+        },
+        "owner_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "component": {
+          "enum": [
+            "definition",
+            "gloss",
+            "translation",
+            "example",
+            "citation",
+            "unparsed"
+          ]
+        },
+        "language_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "text_assertion_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "paired_translation_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        },
+        "cited_source_locator_json": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/locator"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "text_id",
+        "owner_kind",
+        "owner_id",
+        "component",
+        "language_id",
+        "text_assertion_id",
+        "paired_translation_id",
+        "cited_source_locator_json"
+      ],
+      "$comment": "Host checks typed ownership, language and assertion references, nonempty definitions, pairing references and source locators. Unparsed content never becomes an approved definition implicitly."
+    },
+    "relations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "relation_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "source_kind": {
+          "enum": [
+            "entry",
+            "sense"
+          ]
+        },
+        "source_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "target_kind": {
+          "enum": [
+            "entry",
+            "sense"
+          ]
+        },
+        "target_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "relation_code_assertion_id": {
+          "$ref": "common.schema.json#/$defs/id"
+        },
+        "directionality": {
+          "enum": [
+            "directed",
+            "undirected"
+          ]
+        },
+        "inverse_relation_id": {
+          "$ref": "common.schema.json#/$defs/nullableId"
+        }
+      },
+      "required": [
+        "relation_id",
+        "source_kind",
+        "source_id",
+        "target_kind",
+        "target_id",
+        "relation_code_assertion_id",
+        "directionality",
+        "inverse_relation_id"
+      ],
+      "$comment": "Host checks typed endpoints, inverse compatibility and accepted relation codes. No target is selected by spelling; unresolved proposals remain editorial."
+    }
+  }
+}

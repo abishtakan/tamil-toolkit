@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "status": "matched",
+  "canonical_query": "demo",
+  "packs": [
+    {
+      "id": "core",
+      "dataset_version": "example-only",
+      "schema_version": 1,
+      "index_format_version": 1,
+      "manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "available": true,
+      "coverage": {
+        "language_ids": [
+          "lang_example"
+        ],
+        "region_codes": [],
+        "register_codes": [],
+        "unknown_region_entries": 1
+      }
+    }
+  ],
+  "entries": [
+    {
+      "entry_id": "ent_example",
+      "revision": "0000000000000000000000000000000000000000000000000000000000000000",
+      "headword": "demo",
+      "language_id": "lang_example",
+      "part_of_speech": {
+        "availability": "unknown",
+        "value": null,
+        "convention": null,
+        "provenance": []
+      },
+      "forms": [
+        {
+          "form_id": "frm_example",
+          "representation": "written",
+          "role": "canonical",
+          "text": "demo",
+          "convention": null,
+          "provenance": [
+            {
+              "assertion_id": "asr_form",
+              "revision_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "source_id": "src_example",
+              "locator": "illustrative-only:form",
+              "acceptance": {
+                "decision_id": "dec_form",
+                "kind": "accepted_auto_source",
+                "actor_id": "method_example",
+                "method": "schema-example-only",
+                "decided_on": "2026-11-13"
+              }
+            }
+          ]
+        }
+      ],
+      "senses": [
+        {
+          "sense_id": "sns_example",
+          "display_order": 1,
+          "parent_sense_id": null,
+          "components": [
+            {
+              "text_id": "txt_example",
+              "kind": "definition",
+              "language_id": "lang_example",
+              "text": "Illustrative schema content.",
+              "provenance": [
+                {
+                  "assertion_id": "asr_text",
+                  "revision_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                  "source_id": "src_example",
+                  "locator": "illustrative-only:text",
+                  "acceptance": {
+                    "decision_id": "dec_text",
+                    "kind": "accepted_auto_source",
+                    "actor_id": "method_example",
+                    "method": "schema-example-only",
+                    "decided_on": "2026-11-13"
+                  }
+                }
+              ]
+            }
+          ],
+          "examples": [],
+          "relations": [],
+          "region": {
+            "state": "unknown",
+            "codes": [],
+            "provenance": []
+          },
+          "register": {
+            "availability": "unknown",
+            "value": null,
+            "convention": null,
+            "provenance": []
+          },
+          "annotations": [],
+          "provenance": [
+            {
+              "assertion_id": "asr_sense",
+              "revision_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "source_id": "src_example",
+              "locator": "illustrative-only:sense",
+              "acceptance": {
+                "decision_id": "dec_sense",
+                "kind": "accepted_auto_source",
+                "actor_id": "method_example",
+                "method": "schema-example-only",
+                "decided_on": "2026-11-13"
+              }
+            }
+          ]
+        }
+      ],
+      "region": {
+        "state": "unknown",
+        "codes": [],
+        "provenance": []
+      },
+      "register": {
+        "availability": "unknown",
+        "value": null,
+        "convention": null,
+        "provenance": []
+      },
+      "annotations": [],
+      "provenance": [
+        {
+          "assertion_id": "asr_entry",
+          "revision_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "source_id": "src_example",
+          "locator": "illustrative-only:entry",
+          "acceptance": {
+            "decision_id": "dec_entry",
+            "kind": "accepted_auto_source",
+            "actor_id": "method_example",
+            "method": "schema-example-only",
+            "decided_on": "2026-11-13"
+          }
+        }
+      ]
+    }
+  ]
+}

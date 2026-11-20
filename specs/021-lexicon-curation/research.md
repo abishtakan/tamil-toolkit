@@ -67,28 +67,32 @@ Human linguistic approval cannot establish reuse permission by itself.
 inferred IPA because it is populated; requiring human adjudication to finish the
 structural pilot. These conflict with the specification or clarified L2 gate.
 
-## 4. Escaped Unicode and a single linguistic engine
+## 4. UTF-8 dictionary storage and a single linguistic engine
 
-**Decision**: Use an explicit `json-string-v1` codec for CSV free-text cells:
-CSV parsing yields a JSON string literal, which is decoded exactly once using
-a standard JSON parser. All non-ASCII characters and controls are escaped in
-canonical files. Use `null` for unknown and a separately declared
-`not_applicable` state rather than sentinel text. Preserve literal backslashes
-through ordinary JSON escaping; reject lone surrogate escapes. Original text
-may be non-NFC with a reasoned field-specific finding; accepted canonical
-forms must be NFC through `tamil-norm`. Canonical-equivalence computation,
-orthography inspection, and derived quantities call existing Rust operations.
-Python orchestration performs file/schema/accounting work only.
+**Decision (revised 2026-11-14 by user direction)**: Use the versioned
+`json-string-utf8-v1` codec for large CSV free-text cells. Visible Tamil remains
+ordinary UTF-8; JSON-required/control escapes remain reversible. Decode CSV,
+then JSON exactly once. Golden JSONL and exact scalar diagnostics retain escapes.
+Keep known empty strings, unknown null and not-applicable states distinct.
+Reject lone surrogates. Preserve original non-NFC text and controls with findings;
+Rust remains authoritative for normalization, orthography and derived quantities.
 
-**Rationale**: CSV quoting alone cannot express Unicode escapes. A declared
-standard JSON cell codec is reversible and keeps Tamil/control scalars visible
-in review without implementing a second Tamil engine. Pure packaging codecs
-are serialization, not linguistic algorithms.
+**Rationale**: Expanding every Tamil scalar doubles its typical UTF-8 text bytes
+and reduces readability. Auditing needs exact scalar/control diagnostics rather
+than compulsory expansion of every dictionary field. Runtime artifact format is
+chosen and measured separately. The initial staged CSVs total 581,570,653 bytes;
+duplicate unparsed payloads also contribute, so this is not an escape-only cost.
 
-**Alternatives considered**: Raw Tamil in curated files; an ad hoc backslash
-replacement; Python `unicodedata` as authoritative normalization; silently
-stripping controls. The existing audit's Python normalization is diagnostic
-only and does not certify the project Unicode version.
+**Clean rebuild (user-directed)**: Delete uncommitted legacy staging and its
+temporary copies; retain only new UTF-8 dictionary files. Reconstruct from the
+unchanged frozen originals with the same namespace/allocation keys, prove exact
+source-content and ID/locator preservation, keep all claims pending, measure
+byte sizes and rerun gates. No legacy payload archive or migration command is
+needed. See the [storage decision](../../docs/decisions/lexicon-text-storage.md).
+
+**Rejected approaches**: Ad hoc backslash replacement, decoding source text twice,
+Python linguistic normalization, silent control removal, or using a storage
+migration to infer source/review approval.
 
 ## 5. Rust ownership and offline pack compilation
 
