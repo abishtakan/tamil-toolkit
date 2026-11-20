@@ -1,17 +1,27 @@
 # Project handoff
 
-## Alpha 8 release preparation
+## Alpha 8 release (published 2026-11-20)
 
-Prepared Rust/npm `0.1.0-alpha.8` and Python `0.1.0a8` with the release
-policy tool. The [release record](releases/alpha-8.md) lists the eight approved
-crates and describes the historical export. The historical ZIP remains a
-separate local artifact with unresolved source rights.
+Published Rust/npm `0.1.0-alpha.8` and Python `0.1.0a8` to crates.io, npm, and
+PyPI from reviewed source commit `9fc40f6ae081d8cc0a0307fa7325de4f2f66db6d`
+(immutable tag `v0.1.0-alpha.8`) and artifact run `44755276268` (14/14 jobs
+green). See the [release record](releases/alpha-8.md) for all publisher run
+links and verified registry SHA-256 checksums.
 
-The alpha.8 integration gate, host Dart tests, all three isolated archive
-profiles, and the production playground build and tests passed. Logs and
-stage results are under `target/lexicon/alpha-8/`. Fixture activation, the
-reviewed source commit, the cross-platform distribution run, and registry
-publication remain pending.
+- **crates.io:** All 8 crates (`tamil-core`, `tamil-norm`, `tamil-collate`,
+  `tamil-numerals`, `tamil-calendar`, `tamil-codec`, `tamil-hyphen`,
+  `tamil-toolkit` at `0.1.0-alpha.8`, slim MIT profile) published in run
+  `44756065322`.
+- **npm:** `tamil-toolkit@0.1.0-alpha.8` (`alpha` and `latest` tags) published
+  via `publish-npm.yml` in run `44756738415`.
+- **PyPI:** `tamil-toolkit 0.1.0a8` (Linux/Windows/macOS wheels + sdist)
+  published via `publish-pypi.yml` in run `44756745737`.
+- **Playground:** Upgraded to 90,167 active verified `CC-BY-SA-4.0` Tamil
+  entries (85,889 extracted from official `ta.wiktionary.org` dump) with
+  unified single-card dictionary UI and Search & Browse.
+- **Pending:** Historical source-record ZIP remains a separate local artifact
+  with unresolved source rights; planned Wiktionary/historical golden suites
+  remain planned pending activation review.
 
 
 ## Historical source-record explorer (2026-11-20)
