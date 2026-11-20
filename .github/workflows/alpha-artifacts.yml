@@ -47,9 +47,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: python tools/release_files.py sync
-      - run: python tools/release.py rust
-      - run: python tools/release_policy.py record --directory target/alpha
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.26'
+          enable-cache: true
+      - run: uv sync --locked --python 3.13
+      - run: uv run --locked maturin develop --manifest-path bindings/python/Cargo.toml --locked
+      - run: uv run --locked python tools/release_files.py sync
+      - run: uv run --locked python tools/release.py rust
+      - run: uv run --locked python tools/release_policy.py record --directory target/alpha
       - uses: actions/upload-artifact@v4
         with:
           name: alpha-rust
@@ -85,6 +91,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.26'
+          enable-cache: true
       - uses: pnpm/action-setup@v4
         with:
           version: 11.5.0
@@ -92,9 +102,12 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: pnpm
+      - run: uv sync --locked --python 3.13
+      - run: uv run --locked maturin develop --manifest-path bindings/python/Cargo.toml --locked
+      - run: uv run --locked python tools/release_files.py sync
       - run: pnpm install --frozen-lockfile
-      - run: python tools/release.py npm
-      - run: python tools/release_policy.py record --directory target/alpha
+      - run: uv run --locked python tools/release.py npm
+      - run: uv run --locked python tools/release_policy.py record --directory target/alpha
       - uses: actions/upload-artifact@v4
         with:
           name: alpha-npm-node${{ matrix.node }}
@@ -127,7 +140,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: python tools/release.py stage-python
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.26'
+          enable-cache: true
+      - run: uv sync --locked --python 3.13
+      - run: uv run --locked maturin develop --manifest-path bindings/python/Cargo.toml --locked
+      - run: uv run --locked python tools/release_files.py sync
+      - run: uv run --locked python tools/release.py stage-python
       - uses: PyO3/maturin-action@v1
         with:
           command: build
