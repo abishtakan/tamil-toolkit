@@ -308,8 +308,8 @@ def test_license_boundary_and_artifact_notice_api(
     assert "lexicon/dictionary/notices/CC-BY-SA-4.0.md" in notice_text
     assert "MIT License" in notice_text or "MIT" in notice_text
 
-    # Crate source archives and sdist carry MIT AND CC-BY-SA-4.0 because source archives include data.
-    assert release_files.artifact_license_spdx("tamil-toolkit") == "MIT AND CC-BY-SA-4.0"
+    # Slim crates.io archive stays MIT (< 10 MiB); Python sdist carries MIT AND CC-BY-SA-4.0.
+    assert release_files.artifact_license_spdx("tamil-toolkit") == "MIT"
     assert release_files.artifact_license_spdx("python-sdist") == "MIT AND CC-BY-SA-4.0"
 
     # Lower crates and default zero-data profiles stay strictly MIT.
@@ -323,8 +323,9 @@ def test_license_boundary_and_artifact_notice_api(
     assert release_files.artifact_license_spdx("npm", profiles=("core",)) == "MIT AND CC-BY-SA-4.0"
     assert release_files.artifact_license_spdx("dart", profiles=("core",)) == "MIT AND CC-BY-SA-4.0"
 
-    toolkit_notices = release_files.artifact_notice_paths("tamil-toolkit", root=ROOT)
-    assert toolkit_notices == [
+    assert release_files.artifact_notice_paths("tamil-toolkit", root=ROOT) == ["THIRD_PARTY_NOTICES.md"]
+    sdist_notices = release_files.artifact_notice_paths("python-sdist", root=ROOT)
+    assert sdist_notices == [
         "THIRD_PARTY_NOTICES.md",
         "lexicon/dictionary/ATTRIBUTION_AND_TERMS.md",
         "lexicon/dictionary/notices/ATTRIBUTION_AND_LICENSE.md",
@@ -347,7 +348,7 @@ def test_license_boundary_and_artifact_notice_api(
         release_files.artifact_notice_paths(
             "python-wheel", profiles=("core", "names_taxa", "regional"), root=ROOT
         )
-        == toolkit_notices
+        == sdist_notices
     )
 
     with pytest.raises(ValueError):
@@ -373,7 +374,7 @@ def test_license_boundary_and_artifact_notice_api(
 
 def test_release_policy_scopes_dual_license_only_to_facade_crate(tmp_path: Path) -> None:
     policy = release_policy.check(ROOT)
-    assert policy["crate_licenses"] == {"tamil-toolkit": "MIT AND CC-BY-SA-4.0"}
+    assert policy["crate_licenses"] == {}
 
     # Lower crate cannot override workspace MIT license.
     repo = _copy_policy_repo(tmp_path / "lower_override")
@@ -397,12 +398,12 @@ def test_release_policy_scopes_dual_license_only_to_facade_crate(tmp_path: Path)
     with pytest.raises(ValueError, match="crate_licenses"):
         release_policy.check(repo2)
 
-    # Facade crate reverting to MIT while including lexicon/dictionary fails policy check.
+    # Facade crate bundling lexicon/dictionary without scoped CC-BY-SA-4.0 license fails policy check.
     repo3 = _copy_policy_repo(tmp_path / "missing_cc_license")
     tk_toml = repo3 / "crates/tamil-toolkit/Cargo.toml"
     tk_toml.write_text(
         tk_toml.read_text(encoding="utf-8").replace(
-            'license = "MIT AND CC-BY-SA-4.0"', 'license = "MIT"'
+            '"lexicon/*.toml",', '"lexicon/*.toml",\n  "lexicon/dictionary/*.csv",'
         ),
         encoding="utf-8",
     )
@@ -414,10 +415,10 @@ def test_release_policy_scopes_dual_license_only_to_facade_crate(tmp_path: Path)
 def test_tamil_toolkit_cargo_include_and_package_list(shared_cargo_lock) -> None:
     manifest = tomllib.loads((ROOT / "crates/tamil-toolkit/Cargo.toml").read_text(encoding="utf-8"))
     pkg = manifest["package"]
-    assert pkg["license"] == "MIT AND CC-BY-SA-4.0"
+    assert pkg["license"] == {"workspace": True}
     include = pkg["include"]
-    assert "lexicon/dictionary/notices/*.md" in include
-    assert "schemas/lexicon/*.schema.json" in include
+    assert "lexicon/dictionary/*.csv" not in include
+    assert "lexicon/packs/*/*.csv" not in include
     assert "lexicon/**" not in include
 
     with shared_cargo_lock():
@@ -431,12 +432,9 @@ def test_tamil_toolkit_cargo_include_and_package_list(shared_cargo_lock) -> None
             check=True,
         )
     listed = {line.strip().replace("\\", "/") for line in result.stdout.splitlines() if line.strip()}
-    for rel in EXPECTED_DICT_RELPATHS:
-        assert f"lexicon/dictionary/{rel}" in listed
-    for name in EXPECTED_SCHEMA_FILES:
-        assert f"schemas/lexicon/{name}" in listed
     for root_file in ("LICENSE", "README.md", "THIRD_PARTY_NOTICES.md"):
         assert root_file in listed
+    assert all(not item.startswith(("lexicon/dictionary/", "lexicon/packs/", "schemas/lexicon/")) for item in listed)
     assert all("cldf" not in item for item in listed)
     assert all("curation" not in item for item in listed)
     assert all(

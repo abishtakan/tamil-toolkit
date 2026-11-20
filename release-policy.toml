@@ -10,7 +10,6 @@ public_crates = [
   "tamil-calendar", "tamil-codec", "tamil-hyphen", "tamil-toolkit",
 ]
 
-# Facade-only license scope: tamil-toolkit source packages bundle approved CC-BY-SA-4.0
-# dictionary sources alongside MIT engine code. Workspace and all lower crates keep MIT.
+# All published crates.io archives are slim MIT engine packages (< 10 MiB);
+# CC-BY-SA-4.0 dictionary packs are compiled from source checkouts or separate artifacts.
 [crate_licenses]
-tamil-toolkit = "MIT AND CC-BY-SA-4.0"

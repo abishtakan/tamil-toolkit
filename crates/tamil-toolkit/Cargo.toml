@@ -3,7 +3,7 @@ name = "tamil-toolkit"
 version.workspace = true
 edition.workspace = true
 publish = ["crates-io"]
-license = "MIT AND CC-BY-SA-4.0"
+license.workspace = true
 repository.workspace = true
 readme = "README.md"
 documentation = "https://docs.rs/tamil-toolkit/0.1.0-alpha.8"
@@ -11,15 +11,6 @@ include = [
   "src/**",
   "build*.rs",
   "lexicon/*.toml",
-  "lexicon/dictionary/*.csv",
-  "lexicon/dictionary/*.toml",
-  "lexicon/dictionary/*.md",
-  "lexicon/dictionary/notices/*.md",
-  "lexicon/packs/*/*.csv",
-  "lexicon/packs/*/*.toml",
-  "lexicon/packs/*/*.md",
-  "lexicon/packs/*/notices/*.md",
-  "schemas/lexicon/*.schema.json",
   "README.md",
   "LICENSE",
   "THIRD_PARTY_NOTICES.md",

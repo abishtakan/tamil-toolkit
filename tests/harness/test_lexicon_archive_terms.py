@@ -83,8 +83,6 @@ def _valid_crate_files(name: str, *, license_override: str | None = None) -> dic
         f"{prefix}THIRD_PARTY_NOTICES.md": release_files.notices(ROOT),
         f"{prefix}src/lib.rs": "// lib\n",
     }
-    if name == "tamil-toolkit":
-        files.update(_canonical_dict_entries(prefix))
     return files
 
 
@@ -291,10 +289,10 @@ def test_rust_crate_verification_accepts_scoped_facade_and_mit_lower_crates(tmp_
     )
 
 
-def test_rust_crate_verification_rejects_wrong_license_missing_notices_or_private_leak(tmp_path: Path) -> None:
+def test_rust_crate_verification_rejects_wrong_license_missing_notices_or_private_leak(tmp_path: Path, monkeypatch) -> None:
     bad_facade = _write_targz(
         tmp_path / "bad_facade.crate",
-        _valid_crate_files("tamil-toolkit", license_override="MIT"),
+        _valid_crate_files("tamil-toolkit", license_override="MIT AND CC-BY-SA-4.0"),
     )
     with pytest.raises(ValueError, match="license"):
         release.verify_rust_crate_archive(bad_facade, "tamil-toolkit")
@@ -306,17 +304,11 @@ def test_rust_crate_verification_rejects_wrong_license_missing_notices_or_privat
     with pytest.raises(ValueError, match="license"):
         release.verify_rust_crate_archive(bad_lower, "tamil-core")
 
-    missing_cc_notice_files = _valid_crate_files("tamil-toolkit")
-    missing_cc_notice_files.pop(f"tamil-toolkit-{VERSION}/lexicon/dictionary/notices/CC-BY-SA-4.0.md")
-    missing_cc_archive = _write_targz(tmp_path / "missing_cc.crate", missing_cc_notice_files)
-    with pytest.raises(ValueError, match="CC-BY-SA-4.0"):
-        release.verify_rust_crate_archive(missing_cc_archive, "tamil-toolkit")
-
-    truncated_cc_files = _valid_crate_files("tamil-toolkit")
-    truncated_cc_files[f"tamil-toolkit-{VERSION}/lexicon/dictionary/notices/CC-BY-SA-4.0.md"] = "truncated"
-    truncated_cc = _write_targz(tmp_path / "truncated_cc.crate", truncated_cc_files)
-    with pytest.raises(ValueError, match="CC-BY-SA-4.0"):
-        release.verify_rust_crate_archive(truncated_cc, "tamil-toolkit")
+    bulk_dict_files = _valid_crate_files("tamil-toolkit")
+    bulk_dict_files[f"tamil-toolkit-{VERSION}/lexicon/dictionary/entries.csv"] = "leak\n"
+    bulk_dict = _write_targz(tmp_path / "bulk_dict.crate", bulk_dict_files)
+    with pytest.raises(ValueError, match="dictionary|csv"):
+        release.verify_rust_crate_archive(bulk_dict, "tamil-toolkit")
 
     private_leak_files = _valid_crate_files("tamil-toolkit")
     private_leak_files[f"tamil-toolkit-{VERSION}/data/curation/tamil-lexicon/source_records.csv"] = "secret\n"
@@ -329,6 +321,11 @@ def test_rust_crate_verification_rejects_wrong_license_missing_notices_or_privat
     lower_with_dict = _write_targz(tmp_path / "lower_with_dict.crate", lower_with_dict_files)
     with pytest.raises(ValueError, match="dictionary|csv"):
         release.verify_rust_crate_archive(lower_with_dict, "tamil-core")
+
+    oversized_archive = _write_targz(tmp_path / "oversized.crate", _valid_crate_files("tamil-toolkit"))
+    monkeypatch.setattr(release, "MAX_CRATES_IO_ARCHIVE_BYTES", 10)
+    with pytest.raises(ValueError, match="10 MiB limit"):
+        release.verify_rust_crate_archive(oversized_archive, "tamil-toolkit")
 
 
 # ---------------------------------------------------------------------------

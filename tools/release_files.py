@@ -500,7 +500,9 @@ def artifact_license_spdx(artifact: str, *, profiles=()) -> str:
         if normalized:
             raise ValueError(f"Lower crate {artifact} cannot enable dictionary pack profiles: {normalized}")
         return "MIT"
-    if artifact in ("tamil-toolkit", "python-sdist"):
+    if artifact == "tamil-toolkit":
+        return "MIT"
+    if artifact == "python-sdist":
         return "MIT AND CC-BY-SA-4.0"
     if artifact in ("python-wheel", "npm", "dart"):
         return "MIT AND CC-BY-SA-4.0" if normalized else "MIT"
@@ -514,7 +516,7 @@ def artifact_notice_paths(artifact: str, *, profiles=(), root=ROOT, relative: bo
     spdx = artifact_license_spdx(artifact, profiles=normalized)
     rel_paths = ["THIRD_PARTY_NOTICES.md"]
     if "CC-BY-SA-4.0" in spdx:
-        default_packs = tuple(DICTIONARY_PACK_PROFILES) if artifact in ("tamil-toolkit", "python-sdist") else ("core",)
+        default_packs = tuple(DICTIONARY_PACK_PROFILES) if artifact == "python-sdist" else ("core",)
         for profile in normalized or default_packs:
             rel_paths.extend(DICTIONARY_PACK_PROFILES[profile]["notice_files"])
     seen = list(dict.fromkeys(rel_paths))
@@ -719,26 +721,11 @@ def expected_files(root=ROOT):
         unreleased_note = UNRELEASED_NOTES.get(name, "")
         if unreleased_note:
             unreleased_note = " " + unreleased_note
-        has_dict_sources = (root / "lexicon/dictionary").is_dir()
-        if name == "tamil-toolkit" and has_dict_sources:
-            license_badge = (
-                "[![License: MIT AND CC-BY-SA-4.0]"
-                "(https://img.shields.io/badge/license-MIT%20AND%20CC--BY--SA--4.0-blue?style=flat-square)]"
-                "(https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md)"
-            )
-            license_section = """Original Rust code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
-Approved canonical dictionary sources under `lexicon/dictionary/` and `lexicon/packs/` (included in crate source
-archives; default builds embed zero dictionary data) are separately licensed under
-**CC-BY-SA-4.0**, retaining upstream Wiktionary attribution, revision history, and disclaimers
-in each pack's `notices/` directory and the
-[third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).
-Contributions are welcome; see the [contributor guide](https://github.com/abishtakan/tamil-toolkit/blob/master/CONTRIBUTING.md)."""
-        else:
-            license_badge = (
-                "[![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)]"
-                "(https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)"
-            )
-            license_section = """Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
+        license_badge = (
+            "[![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)]"
+            "(https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)"
+        )
+        license_section = """Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
 Bundled data and mappings retain their recorded terms in the
 [third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).
 Contributions are welcome; see the [contributor guide](https://github.com/abishtakan/tamil-toolkit/blob/master/CONTRIBUTING.md)."""

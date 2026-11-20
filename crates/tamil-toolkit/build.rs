@@ -61,7 +61,7 @@ fn main() {
             continue;
         }
         enabled_features.push(pack_id);
-        let has_manifest = pack_id == "core" || pack_dir.join("packs.toml").is_file();
+        let has_manifest = pack_dir.join("packs.toml").is_file();
         if has_manifest {
             let compiled =
                 build_lexicon::compile_pack_dir(&pack_dir, Some(&schemas_dir), Some(pack_id))

@@ -370,6 +370,9 @@ def _iter_manifest_dep_tables(manifest: dict):
                     yield table
 
 
+MAX_CRATES_IO_ARCHIVE_BYTES = 10 * 1024 * 1024
+
+
 def verify_rust_crate_archive(
     archive_path: Path,
     name: str,
@@ -380,9 +383,14 @@ def verify_rust_crate_archive(
     policy: dict | None = None,
     root: Path = ROOT,
 ) -> None:
-    """Verify packaged `.crate` license metadata, required notices, and canonical scope."""
+    """Verify packaged `.crate` size, license metadata, required notices, and canonical scope."""
     pol = policy or load(root)
     version = pol["version"]
+    archive_size = archive_path.stat().st_size
+    _require(
+        archive_size <= MAX_CRATES_IO_ARCHIVE_BYTES,
+        f"{name}: crate archive {archive_size} bytes exceeds crates.io 10 MiB limit ({MAX_CRATES_IO_ARCHIVE_BYTES})",
+    )
     prefix = f"{name}-{version}/"
     raw_files = _safe_tar_members(archive_path)
     _require(bool(raw_files), f"{name}: empty crate archive {archive_path}")
@@ -398,7 +406,7 @@ def verify_rust_crate_archive(
 
     _check_no_forbidden_archive_paths(
         rel_files,
-        allow_canonical_dict=(name == "tamil-toolkit"),
+        allow_canonical_dict=False,
         artifact_label=name,
     )
 
@@ -429,61 +437,12 @@ def verify_rust_crate_archive(
         expected_notices=expected_notices,
         spdx=expected_spdx,
         artifact_label=name,
-        allow_repo_notices=(name != "tamil-toolkit"),
+        allow_repo_notices=True,
     )
-
-    if name == "tamil-toolkit":
-        for pack_id, cfg in DICTIONARY_PACK_PROFILES.items():
-            prefix_rel = cfg["source_dir"].rstrip("/") + "/"
-            actual_pack_files = {
-                path.removeprefix(prefix_rel)
-                for path in rel_files
-                if path.startswith(prefix_rel)
-            }
-            _require(
-                actual_pack_files == set(DICTIONARY_FILES),
-                f"{name}: {cfg['source_dir']} file mismatch in crate archive",
-            )
-            pack_manifest = tomllib.loads(rel_files[f"{prefix_rel}packs.toml"].decode("utf-8"))
-            _require(
-                pack_manifest.get("pack_id") == pack_id and pack_manifest.get("l3_pack_eligible") is True,
-                f"{name}: {cfg['source_dir']}/packs.toml invalid eligibility metadata",
-            )
-            if expected_pack_manifests and pack_id in expected_pack_manifests:
-                expected_pack = expected_pack_manifests[pack_id]
-                _require(
-                    pack_manifest.get("manifest_sha256") == expected_pack.get("manifest_sha256"),
-                    f"{name}: archive {cfg['source_dir']}/packs.toml manifest_sha256 mismatch",
-                )
-                _require(
-                    pack_manifest.get("dataset_version") == expected_pack.get("dataset_version"),
-                    f"{name}: archive {cfg['source_dir']}/packs.toml dataset_version mismatch",
-                )
-        actual_schemas = {
-            path.removeprefix("schemas/lexicon/")
-            for path in rel_files
-            if path.startswith("schemas/lexicon/")
-        }
-        _require(
-            actual_schemas == set(DICTIONARY_SCHEMAS),
-            f"{name}: schemas/lexicon file mismatch in crate archive",
-        )
-        archive_manifest = tomllib.loads(rel_files["lexicon/dictionary/packs.toml"].decode("utf-8"))
-        if expected_manifest_sha256 is not None:
-            _require(
-                archive_manifest.get("manifest_sha256") == expected_manifest_sha256,
-                f"{name}: archive packs.toml manifest_sha256 mismatch",
-            )
-        if expected_dataset_version is not None:
-            _require(
-                archive_manifest.get("dataset_version") == expected_dataset_version,
-                f"{name}: archive packs.toml dataset_version mismatch",
-            )
-    else:
-        _require(
-            not any(path.startswith(("lexicon/dictionary/", "lexicon/packs/", "schemas/lexicon/")) for path in rel_files),
-            f"{name}: lower crate must not bundle dictionary/pack/schema files",
-        )
+    _require(
+        not any(path.startswith(("lexicon/dictionary/", "lexicon/packs/", "schemas/lexicon/")) for path in rel_files),
+        f"{name}: published crate archive must stay slim (< 10 MiB) without bulk dictionary/pack/schema files",
+    )
 
 
 def rust(profile=None):
@@ -660,8 +619,10 @@ def verify_python_sdist(
     vendored_manifest_path = "crates/tamil-toolkit/Cargo.toml"
     _require(vendored_manifest_path in rel_files, "python-sdist missing vendored crates/tamil-toolkit/Cargo.toml")
     vendored_manifest = tomllib.loads(rel_files[vendored_manifest_path].decode("utf-8"))
+    vendored_pkg = vendored_manifest.get("package", {})
+    vendored_license = vendored_pkg.get("license")
     _require(
-        vendored_manifest.get("package", {}).get("license") == "MIT AND CC-BY-SA-4.0",
+        vendored_license == "MIT" or (isinstance(vendored_license, dict) and vendored_license.get("workspace") is True),
         "python-sdist vendored tamil-toolkit Cargo.toml license mismatch",
     )
     for pack_id, cfg in DICTIONARY_PACK_PROFILES.items():
