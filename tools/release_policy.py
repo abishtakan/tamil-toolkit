@@ -166,7 +166,17 @@ def load(root=ROOT):
     require(public and len(public) == len(set(public)) and public[-1] == "tamil-toolkit",
             "Public crate list must be unique and end with the umbrella")
     require(all(re.fullmatch(r"tamil-[a-z]+", name) for name in public), "Invalid public crate name")
-    return {**policy, **parsed}
+    crate_licenses = policy.get("crate_licenses", {})
+    require(isinstance(crate_licenses, dict), "crate_licenses must be a table")
+    require(
+        set(crate_licenses) <= {"tamil-toolkit"},
+        "crate_licenses may only scope the tamil-toolkit facade crate",
+    )
+    require(
+        all(isinstance(v, str) and v for v in crate_licenses.values()),
+        "crate_licenses values must be non-empty SPDX strings",
+    )
+    return {**policy, "crate_licenses": crate_licenses, **parsed}
 
 
 def check(root=ROOT):
@@ -194,9 +204,35 @@ def check(root=ROOT):
         require(path.parent.parent == root / "crates", f"FFI support crates cannot be public: {name}")
         found.add(name)
         require(package.get("version") == {"workspace": True}, f"{name}: version must inherit workspace")
-        require(package.get("license") == {"workspace": True}
+        crate_licenses = policy["crate_licenses"]
+        if name in crate_licenses:
+            require(
+                package.get("license") == crate_licenses[name]
                 and package.get("repository") == {"workspace": True},
-                f"{name}: license/repository must inherit workspace")
+                f"{name}: expected scoped license {crate_licenses[name]!r} and workspace repository",
+            )
+        else:
+            require(
+                package.get("license") == {"workspace": True}
+                and package.get("repository") == {"workspace": True},
+                f"{name}: license/repository must inherit workspace",
+            )
+        if name == "tamil-toolkit":
+            include_patterns = package.get("include", [])
+            if any("lexicon/dictionary" in pat or "lexicon/packs" in pat for pat in include_patterns):
+                require(
+                    isinstance(package.get("license"), str)
+                    and "MIT" in package["license"]
+                    and "CC-BY-SA-4.0" in package["license"]
+                    and name in crate_licenses,
+                    "tamil-toolkit bundles lexicon/dictionary or lexicon/packs and requires scoped MIT AND CC-BY-SA-4.0 license",
+                )
+        else:
+            include_patterns = package.get("include", [])
+            require(
+                not any("lexicon/dictionary" in pat or "lexicon/packs" in pat for pat in include_patterns),
+                f"{name}: lower crate must remain free of lexicon/dictionary and lexicon/packs",
+            )
         require(package.get("publish") == ["crates-io"], f"{name}: expected crates.io only")
         require(package.get("documentation") == f"https://docs.rs/{name}/{policy['version']}",
                 f"{name}: documentation version drift")
@@ -811,8 +847,9 @@ four public file digests match the reviewed build:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("task", choices=("check", "status", "record", "verify-run", "verify", "compare-crate",
-                                         "prepare", "is-published", "release-record"))
+    parser.add_argument("task", nargs="?", default="check",
+                        choices=("check", "status", "record", "verify-run", "verify", "compare-crate",
+                                 "prepare", "is-published", "release-record"))
     parser.add_argument("version", nargs="?", help="Release version for prepare or artifact run_id for release-record")
     parser.add_argument("--version", dest="version_flag", help="Release version")
     parser.add_argument("--directory", type=Path)

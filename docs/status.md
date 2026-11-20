@@ -1,5 +1,751 @@
 # Project handoff
 
+## Alpha 8 release preparation
+
+Prepared Rust/npm `0.1.0-alpha.8` and Python `0.1.0a8` with the release
+policy tool. The [release record](releases/alpha-8.md) lists the eight approved
+crates and describes the historical export. The historical ZIP remains a
+separate local artifact with unresolved source rights.
+
+The alpha.8 integration gate, host Dart tests, all three isolated archive
+profiles, and the production playground build and tests passed. Logs and
+stage results are under `target/lexicon/alpha-8/`. Fixture activation, the
+reviewed source commit, the cross-platform distribution run, and registry
+publication remain pending.
+
+
+## Historical source-record explorer (2026-11-20)
+
+Latest owner direction explicitly authorizes implementing access to all supplied
+historical records without additional permission records. Source rights remain
+unresolved; do not synthesize accepted decisions or a third-party license.
+The separate source-record contract in docs/specs/lexicon-source-records.md is
+implemented in Rust with a playground view. It indexes all 307,243
+CSV rows, preserving originals/duplicates/empty cells and source-file/row locators.
+This supplements the verified dictionary; it does not turn source rows into
+verified lexical entries. Earlier permission-blocker notes below describe the
+verified promotion path, not a prohibition on this owner-directed implementation.
+This checkpoint predates the alpha.8 version preparation above.
+
+The full export is now built at playground/public/historical-lexicon/:
+307,243 records / 177,606 distinct lookup keys, all original cells identical.
+A separate 23,361,785-byte data ZIP is retained at
+ target/lexicon/full-recovery/historical-source-records-2026-11-16.zip
+(SHA-256 d0bcf6c5ef4ddabf35306883585da37882d18a9e82aab8ad92f747379a5223fc).
+Rust source-record tests pass (7 tests including 10,000 property cases).
+All 111 playground tests and the production build pass, including real browser
+WASM queries that retrieve original fields from all eleven CSV tables. On
+2026-11-20, the local production preview returned HTTP 200 at
+http://localhost:5173/?tool=lexicon&mode=historical. All 256 bucket hashes match
+between the verified export, its ZIP and the production playground.
+
+Core integration passed across two runs. The first run passed formatting,
+release policy, Unicode/schema, 129 release-file comparisons, Clippy, workspace
+Rust (227 passed, one skipped), doctests and harness (522 passed). Its disk
+preflight stopped the WASM rebuild. Reversible NTFS compression of generated
+files provided enough space for a successful binding rebuild and parity resume.
+Rust and Python golden checks passed, along with 36,242 JavaScript tests. The
+Rust/Python/WASM review ran both planned lexicon suites (12 additional vectors);
+Dart also passed its review run (36,237 tests). These suites retain planned
+status pending activation review. The historical data ZIP has separate terms
+metadata, and the Rust crate package list contains the source-record tooling.
+
+See target/lexicon/full-recovery/historical-implementation-proof.json for the
+recorded evidence and the two integration logs. Alpha.8 release preparation is tracked above.
+
+## Full historical-bundle recovery and release objective (2026-11-16, active)
+
+Current integration checkpoint: the preserving seven-entry core union is now
+installed in `lexicon/dictionary/`, dataset `0.1.0+a211334e3659`, manifest
+`a211334e3659647deb4fc30a1c5c6778f4fa9ef98815ed44674a7d5d7dc05bdf`.
+Core has 10,343 entries / 23,827 senses; full data has 9,410 written forms /
+11,377 entries / 25,742 senses. Base backup is retained at
+`target/lexicon/full-recovery/base-core-before-integration/`.
+All old entry revisions and the 44 existing golden entry payloads are exact.
+Only old expected pack metadata/citations were refreshed. Seven new sourced
+vectors live in `tests/golden/lexicon_gap_recovery.jsonl` as PLANNED; do not count
+them active or activate without owner review. Distribution copies (129 files)
+and playground catalog/notices have been synchronized. Core parity + explicit
+planned-vector review then Dart is running in root exec session91029; logs are
+`target/lexicon/full-recovery/core-parity.log`, `core-dart.log` and
+`runtime-checks.json`. Python and both WASM builds completed; Rust/Python/WASM
+fixture execution follows. Earlier attempts stopped on golden ID hyphens and
+then the legal-text closure: re-promotion had used the Markdown wrapper checksum.
+The merger now requires pinned raw license support from the original reviewed
+workspace, matching input legal notices. No compiler check was weakened. Corrected
+stage is `target/lexicon/full-recovery/merge-core-7-legal/`; prior failed evidence
+is retained. Original source rows remain frozen.
+
+User expanded the target from 410 Wiktionary gaps to the entire 307,243-record
+historical bundle and eventual next release. User confirmed no additional written
+permission/open-license records for TVA/Sorkuvai, Oxford/Apple, Tamilcube or Cre-A.
+Do not infer source grants, approve historical claims, or publish unknown-rights
+data. Keep progressing with freshly source-backed recoveries and preserve the
+full unresolved inventory. Workspace version stays alpha.7 until a release batch
+is actually prepared; existing v0.1.0-alpha.7 tag is immutable.
+
+Saji Hydrogen tasks: technical source recovery (completed research; see
+`docs/audits/historical-technical-recovery-2026-11-16.md` and
+`target/lexicon/full-recovery/technical/permission-request-packet.md`); rendered
+Wiktionary recovery is active under task ending `279c0ec8-34b4-4ba5-b541-3010dea20336`.
+It owns only new `tools/lexicon_wiktionary_rendered.py`, its tests/spec, and
+`data/sources/enwiktionary-tamil-rendered-2026-11-16/`. Follow completion wake-up;
+do not poll a running delegate. Provider is antigravity_saji/Hydrogen/high.
+
+Root added tests-first `tools/lexicon_merge.py` and
+`tests/harness/test_lexicon_merge.py` (6 tests pass), with
+`docs/specs/lexicon-pack-merge.md`. It preserves base rows/revisions, resolves
+private record/snapshot support explicitly, rejects identity/registry conflicts,
+and preserves incoming attribution via content-named notice files. A register
+display alias is accepted only through the existing finite Wiktionary mapping.
+Full core + seven candidates staged successfully at
+`target/lexicon/full-recovery/merge-core-7/canonical`: 10,343 entries / 23,827
+senses, all 10,336 existing entry revisions preserved; runtime not yet installed.
+This earlier staged union used a separate incoming notice filename. The installed
+release-compatible union instead preserves complete capture-attribution blocks
+within the approved attribution filename (source references stay unchanged).
+Historical sources remain unchanged; live core now includes the seven additions
+described at the top of this section. Rendered candidates remain proposed only.
+
+Technical findings: 120,482 rows have exact downstream database trace but no
+recovered upstream harvest/record IDs or applicable project grant; both
+definition columns empty. Research flags encoding/punctuation/space-variant
+quality issues; these are not authorization to repair or delete original rows.
+No contacts were messaged. Full-bundle release is unresolved while those source
+and reuse blockers remain. Continue recoverable slices; report exact exclusions.
+
+## Wiktionary gap recovery candidate packet (2026-11-16)
+
+See `docs/audits/wiktionary-gap-recovery-2026-11-16.md`, its complete 410-record
+escaped reconciliation queue, and `docs/reviews/wiktionary-gap-candidate-proof-2026-11-16.json`.
+The original pinned snapshot contains 333 gap titles, all parser-blocked.
+Fresh exact-title API captures for the other 77 pinned 51 revisions and returned
+26 missing pages. The unchanged parser recovered 7 entries / 9 senses, leaving
+377 parser-blocked spellings and 26 missing pages. No aliases silently followed.
+
+Separate source capture: `data/sources/enwiktionary-tamil-gap-2026-11-16/`.
+Reconciliation/fetch CLI: `python -m tools.lexicon_wiktionary_gaps` (see report).
+Isolated workspace, canonical candidate and CLDF export live under
+`target/lexicon/wiktionary-gaps-final/`; do not replace the current core with this
+seven-entry candidate pack. Its 25 automated source claims pass release and
+canonical validation and genuine offline CLDF validation/roundtrip. Accurate
+2026-11-16 snapshot dates propagate through identity, metadata and decisions;
+existing 2026-11-15 defaults remain unchanged. No template policy was relaxed.
+
+Current 9,403-form runtime/playground packs remain unchanged, as do all 12
+historical hashes and historical acceptance decisions. Runtime integration
+requires merging this packet, source-backed fixtures and metadata refresh,
+preservation checks and runtime/archive acceptance. Next extraction work is
+the 134 place-template pages using pinned rendering/dependency evidence.
+
+Checks: 29 focused tests pass; full harness 501 passed in 78.82s (80.041s runner);
+agent-post-edit passes in 37.151s (Unicode/schema/release copies, Rust formatting,
+workspace/core checks). Isolated pack/CLDF passes and all 20 canonical files
+reproduce byte-identically. Final source/canonical/historical fingerprints match.
+Independent Hydrogen review confirmed bounded accounting and isolation; its five
+reuse/provenance/freshness findings were corrected with local regression tests.
+Logs and timings: `target/lexicon/wiktionary-gaps-final/checks.json` and sibling logs.
+No current runtime/binding/archive integration is claimed for these candidates.
+
+## Historical source readiness report (2026-11-16)
+
+See `docs/audits/lexicon-source-readiness-2026-11-16.md` and adjacent measured
+JSON, generated by `tools/audit_lexicon_readiness.py`. All 12 frozen files and
+recovered package exports match their original hashes. Exact headword/phrase
+cell union: 177,606 distinct strings; 8,968 overlap current written forms and
+168,638 are absent candidates, not approved words. No normalization or trimming
+was performed. Current runtime coverage remains 9,403 written forms.
+
+Historical workspace still has zero acceptance decisions and 27 sources with
+unknown evidence/reuse states. Priority: reconcile the 410 absent spellings in
+26,138 Wiktionary-labelled meanings against the existing pinned snapshot; recover
+separate TVA/Sorkuvai extraction and reuse evidence for the largest technical
+slice. Do not promote old mixed-source definitions by relabelling their lemma.
+No source, curation, canonical or binding data changed; no publishing.
+
+Checks: deterministic byte-identical inventory replay, row/group totals and set
+partitions pass; Unicode/schema/release-policy and 129 release-copy gate passes.
+Runtime and archive matrices were not repeated for this reporting-only change.
+
+## Full lexicon playground ready (2026-11-16)
+
+User can open http://localhost:5173/?tool=lexicon. Vite is running in root exec
+session57088 on127.0.0.1:5173. `just playground-dev` starts it again when needed.
+Normal dev/build scripts now prepare optimized full-profile browser WASM and a
+manifest-derived catalog/attribution assets; Cargo default data features stay off.
+Browser WASM is intentionally full; Node/Python/Dart bindings were not rebuilt.
+
+Lexicon is featured first on the hub. English/Tamil UI includes all3usablepacks,
+pack selection, finite16-region/34-register filters, homographs/all senses,
+source/human-vs-auto provenance, safe links, examples, advanced error presets,
+raw JSON/copy/download and explicit historical307243-record exclusion. Data
+coverage and attribution are expandable; query appears prominently on mobile.
+Catalog counts are withheld if loaded pack manifests mismatch canonical metadata.
+
+Checks: playground89tests pass (including real full-profile WASM), TypeScript
+check/production PWA build pass, catalog verification passes, and agent-post-edit
+(format/Unicode/schema/release129copies/workspace/core checks) passes. Browser
+checks: direct link,3packs,2nanrihomographs/3senses, JAFFNApositive/unknown-negative,
+English/Tamil/theme controls, desktop1280andmobile390 with no document overflow.
+Intentional NFD/joiner fixtures use explicit scalar constructors; no gate weakened.
+Production precaches ~46MiBfullWASM plus attribution Markdown (64MiBfilecap).
+Build uses tsc --noEmit instead of shared incremental tsbuildinfo to avoid Windows
+mapped-file collisions. Runtime covers current9403headwords/11370entries/25733senses;
+the quarantined historical intake is not available for lookup. No engine/data
+semantics, schema/golden/public version/publishing scope changed. No publishing.
+
+## Completed optimization acceptance (2026-11-16)
+
+All requested code and acceptance checks are complete. See
+`docs/audits/lexicon-performance-2026-11-16.md` and
+`target/lexicon/speed-candidate/acceptance-summary.json`.
+
+- Harness: all original 447 cases retained; 484 passed in 64.25s (before1130.88s).
+- Core binding synchronization: cold200.681069s, verified warm1.344987s.
+- Exact single-profile pre-stop: passed835.532051s. Before attempts were incomplete;
+  do not claim a whole-gate speedup ratio. Rust220 passed, existing ignored calendar
+  evidence exporter unchanged; no new skips.
+- Structural307243 records/12 files: debug47.121055s/391.40MiB; optimized45.351766s/
+  390.30MiB. Budgets pass, but measured throughput did not improve over40.918690s.
+- Default/core/full Rust/Python/Node/browser-WASM and Dart runtime matrix passed.
+  All isolated Rust/Python/npm and private Dart archives passed in all3profiles.
+- Core development profile restored and parity/Dart rechecked (121.690161s).
+- Independent Hydrogen high review and bounded follow-ups: no actionable issues.
+  Original12source hashes reverified; baseline evidence preserved. No publishing,
+  default-data feature, crate/version/registry scope change. No commands remain running.
+
+The history below records failed attempts and diagnostics; the completion above
+supersedes their pending-state notes. No extra unmodified baseline should restart.
+
+## Current final verification (2026-11-16)
+
+All requested optimization code is integrated. Exact pre-stop gate passed in
+835.532051s: 220 Rust tests passed (one existing ignored evidence exporter),
+484 harness tests passed in 64.25s, then real core parity passed. Core/default/full
+runtime parity and Dart all pass. Independent Hydrogen high review and bounded
+follow-ups report no actionable issues. Baseline results remain preserved.
+
+Root acceptance runner continues in exec session 38245:
+`uv run --locked python target/lexicon/run_speed_acceptance.py parity-full`.
+Full parity and Dart have completed. It is now running isolated default archives,
+then default Dart archive, core archives/Dart archive, full archives/Dart archive.
+Each step writes `target/lexicon/speed-candidate/<step>-result.json` and stops on
+failure; preserve all passed steps. Completed default/full Cargo caches were
+cleared with confined Cargo-managed cleanup before archives; core caches and all
+canonical outputs/evidence remain. About 9 GiB was free at archive start.
+
+After archives: restore core bindings/parity/Dart if archives altered canonical
+outputs; finish evidence, report chart and task T090. Measurements and limitations
+are in `docs/audits/lexicon-performance-2026-11-16.md`. Structural processing meets
+budgets but did not improve over baseline. No publishing or scope/version change.
+
+## Optimization integration (2026-11-16, current)
+
+The owner stopped the extra baseline. Do not restart it. Completed acceptance,
+archive and benchmark evidence remains under `target/lexicon/speed-baseline/`.
+Its exact pre-stop attempts were incomplete (disk full, then owner stopped),
+so there is no valid passing before-time for that whole command.
+
+All three optimization implementations are applied; workers have stopped edits.
+Full parallel harness: 481 passed in 70.79s / 71.774509s command wall time,
+versus baseline 447 passed in 1130.88s. All original IDs remain. Two native
+cycle/dict-subclass regressions and one build-mode regression were added after
+that run; all nine native-batch parity tests pass on the actual rebuilt PyO3.
+Explicit `--dist=load` shared-lock tests: 3 passed in 19.44s.
+
+Independent Hydrogen high review found cycle and iterable-pair issues in the
+native helper; both were reproduced tests-first and fixed. Fresh review found
+no actionable issues; a narrow build-mode fallback follow-up is in progress.
+
+Measurement caught a real debug-batch regression: structural work took 92.62s.
+That failed report is preserved as `speed-candidate/lexicon-benchmarks.json`.
+Optimized native JSON/hash batches are about twice as fast as CPython on 5000
+real rows, but debug Rust batches are slower. Host adapters therefore use
+native generic batches only when `HOST_BATCH_OPTIMIZED` is true; debug builds
+use the exact reference validators/encoder/hashes. Unicode audit batches stay
+in Rust in both modes. No Unicode, schema or source-integrity check was removed.
+Current isolated measurement: `speed-candidate/structural-final-debug.json`.
+Next: optimized-build measurement, actual concurrent cold/warm binding builds,
+timed single-profile pre-stop, final runtime/archive matrix, then evidence and
+task closure. Do not overlap builds/tests with performance measurements.
+
+Latest measured results: debug structural 47.121055s / 391.40 MiB;
+optimized structural 45.351766s / 390.30 MiB. Both budgets pass, but neither
+improves the preserved 40.918690s baseline. Serial fixtures + real native checks:
+76 passed in 128.68s. Concurrent core bindings (all four targets): 200.681069s
+cold; verified warm reuse: 1.344987s. These are not comparable cold/warm baselines.
+
+The first candidate exact pre-stop ran 756.656629s: 220 Rust tests passed,
+then 17 fake-build harness tests failed because they depended on actual free
+disk space. Unit fixtures now control disk usage; dedicated low-disk rejection
+tests and production preflight are unchanged. Focused 28 tests pass; bounded
+independent review found no issues. Failed gate evidence is preserved as
+`speed-candidate/pre-stop-first-failed*`. Scoped Cargo-managed cleanup removed
+5.0 GiB of old root WASM package artifacts; baseline evidence hashes matched
+before/after. No broad `cargo clean` or recursive shell deletion was used.
+
+Root is running `target/lexicon/run_speed_acceptance.py pre-stop` in exec session
+9023. It records each step separately in `speed-candidate/*-result.json`, stops
+on failure, and preserves already-passed steps. It currently reruns the exact
+gate for a valid whole-command timing after the test-only repair, then executes
+Dart/core and default/full parity + Dart, followed by all three isolated archives.
+Code is frozen except documentation/task evidence. Monitor disk; completed
+non-core isolated Cargo caches may need Cargo-managed cleanup before the next
+cold profile. Retain core caches, archives, logs, progress JSON and raw data.
+Detailed evidence: `docs/audits/lexicon-performance-2026-11-16.md`.
+
+The sections below preserve earlier investigation history; this section owns
+the current state.
+
+## Bulk expansion verification in progress (2026-11-15)
+
+LATEST OWNER STEERING: stop the extra baseline run, preserve results, apply
+optimizations now. The extra timing process tree was stopped explicitly; its
+partial log is `speed-baseline/pre-stop-user-stopped.log`, result state is
+`stopped_by_user` (not a passing timing). Completed acceptance/archive/benchmark
+baselines remain intact. Both target-only optimization proposals are now applied
+to live source; pytest-xdist3.8.0/execnet2.1.2 are locked dev dependencies.
+First focused run: 40passed/3failed66.12s (new binding cache tests). Binding worker
+owns live tools/tasks.py + test_task_speed.py to fix these, deduplicate confirmed
+same-profile Rust invocations and validate. Fixture worker owns applied conftest,
+five fixture test modules and tools/lexicon_wiktionary_candidate.py; validates
+serial/parallel isolation and immutable real-pack caches. Root already added
+fixture path confinement before deletion and POSIX lock timeout parity.
+Native worker now owns fresh actual-corpus/CLDF profiles and tests-first batch
+Rust/PyO3 helper implementation. No canonical PyO3 rebuild until root coordinates
+after workers stop consuming the Windows DLL. Do not restart the extra baseline.
+New real benchmarks/final acceptance must run serially after implementation.
+Current implementation validation: 20 binding-speed unit tests passed in 4.34s.
+Collected 473 harness cases; all 447 baseline passed IDs are retained, with 26
+added cases (`target/lexicon/speed-test-id-coverage.json`). Root actual profiles
+completed via runpy with repository imports: full 307243-row stage/check/prove
+and valid/round-trip-checked CLDF exports for core/names_taxa/regional. Native
+worker has completed profiles and is authorized to implement measured batch
+helpers; profiling wall times are instrumented diagnostics, not candidate timing.
+Root canonical core PyO3 rebuild passed (54.77s Cargo build), then all six direct
+native batch parity tests passed in 3.84s. Interrupted provider task-311 is NOT
+counted as passing. Root now runs the full parallel harness with captured timing,
+JUnit and durations via `target/lexicon/measure_candidate_harness.py`; outputs
+under `speed-candidate/`. No other heavy jobs should overlap this measurement.
+
+Resume update (2026-11-16): exact pre-stop timing failed after 1718.285468s
+when the drive filled during pytest (8 failed, 301 passed, then pytest output
+flush raised ENOSPC). Individual failure traces were lost in the interrupted
+report; their causes must be checked on rerun. Source fingerprints remained
+unchanged. Failure evidence
+is preserved as `speed-baseline/pre-stop-disk-full.log` and
+`pre-stop-disk-full-result.json`; it is not a passing gate baseline.
+No optimization proposal has been applied. Recursive shell cleanup was rejected
+by automatic approval; Cargo-managed cleanup of tamil-toolkit/python/wasm/dart
+removed 43133 generated files / 19.3GiB and recovered about 21.17GB free.
+Accepted archives, benchmarks, raw sources and proposals remain intact.
+The exact unmodified single-profile pre-stop measurement has restarted. This run
+has cold Cargo outputs after cleanup; record that condition in comparisons.
+
+Owner's next instruction (2026-11-16): finish and preserve the current acceptance
+and archive/benchmark baseline before any further optimization edits; retain
+already-passed steps unless a step fails. The harness baseline is now recorded:
+447 passed in 1130.88s. Immutable copied log/result:
+`target/lexicon/speed-baseline/harness.log` and `harness-result.json`.
+Runtime acceptance is now passed and copied to
+`target/lexicon/speed-baseline/acceptance-progress.json`: current post-edit 84.580s,
+default binding rebuild 11.261s and final default parity 68.176s. All actual
+default/core/full archives, private Dart archives and combined enforced benchmarks
+now pass; final reports were copied to `speed-baseline/archive-progress.json` and
+`speed-baseline/lexicon-benchmarks.json`. Structural baseline is 40.918690s /
+388.26 MiB; stage 20.959690s, inventory 3.613759s, validation 16.300280s. Lookup
+10,000-query warm p95 is 6.5444ms native / 7.3160ms serialized on expanded core.
+No successful baseline steps were discarded.
+Baseline archive progress: default archives passed (225.883s), default private
+Dart archive passed (13.800s), core archives passed (421.627s). Core private Dart
+archive correctly rejected a stale default DLL: the helper copied the last build
+without building the selected profile. This failed-step repair now builds the
+requested profile before packaging; four focused tests pass in 1.12s. The queue
+resumed at `dart-archive-core`, preserving the three completed archive steps in
+`speed-baseline/archive-progress-before-dart-repair.json`. This is a baseline
+failure fix, not the deferred optimization work. Core Dart now passes (27.020s),
+full archives pass (419.692s), full Dart passes (25.533s), and combined benchmarks
+pass (101.015s).
+After baseline completion, optimize shared read-only real-pack fixtures, safe
+pytest-xdist isolation, profiled batch Rust/PyO3 validation/hash/scalar work,
+isolated concurrent binding targets and fast single-profile daily verification.
+Keep the three-profile/four-runtime plus archives matrix for final acceptance.
+Report exact harness, lexicon benchmark and pre-stop before/after timings and
+unchanged assertions/checks/coverage. An exact additional unmodified single-profile
+`just agent-pre-stop-gate` baseline is running under
+`target/lexicon/speed-baseline/measure_pre_stop.py`; result/log live beside it.
+Root source/tests/config stay frozen until this timing completes. Three Hydrogen
+high workers are preparing target-only fixture/xdist and binding candidate patches
+and a native-batch design; no tests/builds/profiling or repository edits are allowed
+in those tasks during the timing window. Review/apply proposals only afterward.
+
+Long harness run diagnosed and stopped at the owner's request (2026-11-16):
+`py-spy` located eager whole-decision indexing in `unicode_findings` for every
+canonical assertion, including claims without exceptions. Roughly 50,000 claims
+and decisions made this quadratic; candidate tests repeatedly scanned the pack.
+The index/terminal calculation now runs only upon the first actual exception.
+Native Unicode inspection and every exception authorization check remain intact.
+Three regression cases failed before; 97 focused review/curation/pack tests passed
+after in 11.17s. A bounded 1,000-claim / 5,000-decision comparison returned identical
+findings in 0.4875s before / 0.0542s after (9.00x). Evidence:
+`target/lexicon/slow-harness-stack.txt`, `lazy-unicode-before.log`,
+`lazy-unicode-focused.log`, `lazy-unicode-measurement.json`.
+The full harness is rerunning with per-test names, durations and a 120s diagnostic
+stack timeout in `target/lexicon/lazy-unicode-full-harness.log`. Old gate/archive
+coordinators were stopped; resume the remaining gate/archive sequence only after
+this fresh run and the current source checks pass.
+A five-second follow-up profile also found 406/499 samples in the review helper's
+Python JSON Schema validator. `_valid` now reuses the existing shared compiled
+`validate_row` path and its strict scalar/nonstandard-value fallback. Four-table
+mutation parity checks compare it with the reference validator. Combined focused
+verification now passes 106 tests in 9.00s; the full harness has restarted with
+both fixes. Independent Hydrogen high review reported no actionable findings,
+including preserved exception authorization, scalar checks, schema fallback and
+import-cycle safety. A second profile now shows ordinary streaming row decoding
+and native inspection rather than eager whole-decision indexing.
+`target/lexicon/finish_after_harness_performance_fix.py` waits for this full run,
+then performs current post-edit checks and the remaining default binding/parity
+steps. Progress stays in `corrected-acceptance-progress.json`. The separate archive
+coordinator waits for that sequence to pass; no concurrent native builds run.
+
+Current corrected packs contain 11,370 entries / 25,733 senses: core 10,336 /
+23,818 (`0.1.0+1f2bc70dc132`), names_taxa 762 / 906
+(`0.1.0+279048283410`), regional 272 / 1,009 (`0.1.0+b97b5f21230d`).
+Native-checked regeneration and promotion passed. All six reviewed lexical
+payloads remain exactly equal; the 44 golden cases retain their executable
+expectations apart from approved pack metadata. Source citations now match the
+new metadata. Evidence: `target/lexicon/corrected-pack-refresh-proof.json`.
+
+T080/T081 are implemented and checked: distinct same-POS homographs, own-entry
+regional routing, finite qualifier mappings and literal unmapped prose. Twelve
+extractor tests passed after four new pinned regressions failed before fixes.
+Release synchronization/check passed for 129 files. Full-profile PyO3, Node WASM,
+browser WASM and TypeScript library builds passed. Default Cargo data features,
+crate version and registry scope remain unchanged. Original 12 sources stay
+quarantined and immutable. No publishing, commit or push is authorized.
+
+The initial focused profile run found six failures (30 passed). Root repaired
+planned-suite test setup, unit profile isolation, signed archive fixture CSVs,
+direct-script Dart imports and stale static-helper checks. The targeted rerun
+passed six tests; its remaining static check passed separately after aligning it
+with golden helpers and parameterized unavailable-pack errors. Independent review
+found stale Rust/CLDF count/hash assertions; these are refreshed too. The final
+narrow Hydrogen high re-review reported no findings after the helper/citation
+correction. This read-only verdict does not replace the running integration gates.
+
+Serialized acceptance is running, with stop-on-failure behavior:
+Current CLDF verification passed all 14 tests (297.03s). Full Rust verification
+then passed five golden, ten lookup and 25 compiler tests after fixing an absent
+optional TOML key insertion in a fixture. Full parity rebuilt bindings and passed
+Rust, then exposed Python's incorrect assumption that default lookup searches all
+compiled packs. Root corrected Python/TS default expectations to core and added
+explicit three-pack metadata checks in Python/TS/Dart. Current full parity reuses
+the verified full binding builds because only test expectations changed; core and
+default steps still rebuild normally. Full-profile parity now passes: Rust five
+tests / 36,161 baseline vectors with 44 core-only exclusions, Python 31 tests,
+Node/browser WASM 36,186 tests. Serialized Dart follows before core/default parity.
+Full/core/default parity and Dart all passed. The final gate passed formatting,
+Unicode/schema (36,205 active vectors), release policy, release copies (129 files)
+and workspace checks, then found a missing import in the default-profile typed
+lookup test. Root qualified that test call explicitly. Nine default lookup tests
+and full workspace Clippy now pass. The queue resumes the remaining pre-stop
+Rust/harness/rebuild/parity steps; archives remain gated on their success.
+`target/lexicon/run_corrected_acceptance.py` runs current CLDF tests, full Rust
+lexicon suites, full/core/default real parity and Dart, then the default full
+pre-stop gate. Status: `target/lexicon/corrected-acceptance-progress.json`.
+A second runner waits for all those steps to pass before actual default/core/full
+archives, private Dart archives, a core binding rebuild and isolated combined
+benchmarks. Status: `target/lexicon/corrected-archive-progress.json`. Logs use
+`target/lexicon/corrected-*.log`. Neither runner publishes. If a step fails, fix
+that failure before resuming its remaining sequence; do not claim queued steps
+passed. T082/T083 and final expanded acceptance remain open.
+
+Implementation/audit context:
+`docs/audits/expanded-lexicon-corrections-2026-11-15.md`.
+Earlier six-entry acceptance and pre-correction counts below are historical.
+
+## Feature 021 remediation closed and verified (2026-11-15)
+Host baseline completed: 88 passed / 12 failed in 1474.60 seconds. Nine failures
+concern archive fixtures missing newly packaged notice paths; the profile worker
+owns these. Three benchmark failures exposed old six-entry assumptions and an
+anchor list that consumed the whole expanded query budget. Root bounded seeded
+anchors while preserving largest-sense/homograph/NFD/miss/boundary coverage and
+filtered actual canonical keys out of negative requests. Counts and cold-start
+expectations now derive from pack metadata. All 10 benchmark tests pass in 8.71s
+(target/lexicon/expanded-benchmark-tests.log). No latency claim follows from unit
+stub tests; real expanded-pack measurements remain pending.
+
+- **Scope & invariants preserved**: six revision-pinned Wiktionary entries / 19
+  senses / 31 accepted claims (`lexicon/dictionary/packs.toml` `0.1.0+4d1309d05391`,
+  manifest `4d1309d05391be1087c11590d664b8669b49ef8312b6c32e4bb32aa86b135079`,
+  compiled core pack `50,923` bytes, default Cargo payload `0` bytes),
+  immutable 12-file originals (`data/sources/tamil-lexicon/`), Cargo default
+  data features off, historical intake quarantined, and no publishing/commit/push.
+- **Correctness fixes completed (`T071`–`T079`)**:
+  - `T077` (`tools/lexicon_cldf.py`, `tests/harness/test_lexicon_cldf.py`): CLDF
+    export closure preserves canonical sense-anchored (`sense -> sense` and
+    `sense -> entry`) relations plus their assertion/evidence/decision closure
+    and enforces round-trip table equality (`ROUNDTRIP_TABLE_MISMATCH`) and pack
+    eligibility (`UNSUPPORTED_RELATION_SOURCE_KIND`, external closure); nonempty
+    and tampered closure regressions pass (`52` CLDF+pack tests).
+  - `T078` (`tools/lexicon_tables.py`, `crates/tamil-toolkit/build_lexicon.rs`,
+    `tests/harness/test_lexicon_scope_backing.py`, `crates/tamil-toolkit/tests/lexicon_pack.rs`):
+    Python and Rust validate optional `unknown`/`not_applicable` scope backing
+    `(supporting_assertion_id, decision_id)` pairs, ownership, dimensions, and
+    non-self `paired_translation_id` component/owner references.
+  - `T079` (`tools/lexicon_packs.py`, `tests/harness/test_lexicon_packs.py`):
+    `_evaluate_workspace` validates editorial integrity before applying cross-pack
+    relation omission policies (`OMITTING_POLICIES`), and enforces public
+    shape/vocabulary checks only on non-omitted internal relations.
+- **Full-corpus structural & lookup benchmarks (`T063`, isolated)**:
+  - Structural full corpus (`307,243` CSV records across `12` immutable source
+    files, `canonical_proof_used: true`, `full_corpus_verified: true`,
+    `pilot_substituted: false`): Run 1 (`target/lexicon/benchmarks.json`) passed
+    in **`45.993746s`** (`<= 60.0s`) and **`387.39 MiB`** peak process-tree RSS
+    (`<= 512.0 MiB`); Run 2 repeatability
+    (`target/lexicon/benchmarks-structural-repeat.json`) passed in
+    **`45.994234s`** and **`383.33 MiB`** peak RSS.
+  - Lookup (`core`, `6` entries / `19` senses): cold-start `import 2.3018 ms`,
+    `first_lookup 3.3947 ms`, `37.11 MiB` peak RSS; `10,000` seeded warm queries
+    passed at **`1.2445 ms`** native p95 / **`1.478 ms`** serialized p95
+    (`<= 10.0 ms`). (Measured on the 6-entry core pack; large-pack scaling
+    remains for Step 2 expansion.)
+- **Serialized verification gates (`target/lexicon/final-verify-*.log`)**:
+  - `agent-pre-stop-gate`: `cargo fmt`, `release_policy.py`, `check_source_unicode.py`
+    (`36,205` active vectors), numeral checks, `release_files.py` (`89` files),
+    `cargo check`, `cargo clippy -- -D warnings`, `cargo nextest` (`214 passed, 1 skipped`
+    existing `#[ignore]` in `drik.rs`; `48 passed, 0 skipped` on `tamil-toolkit --features lexicon-core`),
+    `pytest tests/harness` (`427 passed`), `sync-bindings`, Rust/Python (`31` groups)
+    and WASM (`36,230 passed`) golden parity.
+  - Serialized Dart & isolated archives: `dart-core` (`36,225` tests) &
+    `dart-archive-core` (`36,205` rows); `dart-default` (`36,181` tests) &
+    `dart-archive-default` (`36,161` rows, `44` `PROFILE_EXCLUDED`); `archives-core`
+    (`11` archives, `36,205` rows on Node/browser WASM + `tsc --strict`) &
+    `archives-default` (`31` archives, `36,161` rows, `44` `PROFILE_EXCLUDED`);
+    `sync-bindings --lexicon-profile core`.
+- **Independent review**: fresh `gemini-4-hydrogen` (`high`) read-only review
+  ([Independent Review: Feature 021 Remediation (Attempt 2)](t3-thread://v2/7b4f9a3a-2db3-42ae-b39f-ffc0c15e5b21/thread:delegated-task:command%3Amcp%3A0b76d8ad-b434-4f34-94e1-30ffd3cee66e%3Adelegate-task%3Acd6f7f98-9b08-4df8-b573-2c13d561daed))
+  returned **APPROVED** with zero blocking findings.
+- **Next**: await owner confirmation of the Step 2 bulk lexicon expansion
+  proposal before making Step 2 edits.
+
+Earlier checkpoints below are historical evidence; pending/completion claims
+are superseded by the current remediation checkpoint above.
+
+## Feature 021 verified core; owner activation approved (2026-11-15)
+
+- **Scope**: six revision-pinned Wiktionary entries, five spellings and 19 senses;
+  31 claims approved by `abish` on 2026-11-14 under the separate CC-BY-SA-4.0
+  data policy. Engine code remains MIT. Historical merged-source intake stays
+  quarantined; structured scopes remain unknown, with two pending proposals.
+- **Pack**: `0.1.0+4d1309d05391`, manifest
+  `4d1309d05391be1087c11590d664b8669b49ef8312b6c32e4bb32aa86b135079`.
+  Default compiled payload is zero; core is 50,923 bytes. Promotion, offline
+  CLDF round trips and compiler reproducibility are verified.
+- **Runtime proof**: 36,205 active vectors, including 44 unchanged lexicon vectors
+  pass in actual Rust/Python/Node/browser WASM and Dart. Default no-data
+  behavior is verified separately. `target/lexicon/l4-functional.json` and
+  `parity/core-profile.json` bind source/review/profile and runtime evidence.
+- **Performance**: fresh inventory, staging and complete validation of 307,243
+  records / 12 original files passes in **52.72 seconds / 191.93 MiB**.
+  Both read-only validation subprocesses are included in process-tree RSS.
+  Exact source payload equality is verified. Release core lookup passes 10,000
+  queries per pass at p95 0.1148 ms native / 0.1979 ms with Python serialization.
+  These measurements cover the six-entry lookup pack, not large-pack scaling.
+  Evidence: `target/lexicon/benchmarks.json`.
+- **Gates**: final core pre-stop gate exited 0: Unicode/schema, 89 release-copy
+  checks, Clippy, 204 Rust tests (one existing intentional skip), 390 harness
+  tests, 31 Python groups and 36,230 WASM tests. Serialized core Dart passed
+  analysis and 36,225 tests. `target/lexicon/integration-gates.log` records both.
+- **Archives**: 11 current Rust/Python/npm artifacts per core/default profile
+  pass isolated consumers, manifest checks and applicable SPDX/notice closure.
+  Both private Dart bundles pass after extraction (core 36,205 rows; default
+  36,161). Evidence: `target/lexicon/archive-proof.json`. No registry upload.
+- **Activation**: `abish` approved the 44-vector core-profile activation on
+  2026-11-15. Receipt: `docs/reviews/lexicon-fixture-activation-2026-11-15.json`.
+  Canonical verification selects core to execute every active vector; Cargo
+  default data features remain off. Crate/version/registry scope is unchanged.
+  Final affected gates, Dart and archive checks pass; T001–T070 are complete
+  for this bounded reviewed core. Post-activation evidence is recorded in
+  `target/lexicon/activation-final-gate.log`, `activation-dart.log` and
+  `activation-archives.log`. Broader dictionary expansion requires new source
+  evidence and review. No publication is authorized.
+- **Workspace**: branch `master`, work uncommitted; no push/publication.
+  Feature 022 and all 12 immutable original sources are preserved.
+
+Earlier sections below are historical milestone evidence, superseded by this
+checkpoint where their implementation/pending status differs.
+
+## Feature 021 L2 structural pilot accepted (2026-11-14)
+
+- **Objective & status**: Completed Feature 021 structural slice (`T001`–`T037`)
+  under the `json-string-utf8-v1` storage decision on branch `master` (changes
+  remain uncommitted; Feature 022 work and all 12 immutable source files in
+  `data/sources/tamil-lexicon/` are preserved). `T038`–`T039` now have fresh-source and genuine human-review evidence for
+  the six-entry Wiktionary core subset; `T040`–`T043` host tooling and CLDF
+  proof are complete; `T044` source-backed planned goldens are complete; `T045`–`T070` remain in progress/pending
+  (T066 docs partially updated). The historical bulk-source lineage remains unverified.
+- **L0/L1 intake & proofs**:
+  - Verified all 12 frozen original source hashes (`data/sources/tamil-lexicon.sha256.json`)
+    and 307,243 logical CSV records (`../target/lexicon/baseline.json`).
+  - Pre-projection intake & clean replay proof ([us1-proof.json](../target/lexicon/us1-proof.json)):
+    307,243 source records, 307,243 validated quarantined dispositions, 263,014
+    initial identities, 44,229 master records retained, 27 unknown source leads,
+    and byte-identical independent inventory/stage replay (`clean_inventory_and_stage_replay_identical: true`).
+    Total UTF-8 intake CSV size before projection is `504,384,984` bytes vs
+    `581,570,653` bytes in the discarded escaped baseline (`legacy_csv_byte_baseline`),
+    with payload duplication remaining in both representations.
+  - Exact source-content proof ([source-content-proof-final.json](../target/lexicon/source-content-proof-final.json)):
+    verifies 307,243 matching raw assertions, 44,229 master records, 0 missing or
+    duplicate assertions, `exact_decoded_source_fields_and_scalars: true`,
+    `subject_ids_match_immutable_allocations: true`, and 12 verified source hashes.
+- **L2 structural pilot & fail-closed release guard**:
+  - Representative projection & US2 proof ([us2-proof.json](../target/lexicon/us2-proof.json),
+    [l2-acceptance.json](../target/lexicon/l2-acceptance.json)): 739 selected
+    records (`101` primary entries; `20`–`22` per each of the 7 secondary files;
+    `11` homograph spellings / `22` entries; `20` verbs; `74` mixed-sense records;
+    `18` technical MWEs; `22` regional records spanning `17` TN and `5` Jaffna; all
+    `9` observed audit issue classes). Post-projection editorial workspace counts:
+    `264,402` identities, `243` entries, `609` forms, `363` senses, `637` texts,
+    `1,458` scopes, `51` labels, `310,329` assertions/evidence, `966` findings,
+    `0` decisions, `0` eligible assertions.
+  - Structural validation CLI ([structural-final.json](../target/lexicon/structural-final.json)):
+    exit `0`, `l2_structural_accepted: true`, `l3_pack_eligible: false`,
+    `eligible_assertions: 0`, `runtime_verified: null`, `findings: []`.
+  - Release validation fail-closed guard ([release-rejection-final.json](../target/lexicon/release-rejection-final.json)):
+    exit `1`, `l2_structural_accepted: false`, `l3_pack_eligible: false`,
+    `eligible_assertions: 0`, `NONEMPTY_ELIGIBLE_PACK_REQUIRED`.
+- **Verification checks & outcomes**:
+  - `just agent-post-edit` passed (exit `0`, [post-edit-utf8.log](../target/lexicon/post-edit-utf8.log)).
+  - Focused lexicon tests: `120 passed, 156 deselected` ([focused-utf8-final.log](../target/lexicon/focused-utf8-final.log)).
+  - Full `just agent-pre-stop-gate` passed (exit `0`, [pre-stop-utf8-final-retry.log](../target/lexicon/pre-stop-utf8-final-retry.log)):
+    `cargo fmt --all -- --check`, `release_policy.py`, `check_source_unicode.py`
+    (with `check_curated_csv`), numeral projections, 65 release source copies,
+    `cargo check`, `cargo clippy` (`-D warnings`), `cargo nextest` (`182 passed, 1 skipped`),
+    `277` pytest harness tests, rebuilt Python/WASM bindings, `36,161` Rust active
+    golden vectors, `30` Python golden groups, and `36,185` WASM tests.
+  - `dictionary_runtime_implemented: false`, `fixture_activation_changed: false`,
+    `runtime_verified: null`. Dart host tests were not run for this host-only slice.
+  - Note: Reproducible `--payloads-only` proof runs via `tools/lexicon_proof.py`;
+    clean inventory/stage replay belongs **before** projection (`263,014` initial
+    identities vs `264,402` post-projection identities).
+- **Scheduling & next concrete action**:
+  - **Phase 6 numerals work is now unblocked at L2** (structural acceptance grants
+    no data-release, source/reuse, or runtime approval).
+  - User selected **primary dictionary** for the Feature 021 provenance trace
+    (`T038`, tracked in
+    [primary-dictionary-provenance-2026-11-14.md](C:/Users/abish/Documents/dev/tamil-toolkit/docs/audits/primary-dictionary-provenance-2026-11-14.md),
+    [utlkd-package-lineage-2026-11-14.md](C:/Users/abish/Documents/dev/tamil-toolkit/docs/audits/utlkd-package-lineage-2026-11-14.md),
+    [wiktionary-snapshot-recovery-2026-11-14.md](C:/Users/abish/Documents/dev/tamil-toolkit/docs/audits/wiktionary-snapshot-recovery-2026-11-14.md),
+    [primary-provenance-leads.json](C:/Users/abish/Documents/dev/tamil-toolkit/target/lexicon/primary-provenance-leads.json),
+    and
+    [evidence-index.json](C:/Users/abish/Documents/dev/tamil-toolkit/target/lexicon/wiktionary-recovery/evidence-index.json)).
+    Whereas `tamil-toolkit` repo history holds no raw extraction or packaging
+    scripts, read-only inspection of the supplied external package
+    [utlkd_reusable_package](C:/Users/abish/Downloads/utlkd_reusable_package)
+    matched all 12 frozen `tamil-lexicon` files byte-for-byte, linked the CSVs
+    1-to-1 to `utlkd_primary.sqlite` (`44,229` lemmas / `63,633` meanings /
+    `19,849` relationships; `README.md` `68,689`/`88,093`/`19,859` is stale),
+    and recovered downstream CSV/30-col/FST builders (`export_all_datasets.py`,
+    `master_30col_compiler.rs`, `fst_engine.rs`, `validate_final_distribution.py`),
+    the macOS Apple Oxford extractor (`extract_apple_oxford_dictionary.py`),
+    and an earlier v2.0 cleanup harness (`utlkd_harness.py`). Those scripts show
+    packaging capability rather than upstream execution proof: web scrapers, the
+    `22,128`-row Rust secondary-to-primary promotion pipeline, generators for
+    transliteration, IPA (`921` DSAL non-`-தல்` verb IPA anomalies), and
+    `12,021` `(கலைச்சொல்)` placeholders, and snapshot-specific reuse evidence
+    remain missing, while owner SQLite tags conflict with DSAL (`CC BY-NC-ND 2.0`),
+    Cre-A (`12`/`12`/`12` records), TVA/Sorkuvai, Tamilcube, and proprietary
+    `SRC-OXFORD-APPLE`. Dedicated Wiktionary/Kaikki recovery (`SRC-WIKT-TAMIL`,
+    `8,575` distinct `word_id`s union, `0` `source_evidence` rows, `27` of `101`
+    pilot entries) confirmed `kaikki_tamil.jsonl`, ingestion scripts, and per-entry
+    `pageid`/`revid` are missing. Sampled later revisions conflict with treating
+    the entire merged slice as an unchanged 2024 extraction. October 2026 Kaikki
+    is a candidate lead; template/module drift and possible later enrichment
+    prevent proving a shared extraction interval or original file identity,
+    and isolated `371` mixed DSAL/Wiktionary words, cross-page sense folding,
+    POS collapsing, and broken algorithmic `verb_conjugations` (`அருள்வஆன்`).
+    `T038` stays **pending**; next step is either owner recovery of original
+    `kaikki_tamil.jsonl`/ingestion logs or root/`T039` scoping of an independent
+    fresh candidate anchored to pinned `enwiktionary` dump (`20261001`/`20261101`)
+    and `oldid` permalinks under CC BY-SA 4.0 / GFDL attribution rules. Existing
+    material stays quarantined; genuine source and review decisions (`T039`)
+    precede L3/L4 pack work (`T040`–`T070`).
+  - **Separate pending 4-entry PRIMARY Wiktionary candidate created (2026-11-14)**:
+    Under explicit user authorization, created an isolated candidate workspace in
+    [data/curation/wiktionary-candidate/](C:/Users/abish/Documents/dev/tamil-toolkit/data/curation/wiktionary-candidate/README.md)
+    (`dataset_id = wiktionary-en-tamil-candidate`, rebuilt offline via
+    [lexicon_wiktionary_candidate.py](C:/Users/abish/Documents/dev/tamil-toolkit/tools/lexicon_wiktionary_candidate.py)
+    and documented in
+    [wiktionary-candidate-2026-11-14.md](C:/Users/abish/Documents/dev/tamil-toolkit/docs/audits/wiktionary-candidate-2026-11-14.md))
+    for legacy `word_id`s `1921` (`அடடா`, `revid=85842017`), `3906` (`அந்நிலை`,
+    `revid=89903937`), `8218` (`அறிக்கை`, `revid=88382210`), and `28857` (`செப்பம்`,
+    `revid=61485513`), verified identically against both saved candidate checks and
+    fresh `en.wiktionary.org` API responses (`2026-11-14T08:01Z` UTC).
+    Preserves checked-in API/wikitext snapshots, Wikimedia/CC-BY-SA-4.0 notices
+    and disclaimers (`ATTRIBUTION_AND_LICENSE.md`), `4` entries, `4` canonical
+    written forms (`0` IPA forms), `16` senses, `24` assertions, `24` pending/review
+    decisions (`4 pending`, `20 needs_review`, `0 accepted_human`, `0 accepted_auto_source`),
+    `49` open review findings, explicit unpinned-template/etymology/synthetic-PDr/DEDR
+    exclusions (`exclusions.json`), raw wikitext span/template provenance
+    (`extraction_provenance.json`), and recorded schema gaps (`schema_gaps.json`).
+    All 12 immutable `data/sources/tamil-lexicon/` files and `data/curation/tamil-lexicon/`
+    remain untouched; `release_guard` stays fail-closed (`eligible_assertions: 0`,
+    `l3_pack_eligible: false`, `runtime_verified: null`, `NONEMPTY_ELIGIBLE_PACK_REQUIRED`);
+    `check_curated_csv` reports `0` structural findings; deterministic replay across
+    `25` generated files shows `0` diffs (`target/lexicon/wiktionary-candidate/`);
+    and `tests/harness/test_wiktionary_candidate.py` (`11 passed`) verifies tamper,
+    unpinned `revid`, template-IPA injection, auto-accept rejection, protected-path
+    rejection, and preservation of editorial changes before any rebuild writes.
+    Post-edit passed; full pre-stop components through Clippy/Rust and all `288`
+    harness tests passed. Its direct-Python invocation then failed to find
+    `maturin` on PATH. The documented `uv run --locked python tools/tasks.py
+    test-parity` then passed (exit `0`), including license checks, rebuilt Python
+    and both WASM bindings, `36,161` Rust active vectors, `30` Python golden
+    groups and `36,185` WASM tests. All pre-stop components passed across these
+    runs; the original combined command exit remains `1`, not a claimed clean
+    single-run pass. Evidence and log hashes are in
+    `target/lexicon/wiktionary-candidate/checkpoint-root.json`. `T038`
+    historical slice remains unverified (`[ ]`), and `T039`/`T040+` remain pending.
+
+## Feature 021 reviewed core and canonical staging (2026-11-14)
+
+- User approved the exact [six-entry / 19-sense decision sheet](../docs/reviews/wiktionary-core-decision.md) and separate CC-BY-SA-4.0 data-pack policy as reviewer `abish` on `2026-11-14`. The [approval receipt](../docs/reviews/wiktionary-core-approval-2026-11-14.json) binds 31 claims to packet SHA-256 `0b2168d07e9b45b5316994c1d97648ebf5de3ad666de050b10afbe5dfa58695b`.
+- [Reviewed workspace](../data/curation/wiktionary-core-reviewed/README.md): six entries, 19 senses, 31 accepted-human claims, six core pack members. The two superseded assertions stay rejected and two structured scope proposals stay pending. The two நன்றி POS entries remain separate. No IPA or historical mixed-source bulk material is approved.
+- Coordinator verified `verify --dataset reviewed` and release eligibility: six included entries, 31 eligible assertions, no blocking findings. `T038` and `T039` are checked for the fresh pinned-source route only. Pending candidate workspaces, approval packet and all 12 frozen originals remain preserved.
+- Canonical notice closure is fixed and checked in `lexicon/dictionary/`: dataset `0.1.0+4d1309d05391`, manifest SHA-256 `4d1309d05391be1087c11590d664b8669b49ef8312b6c32e4bb32aa86b135079`, with required public attribution and CC legal text. Missing notices and unsafe paths fail validation; private raw API references are excluded. Two independent promotions are byte-identical and match the canonical tree.
+- T040–T043 are complete: release closure/promotion, exact dev validator pins (`pycldf==2.2.0`, `csvw==4.2.0`), local CLDF 1.3 assets and the main `export-cldf` CLI. Independent real-data exports validate offline and round-trip six entries / 19 senses / 31 assertions without loss of canonical rows; two clean exports are byte-identical (`dbc9cd09b2c4d267f09ef25493656c7b99d25005614a2a326b632519d75dc54b`). Evidence: `target/lexicon/l3-host-proof.json` and `core-cldf-coordinator.json`. This proves canonical interchange, not transfer of complete private editorial history, compiled packs or runtime lookup.
+- Coordinator integration tests: 41 pack/CLDF/lookup-contract tests passed. Source-backed planned goldens are being authored before compiler/runtime code. Source-archive data/license copying and compiled-pack acceptance remain pending; no fixture activation or registry publication is claimed.
+- The source-backed [module contract](specs/lexicon-v0.1.md) precedes runtime implementation. Lookup ID/actor serialization regression tests pass (5 tests). The host focused pack/review/candidate/schema tests pass (107 tests); pilot tests and final integration gates still need completed results (the delegated pilot job was interrupted by a provider restart).
+
+## Feature 021 analysis remediation (2026-11-13)
+
+- User authorized fixing I1/U1/C1 and rerunning `speckit-analyze`. Preserved
+  Feature 022 work and the 12 original intake files; no runtime implementation
+  or new source/review approval is part of this documentation change.
+- I1: T034 now tests only L2's actual zero-eligible release-rejection guard;
+  T036 implements it before T037's unchanged full gate. Later release,
+  promotion and CLDF tests are introduced with T040/T041/T043, not left failing
+  across L2. Task IDs/count remain 70; no skip/xfail or weakened gate.
+- U1: Added the closed nested response contract and explicitly schema-only
+  example under `specs/021-lexicon-curation/contracts/lookup-response.*.json`.
+  Required fields, null/availability rules, scope, provenance and decision
+  types are specified before T044 goldens and T050/T052 runtime work. Example
+  metadata is illustrative and cannot approve content or count as a golden.
+- C1: T063 now measures complete inventory/staging/structural validation of
+  all 307,243 CSV records and 12 hashes, with stage/end-to-end time, peak
+  process-tree RSS, method/machine/input identity and target comparisons;
+  lookup remains a separate workload. Plan, pack contract and quickstart agree.
+- Verification passed: response schema/positive examples and 12 invalid
+  response cases, 70 task IDs/paths/earlier-only dependencies, staged L2 test
+  order, links/code fences, all four clarifications and all 12 source hashes.
+  `agent-post-edit` passed (`target/lexicon-remediation-post-edit.log`) and
+  `git diff --check` passed. No runtime/parity/archive support was implemented
+  or claimed. Changes remain uncommitted.
+- Next: complete the requested read-only `speckit-analyze` recheck; after a
+  clean result, proceed to `speckit-implement` for the structural slice through
+  T037, preserving external source/review gates for later work.
+
 ## Feature 022 reused-Rust & NFC/NFD validation handoff (2026-11-13)
 
 - Completed full SpecKit lifecycle (`spec.md`, `research.md`, `data-model.md`,
@@ -1278,3 +2024,15 @@ checks passed. Isolated archives executed all 35,857 selected rows (35,646
 active plus 211 planned), recorded 36 local digests and made no upload. The
 initial concurrent Dart/doctest DLL lock was resolved by rerunning the gate
 after Dart completed; the final full gate exited successfully.
+
+## Compiler handoff (2026-11-14)
+
+T044 is verified: 44 ASCII-escaped planned cases validate against the golden schema, bound to core manifest `4d1309d05391be1087c11590d664b8669b49ef8312b6c32e4bb32aa86b135079`. Active coverage remains 36,161 vectors. Packaging copies/policy check pass (89 files), but focused packaging tests exposed an incomplete temporary policy fixture and missing Cargo PATH discovery; coordinator fixed those narrowly. Compiler work now starts after the source-backed expected cases, preserving existing package include/license edits. No activation or runtime acceptance is claimed.
+
+## Rust compiler verification (2026-11-14)
+
+Coordinator reran `lexicon_pack` under no-default-features and lexicon-core: 13/13 tests pass in each profile after the reviewed Unicode-exception fix. Independent clean target-directory builds prove zero default payload and byte-identical core artifacts: 50,923 bytes, SHA-256 `283e32d7b3dbfa11d1bedc201a95e90bcb064021dba96fd6a44a61491f5137ea`. Evidence: `target/lexicon/compiler-clean-proof.json`, `compiler-default-final.log`, `compiler-core-final.log`. Individual non-core features and all-features tests and focused clippy passed in the delegated logs; the exhaustive profile matrix and final L3 summary still need recording. Runtime lookup, binding support, activation and archive acceptance remain pending.
+
+## L3 compiled core accepted (2026-11-14)
+
+T045–T049 are complete: all 16 feature combinations pass, default payload is zero, two clean core builds are byte-identical (50,923 bytes), source/review/notice closure and independent CLDF round trips pass. `target/lexicon/l3-acceptance.json` binds these proofs to the reviewed six-entry / 19-sense core. Runtime lookup, actual binding parity, fixture activation and archive acceptance remain pending; 44 lookup vectors stay planned.

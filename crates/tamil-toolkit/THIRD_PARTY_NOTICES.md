@@ -198,3 +198,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ```
 
+## Wiktionary Dictionary Data Packs (CC-BY-SA-4.0)
+
+The canonical Wiktionary data packs (`core`, `names_taxa`, `regional`) and source-archive
+copies distributed with `tamil-toolkit` are separately licensed under **CC-BY-SA-4.0**
+(upstream English Wiktionary contributors, dual CC-BY-SA-4.0 / GFDL upstream). The project
+MIT license continues to cover original Rust/binding code, lower crates, and default
+zero-data runtime distributions without embedded dictionary data. Complete attribution,
+revision/history links, section 7 disclaimers, and full CC-BY-SA-4.0 legal text are
+distributed in:
+
+- `core` (`lexicon/dictionary/`): dataset `0.1.0+a211334e3659`, manifest SHA-256 `a211334e3659647deb4fc30a1c5c6778f4fa9ef98815ed44674a7d5d7dc05bdf`
+  - `lexicon/dictionary/ATTRIBUTION_AND_TERMS.md`
+  - `lexicon/dictionary/notices/ATTRIBUTION_AND_LICENSE.md`
+  - `lexicon/dictionary/notices/CC-BY-SA-4.0.md`
+- `names_taxa` (`lexicon/packs/names_taxa/`): dataset `0.1.0+279048283410`, manifest SHA-256 `279048283410e1e85210ca78b6fc157c3f6e6f78713987437291531cdadb030e`
+  - `lexicon/packs/names_taxa/ATTRIBUTION_AND_TERMS.md`
+  - `lexicon/packs/names_taxa/notices/ATTRIBUTION_AND_LICENSE.md`
+  - `lexicon/packs/names_taxa/notices/CC-BY-SA-4.0.md`
+- `regional` (`lexicon/packs/regional/`): dataset `0.1.0+b97b5f21230d`, manifest SHA-256 `b97b5f21230daec5aa1d53a26cfee468fd50e5ae81817a74e11cc68f202e9910`
+  - `lexicon/packs/regional/ATTRIBUTION_AND_TERMS.md`
+  - `lexicon/packs/regional/notices/ATTRIBUTION_AND_LICENSE.md`
+  - `lexicon/packs/regional/notices/CC-BY-SA-4.0.md`
+

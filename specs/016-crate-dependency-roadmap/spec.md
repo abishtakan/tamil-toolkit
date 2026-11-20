@@ -274,15 +274,15 @@ The [lexicon curation specification](../../specs/021-lexicon-curation/spec.md) t
 
 | Milestone | Exit gate | Current evidence |
 |---|---|---|
-| **L0 — Intake** | Preserve 12 source files/checksums and structural audit; record unresolved source evidence. | Intake/audit completed; source recovery open. |
-| **L1 — Contract and provenance** | Approve schema, stable identities/legacy mapping, controlled labels, source registry, and assertion-level review/reuse model. | Feature 021 draft written; planning, schema, and recovery pending. |
-| **L2 — Structural pilot** | Meet FR-019 sampling minima, complete structural review, validate every selected record disposition, and resolve blocking accounting/curated-record errors. Quarantine or exclude unresolved source/reuse/linguistic findings. Zero release-eligible content is permitted. | Pending; acceptance permits Phase 6 scheduling, not data-release or runtime approval. |
-| **L3 — Accounted data packs** | Approve relevant nonempty subsets with source/reuse evidence, applicable review decisions, complete merge/split/exclusion/quarantine accounting, declared scope, reference closure, and reproducible manifests. | Pending; imported annotation claims remain unreviewed. |
-| **L4 — Verified consumers** | Exact lookup returns every eligible homograph; sourced escaped goldens precede shared Rust behavior, CLI/adapters, parity, explicit activation and release review. | Pending; specification completion implies no lookup or publication. |
+| **L0 — Intake** | Preserve 12 source files/checksums and structural audit; record unresolved source evidence. | Completed (`data/sources/tamil-lexicon.sha256.json`, [baseline.json](../../target/lexicon/baseline.json)); historical 12-file / 307,243-record bulk lineage remains unverified/quarantined, while the separate pinned-Wiktionary route closed `T038` for the six-entry core. |
+| **L1 — Contract and provenance** | Approve schema, stable identities/legacy mapping, controlled labels, source registry, and assertion-level review/reuse model. | Completed (`schemas/lexicon/`, `data/curation/tamil-lexicon/`, `tools/lexicon.py` including 9-table `review-ingest`); exact payload equality ([source-content-proof-final.json](../../target/lexicon/source-content-proof-final.json)) and pre-projection clean replay ([us1-proof.json](../../target/lexicon/us1-proof.json)) verified. |
+| **L2 — Structural pilot** | Meet FR-019 sampling minima, complete structural review, validate every selected record disposition, and resolve blocking accounting/curated-record errors. Quarantine or exclude unresolved source/reuse/linguistic findings. Zero release-eligible content is permitted. | **Accepted** ([l2-acceptance.json](../../target/lexicon/l2-acceptance.json), [structural-final.json](../../target/lexicon/structural-final.json)): `739` selected records, `307,243` validated quarantined dispositions, `0` eligible bulk assertions, fail-closed release guard exit `1` ([release-rejection-final.json](../../target/lexicon/release-rejection-final.json)), and full pre-stop gate passed ([pre-stop-utf8-final-retry.log](../../target/lexicon/pre-stop-utf8-final-retry.log)). **Phase 6 numerals scheduling is unblocked**; grants no historical data-release or runtime approval. |
+| **L3 — Accounted data packs** | Approve relevant nonempty subsets with source/reuse evidence, applicable review decisions, complete merge/split/exclusion/quarantine accounting, declared scope, reference closure, and reproducible manifests. | **Accepted for six-entry Wiktionary core** ([l3-acceptance.json](../../target/lexicon/l3-acceptance.json)): `6` entries, `19` senses, `31` genuine accepted-human claims (`abish`, `2026-11-14`, [approval receipt](../../docs/reviews/wiktionary-core-approval-2026-11-14.json)), separate **CC-BY-SA-4.0** canonical pack `lexicon/dictionary/` (`0.1.0+4d1309d05391`, manifest SHA-256 `4d1309d05391be1087c11590d664b8669b49ef8312b6c32e4bb32aa86b135079`; engine code remains MIT), offline CLDF 1.3 export/round-trip (`dbc9cd09b2c4d267f09ef25493656c7b99d25005614a2a326b632519d75dc54b`), `0`-byte default payload, `50,923`-byte compiled `.tlpack` core artifact (SHA-256 `283e32d7b3dbfa11d1bedc201a95e90bcb064021dba96fd6a44a61491f5137ea`), and all `16` feature combinations passing compiler checks. Structured scopes stay `unknown` (`2` pending proposals), no IPA/etymology/morphology/DEDR claims, and historical bulk material remains quarantined. |
+| **L4 — Verified consumers** | Exact lookup returns every eligible homograph; sourced escaped goldens precede shared Rust behavior, CLI/adapters, parity, explicit activation and release review. | **Verified bounded core**: [lexicon-v0.1.md](../../docs/specs/lexicon-v0.1.md), `44` escaped **active** goldens ([lexicon_lookup.jsonl](../../tests/golden/lexicon_lookup.jsonl)), safe Rust compiler/lookup/dispatcher/CLI pass `8` focused `core` tests (all `44` active vectors), `7` `default` tests, and `core` `clippy -D warnings` ([runtime-core-root.log](../../target/lexicon/runtime-core-root.log), [runtime-default-root.log](../../target/lexicon/runtime-default-root.log), [runtime-clippy-root.log](../../target/lexicon/runtime-clippy-root.log); lookup allocates on NFC/deserialization with no zero-allocation claim). Core/default runtime parity, final core gates and isolated archive consumers pass. Full structural targets pass (52.72 seconds / 191.93 MiB); owner activation is recorded on 2026-11-15. |
 
 **Scheduling**: Phase 6 resumes after L2 acceptance is recorded in the handoff; L3/L4 may proceed alongside independent language work. Calendar witness review stays independent; previously deferred Punarchi research stays deferred. Missing evidence blocks affected data approval, not contract drafting or unrelated work. L2 requires every FR-019 sampling minimum and validated dispositions; unresolved evidence may remain quarantined, and zero release-eligible content does not prevent Phase 6 from resuming.
 
-**Consumer data gates**: Phase 11 requires reviewed stems, POS and inflection-class conventions/evidence; Phase 15 requires attested regional forms and directional mappings; Phase 16 requires approved vocabulary/variants and explicit scope (dictionary absence alone is not a spelling error). Each relevant subset must meet L3 source/review/release-eligibility acceptance before its consumer claims support; L2 structural acceptance alone is insufficient. Phase 14 may develop sourced G2P rules independently; lexical exceptions/evaluation require reviewed pronunciation and transcription/region conventions. Imported IPA, roots, confidence and sandhi prose do not establish these capabilities.
+**Consumer data gates**: Phase 11 requires reviewed stems, POS and inflection-class conventions/evidence; Phase 15 requires attested regional forms and directional mappings; Phase 16 requires approved vocabulary/variants and explicit scope (dictionary absence alone is not a spelling error). The six-entry Wiktionary `core` L3 pack satisfies bounded exact lookup scope only (structured scopes remain `unknown`, with no stems/morphology/IPA) and does not satisfy Phase 11, Phase 15, or Phase 16 consumer data gates. Each relevant subset must meet L3 source/review/release-eligibility acceptance before its consumer claims support; L2 structural acceptance alone is insufficient. Phase 14 may develop sourced G2P rules independently; lexical exceptions/evaluation require reviewed pronunciation and transcription/region conventions. Imported IPA, roots, confidence and sandhi prose do not establish these capabilities.
 
 **Ownership and acceptance**: original snapshots stay in `data/sources/`; reviewed canonical CSV/TOML belongs in `lexicon/`, with indexes generated by Rust build tooling. Existing Rust crates own linguistic behavior, the facade orchestrates siblings, and bindings stay thin. Data prerequisites add no Cargo edges or ranks. Data milestones require editorial/validation evidence; public operations retain the full sourced-golden, Rust, dispatcher, parity, activation and release-policy gates. L1 completion does not mark any data or runtime capability `active`.
 
@@ -357,3 +357,36 @@ The [lexicon curation specification](../../specs/021-lexicon-curation/spec.md) t
 - **Documentation & Architecture Scope Only**: Per explicit user instruction (*"This is the documentation and project structure task not an implementation task"*), this feature produces the normative specification (`specs/016-crate-dependency-roadmap/spec.md`), quality checklist (`specs/016-crate-dependency-roadmap/checklists/requirements.md`), and updated root [`ROADMAP.md`](file:///C:/Users/abish/Documents/dev/tamil-toolkit/ROADMAP.md) without modifying any Rust code or Cargo manifests.
 - **Rust-First Single Source of Truth**: All new capabilities in Phases 1–17 will be implemented once in Rust (`#![forbid(unsafe_code)]`) and exposed to Python, Node/Browser WASM, Dart/Flutter, CLI, Playground, and the Microsoft Word Add-in via `tamil-toolkit`.
 - **Primary Source Provenance**: Every grammatical, lexical, prosodic, and astronomical rule in Phases 1–17 requires a citable primary standard (e.g., Unicode 17, CLDR 49, *Tolkappiyam*, *Nannool* critical edition by A. Thamodaran 1999, *Yaapparungalakkaarigai*, Tamil Virtual Academy, or Madras University Tamil Lexicon) before its golden suite can transition from `planned` to `active`.
+
+
+## Feature 021 storage clarification — 2026-11-14
+
+The user-directed [lexicon storage decision](../../docs/decisions/lexicon-text-storage.md)
+keeps large dictionary CSV readable as UTF-8 (`json-string-utf8-v1`) while
+retaining escaped goldens and scalar diagnostics. Future compact runtime
+projections remain Rust-owned. The clean UTF-8 rebuild, exact source-content
+equality, pre-projection clean replay, L2 structural pilot acceptance (`T001`–`T037`),
+and full `just agent-pre-stop-gate` are now complete
+([l2-acceptance.json](../../target/lexicon/l2-acceptance.json)), adding no Cargo
+edge, crate, rank, or phase. Phase 6 numerals scheduling is unblocked at L2;
+L3/L4 source, review, and runtime gates remain independent and pending, and this
+clarification does not approve any imported data.
+
+
+## Verified consumer checkpoint — 2026-11-15
+
+The six-entry / 19-sense core passes all 44 unchanged active lexicon vectors
+in real Rust, Python, Node/browser WASM and Dart. Core/default isolated archives
+and private Dart bundles pass with applicable terms. Final core gates pass
+390 harness tests, 31 Python groups, 36,230 WASM tests and all required Rust,
+Unicode, Clippy and release-copy checks. Evidence: `target/lexicon/` contains
+`l4-functional.json`, `archive-proof.json` and `integration-gates.log`.
+
+Fresh complete intake/proof verifies 307,243 records and 12 original hashes in
+52.72 seconds at 191.93 MiB; both structural targets pass. Release core lookup
+p95 is 0.1148 ms native / 0.1979 ms with Python serialization (10,000 queries
+per pass). See `benchmarks.json`; no large-pack lookup scaling is claimed.
+The owner approved core-profile activation of the 44 vectors on 2026-11-15.
+Canonical verification uses core; Cargo default data features stay off. No registry
+upload or version/allowlist expansion occurred. Historical source intake stays
+quarantined; scopes remain unknown and omitted annotations stay excluded.

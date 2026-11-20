@@ -3,6 +3,154 @@
 
 ## Unreleased
 
+## 0.1.0-alpha.8 / Python 0.1.0a8 - 2026-11-20
+
+- Add historical source-record search to the playground. The export indexes all
+  307,243 supplied rows under 177,606 lookup keys and preserves original cells,
+  duplicates and file/row locators. The separate data ZIP carries unresolved
+  source rights and unverified linguistic claims. Core runtime parity, Dart,
+  the production playground build and all 256 bucket hash comparisons pass.
+
+- Merge seven freshly sourced Wiktionary entries (nine senses) into the core
+  while preserving all existing entry revisions and reviewed golden payloads.
+  Full data coverage becomes 9,410 written forms / 11,377 entries / 25,742 senses.
+  Rust, Python, Node/browser WASM and Dart checks pass with seven new cases
+  explicitly reviewed as planned; owner fixture activation remains pending.
+- Capture 384 pinned Wiktionary pages as rendered HTML for the remaining gaps,
+  retaining current-template provenance and hash/queue bindings. Produce a
+  pending human/source-policy review packet of 237 entries / 282 senses, with
+  228 candidate spellings absent from the current packs. Derived proposals
+  cannot enter the existing wikitext automated-acceptance path.
+- Record full-bundle source/permission blockers and local permission-request
+  drafts. Preserve the 307,243 historical records; no unverified data approval,
+  version bump or registry publication is claimed.
+
+- Reconcile all 410 historical Wiktionary spelling gaps against pinned pages
+  and a separate official API capture. Prepare an isolated seven-entry,
+  nine-sense candidate pack with source-backed automated provenance and passing
+  canonical/CLDF validation; retain explicit blockers for the remaining cases.
+  Validate snapshot dates without changing the previous bulk extraction policy.
+  The isolated packet was subsequently merged as recorded above; historical
+  quarantine remains unchanged.
+
+- Audit the historical 307,243-record lexicon by source and exact spelling
+  overlap, with a reproducible inventory and a prioritized recovery queue.
+  Separate candidate counts from approved coverage; historical claims remain
+  quarantined and original source hashes remain unchanged.
+
+- Add a bilingual full-pack lexicon playground with exact lookup, pack and scope
+  filters, homographs, all senses, source/acceptance details, attribution links,
+  JSON exports and contract-test presets. Dev/build prepares optimized full browser
+  WASM with manifest-checked coverage; disclose historical intake exclusions.
+  All89playground tests, production/PWA build and post-edit gates pass; desktop
+  and mobile browser flows verified. Open `/?tool=lexicon` for direct access.
+
+- Share fingerprinted, read-only real-pack harness fixtures and run isolated
+  tests with pytest-xdist; retain all original tests and add cross-process lock,
+  cache invalidation and fixture mutation checks. The optimized harness passes
+  484 tests in 64.25 seconds (baseline: 447 in 1,130.88 seconds).
+- Add bounded host Rust/PyO3 batches for lexicon scalar audits, exact JSON
+  encoding and hashes; retain reference fallbacks and genuine offline CLDF
+  validation while reusing parsed rows within each validation call. Detect
+  cyclic containers and preserve dictionary-subclass fallback behavior.
+- Build independent bindings concurrently with isolated Cargo targets,
+  content/output-verified caches, disk preflight and process leases. Keep daily
+  gates on one selected profile and expose the final three-profile runtime and
+  archive matrix explicitly. All three runtime/archive profiles pass; the core development profile is restored.
+  Structural benchmarks remain within budget without a measured net throughput gain.
+
+- Avoid quadratic decision indexing during lexicon Unicode inspection: load
+  review decisions only when an actual Unicode exception needs authorization,
+  retaining native inspection and exact exception/revision/history checks.
+  Reuse the shared compiled schema validator for review eligibility, with
+  differential checks against the reference validator.
+
+- Correct revision-pinned bulk Wiktionary homograph identities, source-backed
+  regional routing and finite qualifier classification. Regenerate three packs
+  containing 11,370 entries / 25,733 senses while preserving the six reviewed
+  entry payloads. Add full-profile verification and refresh signed pack test
+  metadata; expanded integration and archive acceptance remain in progress.
+
+- Close Feature 021 lexicon remediation (`T071`–`T079`): preserve canonical
+  sense-anchored relations and full closure through CLDF export/round-trips,
+  align Python/Rust validation of optional `unknown`/`not_applicable` scope
+  backing and `paired_translation_id` references, apply cross-pack relation
+  omission before public-only checks while retaining editorial integrity checks,
+  and optimize full-corpus `307,243`-record / `12`-file lossless structural
+  ingestion and proof validation to `45.99s` / `387.39 MiB` (`45.99s` / `383.33 MiB`
+  repeat), with warm core lookup p95 at `1.2445 ms` native / `1.478 ms` serialized.
+  Independent review (`gemini-4-hydrogen`, `high`) and full Rust/Python/WASM/Dart/archive
+  gates pass; Cargo default data features and core 6-entry manifest remain preserved.
+
+- Add deterministic optional dictionary compilation and exact Rust lookup with
+  dispatcher/CLI routes. All 16 feature combinations pass compiler checks;
+  the default embeds no payload and clean core builds reproduce 50,923 bytes.
+  The six-entry / 19-sense core passes 44 unchanged lookup cases, activated
+  for the core profile with owner approval on 2026-11-15.
+  Core/default real runtime parity and isolated archive checks pass.
+  Full 307,243-record structural validation passes in 52.72 seconds /
+  191.93 MiB. Release lookup p95 is 0.1148 ms native / 0.1979 ms serialized.
+  Cargo default data features, crate/version/registry scope remain unchanged;
+  no publishing is authorized.
+
+- Implement nonempty release closure, deterministic canonical promotion with
+  source notice/path validation, expanded review ingestion, and offline CLDF 1.3
+  dictionary export/round-trip using pinned dev validators and local schemas.
+  The approved six-entry core reproduces byte-for-byte; compiled runtime and
+  archive/profile acceptance are verified.
+
+- Record genuine owner approval of six revision-pinned Wiktionary entries / 19
+  senses and the separate CC-BY-SA-4.0 data-pack policy; build a reviewed
+  workspace with 31 accepted claims while preserving pending scope proposals,
+  immutable originals and distinct same-spelling POS identities. Canonical
+  notice closure, compiled packs and bounded runtime acceptance are verified.
+
+- Create isolated pending 4-entry PRIMARY Wiktionary candidate workspace under
+  `data/curation/wiktionary-candidate/` pinned to verified official
+  `en.wiktionary.org` revisions (`1921` அடடா `oldid=85842017`, `3906` அந்நிலை
+  `oldid=89903937`, `8218` அறிக்கை `oldid=88382210`, `28857` செப்பம்
+  `oldid=61485513`) with checked-in API/wikitext snapshots, proposed
+  `CC-BY-SA-4.0` attribution/disclaimer notices (`notices/ATTRIBUTION_AND_LICENSE.md`),
+  allowlist builder/verifier (`tools/lexicon_wiktionary_candidate.py`),
+  `4` entries / `16` senses / `24` assertions (`0` accepted decisions, `49` open
+  findings, `0` IPA forms, explicit exclusions & schema-gap manifests in
+  `provenance/`), focused negative/replay tests
+  (`tests/harness/test_wiktionary_candidate.py`), rebuild guards that reject
+  protected paths and preserve conflicting editorial changes, and audit record
+  (`docs/audits/wiktionary-candidate-2026-11-14.md`); immutable 12 original
+  sources, 739-record `data/curation/tamil-lexicon/`, `T038`, `T039`, and
+  `T040+` pending gates remain unchanged.
+
+- Complete Feature 021 structural curation slice (`T001`–`T037`) and L2
+  structural pilot acceptance under the `json-string-utf8-v1` storage decision
+  (readable UTF-8 Tamil in large dictionary CSV with reversible JSON/control
+  escapes, escaped golden tests/scalar diagnostics, and no retained legacy
+  staging/archive):
+  - Verify all 12 immutable intake files (`307,243` logical CSV records) and
+    pre-projection clean inventory/stage replay (`263,014` initial identities,
+    `504,384,984` UTF-8 CSV bytes vs `581,570,653` escaped baseline;
+    `target/lexicon/us1-proof.json`) plus exact decoded source field/scalar and
+    subject allocation equality (`target/lexicon/source-content-proof-final.json`).
+  - Project and validate the deterministic 739-record structural pilot (`264,402`
+    post-projection identities, `243` entries, `609` forms, `363` senses, `637`
+    texts, `1,458` scopes, `51` labels, `310,329` assertions/evidence, `966`
+    findings, `0` decisions/eligible assertions): structural CLI exits `0`
+    (`l2_structural_accepted: true`, `target/lexicon/structural-final.json`),
+    fail-closed release guard exits `1` (`NONEMPTY_ELIGIBLE_PACK_REQUIRED`,
+    `target/lexicon/release-rejection-final.json`), and L2 acceptance is
+    recorded in `target/lexicon/l2-acceptance.json` and `target/lexicon/us2-proof.json`.
+  - Pass `just agent-post-edit` and full `just agent-pre-stop-gate`
+    (`target/lexicon/pre-stop-utf8-final-retry.log`: `277` harness tests,
+    `36,161` Rust active goldens, `30` Python golden groups, `36,185` WASM tests).
+  - Unblock Phase 6 numerals scheduling at L2; primary dictionary provenance
+    trace (`T038`), genuine review decisions (`T039`), L3 nonempty pack/CLDF
+    production, and L4 runtime lookup (`runtime_verified: null`) remain pending.
+
+- Resolve Feature 021 analysis findings: keep the structural pilot's tests
+  executable before later release/export tooling, define the full nested lookup
+  response schema and illustrative example, and specify full-corpus structural
+  timing/memory measurements separately from lookup benchmarks.
+
 - Validate reused Rust APIs across `tamil-core`, `tamil-norm`, and
   `tamil-toolkit` ahead of Feature 021 (`specs/022-validate-reused-rust-apis`):
   - Add 30 escaped canonical NFC/NFD, CCC mark reordering, format-control

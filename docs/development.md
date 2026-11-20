@@ -34,6 +34,28 @@ Full harness and Python/WASM/Dart parity checks run locally.
 The expensive cross-platform archive matrix is an explicit release dispatch.
 A passing small CI run does not replace local parity evidence.
 
+Daily `just agent-post-edit`, `just test-parity`, and
+`just agent-pre-stop-gate` select one lexicon profile (currently `core` when
+its suite is active). Use `tools/tasks.py ... --lexicon-profile default|core|full`
+to select another profile. `just lexicon-acceptance` runs the final runtime
+matrix; `just release-check` runs all three profiles in isolated archive
+consumers, including private Dart archives. Neither command publishes.
+
+`just test-harness` uses pytest-xdist with `-n auto --dist=loadgroup`.
+Set `TAMIL_HARNESS_WORKERS=4` to bound workers, or `0` for sequential execution.
+Real-pack fixtures are shared once per session across workers, fingerprinted
+against their inputs, and checked for mutation at teardown. Tamper tests use
+separate small packs. Shared Cargo commands also hold a process lock, so safety
+does not depend on the chosen xdist scheduler.
+
+Binding synchronization builds independent targets in separate Cargo target
+directories with bounded concurrency and a disk-space preflight. Reuse requires
+matching source/toolchain/profile hashes and output hashes; parity tests still
+execute after a cache hit. `tools/tasks.py sync-bindings --force` forces builds;
+`--targets python` selects a target, and `--include-dart` includes the host C ABI.
+A cross-process lease protects canonical outputs throughout builds and consumers.
+Isolated archive builds retain their separate build and verification paths.
+
 Use locked dependencies and warm caches. Rebuild bindings before parity; a
 stale native extension can otherwise hide Rust changes. Specification-only
 handoffs can finish with schema/Unicode evidence while implementation is
@@ -65,3 +87,14 @@ On resumption, read that status, check `git status`, and continue the unfinished
 acceptance criteria. Do not repeat completed checks without changed inputs,
 new failures, or unresolved concerns. Do not describe an unpublished module
 or a planned suite as completed support.
+
+
+## Large dictionary text storage
+
+Use readable UTF-8 Tamil in large lexicon CSV tables, with the declared
+`json-string-utf8-v1` reversible cell codec. Preserve escaped golden JSONL and
+exact scalar/control diagnostics. Do not infer composition from rendered words,
+normalize during serialization, or strip controls. Follow the
+[storage decision](decisions/lexicon-text-storage.md) for the user-directed clean UTF-8 rebuild,
+exact source-content/ID proofs, equivalent-row byte measurements and required gates.
+Runtime output format is independently measured and compiled by Rust.

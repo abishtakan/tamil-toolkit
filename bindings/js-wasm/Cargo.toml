@@ -11,6 +11,13 @@ description = "Thin WASM bindings for tamil-toolkit"
 [lib]
 crate-type = ["cdylib", "rlib"]
 
+[features]
+default = []
+lexicon-core = ["tamil-toolkit/lexicon-core"]
+lexicon-terminology = ["tamil-toolkit/lexicon-terminology"]
+lexicon-names-taxa = ["tamil-toolkit/lexicon-names-taxa"]
+lexicon-regional = ["tamil-toolkit/lexicon-regional"]
+
 [dependencies]
 tamil-toolkit.workspace = true
 wasm-bindgen = "0.2"

@@ -121,3 +121,21 @@ non-reversible key combinations fail explicitly.
 
 The golden examples in this bootstrap are engineering fixtures. Expert review
 remains necessary for linguistic rules; agents must never invent Punarchi rules.
+
+
+## Large lexicon CSV storage clarification (2026-11-14)
+
+Constitution 2.0.0 permits readable UTF-8 Tamil in large lexicon CSV tables under
+the versioned reversible cell codec. Golden tests and exact scalar diagnostics
+remain escaped; original scalar sequences and controls remain intact. See the
+[storage decision](../decisions/lexicon-text-storage.md). This does not change
+bootstrap behavior, active vectors, Rust ownership or source/review gates.
+
+## Reviewed dictionary core profile
+
+The 44 lexicon vectors are active following owner approval on 2026-11-15.
+Canonical verification commands select the data-enabled core profile to run all
+36,205 active vectors. Cargo's default data features remain off. Explicit default
+builds retain zero dictionary payload and dedicated negative-profile tests; they
+do not establish parity for the active dictionary suite. This activation changes
+no crate version, registry allowlist or publication authorization.

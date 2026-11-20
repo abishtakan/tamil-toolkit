@@ -6,9 +6,9 @@
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-toolkit?style=flat-square)](https://crates.io/crates/tamil-toolkit)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-toolkit?style=flat-square&label=downloads)](https://crates.io/crates/tamil-toolkit)
-[![docs.rs](https://docs.rs/tamil-toolkit/badge.svg)](https://docs.rs/tamil-toolkit/0.1.0-alpha.7)
+[![docs.rs](https://docs.rs/tamil-toolkit/badge.svg)](https://docs.rs/tamil-toolkit/0.1.0-alpha.8)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
-[![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
+[![License: MIT AND CC-BY-SA-4.0](https://img.shields.io/badge/license-MIT%20AND%20CC--BY--SA--4.0-blue?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md)
 
 [Install](#install) · [Example](#example) · [Documentation](#documentation)
 
@@ -24,20 +24,20 @@
 | **Historical calendar kernels** | Unreleased source-pinned 1962 Vakiya solar and lunar calculations; full Vakiya date/location/five-limb coverage is not implemented. |
 | **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles. |
 
-Experimental alpha `0.1.0-alpha.7`. APIs may change before stability. This package provides bounded APIs and does not
+Experimental alpha `0.1.0-alpha.8`. APIs may change before stability. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage. This candidate includes owner-approved numerals v0.3 and experimental, bounded calendar APIs. Calendar acceptance suites remain planned and their selected review runs are separate from active numeral parity. Thirukanitham, Ujjain mean-sunrise Vakiya, named TN observances and annual holiday snapshots have explicit coverage. Arbitrary-location Vakiya daylight, official era reconciliation and Krishna Jayanthi remain deferred. See docs/releases/numerals-calendar-candidate.md for scope and limitations.
 
 ## Install
 
 ```sh
-cargo add tamil-toolkit@=0.1.0-alpha.7
+cargo add tamil-toolkit@=0.1.0-alpha.8
 ```
 
 Or add the exact alpha dependency to `Cargo.toml`:
 
 ```toml
 [dependencies]
-tamil-toolkit = "=0.1.0-alpha.7"
+tamil-toolkit = "=0.1.0-alpha.8"
 ```
 
 ## Example
@@ -59,14 +59,17 @@ fn main() -> Result<(), String> {
 
 ## Documentation
 
-- [API reference on docs.rs](https://docs.rs/tamil-toolkit/0.1.0-alpha.7)
+- [API reference on docs.rs](https://docs.rs/tamil-toolkit/0.1.0-alpha.8)
 - [Feature contract and examples](https://github.com/abishtakan/tamil-toolkit/blob/master/README.md#capability-contracts)
 - [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-7.md)
+- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-8.md)
 
 ## License
 
-Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
-Bundled data and mappings retain their recorded terms in the
+Original Rust code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
+Approved canonical dictionary sources under `lexicon/dictionary/` and `lexicon/packs/` (included in crate source
+archives; default builds embed zero dictionary data) are separately licensed under
+**CC-BY-SA-4.0**, retaining upstream Wiktionary attribution, revision history, and disclaimers
+in each pack's `notices/` directory and the
 [third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).
 Contributions are welcome; see the [contributor guide](https://github.com/abishtakan/tamil-toolkit/blob/master/CONTRIBUTING.md).
