@@ -1,0 +1,19 @@
+{
+  "cargo_default_features_unchanged": true,
+  "core_manifest_sha256": "4d1309d05391be1087c11590d664b8669b49ef8312b6c32e4bb32aa86b135079",
+  "date": "2026-11-15",
+  "decision": "approved_core_profile_activation",
+  "evidence": [
+    "target/lexicon/integration-gates-streaming-final.log",
+    "target/lexicon/archive-proof.json",
+    "target/lexicon/benchmarks.json"
+  ],
+  "fixture_sha256": "cf5ba160c25daa987fad0279b58c1b6534da592ea3fe62a1eebd78cd5a406047",
+  "publishing_authorized": false,
+  "release_scope_and_version_unchanged": true,
+  "reviewer": "abish",
+  "schema_version": 1,
+  "suite": "lexicon_lookup.jsonl",
+  "user_response": "Approve core-profile activation",
+  "vectors": 44
+}

@@ -1,0 +1,27 @@
+{
+  "acceptance_decisions": 25,
+  "canonical_findings": [],
+  "cldf_valid": true,
+  "dataset_version": "0.1.0+99fc4a1bd508",
+  "decision_dates": [
+    "2026-11-16"
+  ],
+  "historical_claims_approved": false,
+  "manifest_sha256": "99fc4a1bd5082cee0b916e2ec3755e3bc52fbcf0f3f09bad1713541811cffd98",
+  "promoted_entries": 7,
+  "promoted_senses": 9,
+  "roundtrip_ok": true,
+  "runtime_integrated": false,
+  "schema_version": 1,
+  "scope": "isolated candidate pack; current runtime packs unchanged",
+  "workspace_summary": {
+    "bulk_entries": 7,
+    "bulk_senses": 9,
+    "pack_id": "core",
+    "reviewed_entries": 0,
+    "reviewed_senses": 0,
+    "total_entries": 7,
+    "total_senses": 9,
+    "workspace_dir": "C:\\Users\\abish\\Documents\\dev\\tamil-toolkit\\target\\lexicon\\wiktionary-gaps-final\\candidate-workspace"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "source_id": "ta-wiktionary-dump-2026-11-01",
+  "site": "https://ta.wiktionary.org",
+  "dump_url": "https://dumps.wikimedia.org/tawiktionary/latest/tawiktionary-latest-pages-articles.xml.bz2",
+  "dump_filename": "tawiktionary-latest-pages-articles.xml.bz2",
+  "dump_bytes": 39811453,
+  "dump_sha256": "1b284840f8bbba0e504bee38e105dee40ce57682e9d79bcd05fa5b1db151cc19",
+  "license": "CC-BY-SA-4.0 AND GFDL",
+  "extracted_at_utc": "2026-11-20T13:33:46Z",
+  "kept_entries": 85889
+}

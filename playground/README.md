@@ -1,6 +1,45 @@
 # Tamil Toolkit Playground (`tamil-toolkit-playground`)
 
-An authentic, zero-latency linguistic workbench and developer playground for Tamil script, numeral conversion, calendar mathematics, legacy encodings, and Unicode analysis.
+A local linguistic workbench and developer playground for Tamil script, numeral conversion, calendar mathematics, legacy encodings, and Unicode analysis.
+
+
+## Full lexicon testing
+
+Run `just playground-dev`, then open http://localhost:5173/?tool=lexicon (or select **Lexicon** from the home page).
+The start/build scripts prepare the optimized browser WASM with core, names/taxa
+and regional packs. The first build can take several minutes; later starts reuse
+verified build outputs. The complete browser bundle is about 46 MiB, including
+source provenance, and is precached for offline use in production. Rust's default
+Cargo data features remain off.
+
+The explorer provides exact lookup, pack selection, region/register filters,
+sourced examples, homographs, senses, provenance and raw request/response views.
+It preserves whitespace and joiners. It does not provide fuzzy/prefix search or
+search inside English definitions; those operations are outside the current engine.
+
+Current verified-pack data: 9,410 distinct headwords, 11,377 entries and 25,742 senses.
+Only six entries have human approval; bulk entries retain automated source
+acceptance. The separate **Historical source records** view searches all 307,243
+owner-supplied CSV records, including technical terms, source meanings, phrases,
+names and outgoing relations. Results retain original fields and file/row
+locators; inherited status labels do not establish verified linguistic acceptance.
+Source rights remain unresolved. Each search downloads one hash-checked data
+bucket; these historical buckets are not part of the fully precached verified
+dictionary. Pack-specific attribution and CC-BY-SA
+terms are available under `/lexicon-notices/<pack>/ATTRIBUTION_AND_TERMS.md`.
+
+`uv run --locked python tools/prepare_playground.py --check` verifies generated
+catalog metadata against the canonical packs.
+`uv run --locked python tools/prepare_historical_lexicon.py --check` proves every
+exported historical cell equals the frozen original. Start/build preparation
+generates the data when missing. No remote lookup service is used.
+
+To create a separate owner-directed data artifact without changing engine package
+licenses or publishing it:
+
+```powershell
+uv run --locked python tools/prepare_historical_lexicon.py --archive target/lexicon/historical-source-records.zip
+```
 
 ---
 

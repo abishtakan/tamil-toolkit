@@ -6,6 +6,23 @@ import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
   plugins: [
+    {
+      name: "cache-large-dev-assets",
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          const url = req.url ?? "";
+          if (
+            url.includes(".wasm") ||
+            url.startsWith("/lexicon-extended/") ||
+            url.startsWith("/historical-lexicon/") ||
+            url === "/lexicon-browse-index.json"
+          ) {
+            res.setHeader("Cache-Control", "public, max-age=600");
+          }
+          next();
+        });
+      },
+    },
     wasm(),
     react(),
     tailwindcss(),
@@ -29,8 +46,8 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,svg,wasm}"],
-        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024
+        // Keep the 46 MiB WASM and lexicon shards out of eager SW precache; cache app shell only.
+        globPatterns: ["**/*.{js,css,html,svg,md}"],
       }
     })
   ],

@@ -51,6 +51,11 @@ def main():
                 failures.append(f"{path}: executable or unsupported file in lexicon")
     for failure in failures:
         print(failure, file=sys.stderr)
+    from tools.lexicon_validate import check_curated_csv
+    curated = check_curated_csv()
+    failures.extend(curated["findings"])
+    for failure in curated["findings"]:
+        print(failure, file=sys.stderr)
     if not failures:
         print(f"Unicode/schema gate passed; {len(active)} active vectors; planned suites validated separately.")
     return int(bool(failures))

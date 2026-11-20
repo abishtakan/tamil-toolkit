@@ -1,0 +1,320 @@
+{
+  "api_endpoint": "https://en.wiktionary.org/w/api.php",
+  "capture_dates": [
+    "2026-11-16"
+  ],
+  "license_evidence": "https://en.wiktionary.org/wiki/Wiktionary:Copyrights",
+  "pages_file": {
+    "bytes": 52191,
+    "sha256": "f52a8e2b208c376c1511b04a31cc08d15d3be9d0ab80e3ff0535872972e865fe"
+  },
+  "pages_jsonl_gz_sha256": "51ef30b1c1a430fdfab66718ae832155178b794be1324b766c0418f508293232",
+  "pages_uncompressed_sha256": "0d01216f1ed5261343cbb61f5529a99081608ef5e06e2b90ea56a963a95b3b3f",
+  "raw_files": {
+    "batch-000.json": {
+      "bytes": 20949,
+      "sha256": "47f76a775563fa982b5b971986333bb4efb0ca392bd514d43297da036716aea7"
+    },
+    "batch-001.json": {
+      "bytes": 18842,
+      "sha256": "f5411982963ca751ba80f77c3ea70e26202c164cdf8e3850f4f3749cfa19b0da"
+    },
+    "batch-002.json": {
+      "bytes": 16334,
+      "sha256": "21f4c709bb16ba74b47bf2709b2574500acd1c2dccca408a9e7b0c55fa3da194"
+    },
+    "batch-003.json": {
+      "bytes": 2805,
+      "sha256": "715dc1a0862cd88c1cf139060e0a01b03c5f341a2445c28aee353d15e9b5d200"
+    }
+  },
+  "requested_title_count": 77,
+  "reuse_note": "Fresh revision evidence only; historical claims remain unapproved; no automatic acceptance.",
+  "schema_version": 1,
+  "snapshot_date": "2026-11-16",
+  "title_outcomes": {
+    "\u0b85\u0b95": {
+      "revid": 93764339,
+      "status": "api_revision_pinned"
+    },
+    "\u0b85\u0b95\u0bcd\u0b95\u0bb0\u0bc8\u0b95\u0bcd\u0b95\u0bc1": {
+      "revid": 87155826,
+      "status": "api_revision_pinned"
+    },
+    "\u0b85\u0b9a\u0bb0\u0bcd\u0baa\u0bc8\u0b9a\u0bbe\u0ba9\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0b85\u0ba3\u0bcd\u0ba3\u0bbe\u0ba8\u0bcd\u0ba4\u0bc1": {
+      "revid": 87210413,
+      "status": "api_revision_pinned"
+    },
+    "\u0b85\u0ba4\u0bb1\u0bcd\u0b95\u0bc1": {
+      "revid": 88183318,
+      "status": "api_revision_pinned"
+    },
+    "\u0b85\u0ba4\u0bbf\u0bb2\u0bcd": {
+      "revid": 88995810,
+      "status": "api_revision_pinned"
+    },
+    "\u0b85\u0bae\u0bbf\u0bb0\u0bc1\u0ba4\u0b9a\u0bb0\u0b9a\u0bc1": {
+      "status": "api_page_missing"
+    },
+    "\u0b86\u0b95\u0bbe\u0ba4\u0bc1": {
+      "revid": 88419397,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0b95\u0bbf": {
+      "revid": 91457945,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0b95\u0bbf\u0bb1\u0ba4\u0bc1": {
+      "revid": 90404820,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0b95\u0bbf\u0bb1\u0bbe\u0ba9\u0bcd": {
+      "revid": 90404821,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0b95\u0bbf\u0bb1\u0bbe\u0baf\u0bcd": {
+      "revid": 90404822,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0b95\u0bbf\u0bb1\u0bbe\u0bb0\u0bcd": {
+      "revid": 90404823,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0b95\u0bbf\u0bb1\u0bbe\u0bb3\u0bcd": {
+      "revid": 90404824,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0b95\u0bbf\u0bb1\u0bc7\u0ba9\u0bcd": {
+      "revid": 90404825,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0b95\u0bc1\u0bae\u0bcd": {
+      "revid": 88152474,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0ba4\u0bcd\u0ba4\u0bbf\u0bb0\u0bc7\u0bb2\u0bbf\u0baf\u0bbe": {
+      "status": "api_page_missing"
+    },
+    "\u0b86\u0ba9\u0ba4\u0bc1": {
+      "revid": 90404826,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0ba9\u0bbe\u0ba9\u0bcd": {
+      "revid": 90404827,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0ba9\u0bbe\u0baf\u0bcd": {
+      "revid": 90404828,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0ba9\u0bbe\u0bb0\u0bcd": {
+      "revid": 90404829,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0ba9\u0bbe\u0bb3\u0bcd": {
+      "revid": 90404830,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0ba9\u0bc7\u0ba9\u0bcd": {
+      "revid": 90404831,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0baa\u0bcd\u0b95\u0bbe\u0ba9\u0bbf\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0b86\u0baf\u0bbf\u0bb1\u0bcd\u0bb1\u0bc1": {
+      "revid": 88163490,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0bb5\u0ba4\u0bc1": {
+      "revid": 87398858,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0bb5\u0bbe\u0ba9\u0bcd": {
+      "revid": 90404832,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0bb5\u0bbe\u0baf\u0bcd": {
+      "revid": 90404833,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0bb5\u0bbe\u0bb0\u0bcd": {
+      "revid": 90404834,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0bb5\u0bbe\u0bb3\u0bcd": {
+      "revid": 90404835,
+      "status": "api_revision_pinned"
+    },
+    "\u0b86\u0bb5\u0bc7\u0ba9\u0bcd": {
+      "revid": 90404836,
+      "status": "api_revision_pinned"
+    },
+    "\u0b87\u0b9a\u0bc1\u0bb0\u0bc7\u0bb2\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0b87\u0b9a\u0bc1\u0bb2\u0bbe\u0bae\u0bbe\u0baa\u0bbe\u0ba4\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0b87\u0bb0\u0bc1\u0ba8\u0bcd\u0ba4\u0bc1": {
+      "revid": 87210411,
+      "status": "api_revision_pinned"
+    },
+    "\u0b87\u0bb3\u0bbf\u0b9a\u0bcd\u0b9a": {
+      "revid": 88269987,
+      "status": "api_revision_pinned"
+    },
+    "\u0b88\u0ba4\u0bcd\u0ba4": {
+      "revid": 88174237,
+      "status": "api_revision_pinned"
+    },
+    "\u0b89\u0b99\u0bcd\u0b95": {
+      "revid": 87602591,
+      "status": "api_revision_pinned"
+    },
+    "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bc1\u0b95\u0bcd\u0b95\u0bbe\u0b95": {
+      "revid": 87602778,
+      "status": "api_revision_pinned"
+    },
+    "\u0b89\u0ba9\u0bcd": {
+      "revid": 92196799,
+      "status": "api_revision_pinned"
+    },
+    "\u0b8e\u0ba9\u0ba4\u0bc1": {
+      "revid": 88294402,
+      "status": "api_revision_pinned"
+    },
+    "\u0b90\u0b9a\u0bc1\u0bb2\u0bbe\u0ba8\u0bcd\u0ba4\u0bc1": {
+      "status": "api_page_missing"
+    },
+    "\u0b90\u0ba4\u0bb0\u0bbe\u0baa\u0bbe\u0ba4\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0b95\u0b9a\u0b95\u0bcd\u0b95\u0b9a\u0bc1\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0b95\u0b9f\u0ba8\u0bcd\u0ba4\u0bc1": {
+      "revid": 87210408,
+      "status": "api_revision_pinned"
+    },
+    "\u0b95\u0bb4\u0bbe\u0b85\u0bb2": {
+      "revid": 92367341,
+      "status": "api_revision_pinned"
+    },
+    "\u0b95\u0bbf\u0b9f\u0bc8\u0baf\u0bbe\u0ba4\u0bc1": {
+      "revid": 86850373,
+      "status": "api_revision_pinned"
+    },
+    "\u0b95\u0bbf\u0bb0\u0bcd\u0b95\u0bbf\u0b9a\u0bc1\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0b95\u0bc1\u0b9a\u0bb0\u0bbe\u0ba4\u0bcd\u0ba4\u0bc1": {
+      "status": "api_page_missing"
+    },
+    "\u0b95\u0bca\u0bb0\u0bcd\u0bb2": {
+      "revid": 78834043,
+      "status": "api_revision_pinned"
+    },
+    "\u0b9a\u0baa\u0bcd\u0baa\u0bbe\u0ba9\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0b9a\u0bae\u0bbe\u0baf\u0bcd\u0b95\u0bcd\u0b95\u0bbe": {
+      "status": "api_page_missing"
+    },
+    "\u0b9a\u0bb1\u0bc1\u0b95\u0bcd\u0b95\u0bc1\u0bae\u0bcd": {
+      "revid": 88291398,
+      "status": "api_revision_pinned"
+    },
+    "\u0b9a\u0bb2": {
+      "revid": 88633616,
+      "status": "api_revision_pinned"
+    },
+    "\u0b9a\u0bbf\u0baf\u0bbe\u0bb0\u0bcd\u0b9a\u0bbf\u0baf\u0bbe": {
+      "status": "api_page_missing"
+    },
+    "\u0ba4\u0b9a\u0bbf\u0b95\u0bcd\u0b95\u0bbf\u0b9a\u0bc1\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0ba4\u0ba9\u0bcd": {
+      "revid": 92262241,
+      "status": "api_revision_pinned"
+    },
+    "\u0ba4\u0bc1\u0bb0\u0bc1\u0b95\u0bcd\u0bae\u0bc6\u0ba9\u0bbf\u0b9a\u0bc1\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0ba4\u0bc6\u0bb1\u0bbf\u0b95\u0bcd\u0b95": {
+      "revid": 88385658,
+      "status": "api_revision_pinned"
+    },
+    "\u0ba4\u0bc6\u0bb2\u0b99\u0bcd\u0b95\u0bbe\u0ba9\u0bbe": {
+      "status": "api_page_missing"
+    },
+    "\u0ba8\u0b9f\u0b95\u0bcd\u0b95": {
+      "revid": 89172185,
+      "status": "api_revision_pinned"
+    },
+    "\u0ba8\u0bae\u0bcd": {
+      "revid": 89350558,
+      "status": "api_revision_pinned"
+    },
+    "\u0ba8\u0bbf\u0ba9\u0bcd": {
+      "revid": 92242460,
+      "status": "api_revision_pinned"
+    },
+    "\u0ba8\u0bbf\u0bae\u0bbf\u0bb0\u0bcd\u0ba8\u0bcd\u0ba4\u0bc1": {
+      "revid": 88600255,
+      "status": "api_revision_pinned"
+    },
+    "\u0ba8\u0bc8\u0b9a\u0bc0\u0bb0\u0bbf\u0baf\u0bbe": {
+      "status": "api_page_missing"
+    },
+    "\u0baa\u0bb1\u0bcd\u0b95\u0bb3\u0bcd": {
+      "revid": 80789455,
+      "status": "api_revision_pinned"
+    },
+    "\u0baa\u0bbe\u0bb0\u0bbf\u0b9a\u0bc1": {
+      "status": "api_page_missing"
+    },
+    "\u0baa\u0bbf\u0bb0\u0bbe\u0ba9\u0bcd\u0b9a\u0bc1": {
+      "status": "api_page_missing"
+    },
+    "\u0baa\u0bc1\u0b95\u0bc1\u0ba4\u0bcd\u0ba4\u0bbf": {
+      "revid": 89392581,
+      "status": "api_revision_pinned"
+    },
+    "\u0baa\u0bc6\u0bb2\u0bb0\u0bc1\u0b9a\u0bc1": {
+      "status": "api_page_missing"
+    },
+    "\u0baa\u0bc6\u0bb2\u0bcd\u0b9a\u0bbf\u0baf\u0bae\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0bae\u0b9f\u0b95\u0bbe\u0b9a\u0bc1\u0b95\u0bb0\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0bae\u0bbe\u0b9f\u0bcd\u0b9f\u0bbf": {
+      "revid": 87644943,
+      "status": "api_revision_pinned"
+    },
+    "\u0bae\u0bbe\u0bae\u0bcd": {
+      "revid": 90024103,
+      "status": "api_revision_pinned"
+    },
+    "\u0bae\u0bbe\u0bb2\u0bc8\u0ba4\u0bcd\u0ba4\u0bc0\u0bb5\u0bc1\u0b95\u0bb3\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0baf\u0bcb\u0bb0\u0bcd\u0ba4\u0bbe\u0ba9\u0bcd": {
+      "status": "api_page_missing"
+    },
+    "\u0bb2\u0bbe\u0bb5\u0bcb\u0b9a\u0bc1": {
+      "status": "api_page_missing"
+    },
+    "\u0bb5\u0bc7\u0ba3\u0bcd\u0b9f\u0bbe\u0bae\u0bcd": {
+      "revid": 90036319,
+      "status": "api_revision_pinned"
+    }
+  },
+  "total_fetched_pages": 51
+}

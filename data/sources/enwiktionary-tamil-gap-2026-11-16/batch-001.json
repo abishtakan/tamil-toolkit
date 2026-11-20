@@ -1,0 +1,437 @@
+{
+  "api_response": {
+    "batchcomplete": true,
+    "query": {
+      "pages": [
+        {
+          "missing": true,
+          "ns": 0,
+          "title": "\u0b9a\u0baa\u0bcd\u0baa\u0bbe\u0ba9\u0bcd"
+        },
+        {
+          "missing": true,
+          "ns": 0,
+          "title": "\u0b95\u0bc1\u0b9a\u0bb0\u0bbe\u0ba4\u0bcd\u0ba4\u0bc1"
+        },
+        {
+          "missing": true,
+          "ns": 0,
+          "title": "\u0b95\u0bbf\u0bb0\u0bcd\u0b95\u0bbf\u0b9a\u0bc1\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bcd"
+        },
+        {
+          "missing": true,
+          "ns": 0,
+          "title": "\u0b95\u0b9a\u0b95\u0bcd\u0b95\u0b9a\u0bc1\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bcd"
+        },
+        {
+          "missing": true,
+          "ns": 0,
+          "title": "\u0b90\u0ba4\u0bb0\u0bbe\u0baa\u0bbe\u0ba4\u0bcd"
+        },
+        {
+          "missing": true,
+          "ns": 0,
+          "title": "\u0b90\u0b9a\u0bc1\u0bb2\u0bbe\u0ba8\u0bcd\u0ba4\u0bc1"
+        },
+        {
+          "missing": true,
+          "ns": 0,
+          "title": "\u0b87\u0b9a\u0bc1\u0bb2\u0bbe\u0bae\u0bbe\u0baa\u0bbe\u0ba4\u0bcd"
+        },
+        {
+          "missing": true,
+          "ns": 0,
+          "title": "\u0b87\u0b9a\u0bc1\u0bb0\u0bc7\u0bb2\u0bcd"
+        },
+        {
+          "ns": 0,
+          "pageid": 6318007,
+          "revisions": [
+            {
+              "parentid": 90023766,
+              "revid": 92196799,
+              "sha1": "af4d0ceda888bb3970bbf043b7a30b144a143c0d",
+              "slots": {
+                "main": {
+                  "content": "{{also|\u0b89\u0ba3\u0bcd}}\n==Tamil==\n\n===Etymology===\n{{infl of|ta|\u0ba8\u0bc0||obl//gen|t=[[you]]|cap=1}}.<ref>{{R:Winslow}}</ref>\n\n{{der+|ta|ta-mid|\u0ba8\u0bc1\u0ba9\u0bcd}}, from {{m|ta|\u0ba8\u0bbf\u0ba9\u0bcd}}, from {{der|ta|dra-pro|*nin-}}.\n\n===Pronunciation===\n{{ta-IPA}}\n* {{audio|ta|LL-Q5885 (tam)-Sriveenkat-\u0b89\u0ba9\u0bcd.wav|a=India}}\n\n===Pronoun===\n{{head|ta|pronoun form}} {{tlb|ta|casual}}\n\n# [[your]]\n#: {{cot|ta|\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd<q:respectful>}}\n#: {{ux|ta|'''\u0b89\u0ba9\u0bcd''' \u0baa\u0bc6\u0baf\u0bb0\u0bcd \u0b8e\u0ba9\u0bcd\u0ba9?|What is '''your''' name?|audio=LL-Q5885 (tam)-Sriveenkat-\u0b89\u0ba9\u0bcd \u0baa\u0bc6\u0baf\u0bb0\u0bcd \u0b8e\u0ba9\u0bcd\u0ba9?.wav}}\n\n====Synonyms====\n* {{l|ta|\u0ba8\u0bbf\u0ba9\u0bcd}}, {{l|ta|\u0ba8\u0bc1\u0ba9\u0bcd}}, {{l|ta|\u0b89\u0ba9\u0bcd\u0ba9\u0bc1\u0b9f\u0bc8\u0baf}}, {{l|ta|\u0b89\u0ba9\u0ba4\u0bc1}}, {{l|ta|\u0b89\u0ba8\u0bcd\u0ba4\u0ba9\u0bcd}}\n\n===References===\n{{reflist}}\n* {{R:Cre-A 1992}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2026-08-24T05:26:54Z",
+              "user": "FenaBot"
+            }
+          ],
+          "title": "\u0b89\u0ba9\u0bcd"
+        },
+        {
+          "ns": 0,
+          "pageid": 9284198,
+          "revisions": [
+            {
+              "anon": true,
+              "parentid": 84452129,
+              "revid": 87210411,
+              "sha1": "815cfbc0a8a43e7bbb67f4dd35680633f1f38f96",
+              "slots": {
+                "main": {
+                  "content": "{{also|-\u0b87\u0bb0\u0bc1\u0ba8\u0bcd\u0ba4\u0bc1}}\n==Tamil==\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Participle===\n{{head|ta|adverbial participle}}\n\n# {{participle of|ta|\u0b87\u0bb0\u0bc1||adv}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2025-09-27T00:27:55Z",
+              "user": "2600:8800:8E04:1700:F0B4:76C5:D5B:DD49"
+            }
+          ],
+          "title": "\u0b87\u0bb0\u0bc1\u0ba8\u0bcd\u0ba4\u0bc1"
+        },
+        {
+          "ns": 0,
+          "pageid": 10143830,
+          "revisions": [
+            {
+              "parentid": 0,
+              "revid": 78834043,
+              "sha1": "e77fdf5331013c1681a9efad8d371c26f3deb24a",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Etymology===\n{{nonlemma}}\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Noun===\n{{head|ta|noun form}}\n\n# {{infl of|ta|\u0b95\u0bca\u0bb0\u0bcd\u0bb2\u0bc1||acc|s|t=[[voice]]}}\n\n===See also===\n* {{ncog|ta|\u0b95\u0bc1\u0bb0\u0bb2\u0bc8}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2024-04-10T13:40:59Z",
+              "user": "Cyrohdn3"
+            }
+          ],
+          "title": "\u0b95\u0bca\u0bb0\u0bcd\u0bb2"
+        },
+        {
+          "ns": 0,
+          "pageid": 10985955,
+          "revisions": [
+            {
+              "parentid": 87602062,
+              "revid": 88294402,
+              "sha1": "c81c61bbfd2d5659f570d803492eb218d4f6aa2c",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Etymology===\n{{infl of|ta|\u0ba8\u0bbe\u0ba9\u0bcd,\u0baf\u0bbe\u0ba9\u0bcd||gen|cap=1|t=I}}. Compare {{ncog|kn|\u0ca8\u0ca8\u0ccd\u0ca8\u0ca6\u0cc1}}.\n\n===Pronunciation===\n* {{ta-IPA}}\n* {{audio|ta|LL-Q5885 (tam)-Sriveenkat-\u0b8e\u0ba9\u0ba4\u0bc1.wav}}\n\n===Pronoun===\n{{head|ta|pronoun form|cat2=possessive pronouns}}\n\n# [[my]]\n#: {{syn|ta|Thesaurus:\u0b8e\u0ba9\u0bcd}}\n#: {{uxi|ta|[[\u0b85\u0ba4\u0bc1]] '''\u0b8e\u0ba9\u0ba4\u0bc1''' [[\u0baa\u0bc8]].|That's '''my''' bag.}}\n# [[mine]]\n#: {{syn|ta|\u0b8e\u0ba9\u0bcd\u0ba9\u0bc1\u0b9f\u0bc8\u0baf\u0ba4\u0bc1}}\n#: {{uxi|ta|[[\u0b85\u0ba4\u0bc1]] '''\u0b8e\u0ba9\u0ba4\u0bc1'''.|That's '''mine'''.}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2025-11-26T16:30:56Z",
+              "user": "Pixelpito"
+            }
+          ],
+          "title": "\u0b8e\u0ba9\u0ba4\u0bc1"
+        },
+        {
+          "ns": 0,
+          "pageid": 11011261,
+          "revisions": [
+            {
+              "anon": true,
+              "parentid": 85268321,
+              "revid": 87210408,
+              "sha1": "1a068ab9b580c85254d35f77f866e86890db63db",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Pronunciation===\n* {{ta-IPA}}\n* {{audio|ta|LL-Q5885 (tam)-Sriveenkat-\u0b95\u0b9f\u0ba8\u0bcd\u0ba4\u0bc1.wav}}\n\n===Participle===\n{{head|ta|adverbial participle}}\n\n# {{participle of|ta|\u0b95\u0b9f||adv}}.",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2025-09-27T00:27:43Z",
+              "user": "2600:8800:8E04:1700:F0B4:76C5:D5B:DD49"
+            }
+          ],
+          "title": "\u0b95\u0b9f\u0ba8\u0bcd\u0ba4\u0bc1"
+        },
+        {
+          "ns": 0,
+          "pageid": 11078507,
+          "revisions": [
+            {
+              "parentid": 87392348,
+              "revid": 87398858,
+              "sha1": "1139f08051430dea889d07abbed537e34d6b7788",
+              "slots": {
+                "main": {
+                  "content": "{{also|-\u0b86\u0bb5\u0ba4\u0bc1}}\n==Tamil==\n\n===Alternative forms===\n* {{alt|ta|\u0b86\u0b95\u0bc1\u0bb5\u0ba4\u0bc1}}\n\n===Etymology===\n{{suf|ta|\u0b86|\u0bb5\u0ba4\u0bc1}}.\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Verb===\n{{head|ta|gerund}}\n\n# {{gerund of|ta|\u0b86||to be}}.\n\n===References===\n* {{R:TAL}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2025-10-12T06:41:57Z",
+              "user": "Pixelpito"
+            }
+          ],
+          "title": "\u0b86\u0bb5\u0ba4\u0bc1"
+        },
+        {
+          "ns": 0,
+          "pageid": 11197132,
+          "revisions": [
+            {
+              "anon": true,
+              "parentid": 86849908,
+              "revid": 86850373,
+              "sha1": "adad88e883ba36c1113e9f34736ca5503bd97410",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Alternative forms===\n* {{alt|ta|\u0b95\u0bc6\u0b9f\u0bc6\u0baf\u0bbe\u0ba4\u0bc1||Spoken Tamil}}.<ref>{{R:McAlpin}}</ref>\n\n===Etymology===\nFrom {{m|ta|\u0b95\u0bbf\u0b9f\u0bc8}}. Possibly related to {{cog|te|\u0c15\u0c3e\u0c26\u0c41}}.\n\n===Pronunciation===\n{{ta-IPA}}\n* {{audio|ta|LL-Q5885 (tam)-Sriveenkat-\u0b95\u0bbf\u0b9f\u0bc8\u0baf\u0bbe\u0ba4\u0bc1.wav}}\n\n===Verb===\n{{head|ta|verb form}} {{tlb|ta|negative![[negative]]|_|finite verb![[finite verb]]}}\n\n# [[no]], [[not]], does not have, does not exist, is not available {{q|a [[negation]] for the [[affirmative]]s such as {{m|ta|\u0b89\u0ba3\u0bcd\u0b9f\u0bc1}}, {{m|ta|\u0b89\u0bb3\u0bcd\u0bb3\u0ba4\u0bc1}} and [[finite]] forms of the verb {{m|ta|\u0b87\u0bb0\u0bc1}}}}\n#: {{syn|ta|\u0b87\u0bb2\u0bcd\u0bb2\u0bc8|\u0b85\u0bb2\u0bcd\u0bb2}}\n# does not happen {{q|a [[negation]] for {{m|ta|\u0b89\u0ba3\u0bcd\u0b9f\u0bc1}} in a sentence which expresses [[habituality]]}}\n\n===References===\n{{reflist}}\n* {{R:Cre-A 1992}}\n\n{{cln|ta|negative verbs}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2025-09-21T12:55:28Z",
+              "user": "68.2.138.130"
+            }
+          ],
+          "title": "\u0b95\u0bbf\u0b9f\u0bc8\u0baf\u0bbe\u0ba4\u0bc1"
+        },
+        {
+          "ns": 0,
+          "pageid": 11255435,
+          "revisions": [
+            {
+              "parentid": 0,
+              "revid": 87602591,
+              "sha1": "84fd51fd05b7c2c5d76906f4266e5b3a852af0a2",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Pronoun===\n{{head|ta|pronoun form}}\n\n# {{altform|ta|\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bcd|from=Spoken}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2025-10-25T16:20:01Z",
+              "user": "Pixelpito"
+            }
+          ],
+          "title": "\u0b89\u0b99\u0bcd\u0b95"
+        },
+        {
+          "ns": 0,
+          "pageid": 11255474,
+          "revisions": [
+            {
+              "parentid": 0,
+              "revid": 87602778,
+              "sha1": "744ebea2a0cd1aed7cc8c7061789407f35321e0b",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Pronoun===\n{{head|ta|pronoun form}}\n\n# {{infl of|ta|\u0ba8\u0bc0\u0b99\u0bcd\u0b95\u0bb3\u0bcd||ben|pos=\"you\" (respectful)}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2025-10-25T16:57:08Z",
+              "user": "Pixelpito"
+            }
+          ],
+          "title": "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bc1\u0b95\u0bcd\u0b95\u0bbe\u0b95"
+        },
+        {
+          "ns": 0,
+          "pageid": 11288437,
+          "revisions": [
+            {
+              "parentid": 88174065,
+              "revid": 88174237,
+              "sha1": "1861d91439f6896345985dfce4c0ab4d38ceb8bd",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Etymology===\nFrom {{m|ta|\u0b88}}. {{etystub|ta}}\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Participle===\n{{head|ta|adjectival participle}}\n\n# [[given]]\n#: {{syn|ta|\u0b95\u0bca\u0b9f\u0bc1\u0ba4\u0bcd\u0ba4}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2025-11-15T17:11:43Z",
+              "user": "Pixelpito"
+            }
+          ],
+          "title": "\u0b88\u0ba4\u0bcd\u0ba4"
+        },
+        {
+          "ns": 0,
+          "pageid": 11303996,
+          "revisions": [
+            {
+              "parentid": 0,
+              "revid": 88269987,
+              "sha1": "a3e0391e205056dc1e2a256cbcc859b52e373ca9",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Participle===\n{{head|ta|adjectival participle}}\n\n# {{altform|ta|\u0b87\u0bb3\u0bbf\u0ba4\u0bcd\u0ba4|from=Spoken}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2025-11-24T08:21:45Z",
+              "user": "Pixelpito"
+            }
+          ],
+          "title": "\u0b87\u0bb3\u0bbf\u0b9a\u0bcd\u0b9a"
+        },
+        {
+          "ns": 0,
+          "pageid": 11578351,
+          "revisions": [
+            {
+              "parentid": 90026690,
+              "revid": 90404836,
+              "sha1": "96488c183fddbd4269967e46a685423a132c01e3",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Verb===\n{{head|ta|verb form}}\n\n# {{infl of|ta|\u0b86||1|s|future|t=to be}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2026-05-02T01:21:00Z",
+              "user": "AutoDooz"
+            }
+          ],
+          "title": "\u0b86\u0bb5\u0bc7\u0ba9\u0bcd"
+        },
+        {
+          "ns": 0,
+          "pageid": 11578352,
+          "revisions": [
+            {
+              "parentid": 90026784,
+              "revid": 90404833,
+              "sha1": "c6d3880a49cdda9bd8035bb357ec43064b68952b",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Verb===\n{{head|ta|verb form}}\n\n# {{infl of|ta|\u0b86||2|s|future|t=to be}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2026-05-02T01:20:56Z",
+              "user": "AutoDooz"
+            }
+          ],
+          "title": "\u0b86\u0bb5\u0bbe\u0baf\u0bcd"
+        },
+        {
+          "ns": 0,
+          "pageid": 11578354,
+          "revisions": [
+            {
+              "parentid": 90026810,
+              "revid": 90404832,
+              "sha1": "c8f21e40a40fd9dd8d000b3f47d65859e5353927",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Verb===\n{{head|ta|verb form}}\n\n# {{infl of|ta|\u0b86||3|m|future|t=to be}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2026-05-02T01:20:55Z",
+              "user": "AutoDooz"
+            }
+          ],
+          "title": "\u0b86\u0bb5\u0bbe\u0ba9\u0bcd"
+        },
+        {
+          "ns": 0,
+          "pageid": 11578356,
+          "revisions": [
+            {
+              "parentid": 90026823,
+              "revid": 90404835,
+              "sha1": "adfa4ffeb06cf67d87c79e0f082b17d20e5dac37",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Verb===\n{{head|ta|verb form}}\n\n# {{infl of|ta|\u0b86||3|f|future|t=to be}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2026-05-02T01:20:58Z",
+              "user": "AutoDooz"
+            }
+          ],
+          "title": "\u0b86\u0bb5\u0bbe\u0bb3\u0bcd"
+        },
+        {
+          "ns": 0,
+          "pageid": 11578358,
+          "revisions": [
+            {
+              "parentid": 90026826,
+              "revid": 90404834,
+              "sha1": "70b98eac7542301090a68211c1d2f32293c42107",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Verb===\n{{head|ta|verb form}}\n\n# (''[[honorific]]'') {{infl of|ta|\u0b86||3||future|t=to be}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2026-05-02T01:20:57Z",
+              "user": "AutoDooz"
+            }
+          ],
+          "title": "\u0b86\u0bb5\u0bbe\u0bb0\u0bcd"
+        },
+        {
+          "ns": 0,
+          "pageid": 12019301,
+          "revisions": [
+            {
+              "parentid": 92367312,
+              "revid": 92367341,
+              "sha1": "a17198c3c8110d7e5f224216f223afaa7b3922ef",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Etymology===\nRelated to {{m|ta|\u0b95\u0bb4\u0bb2|pos={{infl of|ta|\u0b95\u0bb4\u0bb2\u0bcd||inf|nocat=1}}}}.<ref>{{R:TAL}}</ref> {{etystub|ta}}\n\n===Pronunciation===\n{{ta-IPA}}\n\n===Verb===\n{{h|ta|verb form}} {{tlb|ta|archaic}}\n\n# {{lb|ta|{{lg|infinitive}}}} to [[unloose]] or [[divest]]\n#: {{syn|ta|\u0b95\u0bb4\u0bb1\u0bcd\u0bb1}}\n\n===References===\n{{reflist}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2026-08-28T06:45:36Z",
+              "user": "Pixelpito"
+            }
+          ],
+          "title": "\u0b95\u0bb4\u0bbe\u0b85\u0bb2"
+        }
+      ]
+    }
+  },
+  "fetched_at_utc": "2026-11-16T11:21:40.505566+00:00",
+  "requested_titles": [
+    "\u0b86\u0bb5\u0ba4\u0bc1",
+    "\u0b86\u0bb5\u0bbe\u0ba9\u0bcd",
+    "\u0b86\u0bb5\u0bbe\u0baf\u0bcd",
+    "\u0b86\u0bb5\u0bbe\u0bb0\u0bcd",
+    "\u0b86\u0bb5\u0bbe\u0bb3\u0bcd",
+    "\u0b86\u0bb5\u0bc7\u0ba9\u0bcd",
+    "\u0b87\u0b9a\u0bc1\u0bb0\u0bc7\u0bb2\u0bcd",
+    "\u0b87\u0b9a\u0bc1\u0bb2\u0bbe\u0bae\u0bbe\u0baa\u0bbe\u0ba4\u0bcd",
+    "\u0b87\u0bb0\u0bc1\u0ba8\u0bcd\u0ba4\u0bc1",
+    "\u0b87\u0bb3\u0bbf\u0b9a\u0bcd\u0b9a",
+    "\u0b88\u0ba4\u0bcd\u0ba4",
+    "\u0b89\u0b99\u0bcd\u0b95",
+    "\u0b89\u0b99\u0bcd\u0b95\u0bb3\u0bc1\u0b95\u0bcd\u0b95\u0bbe\u0b95",
+    "\u0b89\u0ba9\u0bcd",
+    "\u0b8e\u0ba9\u0ba4\u0bc1",
+    "\u0b90\u0b9a\u0bc1\u0bb2\u0bbe\u0ba8\u0bcd\u0ba4\u0bc1",
+    "\u0b90\u0ba4\u0bb0\u0bbe\u0baa\u0bbe\u0ba4\u0bcd",
+    "\u0b95\u0b9a\u0b95\u0bcd\u0b95\u0b9a\u0bc1\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bcd",
+    "\u0b95\u0b9f\u0ba8\u0bcd\u0ba4\u0bc1",
+    "\u0b95\u0bb4\u0bbe\u0b85\u0bb2",
+    "\u0b95\u0bbf\u0b9f\u0bc8\u0baf\u0bbe\u0ba4\u0bc1",
+    "\u0b95\u0bbf\u0bb0\u0bcd\u0b95\u0bbf\u0b9a\u0bc1\u0ba4\u0bcd\u0ba4\u0bbe\u0ba9\u0bcd",
+    "\u0b95\u0bc1\u0b9a\u0bb0\u0bbe\u0ba4\u0bcd\u0ba4\u0bc1",
+    "\u0b95\u0bca\u0bb0\u0bcd\u0bb2",
+    "\u0b9a\u0baa\u0bcd\u0baa\u0bbe\u0ba9\u0bcd"
+  ]
+}

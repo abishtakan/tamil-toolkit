@@ -1,0 +1,40 @@
+{
+  "api_response": {
+    "batchcomplete": true,
+    "query": {
+      "pages": [
+        {
+          "missing": true,
+          "ns": 0,
+          "title": "\u0bb2\u0bbe\u0bb5\u0bcb\u0b9a\u0bc1"
+        },
+        {
+          "ns": 0,
+          "pageid": 11411977,
+          "revisions": [
+            {
+              "parentid": 89757293,
+              "revid": 90036319,
+              "sha1": "7ccbfa8e7a79ff5d522893456a436d2ea99ed87c",
+              "slots": {
+                "main": {
+                  "content": "==Tamil==\n\n===Alternative forms===\n* {{alt|ta|\u0bb5\u0bc7\u0ba3\u0bbe\u0bae\u0bcd||Spoken Tamil}}\n\n===Etymology===\n{{inflection of|ta|\u0bb5\u0bc7\u0ba3\u0bcd\u0b9f\u0bc1||neg|t=to be [[wanted]]|cap=1}}.<ref>{{R:TAL}}</ref>\n\n===Pronunciation===\n* {{ta-IPA}}\n\n===Verb===\n{{head|ta|verb form}}\n\n# {{n-g|A [[modal verb]] meaning 'will not be [[needed]] or [[required]]' or 'will not be [[wanted]] or [[desired]]'.}}\n#: {{parasyn|ta|\u0ba4\u0bc7\u0bb5\u0bc8\u0baf\u0bbf\u0bb2\u0bcd\u0bb2\u0bc8<t:is not needed>}}\n#: {{ux|ta|[[\u0b8e\u0ba9\u0b95\u0bcd\u0b95\u0bc1]] [[\u0b85\u0ba4\u0bc1]] '''\u0bb5\u0bc7\u0ba3\u0bcd\u0b9f\u0bbe\u0bae\u0bcd'''.|I '''don't want''' that.}}\n#: {{ux|ta|[[\u0b85\u0bb5\u0ba9\u0bc1\u0b95\u0bcd\u0b95\u0bc1]] [[\u0b87\u0baa\u0bcd\u0baa\u0bcb\u0ba4\u0bc1]] [[\u0b9a\u0bbe\u0baa\u0bcd\u0baa\u0bbe\u0b9f\u0bc1]] '''\u0bb5\u0bc7\u0ba3\u0bcd\u0b9f\u0bbe\u0bae\u0bcd'''.|He '''doesn't need''' food right now.}}\n# {{sid|ta|auxiliary}} {{lb|ta|modal|_|auxiliary}} [[should]] not, [[must]] not, does not [[have to]]\n#: {{parasyn|ta|\u0b95\u0bc2\u0b9f\u0bbe\u0ba4\u0bc1<t:should not>}}\n#: {{ux|ta|[[\u0ba8\u0bc0]] [[\u0b85\u0ba4\u0bc8]] [[\u0b9a\u0bc6\u0baf\u0bcd\u0baf]] '''\u0bb5\u0bc7\u0ba3\u0bcd\u0b9f\u0bbe\u0bae\u0bcd'''.|You '''do not have to''' do that.}}\n#: {{ux|ta|[[\u0b85\u0bb5\u0bb3\u0bcd]] [[\u0b87\u0ba9\u0bcd\u0bb1\u0bc8\u0b95\u0bcd\u0b95\u0bc1]] [[\u0ba8\u0b9f\u0b95\u0bcd\u0b95]] '''\u0bb5\u0bc7\u0ba3\u0bcd\u0b9f\u0bbe\u0bae\u0bcd'''.|She '''shouldn't'''/'''mustn't''' walk today.}}\n\n====Usage notes====\n* Common to all [[gender]]s, [[number]]s and [[person]]s.\n\n====Antonyms====\n* {{l|ta|\u0bb5\u0bc7\u0ba3\u0bcd\u0b9f\u0bc1\u0bae\u0bcd}}\n\n===References===\n{{reflist}}\n\n{{cln|ta|modal verbs}}",
+                  "contentformat": "text/x-wiki",
+                  "contentmodel": "wikitext"
+                }
+              },
+              "timestamp": "2026-04-03T02:11:18Z",
+              "user": "AutoDooz"
+            }
+          ],
+          "title": "\u0bb5\u0bc7\u0ba3\u0bcd\u0b9f\u0bbe\u0bae\u0bcd"
+        }
+      ]
+    }
+  },
+  "fetched_at_utc": "2026-11-16T11:21:41.386246+00:00",
+  "requested_titles": [
+    "\u0bb2\u0bbe\u0bb5\u0bcb\u0b9a\u0bc1",
+    "\u0bb5\u0bc7\u0ba3\u0bcd\u0b9f\u0bbe\u0bae\u0bcd"
+  ]
+}

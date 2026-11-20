@@ -1,5 +1,6 @@
 """Shared fixture validation. No Tamil linguistic algorithms belong here."""
 
+from dataclasses import dataclass
 import functools
 import json
 import os
@@ -13,9 +14,43 @@ ROOT = Path(__file__).resolve().parents[1]
 GOLDEN = ROOT / "tests" / "golden"
 JOINERS = frozenset(map(chr, (0x200C, 0x200D)))
 ZWNJ, ZWJ = chr(0x200C), chr(0x200D)
+KNOWN_LEXICON_PROFILES = ("default", "core", "full")
 
 
 SURROGATE_RE = re.compile(r"[\ud800-\udfff]")
+
+
+@dataclass(frozen=True)
+class GoldenSelection:
+    profile: str | None
+    vectors: tuple[dict, ...]
+    active_count: int
+    planned_count: int
+    core_profile_count: int
+    excluded_profile_count: int
+    excluded_profile_suites: tuple[tuple[str, str, int], ...]
+    selected_files: tuple[str, ...]
+    full_profile_count: int = 0
+
+
+def normalize_profile_name(profile: str | None) -> str | None:
+    """Validate and normalize an explicit lexicon profile name ('default', 'core', or 'full')."""
+    if profile is None:
+        return None
+    if not isinstance(profile, str):
+        raise ValueError(
+            f"Unsupported or unapproved lexicon profile: {profile!r} (expected 'default', 'core', or 'full')"
+        )
+    normalized = profile.strip().lower()
+    if normalized == "lexicon-core":
+        normalized = "core"
+    elif normalized == "lexicon-full":
+        normalized = "full"
+    if normalized not in KNOWN_LEXICON_PROFILES:
+        raise ValueError(
+            f"Unsupported or unapproved lexicon profile: {profile!r} (expected 'default', 'core', or 'full')"
+        )
+    return normalized
 
 
 def strings(value, path=""):
@@ -102,33 +137,101 @@ def validate_rows(path: Path, seen=None):
     return rows
 
 
-@functools.lru_cache(maxsize=8)
-def load_vectors(root=GOLDEN, include_planned=()):
+@functools.lru_cache(maxsize=16)
+def select_vectors(root=GOLDEN, include_planned=(), profile=None) -> GoldenSelection:
     root = Path(root)
+    normalized_profile = normalize_profile_name(profile)
+    planned_set = set(include_planned)
     manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8"))
     if manifest.get("version") != 1 or not isinstance(manifest.get("suites"), list):
         raise ValueError("invalid golden manifest")
-    seen, files, active = set(), set(), []
+    seen, files = set(), set()
+    selected_rows: list[dict] = []
+    selected_files: list[str] = []
+    excluded_suites: list[tuple[str, str, int]] = []
+    active_count = 0
+    planned_count = 0
+    core_profile_count = 0
+    full_profile_count = 0
+    excluded_profile_count = 0
+    has_declared_full = False
+
     for suite in manifest["suites"]:
         name = suite["file"]
         if Path(name).name != name or not name.endswith(".jsonl") or name in files:
             raise ValueError(f"invalid or duplicate suite: {name}")
         files.add(name)
+        req_profile = suite.get("required_profile")
+        if req_profile is not None and req_profile not in KNOWN_LEXICON_PROFILES:
+            raise ValueError(f"Invalid required_profile {req_profile!r} in {name}")
+        if req_profile == "full":
+            has_declared_full = True
+
     if files != {path.name for path in root.glob("*.jsonl")}:
         raise ValueError("every JSONL suite must be registered in manifest.json")
+
     for suite in manifest["suites"]:
         name = suite["file"]
+        req_profile = suite.get("required_profile")
         rows = validate_rows(root / name, seen)
-        if suite["status"] == "active" or name in include_planned:
+        if suite["status"] == "active":
             operations = suite.get("operations", [])
             if not rows or not operations or any(row["op"] not in operations for row in rows):
                 raise ValueError(f"empty suite or undeclared operation in {name}")
-            active.extend(rows)
-        elif suite["status"] != "planned" or not suite.get("reason"):
+            if normalized_profile is not None and req_profile is not None and req_profile != normalized_profile:
+                excluded_profile_count += len(rows)
+                excluded_suites.append((name, req_profile, len(rows)))
+                continue
+            selected_rows.extend(rows)
+            selected_files.append(name)
+            active_count += len(rows)
+            if req_profile == "core":
+                core_profile_count += len(rows)
+            elif req_profile == "full":
+                full_profile_count += len(rows)
+        elif suite["status"] == "planned":
+            if name in planned_set:
+                if normalized_profile is not None and req_profile is not None and req_profile != normalized_profile:
+                    raise ValueError(
+                        f"Planned suite {name} requires profile {req_profile!r}, cannot run under {normalized_profile!r}"
+                    )
+                operations = suite.get("operations", [])
+                if not rows or not operations or any(row["op"] not in operations for row in rows):
+                    raise ValueError(f"empty suite or undeclared operation in {name}")
+                selected_rows.extend(rows)
+                selected_files.append(name)
+                planned_count += len(rows)
+                if req_profile == "core":
+                    core_profile_count += len(rows)
+                elif req_profile == "full":
+                    full_profile_count += len(rows)
+            elif not suite.get("reason"):
+                raise ValueError(f"unknown status or missing reason: {name}")
+        else:
             raise ValueError(f"unknown status or missing reason: {name}")
-    if not active or {row["dialect"] for row in active} != {"COMMON", "TN", "SL"}:
+
+    if not selected_rows or {row["dialect"] for row in selected_rows} != {"COMMON", "TN", "SL"}:
         raise ValueError("active fixtures must include COMMON, TN, and SL")
-    return active
+    if normalized_profile == "core" and core_profile_count == 0:
+        raise ValueError("Selected 'core' profile requires at least one executed required_profile='core' suite")
+    if normalized_profile == "full" and has_declared_full and full_profile_count == 0:
+        raise ValueError("Selected 'full' profile requires declared required_profile='full' suites to be active or included")
+
+    return GoldenSelection(
+        profile=normalized_profile,
+        vectors=tuple(selected_rows),
+        active_count=active_count,
+        planned_count=planned_count,
+        core_profile_count=core_profile_count,
+        excluded_profile_count=excluded_profile_count,
+        excluded_profile_suites=tuple(excluded_suites),
+        selected_files=tuple(selected_files),
+        full_profile_count=full_profile_count,
+    )
+
+
+def load_vectors(root=GOLDEN, include_planned=(), profile=None):
+    return list(select_vectors(root=Path(root), include_planned=tuple(include_planned), profile=profile).vectors)
 
 
 def validate_golden_schema(file_path: str):
@@ -149,3 +252,11 @@ def selected_planned_suites():
         for name in os.environ.get("TAMIL_GOLDEN_INCLUDE_PLANNED", "").split(",")
         if name.strip()
     )
+
+
+def vector_request(case):
+    """Remove fixture-only metadata from strict lexicon requests, preserving all options."""
+    if case.get("op") not in {"lexicon_lookup", "lexicon_packs"}:
+        return case
+    metadata = {"id", "expected", "expected_error", "dialect", "tags", "source", "unicode_exceptions"}
+    return {key: value for key, value in case.items() if key not in metadata}

@@ -291,6 +291,81 @@ export interface Translations {
       diagStrippedControls: string;
       diagTotalRepairs: string;
     };
+    lexicon: {
+      title: string;
+      desc: string;
+      searchLabel: string;
+      searchPlaceholder: string;
+      searchButton: string;
+      exactPreserveNote: string;
+      packsLabel: string;
+      selectAllAvailable: string;
+      clearSelection: string;
+      packUnavailableBadge: string;
+      packLoadedBadge: string;
+      packNotBuiltBadge: string;
+      regionFilterLabel: string;
+      registerFilterLabel: string;
+      allRegionsOption: string;
+      allRegistersOption: string;
+      unknownScopeNote: string;
+      examplesHeading: string;
+      corpusInventoryHeading: string;
+      fullProfileBadge: string;
+      activeBuildLabel: string;
+      distinctFormsLabel: string;
+      entriesLabel: string;
+      sensesLabel: string;
+      historicalExclusionHeading: string;
+      historicalExclusionBody: string;
+      loadingEngine: string;
+      noDataBuildHeading: string;
+      noDataBuildBody: string;
+      statusMatched: string;
+      statusNotFound: string;
+      statusError: string;
+      canonicalQueryLabel: string;
+      notFoundHeading: string;
+      notFoundBody: string;
+      entryIdLabel: string;
+      posLabel: string;
+      formsHeading: string;
+      sensesHeading: string;
+      examplesListHeading: string;
+      relationsHeading: string;
+      annotationsHeading: string;
+      regionScopeLabel: string;
+      registerScopeLabel: string;
+      unrestrictedScope: string;
+      unknownScope: string;
+      humanAcceptanceBadge: string;
+      autoAcceptanceBadge: string;
+      mixedAcceptanceBadge: string;
+      provenanceToggle: string;
+      sourceLinksHeading: string;
+      rawInspectorHeading: string;
+      rawRequestLabel: string;
+      rawResponseLabel: string;
+      downloadRequest: string;
+      downloadResponse: string;
+      contractPresetsToggle: string;
+      contractPresetsDesc: string;
+      resetToAvailablePacks: string;
+      packCoreDesc: string;
+      packNamesTaxaDesc: string;
+      packRegionalDesc: string;
+      packTerminologyDesc: string;
+      staleMetadataBadge: string;
+      staleMetadataWarning: string;
+      verifyingManifests: string;
+      unavailableCounts: string;
+      partialProfileBadge: string;
+      attributionNoticesHeading: string;
+      firstLoadSizeNote: string;
+      offlineCacheHeading: string;
+      offlineCacheNote: string;
+      dataDetailsToggle: string;
+    };
   };
 }
 
@@ -583,6 +658,81 @@ export const translations: Record<Language, Translations> = {
         diagVisualKombu: "முன்நிற்கும் கொம்புகள்",
         diagStrippedControls: "நீக்கப்பட்ட மறைமுகக் குறிகள்",
         diagTotalRepairs: "மொத்தத் திருத்தங்கள்"
+      },
+      lexicon: {
+        title: "தமிழ் சொற்களஞ்சிய ஆய்வி",
+        desc: "சரிபார்க்கப்பட்ட தொகுப்புகளில் (core, names_taxa, regional) துல்லியமான NFC தலைச்சொல் தேடல், ஒப்பொலிப் பதிவுகள், வட்டார/நடை வரம்புகள் மற்றும் ஆதாரச் சான்றுகள்.",
+        searchLabel: "சொல் தேடல் (இடைவெளி & இணைப்பிகள் மாற்றமின்றி):",
+        searchPlaceholder: "தமிழ் தலைச்சொல்லை உள்ளிடுக (எ.கா: நன்றி, செப்பம், கோளாறு)...",
+        searchButton: "தேடு",
+        exactPreserveNote: "இடைவெளி, ZWJ/ZWNJ, மென்-இணைப்பி (SHY) நீக்கப்படாது; Rust NFC சமநிலையாக்கம் மட்டுமே.",
+        packsLabel: "சொற்களஞ்சியத் தொகுப்புகள் (Packs):",
+        selectAllAvailable: "கிடைப்பவை அனைத்தையும் தேர்ந்தெடு",
+        clearSelection: "தேர்வை நீக்கு",
+        packUnavailableBadge: "கிடைக்கவில்லை",
+        packLoadedBadge: "ஏற்றப்பட்டது",
+        packNotBuiltBadge: "இந்த WASM தொகுப்பில் இல்லை",
+        regionFilterLabel: "பகுதி / வட்டார வடிகட்டி:",
+        registerFilterLabel: "நடை வடிகட்டி:",
+        allRegionsOption: "அனைத்துப் பகுதிகளும் (வடிகட்டியின்றி)",
+        allRegistersOption: "அனைத்து நடைகளும் (வடிகட்டியின்றி)",
+        unknownScopeNote: "நிரந்தரப் பகுதிப் பட்டியல் (சான்று இல்லாத செல்லுபடியாகும் குறியீடுகள் உட்பட) மற்றும் தேர்ந்தெடுக்கப்பட்ட தொகுப்புகளின் நடைக் குறியீடுகள் காட்டப்படும்; அறியப்படாத (unknown) வரம்புகள் ஊகிக்கப்படாது.",
+        examplesHeading: "சரிபார்க்கப்பட்ட தொகுப்பு மாதிரிகள்:",
+        corpusInventoryHeading: "தொகுப்பு எண்ணிக்கை & தரவு வரம்புகள்",
+        fullProfileBadge: "முழு சுயவிவரத் தொகுப்பு (core + names_taxa + regional)",
+        activeBuildLabel: "தற்போதைய WASM சுயவிவரம்:",
+        distinctFormsLabel: "தனி வடிவங்கள்",
+        entriesLabel: "பதிவுகள்",
+        sensesLabel: "பொருள்கள்",
+        historicalExclusionHeading: "நீக்கப்பட்ட வரலாற்றுத் தரவுகள் (307,243 பதிவுகள்)",
+        historicalExclusionBody: "முந்தைய 307,243 வரலாற்றுப் பதிவுகள் (12 கோப்புகள்) சரிபார்க்கப்படாததால்/உரிம உறுதி இல்லாததால் விலக்கப்பட்டுத் தனிமைப்படுத்தப்பட்டுள்ளன (0 தகுதியான சான்றுகள்). தற்போதைய முழுத் தொகுப்பில் 9,410 தனி வடிவங்கள், 11,377 பதிவுகள், 25,742 பொருள்கள் உள்ளன; terminology தொகுப்பு இன்னும் கிடைக்கவில்லை.",
+        loadingEngine: "Rust WebAssembly சொற்களஞ்சிய இயந்திரம் ஏற்றப்படுகிறது…",
+        noDataBuildHeading: "இந்த WASM உருவாக்கத்தில் சொற்களஞ்சியத் தரவு இல்லை",
+        noDataBuildBody: "default (zero-payload) உருவாக்கத்தில் தரவுத் தொகுப்புகள் இணைக்கப்படவில்லை. core அல்லது full சுயவிவரத்துடன் உருவாக்கவும்.",
+        statusMatched: "பொருந்திய பதிவுகள்",
+        statusNotFound: "பதிவு கிடைக்கவில்லை",
+        statusError: "ஒப்பந்தப் பிழை",
+        canonicalQueryLabel: "Rust NFC வினவல்:",
+        notFoundHeading: "துல்லியமான தலைச்சொல் எதுவும் கிடைக்கவில்லை",
+        notFoundBody: "தேர்ந்தெடுக்கப்பட்ட தொகுப்புகளில் இந்த NFC வடிவத்திற்குச் சரியான தலைச்சொல் பொருந்தவில்லை (பகுதி/நடை வடிகட்டிகள் unknown வரம்புகளை விலக்கும்).",
+        entryIdLabel: "பதிவு ID",
+        posLabel: "சொல் வகை (POS)",
+        formsHeading: "சொல் வடிவங்கள்",
+        sensesHeading: "பொருள்கள் (Senses)",
+        examplesListHeading: "எடுத்துக்காட்டுகள்",
+        relationsHeading: "தொடர்புகள்",
+        annotationsHeading: "குறிப்புகள் (Annotations)",
+        regionScopeLabel: "பகுதி வரம்பு",
+        registerScopeLabel: "நடை வரம்பு",
+        unrestrictedScope: "வரம்பற்றது (அனைத்துப் பகுதிகளும்)",
+        unknownScope: "அறியப்படாதது (ஊகிக்கப்படவில்லை)",
+        humanAcceptanceBadge: "மனித மதிப்பாய்வு (accepted_human)",
+        autoAcceptanceBadge: "தானியங்கி மூலம் (accepted_auto_source)",
+        mixedAcceptanceBadge: "மனித + தானியங்கி சான்றுகள்",
+        provenanceToggle: "சான்று & ஆதார விவரங்கள்",
+        sourceLinksHeading: "பாதுகாப்பான மூல இணைப்புகள்:",
+        rawInspectorHeading: "மூல JSON கோரிக்கை & முடிவு",
+        rawRequestLabel: "JSON கோரிக்கை (Request)",
+        rawResponseLabel: "JSON முடிவு / பிழை (Response)",
+        downloadRequest: "கோரிக்கையைப் பதிவிறக்கு",
+        downloadResponse: "முடிவைப் பதிவிறக்கு",
+        contractPresetsToggle: "ஒப்பந்தச் சோதனை மாதிரிகள் (Contract-Test Presets)",
+        contractPresetsDesc: "வெற்றுப் பட்டியல், அறியப்படாத/கிடைக்காத தொகுப்பு, தவறான வடிகட்டி, இடைவெளி/ZWJ மற்றும் NFD→NFC நடத்தைகளைச் சோதிக்க.",
+        resetToAvailablePacks: "கிடைக்கும் தொகுப்புகளை மீட்டமை",
+        packCoreDesc: "அடிப்படை தமிழ் அகராதித் தொகுப்பு",
+        packNamesTaxaDesc: "சிறப்புப் பெயர்கள் & உயிரினப் பெயர்கள்",
+        packRegionalDesc: "வட்டாரத் தமிழ் வழக்குத் தொகுப்பு (TN & SL)",
+        packTerminologyDesc: "கலைச்சொல் தொகுப்பு (இன்னும் கிடைக்கவில்லை)",
+        staleMetadataBadge: "பழைய / பொருந்தாத தரவு",
+        staleMetadataWarning: "இயந்திரத்தின் PackInfo.manifest_sha256 மதிப்பு catalog-உடன் பொருந்தவில்லை; நிலையான எண்ணிக்கைகள் நிறுத்தி வைக்கப்பட்டுள்ளன.",
+        verifyingManifests: "WASM தொகுப்பு manifest_sha256 சரிபார்க்கப்படுகிறது…",
+        unavailableCounts: "கிடைக்கவில்லை / பொருந்தவில்லை",
+        partialProfileBadge: "பகுதி WASM சுயவிவரம் (சரிபார்க்கப்பட்ட தொகுப்புகள் மட்டும்)",
+        attributionNoticesHeading: "பங்களிப்பு & உரிம அறிவிப்புகள் (CC-BY-SA-4.0):",
+        firstLoadSizeNote: "முதல் முறை முழு-தொகுப்பு WebAssembly கோப்பு (~46 MiB / 47,971,718 பைட்டுகள், பெரும்பாலும் சான்று ஆதாரங்கள்) பதிவிறக்கம் செய்யப்படும்; பின்னர் உலாவியில் ஆஃப்லைன் பயன்பாட்டிற்காகச் சேமிக்கப்படும்.",
+        offlineCacheHeading: "முதல் பதிவிறக்க அளவு & ஆஃப்லைன் சேமிப்பு",
+        offlineCacheNote: "முழு-தொகுப்பு உலாவி WASM தொகுப்பு ~46 MiB (47,971,718 பைட்டுகள்; பெரும்பாலும் அகராதிச் சான்றுகள்) அளவு கொண்டது. PWA சேமிப்பு வரம்பு 64 MiB-க்குள் இதுவும் உரிமக் கோப்புகளும் ஆஃப்லைன் பயன்பாட்டிற்காக முன்பே சேமிக்கப்படுகின்றன.",
+        dataDetailsToggle: "தரவு வரம்பு, விலக்கல்கள் & உரிமங்கள்"
       }
     }
   },
@@ -874,6 +1024,81 @@ export const translations: Record<Language, Translations> = {
         diagVisualKombu: "Visual Kombu Positions",
         diagStrippedControls: "Stripped Control Chars",
         diagTotalRepairs: "Total Repairs Performed"
+      },
+      lexicon: {
+        title: "Tamil Lexicon Explorer",
+        desc: "Exact NFC headword lookup across approved packs (core, names_taxa, regional) with homographs, all senses, finite scope filters, and verifiable provenance.",
+        searchLabel: "Exact Headword Query (preserves whitespace & joiners):",
+        searchPlaceholder: "Enter Tamil headword (e.g. நன்றி, செப்பம், கோளாறு)...",
+        searchButton: "Lookup",
+        exactPreserveNote: "Whitespace, ZWJ/ZWNJ, and soft hyphens are preserved verbatim; only Rust NFC canonicalization runs.",
+        packsLabel: "Lexicon Packs:",
+        selectAllAvailable: "Select All Available",
+        clearSelection: "Clear All",
+        packUnavailableBadge: "Unavailable",
+        packLoadedBadge: "Loaded",
+        packNotBuiltBadge: "Not in this WASM build",
+        regionFilterLabel: "Region Filter:",
+        registerFilterLabel: "Register Filter:",
+        allRegionsOption: "All Regions (unfiltered)",
+        allRegistersOption: "All Registers (unfiltered)",
+        unknownScopeNote: "Finite registry region options (including valid unattested codes) and selected-pack register codes are shown; unknown entry scopes are never inferred.",
+        examplesHeading: "Checked-in Pack Examples:",
+        corpusInventoryHeading: "Pack Totals & Data Provenance Scope",
+        fullProfileBadge: "Full Profile (core + names_taxa + regional)",
+        activeBuildLabel: "Current WASM Build:",
+        distinctFormsLabel: "Distinct Forms",
+        entriesLabel: "Entries",
+        sensesLabel: "Senses",
+        historicalExclusionHeading: "Excluded Historical Intake (307,243 records)",
+        historicalExclusionBody: "The original 307,243 historical intake records (12 frozen files) remain excluded/unverified (0 eligible assertions) and are never bundled. Current full profile contains 9,410 distinct forms, 11,377 entries, and 25,742 senses across core, names_taxa, and regional; terminology remains unavailable.",
+        loadingEngine: "Loading Rust WebAssembly lexicon engine…",
+        noDataBuildHeading: "No lexicon data embedded in this WASM build",
+        noDataBuildBody: "This zero-payload build contains no compiled dictionary packs. Rebuild with the core or full lexicon profile.",
+        statusMatched: "Matched",
+        statusNotFound: "Not Found",
+        statusError: "Contract Error",
+        canonicalQueryLabel: "Rust Canonical Query (NFC):",
+        notFoundHeading: "No exact canonical headword match",
+        notFoundBody: "No entry matched this exact NFC headword in the selected packs and filters (active region/register filters exclude unknown scopes).",
+        entryIdLabel: "Entry ID",
+        posLabel: "Part of Speech",
+        formsHeading: "Forms",
+        sensesHeading: "Senses",
+        examplesListHeading: "Examples",
+        relationsHeading: "Relations",
+        annotationsHeading: "Annotations",
+        regionScopeLabel: "Region Scope",
+        registerScopeLabel: "Register",
+        unrestrictedScope: "Unrestricted (all regions)",
+        unknownScope: "Unknown (not inferred)",
+        humanAcceptanceBadge: "Human-reviewed (accepted_human)",
+        autoAcceptanceBadge: "Automated source (accepted_auto_source)",
+        mixedAcceptanceBadge: "Mixed: Human + Automated",
+        provenanceToggle: "Provenance & Acceptance",
+        sourceLinksHeading: "Safe Source Links:",
+        rawInspectorHeading: "Raw JSON Request & Response",
+        rawRequestLabel: "Raw Request JSON",
+        rawResponseLabel: "Raw Response / Error JSON",
+        downloadRequest: "Download Request",
+        downloadResponse: "Download Response",
+        contractPresetsToggle: "Contract-Test Presets (Developer)",
+        contractPresetsDesc: "Optional presets to test empty/unknown/unavailable packs, invalid filters, whitespace/joiner preservation, and NFD→NFC behavior.",
+        resetToAvailablePacks: "Reset to Available Packs",
+        packCoreDesc: "Approved core Tamil lexicon pack",
+        packNamesTaxaDesc: "Proper names & biological/cultural taxa",
+        packRegionalDesc: "Pluricentric regional varieties (TN & SL)",
+        packTerminologyDesc: "Technical terminology pack (unavailable)",
+        staleMetadataBadge: "Stale / Mismatched Metadata",
+        staleMetadataWarning: "Engine PackInfo.manifest_sha256 does not match catalog; static catalog counts are withheld as stale/unavailable.",
+        verifyingManifests: "Verifying compiled WASM pack manifest_sha256 against catalog…",
+        unavailableCounts: "Unavailable / stale",
+        partialProfileBadge: "Partial WASM Profile (Verified Loaded Packs Only)",
+        attributionNoticesHeading: "Public Attribution & License Notices (CC-BY-SA-4.0):",
+        firstLoadSizeNote: "First-time load downloads the full-profile WebAssembly engine (~46 MiB / 47,971,718 bytes, mostly dictionary provenance), then caches it locally for offline use.",
+        offlineCacheHeading: "First-Load Size & Offline Cache",
+        offlineCacheNote: "The full-profile browser WASM bundle is ~46 MiB (47,971,718 bytes, primarily per-claim dictionary provenance) and is precached alongside attribution notices under the 64 MiB PWA cache limit for offline client-side lookup.",
+        dataDetailsToggle: "Data coverage, exclusions & attribution"
       }
     }
   }

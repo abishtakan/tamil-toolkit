@@ -1,0 +1,37 @@
+{
+  "api_endpoint": "https://en.wiktionary.org/w/api.php",
+  "capture_dates": [
+    "2026-11-16"
+  ],
+  "historical_bundle_permissions_confirmed": "none",
+  "license_evidence": "https://en.wiktionary.org/wiki/Wiktionary:Copyrights",
+  "max_rendered_pages": 384,
+  "pages_jsonl_gz_sha256": "f7fb326e0cee1b664b21e2338f4f2f71ef2358c9a05d84449043e19ee945cf9b",
+  "pages_uncompressed_sha256": "895bdf5e206be975f257a27aea98edfd6fdabc91a3d99d87fa0cfb7e936b7875",
+  "queue_sha256": "d0b0552c04ca36f8804ec7d6910cdf9974aa8a48b57f8a0914a64661c35732f2",
+  "raw_files": {
+    "batch-000.json": "4f226d0f96b722c459a875341410adb723d2ae7dfdedfbd3a219736eb3cbf525",
+    "batch-001.json": "028c8e8d26bfcad2d66c203bcecedde64c7954e6ba285aa461415d0ad4f606e9",
+    "batch-002.json": "db0951730b9e8692e9c2a5209591b068515225b568614ff537174e8428182cbe",
+    "batch-003.json": "771722e54d82f8c7b75826d9b7c606adb24f7cb305873c48ee5c077302ffb8fd",
+    "batch-004.json": "8d89d269aa5a118e648e33951d1bdfaf8419e59e2ff879601f17aa1258aa290c",
+    "batch-005.json": "58179a1431a1425f89dae433497eb1bee706831e550320c84b624ac83931186d",
+    "batch-006.json": "0bc4a2a86c16e5d5d606253399a87a22eedbafbc2268c8868a0ceb88e2139087",
+    "batch-007.json": "d80eaf71b6512ba368cbf32725062d89c0172a359c93dc8ff8ed2bddc5bf8f9a",
+    "batch-008.json": "59475daa148616e1b505ce017eda17ca4ff2c357dfd875f3b8f156041c147661",
+    "batch-009.json": "31b900a7b234043d63060a9521bbc5d175d9928bfbc13d77a3163edfcb6c6346",
+    "batch-010.json": "f83956d04a04fc206c8d9ebc1c08a3e9358e88c63332991798288ad9afac5c57",
+    "batch-011.json": "6872c59938e58b2d6b3e0efbd71826a66b1bc418d7d45b06c8d63636dadedb56",
+    "batch-012.json": "c0d836f13c526700dac360e7429146bce4d94b5659e8024ae1327f69aab4984d",
+    "batch-013.json": "438d0bf328a278ccb3b8f4da21b283411c1792cd5b5271335699bebfa9d2e966",
+    "batch-014.json": "0656a379d130587d8fc977eba92217e254ef3b769607c3c4c6172d90959f63ac",
+    "batch-015.json": "45230ffc1b146e4de2ec8a830c70365f4b0c78a45e2967854e9e5d6047d779a6"
+  },
+  "rendering_attribution": "rendered_by_mediawiki_current_templates_at_capture_time",
+  "requested_page_count": 384,
+  "reuse_note": "MediaWiki action=parse rendered output evaluated against upstream templates/modules at capture_timestamp_utc; not original wikitext verbatim; zero acceptance decisions.",
+  "schema": "enwiktionary-tamil-rendered-capture-v1",
+  "schema_version": 1,
+  "snapshot_date": "2026-11-16",
+  "total_fetched_pages": 384
+}

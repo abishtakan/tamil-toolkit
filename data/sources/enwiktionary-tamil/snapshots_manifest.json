@@ -1,0 +1,46 @@
+{
+  "api_endpoint": "https://en.wiktionary.org/w/api.php",
+  "categories": [
+    "Category:Tamil lemmas",
+    "Category:Tamil proper nouns",
+    "Category:Tamil multiword terms",
+    "Category:Tamil dialectal terms"
+  ],
+  "category_counts": {
+    "Category:Tamil dialectal terms": 100,
+    "Category:Tamil lemmas": 10799,
+    "Category:Tamil multiword terms": 398,
+    "Category:Tamil proper nouns": 1188
+  },
+  "fetch_timestamp_utc": "2026-11-15T11:37:28Z",
+  "index_file": "index.json",
+  "index_sha256": "8e6553c8cdb29c5fe485096d9bd22153eb4bf79df0e09fa941afad774f0e9e17",
+  "license": "CC-BY-SA-4.0 / GFDL (Wikimedia Terms of Use Section 7)",
+  "missing_pageids": [],
+  "notices": {
+    "ATTRIBUTION_AND_LICENSE.md": {
+      "bytes": 1257,
+      "sha256": "1a40c17a2930020600e892bd84d17b80da332c984da7fd86714bf09fb36b2577"
+    },
+    "cc_by_sa_4_0_legalcode.txt": {
+      "bytes": 20138,
+      "sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5"
+    },
+    "wikimedia_tou_api.json": {
+      "bytes": 55571,
+      "sha256": "c3e0bff8b859941468d6895dff392d893bd13cfae2ea0ae8565db74aaaab1123"
+    },
+    "wiktionary_copyrights_api.json": {
+      "bytes": 9993,
+      "sha256": "049a09491de163dc85b77e6f260705bb5e59052c27b4e0f75ea49dd5d3e4fe4c"
+    }
+  },
+  "pages_file": "pages.jsonl.gz",
+  "pages_jsonl_gz_bytes": 3058143,
+  "pages_jsonl_gz_sha256": "550b0e33d31f3b4ea4fc30e2458512b2de8b1b308e71c85ef05d327ab9982e87",
+  "pages_uncompressed_sha256": "8368aa53cda823163e703c3fb7ca23d6abe592b32b943fe4810a36eb54500351",
+  "schema": "enwiktionary-tamil-bulk-snapshot-v1",
+  "total_fetched_pages": 10799,
+  "total_indexed_pages": 10799,
+  "user_agent": "tamil-toolkit-curation/1.0 (https://github.com/abishtakan/tamil-toolkit)"
+}

@@ -1,0 +1,672 @@
+{
+  "schema_version": 1,
+  "comparison": "Exact decoded scalar-string equality; no normalization, trimming, POS or sense equivalence inferred. Absent spellings are candidates, not approved additions.",
+  "frozen_source_files": {
+    "primary_lemmas.csv": {
+      "bytes": 14658578,
+      "sha256": "bf359191f33b6049db8f5ce3bfc7b872dcfedc64726c02128c375218a5c7d0b7"
+    },
+    "primary_lexicon.fst": {
+      "bytes": 622166,
+      "sha256": "3f2401b8fe0325e48741281ce43ebd64b62ea01e6f3b65b9ac4b8096ace9a996"
+    },
+    "primary_meanings.csv": {
+      "bytes": 17795300,
+      "sha256": "9e8b73ce0bc255730e0e0ae72e711e50d22055df9765b9817fa4a2f9b60acf47"
+    },
+    "primary_relationships.csv": {
+      "bytes": 1711212,
+      "sha256": "5606f595966ee117eaf379764a745dc02efb4ef14dd1c1781b44b9cc42936351"
+    },
+    "secondary_archaic_literary_terms.csv": {
+      "bytes": 288422,
+      "sha256": "8cbcba66b75903ee067be55ff0e63074169d2d1b2f4522dfc6e58b6894b43f0e"
+    },
+    "secondary_dialect_colloquialisms.csv": {
+      "bytes": 520690,
+      "sha256": "8278dfb47a431dafa0bd3d2d9cbb477135a689e683f563560ee3237f5b09e3b2"
+    },
+    "secondary_phrases_mwes.csv": {
+      "bytes": 1774531,
+      "sha256": "1a27b48ff6e656b775a77ab30f6cdd5910c554c1d75b932316ae71406d478ec6"
+    },
+    "secondary_proper_names_toponyms.csv": {
+      "bytes": 54357,
+      "sha256": "a62a5f271a4a5e9fd4dc30c9278b7348b53448751cf17060292ad234b8caf1bd"
+    },
+    "secondary_scientific_taxa.csv": {
+      "bytes": 24941,
+      "sha256": "2183823d4ef222f4c50f63e895866904e09f5483ce21cca08ddbed996860a8a0"
+    },
+    "secondary_specialized_technical_terms.csv": {
+      "bytes": 18663651,
+      "sha256": "5153aae564d46447a3ef32edc921ef0888c2394c376b57e297eb402f20d4f6c8"
+    },
+    "secondary_transliterations_loanwords.csv": {
+      "bytes": 148296,
+      "sha256": "7213bb06af9207cd27b5a6311cf7a7d602258675d00bc148f6812256cb1da879"
+    },
+    "unified_master_30col.csv": {
+      "bytes": 36354629,
+      "sha256": "135b443aff7c7f1b90236696464709729e6f83f68ca99215b0e9ef42be971764"
+    }
+  },
+  "csv_rows": 307243,
+  "packs": {
+    "core": {
+      "manifest": {
+        "bytes": 1140520,
+        "sha256": "ee30557cb8ceb7562751ec812315d9ea264c5ee629330b10b6ad4d0cfe377102"
+      },
+      "distinct_written_spellings": 8623
+    },
+    "names_taxa": {
+      "manifest": {
+        "bytes": 87052,
+        "sha256": "9919a714596c767577b2ad02188f731eef7fded4c1f7d7b8c16b21106f20f8b8"
+      },
+      "distinct_written_spellings": 759
+    },
+    "regional": {
+      "manifest": {
+        "bytes": 33349,
+        "sha256": "4e7b8c0a28bba0709fb02e902655a2107066d77f6f7157109cb09e62008939db"
+      },
+      "distinct_written_spellings": 256
+    }
+  },
+  "usable_distinct_written_spellings": 9403,
+  "files": {
+    "primary_lemmas.csv": {
+      "rows": 44229,
+      "distinct_nonempty_spellings": 43831,
+      "empty_headword_rows": 0,
+      "exact_overlap_usable": 8708,
+      "exact_absent_usable": 35123,
+      "whitespace_boundary_rows": 0,
+      "nonempty_field_rows": {}
+    },
+    "primary_meanings.csv": {
+      "rows": 63633,
+      "distinct_nonempty_spellings": 43831,
+      "empty_headword_rows": 0,
+      "exact_overlap_usable": 8708,
+      "exact_absent_usable": 35123,
+      "whitespace_boundary_rows": 0,
+      "nonempty_field_rows": {
+        "meaning_ta": 17104,
+        "meaning_en": 63480,
+        "definition_ta": 29445,
+        "definition_en": 63487
+      },
+      "self_label_placeholder_rows": 12021
+    },
+    "primary_relationships.csv": {
+      "rows": 19849
+    },
+    "secondary_archaic_literary_terms.csv": {
+      "rows": 495,
+      "distinct_nonempty_spellings": 495,
+      "empty_headword_rows": 0,
+      "exact_overlap_usable": 5,
+      "exact_absent_usable": 490,
+      "whitespace_boundary_rows": 0,
+      "nonempty_field_rows": {
+        "meaning_ta": 495,
+        "meaning_en": 495
+      },
+      "literary_source_counts": {
+        "Thirukkural": 495
+      }
+    },
+    "secondary_dialect_colloquialisms.csv": {
+      "rows": 1323,
+      "distinct_nonempty_spellings": 1323,
+      "empty_headword_rows": 0,
+      "exact_overlap_usable": 515,
+      "exact_absent_usable": 808,
+      "whitespace_boundary_rows": 0,
+      "nonempty_field_rows": {
+        "meaning_ta": 1323
+      },
+      "region_dialect_counts": {
+        "Gen-Z / Cinema": 39,
+        "General Spoken": 106,
+        "Jaffna": 310,
+        "Kongu": 469,
+        "Madras Baashai": 342,
+        "Madurai": 34,
+        "Nellai": 23
+      }
+    },
+    "secondary_phrases_mwes.csv": {
+      "rows": 10719,
+      "distinct_nonempty_spellings": 10719,
+      "empty_headword_rows": 0,
+      "exact_overlap_usable": 131,
+      "exact_absent_usable": 10588,
+      "whitespace_boundary_rows": 0,
+      "nonempty_field_rows": {
+        "english_gloss": 10311
+      },
+      "source_groups": {
+        "SRC-OXFORD-APPLE": {
+          "rows": 2187,
+          "distinct_nonempty_spellings": 2187,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 10,
+          "exact_absent_usable": 2177,
+          "whitespace_boundary_rows": 0
+        },
+        "Tamilcube Bilingual Dictionary": {
+          "rows": 2981,
+          "distinct_nonempty_spellings": 2981,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 0,
+          "exact_absent_usable": 2981,
+          "whitespace_boundary_rows": 0
+        },
+        "ahtu_sandhi_deconstruction": {
+          "rows": 18,
+          "distinct_nonempty_spellings": 18,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 0,
+          "exact_absent_usable": 18,
+          "whitespace_boundary_rows": 0
+        },
+        "exhaustive_compound_deconstruction": {
+          "rows": 1715,
+          "distinct_nonempty_spellings": 1715,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 0,
+          "exact_absent_usable": 1715,
+          "whitespace_boundary_rows": 0
+        },
+        "glued_phrase_deconstruction": {
+          "rows": 942,
+          "distinct_nonempty_spellings": 942,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 0,
+          "exact_absent_usable": 942,
+          "whitespace_boundary_rows": 0
+        },
+        "lexicon_mwe": {
+          "rows": 361,
+          "distinct_nonempty_spellings": 361,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 0,
+          "exact_absent_usable": 361,
+          "whitespace_boundary_rows": 0
+        },
+        "primary_mwe_cleanup": {
+          "rows": 150,
+          "distinct_nonempty_spellings": 150,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 121,
+          "exact_absent_usable": 29,
+          "whitespace_boundary_rows": 0
+        },
+        "primary_mwe_migration": {
+          "rows": 3,
+          "distinct_nonempty_spellings": 3,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 0,
+          "exact_absent_usable": 3,
+          "whitespace_boundary_rows": 0
+        },
+        "primary_triage": {
+          "rows": 7,
+          "distinct_nonempty_spellings": 7,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 0,
+          "exact_absent_usable": 7,
+          "whitespace_boundary_rows": 0
+        },
+        "spaced_compound_variant": {
+          "rows": 18,
+          "distinct_nonempty_spellings": 18,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 0,
+          "exact_absent_usable": 18,
+          "whitespace_boundary_rows": 0
+        },
+        "technical_compound_deconstruction": {
+          "rows": 2336,
+          "distinct_nonempty_spellings": 2336,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 0,
+          "exact_absent_usable": 2336,
+          "whitespace_boundary_rows": 0
+        },
+        "\u0baa\u0bca\u0ba4\u0bc1\u0b95\u0bcd \u0b95\u0bc8\u0ba4\u0bcd\u0ba4\u0bca\u0bb4\u0bbf\u0bb2\u0bcd \u0b9a\u0bbf\u0bb1\u0baa\u0bcd\u0baa\u0bc1\u0b9a\u0bcd \u0b9a\u0bca\u0bb1\u0bcd\u0b95\u0bb3\u0bcd \u0b85\u0b95\u0bb0\u0bbe\u0ba4\u0bbf": {
+          "rows": 1,
+          "distinct_nonempty_spellings": 1,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 0,
+          "exact_absent_usable": 1,
+          "whitespace_boundary_rows": 0
+        }
+      }
+    },
+    "secondary_proper_names_toponyms.csv": {
+      "rows": 484,
+      "distinct_nonempty_spellings": 484,
+      "empty_headword_rows": 0,
+      "exact_overlap_usable": 73,
+      "exact_absent_usable": 411,
+      "whitespace_boundary_rows": 0,
+      "nonempty_field_rows": {}
+    },
+    "secondary_scientific_taxa.csv": {
+      "rows": 193,
+      "distinct_nonempty_spellings": 192,
+      "empty_headword_rows": 0,
+      "exact_overlap_usable": 100,
+      "exact_absent_usable": 92,
+      "whitespace_boundary_rows": 0,
+      "nonempty_field_rows": {}
+    },
+    "secondary_specialized_technical_terms.csv": {
+      "rows": 120482,
+      "distinct_nonempty_spellings": 120482,
+      "empty_headword_rows": 0,
+      "exact_overlap_usable": 305,
+      "exact_absent_usable": 120177,
+      "whitespace_boundary_rows": 0,
+      "nonempty_field_rows": {
+        "definition_ta": 0,
+        "definition_en": 0,
+        "english_term": 120482
+      },
+      "source_groups": {
+        "TVA_KALAICHOL": {
+          "rows": 117121,
+          "distinct_nonempty_spellings": 117121,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 213,
+          "exact_absent_usable": 116908,
+          "whitespace_boundary_rows": 0
+        },
+        "sorkuvai_technical": {
+          "rows": 3361,
+          "distinct_nonempty_spellings": 3361,
+          "empty_headword_rows": 0,
+          "exact_overlap_usable": 92,
+          "exact_absent_usable": 3269,
+          "whitespace_boundary_rows": 0
+        }
+      }
+    },
+    "secondary_transliterations_loanwords.csv": {
+      "rows": 1607,
+      "distinct_nonempty_spellings": 1607,
+      "empty_headword_rows": 0,
+      "exact_overlap_usable": 74,
+      "exact_absent_usable": 1533,
+      "whitespace_boundary_rows": 0,
+      "nonempty_field_rows": {},
+      "origin_language_counts": {
+        "Arabic": 21,
+        "Chinese": 2,
+        "English": 427,
+        "Foreign": 1074,
+        "French": 5,
+        "Greek": 3,
+        "Italian": 2,
+        "Latin": 3,
+        "Pali": 1,
+        "Persian": 11,
+        "Portuguese": 6,
+        "Sanskrit": 51,
+        "Spanish": 1
+      }
+    },
+    "unified_master_30col.csv": {
+      "rows": 44229,
+      "distinct_nonempty_spellings": 43831,
+      "empty_headword_rows": 0,
+      "exact_overlap_usable": 8708,
+      "exact_absent_usable": 35123,
+      "whitespace_boundary_rows": 0,
+      "nonempty_field_rows": {
+        "meaning_ta": 14203,
+        "meaning_en": 44076,
+        "definition_ta": 26544,
+        "definition_en": 44083
+      }
+    }
+  },
+  "historical_union": {
+    "distinct_nonempty_spellings": 177606,
+    "exact_overlap_usable": 8968,
+    "exact_absent_usable": 168638
+  },
+  "secondary_absent_primary": 133775,
+  "historical_workspace": {
+    "decision_outcomes": {},
+    "acceptance_decision_rows": 0,
+    "source_states": [
+      {
+        "evidence_verification_state": "unknown",
+        "reuse_state": "unknown",
+        "rows": 27
+      }
+    ],
+    "decisions_fingerprint": {
+      "bytes": 165,
+      "sha256": "c489a0e7aa4e33782e9f4a008e66b85c8814908c5a38e8b682f67acf1020ad13"
+    },
+    "sources_fingerprint": {
+      "bytes": 6096,
+      "sha256": "6210cb8c15371dddf07e779993229569ac5345ac1c91a971909fabde02452d22"
+    }
+  },
+  "recovered_package": {
+    "primary_database": {
+      "bytes": 71483392,
+      "sha256": "67534dbd9e7e28c2de0bae8e7b8acd930b37e91d223d70a985ba0d63445cac3a"
+    },
+    "warning": "Notes and source links are unverified historical labels, not proven attribution or permissions. Groups can overlap by headword.",
+    "meaning_note_groups": [
+      {
+        "note_label": "Sense verified from Wiktionary dictionary entry.",
+        "meaning_rows": 23099,
+        "distinct_spellings": 8519,
+        "exact_overlap_usable": 8109,
+        "exact_absent_usable": 410
+      },
+      {
+        "note_label": null,
+        "meaning_rows": 12772,
+        "distinct_spellings": 12772,
+        "exact_overlap_usable": 34,
+        "exact_absent_usable": 12738
+      },
+      {
+        "note_label": "Madras Tamil Lexicon",
+        "meaning_rows": 8070,
+        "distinct_spellings": 7013,
+        "exact_overlap_usable": 390,
+        "exact_absent_usable": 6623
+      },
+      {
+        "note_label": "Enriched from verified Tamil lexicon source (dsal_madras_lexicon)",
+        "meaning_rows": 7196,
+        "distinct_spellings": 7196,
+        "exact_overlap_usable": 20,
+        "exact_absent_usable": 7176
+      },
+      {
+        "note_label": "Oxford Tamil Dictionary",
+        "meaning_rows": 6676,
+        "distinct_spellings": 6676,
+        "exact_overlap_usable": 445,
+        "exact_absent_usable": 6231
+      },
+      {
+        "note_label": "Additional sense verified and deduplicated from Wiktionary.",
+        "meaning_rows": 3039,
+        "distinct_spellings": 915,
+        "exact_overlap_usable": 897,
+        "exact_absent_usable": 18
+      },
+      {
+        "note_label": "Enriched from verified Tamil lexicon source (sorkuvai_gov)",
+        "meaning_rows": 1754,
+        "distinct_spellings": 1754,
+        "exact_overlap_usable": 5,
+        "exact_absent_usable": 1749
+      },
+      {
+        "note_label": "Enriched via Tolkappiyan canonical morphology engine",
+        "meaning_rows": 606,
+        "distinct_spellings": 606,
+        "exact_overlap_usable": 2,
+        "exact_absent_usable": 604
+      },
+      {
+        "note_label": "Lexicon sense entry verified from dictionary source.",
+        "meaning_rows": 158,
+        "distinct_spellings": 41,
+        "exact_overlap_usable": 39,
+        "exact_absent_usable": 2
+      },
+      {
+        "note_label": "Verified definition against Madras Tamil Lexicon and modern linguistic consensus.",
+        "meaning_rows": 80,
+        "distinct_spellings": 80,
+        "exact_overlap_usable": 79,
+        "exact_absent_usable": 1
+      },
+      {
+        "note_label": "Canonical POS meaning definition.",
+        "meaning_rows": 60,
+        "distinct_spellings": 60,
+        "exact_overlap_usable": 0,
+        "exact_absent_usable": 60
+      },
+      {
+        "note_label": "Ingested and verified from lexicon stream.",
+        "meaning_rows": 36,
+        "distinct_spellings": 11,
+        "exact_overlap_usable": 11,
+        "exact_absent_usable": 0
+      },
+      {
+        "note_label": "Verified canonical entry.",
+        "meaning_rows": 28,
+        "distinct_spellings": 28,
+        "exact_overlap_usable": 0,
+        "exact_absent_usable": 28
+      },
+      {
+        "note_label": "Enriched from verified Tamil lexicon source (ref_master_utlkd)",
+        "meaning_rows": 22,
+        "distinct_spellings": 22,
+        "exact_overlap_usable": 9,
+        "exact_absent_usable": 13
+      },
+      {
+        "note_label": "Verified from Cre-A Verb Tables.",
+        "meaning_rows": 12,
+        "distinct_spellings": 12,
+        "exact_overlap_usable": 0,
+        "exact_absent_usable": 12
+      },
+      {
+        "note_label": "Enriched from verified Tamil lexicon source (tamilcube)",
+        "meaning_rows": 12,
+        "distinct_spellings": 12,
+        "exact_overlap_usable": 0,
+        "exact_absent_usable": 12
+      },
+      {
+        "note_label": "Enriched from verified Tamil lexicon source (karefo_workbench)",
+        "meaning_rows": 7,
+        "distinct_spellings": 7,
+        "exact_overlap_usable": 0,
+        "exact_absent_usable": 7
+      },
+      {
+        "note_label": "Verified canonical definition.",
+        "meaning_rows": 4,
+        "distinct_spellings": 4,
+        "exact_overlap_usable": 4,
+        "exact_absent_usable": 0
+      },
+      {
+        "note_label": "Enriched from DSAL Madras Tamil Lexicon",
+        "meaning_rows": 1,
+        "distinct_spellings": 1,
+        "exact_overlap_usable": 0,
+        "exact_absent_usable": 1
+      },
+      {
+        "note_label": "Canonical constituent sense",
+        "meaning_rows": 1,
+        "distinct_spellings": 1,
+        "exact_overlap_usable": 0,
+        "exact_absent_usable": 1
+      }
+    ],
+    "combined_meaning_label_groups": {
+      "DSAL_Madras_label": {
+        "rows": 15347,
+        "distinct_nonempty_spellings": 14157,
+        "empty_headword_rows": 0,
+        "exact_overlap_usable": 481,
+        "exact_absent_usable": 13676,
+        "whitespace_boundary_rows": 0
+      },
+      "Oxford_label": {
+        "rows": 6676,
+        "distinct_nonempty_spellings": 6676,
+        "empty_headword_rows": 0,
+        "exact_overlap_usable": 445,
+        "exact_absent_usable": 6231,
+        "whitespace_boundary_rows": 0
+      },
+      "Wiktionary_label": {
+        "rows": 26138,
+        "distinct_nonempty_spellings": 8544,
+        "empty_headword_rows": 0,
+        "exact_overlap_usable": 8134,
+        "exact_absent_usable": 410,
+        "whitespace_boundary_rows": 0
+      },
+      "no_note": {
+        "rows": 12772,
+        "distinct_nonempty_spellings": 12772,
+        "empty_headword_rows": 0,
+        "exact_overlap_usable": 34,
+        "exact_absent_usable": 12738,
+        "whitespace_boundary_rows": 0
+      },
+      "other_unresolved": {
+        "rows": 2700,
+        "distinct_nonempty_spellings": 2548,
+        "empty_headword_rows": 0,
+        "exact_overlap_usable": 60,
+        "exact_absent_usable": 2488,
+        "whitespace_boundary_rows": 0
+      }
+    },
+    "word_source_links": [
+      {
+        "source_code": "SRC-CREA-VERBS",
+        "linked_words": 12
+      },
+      {
+        "source_code": "SRC-MTL-1936",
+        "linked_words": 84
+      },
+      {
+        "source_code": "SRC-WIKT-TAMIL",
+        "linked_words": 8549
+      }
+    ],
+    "lemma_note_counts": [
+      {
+        "note_label": "Promoted from secondary candidates in Rust",
+        "rows": 22128
+      },
+      {
+        "note_label": "Ingested and verified from Wiktionary Tamil Lexicon.",
+        "rows": 8412
+      },
+      {
+        "note_label": "Oxford Tamil Dictionary",
+        "rows": 6828
+      },
+      {
+        "note_label": "Madras Tamil Lexicon (DSAL)",
+        "rows": 6508
+      },
+      {
+        "note_label": "Verified against documented evidence in Madras Tamil Lexicon and standard Tamil grammars.",
+        "rows": 73
+      },
+      {
+        "note_label": "Ingested and verified for canonical POS enrichment.",
+        "rows": 59
+      },
+      {
+        "note_label": "Standardized to canonical toponym",
+        "rows": 45
+      },
+      {
+        "note_label": "Ingested and verified from Wiktionary Tamil Lexicon extraction.",
+        "rows": 39
+      },
+      {
+        "note_label": "Word Bank Enrichment: Botany",
+        "rows": 33
+      },
+      {
+        "note_label": "Word Bank Enrichment: Literature",
+        "rows": 31
+      },
+      {
+        "note_label": null,
+        "rows": 15
+      },
+      {
+        "note_label": "Word Bank Enrichment: Zoology",
+        "rows": 11
+      },
+      {
+        "note_label": "Word Bank Enrichment: Religion",
+        "rows": 7
+      },
+      {
+        "note_label": "Word Bank Enrichment: Architecture",
+        "rows": 7
+      },
+      {
+        "note_label": "Word Bank Enrichment: Linguistics",
+        "rows": 6
+      },
+      {
+        "note_label": "Word Bank Enrichment: Philosophy",
+        "rows": 5
+      },
+      {
+        "note_label": "Word Bank Enrichment: Iconography",
+        "rows": 5
+      },
+      {
+        "note_label": "Contemporary verb lemma verified from Cre-A verbal tables (Class III / Weak transitive).",
+        "rows": 5
+      },
+      {
+        "note_label": "Canonical seed record verified against Madras Tamil Lexicon.",
+        "rows": 4
+      },
+      {
+        "note_label": "Contemporary verb lemma verified from Cre-A verbal tables (Class VI / Strong transitive).",
+        "rows": 2
+      },
+      {
+        "note_label": "Contemporary verb lemma verified from Cre-A verbal tables (Class III / Weak).",
+        "rows": 2
+      },
+      {
+        "note_label": "Ingested atomic constituent root",
+        "rows": 1
+      },
+      {
+        "note_label": "Contemporary verb lemma verified from Cre-A verbal tables (Class V / Weak).",
+        "rows": 1
+      },
+      {
+        "note_label": "Contemporary verb lemma verified from Cre-A verbal tables (Class II / Weak intransitive).",
+        "rows": 1
+      },
+      {
+        "note_label": "Contemporary verb lemma verified from Cre-A verbal tables (Class I / Weak).",
+        "rows": 1
+      }
+    ],
+    "all_12_exports_match": true
+  }
+}

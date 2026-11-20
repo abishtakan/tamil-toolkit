@@ -8,6 +8,7 @@ import { CalendarExplorer } from "./components/public-tools/CalendarExplorer";
 import { TextSorter } from "./components/public-tools/TextSorter";
 import { SymbolsExplorer } from "./components/public-tools/SymbolsExplorer";
 import { HyphenatorTool } from "./components/public-tools/HyphenatorTool";
+import { LexiconExplorer } from "./components/public-tools/LexiconExplorer";
 import { ScalarInspector } from "./components/developer-tools/ScalarInspector";
 import { LetterAnalyzer } from "./components/developer-tools/LetterAnalyzer";
 import { NormalizerTool } from "./components/developer-tools/NormalizerTool";
@@ -27,6 +28,7 @@ import {
   Calendar,
   ArrowDownAZ,
   BookOpen,
+  BookMarked,
   Scissors,
   ShieldCheck,
   Cpu,
@@ -38,8 +40,12 @@ import {
 export function App() {
   const { language, setLanguage, t } = useLanguage();
   const [engineReady, setEngineReady] = useState(isEngineReady());
-  const [activeTab, setActiveTab] = useState<"hub" | "public" | "dev">("hub");
-  const [activePublicTool, setActivePublicTool] = useState<string>("codec");
+  const [activeTab, setActiveTab] = useState<"hub" | "public" | "dev">(() =>
+    typeof window !== "undefined" && new URLSearchParams(window.location.search).get("tool") === "lexicon" ? "public" : "hub"
+  );
+  const [activePublicTool, setActivePublicTool] = useState<string>(() =>
+    typeof window !== "undefined" && new URLSearchParams(window.location.search).get("tool") === "lexicon" ? "lexicon" : "codec"
+  );
   const [activeDevTool, setActiveDevTool] = useState<string>("scalar");
   const [isDark, setIsDark] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
@@ -103,7 +109,7 @@ export function App() {
                 {t.siteTitle}
               </span>
               <span className="text-[10px] text-[var(--color-muted)] font-mono-tamil hidden sm:block">
-                tamil-toolkit v0.1.0-alpha.6
+                tamil-toolkit v0.1.0-alpha.8
               </span>
             </div>
           </button>
@@ -184,13 +190,16 @@ export function App() {
         </nav>
 
         {/* View Switcher */}
-        {activeTab === "hub" && <OverviewHub onSelectTool={handleSelectFromHub} />}
+        {activeTab === "hub" && (
+          <OverviewHub onSelectTool={handleSelectFromHub} engineReady={engineReady} />
+        )}
 
         {activeTab === "public" && (
           <div className="space-y-6">
             {/* Tool Selection Sub-Chips */}
             <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
               {[
+                { id: "lexicon", label: t.tools.lexicon.title, icon: BookMarked },
                 { id: "codec", label: t.tools.codec.title, icon: Type },
                 { id: "numeral", label: t.tools.numeral.title, icon: Banknote },
                 { id: "calendar", label: t.tools.calendar.title, icon: Calendar },
@@ -219,6 +228,7 @@ export function App() {
 
             {/* Active Public Tool View */}
             {activePublicTool === "codec" && <CodecConverter />}
+            {activePublicTool === "lexicon" && <LexiconExplorer engineReady={engineReady} />}
             {activePublicTool === "numeral" && <NumeralFormatter />}
             {activePublicTool === "calendar" && <CalendarExplorer />}
             {activePublicTool === "sorter" && <TextSorter />}

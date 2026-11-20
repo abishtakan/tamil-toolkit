@@ -1,4 +1,7 @@
+import { useEffect, useMemo, useState } from "react";
 import { useLanguage } from "../../lib/i18n";
+import { getLexiconPacks, isEngineReady } from "../../lib/engine";
+import { ExtendedManifest, verifyPackCatalogAlignment } from "../../lib/lexicon";
 import {
   Type,
   Banknote,
@@ -9,6 +12,7 @@ import {
   Files,
   Cpu,
   BookOpen,
+  BookMarked,
   Scissors,
   Sparkles,
   ShieldCheck,
@@ -17,10 +21,35 @@ import {
 
 interface OverviewHubProps {
   onSelectTool: (tab: "public" | "dev", toolId: string) => void;
+  engineReady?: boolean;
 }
 
-export function OverviewHub({ onSelectTool }: OverviewHubProps) {
+export function OverviewHub({ onSelectTool, engineReady }: OverviewHubProps) {
   const { t } = useLanguage();
+  const ready = engineReady ?? isEngineReady();
+
+  const lexiconAlignment = useMemo(() => {
+    if (!ready) return null;
+    try {
+      return verifyPackCatalogAlignment(getLexiconPacks());
+    } catch {
+      return null;
+    }
+  }, [ready]);
+
+  const [extendedManifest, setExtendedManifest] = useState<ExtendedManifest | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/lexicon-extended/manifest.json")
+      .then((res) => (res.ok ? (res.json() as Promise<ExtendedManifest>) : null))
+      .then((data) => {
+        if (!cancelled) setExtendedManifest(data);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const legacyProfiles = [
     "Bamini",
@@ -56,8 +85,89 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          {/* Bento Hero Slot: Legacy Font & Encoding Converter (Col 1-7) */}
+          {/* Bento Hero Slot 1: Featured Tamil Lexicon Explorer (Col 1-7) */}
           <div className="lg:col-span-7">
+            <div
+              onClick={() => onSelectTool("public", "lexicon")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelectTool("public", "lexicon");
+                }
+              }}
+              role="button"
+              tabIndex={0}
+              className="h-full border border-[var(--border-line)] hover:border-[var(--color-semman)] bg-[var(--bg-surface)] hover:bg-[var(--bg-raised)]/30 rounded-2xl p-6 flex flex-col justify-between gap-4 transition-colors duration-150 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] active:scale-[0.99]"
+            >
+              <div className="space-y-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-[var(--color-semman-light)] text-[var(--color-semman)] flex items-center justify-center shrink-0">
+                      <BookMarked className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-tamil font-bold text-[var(--color-mai)]">
+                        {t.tools.lexicon.title}
+                      </h3>
+                      <span className="text-[11px] font-mono-tamil text-[var(--color-muted)]">
+                        {extendedManifest
+                          ? `${extendedManifest.total_words.toLocaleString()} Active Words · Search & Browse (CC-BY-SA-4.0)`
+                          : !lexiconAlignment
+                            ? t.tools.lexicon.verifyingManifests
+                            : lexiconAlignment.hasStaleMismatch
+                              ? t.tools.lexicon.staleMetadataBadge
+                              : lexiconAlignment.isFullCatalogVerified
+                                ? `${lexiconAlignment.verifiedLoadedEntries.toLocaleString()} Entries · ${lexiconAlignment.verifiedLoadedSenses.toLocaleString()} Senses · ${(lexiconAlignment.verifiedDistinctHeadwords ?? 0).toLocaleString()} Forms`
+                                : lexiconAlignment.verifiedPackIds.length > 0
+                                  ? `${lexiconAlignment.verifiedLoadedEntries.toLocaleString()} Entries · ${lexiconAlignment.verifiedLoadedSenses.toLocaleString()} Senses (${lexiconAlignment.verifiedPackIds.join(", ")})`
+                                  : t.tools.lexicon.unavailableCounts}
+                      </span>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-tamil font-semibold px-2.5 py-0.5 rounded-full bg-[var(--color-semman-light)] text-[var(--color-semman)] border border-[var(--color-semman)]/30 shrink-0">
+                    {t.hub.featuredBadge}
+                  </span>
+                </div>
+
+                <p className="text-xs sm:text-sm text-[var(--color-muted)] font-tamil-sans leading-relaxed">
+                  {t.tools.lexicon.desc}
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {extendedManifest && (
+                    <span className="text-[11px] px-2.5 py-0.5 rounded-md bg-[var(--color-semman-light)] text-[var(--color-semman)] border border-[var(--color-semman)]/30 font-mono-tamil">
+                      ta_wiktionary ({extendedManifest.tawiktionary_words.toLocaleString()})
+                    </span>
+                  )}
+                  {["core", "names_taxa", "regional"].map((pack) => {
+                    const status = lexiconAlignment?.byPack[pack as "core" | "names_taxa" | "regional"]?.status;
+                    return (
+                      <span
+                        key={pack}
+                        className="text-[11px] px-2.5 py-0.5 rounded-md bg-[var(--bg-raised)] text-[var(--color-mai)] border border-[var(--border-line)] font-mono-tamil"
+                      >
+                        {pack}
+                        {status === "stale_mismatch" ? " (stale)" : status === "unavailable" ? " (unavailable)" : ""}
+                      </span>
+                    );
+                  })}
+                  <span className="text-[11px] px-2.5 py-0.5 rounded-md bg-[var(--bg-canvas)] text-[var(--color-muted)] border border-[var(--border-line)] font-mono-tamil">
+                    terminology (unavailable)
+                  </span>
+                </div>
+              </div>
+
+              <div className="pt-4 flex items-center justify-between border-t border-[var(--border-line)]">
+                <span className="text-xs font-semibold text-[var(--color-semman)] font-tamil">
+                  {t.hub.launchTool}
+                </span>
+                <ArrowRight className="w-4 h-4 text-[var(--color-semman)]" />
+              </div>
+            </div>
+          </div>
+
+          {/* Bento Slot 2: Legacy Font & Encoding Converter (Col 8-12) */}
+          <div className="lg:col-span-5">
             <div
               onClick={() => onSelectTool("public", "codec")}
               onKeyDown={(e) => {
@@ -108,8 +218,8 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
             </div>
           </div>
 
-          {/* Bento Slot 2: Numeral & Legal Cheque Formatter (Col 8-12) */}
-          <div className="lg:col-span-5">
+          {/* Bento Slot 3: Numeral & Legal Cheque Formatter (Col 1-4) */}
+          <div className="lg:col-span-4">
             <div
               onClick={() => onSelectTool("public", "numeral")}
               onKeyDown={(e) => {
@@ -240,8 +350,8 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
             </div>
           </div>
 
-          {/* Bento Slot 5: Traditional Fractions & Symbols (Col 9-12) */}
-          <div className="lg:col-span-4">
+          {/* Bento Slot 6: Traditional Fractions & Symbols (Col 1-6) */}
+          <div className="lg:col-span-6">
             <div
               onClick={() => onSelectTool("public", "symbols")}
               onKeyDown={(e) => {
@@ -285,8 +395,8 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
             </div>
           </div>
 
-          {/* Bento Slot 6: Syllabic Hyphenator & Line Wrapper (Col 1-12) */}
-          <div className="lg:col-span-12">
+          {/* Bento Slot 7: Syllabic Hyphenator & Line Wrapper (Col 7-12) */}
+          <div className="lg:col-span-6">
             <div
               onClick={() => onSelectTool("public", "hyphenator")}
               onKeyDown={(e) => {
@@ -297,9 +407,9 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
               }}
               role="button"
               tabIndex={0}
-              className="h-full border border-[var(--border-line)] hover:border-[var(--color-semman)] bg-[var(--bg-surface)] hover:bg-[var(--bg-raised)]/30 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 transition-colors duration-150 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] active:scale-[0.99]"
+              className="h-full border border-[var(--border-line)] hover:border-[var(--color-semman)] bg-[var(--bg-surface)] hover:bg-[var(--bg-raised)]/30 rounded-2xl p-6 flex flex-col justify-between gap-4 transition-colors duration-150 cursor-pointer text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] active:scale-[0.99]"
             >
-              <div className="space-y-3 max-w-2xl">
+              <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-[var(--color-semman-light)] text-[var(--color-semman)] flex items-center justify-center shrink-0">
                     <Scissors className="w-5 h-5" />
@@ -338,7 +448,7 @@ export function OverviewHub({ onSelectTool }: OverviewHubProps) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0 sm:self-center">
+              <div className="pt-4 flex items-center justify-between border-t border-[var(--border-line)]">
                 <span className="text-xs font-semibold text-[var(--color-semman)] font-tamil">
                   {t.hub.launchTool}
                 </span>

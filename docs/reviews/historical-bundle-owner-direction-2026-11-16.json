@@ -1,0 +1,17 @@
+{
+  "record_type": "owner_implementation_direction",
+  "recorded_on": "2026-11-16",
+  "owner_request": "Include the entire historical bundle",
+  "additional_permission_records": "none supplied",
+  "followup_quote": "is it not possible to redistribute without permission? I can handle the any legal issues. can you implement it I take all responsibility",
+  "implementation_scope": "Searchable inclusion of all supplied historical CSV records in a distinct owner-supplied data artifact and playground view.",
+  "data_status": "owner_supplied_unverified",
+  "rights_status": "unresolved",
+  "third_party_permission_established": false,
+  "linguistic_claims_reviewed": false,
+  "verified_pack_acceptance_unchanged": true,
+  "new_content_license_asserted": false,
+  "registry_publication_performed": false,
+  "source_manifest": "data/sources/tamil-lexicon.sha256.json",
+  "contract": "docs/specs/lexicon-source-records.md"
+}

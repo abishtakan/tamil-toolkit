@@ -1140,4 +1140,26 @@ export function wrapText(
   };
 }
 
+// ---------------------------------------------------------------------------
+// 5. Thin Rust Lexicon Engine Wrappers (No Second Linguistic Logic)
+// ---------------------------------------------------------------------------
+
+/**
+ * Returns compiled lexicon pack metadata directly from the Rust WASM engine.
+ */
+export function getLexiconPacks(): tt.LexiconPackInfo[] {
+  return tt.lexicon_packs();
+}
+
+/**
+ * Performs an exact Rust-dispatched lexicon lookup, preserving query text
+ * (including whitespace, joiners, and NFD sequences) and explicit options verbatim.
+ */
+export function lookupLexicon(
+  query: string,
+  options?: tt.LexiconLookupOptions
+): tt.LexiconLookupResponse {
+  return tt.lexicon_lookup(query, options);
+}
+
 export { tt };
