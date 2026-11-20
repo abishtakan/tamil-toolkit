@@ -4,10 +4,10 @@
   "version": "0.1.0-alpha.6",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "node prepare.mjs && vite",
+    "build": "node prepare.mjs && tsc --noEmit && vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "node prepare.mjs --catalog-only && vitest run"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.3.1",

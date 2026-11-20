@@ -34,7 +34,21 @@ check-release-files:
 
 # Actual archives and isolated consumers; does not upload to any registry.
 release-check:
-    uv run --locked python tools/release.py all
+    uv run --locked python tools/release.py all --lexicon-profile default
+    uv run --locked python -m tools.lexicon_dart_archive --profile default
+    uv run --locked python tools/release.py all --lexicon-profile core
+    uv run --locked python -m tools.lexicon_dart_archive --profile core
+    uv run --locked python tools/release.py all --lexicon-profile full
+    uv run --locked python -m tools.lexicon_dart_archive --profile full
+
+# Explicit final runtime matrix; ordinary edit/parity gates use one selected profile.
+lexicon-acceptance:
+    uv run --locked python tools/tasks.py test-parity --lexicon-profile default
+    uv run --locked python tools/tasks.py test-dart --lexicon-profile default
+    uv run --locked python tools/tasks.py test-parity --lexicon-profile core
+    uv run --locked python tools/tasks.py test-dart --lexicon-profile core
+    uv run --locked python tools/tasks.py test-parity --lexicon-profile full
+    uv run --locked python tools/tasks.py test-dart --lexicon-profile full
 
 check-unicode:
     uv run --locked python tools/tasks.py check-unicode
