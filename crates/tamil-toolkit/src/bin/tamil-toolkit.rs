@@ -27,6 +27,7 @@ COMMANDS:
     numerals    Tamil numerals, number words, and fractions
     calendar    Tamil calendar, solar-lunar conversion, and panchangam
     hyphen      Syllable breakdown, word hyphenation, and document processing
+    lexicon     Exact compiled lexicon lookup and pack metadata
     help        Print this message
 
 Run 'tamil-toolkit <COMMAND> --help' for command-specific options.
@@ -1274,6 +1275,170 @@ fn handle_calendar(args: &[String]) {
 }
 
 // ==========================================
+// Lexicon Handlers
+// ==========================================
+
+fn print_lexicon_usage() {
+    eprintln!(
+        r#"USAGE:
+    tamil-toolkit lexicon <SUBCOMMAND> [OPTIONS] [ARGUMENTS]
+
+SUBCOMMANDS:
+    lookup <TEXT> [--pack ID]... [--region ID] [--register ID]
+                Exact NFC-normalized lookup over approved compiled packs
+    packs       List available compiled lexicon packs and coverage metadata
+    -h, --help  Print help information
+"#
+    );
+}
+
+fn emit_lexicon_result(request: &serde_json::Value) {
+    match tamil_toolkit::execute(request) {
+        Ok(value) => {
+            let encoded = serde_json::to_string(&value).unwrap_or_else(|err| {
+                eprintln!("lexicon: serialize error: {err}");
+                exit(1);
+            });
+            println!("{encoded}");
+        }
+        Err(err) => {
+            eprintln!("{err}");
+            exit(1);
+        }
+    }
+}
+
+fn handle_lexicon(args: &[String]) {
+    if args.is_empty() {
+        print_lexicon_usage();
+        exit(1);
+    }
+
+    match args[0].as_str() {
+        "packs" => {
+            if args[1..]
+                .iter()
+                .any(|arg| matches!(arg.as_str(), "-h" | "--help"))
+            {
+                print_lexicon_usage();
+                return;
+            }
+            if let Some(arg) = args.get(1) {
+                eprintln!("Error: Unrecognized option or argument '{arg}'.");
+                exit(1);
+            }
+            emit_lexicon_result(&json!({
+                "op": "lexicon_packs",
+                "input": serde_json::Value::Null
+            }));
+        }
+        "lookup" => {
+            let mut text: Option<String> = None;
+            let mut packs: Vec<String> = Vec::new();
+            let mut has_packs = false;
+            let mut region: Option<String> = None;
+            let mut register: Option<String> = None;
+            let mut after_double_dash = false;
+            let mut i = 1usize;
+
+            while i < args.len() {
+                let arg = &args[i];
+                if after_double_dash {
+                    if text.is_some() {
+                        eprintln!("Error: Unexpected positional argument '{arg}'.");
+                        exit(1);
+                    }
+                    text = Some(arg.clone());
+                    i += 1;
+                    continue;
+                }
+
+                match arg.as_str() {
+                    "-h" | "--help" => {
+                        print_lexicon_usage();
+                        return;
+                    }
+                    "--" => {
+                        after_double_dash = true;
+                        i += 1;
+                    }
+                    "--pack" => {
+                        if i + 1 >= args.len() {
+                            eprintln!("Error: --pack requires a pack ID value.");
+                            exit(1);
+                        }
+                        has_packs = true;
+                        packs.push(args[i + 1].clone());
+                        i += 2;
+                    }
+                    "--region" => {
+                        if i + 1 >= args.len() {
+                            eprintln!("Error: --region requires a region code value.");
+                            exit(1);
+                        }
+                        if region.is_some() {
+                            eprintln!("lexicon: invalid options");
+                            exit(1);
+                        }
+                        region = Some(args[i + 1].clone());
+                        i += 2;
+                    }
+                    "--register" => {
+                        if i + 1 >= args.len() {
+                            eprintln!("Error: --register requires a register code value.");
+                            exit(1);
+                        }
+                        if register.is_some() {
+                            eprintln!("lexicon: invalid options");
+                            exit(1);
+                        }
+                        register = Some(args[i + 1].clone());
+                        i += 2;
+                    }
+                    other if other.starts_with('-') => {
+                        eprintln!("Error: Unrecognized option '{other}'.");
+                        exit(1);
+                    }
+                    positional => {
+                        if text.is_some() {
+                            eprintln!("Error: Unexpected positional argument '{positional}'.");
+                            exit(1);
+                        }
+                        text = Some(positional.to_owned());
+                        i += 1;
+                    }
+                }
+            }
+
+            let Some(query_text) = text else {
+                eprintln!("Error: Missing <TEXT> argument for lexicon lookup.");
+                exit(1);
+            };
+
+            let mut req = serde_json::Map::new();
+            req.insert("op".to_owned(), json!("lexicon_lookup"));
+            req.insert("input".to_owned(), json!(query_text));
+            if has_packs {
+                req.insert("packs".to_owned(), json!(packs));
+            }
+            if let Some(reg) = region {
+                req.insert("region".to_owned(), json!(reg));
+            }
+            if let Some(reg) = register {
+                req.insert("register".to_owned(), json!(reg));
+            }
+            emit_lexicon_result(&serde_json::Value::Object(req));
+        }
+        "-h" | "--help" => print_lexicon_usage(),
+        other => {
+            eprintln!("Error: Unknown lexicon subcommand '{other}'.");
+            print_lexicon_usage();
+            exit(1);
+        }
+    }
+}
+
+// ==========================================
 // Main Dispatcher
 // ==========================================
 
@@ -1292,6 +1457,7 @@ fn main() {
         "numerals" => handle_numerals(&args[2..]),
         "calendar" => handle_calendar(&args[2..]),
         "hyphen" => handle_hyphen(&args[2..]),
+        "lexicon" => handle_lexicon(&args[2..]),
         "help" | "-h" | "--help" => {
             print_usage();
         }

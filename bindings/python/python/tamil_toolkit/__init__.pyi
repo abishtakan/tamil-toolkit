@@ -323,3 +323,139 @@ def is_aytham(letter: str) -> bool: ...
 def get_cognate(letter: str) -> str | None: ...
 def are_cognates(left: str, right: str) -> bool: ...
 def get_olippasai(text: str) -> list[Olippasai]: ...
+
+LexiconPackId = Literal["core", "terminology", "names_taxa", "regional"]
+LexiconFieldAvailability = Literal["available", "unknown", "not_applicable", "withheld"]
+LexiconScopeState = Literal["attested", "unrestricted", "unknown"]
+LexiconAcceptanceKind = Literal["accepted_auto_source", "accepted_human"]
+LexiconFormRepresentation = Literal["written", "romanization", "ipa"]
+LexiconFormRole = Literal["canonical", "variant"]
+LexiconComponentKind = Literal["definition", "gloss", "translation", "citation"]
+LexiconDirectionality = Literal["directed", "symmetric"]
+LexiconEndpointKind = Literal["entry", "sense"]
+LexiconLookupStatus = Literal["matched", "not_found"]
+
+class LexiconAcceptance(TypedDict):
+    decision_id: str
+    kind: LexiconAcceptanceKind
+    actor_id: str | None
+    method: str | None
+    decided_on: str
+
+class LexiconProvenance(TypedDict):
+    assertion_id: str
+    revision_sha256: str
+    source_id: str
+    locator: str
+    acceptance: LexiconAcceptance
+
+class LexiconScope(TypedDict):
+    state: LexiconScopeState
+    codes: list[str]
+    provenance: list[LexiconProvenance]
+
+class LexiconField(TypedDict):
+    availability: LexiconFieldAvailability
+    value: str | int | float | bool | None
+    convention: str | None
+    provenance: list[LexiconProvenance]
+
+class LexiconLabelField(TypedDict):
+    availability: LexiconFieldAvailability
+    value: str | None
+    convention: str | None
+    provenance: list[LexiconProvenance]
+
+class LexiconAnnotation(TypedDict):
+    property: str
+    field: LexiconField
+
+class LexiconForm(TypedDict):
+    form_id: str
+    representation: LexiconFormRepresentation
+    role: LexiconFormRole
+    text: str
+    convention: str | None
+    provenance: list[LexiconProvenance]
+
+class LexiconComponentText(TypedDict):
+    text_id: str
+    kind: LexiconComponentKind
+    language_id: str
+    text: str
+    provenance: list[LexiconProvenance]
+
+class LexiconExampleText(TypedDict):
+    text_id: str
+    kind: Literal["example"]
+    language_id: str
+    text: str
+    provenance: list[LexiconProvenance]
+
+class LexiconEndpoint(TypedDict):
+    kind: LexiconEndpointKind
+    id: str
+
+class LexiconRelation(TypedDict):
+    relation_id: str
+    code: str
+    directionality: LexiconDirectionality
+    source: LexiconEndpoint
+    target: LexiconEndpoint
+    provenance: list[LexiconProvenance]
+
+class LexiconSense(TypedDict):
+    sense_id: str
+    display_order: int
+    parent_sense_id: str | None
+    components: list[LexiconComponentText]
+    examples: list[LexiconExampleText]
+    relations: list[LexiconRelation]
+    region: LexiconScope
+    register: LexiconLabelField
+    annotations: list[LexiconAnnotation]
+    provenance: list[LexiconProvenance]
+
+class LexiconEntry(TypedDict):
+    entry_id: str
+    revision: str
+    headword: str
+    language_id: str
+    part_of_speech: LexiconLabelField
+    forms: list[LexiconForm]
+    senses: list[LexiconSense]
+    region: LexiconScope
+    register: LexiconLabelField
+    annotations: list[LexiconAnnotation]
+    provenance: list[LexiconProvenance]
+
+class LexiconCoverage(TypedDict):
+    language_ids: list[str]
+    region_codes: list[str]
+    register_codes: list[str]
+    unknown_region_entries: int
+
+class LexiconPackInfo(TypedDict):
+    id: LexiconPackId
+    dataset_version: str
+    schema_version: Literal[1]
+    index_format_version: int
+    manifest_sha256: str
+    available: Literal[True]
+    coverage: LexiconCoverage
+
+class LexiconLookupResponse(TypedDict):
+    schema_version: Literal[1]
+    status: LexiconLookupStatus
+    canonical_query: str
+    packs: list[LexiconPackInfo]
+    entries: list[LexiconEntry]
+
+def lexicon_lookup(
+    text: str,
+    *,
+    packs: list[str] | None = None,
+    region: str | None = None,
+    register: str | None = None,
+) -> LexiconLookupResponse: ...
+def lexicon_packs() -> list[LexiconPackInfo]: ...

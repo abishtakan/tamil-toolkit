@@ -1,21 +1,87 @@
+import csv
+import json
+import os
+from pathlib import Path
 import pytest
 import tamil_toolkit as tamil
+import tomllib
 
-from tools.harness import load_vectors, selected_planned_suites
+from tools.harness import load_vectors, select_vectors, selected_planned_suites, vector_request
+
+
+_REPO_ROOT = Path(__file__).resolve().parents[3]
+_PACK_DIRS = {
+    "core": _REPO_ROOT / "lexicon/dictionary",
+    "names_taxa": _REPO_ROOT / "lexicon/packs/names_taxa",
+    "regional": _REPO_ROOT / "lexicon/packs/regional",
+}
+
+
+def infer_compiled_python_profile() -> str:
+    packs = tamil.lexicon_packs()
+    if packs == []:
+        return "default"
+    if len(packs) == 1 and packs[0].get("id") == "core" and packs[0].get("available") is True:
+        return "core"
+    if (
+        len(packs) == 3
+        and [pack.get("id") for pack in packs] == ["core", "names_taxa", "regional"]
+        and all(pack.get("available") is True for pack in packs)
+    ):
+        return "full"
+    raise AssertionError(f"Unsupported compiled Python lexicon packs: {packs!r}")
+
+
+def resolve_python_profile() -> str:
+    compiled_profile = infer_compiled_python_profile()
+    env_profile = os.environ.get("TAMIL_LEXICON_PROFILE")
+    if env_profile is not None:
+        if env_profile not in ("default", "core", "full"):
+            raise AssertionError(
+                f"Unsupported TAMIL_LEXICON_PROFILE={env_profile!r} (expected 'default', 'core', or 'full')"
+            )
+        if env_profile != compiled_profile:
+            raise AssertionError(
+                f"TAMIL_LEXICON_PROFILE={env_profile!r} does not match compiled Python binding profile {compiled_profile!r}"
+            )
+        return env_profile
+    return compiled_profile
 
 
 def test_golden():
-    cases = load_vectors(include_planned=selected_planned_suites())
+    profile = resolve_python_profile()
+    selection = select_vectors(include_planned=selected_planned_suites(), profile=profile)
+    cases = selection.vectors
     assert cases
+    if profile == "core":
+        assert selection.core_profile_count > 0
+        assert selection.excluded_profile_count == 0
+    elif profile == "full":
+        manifest = json.loads((_REPO_ROOT / "tests/golden/manifest.json").read_text(encoding="utf-8"))
+        has_declared_full = any(
+            suite.get("status") == "active" and suite.get("required_profile") == "full"
+            for suite in manifest.get("suites", [])
+        )
+        if has_declared_full:
+            assert selection.full_profile_count > 0
+    for filename, req_profile, row_count in selection.excluded_profile_suites:
+        print(
+            f"PROFILE_EXCLUDED {filename}: requires profile {req_profile!r} "
+            f"(active profile {profile!r}; {row_count} vectors excluded)"
+        )
+    print(
+        f"Python selected {selection.active_count} active golden vectors for profile {profile!r} "
+        f"(excluded {selection.excluded_profile_count} active vectors requiring other profiles)."
+    )
     for case in cases:
         if "expected_error" in case:
             assert "expected" not in case, case["id"]
             with pytest.raises(ValueError) as failure:
-                tamil.execute(case)
+                tamil.execute(vector_request(case))
             assert str(failure.value) == case["expected_error"], case["id"]
         else:
             assert "expected" in case, case["id"]
-            assert tamil.execute(case) == case["expected"], case["id"]
+            assert tamil.execute(vector_request(case)) == case["expected"], case["id"]
 
 
 def test_phonology_and_olippasai_convenience_api():
@@ -120,7 +186,7 @@ def test_errors_cross_ffi(payload):
 
 
 def test_collation_convenience_apis():
-    cases = {case["id"]: case for case in load_vectors()}
+    cases = {case["id"]: case for case in load_vectors(profile=resolve_python_profile())}
     word_case = cases["collate_words_basic"]
     key_case = cases["collate_key_001"]
     assert tamil.sort_words(word_case["input"]) == word_case["expected"]
@@ -130,7 +196,7 @@ def test_collation_convenience_apis():
 
 
 def test_numeral_convenience_apis():
-    cases = {case["id"]: case for case in load_vectors()}
+    cases = {case["id"]: case for case in load_vectors(profile=resolve_python_profile())}
     assert tamil.to_words(1025, "SL") == cases["num_014"]["expected"]
     assert tamil.to_words(100000) == cases["number_default_locale"]["expected"]
     for case in cases.values():
@@ -141,7 +207,7 @@ def test_numeral_convenience_apis():
 
 
 def test_codec_convenience_api():
-    cases = {case["id"]: case for case in load_vectors()}
+    cases = {case["id"]: case for case in load_vectors(profile=resolve_python_profile())}
     word = cases["codec_word_000_tn_strict"]
     preserved = cases["codec_joiner_boundary_0"]
     assert tamil.bamini_to_unicode(word["input"]["text"]) == word["expected"]
@@ -153,7 +219,7 @@ def test_codec_convenience_api():
 
 
 def test_encoder_convenience_api():
-    cases = {case["id"]: case for case in load_vectors()}
+    cases = {case["id"]: case for case in load_vectors(profile=resolve_python_profile())}
     word = cases["encode_word_000_tn"]
     encoded = tamil.unicode_to_bamini(word["input"]["text"])
     assert encoded == word["expected"]
@@ -174,7 +240,7 @@ def test_tscii_byte_convenience_api():
 
 
 def test_fraction_and_date_convenience_apis():
-    for case in load_vectors():
+    for case in load_vectors(profile=resolve_python_profile()):
         if case["op"] in ("format_fraction", "fraction_to_words", "fraction_symbol", "format_date") and "expected" in case:
             assert getattr(tamil, case["op"])(**case["input"]) == case["expected"]
     with pytest.raises(ValueError, match="fraction denominator must not be zero"):
@@ -184,7 +250,7 @@ def test_fraction_and_date_convenience_apis():
 
 
 def test_numerals_v03_typed_convenience_apis():
-    cases = load_vectors(include_planned=selected_planned_suites())
+    cases = load_vectors(include_planned=selected_planned_suites(), profile=resolve_python_profile())
     value = tamil.parse_decimal("12.3400", "latin")
     assert value == {"negative": False, "coefficient": "123400", "scale": 4}
     assert tamil.format_decimal(value) == "12.3400"
@@ -365,3 +431,133 @@ def test_norm_convenience_apis():
 
     assert tamil.fold_for_search("\u0baa\u0bb4\u0bae\u0bcd", "mayangoli") == "\u0baa\u0bb2\u0bae\u0bcd"
     assert tamil.fold_for_search("\u0bb0\u0bbe\u0b9c\u0bbe", "grantha") == "\u0bb0\u0bbe\u0b9a\u0bbe"
+
+
+def _read_pack_manifest(pack_id: str) -> dict:
+    return tomllib.loads((_PACK_DIRS[pack_id] / "packs.toml").read_text(encoding="utf-8"))
+
+
+def _first_canonical_written_form(pack_id: str) -> str:
+    assertions_csv = _PACK_DIRS[pack_id] / "assertions.csv"
+    with assertions_csv.open("r", encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle):
+            if row.get("subject_kind") == "form":
+                parsed = json.loads(row["value_json"])
+                if isinstance(parsed, str) and parsed:
+                    return parsed
+    raise AssertionError(f"No canonical form assertion found in {assertions_csv}")
+
+
+def _absent_golden_input() -> str:
+    path = _REPO_ROOT / "tests/golden/lexicon_lookup.jsonl"
+    for line in path.read_text(encoding="utf-8").splitlines():
+        case = json.loads(line)
+        if case.get("id") == "lexicon_lookup_not_found_absent_007":
+            assert case["expected"]["status"] == "not_found"
+            return case["input"]
+    raise AssertionError("Missing lexicon_lookup_not_found_absent_007 golden vector")
+
+
+def _assert_pack_matches_manifest(pack: dict, manifest: dict) -> None:
+    assert pack["id"] == manifest["pack_id"]
+    assert pack["dataset_version"] == manifest["dataset_version"]
+    assert pack["schema_version"] == manifest["schema_version"]
+    assert pack["index_format_version"] == manifest["index_format_version"]
+    assert pack["manifest_sha256"] == manifest["manifest_sha256"]
+    assert pack["available"] is True
+    assert pack["coverage"] == manifest["coverage"]
+
+
+def test_lexicon_profile_and_convenience_api():
+    profile = resolve_python_profile()
+    select_vectors(include_planned=selected_planned_suites(), profile=profile)
+    absent_input = _absent_golden_input()
+
+    if profile == "default":
+        assert tamil.lexicon_packs() == []
+        with pytest.raises(ValueError, match=r"^lexicon: pack unavailable 'core'$"):
+            tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf")
+        with pytest.raises(ValueError, match=r"^lexicon: packs must be a nonempty string array$"):
+            tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", packs=[])
+        with pytest.raises(ValueError, match=r"^lexicon: unknown pack 'unknown'$"):
+            tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", packs=["unknown"])
+    elif profile == "core":
+        manifest = _read_pack_manifest("core")
+        packs = tamil.lexicon_packs()
+        assert len(packs) == 1
+        core = packs[0]
+        _assert_pack_matches_manifest(core, manifest)
+        env_sha = os.environ.get("TAMIL_LEXICON_MANIFEST_SHA256")
+        if env_sha:
+            assert core["manifest_sha256"] == env_sha
+        env_ver = os.environ.get("TAMIL_LEXICON_DATASET_VERSION")
+        if env_ver:
+            assert core["dataset_version"] == env_ver
+
+        matched = tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf")
+        assert matched["status"] == "matched"
+        assert len(matched["entries"]) == 2
+        assert matched["packs"] == [core]
+        assert tamil.lexicon_lookup("\u0b85\u0b9f\u0b9f\u0bbe", packs=["core"])["status"] == "matched"
+        missing = tamil.lexicon_lookup(absent_input)
+        assert missing["status"] == "not_found"
+        assert missing["entries"] == []
+
+        with pytest.raises(ValueError, match=r"^lexicon: packs must be a nonempty string array$"):
+            tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", packs=[])
+        with pytest.raises(ValueError, match=r"^lexicon: pack unavailable 'regional'$"):
+            tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", packs=["regional"])
+        with pytest.raises(ValueError, match=r"^lexicon: unknown region 'LK-JAFFNA'$"):
+            tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", region="LK-JAFFNA")
+        with pytest.raises(ValueError, match=r"^lexicon: unknown register 'written'$"):
+            tamil.lexicon_lookup("\u0b85\u0bb1\u0bbf\u0b95\u0bcd\u0b95\u0bc8", register="written")
+    elif profile == "full":
+        packs = tamil.lexicon_packs()
+        assert [pack["id"] for pack in packs] == ["core", "names_taxa", "regional"]
+        raw_env_manifests = os.environ.get("TAMIL_LEXICON_PACK_MANIFESTS")
+        env_manifests = json.loads(raw_env_manifests) if raw_env_manifests else None
+        for pack, pack_id in zip(packs, ("core", "names_taxa", "regional")):
+            manifest = _read_pack_manifest(pack_id)
+            _assert_pack_matches_manifest(pack, manifest)
+            if env_manifests is not None:
+                expected = env_manifests[pack_id]
+                assert pack["dataset_version"] == expected["dataset_version"]
+                assert pack["manifest_sha256"] == expected["manifest_sha256"]
+        core = packs[0]
+        env_sha = os.environ.get("TAMIL_LEXICON_MANIFEST_SHA256")
+        if env_sha:
+            assert core["manifest_sha256"] == env_sha
+        env_ver = os.environ.get("TAMIL_LEXICON_DATASET_VERSION")
+        if env_ver:
+            assert core["dataset_version"] == env_ver
+
+        matched = tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf")
+        assert matched["status"] == "matched"
+        assert len(matched["entries"]) == 2
+        assert matched["packs"] == [core]
+        all_packs = tamil.lexicon_lookup(
+            "\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", packs=["core", "names_taxa", "regional"]
+        )
+        assert all_packs["status"] == "matched"
+        assert all_packs["packs"] == packs
+        for pack_id in ("names_taxa", "regional"):
+            sample = _first_canonical_written_form(pack_id)
+            pack_match = tamil.lexicon_lookup(sample, packs=[pack_id])
+            assert pack_match["status"] == "matched"
+            assert pack_match["entries"]
+        missing = tamil.lexicon_lookup(absent_input)
+        assert missing["status"] == "not_found"
+        assert missing["entries"] == []
+
+        with pytest.raises(ValueError, match=r"^lexicon: pack unavailable 'terminology'$"):
+            tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", packs=["terminology"])
+        with pytest.raises(ValueError, match=r"^lexicon: packs must be a nonempty string array$"):
+            tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", packs=[])
+        with pytest.raises(ValueError, match=r"^lexicon: unknown pack 'unknown'$"):
+            tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", packs=["unknown"])
+        with pytest.raises(ValueError, match=r"^lexicon: unknown region 'LK-JAFFNA'$"):
+            tamil.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", region="LK-JAFFNA")
+        with pytest.raises(ValueError, match=r"^lexicon: unknown register 'written'$"):
+            tamil.lexicon_lookup("\u0b85\u0bb1\u0bbf\u0b95\u0bcd\u0b95\u0bc8", register="written")
+    else:
+        pytest.fail(f"Unsupported TAMIL_LEXICON_PROFILE={profile!r}")

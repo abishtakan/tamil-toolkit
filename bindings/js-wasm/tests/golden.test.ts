@@ -2,14 +2,50 @@ import { readFileSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import { beforeAll, describe, expect, test } from "vitest";
-import { execute, type Request, type Currency, type Locale, type CodecErrorPolicy, type DigitStyle, type DateStyle } from "../src/index.js";
+import { execute, type Request, type Currency, type Locale, type CodecErrorPolicy, type DigitStyle, type DateStyle, type LexiconLookupOptions, type LexiconLookupResponse, type LexiconPackInfo } from "../src/index.js";
 import { init, execute as executeWeb } from "../src/web.js";
 import * as nodeApi from "../src/index.js";
 import * as webApi from "../src/web.js";
 
+type LexiconProfile = "default" | "core" | "full";
+type PackId = "core" | "names_taxa" | "regional";
+
+function inferCompiledProfile(packs: LexiconPackInfo[], targetLabel: string): LexiconProfile {
+  if (packs.length === 0) return "default";
+  if (packs.length === 1 && packs[0].id === "core" && packs[0].available === true) return "core";
+  if (
+    packs.length === 3 &&
+    JSON.stringify(packs.map((pack) => pack.id)) === JSON.stringify(["core", "names_taxa", "regional"]) &&
+    packs.every((pack) => pack.available === true)
+  ) {
+    return "full";
+  }
+  throw new Error(`Unsupported compiled ${targetLabel} lexicon packs: ${JSON.stringify(packs)}`);
+}
+
+const compiledProfile = inferCompiledProfile(nodeApi.lexicon_packs(), "Node WASM");
+const envProfile = process.env.TAMIL_LEXICON_PROFILE;
+if (envProfile !== undefined) {
+  if (envProfile !== "default" && envProfile !== "core" && envProfile !== "full") {
+    throw new Error(`Unsupported TAMIL_LEXICON_PROFILE=${envProfile} (expected 'default', 'core', or 'full')`);
+  }
+  if (envProfile !== compiledProfile) {
+    throw new Error(
+      `TAMIL_LEXICON_PROFILE=${envProfile} does not match compiled Node WASM profile ${compiledProfile}`,
+    );
+  }
+}
+const activeProfile: LexiconProfile = (envProfile as LexiconProfile | undefined) ?? compiledProfile;
+
 beforeAll(async () => {
   const bytes = readFileSync(new URL("../pkg-web/tamil_toolkit_bg.wasm", import.meta.url));
   await init({ module_or_path: bytes });
+  const webCompiledProfile = inferCompiledProfile(webApi.lexicon_packs(), "Web WASM");
+  if (webCompiledProfile !== activeProfile) {
+    throw new Error(
+      `Web WASM compiled profile ${webCompiledProfile} does not match expected profile ${activeProfile}`,
+    );
+  }
 });
 
 const root = fileURLToPath(new URL("../../../tests/golden/", import.meta.url));
@@ -19,31 +55,78 @@ const includePlanned = new Set((process.env.TAMIL_GOLDEN_INCLUDE_PLANNED ?? "").
 const ids = new Set<string>();
 const files = new Set<string>();
 const cases: (Request & { id: string; expected?: unknown; expected_error?: string })[] = [];
+let activeCount = 0;
 let plannedReviewCount = 0;
+let coreProfileCount = 0;
+let fullProfileCount = 0;
+let hasDeclaredFull = false;
+let excludedProfileCount = 0;
 for (const suite of manifest.suites) {
   if (files.has(suite.file)) throw new Error(`Duplicate suite: ${suite.file}`);
   files.add(suite.file);
   if (!["active", "planned"].includes(suite.status)) throw new Error("Unknown suite status");
+  const requiredProfile: string | undefined = suite.required_profile;
+  if (requiredProfile !== undefined && requiredProfile !== "default" && requiredProfile !== "core" && requiredProfile !== "full") {
+    throw new Error(`Invalid required_profile ${requiredProfile} in ${suite.file}`);
+  }
+  if (suite.status === "active" && requiredProfile === "full") {
+    hasDeclaredFull = true;
+  }
   const text = readFileSync(join(root, suite.file), "utf8").trim();
   const rows = text ? text.split(/\r?\n/).map((line) => JSON.parse(line)) : [];
   for (const row of rows) {
     if (ids.has(row.id)) throw new Error(`Duplicate id: ${row.id}`);
     ids.add(row.id);
   }
-  if (suite.status === "active" || includePlanned.has(suite.file)) {
+  if (suite.status === "active") {
     if (!rows.length) throw new Error(`Empty active suite: ${suite.file}`);
+    if (requiredProfile !== undefined && requiredProfile !== activeProfile) {
+      excludedProfileCount += rows.length;
+      console.info(
+        `PROFILE_EXCLUDED ${suite.file}: requires profile '${requiredProfile}' (active profile '${activeProfile}'; ${rows.length} vectors excluded)`,
+      );
+      continue;
+    }
     for (const row of rows) {
       if (!suite.operations.includes(row.op)) throw new Error(`Undeclared operation: ${row.op}`);
       if (Number("expected" in row) + Number("expected_error" in row) !== 1) throw new Error(`Invalid outcome: ${row.id}`);
       if ("expected_error" in row && (typeof row.expected_error !== "string" || !row.expected_error)) throw new Error(`Invalid error: ${row.id}`);
       cases.push(row);
     }
-    if (suite.status === "planned") plannedReviewCount += rows.length;
+    activeCount += rows.length;
+    if (requiredProfile === "core") coreProfileCount += rows.length;
+    else if (requiredProfile === "full") fullProfileCount += rows.length;
+  } else if (includePlanned.has(suite.file)) {
+    if (requiredProfile !== undefined && requiredProfile !== activeProfile) {
+      throw new Error(`Planned suite ${suite.file} requires profile '${requiredProfile}', cannot run under '${activeProfile}'`);
+    }
+    for (const row of rows) {
+      if (!suite.operations.includes(row.op)) throw new Error(`Undeclared operation: ${row.op}`);
+      if (Number("expected" in row) + Number("expected_error" in row) !== 1) throw new Error(`Invalid outcome: ${row.id}`);
+      if ("expected_error" in row && (typeof row.expected_error !== "string" || !row.expected_error)) throw new Error(`Invalid error: ${row.id}`);
+      cases.push(row);
+    }
+    plannedReviewCount += rows.length;
+    if (requiredProfile === "core") coreProfileCount += rows.length;
+    else if (requiredProfile === "full") fullProfileCount += rows.length;
   } else console.info(`PLANNED ${suite.file}: ${suite.reason}`);
 }
 const onDisk = readdirSync(root).filter((name) => name.endsWith(".jsonl")).sort();
 if (JSON.stringify([...files].sort()) !== JSON.stringify(onDisk)) throw new Error("Unregistered golden suite");
 if (!cases.length) throw new Error("No active golden vectors");
+if (activeProfile === "core") {
+  if (coreProfileCount === 0) {
+    throw new Error("Selected 'core' profile must execute required_profile='core' active golden vectors");
+  }
+  if (excludedProfileCount !== 0) {
+    throw new Error(`Selected 'core' profile unexpectedly excluded ${excludedProfileCount} active vectors`);
+  }
+} else if (activeProfile === "full" && hasDeclaredFull && fullProfileCount === 0) {
+  throw new Error("Selected 'full' profile must execute required_profile='full' active golden vectors");
+}
+console.info(
+  `WASM selected ${activeCount} active golden vectors for profile '${activeProfile}' (excluded ${excludedProfileCount} active vectors requiring other profiles).`,
+);
 if (plannedReviewCount > 0) console.info(`PRE-ACTIVATION REVIEW executed ${plannedReviewCount} selected planned vectors; they are not active parity coverage.`);
 
 describe("shared golden vectors through real WASM", () => {
@@ -51,11 +134,11 @@ describe("shared golden vectors through real WASM", () => {
     for (const invoke of [execute, executeWeb]) {
       if ("expected_error" in row) {
         let failure: unknown;
-        try { invoke(row); } catch (error) { failure = error; }
+        try { invoke(vectorRequest(row)); } catch (error) { failure = error; }
         expect(failure).toBeInstanceOf(Error);
         expect((failure as Error).message).toBe(row.expected_error);
       } else {
-        expect(invoke(row)).toEqual(row.expected);
+        expect(invoke(vectorRequest(row))).toEqual(row.expected);
       }
     }
   }, row.op === "calendar_observances" ? 30_000 : undefined);
@@ -382,3 +465,228 @@ test("normalization repair and search folding convenience APIs on both WASM targ
     expect(api.fold_for_search("\u0bb0\u0bbe\u0b9c\u0bbe", "grantha")).toBe("\u0bb0\u0bbe\u0b9a\u0bbe");
   }
 });
+
+const PACK_REL_DIRS: Record<PackId, string> = {
+  core: "../../../lexicon/dictionary",
+  names_taxa: "../../../lexicon/packs/names_taxa",
+  regional: "../../../lexicon/packs/regional",
+};
+
+interface PackManifestData {
+  pack_id: string;
+  dataset_version: string;
+  schema_version: number;
+  index_format_version: number;
+  manifest_sha256: string;
+  unknown_region_entries: number;
+}
+
+function readPackManifest(packId: PackId): PackManifestData {
+  const tomlPath = fileURLToPath(new URL(`${PACK_REL_DIRS[packId]}/packs.toml`, import.meta.url));
+  const raw = readFileSync(tomlPath, "utf8");
+  const strField = (key: string): string => {
+    const match = raw.match(new RegExp(`^${key}\\s*=\\s*"([^"]+)"`, "m"));
+    if (!match) throw new Error(`Missing ${key} in ${tomlPath}`);
+    return match[1];
+  };
+  const intField = (key: string): number => {
+    const match = raw.match(new RegExp(`^${key}\\s*=\\s*(\\d+)`, "m"));
+    if (!match) throw new Error(`Missing ${key} in ${tomlPath}`);
+    return Number.parseInt(match[1], 10);
+  };
+  return {
+    pack_id: strField("pack_id"),
+    dataset_version: strField("dataset_version"),
+    schema_version: intField("schema_version"),
+    index_format_version: intField("index_format_version"),
+    manifest_sha256: strField("manifest_sha256"),
+    unknown_region_entries: intField("unknown_region_entries"),
+  };
+}
+
+function parseCsvRows(raw: string): string[][] {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let cell = "";
+  let inQuotes = false;
+  for (let i = 0; i < raw.length; i += 1) {
+    const ch = raw[i];
+    if (inQuotes) {
+      if (ch === "\"") {
+        if (raw[i + 1] === "\"") {
+          cell += "\"";
+          i += 1;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        cell += ch;
+      }
+    } else if (ch === "\"") {
+      inQuotes = true;
+    } else if (ch === ",") {
+      row.push(cell);
+      cell = "";
+    } else if (ch === "\n") {
+      row.push(cell);
+      if (row.length > 1 || row[0] !== "") rows.push(row);
+      row = [];
+      cell = "";
+    } else if (ch !== "\r") {
+      cell += ch;
+    }
+  }
+  if (cell.length > 0 || row.length > 0) {
+    row.push(cell);
+    rows.push(row);
+  }
+  return rows;
+}
+
+function firstCanonicalWrittenForm(packId: PackId): string {
+  const csvPath = fileURLToPath(new URL(`${PACK_REL_DIRS[packId]}/assertions.csv`, import.meta.url));
+  const rows = parseCsvRows(readFileSync(csvPath, "utf8"));
+  if (rows.length < 2) throw new Error(`Empty CSV: ${csvPath}`);
+  const headers = rows[0];
+  const subjectKindIdx = headers.indexOf("subject_kind");
+  const valueJsonIdx = headers.indexOf("value_json");
+  if (subjectKindIdx < 0 || valueJsonIdx < 0) throw new Error(`Missing required columns in ${csvPath}`);
+  for (let i = 1; i < rows.length; i += 1) {
+    const cols = rows[i];
+    if (cols[subjectKindIdx] === "form") {
+      const parsed = JSON.parse(cols[valueJsonIdx]);
+      if (typeof parsed === "string" && parsed.length > 0) return parsed;
+    }
+  }
+  throw new Error(`No canonical form assertion found in ${csvPath}`);
+}
+
+function absentGoldenInput(): string {
+  const text = readFileSync(join(root, "lexicon_lookup.jsonl"), "utf8").trim();
+  for (const line of text.split(/\r?\n/)) {
+    const row = JSON.parse(line);
+    if (row.id === "lexicon_lookup_not_found_absent_007") {
+      expect(row.expected?.status).toBe("not_found");
+      return row.input as string;
+    }
+  }
+  throw new Error("Missing lexicon_lookup_not_found_absent_007 golden vector");
+}
+
+function assertPackMatchesManifest(pack: LexiconPackInfo, manifest: PackManifestData): void {
+  expect(pack.id).toBe(manifest.pack_id);
+  expect(pack.dataset_version).toBe(manifest.dataset_version);
+  expect(pack.schema_version).toBe(manifest.schema_version);
+  expect(pack.index_format_version).toBe(manifest.index_format_version);
+  expect(pack.manifest_sha256).toBe(manifest.manifest_sha256);
+  expect(pack.available).toBe(true);
+  expect(pack.coverage.unknown_region_entries).toBe(manifest.unknown_region_entries);
+}
+
+test("lexicon pack manifest and convenience APIs on both WASM targets", () => {
+  const profile = activeProfile;
+  const envSha = process.env.TAMIL_LEXICON_MANIFEST_SHA256;
+  const envVer = process.env.TAMIL_LEXICON_DATASET_VERSION;
+  const rawPackManifests = process.env.TAMIL_LEXICON_PACK_MANIFESTS;
+  const envPackManifests = rawPackManifests
+    ? (JSON.parse(rawPackManifests) as Record<string, { dataset_version: string; manifest_sha256: string }>)
+    : undefined;
+  const absentInput = absentGoldenInput();
+
+  for (const api of [nodeApi, webApi]) {
+    const packs: LexiconPackInfo[] = api.lexicon_packs();
+    if (profile === "default") {
+      expect(packs).toEqual([]);
+      expect(() => api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf")).toThrow("lexicon: pack unavailable 'core'");
+      expect(() => api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", { packs: [] })).toThrow(
+        "lexicon: packs must be a nonempty string array",
+      );
+      expect(() => api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", { packs: ["unknown"] })).toThrow(
+        "lexicon: unknown pack 'unknown'",
+      );
+    } else if (profile === "core") {
+      const coreManifest = readPackManifest("core");
+      expect(packs).toHaveLength(1);
+      const [core] = packs;
+      assertPackMatchesManifest(core, coreManifest);
+      if (envSha) expect(core.manifest_sha256).toBe(envSha);
+      if (envVer) expect(core.dataset_version).toBe(envVer);
+
+      const opts: LexiconLookupOptions = { packs: ["core"] };
+      const matched: LexiconLookupResponse = api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf");
+      expect(matched.status).toBe("matched");
+      expect(matched.entries).toHaveLength(2);
+      expect(matched.packs).toEqual([core]);
+      expect(api.lexicon_lookup("\u0b85\u0b9f\u0b9f\u0bbe", opts).status).toBe("matched");
+      const notFound = api.lexicon_lookup(absentInput);
+      expect(notFound.status).toBe("not_found");
+      expect(notFound.entries).toEqual([]);
+
+      expect(() => api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", { packs: ["regional"] })).toThrow(
+        "lexicon: pack unavailable 'regional'",
+      );
+      expect(() => api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", { region: "LK-JAFFNA" })).toThrow(
+        "lexicon: unknown region 'LK-JAFFNA'",
+      );
+      expect(() => api.lexicon_lookup("\u0b85\u0bb1\u0bbf\u0b95\u0bcd\u0b95\u0bc8", { register: "written" })).toThrow(
+        "lexicon: unknown register 'written'",
+      );
+    } else if (profile === "full") {
+      const expectedIds: PackId[] = ["core", "names_taxa", "regional"];
+      expect(packs.map((pack) => pack.id)).toEqual(expectedIds);
+      expectedIds.forEach((packId, index) => {
+        const pack = packs[index];
+        assertPackMatchesManifest(pack, readPackManifest(packId));
+        if (envPackManifests) {
+          expect(pack.dataset_version).toBe(envPackManifests[packId]?.dataset_version);
+          expect(pack.manifest_sha256).toBe(envPackManifests[packId]?.manifest_sha256);
+        }
+      });
+      const [core] = packs;
+      if (envSha) expect(core.manifest_sha256).toBe(envSha);
+      if (envVer) expect(core.dataset_version).toBe(envVer);
+
+      const matched: LexiconLookupResponse = api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf");
+      expect(matched.status).toBe("matched");
+      expect(matched.entries).toHaveLength(2);
+      expect(matched.packs).toEqual([core]);
+      const allPacks = api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", { packs: ["core", "names_taxa", "regional"] });
+      expect(allPacks.status).toBe("matched");
+      expect(allPacks.packs).toEqual(packs);
+      for (const packId of ["names_taxa", "regional"] as const) {
+        const sample = firstCanonicalWrittenForm(packId);
+        const packMatch = api.lexicon_lookup(sample, { packs: [packId] });
+        expect(packMatch.status).toBe("matched");
+        expect(packMatch.entries.length).toBeGreaterThan(0);
+      }
+      const notFound = api.lexicon_lookup(absentInput);
+      expect(notFound.status).toBe("not_found");
+      expect(notFound.entries).toEqual([]);
+
+      expect(() => api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", { packs: ["terminology"] })).toThrow(
+        "lexicon: pack unavailable 'terminology'",
+      );
+      expect(() => api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", { packs: [] })).toThrow(
+        "lexicon: packs must be a nonempty string array",
+      );
+      expect(() => api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", { packs: ["unknown"] })).toThrow(
+        "lexicon: unknown pack 'unknown'",
+      );
+      expect(() => api.lexicon_lookup("\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf", { region: "LK-JAFFNA" })).toThrow(
+        "lexicon: unknown region 'LK-JAFFNA'",
+      );
+      expect(() => api.lexicon_lookup("\u0b85\u0bb1\u0bbf\u0b95\u0bcd\u0b95\u0bc8", { register: "written" })).toThrow(
+        "lexicon: unknown register 'written'",
+      );
+    } else {
+      throw new Error(`Unsupported TAMIL_LEXICON_PROFILE=${profile}`);
+    }
+  }
+});
+
+function vectorRequest(row: Request): Request {
+  if (!["lexicon_lookup", "lexicon_packs"].includes(row.op)) return row;
+  const request: Request & Record<string, unknown> = { ...row };
+  for (const key of ["id", "expected", "expected_error", "dialect", "tags", "source", "unicode_exceptions"]) delete request[key];
+  return request;
+}

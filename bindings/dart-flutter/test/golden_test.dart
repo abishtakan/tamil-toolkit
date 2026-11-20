@@ -3,6 +3,23 @@ import 'dart:io';
 import 'package:tamil_toolkit/tamil_toolkit.dart';
 import 'package:test/test.dart';
 
+String inferCompiledProfile(List<Map<String, dynamic>> packs) {
+  if (packs.isEmpty) return 'default';
+  if (packs.length == 1 &&
+      packs.single['id'] == 'core' &&
+      packs.single['available'] == true) {
+    return 'core';
+  }
+  if (packs.length == 3 &&
+      packs[0]['id'] == 'core' &&
+      packs[1]['id'] == 'names_taxa' &&
+      packs[2]['id'] == 'regional' &&
+      packs.every((pack) => pack['available'] == true)) {
+    return 'full';
+  }
+  throw StateError('Unsupported compiled Dart lexicon packs: $packs');
+}
+
 void main() {
   final root = Directory('../..').absolute.path;
   final extension =
@@ -10,6 +27,21 @@ void main() {
   final prefix = Platform.isWindows ? '' : 'lib';
   final tamil =
       TamilToolkit('$root/target/debug/${prefix}tamil_toolkit_ffi.$extension');
+  final compiledProfile = inferCompiledProfile(tamil.lexiconPacks());
+  final envProfile = Platform.environment['TAMIL_LEXICON_PROFILE'];
+  if (envProfile != null) {
+    if (envProfile != 'default' &&
+        envProfile != 'core' &&
+        envProfile != 'full') {
+      throw StateError(
+          'Unsupported TAMIL_LEXICON_PROFILE=$envProfile (expected default, core, or full)');
+    }
+    if (envProfile != compiledProfile) {
+      throw StateError(
+          'TAMIL_LEXICON_PROFILE=$envProfile does not match compiled Dart FFI profile $compiledProfile');
+    }
+  }
+  final profile = envProfile ?? compiledProfile;
   final golden = '$root/tests/golden';
   final manifest = jsonDecode(File('$golden/manifest.json').readAsStringSync());
   if (manifest['version'] != 1) throw StateError('Unsupported golden manifest');
@@ -23,6 +55,10 @@ void main() {
           .toSet();
   var count = 0;
   var plannedReviewCount = 0;
+  var coreProfileCount = 0;
+  var fullProfileCount = 0;
+  var hasDeclaredFull = false;
+  var excludedProfileCount = 0;
   Map<String, dynamic>? wordCase;
   Map<String, dynamic>? keyCase;
   Map<String, dynamic>? numeralCase;
@@ -40,10 +76,29 @@ void main() {
     if (!['active', 'planned'].contains(suite['status'])) {
       throw StateError('Unknown status');
     }
+    final requiredProfile = suite['required_profile'] as String?;
+    if (requiredProfile != null &&
+        requiredProfile != 'default' &&
+        requiredProfile != 'core' &&
+        requiredProfile != 'full') {
+      throw StateError(
+          'Invalid required_profile $requiredProfile in ${suite['file']}');
+    }
+    if (suite['status'] == 'active' && requiredProfile == 'full') {
+      hasDeclaredFull = true;
+    }
     final lines = File('$golden/${suite['file']}').readAsLinesSync();
     if (suite['status'] == 'active' && lines.isEmpty) {
       throw StateError('Empty active suite');
     }
+    if (suite['status'] == 'planned' &&
+        includePlanned.contains(suite['file']) &&
+        requiredProfile != null &&
+        requiredProfile != profile) {
+      throw StateError(
+          'Planned suite ${suite['file']} requires profile $requiredProfile, cannot run under $profile');
+    }
+    var excludedSuiteRows = 0;
     for (final line in lines) {
       final row = jsonDecode(line) as Map<String, dynamic>;
       if (row['id'] == 'collate_words_basic') wordCase = row;
@@ -78,6 +133,12 @@ void main() {
           !includePlanned.contains(suite['file'])) {
         continue;
       }
+      if (suite['status'] == 'active' &&
+          requiredProfile != null &&
+          requiredProfile != profile) {
+        excludedSuiteRows++;
+        continue;
+      }
       if (!(suite['operations'] as List).contains(row['op'])) {
         throw StateError('Undeclared operation');
       }
@@ -91,19 +152,26 @@ void main() {
       }
       count++;
       if (suite['status'] == 'planned') plannedReviewCount++;
+      if (requiredProfile == 'core') coreProfileCount++;
+      if (requiredProfile == 'full') fullProfileCount++;
       test(row['id'] as String, () {
         if (row.containsKey('expected_error')) {
           expect(
-              () => tamil.execute(row),
+              () => tamil.execute(vectorRequest(row)),
               throwsA(isA<ArgumentError>().having(
                 (error) => error.message,
                 'message',
                 row['expected_error'],
               )));
         } else {
-          expect(tamil.execute(row), equals(row['expected']));
+          expect(tamil.execute(vectorRequest(row)), equals(row['expected']));
         }
       });
+    }
+    if (excludedSuiteRows > 0) {
+      excludedProfileCount += excludedSuiteRows;
+      stdout.writeln(
+          'PROFILE_EXCLUDED ${suite['file']}: requires profile $requiredProfile (active profile $profile; $excludedSuiteRows vectors excluded)');
     }
   }
   final onDisk = Directory(golden)
@@ -118,6 +186,21 @@ void main() {
   if (count == 0) {
     throw StateError('No active golden vectors');
   }
+  if (profile == 'core') {
+    if (coreProfileCount == 0) {
+      throw StateError(
+          'Selected core profile must execute required_profile=core active golden vectors');
+    }
+    if (excludedProfileCount != 0) {
+      throw StateError(
+          'Selected core profile unexpectedly excluded $excludedProfileCount active vectors');
+    }
+  } else if (profile == 'full' && hasDeclaredFull && fullProfileCount == 0) {
+    throw StateError(
+        'Selected full profile must execute required_profile=full active golden vectors');
+  }
+  stdout.writeln(
+      'Dart selected $count active golden vectors for profile $profile (excluded $excludedProfileCount active vectors requiring other profiles).');
   if (plannedReviewCount > 0) {
     stdout.writeln(
         'PRE-ACTIVATION REVIEW executed $plannedReviewCount selected planned vectors; they are not active parity coverage.');
@@ -413,8 +496,7 @@ void main() {
     expect(day.transitions, hasLength(5));
     final periods = tamil.calendarDaylightPeriods(date, context);
     expect(
-      (periods['intervals'] as List)
-          .map((period) => (period as Map)['period']),
+      (periods['intervals'] as List).map((period) => (period as Map)['period']),
       ['yamagandam', 'kuligai', 'rahukalam'],
     );
   });
@@ -468,8 +550,8 @@ void main() {
     expect(year['reference_station'], 'ujjain');
     expect((year['year_cycle'] as Map)['cycle_name'], 'Sarvajit');
     expect(
-      tamil.tamilYearCycleInfo(1947, context, definitionId: definition)
-          ['cycle_index'],
+      tamil.tamilYearCycleInfo(1947, context,
+          definitionId: definition)['cycle_index'],
       21,
     );
     expect(
@@ -577,4 +659,311 @@ void main() {
       {'year': 2025, 'month': 1, 'day': 29, 'hour': 12, 'minute': 36},
     ]);
   });
+  test('lexicon pack manifest and convenience APIs', () {
+    final absentInput = _absentGoldenInput(golden);
+    final envSha = Platform.environment['TAMIL_LEXICON_MANIFEST_SHA256'];
+    final envVer = Platform.environment['TAMIL_LEXICON_DATASET_VERSION'];
+    final rawPackManifests =
+        Platform.environment['TAMIL_LEXICON_PACK_MANIFESTS'];
+    final envPackManifests =
+        rawPackManifests == null || rawPackManifests.isEmpty
+            ? null
+            : jsonDecode(rawPackManifests) as Map<String, dynamic>;
+
+    final packs = tamil.lexiconPacks();
+    if (profile == 'default') {
+      expect(packs, isEmpty);
+      expect(
+        () => tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf'),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          "lexicon: pack unavailable 'core'",
+        )),
+      );
+      expect(
+        () => tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf', packs: []),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          'lexicon: packs must be a nonempty string array',
+        )),
+      );
+      expect(
+        () => tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf',
+            packs: ['unknown']),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          "lexicon: unknown pack 'unknown'",
+        )),
+      );
+    } else if (profile == 'core') {
+      expect(packs, hasLength(1));
+      final core = packs.first;
+      _assertPackMatchesManifest(core, _readPackManifest(root, 'core'));
+      if (envSha != null && envSha.isNotEmpty) {
+        expect(core['manifest_sha256'], envSha);
+      }
+      if (envVer != null && envVer.isNotEmpty) {
+        expect(core['dataset_version'], envVer);
+      }
+
+      final matched = tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf');
+      expect(matched['status'], 'matched');
+      expect(matched['entries'] as List, hasLength(2));
+      expect(
+          tamil.lexiconLookup('\u0b85\u0b9f\u0b9f\u0bbe',
+              packs: ['core'])['status'],
+          'matched');
+      final missing = tamil.lexiconLookup(absentInput);
+      expect(missing['status'], 'not_found');
+      expect(missing['entries'], isEmpty);
+
+      expect(
+        () => tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf',
+            packs: ['regional']),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          "lexicon: pack unavailable 'regional'",
+        )),
+      );
+      expect(
+        () => tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf',
+            region: 'LK-JAFFNA'),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          "lexicon: unknown region 'LK-JAFFNA'",
+        )),
+      );
+      expect(
+        () => tamil.lexiconLookup('\u0b85\u0bb1\u0bbf\u0b95\u0bcd\u0b95\u0bc8',
+            register: 'written'),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          "lexicon: unknown register 'written'",
+        )),
+      );
+    } else if (profile == 'full') {
+      const expectedIds = ['core', 'names_taxa', 'regional'];
+      expect(packs.map((pack) => pack['id']).toList(), expectedIds);
+      for (var i = 0; i < expectedIds.length; i++) {
+        final packId = expectedIds[i];
+        final pack = packs[i];
+        _assertPackMatchesManifest(pack, _readPackManifest(root, packId));
+        if (envPackManifests != null) {
+          final expected = envPackManifests[packId] as Map<String, dynamic>;
+          expect(pack['dataset_version'], expected['dataset_version']);
+          expect(pack['manifest_sha256'], expected['manifest_sha256']);
+        }
+      }
+      final core = packs.first;
+      if (envSha != null && envSha.isNotEmpty) {
+        expect(core['manifest_sha256'], envSha);
+      }
+      if (envVer != null && envVer.isNotEmpty) {
+        expect(core['dataset_version'], envVer);
+      }
+
+      final matched = tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf');
+      expect(matched['status'], 'matched');
+      expect(matched['entries'] as List, hasLength(2));
+      expect(matched['packs'], [core]);
+      final allPacks = tamil.lexiconLookup(
+        '\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf',
+        packs: ['core', 'names_taxa', 'regional'],
+      );
+      expect(allPacks['status'], 'matched');
+      expect(allPacks['packs'], packs);
+      for (final packId in ['names_taxa', 'regional']) {
+        final sample = _firstCanonicalWrittenForm(root, packId);
+        final packMatch = tamil.lexiconLookup(sample, packs: [packId]);
+        expect(packMatch['status'], 'matched');
+        expect(packMatch['entries'] as List, isNotEmpty);
+      }
+      final missing = tamil.lexiconLookup(absentInput);
+      expect(missing['status'], 'not_found');
+      expect(missing['entries'], isEmpty);
+
+      expect(
+        () => tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf',
+            packs: ['terminology']),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          "lexicon: pack unavailable 'terminology'",
+        )),
+      );
+      expect(
+        () => tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf', packs: []),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          'lexicon: packs must be a nonempty string array',
+        )),
+      );
+      expect(
+        () => tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf',
+            packs: ['unknown']),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          "lexicon: unknown pack 'unknown'",
+        )),
+      );
+      expect(
+        () => tamil.lexiconLookup('\u0ba8\u0ba9\u0bcd\u0bb1\u0bbf',
+            region: 'LK-JAFFNA'),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          "lexicon: unknown region 'LK-JAFFNA'",
+        )),
+      );
+      expect(
+        () => tamil.lexiconLookup('\u0b85\u0bb1\u0bbf\u0b95\u0bcd\u0b95\u0bc8',
+            register: 'written'),
+        throwsA(isA<ArgumentError>().having(
+          (error) => error.message,
+          'message',
+          "lexicon: unknown register 'written'",
+        )),
+      );
+    } else {
+      throw StateError('Unsupported TAMIL_LEXICON_PROFILE=$profile');
+    }
+  });
+}
+
+String _packDirPath(String root, String packId) {
+  switch (packId) {
+    case 'core':
+      return '$root/lexicon/dictionary';
+    case 'names_taxa':
+      return '$root/lexicon/packs/names_taxa';
+    case 'regional':
+      return '$root/lexicon/packs/regional';
+    default:
+      throw StateError('Unsupported packId $packId');
+  }
+}
+
+Map<String, dynamic> _readPackManifest(String root, String packId) {
+  final packsToml =
+      File('${_packDirPath(root, packId)}/packs.toml').readAsStringSync();
+  String strField(String key) =>
+      RegExp('^$key\\s*=\\s*"([^"]+)"', multiLine: true)
+          .firstMatch(packsToml)!
+          .group(1)!;
+  int intField(String key) =>
+      int.parse(RegExp('^$key\\s*=\\s*(\\d+)', multiLine: true)
+          .firstMatch(packsToml)!
+          .group(1)!);
+  return {
+    'pack_id': strField('pack_id'),
+    'dataset_version': strField('dataset_version'),
+    'schema_version': intField('schema_version'),
+    'index_format_version': intField('index_format_version'),
+    'manifest_sha256': strField('manifest_sha256'),
+    'unknown_region_entries': intField('unknown_region_entries'),
+  };
+}
+
+List<List<String>> _parseCsvRows(String raw) {
+  final rows = <List<String>>[];
+  var row = <String>[];
+  final cell = StringBuffer();
+  var inQuotes = false;
+  for (var i = 0; i < raw.length; i++) {
+    final ch = raw[i];
+    if (inQuotes) {
+      if (ch == '"') {
+        if (i + 1 < raw.length && raw[i + 1] == '"') {
+          cell.write('"');
+          i++;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        cell.write(ch);
+      }
+    } else if (ch == '"') {
+      inQuotes = true;
+    } else if (ch == ',') {
+      row.add(cell.toString());
+      cell.clear();
+    } else if (ch == '\n') {
+      row.add(cell.toString());
+      if (row.length > 1 || row.first.isNotEmpty) rows.add(row);
+      row = <String>[];
+      cell.clear();
+    } else if (ch != '\r') {
+      cell.write(ch);
+    }
+  }
+  if (cell.isNotEmpty || row.isNotEmpty) {
+    row.add(cell.toString());
+    rows.add(row);
+  }
+  return rows;
+}
+
+String _firstCanonicalWrittenForm(String root, String packId) {
+  final csvPath = '${_packDirPath(root, packId)}/assertions.csv';
+  final rows = _parseCsvRows(File(csvPath).readAsStringSync());
+  final headers = rows.first;
+  final subjectKindIdx = headers.indexOf('subject_kind');
+  final valueJsonIdx = headers.indexOf('value_json');
+  for (var i = 1; i < rows.length; i++) {
+    final cols = rows[i];
+    if (cols[subjectKindIdx] == 'form') {
+      final parsed = jsonDecode(cols[valueJsonIdx]);
+      if (parsed is String && parsed.isNotEmpty) return parsed;
+    }
+  }
+  throw StateError('No canonical form assertion found in $csvPath');
+}
+
+String _absentGoldenInput(String golden) {
+  final lines = File('$golden/lexicon_lookup.jsonl').readAsLinesSync();
+  for (final line in lines) {
+    final row = jsonDecode(line) as Map<String, dynamic>;
+    if (row['id'] == 'lexicon_lookup_not_found_absent_007') {
+      expect((row['expected'] as Map)['status'], 'not_found');
+      return row['input'] as String;
+    }
+  }
+  throw StateError('Missing lexicon_lookup_not_found_absent_007 golden vector');
+}
+
+void _assertPackMatchesManifest(
+    Map<String, dynamic> pack, Map<String, dynamic> manifest) {
+  expect(pack['id'], manifest['pack_id']);
+  expect(pack['dataset_version'], manifest['dataset_version']);
+  expect(pack['schema_version'], manifest['schema_version']);
+  expect(pack['index_format_version'], manifest['index_format_version']);
+  expect(pack['manifest_sha256'], manifest['manifest_sha256']);
+  expect(pack['available'], isTrue);
+  expect((pack['coverage'] as Map)['unknown_region_entries'],
+      manifest['unknown_region_entries']);
+}
+
+Map<String, dynamic> vectorRequest(Map<String, dynamic> row) {
+  if (!['lexicon_lookup', 'lexicon_packs'].contains(row['op'])) return row;
+  final request = Map<String, dynamic>.from(row);
+  for (final key in [
+    'id',
+    'expected',
+    'expected_error',
+    'dialect',
+    'tags',
+    'source',
+    'unicode_exceptions'
+  ]) {
+    request.remove(key);
+  }
+  return request;
 }

@@ -32,6 +32,137 @@ export interface RepairOptions {
 export type FoldingProfile = "mayangoli" | "grantha" | "comprehensive";
 export interface Request { op: string; input: unknown }
 export interface EncodingCandidate { encoding: string; confidence: number }
+export type LexiconPackId = "core" | "terminology" | "names_taxa" | "regional";
+export type LexiconFieldAvailability = "available" | "unknown" | "not_applicable" | "withheld";
+export type LexiconScopeState = "attested" | "unrestricted" | "unknown";
+export type LexiconAcceptanceKind = "accepted_auto_source" | "accepted_human";
+export type LexiconFormRepresentation = "written" | "romanization" | "ipa";
+export type LexiconFormRole = "canonical" | "variant";
+export type LexiconComponentKind = "definition" | "gloss" | "translation" | "citation";
+export type LexiconDirectionality = "directed" | "symmetric";
+export type LexiconEndpointKind = "entry" | "sense";
+export type LexiconLookupStatus = "matched" | "not_found";
+export interface LexiconLookupOptions {
+  packs?: string[];
+  region?: string;
+  register?: string;
+}
+export interface LexiconAcceptance {
+  decision_id: string;
+  kind: LexiconAcceptanceKind;
+  actor_id: string | null;
+  method: string | null;
+  decided_on: string;
+}
+export interface LexiconProvenance {
+  assertion_id: string;
+  revision_sha256: string;
+  source_id: string;
+  locator: string;
+  acceptance: LexiconAcceptance;
+}
+export interface LexiconScope {
+  state: LexiconScopeState;
+  codes: string[];
+  provenance: LexiconProvenance[];
+}
+export interface LexiconField {
+  availability: LexiconFieldAvailability;
+  value: string | number | boolean | null;
+  convention: string | null;
+  provenance: LexiconProvenance[];
+}
+export interface LexiconLabelField {
+  availability: LexiconFieldAvailability;
+  value: string | null;
+  convention: string | null;
+  provenance: LexiconProvenance[];
+}
+export interface LexiconAnnotation {
+  property: string;
+  field: LexiconField;
+}
+export interface LexiconForm {
+  form_id: string;
+  representation: LexiconFormRepresentation;
+  role: LexiconFormRole;
+  text: string;
+  convention: string | null;
+  provenance: LexiconProvenance[];
+}
+export interface LexiconComponentText {
+  text_id: string;
+  kind: LexiconComponentKind;
+  language_id: string;
+  text: string;
+  provenance: LexiconProvenance[];
+}
+export interface LexiconExampleText {
+  text_id: string;
+  kind: "example";
+  language_id: string;
+  text: string;
+  provenance: LexiconProvenance[];
+}
+export interface LexiconEndpoint {
+  kind: LexiconEndpointKind;
+  id: string;
+}
+export interface LexiconRelation {
+  relation_id: string;
+  code: string;
+  directionality: LexiconDirectionality;
+  source: LexiconEndpoint;
+  target: LexiconEndpoint;
+  provenance: LexiconProvenance[];
+}
+export interface LexiconSense {
+  sense_id: string;
+  display_order: number;
+  parent_sense_id: string | null;
+  components: LexiconComponentText[];
+  examples: LexiconExampleText[];
+  relations: LexiconRelation[];
+  region: LexiconScope;
+  register: LexiconLabelField;
+  annotations: LexiconAnnotation[];
+  provenance: LexiconProvenance[];
+}
+export interface LexiconEntry {
+  entry_id: string;
+  revision: string;
+  headword: string;
+  language_id: string;
+  part_of_speech: LexiconLabelField;
+  forms: LexiconForm[];
+  senses: LexiconSense[];
+  region: LexiconScope;
+  register: LexiconLabelField;
+  annotations: LexiconAnnotation[];
+  provenance: LexiconProvenance[];
+}
+export interface LexiconCoverage {
+  language_ids: string[];
+  region_codes: string[];
+  register_codes: string[];
+  unknown_region_entries: number;
+}
+export interface LexiconPackInfo {
+  id: LexiconPackId;
+  dataset_version: string;
+  schema_version: 1;
+  index_format_version: number;
+  manifest_sha256: string;
+  available: true;
+  coverage: LexiconCoverage;
+}
+export interface LexiconLookupResponse {
+  schema_version: 1;
+  status: LexiconLookupStatus;
+  canonical_query: string;
+  packs: LexiconPackInfo[];
+  entries: LexiconEntry[];
+}
 export interface DetectionResult {
   status: "detected" | "uncertain";
   encoding: string | null;
@@ -437,6 +568,16 @@ export function createApi(nativeExecute: (request: string) => string) {
       execute({ op: "hyphenate_text", input: { text, delimiter, left_min, right_min } }) as string,
     wrap_text: (text: string, max_width: number, delimiter: string = "-", left_min: number = 2, right_min: number = 2) =>
       execute({ op: "wrap_text", input: { text, max_width, delimiter, left_min, right_min } }) as WrapResult,
+    lexicon_lookup: (text: string, options?: LexiconLookupOptions) => {
+      const request: Record<string, unknown> =
+        options === undefined
+          ? { op: "lexicon_lookup", input: text }
+          : options !== null && typeof options === "object" && !Array.isArray(options)
+            ? { ...options, op: "lexicon_lookup", input: text }
+            : { options, op: "lexicon_lookup", input: text };
+      return execute(request as unknown as Request) as LexiconLookupResponse;
+    },
+    lexicon_packs: () => execute({ op: "lexicon_packs", input: null }) as LexiconPackInfo[],
     calendar: {
       profileInfo: (definition_id: string = thirukanithamDefinition) => execute({ op: "calendar_profile_info", input: { definition_id } }) as CalendarProfileInfo,
       gregorianToTamilDate: (date: GregorianDate, context: CalendarContextInput, definition_id: string = thirukanithamDefinition) => execute({ op: "gregorian_to_tamil_date", input: { definition_id, date, context } }) as CalendarDateConversion,

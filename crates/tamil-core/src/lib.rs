@@ -183,6 +183,75 @@ pub fn inspect_tamil_string(text: &str) -> Inspection {
     }
 }
 
+/// Lightweight text audit matching `inspect_tamil_string` + lexicon intentional-control checks
+/// without allocating `nfd` or per-letter `String` vectors.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct TextAudit {
+    pub is_nfc: bool,
+    pub intentional_controls: Vec<(usize, u32)>,
+    pub has_other_tamil_cluster: bool,
+}
+
+#[inline]
+const fn is_intentional_control_cp(cp: u32) -> bool {
+    cp < 32
+        || (cp >= 0x7F && cp <= 0x9F)
+        || matches!(cp, 0x00AD | 0x200C | 0x200D | 0x2028 | 0x2029 | 0xFEFF)
+}
+
+#[inline]
+const fn is_tamil_block(ch: char) -> bool {
+    ch >= '\u{0B80}' && ch <= '\u{0BDF}'
+}
+
+/// Inspect normalization, intentional control positions, and `other` Tamil-containing
+/// clusters without allocating NFD text or per-letter string slices.
+pub fn audit_tamil_text_light(text: &str) -> TextAudit {
+    if text.is_ascii() {
+        let mut intentional_controls = Vec::new();
+        if text.bytes().any(|b| b < 32 || b == 0x7F) {
+            for (idx, b) in text.bytes().enumerate() {
+                if b < 32 || b == 0x7F {
+                    intentional_controls.push((idx, u32::from(b)));
+                }
+            }
+        }
+        return TextAudit {
+            is_nfc: true,
+            intentional_controls,
+            has_other_tamil_cluster: false,
+        };
+    }
+
+    let is_nfc = text.nfc().eq(text.chars());
+    let mut intentional_controls = Vec::new();
+    for (idx, ch) in text.chars().enumerate() {
+        let cp = ch as u32;
+        if is_intentional_control_cp(cp) {
+            intentional_controls.push((idx, cp));
+        }
+    }
+
+    let nfc_cow: std::borrow::Cow<'_, str> = if is_nfc {
+        std::borrow::Cow::Borrowed(text)
+    } else {
+        std::borrow::Cow::Owned(normalize_nfc(text))
+    };
+
+    let has_other_tamil_cluster = if nfc_cow.chars().any(is_tamil_block) {
+        Letters::new(nfc_cow.as_ref())
+            .any(|letter| classify(letter) == "other" && letter.chars().any(is_tamil_block))
+    } else {
+        false
+    };
+
+    TextAudit {
+        is_nfc,
+        intentional_controls,
+        has_other_tamil_cluster,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -204,7 +273,22 @@ mod tests {
             prop_assert_eq!(normalize_nfc(&nfc), nfc.as_str());
             prop_assert_eq!(normalize_nfc(&normalize_nfd(&text)), nfc);
             let _ = split_uyirmei(&text);
-            let _ = inspect_tamil_string(&text);
+            let full = inspect_tamil_string(&text);
+            let light = audit_tamil_text_light(&text);
+            prop_assert_eq!(light.is_nfc, full.is_nfc);
+            let expected_other_tamil = full.letters.iter().any(|l| {
+                l.classification == "other" && l.text.chars().any(|c| ('\u{0B80}'..='\u{0BDF}').contains(&c))
+            });
+            prop_assert_eq!(light.has_other_tamil_cluster, expected_other_tamil);
+            let expected_controls: Vec<(usize, u32)> = text
+                .chars()
+                .enumerate()
+                .filter_map(|(i, ch)| {
+                    let cp = ch as u32;
+                    is_intentional_control_cp(cp).then_some((i, cp))
+                })
+                .collect();
+            prop_assert_eq!(light.intentional_controls, expected_controls);
         }
 
         #[test]

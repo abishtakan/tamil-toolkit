@@ -419,6 +419,7 @@ class TamilToolkit {
     }) as Map<String, dynamic>;
     return DetectionResult.fromJson(raw);
   }
+
   String detectAndDecode(dynamic data) {
     Map<String, dynamic> input;
     if (data is String) {
@@ -433,6 +434,7 @@ class TamilToolkit {
       'input': input,
     }) as String;
   }
+
   String formatFraction(int numerator, int denominator,
           {String digits = 'latin'}) =>
       execute({
@@ -804,8 +806,7 @@ class TamilToolkit {
   Map<String, dynamic> tamilYearInfo(
     int solarYear,
     CalendarContextInput context, {
-    String definitionId =
-        'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
   }) =>
       execute({
         'op': 'tamil_year_info',
@@ -819,8 +820,7 @@ class TamilToolkit {
   Map<String, dynamic> tamilYearCycleInfo(
     int solarYear,
     CalendarContextInput context, {
-    String definitionId =
-        'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
   }) =>
       execute({
         'op': 'tamil_year_cycle_info',
@@ -831,7 +831,8 @@ class TamilToolkit {
         },
       }) as Map<String, dynamic>;
 
-  Map<String, dynamic> calendarOfficialHolidays(String jurisdiction, int year) =>
+  Map<String, dynamic> calendarOfficialHolidays(
+          String jurisdiction, int year) =>
       execute({
         'op': 'calendar_official_holidays',
         'input': {'jurisdiction': jurisdiction, 'year': year},
@@ -841,8 +842,7 @@ class TamilToolkit {
     int gregorianYear,
     CalendarContextInput context, {
     String ruleSet = 'thirukanitham-tamil-named-observances-v1',
-    String definitionId =
-        'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
     int? month,
   }) =>
       execute({
@@ -862,8 +862,7 @@ class TamilToolkit {
     int amount,
     CalendarContextInput context, {
     String overflow = 'reject',
-    String definitionId =
-        'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
   }) =>
       execute({
         'op': 'add_tamil_date',
@@ -880,8 +879,7 @@ class TamilToolkit {
   Map<String, dynamic> calendarDaylightPeriods(
     Map<String, int> date,
     CalendarContextInput context, {
-    String definitionId =
-        'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
   }) =>
       execute({
         'op': 'calendar_daylight_periods',
@@ -898,8 +896,7 @@ class TamilToolkit {
     String script = 'tamil',
     String digits = 'latin',
     String style = 'weekday_day_month_year',
-    String definitionId =
-        'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
   }) =>
       execute({
         'op': 'format_tamil_date',
@@ -918,8 +915,7 @@ class TamilToolkit {
     CalendarContextInput context, {
     String script = 'tamil',
     String digits = 'latin',
-    String definitionId =
-        'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
+    String definitionId = 'thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2',
   }) =>
       execute({
         'op': 'calendar_display_info',
@@ -1107,6 +1103,35 @@ class TamilToolkit {
           'right_min': rightMin,
         },
       }) as Map<String, dynamic>;
+
+  /// Look up a Tamil word in compiled embedded lexicon packs.
+  Map<String, dynamic> lexiconLookup(
+    String text, {
+    List<String>? packs,
+    String? region,
+    String? register,
+  }) {
+    final request = <String, Object?>{
+      'op': 'lexicon_lookup',
+      'input': text,
+    };
+    if (packs != null) {
+      request['packs'] = packs;
+    }
+    if (region != null) {
+      request['region'] = region;
+    }
+    if (register != null) {
+      request['register'] = register;
+    }
+    return Map<String, dynamic>.from(execute(request) as Map);
+  }
+
+  /// Return metadata for compiled lexicon packs available in this build.
+  List<Map<String, dynamic>> lexiconPacks() =>
+      (execute({'op': 'lexicon_packs', 'input': null}) as List)
+          .map((item) => Map<String, dynamic>.from(item as Map))
+          .toList();
 }
 
 class TamilCalendar {

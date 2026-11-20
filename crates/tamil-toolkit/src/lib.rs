@@ -2,6 +2,11 @@
 #![forbid(unsafe_code)]
 
 mod calendar_features;
+#[doc(hidden)]
+pub mod host_batch;
+pub mod lexicon;
+pub mod lexicon_pack;
+pub mod source_records;
 
 pub use tamil_calendar as calendar;
 pub use tamil_codec as codec;
@@ -906,6 +911,10 @@ pub const OPERATIONS: &[&str] = &[
     "hyphenate_text",
     "wrap_text",
     "process_docx",
+    "lexicon_lookup",
+    "lexicon_packs",
+    "lexicon_source_bucket",
+    "lexicon_source_lookup",
 ];
 
 fn string(value: &Value) -> Result<&str, String> {
@@ -2045,6 +2054,10 @@ pub fn execute(request: &Value) -> Result<Value, String> {
                 .map_err(|e| e.to_string())?;
             serde_json::to_value(&stats).map_err(|e| e.to_string())
         }
+        "lexicon_lookup" => lexicon::execute_lookup(request, input),
+        "lexicon_packs" => lexicon::execute_packs(request, input),
+        "lexicon_source_bucket" => source_records::execute_bucket(input),
+        "lexicon_source_lookup" => source_records::execute_lookup(input),
         op => Err(format!("unsupported operation: {op}")),
     }
 }

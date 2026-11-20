@@ -31,6 +31,8 @@ __all__ += [
     "get_cognate",
     "are_cognates",
     "get_olippasai",
+    "lexicon_lookup",
+    "lexicon_packs",
 ]
 
 
@@ -722,6 +724,29 @@ def process_docx(
             "right_min": right_min,
         },
     })
+
+
+def lexicon_lookup(
+    text: str,
+    *,
+    packs: list[str] | None = None,
+    region: str | None = None,
+    register: str | None = None,
+) -> dict[str, Any]:
+    """Look up a Tamil word in compiled embedded lexicon packs."""
+    request: dict[str, Any] = {"op": "lexicon_lookup", "input": text}
+    if packs is not None:
+        request["packs"] = packs
+    if region is not None:
+        request["region"] = region
+    if register is not None:
+        request["register"] = register
+    return execute(request)
+
+
+def lexicon_packs() -> list[dict[str, Any]]:
+    """Return metadata for compiled lexicon packs available in this build."""
+    return execute({"op": "lexicon_packs", "input": None})
 
 
 from . import calendar
