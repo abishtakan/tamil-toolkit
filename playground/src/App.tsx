@@ -77,6 +77,22 @@ import {
   AlignLeft,
 } from "lucide-react";
 
+function BrandMark({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
+      aria-hidden="true"
+      className={className}
+    >
+      <rect width="64" height="64" rx="16" fill="#181513" />
+      <circle cx="32" cy="20.8" r="8.4" fill="#e05338" />
+      <circle cx="20" cy="41.6" r="8.4" fill="#faf7f2" />
+      <circle cx="44" cy="41.6" r="8.4" fill="#faf7f2" />
+    </svg>
+  );
+}
+
 export function ToolIcon({ icon, className }: { icon: ToolIconKey; className?: string }) {
   switch (icon) {
     case "book-marked":
@@ -278,9 +294,7 @@ export function App() {
           onClick={() => navigateToTool("home")}
           className="flex items-center gap-2.5 text-left group cursor-pointer rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)]"
         >
-          <div className="w-8 h-8 rounded-lg bg-[var(--color-semman)] text-[#faf7f2] flex items-center justify-center font-tamil font-bold text-base group-hover:bg-[var(--color-semman-hover)] transition-colors">
-            த
-          </div>
+          <BrandMark className="w-8 h-8 rounded-lg shrink-0 ring-1 ring-black/10 dark:ring-white/15 group-hover:scale-[1.03] transition-transform" />
           <div className="min-w-0">
             <span className="font-tamil font-bold text-sm text-[var(--color-mai)] block leading-tight truncate">
               {t.siteTitle}
@@ -474,9 +488,13 @@ export function App() {
             onClick={() => navigateToTool("home")}
             className="flex items-center gap-2 min-w-0 text-left cursor-pointer"
           >
-            <div className="w-7 h-7 rounded-lg bg-[var(--color-semman)] text-[#faf7f2] flex items-center justify-center font-tamil font-bold text-sm shrink-0">
-              {activeTool === "home" ? "த" : <ToolIcon icon={getToolMeta(activeTool).icon} className="w-3.5 h-3.5" />}
-            </div>
+            {activeTool === "home" ? (
+              <BrandMark className="w-7 h-7 rounded-lg shrink-0 ring-1 ring-black/10 dark:ring-white/15" />
+            ) : (
+              <div className="w-7 h-7 rounded-lg bg-[var(--color-semman)] text-[#faf7f2] flex items-center justify-center shrink-0">
+                <ToolIcon icon={getToolMeta(activeTool).icon} className="w-3.5 h-3.5" />
+              </div>
+            )}
             <span className="font-tamil font-bold text-sm text-[var(--color-mai)] truncate">
               {activeTitle}
             </span>
