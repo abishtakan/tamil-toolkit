@@ -186,7 +186,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--catalog-only', action='store_true')
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--public-beta', action='store_true')
     args = parser.parse_args()
+    public_beta = args.public_beta or os.environ.get('TAMIL_PLAYGROUND_PUBLIC_BETA', '').strip().lower() in ('1', 'true', 'yes')
     catalog_data, browse_data = build_artifacts()
     path = ROOT/'playground/src/generated/lexicon-catalog.json'
     browse_path = ROOT/'playground/public/lexicon-browse-index.json'
@@ -220,8 +222,9 @@ def main():
         sys.path.insert(0, str(ROOT))
         from tools.prepare_extended_lexicon import prepare_extended
         print(json.dumps(prepare_extended(), sort_keys=True))
-        from tools.prepare_historical_lexicon import prepare
-        print(json.dumps(prepare(), sort_keys=True))
+        if not public_beta:
+            from tools.prepare_historical_lexicon import prepare
+            print(json.dumps(prepare(), sort_keys=True))
         from tools.tasks import sync_bindings
         sync_bindings(profile='full', targets=('wasm-web',), release=True)
 

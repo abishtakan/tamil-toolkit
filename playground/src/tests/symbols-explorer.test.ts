@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { describe, it, expect } from "vitest";
 import { TRADITIONAL_SYMBOLS, getSymbolInfo } from "../lib/engine";
 
@@ -47,5 +49,17 @@ describe("T006: Traditional Tamil Fractions & Symbols Explorer", () => {
     expect(info).not.toBeNull();
     expect(info?.name_ta).toBe("காணி");
     expect(info?.category).toBe("fraction");
+  });
+
+  it("bundles self-hosted Tamil and Tamil Supplement webfonts for mobile glyph rendering", () => {
+    const css = fs.readFileSync(path.resolve(__dirname, "../index.css"), "utf8");
+    expect(css).toContain('font-family: "Noto Sans Tamil"');
+    expect(css).toContain('font-family: "Noto Serif Tamil"');
+    expect(css).toContain('font-family: "Noto Sans Tamil Supplement"');
+    expect(css).toContain("U+11FC0-11FFF");
+    expect(css).toContain("U+0B82-0BFA");
+    expect(css).toMatch(/\.font-tamil\s*\{[^}]*"Noto Sans Tamil Supplement"/);
+    expect(css).toMatch(/\.font-tamil-sans\s*\{[^}]*"Noto Sans Tamil Supplement"/);
+    expect(css).toMatch(/\.font-mono-tamil\s*\{[^}]*"Noto Sans Tamil Supplement"/);
   });
 });

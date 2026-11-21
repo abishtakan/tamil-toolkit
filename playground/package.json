@@ -6,10 +6,14 @@
   "scripts": {
     "dev": "node prepare.mjs && vite",
     "build": "node prepare.mjs && tsc --noEmit && vite build",
+    "build:beta": "node build-beta.mjs",
     "preview": "vite preview",
     "test": "node prepare.mjs --catalog-only && vitest run"
   },
   "dependencies": {
+    "@fontsource/noto-sans-tamil": "^5.3.0",
+    "@fontsource/noto-sans-tamil-supplement": "^5.3.0",
+    "@fontsource/noto-serif-tamil": "^5.3.0",
     "@radix-ui/react-dialog": "^1.3.1",
     "@radix-ui/react-tabs": "^1.2.1",
     "@radix-ui/react-toast": "^1.3.1",

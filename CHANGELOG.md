@@ -3,6 +3,60 @@
 
 ## Unreleased
 
+- Redesign the Playground UI/UX (`playground/`) into a cohesive, human-centered
+  Tamil language workbench: replace the three-tier tab/sub-chip navigation with
+  a single persistent left sidebar (plus mobile drawer), quick-filter search
+  (`/` or `Ctrl/Cmd+K`), and URL query synchronization (`?tool=<id>`).
+- Add an editorial Home masthead with instant dictionary lookup and quick-start
+  tasks; align typography (clean sans UI chrome with Tamil serif reserved for
+  headwords, prose, dates, and classical numerals); flatten repetitive badges,
+  heavy shadows, and latency clutter; fix blank initial outputs; fix
+  `CopyButton` check-icon contrast on light buttons; and guard PWA service worker
+  registration during Vite development (`import.meta.env.DEV`) to prevent stale
+  cached UI bundles on `localhost`.
+- Expand Playground feature parity to cover the full Rust/WASM capability set:
+  - `NumeralFormatter`: 4-tab layout (`Currency & Words`, `Traditional & Digits`,
+    `Fractions, Percents & Ranges`, `Dates & Date Math`) with independent
+    currency (`INR`/`LKR`) and locale (`TN`/`SL`) selectors so Sri Lankan
+    Rupee (`LKR`) and `SL` wording are directly selectable.
+  - `CalendarExplorer`: 4-tab layout (`Daily Panchangam & At-Time`, `Convert &
+    12-Month Year`, `Observances, Holidays & Phases`, `Thirukanitham vs Vakya`)
+    with TN/SL city presets, day steppers, reverse Tamil-to-Gregorian
+    conversion, Tamil date arithmetic, `panchangam_at(HH:MM)`, limb transitions,
+    `TN`/`SL` official holidays, lunar phase events, and side-by-side
+    `compareCalendarProfiles`. Computes only the active tab lazily and runs
+    heavy `tamil_year_info` and `calendar_observances` calls off the UI thread
+    in `playground.worker.ts` with caching and explicit `TN` observance scope
+    when an `SL` city is selected.
+  - `CodecConverter` & `playground.worker.ts`: single-byte Latin-1 encoding for
+    8-bit legacy encodings (`TSCII`, `TAB`, `TAM`, `Anjal`), Hex byte
+    inspection/round-trip mode, `Preserve`/`Strict` error policy toggle for
+    `Bamini`/`Vanavil`/`LT-TM`, and clickable `detect_encoding` candidates.
+  - `LetterAnalyzer`, `TextSorter`, `SymbolsExplorer`, `ScalarInspector`,
+    `CodeGenerator`, and `DispatcherSandbox`: interactive `compose_uyirmei`
+    builder (18 Mei × 12 Uyir), `get_olippasai` & `are_cognates`, pairwise
+    `compare` & collation/folded search keys, live `symbol_info` &
+    `fraction_symbol` builder, structural `inspect_tamil_string` view, 7
+    snippet categories (`TypeScript`, `Python`, `Rust`, `Dart`), and 13
+    dispatcher presets.
+- Add public-beta build mode (`pnpm --filter tamil-toolkit-playground build:beta`,
+  `playground/build-beta.mjs`, `tools/prepare_playground.py --public-beta`, and
+  `VITE_PUBLIC_BETA=1`) that excludes unresolved `historical-lexicon` assets
+  from `playground/dist/`, disables the `Historical Archive` UI mode via
+  `IS_PUBLIC_BETA` / `resolveLexiconViewMode`, code-splits Playground routes via
+  `React.lazy` in `App.tsx`, and eliminates the Vite `worker-client.ts` dynamic
+  import warning.
+- Bundle self-hosted Tamil and Tamil Supplement webfonts
+  (`@fontsource/noto-sans-tamil`, `@fontsource/noto-serif-tamil`,
+  `@fontsource/noto-sans-tamil-supplement`) in `playground/src/index.css` and
+  precache `.woff2` assets in `playground/vite.config.ts` so traditional Tamil
+  signs (`U+0BF0`–`U+0BFA`) and Tamil Supplement glyphs (`U+11FC0`–`U+11FFF`)
+  render reliably on mobile browsers without system font support.
+- Verify with `pnpm --filter tamil-toolkit-playground test` (20 files, 124
+  tests), `pnpm --filter tamil-toolkit-playground build:beta` (`tsc --noEmit` +
+  public-beta Vite production build), and
+  `uv run --locked python tools/tasks.py check-unicode`.
+
 ## 0.1.0-alpha.8 / Python 0.1.0a8 - 2026-11-20
 
 - Add historical source-record search to the playground. The export indexes all

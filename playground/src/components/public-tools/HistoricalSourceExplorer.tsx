@@ -18,6 +18,7 @@ import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { CopyButton } from "../common/CopyButton";
+import { ToolHeader } from "../common/ToolHeader";
 import {
   Search,
   Database,
@@ -38,6 +39,7 @@ import {
 interface HistoricalSourceExplorerProps {
   engineReady?: boolean;
   client?: SourceRecordsClient;
+  headerActions?: React.ReactNode;
 }
 
 const SAMPLE_HISTORICAL_QUERIES = ["தமிழ்", "அறம்", "மரம்", "கடல்"] as const;
@@ -237,6 +239,7 @@ function HistoricalRecordCard({
 export function HistoricalSourceExplorer({
   engineReady,
   client: providedClient,
+  headerActions,
 }: HistoricalSourceExplorerProps) {
   const { language } = useLanguage();
   const isTamil = language === "ta";
@@ -445,14 +448,16 @@ export function HistoricalSourceExplorer({
   );
 
   return (
-    <div className="space-y-6 animate-in fade-in-50 duration-150">
-      {/* Truthful Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[var(--border-line)]">
-        <div className="space-y-1.5">
-          <div className="flex flex-wrap items-center gap-2">
-            <h2 className="text-xl sm:text-2xl font-tamil font-bold text-[var(--color-mai)]">
-              {isTamil ? "வரலாற்று மூலப் பதிவுகள்" : "Historical source records"}
-            </h2>
+    <div className="space-y-6">
+      <ToolHeader
+        title={isTamil ? "வரலாற்று மூலப் பதிவுகள்" : "Historical source records"}
+        description={
+          isTamil
+            ? "உரிமையாளர் வழங்கிய மூலத் தரவு; மூல உரிமைகள் மற்றும் மொழியியல் உறுதிப்பாடு தீர்மானிக்கப்படவில்லை"
+            : "Original supplied data; source rights and linguistic claims unresolved"
+        }
+        meta={
+          <div className="flex flex-wrap items-center gap-1.5">
             <Badge variant="sandhanam" className="font-mono-tamil text-[11px]">
               {manifest?.data_status ?? "owner_supplied_unverified"}
             </Badge>
@@ -460,13 +465,9 @@ export function HistoricalSourceExplorer({
               rights: {manifest?.rights_status ?? "unresolved"}
             </Badge>
           </div>
-          <p className="text-xs sm:text-sm text-[var(--color-muted)] font-tamil-sans max-w-3xl leading-relaxed">
-            {isTamil
-              ? "உரிமையாளர் வழங்கிய மூலத் தரவு; மூல உரிமைகள் மற்றும் மொழியியல் உறுதிப்பாடு தீர்மானிக்கப்படவில்லை"
-              : "Original supplied data; source rights and linguistic claims unresolved"}
-          </p>
-        </div>
-      </div>
+        }
+        actions={headerActions}
+      />
 
       {/* Compact Stats Ribbon + Collapsible File & Cache Details */}
       <Card className="p-3 sm:px-4 sm:py-3 border border-[var(--border-line)] bg-[var(--bg-surface)] space-y-3">

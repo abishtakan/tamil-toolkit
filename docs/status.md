@@ -1,5 +1,21 @@
 # Project handoff
 
+## Playground UI/UX redesign & full WASM feature parity (2026-11-20, current uncommitted work)
+
+- **Scope (`playground/`)**: Replaced the 3-tier `Home / Public Tools / Developer Tools` + sub-chip layout with a single persistent desktop sidebar (`264px`), mobile slide-over drawer, keyboard-focusable tool filter (`/` or `Ctrl/Cmd+K`), and URL query synchronization (`?tool=<id>`). Added `playground/src/lib/tools.ts`, `playground/src/components/common/ToolHeader.tsx`, `playground/src/tests/navigation.test.ts`, and `playground/src/tests/full-features.test.ts`.
+- **Usability & visual improvements**: Preserved the *ஓலைச்சுவடி & செம்மண் / கருங்கல்* palette tokens while separating clean sans UI chrome from Tamil serif reading text, removing gratuitous badges/shadows/latency clutter, fixing `CopyButton` light-variant check-icon contrast, fixing on-mount blank state across tools, and disabling PWA service worker registration in dev mode (`playground/src/pwa.ts`) so `localhost` serves fresh bundles.
+- **Full WASM feature parity & bug fixes**:
+  - `NumeralFormatter`: 4 sub-tabs (`Currency & Words`, `Traditional & Digits`, `Fractions, Percents & Ranges`, `Dates & Date Math`) with independent `INR`/`LKR` and `TN`/`SL` selectors, Tamil/Latin digit toggles, Indian grouping, ordinals, digit sequences, traditional integer format/parse, mixed fractions, percents/ratios, numeric ranges, and Tamil/Gregorian date arithmetic.
+  - `CalendarExplorer`: 4 sub-tabs with Thirukanitham vs Vakya Civil profile toggle, TN/SL city presets + GPS check, `panchangam_at(HH:MM)`, limb transitions, reverse `tamil_to_gregorian_date` + `add_tamil_date` + 12-month schedule, observances + `TN`/`SL` official holidays + `lunar_phase_events`, and side-by-side `compareCalendarProfiles`. Lazy per-tab computation plus cached Web Worker execution (`runWorkerExecute` in `worker-client.ts` / `playground.worker.ts`) for `tamil_year_info` and `calendar_observances` eliminates the main-thread freeze.
+  - `CodecConverter` & `playground.worker.ts`: single-byte Latin-1 encoding for `TSCII`/`TAB`/`TAM`/`Anjal`, Hex byte mode, `Preserve`/`Strict` codec error policy toggle for `Bamini`/`Vanavil`/`LT-TM`, and clickable `detect_encoding` candidate chips.
+  - `LetterAnalyzer`, `TextSorter`, `SymbolsExplorer`, `ScalarInspector`, `CodeGenerator`, & `DispatcherSandbox`: added interactive `compose_uyirmei` builder, `get_olippasai` & `are_cognates`, pairwise `compare` & sort/search/folded keys, live `symbol_info` & `fraction_symbol` builder, structural `inspect_tamil_string` inspection, 7 snippet categories across TS/Python/Rust/Dart, and 13 dispatcher presets.
+- **Public-beta packaging & mobile Tamil font support (`playground/`)**: Added `build:beta` (`playground/build-beta.mjs` + `VITE_PUBLIC_BETA=1` + `tools/prepare_playground.py --public-beta`) to keep `historical-lexicon/` out of `playground/dist/` and hide the unresolved-rights `Historical Archive` mode at compile/runtime (`IS_PUBLIC_BETA`, `resolveLexiconViewMode`), lazy-loaded all 13 tool routes via `React.lazy` for smaller JS chunks, cleaned the `worker-client.ts` import warning, and bundled self-hosted `@fontsource/noto-sans-tamil`, `@fontsource/noto-serif-tamil`, and `@fontsource/noto-sans-tamil-supplement` `.woff2` subsets (`U+0B82-0BFA` and `U+11FC0-11FFF`) in `playground/src/index.css` + `playground/vite.config.ts` so traditional Tamil signs and Tamil Supplement glyphs render on mobile devices.
+- **Checks**:
+  - `pnpm --filter tamil-toolkit-playground test`: 20 test files, 124 passed, 0 failed.
+  - `pnpm --filter tamil-toolkit-playground build:beta`: `prepare.mjs --public-beta`, `tsc --noEmit` (0 errors), and `vite build` passed with `playground/dist/historical-lexicon` excluded and 8 subset `.woff2` font files precached.
+  - `uv run --locked python tools/tasks.py check-unicode`: release policy, Unicode/schema gate (36,205 active vectors), numeral projections (2 rulesets, 72 symbols, 19 rules), and 129 release source copies verified.
+- **Workspace**: Branch `master`, changes uncommitted under `playground/`, `CHANGELOG.md`, and `docs/status.md`; no Rust crates, `lexicon/`, or `bindings/` modified; no publishing.
+
 ## Alpha 8 release (published 2026-11-20)
 
 Published Rust/npm `0.1.0-alpha.8` and Python `0.1.0a8` to crates.io, npm, and

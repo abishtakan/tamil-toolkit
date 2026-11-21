@@ -1,12 +1,13 @@
-import { useState, useTransition } from "react";
-import { tt } from "../../lib/engine";
+import { useState, useMemo } from "react";
+import { isEngineReady, tt } from "../../lib/engine";
 import { useLanguage } from "../../lib/i18n";
-import { Textarea } from "../ui/textarea";
+import { ToolHeader } from "../common/ToolHeader";
+import { Card } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { CopyButton } from "../common/CopyButton";
 import { StickyActionBar } from "../common/StickyActionBar";
-import { ArrowDownAZ, ArrowUpZA, Filter, Sparkles } from "lucide-react";
+import { ArrowDownAZ, ArrowUpZA, Filter, Scale, X } from "lucide-react";
 
 const SAMPLE_WORDS = `பாரதி
 அகத்தியர்
@@ -17,198 +18,291 @@ const SAMPLE_WORDS = `பாரதி
 தொல்காப்பியர்
 உமறுப்புலவர்`;
 
-export function TextSorter() {
+interface TextSorterProps {
+  engineReady?: boolean;
+}
+
+export function TextSorter({ engineReady }: TextSorterProps) {
   const { t } = useLanguage();
-  const [, startTransition] = useTransition();
+  const ready = engineReady ?? isEngineReady();
 
   const [input, setInput] = useState(SAMPLE_WORDS);
-  const [output, setOutput] = useState("");
   const [ascending, setAscending] = useState(true);
   const [removeDuplicates, setRemoveDuplicates] = useState(true);
-  const [wordCount, setWordCount] = useState(0);
-  const [latency, setLatency] = useState(0);
+  const [profile, setProfile] = useState<tt.CollationProfile>("agara-v1");
+  const [wordA, setWordA] = useState("அகத்தியர்");
+  const [wordB, setWordB] = useState("கம்பர்");
 
-  const performSort = (raw: string, isAsc: boolean, dedup: boolean) => {
-    const lines = raw
+  const result = useMemo(() => {
+    const lines = input
       .split("\n")
       .map((l) => l.trim())
       .filter((l) => l.length > 0);
 
-    if (lines.length === 0) {
-      setOutput("");
-      setWordCount(0);
-      setLatency(0);
-      return;
+    if (!ready || lines.length === 0) {
+      return { output: "", wordCount: 0 };
     }
 
-    const t0 = performance.now();
     try {
-      let words = lines;
-      if (dedup) {
-        words = Array.from(new Set(words));
-      }
-
-      const sorted = tt.sort_words(words);
-      if (!isAsc) {
+      const words = removeDuplicates ? Array.from(new Set(lines)) : lines;
+      const sorted = tt.sort_words(words, profile);
+      if (!ascending) {
         sorted.reverse();
       }
-
-      setOutput(sorted.join("\n"));
-      setWordCount(sorted.length);
+      return { output: sorted.join("\n"), wordCount: sorted.length };
     } catch (err) {
       console.error("Sorting error:", err);
-    } finally {
-      setLatency(performance.now() - t0);
+      return { output: "", wordCount: 0 };
     }
-  };
+  }, [input, ascending, removeDuplicates, profile, ready]);
 
-  const handleInputChange = (val: string) => {
-    setInput(val);
-    startTransition(() => {
-      performSort(val, ascending, removeDuplicates);
-    });
-  };
-
-  const handleToggleOrder = () => {
-    const next = !ascending;
-    setAscending(next);
-    startTransition(() => {
-      performSort(input, next, removeDuplicates);
-    });
-  };
-
-  const handleToggleDedup = () => {
-    const next = !removeDuplicates;
-    setRemoveDuplicates(next);
-    startTransition(() => {
-      performSort(input, ascending, next);
-    });
-  };
+  const compareAnalysis = useMemo(() => {
+    if (!ready || (!wordA.trim() && !wordB.trim())) {
+      return null;
+    }
+    try {
+      const cmp = tt.compare(wordA, wordB, profile);
+      const sortKeyA = Array.from(tt.sort_key(wordA, profile));
+      const sortKeyB = Array.from(tt.sort_key(wordB, profile));
+      const searchKeyA = Array.from(tt.search_key(wordA, profile));
+      const foldedKeyA = Array.from(tt.folded_search_key(wordA, "comprehensive", profile));
+      return { cmp, sortKeyA, sortKeyB, searchKeyA, foldedKeyA };
+    } catch {
+      return null;
+    }
+  }, [wordA, wordB, profile, ready]);
 
   const handleClear = () => {
     setInput("");
-    setOutput("");
-    setWordCount(0);
-    setLatency(0);
   };
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[var(--border-line)]">
-        <div>
-          <h2 className="text-xl sm:text-2xl font-tamil font-bold text-[var(--color-mai)]">
-            {t.tools.sorter.title}
-          </h2>
-          <p className="text-xs sm:text-sm text-[var(--color-muted)] font-tamil-sans mt-1">
-            {t.tools.sorter.desc}
-          </p>
+      <ToolHeader
+        title={t.tools.sorter.title}
+        description={t.tools.sorter.desc}
+        actions={
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setInput(SAMPLE_WORDS)}
+          >
+            {t.actions.loadSample}
+          </Button>
+        }
+      />
+
+      {/* Sort Options Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-[var(--bg-raised)] border border-[var(--border-line)]">
+          {(
+            [
+              { id: "agara-v1", label: t.tools.sorter.profileAgara },
+              { id: "uyirmei-first-v1", label: t.tools.sorter.profileUyirmei },
+            ] as const
+          ).map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => setProfile(p.id)}
+              className={`px-3 py-1.5 min-h-[34px] rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+                profile === p.id
+                  ? "bg-[var(--bg-surface)] text-[var(--color-semman)] font-semibold shadow-xs"
+                  : "text-[var(--color-muted)] hover:text-[var(--color-mai)]"
+              }`}
+            >
+              {p.label}
+            </button>
+          ))}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button
+            type="button"
             variant="outline"
             size="sm"
-            onClick={() => handleInputChange(SAMPLE_WORDS)}
-            className="text-xs font-tamil text-[var(--color-semman)] border-[var(--color-semman)]/30"
-          >
-            <Sparkles className="w-3.5 h-3.5 mr-1 text-[var(--color-sandhanam)]" />
-            <span>{t.actions.loadSample}</span>
-          </Button>
-
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleToggleOrder}
-            className="text-xs font-tamil"
+            onClick={() => setAscending((prev) => !prev)}
           >
             {ascending ? (
               <>
-                <ArrowDownAZ className="w-3.5 h-3.5 mr-1" />
+                <ArrowDownAZ className="w-3.5 h-3.5 mr-1.5 text-[var(--color-semman)]" />
                 <span>{t.tools.sorter.sortAsc}</span>
               </>
             ) : (
               <>
-                <ArrowUpZA className="w-3.5 h-3.5 mr-1" />
+                <ArrowUpZA className="w-3.5 h-3.5 mr-1.5 text-[var(--color-semman)]" />
                 <span>{t.tools.sorter.sortDesc}</span>
               </>
             )}
           </Button>
 
           <Button
+            type="button"
             variant={removeDuplicates ? "primary" : "outline"}
             size="sm"
-            onClick={handleToggleDedup}
-            className="text-xs font-tamil"
+            onClick={() => setRemoveDuplicates((prev) => !prev)}
           >
-            <Filter className="w-3.5 h-3.5 mr-1" />
+            <Filter className="w-3.5 h-3.5 mr-1.5" />
             <span>{t.tools.sorter.removeDups}</span>
           </Button>
         </div>
       </div>
 
-      {/* Editor Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-[var(--color-mai)] font-tamil">
+      {/* Unified Split Input / Output Workspace */}
+      <div className="rounded-xl border border-[var(--border-line)] bg-[var(--bg-surface)] overflow-hidden grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[var(--border-line)]">
+        <div className="flex flex-col">
+          <div className="px-4 py-2.5 border-b border-[var(--border-line)] bg-[var(--bg-raised)]/30 flex items-center justify-between gap-2 min-h-[44px]">
+            <span className="text-xs font-semibold text-[var(--color-mai)]">
               {t.tools.sorter.inputWordsLabel}
             </span>
             {input && (
               <button
+                type="button"
                 onClick={handleClear}
-                className="text-xs text-[var(--color-muted)] hover:text-red-600 font-tamil"
+                className="inline-flex items-center gap-1 text-xs text-[var(--color-muted)] hover:text-[var(--color-semman)] cursor-pointer"
               >
-                {t.actions.clear}
+                <X className="w-3.5 h-3.5" />
+                <span>{t.actions.clear}</span>
               </button>
             )}
           </div>
-          <Textarea
+          <textarea
             value={input}
-            onChange={(e) => handleInputChange(e.target.value)}
+            onChange={(e) => setInput(e.target.value)}
             placeholder={t.tools.sorter.inputPlaceholder}
-            className="min-h-[220px]"
+            className="w-full flex-1 min-h-[260px] p-4 bg-transparent text-base sm:text-lg font-tamil leading-[1.7] text-[var(--color-mai)] placeholder:text-[var(--color-muted)]/60 focus:outline-none resize-y"
           />
         </div>
 
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
+        <div className="flex flex-col bg-[var(--bg-canvas)]/40">
+          <div className="px-4 py-2.5 border-b border-[var(--border-line)] bg-[var(--bg-raised)]/30 flex items-center justify-between gap-2 min-h-[44px]">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-[var(--color-mai)] font-tamil">
+              <span className="text-xs font-semibold text-[var(--color-mai)]">
                 {t.tools.sorter.collationOutputLabel}
               </span>
-              {wordCount > 0 && (
+              {result.wordCount > 0 && (
                 <Badge variant="terracotta">
-                  {wordCount} {t.tools.sorter.wordsCountSuffix}
+                  {result.wordCount} {t.tools.sorter.wordsCountSuffix}
                 </Badge>
               )}
             </div>
-            {latency > 0 && <Badge variant="mono">{latency.toFixed(1)} ms</Badge>}
-          </div>
-
-          <div className="relative">
-            <Textarea
-              readOnly
-              value={output}
-              placeholder={t.tools.sorter.outputPlaceholder}
-              className="min-h-[220px] bg-[var(--bg-raised)]/70 text-[var(--color-mai)] font-medium"
-            />
-            {output && (
-              <div className="hidden md:block absolute bottom-3 right-3">
-                <CopyButton
-                  text={output}
-                  label={t.actions.copy}
-                  copiedLabel={t.actions.copied}
-                  size="sm"
-                />
-              </div>
+            {result.output && (
+              <CopyButton
+                text={result.output}
+                label={t.actions.copy}
+                copiedLabel={t.actions.copied}
+                size="sm"
+                variant="outline"
+              />
             )}
           </div>
+          <textarea
+            readOnly
+            value={result.output}
+            placeholder={t.tools.sorter.outputPlaceholder}
+            className="w-full flex-1 min-h-[260px] p-4 bg-transparent text-base sm:text-lg font-tamil leading-[1.7] text-[var(--color-mai)] placeholder:text-[var(--color-muted)]/60 focus:outline-none resize-y"
+          />
         </div>
       </div>
 
+      {/* Pairwise Compare & Sort Key Inspector */}
+      <Card className="p-5 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-line)] pb-3">
+          <div className="flex items-center gap-2">
+            <Scale className="w-4 h-4 text-[var(--color-semman)]" />
+            <h2 className="text-sm font-semibold text-[var(--color-mai)]">
+              {t.tools.sorter.compareHeading}
+            </h2>
+          </div>
+          {compareAnalysis && (
+            <Badge
+              variant={compareAnalysis.cmp === 0 ? "outline" : "terracotta"}
+              className="text-xs font-semibold"
+            >
+              {compareAnalysis.cmp < 0
+                ? t.tools.sorter.compareResultBefore
+                : compareAnalysis.cmp > 0
+                  ? t.tools.sorter.compareResultAfter
+                  : t.tools.sorter.compareResultEqual}
+            </Badge>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="space-y-1.5">
+            <label htmlFor="sorter-word-a" className="text-xs font-medium text-[var(--color-muted)] block">
+              {t.tools.sorter.wordALabel}
+            </label>
+            <input
+              id="sorter-word-a"
+              type="text"
+              value={wordA}
+              onChange={(e) => setWordA(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border border-[var(--border-line)] bg-[var(--bg-canvas)] font-tamil text-base text-[var(--color-mai)] focus:border-[var(--color-semman)] focus:outline-none"
+            />
+          </div>
+          <div className="space-y-1.5">
+            <label htmlFor="sorter-word-b" className="text-xs font-medium text-[var(--color-muted)] block">
+              {t.tools.sorter.wordBLabel}
+            </label>
+            <input
+              id="sorter-word-b"
+              type="text"
+              value={wordB}
+              onChange={(e) => setWordB(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border border-[var(--border-line)] bg-[var(--bg-canvas)] font-tamil text-base text-[var(--color-mai)] focus:border-[var(--color-semman)] focus:outline-none"
+            />
+          </div>
+        </div>
+
+        {compareAnalysis && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 text-xs">
+            <div className="p-3 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-line)] space-y-1.5">
+              <div className="flex items-center justify-between text-[var(--color-muted)]">
+                <span>{t.tools.sorter.sortKeyLabel} ({wordA})</span>
+                <CopyButton text={JSON.stringify(compareAnalysis.sortKeyA)} size="sm" variant="ghost" />
+              </div>
+              <p className="font-mono-tamil text-[11px] text-[var(--color-mai)] break-all">
+                [{compareAnalysis.sortKeyA.join(", ")}]
+              </p>
+            </div>
+
+            <div className="p-3 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-line)] space-y-1.5">
+              <div className="flex items-center justify-between text-[var(--color-muted)]">
+                <span>{t.tools.sorter.sortKeyLabel} ({wordB})</span>
+                <CopyButton text={JSON.stringify(compareAnalysis.sortKeyB)} size="sm" variant="ghost" />
+              </div>
+              <p className="font-mono-tamil text-[11px] text-[var(--color-mai)] break-all">
+                [{compareAnalysis.sortKeyB.join(", ")}]
+              </p>
+            </div>
+
+            <div className="p-3 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-line)] space-y-1.5">
+              <div className="flex items-center justify-between text-[var(--color-muted)]">
+                <span>{t.tools.sorter.searchKeyLabel} ({wordA})</span>
+                <CopyButton text={JSON.stringify(compareAnalysis.searchKeyA)} size="sm" variant="ghost" />
+              </div>
+              <p className="font-mono-tamil text-[11px] text-[var(--color-mai)] break-all">
+                [{compareAnalysis.searchKeyA.join(", ")}]
+              </p>
+            </div>
+
+            <div className="p-3 rounded-lg bg-[var(--bg-canvas)] border border-[var(--border-line)] space-y-1.5">
+              <div className="flex items-center justify-between text-[var(--color-muted)]">
+                <span>{t.tools.sorter.foldedKeyLabel} ({wordA})</span>
+                <CopyButton text={JSON.stringify(compareAnalysis.foldedKeyA)} size="sm" variant="ghost" />
+              </div>
+              <p className="font-mono-tamil text-[11px] text-[var(--color-mai)] break-all">
+                [{compareAnalysis.foldedKeyA.join(", ")}]
+              </p>
+            </div>
+          </div>
+        )}
+      </Card>
+
       <StickyActionBar
-        outputText={output}
+        outputText={result.output}
         onClear={handleClear}
         copyLabel={t.actions.copy}
         copiedLabel={t.actions.copied}

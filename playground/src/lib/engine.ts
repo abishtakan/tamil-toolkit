@@ -1,6 +1,44 @@
 import { init } from "tamil-toolkit/web";
 import * as tt from "tamil-toolkit/web";
 
+export type CalendarDisplayScript = "tamil" | "romanized";
+export type CalendarDisplayDigits = tt.DigitStyle;
+export type CalendarDisplayStyle = "day_month_year" | "weekday_day_month_year";
+export type CalendarProfileComparisonMoment =
+  | { date: tt.GregorianDate; instant_unix_seconds?: never }
+  | { date?: never; instant_unix_seconds: number };
+export type CalendarProfileComparisonInput = CalendarProfileComparisonMoment & {
+  thirukanitham_context: tt.CalendarContext;
+  vakya_context: tt.VakyaCivilContext;
+};
+export interface CalendarProfileComparisonResult {
+  comparison_basis: "same_gregorian_civil_date" | "same_utc_instant";
+  moment: CalendarProfileComparisonMoment;
+  profiles: Record<string, unknown>;
+  differing_fields: string[];
+  accuracy_assessment: "not_assessed";
+}
+export interface ThiruvalluvarYearInfo {
+  convention_id: "tn-thiruvalluvar-thai1-thirukanitham-v1";
+  calendar_definition_id: string;
+  context: tt.CalendarContext;
+  gregorian_date: tt.GregorianDate;
+  thiruvalluvar_year: number;
+  thai1_date: tt.GregorianDate;
+  boundary_status: "before_thai1" | "on_or_after_thai1";
+  year_number_rule: string;
+  official_equivalence: "not_established";
+  scope_note: string;
+  known_source_conflict: string;
+  sources: Array<{
+    id: string;
+    url: string;
+    locator: string;
+  }>;
+}
+
+export const calendarDefinitions = tt.calendarDefinitions;
+
 export interface EngineStatus {
   isReady: boolean;
   isLoading: boolean;
@@ -1160,6 +1198,82 @@ export function lookupLexicon(
   options?: tt.LexiconLookupOptions
 ): tt.LexiconLookupResponse {
   return tt.lexicon_lookup(query, options);
+}
+
+// ---------------------------------------------------------------------------
+// 6. Extended Typed Dispatcher & Byte Encoding Helpers
+// ---------------------------------------------------------------------------
+
+const THIRUKANITHAM_DEF = "thirukanitham-astro-2.0.0-lahiri-p03-apparent-v2";
+
+export function formatTamilDate(
+  date: tt.GregorianDate,
+  context: tt.CalendarContextInput,
+  script: CalendarDisplayScript = "tamil",
+  digits: CalendarDisplayDigits = "latin",
+  style: CalendarDisplayStyle = "weekday_day_month_year",
+  definition_id: string = THIRUKANITHAM_DEF
+): string {
+  return tt.execute({
+    op: "format_tamil_date",
+    input: { definition_id, date, context, script, digits, style },
+  }) as string;
+}
+
+export function compareCalendarProfiles(
+  input: CalendarProfileComparisonInput
+): CalendarProfileComparisonResult {
+  return tt.execute({
+    op: "compare_calendar_profiles",
+    input,
+  }) as CalendarProfileComparisonResult;
+}
+
+export function getThiruvalluvarYearInfo(
+  date: tt.GregorianDate,
+  context: tt.CalendarContext,
+  convention_id: ThiruvalluvarYearInfo["convention_id"] = "tn-thiruvalluvar-thai1-thirukanitham-v1"
+): ThiruvalluvarYearInfo {
+  return tt.execute({
+    op: "thiruvalluvar_year_info",
+    input: { date, context, convention_id },
+  }) as ThiruvalluvarYearInfo;
+}
+
+export function stringToLatin1Bytes(text: string): Uint8Array {
+  const bytes = new Uint8Array(text.length);
+  for (let i = 0; i < text.length; i++) {
+    bytes[i] = text.charCodeAt(i) & 0xff;
+  }
+  return bytes;
+}
+
+export function latin1BytesToString(bytes: Uint8Array | readonly number[]): string {
+  let out = "";
+  for (let i = 0; i < bytes.length; i++) {
+    out += String.fromCharCode(bytes[i] & 0xff);
+  }
+  return out;
+}
+
+export function bytesToHex(bytes: Uint8Array | readonly number[]): string {
+  const parts: string[] = [];
+  for (let i = 0; i < bytes.length; i++) {
+    parts.push((bytes[i] & 0xff).toString(16).toUpperCase().padStart(2, "0"));
+  }
+  return parts.join(" ");
+}
+
+export function hexToBytes(hex: string): Uint8Array | null {
+  const cleaned = hex.replace(/[^0-9a-fA-F]/g, "");
+  if (cleaned.length === 0 || cleaned.length % 2 !== 0) return null;
+  const out = new Uint8Array(cleaned.length / 2);
+  for (let i = 0; i < out.length; i++) {
+    const val = parseInt(cleaned.slice(i * 2, i * 2 + 2), 16);
+    if (Number.isNaN(val)) return null;
+    out[i] = val;
+  }
+  return out;
 }
 
 export { tt };

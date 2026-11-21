@@ -1,8 +1,9 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef, lazy, Suspense } from "react";
 import * as tt from "tamil-toolkit/web";
 import { getLexiconPacks, isEngineReady, lookupLexicon } from "../../lib/engine";
 import { useLanguage } from "../../lib/i18n";
-import { HistoricalSourceExplorer } from "./HistoricalSourceExplorer";
+import { IS_PUBLIC_BETA, resolveLexiconViewMode } from "../../lib/tools";
+import { ToolHeader } from "../common/ToolHeader";
 import {
   BrowseIndexData,
   BrowseWordItem,
@@ -57,7 +58,15 @@ import {
 
 interface LexiconExplorerProps {
   engineReady?: boolean;
+  initialQuery?: string;
+  initialQueryNonce?: number;
 }
+
+const LazyHistoricalSourceExplorer = lazy(() =>
+  import("./HistoricalSourceExplorer").then((m) => ({
+    default: m.HistoricalSourceExplorer,
+  }))
+);
 
 const PAGE_SIZE = 40;
 
@@ -114,21 +123,19 @@ function UnifiedWordCard({
   entries,
   extended,
   canonicalQuery,
-  latencyMs,
   language,
 }: {
   word: string;
   entries: readonly tt.LexiconEntry[];
   extended: ExtendedEntryDetail | null;
   canonicalQuery?: string;
-  latencyMs?: number;
   language: "ta" | "en";
 }) {
   const [showProv, setShowProv] = useState(false);
 
   const headword = entries[0]?.headword ?? word;
 
-  // Group English Wiktionary entries by part of speech (like Oxford / Google Dictionary)
+  // Group English Wiktionary entries by part of speech
   const posGroups = useMemo(() => {
     const groups: {
       pos: string;
@@ -166,7 +173,6 @@ function UnifiedWordCard({
     return groups;
   }, [entries]);
 
-  // Distinct parts of speech across both sources for the header subtitle
   const allPosLabels = useMemo(() => {
     const set = new Set<string>();
     for (const g of posGroups) {
@@ -176,7 +182,6 @@ function UnifiedWordCard({
     return Array.from(set);
   }, [posGroups, extended]);
 
-  // Extra forms (IPA, romanization, or variants beyond the headword itself)
   const extraForms = useMemo(() => {
     const seen = new Set<string>();
     const out: tt.LexiconForm[] = [];
@@ -193,7 +198,6 @@ function UnifiedWordCard({
     return out;
   }, [entries, headword]);
 
-  // Deduplicate provenance links across all entries + Tamil Wiktionary
   const allSafeLinks = useMemo(() => {
     const map = new Map<string, { label: string; href: string }>();
     for (const entry of entries) {
@@ -221,7 +225,6 @@ function UnifiedWordCard({
     return Array.from(map.values());
   }, [entries, extended]);
 
-  // Filter out Tamil Wiktionary English translations already present in English Wiktionary senses
   const extraEngTranslations = useMemo(() => {
     if (!extended || extended.eng_trans.length === 0) return [];
     const existingLower = new Set<string>();
@@ -236,14 +239,14 @@ function UnifiedWordCard({
   }, [entries, extended]);
 
   return (
-    <Card className="p-5 sm:p-7 space-y-6 border border-[var(--border-line)] bg-[var(--bg-surface)]">
-      {/* Unified Real-Dictionary Header */}
+    <Card className="p-5 sm:p-7 space-y-6">
+      {/* Dictionary Headword Header */}
       <div className="flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-[var(--border-line)]">
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-baseline gap-3">
-            <h3 className="text-3xl sm:text-4xl font-tamil font-bold text-[var(--color-mai)] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-tamil font-bold text-[var(--color-mai)] tracking-tight">
               {headword}
-            </h3>
+            </h2>
             {canonicalQuery && canonicalQuery !== word && (
               <Badge variant="sandhanam" className="text-[11px] font-mono-tamil">
                 NFC: {canonicalQuery}
@@ -257,26 +260,19 @@ function UnifiedWordCard({
               </span>
             )}
             {entries.length > 0 && (
-              <Badge variant="outline" className="text-[10px] font-tamil">
-                {language === "ta" ? "ஆங்கில விக்சனரி" : "English Wiktionary"}
-              </Badge>
+              <span className="text-[11px] text-[var(--color-muted)]">
+                · {language === "ta" ? "ஆங்கில விக்சனரி" : "English Wiktionary"}
+              </span>
             )}
             {extended && (
-              <Badge variant="outline" className="text-[10px] font-tamil">
-                {language === "ta" ? "தமிழ் விக்சனரி" : "Tamil Wiktionary"}
-              </Badge>
+              <span className="text-[11px] text-[var(--color-muted)]">
+                · {language === "ta" ? "தமிழ் விக்சனரி" : "Tamil Wiktionary"}
+              </span>
             )}
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          {typeof latencyMs === "number" && latencyMs > 0 && (
-            <Badge variant="mono" className="text-[10px]">
-              {latencyMs.toFixed(1)} ms
-            </Badge>
-          )}
-          <CopyButton text={headword} size="sm" variant="outline" />
-        </div>
+        <CopyButton text={headword} size="sm" variant="outline" />
       </div>
 
       {/* Pronunciation / Variant Forms */}
@@ -296,15 +292,15 @@ function UnifiedWordCard({
         </div>
       )}
 
-      {/* Section 1: English Definitions Grouped by Part of Speech */}
+      {/* English Definitions Grouped by Part of Speech */}
       {posGroups.length > 0 && (
         <div className="space-y-5">
           {posGroups.map((group) => (
             <section key={group.pos} className="space-y-2.5">
               <div className="flex flex-wrap items-center gap-2">
-                <h4 className="text-sm font-tamil font-bold italic text-[var(--color-semman)]">
+                <h3 className="text-sm font-tamil font-bold italic text-[var(--color-semman)]">
                   {formatPosLabel(group.pos, language)}
-                </h4>
+                </h3>
                 {group.regions.map((r) => (
                   <Badge key={r} variant="sandhanam" className="text-[10px]">
                     {r}
@@ -317,17 +313,17 @@ function UnifiedWordCard({
                 ))}
               </div>
 
-              <ol className="space-y-2.5 pl-1">
+              <ol className="space-y-3">
                 {group.senses.map((sense, idx) => (
-                  <li key={sense.sense_id} className="flex items-start gap-3">
-                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[var(--color-semman-light)] text-[var(--color-semman)] font-mono-tamil text-xs font-bold shrink-0 mt-0.5">
-                      {idx + 1}
+                  <li key={sense.sense_id} className="flex items-baseline gap-2.5">
+                    <span className="text-xs font-mono-tamil font-semibold text-[var(--color-muted)] w-5 text-right shrink-0">
+                      {idx + 1}.
                     </span>
                     <div className="min-w-0 flex-1 space-y-1.5">
                       {sense.components.map((comp) => (
                         <p
                           key={comp.text_id}
-                          className="text-sm sm:text-[15px] font-tamil-sans text-[var(--color-mai)] leading-relaxed"
+                          className="text-sm sm:text-[15px] text-[var(--color-mai)] leading-relaxed"
                         >
                           {comp.text}
                         </p>
@@ -340,7 +336,7 @@ function UnifiedWordCard({
                           {sense.examples.map((ex) => (
                             <p
                               key={ex.text_id}
-                              className="text-xs font-tamil text-[var(--color-muted)] pl-2.5 border-l-2 border-[var(--color-sandhanam)]"
+                              className="text-xs font-tamil text-[var(--color-muted)] pl-2.5 border-l-2 border-[var(--color-sandhanam)]/70"
                             >
                               “{ex.text}”
                             </p>
@@ -356,7 +352,7 @@ function UnifiedWordCard({
         </div>
       )}
 
-      {/* Section 2: Tamil Definitions (பொருள்) from Tamil Wiktionary */}
+      {/* Tamil Definitions (தமிழ் பொருள்) */}
       {extended && (extended.tam_defs.length > 0 || extraEngTranslations.length > 0) && (
         <div
           className={`space-y-4 ${
@@ -365,16 +361,14 @@ function UnifiedWordCard({
         >
           {extended.tam_defs.length > 0 && (
             <section className="space-y-2.5">
-              <div className="flex items-center gap-2">
-                <h4 className="text-sm font-tamil font-bold text-[var(--color-semman)]">
-                  {language === "ta" ? "தமிழ் பொருள்" : "Tamil Definitions (தமிழ் பொருள்)"}
-                </h4>
-              </div>
-              <ol className="space-y-2.5 pl-1">
+              <h3 className="text-sm font-tamil font-bold text-[var(--color-semman)]">
+                {language === "ta" ? "தமிழ் பொருள்" : "Tamil Definitions (தமிழ் பொருள்)"}
+              </h3>
+              <ol className="space-y-2.5">
                 {extended.tam_defs.map((def, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[var(--bg-raised)] border border-[var(--border-line)] text-[var(--color-mai)] font-mono-tamil text-xs font-bold shrink-0 mt-0.5">
-                      {idx + 1}
+                  <li key={idx} className="flex items-baseline gap-2.5">
+                    <span className="text-xs font-mono-tamil font-semibold text-[var(--color-muted)] w-5 text-right shrink-0">
+                      {idx + 1}.
                     </span>
                     <p className="text-sm sm:text-[15px] font-tamil text-[var(--color-mai)] leading-relaxed">
                       {def}
@@ -387,14 +381,14 @@ function UnifiedWordCard({
 
           {extraEngTranslations.length > 0 && (
             <section className="space-y-2">
-              <h4 className="text-xs font-tamil font-semibold text-[var(--color-muted)] uppercase tracking-wide">
+              <h3 className="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wide">
                 {language === "ta" ? "ஆங்கில மொழிபெயர்ப்புகள்" : "English Translations"}
-              </h4>
+              </h3>
               <div className="flex flex-wrap gap-1.5">
                 {extraEngTranslations.map((tr, idx) => (
                   <span
                     key={idx}
-                    className="px-3 py-1 rounded-full border border-[var(--border-line)] bg-[var(--bg-canvas)] text-xs sm:text-sm font-tamil-sans text-[var(--color-mai)]"
+                    className="px-3 py-1 rounded-full border border-[var(--border-line)] bg-[var(--bg-canvas)] text-xs sm:text-sm text-[var(--color-mai)]"
                   >
                     {tr}
                   </span>
@@ -405,14 +399,14 @@ function UnifiedWordCard({
         </div>
       )}
 
-      {/* Single Collapsible Sources & Provenance Footer */}
+      {/* Collapsible Sources & License Footer */}
       {allSafeLinks.length > 0 && (
         <div className="pt-3 border-t border-[var(--border-line)]">
           <button
             type="button"
             onClick={() => setShowProv((prev) => !prev)}
             aria-expanded={showProv}
-            className="inline-flex items-center gap-1.5 text-xs font-tamil font-medium text-[var(--color-muted)] hover:text-[var(--color-semman)] py-1 cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--color-muted)] hover:text-[var(--color-semman)] py-1 cursor-pointer"
           >
             {showProv ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
             <span>
@@ -465,21 +459,20 @@ function UnifiedWordCard({
   );
 }
 
-export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
+export function LexiconExplorer({
+  engineReady,
+  initialQuery,
+  initialQueryNonce,
+}: LexiconExplorerProps) {
   const { t, language } = useLanguage();
   const ready = engineReady ?? isEngineReady();
-  const [viewMode, setViewMode] = useState<"verified" | "historical">(() => {
-    if (typeof window !== "undefined") {
-      const param = new URLSearchParams(window.location.search).get("mode");
-      if (param === "historical") return "historical";
-    }
-    return "verified";
-  });
+  const [viewMode, setViewMode] = useState<"verified" | "historical">(() =>
+    typeof window !== "undefined" ? resolveLexiconViewMode(window.location.search) : "verified"
+  );
 
   const [availablePacks, setAvailablePacks] = useState<tt.LexiconPackInfo[]>([]);
   const [packsError, setPacksError] = useState<string | null>(null);
 
-  // Embedded 9,410-word browse index + Extended 90,167-word sharded index
   const [browseIndex, setBrowseIndex] = useState<BrowseIndexData | null>(null);
   const [extendedManifest, setExtendedManifest] = useState<ExtendedManifest | null>(null);
   const [activeLetterItems, setActiveLetterItems] = useState<BrowseWordItem[] | null>(null);
@@ -490,15 +483,16 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
   const letterCacheRef = useRef<Map<string, BrowseWordItem[]>>(new Map());
   const shardCacheRef = useRef<Map<string, Record<string, ExtendedEntryDetail>>>(new Map());
   const shardRequestSeqRef = useRef<number>(0);
+  const lastConsumedNonceRef = useRef<number | undefined>(undefined);
 
-  const [selectedLetter, setSelectedLetter] = useState<string>("அ");
+  // Align initial letter "ந" with default activeWord "நன்றி"
+  const [selectedLetter, setSelectedLetter] = useState<string>("ந");
   const [selectedPos, setSelectedPos] = useState<string>("ALL");
   const [quickSourceFilter, setQuickSourceFilter] = useState<"ALL" | ExtendedPackId>("ALL");
   const [page, setPage] = useState<number>(1);
 
-  // Search & active entry state
-  const [query, setQuery] = useState("");
-  const [activeWord, setActiveWord] = useState("நன்றி");
+  const [query, setQuery] = useState(() => initialQuery?.trim() ?? "");
+  const [activeWord, setActiveWord] = useState(() => initialQuery?.trim() || "நன்றி");
   const [selectedPacks, setSelectedPacks] = useState<string[]>(["core"]);
   const [selectedRegion, setSelectedRegion] = useState<string>("");
   const [selectedRegister, setSelectedRegister] = useState<string>("");
@@ -510,7 +504,6 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
   const [lastRawResponse, setLastRawResponse] = useState<string>("");
   const [latencyMs, setLatencyMs] = useState<number>(0);
 
-  // Collapsible developer/advanced panels (all collapsed by default for clarity)
   const [showAdvancedPanel, setShowAdvancedPanel] = useState(false);
   const [showDataDetails, setShowDataDetails] = useState(false);
   const [showContractPresets, setShowContractPresets] = useState(false);
@@ -543,7 +536,6 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
 
   const queryDiagnostics = useMemo(() => inspectExactQuery(query), [query]);
 
-  // Load lightweight 2 KB extended manifest immediately (fast first paint!)
   useEffect(() => {
     let cancelled = false;
     setBrowseLoading(true);
@@ -568,7 +560,6 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
     };
   }, []);
 
-  // Lazy-load 1 MB embedded English-gloss browse index ONLY when user chooses "All" letters or searches in English
   useEffect(() => {
     if (browseIndex) return;
     const trimmed = query.trim();
@@ -593,7 +584,6 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
     };
   }, [browseIndex, selectedLetter, query]);
 
-  // Load a Tamil letter bucket from /lexicon-extended/letters/<file> (cached in memory)
   const loadLetterBucket = useCallback(
     async (letterId: string, file: string) => {
       const cached = letterCacheRef.current.get(letterId);
@@ -620,7 +610,6 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
     []
   );
 
-  // Fetch full ta.wiktionary.org detail from 256 headword shards (guarded against stale responses)
   const loadExtendedDetail = useCallback(async (word: string) => {
     const seq = ++shardRequestSeqRef.current;
     const normalized = word.trim().normalize("NFC");
@@ -651,7 +640,6 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
     }
   }, []);
 
-  // Whenever selectedLetter changes OR user types a Tamil query, auto-load that letter's full extended bucket!
   useEffect(() => {
     if (!extendedManifest) return;
     if (selectedLetter !== "ALL") {
@@ -672,7 +660,6 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
     setActiveLetterItems(null);
   }, [extendedManifest, selectedLetter, query, loadLetterBucket]);
 
-  // Choose the active source pool for the word list
   const activeWordPool = useMemo(() => {
     if (activeLetterItems && activeLetterItems.length > 0) {
       return activeLetterItems;
@@ -680,7 +667,6 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
     return browseIndex?.items ?? [];
   }, [activeLetterItems, browseIndex]);
 
-  // Filtered browse items (updates live as user types, picks a letter, or filters)
   const filteredBrowseItems = useMemo(() => {
     const filterQuery = query.trim() === activeWord && selectedLetter !== "ALL" ? "" : query;
     const effectivePacks =
@@ -696,7 +682,6 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
     });
   }, [activeWordPool, query, activeWord, selectedLetter, quickSourceFilter, selectedPos, selectedRegion]);
 
-  // Suggestions when exact lookup doesn't match
   const fallbackSuggestions = useMemo(() => {
     if (!query.trim()) return [];
     return filterBrowseItems(activeWordPool, {
@@ -746,8 +731,9 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
 
   // Load initial word from extended shard immediately so entry appears even before WASM finishes
   useEffect(() => {
-    void loadExtendedDetail("நன்றி");
-  }, [loadExtendedDetail]);
+    const startWord = initialQuery?.trim() || "நன்றி";
+    void loadExtendedDetail(startWord);
+  }, [loadExtendedDetail, initialQuery]);
 
   // Discover compiled packs from Rust once WASM is ready
   useEffect(() => {
@@ -765,6 +751,44 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
       setPacksError(err instanceof Error ? err.message : String(err));
     }
   }, [ready, executeLookup]);
+
+  // Handle subsequent quick searches dispatched from Home
+  useEffect(() => {
+    if (!initialQueryNonce || initialQueryNonce === lastConsumedNonceRef.current) return;
+    const trimmed = initialQuery?.trim();
+    if (!trimmed) return;
+    lastConsumedNonceRef.current = initialQueryNonce;
+    setViewMode("verified");
+    setQuery(trimmed);
+    setActiveWord(trimmed);
+    if (extendedManifest) {
+      const bucket = findExtendedLetterBucket(trimmed, extendedManifest.letters);
+      setSelectedLetter(bucket ? bucket.id : "ALL");
+    } else {
+      setSelectedLetter("ALL");
+    }
+    if (ready) {
+      const packs = selectedPacks.length > 0 ? selectedPacks : availablePackIds;
+      executeLookup(trimmed, {
+        packs,
+        region: selectedRegion === "" ? undefined : selectedRegion,
+        register: selectedRegister === "" ? undefined : selectedRegister,
+      });
+    } else {
+      void loadExtendedDetail(trimmed);
+    }
+  }, [
+    initialQueryNonce,
+    initialQuery,
+    extendedManifest,
+    ready,
+    selectedPacks,
+    availablePackIds,
+    selectedRegion,
+    selectedRegister,
+    executeLookup,
+    loadExtendedDetail,
+  ]);
 
   useEffect(() => {
     if (selectedRegion && !scopeOptions.regions.includes(selectedRegion)) {
@@ -892,6 +916,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
   };
 
   const handleChooserKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (IS_PUBLIC_BETA) return;
     if (e.key === "ArrowRight" || e.key === "ArrowLeft" || e.key === "Home" || e.key === "End") {
       e.preventDefault();
       if (e.key === "Home") {
@@ -910,81 +935,73 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
   const hasAnyEntryMatch =
     (response && response.status === "matched") || Boolean(extendedEntry);
 
-  return (
-    <div className="space-y-5 animate-in fade-in-50 duration-150">
-      {/* Mode Chooser: Verified dictionary vs Historical source records */}
-      <div
-        role="tablist"
-        aria-label={
-          language === "ta"
-            ? "சொற்களஞ்சியப் பார்வைத் தேர்வு"
-            : "Lexicon mode chooser"
-        }
-        onKeyDown={handleChooserKeyDown}
-        className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-1.5 rounded-2xl bg-[var(--bg-raised)] border border-[var(--border-line)]"
+  const modeSwitcher = (
+    <div
+      role="tablist"
+      aria-label={language === "ta" ? "சொற்களஞ்சியப் பார்வைத் தேர்வு" : "Lexicon mode chooser"}
+      onKeyDown={handleChooserKeyDown}
+      className="inline-flex items-center gap-1 p-1 rounded-xl bg-[var(--bg-raised)] border border-[var(--border-line)]"
+    >
+      <button
+        id="lexicon-tab-verified"
+        type="button"
+        role="tab"
+        aria-selected={viewMode === "verified"}
+        aria-controls="lexicon-panel-verified"
+        tabIndex={viewMode === "verified" ? 0 : -1}
+        onClick={() => setViewMode("verified")}
+        className={`inline-flex items-center gap-1.5 px-3 py-1.5 min-h-[36px] rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+          viewMode === "verified"
+            ? "bg-[var(--bg-surface)] text-[var(--color-semman)] font-semibold shadow-xs"
+            : "text-[var(--color-muted)] hover:text-[var(--color-mai)]"
+        }`}
       >
-        <button
-          id="lexicon-tab-verified"
-          type="button"
-          role="tab"
-          aria-selected={viewMode === "verified"}
-          aria-controls="lexicon-panel-verified"
-          tabIndex={viewMode === "verified" ? 0 : -1}
-          onClick={() => setViewMode("verified")}
-          className={`flex items-center justify-between gap-2 px-4 py-2.5 min-h-[44px] rounded-xl text-left transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] ${
-            viewMode === "verified"
-              ? "bg-[var(--bg-surface)] text-[var(--color-semman)] shadow-sm border border-[var(--color-semman)]/30"
-              : "text-[var(--color-muted)] hover:text-[var(--color-mai)]"
-          }`}
-        >
-          <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-tamil font-semibold">
-            <BookMarked className="w-4 h-4 shrink-0" />
-            <span>
-              {language === "ta"
-                ? "தமிழ் அகராதி (தேடல் & உலாவல்)"
-                : "Tamil Dictionary (Search & Browse)"}
-            </span>
-          </span>
-          <span className="text-[11px] font-mono-tamil opacity-80 hidden sm:inline">
-            {totalActiveWords.toLocaleString()} words · CC-BY-SA-4.0
-          </span>
-        </button>
+        <BookMarked className="w-3.5 h-3.5 shrink-0" />
+        <span>{language === "ta" ? "அகராதி" : "Dictionary"}</span>
+      </button>
 
-        <button
-          id="lexicon-tab-historical"
-          type="button"
-          role="tab"
-          aria-selected={viewMode === "historical"}
-          aria-controls="lexicon-panel-historical"
-          tabIndex={viewMode === "historical" ? 0 : -1}
-          onClick={() => setViewMode("historical")}
-          className={`flex items-center justify-between gap-2 px-4 py-2.5 min-h-[44px] rounded-xl text-left transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] ${
-            viewMode === "historical"
-              ? "bg-[var(--bg-surface)] text-[var(--color-semman)] shadow-sm border border-[var(--color-semman)]/30"
-              : "text-[var(--color-muted)] hover:text-[var(--color-mai)]"
-          }`}
-        >
-          <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-tamil font-semibold">
-            <Database className="w-4 h-4 shrink-0" />
-            <span>
-              {language === "ta"
-                ? "வரலாற்று மூலப் பதிவுகள்"
-                : "Historical Archive"}
-            </span>
-          </span>
-          <span className="text-[11px] font-mono-tamil opacity-80 hidden sm:inline">
-            307,243 records
-          </span>
-        </button>
-      </div>
+      <button
+        id="lexicon-tab-historical"
+        type="button"
+        role="tab"
+        aria-selected={viewMode === "historical"}
+        aria-controls="lexicon-panel-historical"
+        tabIndex={viewMode === "historical" ? 0 : -1}
+        onClick={() => setViewMode("historical")}
+        className={`inline-flex items-center gap-1.5 px-3 py-1.5 min-h-[36px] rounded-lg text-xs font-medium transition-colors cursor-pointer ${
+          viewMode === "historical"
+            ? "bg-[var(--bg-surface)] text-[var(--color-semman)] font-semibold shadow-xs"
+            : "text-[var(--color-muted)] hover:text-[var(--color-mai)]"
+        }`}
+      >
+        <Database className="w-3.5 h-3.5 shrink-0" />
+        <span>
+          {language === "ta" ? "வரலாற்றுப் பதிவுகள்" : "Historical Archive"}
+        </span>
+      </button>
+    </div>
+  );
 
-      {viewMode === "historical" ? (
+  const showHistoricalMode = !IS_PUBLIC_BETA && viewMode === "historical";
+
+  return (
+    <div className="space-y-6">
+      {showHistoricalMode ? (
         <div
           id="lexicon-panel-historical"
           role="tabpanel"
           aria-labelledby="lexicon-tab-historical"
         >
-          <HistoricalSourceExplorer engineReady={ready} />
+          <Suspense
+            fallback={
+              <div className="py-12 flex items-center justify-center gap-2 text-sm text-[var(--color-muted)]">
+                <Loader2 className="w-4 h-4 animate-spin text-[var(--color-semman)]" />
+                <span>{t.shell.engineLoading}</span>
+              </div>
+            }
+          >
+            <LazyHistoricalSourceExplorer engineReady={ready} headerActions={modeSwitcher} />
+          </Suspense>
         </div>
       ) : (
         <div
@@ -993,15 +1010,26 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
           aria-labelledby="lexicon-tab-verified"
           className="space-y-5"
         >
+          <ToolHeader
+            title={t.tools.lexicon.title}
+            description={t.tools.lexicon.desc}
+            meta={
+              <span className="text-xs font-mono-tamil text-[var(--color-muted)]">
+                {totalActiveWords.toLocaleString()} {t.home.dictionaryCountSuffix}
+              </span>
+            }
+            actions={!IS_PUBLIC_BETA ? modeSwitcher : undefined}
+          />
+
           {/* Loading / Error Banners */}
           {!ready && (
-            <Card className="p-4 border border-[var(--border-line)] bg-[var(--bg-surface)] flex items-center gap-3">
-              <Loader2 className="w-5 h-5 animate-spin text-[var(--color-semman)] shrink-0" />
+            <Card className="p-4 flex items-center gap-3">
+              <Loader2 className="w-4 h-4 animate-spin text-[var(--color-semman)] shrink-0" />
               <div className="space-y-0.5">
-                <span className="text-sm font-tamil font-semibold text-[var(--color-mai)] block">
+                <span className="text-sm font-semibold text-[var(--color-mai)] block">
                   {t.tools.lexicon.loadingEngine}
                 </span>
-                <span className="text-xs font-tamil-sans text-[var(--color-muted)]">
+                <span className="text-xs text-[var(--color-muted)]">
                   {t.tools.lexicon.firstLoadSizeNote}
                 </span>
               </div>
@@ -1009,13 +1037,13 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
           )}
 
           {packsError && (
-            <Card className="p-4 border border-red-500/40 bg-red-500/10 text-xs font-mono-tamil text-red-700 dark:text-red-300">
+            <Card className="p-4 border-red-500/40 bg-red-500/10 text-xs font-mono-tamil text-red-700 dark:text-red-300">
               {packsError}
             </Card>
           )}
 
           {/* Clean Search & Filter Bar */}
-          <Card className="p-4 sm:p-5 border border-[var(--border-line)] bg-[var(--bg-surface)] space-y-4">
+          <Card className="p-4 sm:p-5 space-y-3.5">
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2.5">
               <div className="relative flex-1">
                 <Search className="w-4 h-4 text-[var(--color-muted)] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -1033,7 +1061,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                       : `Search ${totalActiveWords.toLocaleString()} Tamil words or English meanings (e.g. நன்றி, அவகுணம், water)...`
                   }
                   aria-label={t.tools.lexicon.searchLabel}
-                  className="w-full min-h-[44px] pl-10 pr-10 py-2.5 rounded-xl border border-[var(--border-line)] bg-[var(--bg-canvas)] text-sm sm:text-base font-tamil text-[var(--color-mai)] placeholder:text-[var(--color-muted)]/60 focus:border-[var(--color-semman)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-semman)]"
+                  className="w-full min-h-[44px] pl-10 pr-10 py-2 rounded-xl border border-[var(--border-line)] bg-[var(--bg-canvas)] text-sm sm:text-base font-tamil text-[var(--color-mai)] placeholder:text-[var(--color-muted)]/60 focus:border-[var(--color-semman)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-semman)]"
                 />
                 {query && (
                   <button
@@ -1049,12 +1077,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                   </button>
                 )}
               </div>
-              <Button
-                type="submit"
-                variant="primary"
-                size="md"
-                className="font-tamil shrink-0"
-              >
+              <Button type="submit" variant="primary" size="md" className="shrink-0">
                 <Search className="w-4 h-4 mr-1.5" />
                 <span>{t.tools.lexicon.searchButton}</span>
               </Button>
@@ -1065,10 +1088,10 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
               <div className="inline-flex flex-wrap items-center gap-1.5">
                 {(
                   [
-                    { id: "ALL", en: `All (${totalActiveWords.toLocaleString()})`, ta: `அனைத்தும் (${totalActiveWords.toLocaleString()})` },
+                    { id: "ALL", en: "All", ta: "அனைத்தும்" },
                     { id: "ta_wiktionary", en: "Tamil Wiktionary", ta: "தமிழ் விக்சனரி" },
-                    { id: "core", en: "Core (EN)", ta: "அடிப்படை" },
-                    { id: "regional", en: "Regional Dialects", ta: "வட்டார வழக்கு" },
+                    { id: "core", en: "English Wiktionary", ta: "ஆங்கில விக்சனரி" },
+                    { id: "regional", en: "Dialects", ta: "வட்டார வழக்கு" },
                     { id: "names_taxa", en: "Names & Taxa", ta: "பெயர்கள்" },
                   ] as const
                 ).map((pill) => {
@@ -1083,9 +1106,9 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                       type="button"
                       disabled={disabled || !ready}
                       onClick={() => handleQuickSourceFilter(pill.id)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-tamil font-medium transition-colors cursor-pointer disabled:opacity-40 ${
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors cursor-pointer disabled:opacity-40 ${
                         isActive
-                          ? "bg-[var(--color-semman)] text-white"
+                          ? "bg-[var(--color-semman)] text-[#faf7f2]"
                           : "bg-[var(--bg-raised)] text-[var(--color-mai)] hover:bg-[var(--color-semman-light)] hover:text-[var(--color-semman)]"
                       }`}
                     >
@@ -1101,7 +1124,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                   value={selectedPos}
                   onChange={(e) => setSelectedPos(e.target.value)}
                   aria-label={language === "ta" ? "சொல்வகை" : "Part of speech"}
-                  className="min-h-[36px] px-2.5 py-1 rounded-lg border border-[var(--border-line)] bg-[var(--bg-canvas)] text-xs font-tamil text-[var(--color-mai)] focus:border-[var(--color-semman)] focus-visible:outline-none"
+                  className="min-h-[36px] px-2.5 py-1 rounded-lg border border-[var(--border-line)] bg-[var(--bg-canvas)] text-xs text-[var(--color-mai)] focus:border-[var(--color-semman)] focus-visible:outline-none"
                 >
                   <option value="ALL">
                     {language === "ta" ? "அனைத்து சொல்வகைகள்" : "All parts of speech"}
@@ -1124,7 +1147,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                     }
                   }}
                   aria-label={t.tools.lexicon.regionFilterLabel}
-                  className="min-h-[36px] px-2.5 py-1 rounded-lg border border-[var(--border-line)] bg-[var(--bg-canvas)] text-xs font-tamil text-[var(--color-mai)] focus:border-[var(--color-semman)] focus-visible:outline-none"
+                  className="min-h-[36px] px-2.5 py-1 rounded-lg border border-[var(--border-line)] bg-[var(--bg-canvas)] text-xs text-[var(--color-mai)] focus:border-[var(--color-semman)] focus-visible:outline-none"
                 >
                   <option value="">
                     {language === "ta" ? "அனைத்து வட்டாரங்கள்" : "All dialects"}
@@ -1141,16 +1164,16 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
               </div>
             </div>
 
-            {/* Tamil Alphabet Strip (அகர வரிசை Browse across all 90,167 words) */}
+            {/* Compact Alphabet Strip */}
             {alphabetBuckets.length > 0 && (
-              <div className="pt-2 border-t border-[var(--border-line)]/70">
-                <div className="flex flex-wrap items-center gap-1">
+              <div className="pt-2.5 border-t border-[var(--border-line)]/70">
+                <div className="flex items-center sm:flex-wrap gap-1 overflow-x-auto no-scrollbar pb-0.5 sm:pb-0">
                   <button
                     type="button"
                     onClick={() => setSelectedLetter("ALL")}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-tamil font-semibold transition-colors cursor-pointer ${
+                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold shrink-0 transition-colors cursor-pointer ${
                       selectedLetter === "ALL"
-                        ? "bg-[var(--color-semman)] text-white"
+                        ? "bg-[var(--color-semman)] text-[#faf7f2]"
                         : "bg-[var(--bg-canvas)] border border-[var(--border-line)] text-[var(--color-mai)] hover:border-[var(--color-semman)]"
                     }`}
                   >
@@ -1167,9 +1190,9 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                           setQuery("");
                         }}
                         title={`${bucket.id} (${bucket.count.toLocaleString()} words)`}
-                        className={`min-w-[32px] px-2 py-1 rounded-lg text-xs sm:text-sm font-tamil font-medium transition-colors cursor-pointer ${
+                        className={`min-w-[30px] px-2 py-1 rounded-lg text-xs sm:text-sm font-tamil font-medium shrink-0 transition-colors cursor-pointer ${
                           active
-                            ? "bg-[var(--color-semman)] text-white shadow-sm"
+                            ? "bg-[var(--color-semman)] text-[#faf7f2]"
                             : "bg-[var(--bg-canvas)] border border-[var(--border-line)] text-[var(--color-mai)] hover:border-[var(--color-semman)] hover:text-[var(--color-semman)]"
                         }`}
                       >
@@ -1182,12 +1205,12 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
             )}
           </Card>
 
-          {/* Master-Detail Dictionary Workspace: Left = Browse List, Right = Entry Definition */}
+          {/* Master-Detail Dictionary Workspace */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
             {/* Left Pane: Browseable Word List */}
-            <Card className="lg:col-span-5 border border-[var(--border-line)] bg-[var(--bg-surface)] overflow-hidden flex flex-col">
-              <div className="px-4 py-3 border-b border-[var(--border-line)] bg-[var(--bg-raised)]/60 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2 text-xs font-tamil font-semibold text-[var(--color-mai)]">
+            <Card className="lg:col-span-5 p-0 overflow-hidden flex flex-col">
+              <div className="px-4 py-3 border-b border-[var(--border-line)] bg-[var(--bg-raised)]/40 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 text-xs font-semibold text-[var(--color-mai)]">
                   <BookOpen className="w-4 h-4 text-[var(--color-semman)] shrink-0" />
                   <span>
                     {selectedLetter !== "ALL"
@@ -1217,7 +1240,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                 </div>
               ) : pagedItems.length === 0 ? (
                 <div className="p-6 text-center space-y-2">
-                  <p className="text-sm font-tamil text-[var(--color-muted)]">
+                  <p className="text-sm text-[var(--color-muted)]">
                     {language === "ta"
                       ? "இந்த வடிகட்டிகளுக்குப் பொருந்தும் சொற்கள் இல்லை."
                       : "No words match these filters."}
@@ -1249,8 +1272,8 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                           onClick={() => handleSelectBrowseWord(item)}
                           className={`w-full text-left px-4 py-2.5 transition-colors cursor-pointer flex flex-col gap-0.5 ${
                             isSelected
-                              ? "bg-[var(--color-semman-light)]/70 border-l-3 border-[var(--color-semman)]"
-                              : "hover:bg-[var(--bg-raised)]/70"
+                              ? "bg-[var(--color-semman-light)]/70 border-l-2 border-[var(--color-semman)]"
+                              : "hover:bg-[var(--bg-raised)]/60"
                           }`}
                         >
                           <div className="flex items-center justify-between gap-2">
@@ -1278,7 +1301,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                             </div>
                           </div>
                           {item.gloss && (
-                            <p className="text-xs font-tamil-sans text-[var(--color-muted)] truncate">
+                            <p className="text-xs text-[var(--color-muted)] truncate">
                               {item.gloss}
                             </p>
                           )}
@@ -1323,9 +1346,9 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
             {/* Right Pane: Selected Word Dictionary Entry */}
             <div className="lg:col-span-7 space-y-4">
               {lookupError && (
-                <Card className="p-5 border border-red-500/40 bg-red-500/5 space-y-3" role="alert">
+                <Card className="p-5 border-red-500/40 bg-red-500/5 space-y-3" role="alert">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div className="flex items-center gap-2 text-red-700 dark:text-red-300 font-tamil font-bold text-sm">
+                    <div className="flex items-center gap-2 text-red-700 dark:text-red-300 font-bold text-sm">
                       <AlertTriangle className="w-4 h-4 shrink-0" />
                       <span>{t.tools.lexicon.statusError}</span>
                     </div>
@@ -1345,7 +1368,6 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                         setSelectedRegister("");
                         executeLookup(activeWord, { packs: availablePackIds });
                       }}
-                      className="font-tamil"
                     >
                       {t.tools.lexicon.resetToAvailablePacks}
                     </Button>
@@ -1354,19 +1376,16 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
               )}
 
               {!lookupError && response && !hasAnyEntryMatch && (
-                <Card className="p-5 border border-[var(--border-line)] bg-[var(--bg-surface)] space-y-3">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h3 className="text-base font-tamil font-bold text-[var(--color-mai)]">
-                      {language === "ta"
-                        ? `"${response.canonical_query}" நேரடியாகக் கிடைக்கவில்லை`
-                        : `No exact entry for "${response.canonical_query}"`}
-                    </h3>
-                    <Badge variant="mono">{latencyMs.toFixed(2)} ms</Badge>
-                  </div>
+                <Card className="p-5 space-y-3">
+                  <h2 className="text-base font-tamil font-bold text-[var(--color-mai)]">
+                    {language === "ta"
+                      ? `"${response.canonical_query}" நேரடியாகக் கிடைக்கவில்லை`
+                      : `No exact entry for "${response.canonical_query}"`}
+                  </h2>
 
                   {fallbackSuggestions.length > 0 ? (
                     <div className="space-y-2">
-                      <p className="text-xs font-tamil-sans text-[var(--color-muted)]">
+                      <p className="text-xs text-[var(--color-muted)]">
                         {language === "ta"
                           ? "தொடர்புடைய சொற்கள் (தொட்டுப் பார்க்கவும்):"
                           : "Closest matching words (click to open):"}
@@ -1392,28 +1411,26 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                       </div>
                     </div>
                   ) : (
-                    <p className="text-xs font-tamil-sans text-[var(--color-muted)] leading-relaxed">
+                    <p className="text-xs text-[var(--color-muted)] leading-relaxed">
                       {t.tools.lexicon.notFoundBody}
                     </p>
                   )}
                 </Card>
               )}
 
-              {/* Unified Real-Dictionary Card (combines all Parts of Speech + EN & TA Wiktionary in one card) */}
               {hasAnyEntryMatch && (
                 <UnifiedWordCard
                   word={activeWord}
                   entries={response && response.status === "matched" ? response.entries : []}
                   extended={extendedEntry}
                   canonicalQuery={response?.canonical_query}
-                  latencyMs={latencyMs}
                   language={language}
                 />
               )}
 
               {/* Quick Starter Words */}
-              <Card className="p-4 border border-[var(--border-line)] bg-[var(--bg-surface)] space-y-2.5">
-                <span className="text-xs font-tamil font-semibold text-[var(--color-muted)] block">
+              <Card className="p-4 space-y-2.5">
+                <span className="text-xs font-semibold text-[var(--color-muted)] block">
                   {language === "ta" ? "எடுத்துக்காட்டுச் சொற்கள்" : "Try these words"}
                 </span>
                 <div className="flex flex-wrap gap-1.5">
@@ -1439,22 +1456,22 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
           </div>
 
           {/* Collapsible Advanced Filters, Pack Controls & Developer Diagnostics */}
-          <Card className="p-4 sm:p-5 border border-[var(--border-line)] bg-[var(--bg-surface)]">
+          <Card className="p-4 sm:p-5">
             <button
               type="button"
               onClick={() => setShowAdvancedPanel((prev) => !prev)}
               aria-expanded={showAdvancedPanel}
               className="w-full flex items-center justify-between gap-2 text-left min-h-[40px] cursor-pointer"
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <SlidersHorizontal className="w-4 h-4 text-[var(--color-muted)] shrink-0" />
                 <div>
-                  <span className="text-sm font-tamil font-bold text-[var(--color-mai)] block">
+                  <span className="text-sm font-semibold text-[var(--color-mai)] block">
                     {language === "ta"
                       ? "மேம்பட்ட வடிகட்டிகள், தொகுப்பு விவரங்கள் & உருவாக்குநர் கருவிகள்"
                       : "Advanced Filters, Pack Coverage & Developer Tools"}
                   </span>
-                  <span className="text-[11px] font-tamil-sans text-[var(--color-muted)]">
+                  <span className="text-xs text-[var(--color-muted)]">
                     {language === "ta"
                       ? "நடை வடிகட்டி, உரிம அறிவிப்புகள், ஒப்பந்தச் சோதனைகள் மற்றும் JSON வெளியீடு"
                       : "Register filter, pack checkboxes, CC-BY-SA-4.0 notices, contract presets, and raw JSON"}
@@ -1474,7 +1491,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="lexicon-register-select"
-                      className="text-xs font-tamil font-semibold text-[var(--color-mai)] block"
+                      className="text-xs font-semibold text-[var(--color-mai)] block"
                     >
                       {t.tools.lexicon.registerFilterLabel} ({scopeOptions.registers.length})
                     </label>
@@ -1498,7 +1515,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                   </div>
 
                   <div className="space-y-1.5">
-                    <span className="text-xs font-tamil font-semibold text-[var(--color-mai)] block">
+                    <span className="text-xs font-semibold text-[var(--color-mai)] block">
                       Exact Query Diagnostics
                     </span>
                     <div className="flex flex-wrap items-center gap-1.5 pt-1">
@@ -1521,7 +1538,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
 
                 {/* Pack Checkboxes & Attribution Notices */}
                 <div className="space-y-2">
-                  <span className="text-xs font-tamil font-semibold text-[var(--color-mai)] block">
+                  <span className="text-xs font-semibold text-[var(--color-mai)] block">
                     {t.tools.lexicon.packsLabel} ({loadedTotals.loadedPackIds.join(" + ") || "none"})
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
@@ -1567,7 +1584,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                                   href={nLink.href}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 text-[10px] font-tamil text-[var(--color-semman)] hover:underline"
+                                  className="inline-flex items-center gap-1 text-[10px] text-[var(--color-semman)] hover:underline"
                                 >
                                   <ExternalLink className="w-2.5 h-2.5 shrink-0" />
                                   <span>{language === "ta" ? nLink.label_ta : nLink.label_en}</span>
@@ -1587,7 +1604,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                     type="button"
                     onClick={() => setShowDataDetails((prev) => !prev)}
                     aria-expanded={showDataDetails}
-                    className="w-full flex items-center justify-between text-xs font-tamil font-semibold text-[var(--color-mai)] cursor-pointer"
+                    className="w-full flex items-center justify-between text-xs font-semibold text-[var(--color-mai)] cursor-pointer"
                   >
                     <span className="inline-flex items-center gap-1.5">
                       <Info className="w-3.5 h-3.5 text-[var(--color-semman)]" />
@@ -1596,7 +1613,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                     {showDataDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                   </button>
                   {showDataDetails && (
-                    <div className="pt-2 border-t border-[var(--border-line)] space-y-2 text-xs font-tamil-sans text-[var(--color-muted)]">
+                    <div className="pt-2 border-t border-[var(--border-line)] space-y-2 text-xs text-[var(--color-muted)]">
                       <p>
                         Embedded WASM packs: {catalogAlignment.verifiedLoadedEntries.toLocaleString()} entries ·{" "}
                         {catalogAlignment.verifiedLoadedSenses.toLocaleString()} senses ·{" "}
@@ -1604,12 +1621,12 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                       </p>
                       {extendedManifest && (
                         <p>
-                          Extended verified dictionary (`en.wiktionary.org` + `ta.wiktionary.org`, CC-BY-SA-4.0):{" "}
+                          Extended verified dictionary (en.wiktionary.org + ta.wiktionary.org, CC-BY-SA-4.0):{" "}
                           {extendedManifest.total_words.toLocaleString()} distinct words (
                           {extendedManifest.tawiktionary_words.toLocaleString()} from Tamil Wiktionary).
                         </p>
                       )}
-                      <p>{t.tools.lexicon.historicalExclusionBody}</p>
+                      {!IS_PUBLIC_BETA && <p>{t.tools.lexicon.historicalExclusionBody}</p>}
                     </div>
                   )}
                 </div>
@@ -1620,7 +1637,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                     type="button"
                     onClick={() => setShowContractPresets((prev) => !prev)}
                     aria-expanded={showContractPresets}
-                    className="w-full flex items-center justify-between text-xs font-tamil font-semibold text-[var(--color-mai)] cursor-pointer"
+                    className="w-full flex items-center justify-between text-xs font-semibold text-[var(--color-mai)] cursor-pointer"
                   >
                     <span className="inline-flex items-center gap-1.5">
                       <FlaskConical className="w-3.5 h-3.5 text-[var(--color-sandhanam)]" />
@@ -1638,10 +1655,10 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                           disabled={!ready}
                           className="p-2.5 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] hover:border-[var(--color-sandhanam)] text-left space-y-0.5 cursor-pointer disabled:opacity-50"
                         >
-                          <div className="text-xs font-tamil font-bold text-[var(--color-mai)]">
+                          <div className="text-xs font-bold text-[var(--color-mai)]">
                             {language === "ta" ? preset.label_ta : preset.label_en}
                           </div>
-                          <p className="text-[11px] font-tamil-sans text-[var(--color-muted)] leading-snug">
+                          <p className="text-[11px] text-[var(--color-muted)] leading-snug">
                             {language === "ta" ? preset.desc_ta : preset.desc_en}
                           </p>
                         </button>
@@ -1656,7 +1673,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                     type="button"
                     onClick={() => setShowRawInspector((prev) => !prev)}
                     aria-expanded={showRawInspector}
-                    className="w-full flex items-center justify-between text-xs font-tamil font-semibold text-[var(--color-mai)] cursor-pointer"
+                    className="w-full flex items-center justify-between text-xs font-semibold text-[var(--color-mai)] cursor-pointer"
                   >
                     <span className="inline-flex items-center gap-1.5">
                       <BookMarked className="w-3.5 h-3.5 text-[var(--color-semman)]" />
@@ -1668,7 +1685,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                     <div className="pt-2 border-t border-[var(--border-line)] grid grid-cols-1 lg:grid-cols-2 gap-3">
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs font-tamil font-semibold text-[var(--color-mai)]">
+                          <span className="text-xs font-semibold text-[var(--color-mai)]">
                             {t.tools.lexicon.rawRequestLabel}
                           </span>
                           <div className="flex items-center gap-1.5">
@@ -1690,7 +1707,7 @@ export function LexiconExplorer({ engineReady }: LexiconExplorerProps) {
                       </div>
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs font-tamil font-semibold text-[var(--color-mai)]">
+                          <span className="text-xs font-semibold text-[var(--color-mai)]">
                             {t.tools.lexicon.rawResponseLabel}
                           </span>
                           <div className="flex items-center gap-1.5">

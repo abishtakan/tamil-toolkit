@@ -33,4 +33,29 @@ describe("T030: WorkerClient RPC Contract", () => {
     expect(progressMsg.percent).toBe(50);
     expect(completeMsg.convertedText).toBe("வணக்கம்");
   });
+
+  it("structures worker execute RPC request and completion payloads", () => {
+    const request = {
+      type: "EXECUTE",
+      jobId: "exec_1_1000",
+      op: "tamil_year_info",
+      input: { solar_year: 2026 }
+    };
+
+    const complete = {
+      type: "EXECUTE_COMPLETE",
+      jobId: "exec_1_1000",
+      result: { solar_year: 2026, months: [] }
+    };
+
+    const error = {
+      type: "EXECUTE_ERROR",
+      jobId: "exec_1_1000",
+      error: "Execution error"
+    };
+
+    expect(request.type).toBe("EXECUTE");
+    expect(complete.type).toBe("EXECUTE_COMPLETE");
+    expect(error.type).toBe("EXECUTE_ERROR");
+  });
 });

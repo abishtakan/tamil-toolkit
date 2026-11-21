@@ -1,5 +1,78 @@
 @import "tailwindcss";
 
+/* Self-hosted Tamil & Tamil Supplement webfonts (subsetted to Tamil script ranges for reliable mobile rendering) */
+@font-face {
+  font-family: "Noto Sans Tamil";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("@fontsource/noto-sans-tamil/files/noto-sans-tamil-tamil-400-normal.woff2") format("woff2");
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+
+@font-face {
+  font-family: "Noto Sans Tamil";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("@fontsource/noto-sans-tamil/files/noto-sans-tamil-tamil-500-normal.woff2") format("woff2");
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+
+@font-face {
+  font-family: "Noto Sans Tamil";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("@fontsource/noto-sans-tamil/files/noto-sans-tamil-tamil-600-normal.woff2") format("woff2");
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+
+@font-face {
+  font-family: "Noto Sans Tamil";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("@fontsource/noto-sans-tamil/files/noto-sans-tamil-tamil-700-normal.woff2") format("woff2");
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+
+@font-face {
+  font-family: "Noto Serif Tamil";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("@fontsource/noto-serif-tamil/files/noto-serif-tamil-tamil-400-normal.woff2") format("woff2");
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+
+@font-face {
+  font-family: "Noto Serif Tamil";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("@fontsource/noto-serif-tamil/files/noto-serif-tamil-tamil-600-normal.woff2") format("woff2");
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+
+@font-face {
+  font-family: "Noto Serif Tamil";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("@fontsource/noto-serif-tamil/files/noto-serif-tamil-tamil-700-normal.woff2") format("woff2");
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+
+@font-face {
+  font-family: "Noto Sans Tamil Supplement";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("@fontsource/noto-sans-tamil-supplement/files/noto-sans-tamil-supplement-tamil-supplement-400-normal.woff2") format("woff2");
+  unicode-range: U+11FC0-11FFF;
+}
+
 @layer base {
   :root {
     /* Classical Tamil Parchment & Terracotta (Light Mode) */
@@ -16,7 +89,8 @@
     --border-line: #e8e0d4;
     --radius: 0.75rem;
 
-    font-family: "Noto Serif Tamil", "Mukta Malar", "Nirmala UI", "Latha", serif, system-ui;
+    font-family: "Inter", "Noto Sans Tamil", "Noto Sans Tamil Supplement", "Nirmala UI", system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
     color: var(--color-mai);
     background-color: var(--bg-canvas);
     text-rendering: optimizeLegibility;
@@ -45,7 +119,7 @@
   }
 
   /* Utility-focused micro-transitions */
-  button, a, input, textarea {
+  button, a, input, textarea, select {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     transition-duration: 120ms;
@@ -54,15 +128,24 @@
 
 /* Custom utility classes */
 .font-tamil {
-  font-family: "Noto Serif Tamil", "Mukta Malar", "Nirmala UI", "Latha", serif;
+  font-family: "Noto Serif Tamil", "Noto Sans Tamil Supplement", "Mukta Malar", "Nirmala UI", "Latha", Georgia, serif;
 }
 
 .font-tamil-sans {
-  font-family: "Inter", "Noto Sans Tamil", "Nirmala UI", sans-serif;
+  font-family: "Inter", "Noto Sans Tamil", "Noto Sans Tamil Supplement", "Nirmala UI", system-ui, -apple-system, sans-serif;
 }
 
 .font-mono-tamil {
-  font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", monospace;
+  font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, "Noto Sans Tamil", "Noto Sans Tamil Supplement", monospace;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Custom scrollbars */

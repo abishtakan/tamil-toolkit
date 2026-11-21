@@ -69,7 +69,11 @@ export function CopyButton({
     >
       {copied ? (
         <>
-          <Check className="w-4 h-4 mr-1.5 text-[#faf7f2] animate-in zoom-in-50" />
+          <Check
+            className={`w-4 h-4 mr-1.5 ${
+              variant === "primary" ? "text-[#faf7f2]" : "text-[var(--color-semman)]"
+            }`}
+          />
           <span>{displayCopiedLabel}</span>
         </>
       ) : (

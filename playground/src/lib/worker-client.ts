@@ -1,4 +1,7 @@
+import { tt } from "./engine";
+
 let workerInstance: Worker | null = null;
+let execCounter = 0;
 
 function getWorker(): Worker {
   if (!workerInstance) {
@@ -52,6 +55,49 @@ export function runBatchConvert(
       jobId,
       text,
       targetCodec
+    });
+  });
+}
+
+export async function runWorkerExecute<T>(op: string, input: unknown): Promise<T> {
+  if (typeof Worker === "undefined") {
+    return tt.execute({ op, input }) as T;
+  }
+
+  const jobId = `exec_${++execCounter}_${Date.now()}`;
+  return new Promise<T>((resolve, reject) => {
+    const worker = getWorker();
+
+    const cleanup = () => {
+      worker.removeEventListener("message", handleMessage);
+      worker.removeEventListener("error", handleError);
+    };
+
+    const handleMessage = (e: MessageEvent) => {
+      const data = e.data;
+      if (!data || data.jobId !== jobId) return;
+
+      if (data.type === "EXECUTE_COMPLETE") {
+        cleanup();
+        resolve(data.result as T);
+      } else if (data.type === "EXECUTE_ERROR") {
+        cleanup();
+        reject(new Error(data.error || "Worker execution error"));
+      }
+    };
+
+    const handleError = (err: ErrorEvent) => {
+      cleanup();
+      reject(new Error(err.message || "Worker runtime error"));
+    };
+
+    worker.addEventListener("message", handleMessage);
+    worker.addEventListener("error", handleError);
+    worker.postMessage({
+      type: "EXECUTE",
+      jobId,
+      op,
+      input,
     });
   });
 }

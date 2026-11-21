@@ -1,30 +1,95 @@
 import { useState, useMemo } from "react";
 import { useLanguage } from "../../lib/i18n";
-import { analyzeTamilText, AnalyzedSyllable } from "../../lib/engine";
+import { analyzeTamilText, AnalyzedSyllable, isEngineReady, tt } from "../../lib/engine";
+import { ToolHeader } from "../common/ToolHeader";
 import { Textarea } from "../ui/textarea";
 import { Card } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { CopyButton } from "../common/CopyButton";
 import { StickyActionBar } from "../common/StickyActionBar";
-import { Sparkles, Layers, Code, Type, Clock, Scale, Link2 } from "lucide-react";
-import type * as tt from "tamil-toolkit";
+import { Layers, Code, Type, Clock, Scale, Link2 } from "lucide-react";
+import type * as ttTypes from "tamil-toolkit";
 
 const SAMPLE_TEXT = "தமிழ்நாடு வாழ்க! அஃது சீரிளமைத் திறம்";
+const MEI_CONSONANTS = [
+  "க்", "ங்", "ச்", "ஞ்", "ட்", "ண்", "த்", "ந்", "ப்",
+  "ம்", "ய்", "ர்", "ல்", "வ்", "ழ்", "ள்", "ற்", "ன்",
+];
+const UYIR_VOWELS = [
+  "அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "எ", "ஏ", "ஐ", "ஒ", "ஓ", "ஔ",
+];
 
-export function LetterAnalyzer() {
+type LetterSubTab = "breakdown" | "composer" | "olippasai";
+
+interface LetterAnalyzerProps {
+  engineReady?: boolean;
+}
+
+export function LetterAnalyzer({ engineReady }: LetterAnalyzerProps) {
   const { t, language } = useLanguage();
+  const ready = engineReady ?? isEngineReady();
+  const [activeTab, setActiveTab] = useState<LetterSubTab>("breakdown");
   const [inputText, setInputText] = useState(SAMPLE_TEXT);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
+  // Composer state
+  const [selectedMei, setSelectedMei] = useState("க்");
+  const [selectedUyir, setSelectedUyir] = useState("அ");
+
+  // Olippasai & cognate state
+  const [olippasaiInput, setOlippasaiInput] = useState("தங்கம்");
+  const [cognateLeft, setCognateLeft] = useState("க்");
+  const [cognateRight, setCognateRight] = useState("ங்");
+
   const report = useMemo(() => {
+    void ready;
     return analyzeTamilText(inputText);
-  }, [inputText]);
+  }, [inputText, ready]);
 
   const selectedSyllable: AnalyzedSyllable | null = useMemo(() => {
     if (report.syllables.length === 0) return null;
     return report.syllables[selectedIndex] || report.syllables[0];
   }, [report, selectedIndex]);
+
+  const composerResult = useMemo(() => {
+    if (!ready) return { composed: "", maathirai: 0, series: [] as { uyir: string; glyph: string }[] };
+    try {
+      const composed = tt.compose_uyirmei(selectedMei, selectedUyir);
+      const maathirai = tt.baseline_maathirai(composed);
+      const series = UYIR_VOWELS.map((uyir) => ({
+        uyir,
+        glyph: tt.compose_uyirmei(selectedMei, uyir),
+      }));
+      return { composed, maathirai, series };
+    } catch {
+      return { composed: "", maathirai: 0, series: [] };
+    }
+  }, [selectedMei, selectedUyir, ready]);
+
+  const olippasaiResult = useMemo(() => {
+    if (!ready || !olippasaiInput.trim()) return [];
+    try {
+      return tt.get_olippasai(olippasaiInput);
+    } catch {
+      return [];
+    }
+  }, [olippasaiInput, ready]);
+
+  const cognateResult = useMemo(() => {
+    if (!ready || !cognateLeft.trim() || !cognateRight.trim()) {
+      return { areCognates: false, leftPair: null as string | null, rightPair: null as string | null };
+    }
+    try {
+      return {
+        areCognates: tt.are_cognates(cognateLeft.trim(), cognateRight.trim()),
+        leftPair: tt.get_cognate(cognateLeft.trim()),
+        rightPair: tt.get_cognate(cognateRight.trim()),
+      };
+    } catch {
+      return { areCognates: false, leftPair: null, rightPair: null };
+    }
+  }, [cognateLeft, cognateRight, ready]);
 
   const loadSample = () => {
     setInputText(SAMPLE_TEXT);
@@ -46,8 +111,6 @@ export function LetterAnalyzer() {
         return "default";
       case "aaytham":
         return "sandhanam";
-      case "grantha":
-        return "outline";
       default:
         return "outline";
     }
@@ -70,7 +133,7 @@ export function LetterAnalyzer() {
     }
   };
 
-  const getQuantityLabel = (quantity?: tt.LetterQuantity | null): string => {
+  const getQuantityLabel = (quantity?: ttTypes.LetterQuantity | null): string => {
     switch (quantity) {
       case "kuril":
         return language === "ta" ? "குறில் (Short)" : "Short (Kuril)";
@@ -81,43 +144,95 @@ export function LetterAnalyzer() {
       case "aytham":
         return language === "ta" ? "ஆய்தம் (Visarga)" : "Aytham (Visarga)";
       default:
-        return "-";
+        return "—";
     }
   };
 
-  return (
-    <div className="space-y-6 animate-in fade-in-50 duration-150">
-      {/* Title & Description Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-[var(--border-line)]">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <h2 className="text-xl sm:text-2xl font-tamil font-bold text-[var(--color-mai)]">
-              {t.tools.letter.title}
-            </h2>
-            <Badge variant="terracotta">Grammatical Parser</Badge>
-          </div>
-          <p className="text-xs sm:text-sm text-[var(--color-muted)] font-tamil-sans max-w-2xl leading-relaxed">
-            {t.tools.letter.desc}
-          </p>
-        </div>
+  const subTabs: { id: LetterSubTab; label: string }[] = [
+    { id: "breakdown", label: t.tools.letter.tabBreakdown },
+    { id: "composer", label: t.tools.letter.tabComposer },
+    { id: "olippasai", label: t.tools.letter.tabOlippasai },
+  ];
 
-        <div className="flex items-center gap-2 shrink-0">
-          <Button variant="outline" size="sm" onClick={loadSample}>
-            <Sparkles className="w-3.5 h-3.5 mr-1 text-[var(--color-sandhanam)]" />
-            {t.actions.loadSample}
-          </Button>
-          <Button variant="ghost" size="sm" onClick={clearText} disabled={!inputText}>
-            {t.actions.clear}
-          </Button>
-        </div>
+  return (
+    <div className="space-y-6">
+      <ToolHeader
+        title={t.tools.letter.title}
+        description={t.tools.letter.desc}
+        actions={
+          activeTab === "breakdown" ? (
+            <>
+              <Button type="button" variant="outline" size="sm" onClick={loadSample}>
+                {t.actions.loadSample}
+              </Button>
+              <Button type="button" variant="ghost" size="sm" onClick={clearText} disabled={!inputText}>
+                {t.actions.clear}
+              </Button>
+            </>
+          ) : undefined
+        }
+      />
+
+      {/* Sub-navigation Pills */}
+      <div className="inline-flex flex-wrap items-center gap-1 p-1 rounded-xl bg-[var(--bg-raised)] border border-[var(--border-line)]">
+        {subTabs.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveTab(tab.id)}
+            className={`px-3.5 py-1.5 min-h-[36px] rounded-lg text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
+              activeTab === tab.id
+                ? "bg-[var(--bg-surface)] text-[var(--color-semman)] font-semibold shadow-xs"
+                : "text-[var(--color-muted)] hover:text-[var(--color-mai)]"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
-      {/* Input Textarea Area */}
+      {activeTab === "breakdown" && (
+        <>
+
+      {/* Input Area */}
       <div className="space-y-2">
-        <label className="text-xs font-tamil font-semibold text-[var(--color-mai)] block">
-          {t.tools.letter.inputLabel}
-        </label>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <label htmlFor="letter-analyzer-input" className="text-xs font-semibold text-[var(--color-mai)]">
+            {t.tools.letter.inputLabel}
+          </label>
+          <div className="flex flex-wrap items-center gap-3 text-xs text-[var(--color-muted)]">
+            <span>
+              {t.tools.letter.syllablesCount}:{" "}
+              <strong className="font-mono-tamil text-[var(--color-mai)]">{report.total_letters}</strong>
+            </span>
+            <span>·</span>
+            <span>
+              {t.tools.letter.uyirCount}:{" "}
+              <strong className="font-mono-tamil text-[var(--color-sandhanam)]">{report.vowel_count}</strong>
+            </span>
+            <span>·</span>
+            <span>
+              {t.tools.letter.meiCount}:{" "}
+              <strong className="font-mono-tamil text-[var(--color-semman)]">{report.consonant_count}</strong>
+            </span>
+            <span>·</span>
+            <span>
+              {t.tools.letter.uyirmeiCount}:{" "}
+              <strong className="font-mono-tamil text-[var(--color-mai)]">{report.uyirmei_count}</strong>
+            </span>
+            {report.grantha_count > 0 && (
+              <>
+                <span>·</span>
+                <span>
+                  {t.tools.letter.granthaCount}:{" "}
+                  <strong className="font-mono-tamil text-[var(--color-mai)]">{report.grantha_count}</strong>
+                </span>
+              </>
+            )}
+          </div>
+        </div>
         <Textarea
+          id="letter-analyzer-input"
           value={inputText}
           onChange={(e) => {
             setInputText(e.target.value);
@@ -129,124 +244,79 @@ export function LetterAnalyzer() {
         />
       </div>
 
-      {/* Summary Statistics Counters */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-        <div className="p-3 rounded-xl border border-[var(--border-line)] bg-[var(--bg-surface)] text-center">
-          <span className="text-[11px] font-tamil text-[var(--color-muted)] block mb-0.5">
-            {t.tools.letter.syllablesCount}
-          </span>
-          <span className="text-xl font-mono-tamil font-bold text-[var(--color-mai)]">
-            {report.total_letters}
-          </span>
-        </div>
-
-        <div className="p-3 rounded-xl border border-[var(--border-line)] bg-[var(--bg-surface)] text-center">
-          <span className="text-[11px] font-tamil text-[var(--color-muted)] block mb-0.5">
-            {t.tools.letter.uyirCount}
-          </span>
-          <span className="text-xl font-mono-tamil font-bold text-[var(--color-sandhanam)]">
-            {report.vowel_count}
-          </span>
-        </div>
-
-        <div className="p-3 rounded-xl border border-[var(--border-line)] bg-[var(--bg-surface)] text-center">
-          <span className="text-[11px] font-tamil text-[var(--color-muted)] block mb-0.5">
-            {t.tools.letter.meiCount}
-          </span>
-          <span className="text-xl font-mono-tamil font-bold text-[var(--color-semman)]">
-            {report.consonant_count}
-          </span>
-        </div>
-
-        <div className="p-3 rounded-xl border border-[var(--border-line)] bg-[var(--bg-surface)] text-center">
-          <span className="text-[11px] font-tamil text-[var(--color-muted)] block mb-0.5">
-            {t.tools.letter.uyirmeiCount}
-          </span>
-          <span className="text-xl font-mono-tamil font-bold text-[var(--color-mai)]">
-            {report.uyirmei_count}
-          </span>
-        </div>
-
-        <div className="p-3 rounded-xl border border-[var(--border-line)] bg-[var(--bg-surface)] text-center col-span-2 sm:col-span-1">
-          <span className="text-[11px] font-tamil text-[var(--color-muted)] block mb-0.5">
-            {t.tools.letter.granthaCount}
-          </span>
-          <span className="text-xl font-mono-tamil font-bold text-[var(--color-muted)]">
-            {report.grantha_count}
-          </span>
-        </div>
-      </div>
-
       {/* Main Layout: Syllables Ribbon (Left) + Detail Breakdown (Right) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Syllable Chips List (Cols 1-7) */}
-        <div className="lg:col-span-7 space-y-3">
-          <span className="text-xs font-tamil text-[var(--color-muted)] block px-1">
-            {t.tools.letter.selectPrompt}:
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div className="lg:col-span-7 space-y-2.5">
+          <span className="text-xs text-[var(--color-muted)] block px-1">
+            {t.tools.letter.selectPrompt}
           </span>
 
-          <div className="p-4 rounded-2xl border border-[var(--border-line)] bg-[var(--bg-surface)] flex flex-wrap gap-2 max-h-[400px] overflow-y-auto">
+          <Card className="p-4 flex flex-wrap gap-2 max-h-[420px] overflow-y-auto">
             {report.syllables.map((syl, i) => {
               const isSelected = selectedIndex === i;
               return (
                 <button
                   key={i}
+                  type="button"
                   onClick={() => setSelectedIndex(i)}
                   className={`px-3.5 py-2 rounded-xl border text-center transition-colors flex items-center gap-1.5 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-semman)] ${
                     isSelected
-                      ? "border-[var(--color-semman)] bg-[var(--color-semman-light)] text-[var(--color-semman)] font-bold shadow-xs"
+                      ? "border-[var(--color-semman)] bg-[var(--color-semman-light)] text-[var(--color-semman)] font-bold"
                       : "border-[var(--border-line)] bg-[var(--bg-canvas)] text-[var(--color-mai)] hover:border-[var(--color-semman)]/50"
                   }`}
                 >
                   <span className="text-lg font-tamil">{syl.raw}</span>
                   <span className="text-[10px] font-mono-tamil text-[var(--color-muted)]">
-                    #{i + 1}
+                    {i + 1}
                   </span>
                 </button>
               );
             })}
 
             {report.syllables.length === 0 && (
-              <div className="py-12 w-full text-center text-xs text-[var(--color-muted)] font-tamil">
+              <div className="py-12 w-full text-center text-xs text-[var(--color-muted)]">
                 {t.tools.letter.inputPlaceholder}
               </div>
             )}
-          </div>
+          </Card>
         </div>
 
-        {/* Selected Syllable Inspector Card (Cols 8-12) */}
+        {/* Selected Syllable Inspector Card */}
         <div className="lg:col-span-5">
           {selectedSyllable ? (
-            <Card className="p-6 border border-[var(--border-line)] bg-[var(--bg-surface)] rounded-2xl sticky top-20 space-y-5">
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="text-[11px] font-tamil text-[var(--color-muted)] uppercase tracking-wider block mb-1">
+            <Card className="p-6 sticky top-20 space-y-5">
+              <div className="flex items-start justify-between gap-2">
+                <div className="space-y-1.5">
+                  <span className="text-[11px] text-[var(--color-muted)] uppercase tracking-wider block">
                     {t.tools.letter.selectedSyllableHeading} #{selectedSyllable.index + 1}
                   </span>
                   <Badge variant={getKindBadgeVariant(selectedSyllable.kind)}>
                     {getKindLabel(selectedSyllable.kind)}
                   </Badge>
                 </div>
-                <CopyButton text={selectedSyllable.raw} label={t.actions.copy} />
+                <CopyButton text={selectedSyllable.raw} label={t.actions.copy} size="sm" variant="outline" />
               </div>
 
-              {/* Big Glyph Spotlight */}
-              <div className="rounded-2xl bg-[var(--bg-canvas)] border border-[var(--border-line)] p-6 flex flex-col items-center justify-center text-center space-y-1">
+              <div className="rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-line)] p-6 flex flex-col items-center justify-center text-center space-y-2">
                 <span className="text-5xl sm:text-6xl font-tamil select-all text-[var(--color-mai)]">
                   {selectedSyllable.raw}
                 </span>
+                {selectedSyllable.base_consonant && selectedSyllable.vowel && (
+                  <p className="text-sm font-tamil font-semibold text-[var(--color-semman)]">
+                    {selectedSyllable.base_consonant} + {selectedSyllable.vowel} = {selectedSyllable.raw}
+                  </p>
+                )}
                 <span className="text-xs font-mono-tamil text-[var(--color-muted)]">
                   {selectedSyllable.codepoints.join(" + ")}
                 </span>
               </div>
 
-              {/* Decomposition Fields */}
-              <div className="space-y-3 divide-y divide-[var(--border-line)] text-xs font-tamil">
+              <div className="space-y-3 divide-y divide-[var(--border-line)] text-xs">
                 {selectedSyllable.base_consonant && (
                   <div className="pt-2.5 flex items-center justify-between">
                     <span className="text-[var(--color-muted)] flex items-center gap-1.5">
                       <Type className="w-3.5 h-3.5" />
-                      {t.tools.letter.rootConsonantLabel}:
+                      {t.tools.letter.rootConsonantLabel}
                     </span>
                     <span className="font-tamil font-bold text-sm text-[var(--color-semman)]">
                       {selectedSyllable.base_consonant}
@@ -256,9 +326,8 @@ export function LetterAnalyzer() {
 
                 {selectedSyllable.vowel && (
                   <div className="pt-2.5 flex items-center justify-between">
-                    <span className="text-[var(--color-muted)] flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      {t.tools.letter.vowelLabel}:
+                    <span className="text-[var(--color-muted)]">
+                      {t.tools.letter.vowelLabel}
                     </span>
                     <span className="font-tamil font-bold text-sm text-[var(--color-sandhanam)]">
                       {selectedSyllable.vowel}
@@ -270,9 +339,9 @@ export function LetterAnalyzer() {
                   <div className="pt-2.5 flex items-center justify-between">
                     <span className="text-[var(--color-muted)] flex items-center gap-1.5">
                       <Scale className="w-3.5 h-3.5" />
-                      {t.tools.letter.quantityLabel}:
+                      {t.tools.letter.quantityLabel}
                     </span>
-                    <Badge variant="outline" className="font-tamil font-semibold">
+                    <Badge variant="outline" className="font-semibold">
                       {getQuantityLabel(selectedSyllable.quantity)}
                     </Badge>
                   </div>
@@ -282,11 +351,11 @@ export function LetterAnalyzer() {
                   <div className="pt-2.5 flex items-center justify-between">
                     <span className="text-[var(--color-muted)] flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5" />
-                      {t.tools.letter.moraLabel}:
+                      {t.tools.letter.moraLabel}
                     </span>
                     <span className="font-mono-tamil font-bold text-sm text-[var(--color-mai)]">
                       {selectedSyllable.maathirai}{" "}
-                      <span className="text-xs font-tamil text-[var(--color-muted)] font-normal">
+                      <span className="text-xs font-tamil-sans text-[var(--color-muted)] font-normal">
                         {language === "ta" ? "மாத்திரை" : "mora"}
                       </span>
                     </span>
@@ -297,7 +366,7 @@ export function LetterAnalyzer() {
                   <div className="pt-2.5 flex items-center justify-between">
                     <span className="text-[var(--color-muted)] flex items-center gap-1.5">
                       <Link2 className="w-3.5 h-3.5" />
-                      {t.tools.letter.cognateLabel}:
+                      {t.tools.letter.cognateLabel}
                     </span>
                     <span className="font-tamil font-bold text-sm text-[var(--color-sandhanam)]">
                       {(selectedSyllable.base_consonant || selectedSyllable.raw)} ↔ {selectedSyllable.cognate}
@@ -309,7 +378,7 @@ export function LetterAnalyzer() {
                   <div className="pt-2.5 flex flex-col gap-1">
                     <span className="text-[var(--color-muted)] flex items-center gap-1.5">
                       <Layers className="w-3.5 h-3.5" />
-                      {t.tools.letter.vowelSignLabel}:
+                      {t.tools.letter.vowelSignLabel}
                     </span>
                     <p className="text-xs font-tamil text-[var(--color-mai)] font-medium">
                       {selectedSyllable.vowel_sign_name_ta}
@@ -320,7 +389,7 @@ export function LetterAnalyzer() {
                 <div className="pt-2.5 flex flex-col gap-1">
                   <span className="text-[var(--color-muted)] flex items-center gap-1.5">
                     <Code className="w-3.5 h-3.5" />
-                    {t.tools.letter.codepointsLabel}:
+                    {t.tools.letter.codepointsLabel}
                   </span>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {selectedSyllable.codepoints.map((cp, idx) => (
@@ -336,18 +405,200 @@ export function LetterAnalyzer() {
               </div>
             </Card>
           ) : (
-            <Card className="p-8 border border-[var(--border-line)] bg-[var(--bg-surface)] rounded-2xl text-center text-xs text-[var(--color-muted)] font-tamil">
+            <Card className="p-8 text-center text-xs text-[var(--color-muted)]">
               {t.tools.letter.selectPrompt}
             </Card>
           )}
         </div>
       </div>
 
-      {/* Sticky Mobile Bar */}
       <StickyActionBar
-        outputText={selectedSyllable?.raw || ""}
+        outputText={
+          activeTab === "breakdown"
+            ? selectedSyllable?.raw || ""
+            : activeTab === "composer"
+              ? composerResult.composed
+              : olippasaiInput
+        }
         onClear={clearText}
       />
+        </>
+      )}
+
+      {activeTab === "composer" && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <Card className="p-5 lg:col-span-7 space-y-5">
+              <div className="space-y-2">
+                <span className="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider block">
+                  {t.tools.letter.composerMeiLabel}
+                </span>
+                <div className="grid grid-cols-6 sm:grid-cols-9 gap-1.5">
+                  {MEI_CONSONANTS.map((mei) => (
+                    <button
+                      key={mei}
+                      type="button"
+                      onClick={() => setSelectedMei(mei)}
+                      className={`py-2 rounded-lg border font-tamil text-base cursor-pointer transition-colors ${
+                        selectedMei === mei
+                          ? "bg-[var(--color-semman)] text-[#faf7f2] border-[var(--color-semman)] font-bold"
+                          : "bg-[var(--bg-canvas)] border-[var(--border-line)] text-[var(--color-mai)] hover:border-[var(--color-semman)]"
+                      }`}
+                    >
+                      {mei}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <span className="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider block">
+                  {t.tools.letter.composerUyirLabel}
+                </span>
+                <div className="grid grid-cols-6 gap-1.5">
+                  {UYIR_VOWELS.map((uyir) => (
+                    <button
+                      key={uyir}
+                      type="button"
+                      onClick={() => setSelectedUyir(uyir)}
+                      className={`py-2 rounded-lg border font-tamil text-base cursor-pointer transition-colors ${
+                        selectedUyir === uyir
+                          ? "bg-[var(--color-sandhanam)] text-[#faf7f2] border-[var(--color-sandhanam)] font-bold"
+                          : "bg-[var(--bg-canvas)] border-[var(--border-line)] text-[var(--color-mai)] hover:border-[var(--color-sandhanam)]"
+                      }`}
+                    >
+                      {uyir}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </Card>
+
+            <Card className="p-6 lg:col-span-5 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider">
+                  {t.tools.letter.composedResultLabel}
+                </span>
+                {composerResult.composed && (
+                  <CopyButton text={composerResult.composed} size="sm" variant="outline" />
+                )}
+              </div>
+
+              <div className="rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-line)] p-6 flex flex-col items-center justify-center text-center space-y-2">
+                <span className="text-6xl font-tamil text-[var(--color-mai)] select-all">
+                  {composerResult.composed || "—"}
+                </span>
+                <p className="text-sm font-tamil font-semibold text-[var(--color-semman)]">
+                  {selectedMei} + {selectedUyir} = {composerResult.composed}
+                </p>
+                <span className="text-xs font-mono-tamil text-[var(--color-muted)]">
+                  {Array.from(composerResult.composed)
+                    .map((ch) => `U+${(ch.codePointAt(0) ?? 0).toString(16).toUpperCase().padStart(4, "0")}`)
+                    .join(" + ")}
+                  {" · "}
+                  {composerResult.maathirai} {language === "ta" ? "மாத்திரை" : "mora"}
+                </span>
+              </div>
+            </Card>
+          </div>
+
+          <Card className="p-5 space-y-3">
+            <span className="text-xs font-semibold text-[var(--color-muted)] uppercase tracking-wider block">
+              {t.tools.letter.allVowelsRowLabel} ({selectedMei})
+            </span>
+            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-12 gap-2">
+              {composerResult.series.map((item) => (
+                <button
+                  key={item.uyir}
+                  type="button"
+                  onClick={() => setSelectedUyir(item.uyir)}
+                  className={`p-2.5 rounded-xl border text-center cursor-pointer transition-colors ${
+                    selectedUyir === item.uyir
+                      ? "bg-[var(--color-semman-light)] border-[var(--color-semman)] text-[var(--color-semman)] font-bold"
+                      : "bg-[var(--bg-canvas)] border-[var(--border-line)] text-[var(--color-mai)] hover:border-[var(--color-semman)]/50"
+                  }`}
+                >
+                  <div className="text-xl font-tamil">{item.glyph}</div>
+                  <div className="text-[10px] font-tamil text-[var(--color-muted)] mt-0.5">{item.uyir}</div>
+                </button>
+              ))}
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {activeTab === "olippasai" && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+          <Card className="p-5 space-y-4">
+            <h2 className="text-sm font-semibold text-[var(--color-mai)]">
+              {t.tools.letter.olippasaiHeading}
+            </h2>
+            <input
+              type="text"
+              value={olippasaiInput}
+              onChange={(e) => setOlippasaiInput(e.target.value)}
+              placeholder={t.tools.letter.inputPlaceholder}
+              className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--border-line)] bg-[var(--bg-canvas)] font-tamil text-base text-[var(--color-mai)] focus:border-[var(--color-semman)] focus:outline-none"
+            />
+            <div className="space-y-2">
+              {olippasaiResult.map((unit, idx) => (
+                <div
+                  key={idx}
+                  className="p-3 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-line)] flex items-center justify-between gap-3"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl font-tamil font-bold text-[var(--color-mai)]">{unit.text}</span>
+                    <span className="text-[11px] font-mono-tamil text-[var(--color-muted)]">
+                      letters {unit.start_letter_idx}..{unit.end_letter_idx} · bytes {unit.start_byte}..{unit.end_byte}
+                    </span>
+                  </div>
+                  <Badge variant={unit.has_coda ? "terracotta" : "outline"} className="text-[11px]">
+                    {unit.has_coda ? `${t.tools.letter.codaYes} (${unit.coda_count})` : t.tools.letter.codaNo}
+                  </Badge>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          <Card className="p-5 space-y-4">
+            <h2 className="text-sm font-semibold text-[var(--color-mai)]">
+              {t.tools.letter.cognateCheckHeading}
+            </h2>
+            <div className="grid grid-cols-2 gap-3">
+              <input
+                type="text"
+                value={cognateLeft}
+                onChange={(e) => setCognateLeft(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--border-line)] bg-[var(--bg-canvas)] font-tamil text-lg text-center text-[var(--color-mai)] focus:border-[var(--color-semman)] focus:outline-none"
+              />
+              <input
+                type="text"
+                value={cognateRight}
+                onChange={(e) => setCognateRight(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-[var(--border-line)] bg-[var(--bg-canvas)] font-tamil text-lg text-center text-[var(--color-mai)] focus:border-[var(--color-semman)] focus:outline-none"
+              />
+            </div>
+
+            <div className="p-4 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-line)] space-y-2 text-center">
+              <Badge
+                variant={cognateResult.areCognates ? "terracotta" : "outline"}
+                className="text-xs px-3 py-1"
+              >
+                {cognateResult.areCognates ? t.tools.letter.cognateYes : t.tools.letter.cognateNo}
+              </Badge>
+              <div className="text-xs text-[var(--color-muted)] flex items-center justify-center gap-4 pt-1 font-tamil">
+                <span>
+                  {cognateLeft} ↔ {cognateResult.leftPair ?? "—"}
+                </span>
+                <span>·</span>
+                <span>
+                  {cognateRight} ↔ {cognateResult.rightPair ?? "—"}
+                </span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

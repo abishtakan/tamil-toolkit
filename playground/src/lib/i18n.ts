@@ -18,6 +18,38 @@ export interface Translations {
     switchLanguageName: string;
     footerNotice: string;
   };
+  shell: {
+    homeLabel: string;
+    searchPlaceholder: string;
+    noToolsFound: string;
+    clearSearch: string;
+    openMenu: string;
+    closeMenu: string;
+    themeDark: string;
+    themeLight: string;
+    engineReady: string;
+    engineLoading: string;
+    offlineNote: string;
+  };
+  navGroups: {
+    words: string;
+    writing: string;
+    reference: string;
+    developer: string;
+  };
+  home: {
+    heroSummary: string;
+    searchPlaceholder: string;
+    searchAction: string;
+    quickStartLabel: string;
+    quickBamini: string;
+    quickCheque: string;
+    quickCalendar: string;
+    quickClean: string;
+    developerSectionTitle: string;
+    developerSectionDesc: string;
+    dictionaryCountSuffix: string;
+  };
   actions: {
     copy: string;
     copied: string;
@@ -68,6 +100,13 @@ export interface Translations {
       inputUnicodeLabel: string;
       outputUnicodeLabel: string;
       outputLegacyLabel: string;
+      targetFontLabel: string;
+      errorPolicyLabel: string;
+      policyStrict: string;
+      policyPreserve: string;
+      hexModeToggle: string;
+      detectedCandidatesLabel: string;
+      sampleTsciiHex: string;
     };
     numeral: {
       title: string;
@@ -84,6 +123,70 @@ export interface Translations {
       spokenVariantBadge: string;
       classicalTamilBadge: string;
       classicalNotationHeading: string;
+      modeNumber: string;
+      modeInr: string;
+      modeLkr: string;
+      localeTN: string;
+      localeSL: string;
+      tabCurrencyWords: string;
+      tabTraditionalDigits: string;
+      tabFractionsRanges: string;
+      tabDatesMath: string;
+      currencyLabel: string;
+      regionLabel: string;
+      inputTypeLabel: string;
+      modeCurrency: string;
+      modeOrdinal: string;
+      modeDigitSeq: string;
+      inputDigitsLabel: string;
+      outputDigitsLabel: string;
+      digitsLatin: string;
+      digitsTamil: string;
+      groupingToggle: string;
+      formattedAmountLabel: string;
+      resultWordsLabel: string;
+      tradFormatHeading: string;
+      tradParseHeading: string;
+      tradInputLabel: string;
+      tradSymbolsInputLabel: string;
+      tradParsePlaceholder: string;
+      digitScriptHeading: string;
+      digitScriptInputPlaceholder: string;
+      convertToTamil: string;
+      convertToLatin: string;
+      fractionCalcHeading: string;
+      wholeLabel: string;
+      numeratorLabel: string;
+      denominatorLabel: string;
+      fractionSymbolLabel: string;
+      fractionWordsLabel: string;
+      percentHeading: string;
+      percentInputLabel: string;
+      percentRatioLabel: string;
+      rangeHeading: string;
+      rangeStartLabel: string;
+      rangeEndLabel: string;
+      rangeStartIncl: string;
+      rangeEndIncl: string;
+      rangeOutputLabel: string;
+      dateFormatHeading: string;
+      dateStyleLabel: string;
+      styleShort: string;
+      styleMedium: string;
+      styleLong: string;
+      styleFull: string;
+      weekdayLabel: string;
+      dateMathHeading: string;
+      startDateLabel: string;
+      endDateLabel: string;
+      dateDifferenceLabel: string;
+      daysSuffix: string;
+      addUnitLabel: string;
+      addAmountLabel: string;
+      unitDays: string;
+      unitMonths: string;
+      unitYears: string;
+      resultingDateLabel: string;
     };
     calendar: {
       title: string;
@@ -94,6 +197,10 @@ export interface Translations {
       cycleYearLabel: string;
       nakshatraLabel: string;
       tithiLabel: string;
+      yogaLabel: string;
+      karanaLabel: string;
+      sunriseLabel: string;
+      sunsetLabel: string;
       rahuKalamLabel: string;
       yamagandamLabel: string;
       gulikaiLabel: string;
@@ -104,6 +211,50 @@ export interface Translations {
       gpsLocationLabel: string;
       chennaiFallbackLabel: string;
       yearFallback: string;
+      todayButton: string;
+      prevDay: string;
+      nextDay: string;
+      cityLabel: string;
+      panchangamHeading: string;
+      daylightHeading: string;
+      outOfBoundsNotice: string;
+      tabDaily: string;
+      tabConvertYear: string;
+      tabFestivals: string;
+      tabCompare: string;
+      profileLabel: string;
+      profileThirukanitham: string;
+      profileVakya: string;
+      digitsToggle: string;
+      atTimeLabel: string;
+      atTimeHeading: string;
+      transitionsHeading: string;
+      noTransitions: string;
+      panchangamError: string;
+      reverseConvertHeading: string;
+      tamilYearLabel: string;
+      tamilMonthLabel: string;
+      tamilDayLabel: string;
+      gregorianResultLabel: string;
+      addTamilDateHeading: string;
+      addButtonLabel: string;
+      yearMonthsHeading: string;
+      monthCol: string;
+      startDateCol: string;
+      endDateCol: string;
+      daysCol: string;
+      observancesHeading: string;
+      monthFilterAll: string;
+      holidaysHeading: string;
+      jurisdictionTN: string;
+      jurisdictionSL: string;
+      lunarPhasesHeading: string;
+      noEvents: string;
+      compareHeading: string;
+      differingFieldsLabel: string;
+      thirukanithamCol: string;
+      vakyaCol: string;
+      solarDateLabel: string;
     };
     sorter: {
       title: string;
@@ -117,6 +268,17 @@ export interface Translations {
       inputWordsLabel: string;
       collationOutputLabel: string;
       wordsCountSuffix: string;
+      profileAgara: string;
+      profileUyirmei: string;
+      compareHeading: string;
+      wordALabel: string;
+      wordBLabel: string;
+      compareResultBefore: string;
+      compareResultAfter: string;
+      compareResultEqual: string;
+      sortKeyLabel: string;
+      searchKeyLabel: string;
+      foldedKeyLabel: string;
     };
     scalar: {
       title: string;
@@ -127,6 +289,12 @@ export interface Translations {
       clusterCountLabel: string;
       invisibleNotice: string;
       noInvisibleNotice: string;
+      sampleInvisible: string;
+      rustInspectHeading: string;
+      nfcStatusLabel: string;
+      nfdStatusLabel: string;
+      ezhuthuCountLabel: string;
+      classificationsHeading: string;
     };
     dispatcher: {
       title: string;
@@ -139,6 +307,7 @@ export interface Translations {
       statusSuccess: string;
       statusError: string;
       responsePlaceholder: string;
+      shortcutHint: string;
     };
     codegen: {
       title: string;
@@ -149,6 +318,10 @@ export interface Translations {
       tabCodec: string;
       tabNumeral: string;
       tabCalendar: string;
+      tabLexicon: string;
+      tabHyphenator: string;
+      tabNormalizer: string;
+      tabSorter: string;
     };
     batch: {
       title: string;
@@ -158,6 +331,8 @@ export interface Translations {
       progressLabel: string;
       completedNotice: string;
       formatError: string;
+      encodingLabel: string;
+      convertAnother: string;
     };
     symbols: {
       title: string;
@@ -179,6 +354,11 @@ export interface Translations {
       quickLookupHeading: string;
       quickLookupPlaceholder: string;
       noMatches: string;
+      liveCalcHeading: string;
+      inspectAnySymbolLabel: string;
+      inspectAnyPlaceholder: string;
+      fractionBuilderLabel: string;
+      buildFractionBtn: string;
     };
     hyphenator: {
       title: string;
@@ -233,6 +413,11 @@ export interface Translations {
       libreofficeGuide: string;
       indesignGuide: string;
       scribusGuide: string;
+      formattedSyllablesLabel: string;
+      settingsToggle: string;
+      visualPreviewHeading: string;
+      browserFlowHeading: string;
+      setupGuidesLabel: string;
     };
     letter: {
       title: string;
@@ -254,6 +439,19 @@ export interface Translations {
       moraLabel: string;
       cognateLabel: string;
       quantityLabel: string;
+      tabBreakdown: string;
+      tabComposer: string;
+      tabOlippasai: string;
+      composerMeiLabel: string;
+      composerUyirLabel: string;
+      composedResultLabel: string;
+      allVowelsRowLabel: string;
+      olippasaiHeading: string;
+      codaYes: string;
+      codaNo: string;
+      cognateCheckHeading: string;
+      cognateYes: string;
+      cognateNo: string;
     };
     normalizer: {
       title: string;
@@ -372,7 +570,7 @@ export interface Translations {
 export const translations: Record<Language, Translations> = {
   ta: {
     siteTitle: "தமிழ் கருவிப் பட்டறை",
-    siteSubtitle: "WebAssembly மூலம் இயங்கும் அதிவேகத் தமிழ் பயன்பாட்டுக் கருவிகள்",
+    siteSubtitle: "அகராதி, எழுத்துரு மாற்றம், தமிழ் நாட்காட்டி மற்றும் எழுத்துப் பகுப்பாய்வு — உங்கள் உலாவியிலேயே தனிப்பட்ட முறையில் இயங்கும் பணித்தளம்.",
     documentTitle: "தமிழ் கருவிப் பட்டறை | Tamil Toolkit Playground",
     privacyBadge: "100% கணினிக்குள் மட்டுமே இயங்குகிறது (தகவல் கசியாது)",
     tabs: {
@@ -384,7 +582,39 @@ export const translations: Record<Language, Translations> = {
       switchPrompt: "Change language",
       currentLanguageName: "தமிழ்",
       switchLanguageName: "English",
-      footerNotice: "100% உங்கள் கணினியிலேயே இயங்குகிறது (Zero server transmission). தரவுகள் எங்கும் அனுப்பப்படுவதில்லை."
+      footerNotice: "100% உங்கள் உலாவியிலேயே இயங்குகிறது. தரவுகள் எந்தச் சேவையகத்திற்கும் அனுப்பப்படுவதில்லை."
+    },
+    shell: {
+      homeLabel: "முகப்பு",
+      searchPlaceholder: "கருவிகளைத் தேடுக…",
+      noToolsFound: "பொருந்தும் கருவிகள் இல்லை",
+      clearSearch: "தேடலை அழி",
+      openMenu: "பட்டியலைத் திற",
+      closeMenu: "பட்டியலை மூடு",
+      themeDark: "இருண்ட தோற்றம்",
+      themeLight: "வெளிச்ச தோற்றம்",
+      engineReady: "ஆஃப்லைன் தயார்",
+      engineLoading: "இயந்திரம் ஏற்றப்படுகிறது…",
+      offlineNote: "உங்கள் சாதனத்தில் மட்டும் இயங்கும்"
+    },
+    navGroups: {
+      words: "அகராதி & சொற்கள்",
+      writing: "எழுத்து & மாற்றம்",
+      reference: "எண்கள் & நாட்காட்டி",
+      developer: "உருவாக்குநர் கருவிகள்"
+    },
+    home: {
+      heroSummary: "சொற்களின் பொருள் காணவும், பழைய எழுத்துருக்களை மாற்றவும், காசோலைத் தொகைகளைத் தமிழில் எழுதவும், தினசரிப் பஞ்சாங்கத்தைப் பார்க்கவுமான எளிய தமிழ் பணித்தளம்.",
+      searchPlaceholder: "தமிழ் சொல் அல்லது ஆங்கிலப் பொருளைத் தேடுங்கள் (எ.கா: நன்றி, அறம், கடல்)…",
+      searchAction: "அகராதியில் தேடு",
+      quickStartLabel: "விரைவுப் பணிகள்:",
+      quickBamini: "பாமினி → ஒருங்குறி மாற்றி",
+      quickCheque: "காசோலைத் தொகை தமிழில்",
+      quickCalendar: "இன்றைய தமிழ் தேதி & ராகு காலம்",
+      quickClean: "பிழையான தமிழ் உரை சீரமைப்பு",
+      developerSectionTitle: "உருவாக்குநர் & ஒருங்குறி ஆய்வகம்",
+      developerSectionDesc: "ஒருங்குறி குறியீடுகள், JSON இயக்கி மற்றும் நிரல் மாதிரிகள்.",
+      dictionaryCountSuffix: "சொற்கள்"
     },
     actions: {
       copy: "நகலெடு",
@@ -426,52 +656,171 @@ export const translations: Record<Language, Translations> = {
         title: "பழைய எழுத்துரு மாற்றி",
         desc: "பாமினி, TSCII, TAB, TAM, அஞ்சல், வானவில், LT-TM எழுத்துருக்களை ஒருங்குறியாக (Unicode) நொடியில் மாற்றுக.",
         inputPlaceholder: "மாற்ற வேண்டிய பழைய அல்லது தமிழ் ஒருங்குறி உரையை இங்கே ஒட்டவும் அல்லது தட்டச்சு செய்க...",
-        outputPlaceholder: "மாற்றப்பட்ட உரை நிகழ்நேரத்தில் இங்கே தோன்றும்...",
+        outputPlaceholder: "மாற்றப்பட்ட உரை இங்கே தோன்றும்...",
         detectedEncoding: "கண்டறியப்பட்ட எழுத்துரு",
         confidence: "துல்லியம்",
-        allProfiles: "ஆதரிக்கப்படும் எழுத்துருக்கள்",
-        directionLegacyToUnicode: "  ஒருங்குறி (Unicode)",
-        directionUnicodeToLegacy: "  பழைய எழுத்துரு",
-        inputLegacyLabel: "உள்ளீடு (பழைய எழுத்துரு):",
-        inputUnicodeLabel: "உள்ளீடு (தமிழ் ஒருங்குறி):",
-        outputUnicodeLabel: "வெளியீடு (ஒருங்குறி):",
-        outputLegacyLabel: "வெளியீடு (பழைய எழுத்துரு):"
+        allProfiles: "மூல எழுத்துரு",
+        directionLegacyToUnicode: "பழையது → ஒருங்குறி",
+        directionUnicodeToLegacy: "ஒருங்குறி → பழையது",
+        inputLegacyLabel: "உள்ளீடு (பழைய எழுத்துரு)",
+        inputUnicodeLabel: "உள்ளீடு (தமிழ் ஒருங்குறி)",
+        outputUnicodeLabel: "வெளியீடு (நவீன ஒருங்குறி)",
+        outputLegacyLabel: "வெளியீடு (பழைய எழுத்துரு)",
+        targetFontLabel: "இலக்கு எழுத்துரு",
+        errorPolicyLabel: "பிழைக் கொள்கை",
+        policyStrict: "கண்டிப்பானது (Strict)",
+        policyPreserve: "மூலம் காக்க (Preserve)",
+        hexModeToggle: "Hex பைட்டுகள் (8-bit)",
+        detectedCandidatesLabel: "கண்டறியப்பட்ட வாய்ப்புகள்:",
+        sampleTsciiHex: "TSCII (Hex)"
       },
       numeral: {
-        title: "எண் - சொல் & நாணய வடிவம்",
+        title: "எண் - சொல் & காசோலை வடிவம்",
         desc: "எண்களையும் காசோலைத் தொகைகளையும் அதிகாரப்பூர்வ தமிழ் சொற்களாகவும் பாரம்பரிய தமிழ் எண்களாகவும் மாற்றுக.",
         inputPlaceholder: "எண்ணை அல்லது தொகையை உள்ளிடுக (எ.கா: 125000 அல்லது 1050.75)...",
-        inputLabel: "எண் அல்லது நிதித் தொகை:",
+        inputLabel: "எண் அல்லது தொகை",
         currencyToggle: "ரூபாய் / நாணய வடிவம்",
         spokenToggle: "பேச்சு வழக்கு வடிவம்",
-        formalWordsLabel: "அதிகாரப்பூர்வ உரை வடிவம்",
+        formalWordsLabel: "அதிகாரப்பூர்வ தமிழ் சொற்கள்",
         chequeWordsLabel: "காசோலை (Cheque) வடிவம்",
         spokenWordsLabel: "பேச்சு வழக்கு வடிவம்",
         traditionalSymbolsLabel: "பாரம்பரிய தமிழ் எண்கள்",
         fractionLabel: "பின்னச் சொற்கள்",
         spokenVariantBadge: "பேச்சு வழக்கு",
         classicalTamilBadge: "செவ்வியல் தமிழ் எண்கள்",
-        classicalNotationHeading: "செவ்வியல் தமிழ் எண் குறியீடு"
+        classicalNotationHeading: "செவ்வியல் தமிழ் எண் குறியீடு",
+        modeNumber: "சாதாரண எண்",
+        modeInr: "இந்திய ரூபாய் (₹ INR)",
+        modeLkr: "இலங்கை ரூபாய் (Rs LKR)",
+        localeTN: "தமிழ்நாடு (TN)",
+        localeSL: "இலங்கை (SL)",
+        tabCurrencyWords: "நாணயம் & சொற்கள்",
+        tabTraditionalDigits: "தமிழ் எண்கள் & இலக்கங்கள்",
+        tabFractionsRanges: "பின்னங்கள், % & வரம்பு",
+        tabDatesMath: "தமிழ் தேதி & நாள் கணிதம்",
+        currencyLabel: "நாணயம்",
+        regionLabel: "வட்டாரம் / மொழி வழக்கு",
+        inputTypeLabel: "வடிவம்",
+        modeCurrency: "நாணயம்",
+        modeOrdinal: "வரிசை எண் (1வது, 2வது…)",
+        modeDigitSeq: "இலக்கத் தொடர் (தொலைபேசி/OTP)",
+        inputDigitsLabel: "உள்ளீட்டு எண்கள்",
+        outputDigitsLabel: "வெளியீட்டு எண்கள்",
+        digitsLatin: "லத்தீன் (0–9)",
+        digitsTamil: "தமிழ் (௦–௯)",
+        groupingToggle: "இந்திய பிரிவு (1,25,000)",
+        formattedAmountLabel: "வடிவமைக்கப்பட்ட எண்",
+        resultWordsLabel: "தமிழ் சொற்கள்",
+        tradFormatHeading: "அரபு எண் → பழந்தமிழ் எண்",
+        tradParseHeading: "பழந்தமிழ் எண் → அரபு எண்",
+        tradInputLabel: "முழு எண் (1 – 10,00,000)",
+        tradSymbolsInputLabel: "பழந்தமிழ் எண் குறியீடுகள்",
+        tradParsePlaceholder: "எ.கா: ௲௨௱௫௰",
+        digitScriptHeading: "உரையில் இலக்க மாற்றம்",
+        digitScriptInputPlaceholder: "எண்களைக் கொண்ட தமிழ் அல்லது ஆங்கில உரையை உள்ளிடுக (எ.கா: ஆண்டு 2026)...",
+        convertToTamil: "தமிழ் எண்களாக மாற்று (௦–௯)",
+        convertToLatin: "லத்தீன் எண்களாக மாற்று (0–9)",
+        fractionCalcHeading: "பின்னம் & கலப்பு பின்னக் கணிப்பான்",
+        wholeLabel: "முழு எண்",
+        numeratorLabel: "தொகுதி (Numerator)",
+        denominatorLabel: "பகுதி (Denominator)",
+        fractionSymbolLabel: "யூனிகோட் குறியீடு",
+        fractionWordsLabel: "தமிழ் பின்னச் சொற்கள்",
+        percentHeading: "சதவீதம் & விகிதம் (% ↔ Ratio)",
+        percentInputLabel: "சதவீதம் (எ.கா: 12.5%)",
+        percentRatioLabel: "விகித மதிப்பு",
+        rangeHeading: "எண் வரம்பு வடிவமைப்பு",
+        rangeStartLabel: "தொடக்கம்",
+        rangeEndLabel: "முடிவு",
+        rangeStartIncl: "தொடக்கத்தை உள்ளடக்கு [",
+        rangeEndIncl: "முடிவை உள்ளடக்கு ]",
+        rangeOutputLabel: "வடிவமைக்கப்பட்ட வரம்பு",
+        dateFormatHeading: "ஆங்கில தேதியைத் தமிழ் உரையில் எழுதுக",
+        dateStyleLabel: "வடிவமைப்பு நடை",
+        styleShort: "குறுகியது",
+        styleMedium: "நடுத்தரம்",
+        styleLong: "நீண்டது",
+        styleFull: "முழுமையானது (கிழமையுடன்)",
+        weekdayLabel: "கிழமை",
+        dateMathHeading: "தேதி இடைவெளி & கூட்டல்",
+        startDateLabel: "தொடக்கத் தேதி",
+        endDateLabel: "முடிவுத் தேதி",
+        dateDifferenceLabel: "நாட்கள் வித்தியாசம்",
+        daysSuffix: "நாட்கள்",
+        addUnitLabel: "அலகு",
+        addAmountLabel: "எண்ணிக்கை (+/-)",
+        unitDays: "நாட்கள்",
+        unitMonths: "மாதங்கள்",
+        unitYears: "ஆண்டுகள்",
+        resultingDateLabel: "புதிய தேதி"
       },
       calendar: {
         title: "தமிழ் நாட்காட்டி & பஞ்சாங்கம்",
-        desc: "தமிழ் சூரிய மாதம், திருவள்ளுவர் ஆண்டு, 60-ஆண்டு சுழற்சி பெயர், நட்சத்திரம், திதி மற்றும் ராகு காலம் காண்க.",
-        dateSelectLabel: "ஆங்கில தேதியைத் தேர்ந்தெடுக்க:",
-        tamilDateLabel: "தமிழ் தேதி",
+        desc: "தமிழ் சூரிய மாதம், திருவள்ளுவர் ஆண்டு, 60-ஆண்டு சுழற்சி பெயர், நட்சத்திரம், திதி, சூரிய உதயம் மற்றும் ராகு காலம் காண்க.",
+        dateSelectLabel: "ஆங்கில தேதி",
+        tamilDateLabel: "தமிழ் சூரிய தேதி",
         thiruvalluvarYearLabel: "திருவள்ளுவர் ஆண்டு",
         cycleYearLabel: "வருடப் பெயர்",
         nakshatraLabel: "நட்சத்திரம்",
         tithiLabel: "திதி",
+        yogaLabel: "யோகம்",
+        karanaLabel: "கரணம்",
+        sunriseLabel: "சூரிய உதயம்",
+        sunsetLabel: "சூரிய அஸ்தமனம்",
         rahuKalamLabel: "இராகு காலம்",
         yamagandamLabel: "எமகண்டம்",
         gulikaiLabel: "குளிகை",
         holidayLabel: "அரசு விடுமுறை நாட்கள்",
-        locationPrompt: "இருப்பிடத்தைப் பெறுக",
+        locationPrompt: "தற்போதைய இடம் (GPS)",
         locationFallback: "சென்னை நேரம் (தானியங்கித் தேர்வு)",
-        coordsLabel: "பஞ்சாங்கக் கணக்கீட்டு ஆயத்தொலைவுகள்:",
+        coordsLabel: "நகரம் / இருப்பிடம்",
         gpsLocationLabel: "தற்போதைய இருப்பிடம் (GPS)",
         chennaiFallbackLabel: "சென்னை (தானியங்கி தேர்வு)",
-        yearFallback: "தமிழ் ஆண்டு"
+        yearFallback: "தமிழ் ஆண்டு",
+        todayButton: "இன்று",
+        prevDay: "முந்தைய நாள்",
+        nextDay: "அடுத்த நாள்",
+        cityLabel: "இடம்",
+        panchangamHeading: "பஞ்சாங்கக் கூறுகள் (உதய நேரத்தில்)",
+        daylightHeading: "பகல் நேரக் காலங்கள்",
+        outOfBoundsNotice: "உங்கள் GPS இருப்பிடம் தமிழ்நாடு/இலங்கை எல்லைக்கு வெளியே உள்ளதால் சென்னை நேரம் பயன்படுத்தப்படுகிறது.",
+        tabDaily: "தினசரி நாள்காட்டி",
+        tabConvertYear: "தமிழ் ↔ ஆங்கிலம் & ஆண்டு",
+        tabFestivals: "விழாக்கள், விடுமுறை & சந்திரன்",
+        tabCompare: "திருக்கணிதம் vs வாக்கியம்",
+        profileLabel: "கணிப்பு முறை",
+        profileThirukanitham: "திருக்கணிதம்",
+        profileVakya: "வாக்கியம் (உஜ்ஜைனி)",
+        digitsToggle: "தமிழ் எண்கள் (௦–௯)",
+        atTimeLabel: "குறிப்பிட்ட நேரத்தில் (HH:MM)",
+        atTimeHeading: "தேர்ந்தெடுக்கப்பட்ட நேரப் பஞ்சாங்கம்",
+        transitionsHeading: "இன்றைய பஞ்சாங்க மாற்றங்கள்",
+        noTransitions: "இந்த நாளில் கூடுதல் மாற்றங்கள் இல்லை",
+        panchangamError: "இந்த தேதி/பகுதிக்கு தரவு வரம்புக்கு வெளியே உள்ளது",
+        reverseConvertHeading: "தமிழ் சூரிய தேதி → ஆங்கில தேதி",
+        tamilYearLabel: "தமிழ் சூரிய ஆண்டு",
+        tamilMonthLabel: "தமிழ் மாதம்",
+        tamilDayLabel: "தமிழ் நாள்",
+        gregorianResultLabel: "ஆங்கில தேதி",
+        addTamilDateHeading: "தமிழ் தேதியுடன் நாட்கள்/மாதங்கள்/ஆண்டுகள் கூட்டுக",
+        addButtonLabel: "கணக்கிடு",
+        yearMonthsHeading: "12 தமிழ் மாத அட்டவணை",
+        monthCol: "மாதம்",
+        startDateCol: "தொடக்கம்",
+        endDateCol: "முடிவு (முன் நாள்)",
+        daysCol: "நாட்கள்",
+        observancesHeading: "விரதங்கள் & திருவிழாக்கள்",
+        monthFilterAll: "அனைத்து மாதங்களும்",
+        holidaysHeading: "அரசு விடுமுறைப் பட்டியல்",
+        jurisdictionTN: "தமிழ்நாடு (TN)",
+        jurisdictionSL: "இலங்கை (SL)",
+        lunarPhasesHeading: "சந்திர நிலைகள் (அமாவாசை / பௌர்ணமி)",
+        noEvents: "நிகழ்வுகள் எதுவும் இல்லை",
+        compareHeading: "திருக்கணிதம் vs வாக்கியம் ஒப்பீடு",
+        differingFieldsLabel: "வேறுபடும் புலங்கள்:",
+        thirukanithamCol: "திருக்கணிதம்",
+        vakyaCol: "வாக்கியம் (Civil)",
+        solarDateLabel: "தமிழ் சூரிய தேதி"
       },
       sorter: {
         title: "அகர வரிசைப்படுத்துதல்",
@@ -480,52 +829,76 @@ export const translations: Record<Language, Translations> = {
         outputPlaceholder: "அகர வரிசைப்படுத்தப்பட்ட பட்டியல்...",
         sortAsc: "அகர வரிசை (அ → ன)",
         sortDesc: "எதிர் வரிசை (ன → அ)",
-        removeDups: "மறுமுறை வந்த சொற்களை நீக்கு",
+        removeDups: "நகல்களை நீக்கு",
         syllableStats: "சொற்களின் எண்ணிக்கை",
-        inputWordsLabel: "உள்ளீடு (ஒரு வரிக்கு ஒரு சொல்):",
-        collationOutputLabel: "வரிசைப்படுத்தப்பட்ட முடிவு:",
-        wordsCountSuffix: "சொற்கள்"
+        inputWordsLabel: "உள்ளீடு (ஒரு வரிக்கு ஒரு சொல்)",
+        collationOutputLabel: "வரிசைப்படுத்தப்பட்ட முடிவு",
+        wordsCountSuffix: "சொற்கள்",
+        profileAgara: "அகரவரிசை (மரபு)",
+        profileUyirmei: "உயிர்மெய் முதன்மை",
+        compareHeading: "இரு சொற்கள் ஒப்பீடு & வரிசைத் திறவுகோல்கள்",
+        wordALabel: "சொல் A",
+        wordBLabel: "சொல் B",
+        compareResultBefore: "சொல் A முன்னால் வரும் (<)",
+        compareResultAfter: "சொல் A பின்னால் வரும் (>)",
+        compareResultEqual: "சொற்கள் சமம் (=)",
+        sortKeyLabel: "வரிசைத் திறவுகோல் (Sort Key)",
+        searchKeyLabel: "தேடல் திறவுகோல் (Search Key)",
+        foldedKeyLabel: "மடிப்புத் தேடல் திறவுகோல் (Folded Key)"
       },
       scalar: {
-        title: "எழுத்துரு & ஒருங்குறி அலகுகள்",
+        title: "ஒருங்குறி அலகு ஆய்வி",
         desc: "தமிழ் எழுத்துக்களின் உட்பிரிவு, பதினாறுமக் குறியீடு (Hex code) மற்றும் கண்ணுக்குத் தெரியாத குறியீடுகளை ஆய்வு செய்க.",
         inputPlaceholder: "ஆய்வு செய்ய வேண்டிய தமிழ் உரையை உள்ளிடுக (எ.கா: தமிழ், ஸ்ரீ)...",
-        inputLabel: "ஆய்வு செய்ய வேண்டிய உரை:",
+        inputLabel: "ஆய்வு செய்ய வேண்டிய உரை",
         scalarCountLabel: "ஒருங்குறி அலகுகள் (Scalars)",
         clusterCountLabel: "எழுத்துக் கூட்டங்கள் (Clusters)",
-        invisibleNotice: "கண்ணுக்குத் தெரியாத குறியீடுகள் (ZWJ / ZWNJ) கண்டறியப்பட்டன!",
-        noInvisibleNotice: "கண்ணுக்குத் தெரியாத கட்டுப்பாட்டுக் குறியீடுகள் இல்லை (தூய உரை)"
+        invisibleNotice: "கண்ணுக்குத் தெரியாத குறியீடுகள் (ZWJ / ZWNJ / SHY / BOM) கண்டறியப்பட்டன!",
+        noInvisibleNotice: "கண்ணுக்குத் தெரியாத கட்டுப்பாட்டுக் குறியீடுகள் இல்லை (தூய உரை)",
+        sampleInvisible: "ZWJ / NFD மாதிரி",
+        rustInspectHeading: "Rust கட்டமைப்பு ஆய்வு (inspect_tamil_string)",
+        nfcStatusLabel: "NFC நிலை",
+        nfdStatusLabel: "NFD நிலை",
+        ezhuthuCountLabel: "தமிழ் எழுத்து எண்ணிக்கை",
+        classificationsHeading: "எழுத்து வகைப்பாடு (வல்லினம் / மெல்லினம் / இடையினம்)"
       },
       dispatcher: {
         title: "நேரடி ஆய்வகம் (Dispatcher)",
-        desc: "டூல்கிட்டின் முழு இயந்திரத்திற்கும் நேரடி JSON கோரிக்கைகளை அனுப்பி உடனடி முடிவுகளைக் காண்க.",
+        desc: "டூல்கிட்டின் இயந்திரத்திற்கு நேரடி JSON கோரிக்கைகளை அனுப்பி உடனடி முடிவுகளைக் காண்க.",
         presetLabel: "மாதிரி கோரிக்கையைத் தேர்ந்தெடு:",
         sendRequest: "கோரிக்கையை அனுப்பு",
         latencyLabel: "இயக்க நேரம்",
         responseLabel: "பெறப்பட்ட முடிவு (JSON)",
-        payloadLabel: "JSON கோரிக்கை (Request Payload):",
+        payloadLabel: "JSON கோரிக்கை",
         statusSuccess: "வெற்றி",
         statusError: "பிழை",
-        responsePlaceholder: "கோரிக்கையின் முடிவு இங்கே தோன்றும் ('கோரிக்கையை அனுப்பு' கிளிக் செய்க)"
+        responsePlaceholder: "கோரிக்கையின் முடிவு இங்கே தோன்றும்",
+        shortcutHint: "Ctrl/⌘ + Enter மூலம் இயக்கலாம்"
       },
       codegen: {
         title: "நிரல் குறிமுறை உருவாக்கி",
-        desc: "தேர்ந்தெடுக்கப்பட்ட பயன்பாட்டிற்கான Rust, Python, TypeScript, Dart நிரல் குறிமுறைகளை நொடியில் நகலெடுக்க.",
+        desc: "Rust, Python, TypeScript, Dart மொழிகளுக்கான இணைப்பு நிரல் மாதிரிகளை உடனே நகலெடுக்க.",
         selectLang: "நிரலாக்க மொழியைத் தேர்ந்தெடு:",
         installCommand: "நிறுவல் கட்டளை",
-        snippetHeading: "இணைப்புக் குறியீடு (Code Snippet)",
+        snippetHeading: "மாதிரி நிரல்",
         tabCodec: "எழுத்துரு மாற்றி",
         tabNumeral: "எண் - சொல்",
-        tabCalendar: "நாட்காட்டி"
+        tabCalendar: "நாட்காட்டி",
+        tabLexicon: "அகராதி",
+        tabHyphenator: "அசை பிரிப்பு",
+        tabNormalizer: "சீரமைப்பி",
+        tabSorter: "அகரவரிசை"
       },
       batch: {
         title: "கோப்புத் தொகுதி மாற்றி",
         desc: "பெரிய ஆவணங்கள் மற்றும் கோப்புகளை உங்கள் உலாவிக்குள்ளேயே பாதுகாப்பாக மொத்தமாக மாற்றுக.",
         dropzoneTitle: "கோப்புகளை இங்கே இழுத்துப் போடுக",
-        dropzoneSubtitle: "அல்லது உங்கள் கணினியிலிருந்து கோப்பைத் தேர்ந்தெடுக்கவும் (.txt, .csv)",
+        dropzoneSubtitle: "அல்லது கணினியிலிருந்து தேர்ந்தெடுக்கவும் (.txt, .csv)",
         progressLabel: "மாற்றத்தின் முன்னேற்றம்",
         completedNotice: "மாற்றம் வெற்றிகரமாக முடிந்தது!",
-        formatError: "ஆதரிக்கப்படாத கோப்பு வடிவம். .txt அல்லது .csv கோப்புகளை மட்டுமே பதிவேற்றவும்."
+        formatError: "ஆதரிக்கப்படாத கோப்பு வடிவம். .txt அல்லது .csv கோப்புகளை மட்டுமே பதிவேற்றவும்.",
+        encodingLabel: "மூல எழுத்துரு:",
+        convertAnother: "மற்றொரு கோப்பை மாற்றுக"
       },
       symbols: {
         title: "பழந்தமிழ் பின்னங்கள் & குறியீடுகள்",
@@ -546,24 +919,29 @@ export const translations: Record<Language, Translations> = {
         copySymbolButton: "குறியீட்டை நகலெடு",
         quickLookupHeading: "எண் / பின்னத்தைத் தேடுக",
         quickLookupPlaceholder: "எண்ணை உள்ளிடுக (எ.கா: 0.25 அல்லது 1/4)...",
-        noMatches: "பொருத்தமான குறியீடுகள் எதுவும் கிடைக்கவில்லை"
+        noMatches: "பொருத்தமான குறியீடுகள் எதுவும் கிடைக்கவில்லை",
+        liveCalcHeading: "நேரடி Rust குறியீடு & பின்ன ஆய்வி (72 குறியீடுகள்)",
+        inspectAnySymbolLabel: "எந்தவொரு தமிழ் குறியீட்டையும் ஆய்வு செய்க",
+        inspectAnyPlaceholder: "குறியீட்டை உள்ளிடுக (எ.கா: 𑿔, ௹, ௳)...",
+        fractionBuilderLabel: "விகித பின்னத்தைக் குறியீடாக மாற்றுக",
+        buildFractionBtn: "மாற்று"
       },
       hyphenator: {
         title: "சொல் & பத்தி அசையசைப்பி",
-        desc: "தமிழ் இலக்கண மரபுப்படி (ஒற்று அடுத்த வரியில் பிரியாத வண்ணம்) சொற்களை அசை பிரித்து, மென்-இணைப்புக் குறி (Soft Hyphen) மற்றும் நிரல் வரி மடிப்பை (Line Wrapping) ஒழுங்கு செய்க.",
+        desc: "தமிழ் இலக்கண மரபுப்படி (ஒற்று அடுத்த வரியில் பிரியாத வண்ணம்) சொற்களை அசை பிரித்து, மென்-இணைப்புக் குறி மற்றும் வரி மடிப்பை ஒழுங்கு செய்க.",
         tabWord: "சொல் அசை பிரிப்பு",
-        tabText: "பத்தி & மென்-இணைப்புக் குறி",
+        tabText: "பத்தி & மென்-இணைப்பு",
         tabWrap: "நிரல் வரி மடிப்பு",
-        wordInputLabel: "ஆராய வேண்டிய சொல்:",
+        wordInputLabel: "ஆராய வேண்டிய சொல்",
         wordPlaceholder: "எ.கா: தமிழ்நாடு, பல்கலைக்கழகம், திருக்குறள்...",
-        textInputLabel: "பத்தி உரை:",
+        textInputLabel: "பத்தி உரை",
         textPlaceholder: "மென்-இணைப்புக் குறி சேர்க்க வேண்டிய தமிழ் உரை அல்லது பத்தியை உள்ளிடுக...",
-        syllableChipsHeading: "சொல்லின் அசைக்கூறுகள் (Syllable Units)",
-        breakpointsHeading: "அனுமதிக்கப்பட்ட பிரிவிடங்கள் (Break Points)",
+        syllableChipsHeading: "சொல்லின் அசைக்கூறுகள்",
+        breakpointsHeading: "அனுமதிக்கப்பட்ட பிரிவிடங்கள்",
         breakpointsDesc: "வரியின் இறுதியில் சொல் நீண்டு செல்லும்போது, அதனைப் பிரித்து (-) அடுத்த வரிக்குக் கொண்டு செல்லக்கூடிய இலக்கணப்படியான இடங்கள்.",
-        codaBindingNotice: "மெய் ஒற்று விதி (Coda Binding)",
+        codaBindingNotice: "மெய் ஒற்று விதி",
         codaBindingRule: "ஒற்று (புள்ளி எழுத்து) முந்தைய உயிருடனோ அல்லது உயிர்மெய்யுடனோ மட்டுமே சேர வேண்டும்; புதிய வரி மெய்யெழுத்தில் தொடங்கக் கூடாது.",
-        marginHeading: "விளிம்பு வரம்புகள் (Marginal Restraints)",
+        marginHeading: "விளிம்பு வரம்புகள் & பிரிப்புக் குறி",
         leftMarginLabel: "தொடக்க விளிம்பு (குறைந்தபட்ச எழுத்துக்கள்)",
         rightMarginLabel: "முடிவு விளிம்பு (குறைந்தபட்ச எழுத்துக்கள்)",
         delimiterLabel: "பிரிப்புக் குறியீடு",
@@ -571,19 +949,19 @@ export const translations: Record<Language, Translations> = {
         delimiterBullet: "நடுப்புள்ளி (·)",
         delimiterSlash: "சாய்வுக்கோடு (/)",
         delimiterSoft: "மென்-இணைப்பு (&shy;)",
-        delimiterNone: "குறியீடு இன்றி (None / ZWSP)",
+        delimiterNone: "குறியீடு இன்றி (ZWSP)",
         syllablesCount: "அசைகள்",
         breakpointsCount: "பிரிவிடங்கள்",
         noBreakpoints: "இந்தச் சொல்லுக்கு தற்போதைய விளிம்பு அமைப்பில் பிரிவிடங்கள் இல்லை",
         shortWordNotice: "விளிம்பு வரம்புகளுக்குள் அடங்காத குறுகிய சொல்",
         showSoftHyphensToggle: "மென்-இணைப்புக் குறிகளைத் தெளிவாகக் காட்டு ([·])",
-        copyWordButton: "MS Word / Docs-க்கு நகலெடு",
-        copyNoHyphenButton: "இணைப்புக் குறியின்றி நகலெடு (ZWSP)",
+        copyWordButton: "Word / Docs-க்கு நகலெடு",
+        copyNoHyphenButton: "இணைப்புக் குறியின்றி (ZWSP)",
         copyHtmlButton: "HTML (&shy;) நகலெடு",
-        copyTextButton: "மென்-உரை (Unicode) நகலெடு",
+        copyTextButton: "மென்-உரை நகலெடு",
         columnWidthLabel: "நிரல் அகலம் (எழுத்துக்கள்):",
         columnWidthLetters: "எழுத்துக்கள் / வரி",
-        compareToggle: "இயல்புநிலை மடிப்போடு ஒப்பிடுக",
+        compareToggle: "வழக்கமான வரி மடிப்போடு ஒப்பிடுக",
         defaultWrapHeading: "வழக்கமான வரி மடிப்பு (ஒற்று பிரிந்து பிழையாகும்)",
         syllabicWrapHeading: "தமிழ் அசைசார் வரி மடிப்பு (இலக்கணப்படி சரியானது)",
         lineCount: "வரிகள்",
@@ -595,61 +973,79 @@ export const translations: Record<Language, Translations> = {
         errPureConsonant: "(புள்ளி எழுத்தில் தொடக்கம்!)",
         errAytham: "(ஆய்த எழுத்தில் தொடக்கம்!)",
         integrationsTitle: "டெஸ்க்டாப் மென்பொருள்கள் & பதிப்பக ஒருங்கிணைப்பு",
-        integrationsDesc: "LibreOffice, Adobe InDesign மற்றும் Scribus ஆகியவற்றிற்கான ஒருங்கமைக்கப்பட்ட சொல் பிரிப்பான் அகராதி (.oxt / .dic).",
+        integrationsDesc: "LibreOffice, Adobe InDesign மற்றும் Scribus ஆகியவற்றிற்கான சொல் பிரிப்பான் அகராதி (.oxt / .dic).",
         downloadOxtButton: "LibreOffice நீட்டிப்பு (.oxt)",
         downloadDicButton: "Hunspell அகராதி (.dic)",
         libreofficeGuide: "LibreOffice வழிகாட்டி",
         indesignGuide: "InDesign வழிகாட்டி",
-        scribusGuide: "Scribus வழிகாட்டி"
+        scribusGuide: "Scribus வழிகாட்டி",
+        formattedSyllablesLabel: "பிரிக்கப்பட்ட சொல்",
+        settingsToggle: "அமைப்புகள்",
+        visualPreviewHeading: "மென்-இணைப்புக் காட்சி",
+        browserFlowHeading: "உலாவி வரி ஓட்டக் காட்சி",
+        setupGuidesLabel: "வழிகாட்டிகள்:"
       },
       letter: {
         title: "சொல் & எழுத்து பகுப்பாய்வி",
         desc: "தமிழ் சொற்களை உயிர், மெய், உயிர்மெய், ஆய்தம் மற்றும் கிரந்த எழுத்துகளாகப் பிரித்து, அவற்றின் இலக்கணக் கட்டமைப்பை ஆராய்க.",
         inputPlaceholder: "பகுப்பாய்வு செய்ய வேண்டிய சொற்களை உள்ளிடுக (எ.கா: தமிழ்நாடு, புரட்சி, ஸ்ரீலங்கா)...",
-        inputLabel: "பகுப்பாய்வு செய்ய வேண்டிய உரை:",
+        inputLabel: "பகுப்பாய்வு செய்ய வேண்டிய உரை",
         syllablesCount: "மொத்த எழுத்துகள்",
         uyirCount: "உயிர்",
         meiCount: "மெய்",
         uyirmeiCount: "உயிர்மெய்",
         granthaCount: "கிரந்தம்",
-        selectedSyllableHeading: "தேர்ந்தெடுக்கப்பட்ட எழுத்தின் கட்டமைப்பு",
+        selectedSyllableHeading: "எழுத்துக் கட்டமைப்பு",
         rootConsonantLabel: "அடிப்படை மெய்யெழுத்து",
         vowelLabel: "இணைந்த உயிரெழுத்து",
-        vowelSignLabel: "உயிர்மெய்க் குறியீடு (வடிவம்)",
+        vowelSignLabel: "உயிர்மெய்க் குறியீடு",
         codepointsLabel: "ஒருங்குறித் தொடர்",
         classificationLabel: "இலக்கண வகை",
-        selectPrompt: "விவரங்களைக் காண மேலே உள்ள ஓர் எழுத்தைக் கிளிக் செய்க",
-        moraLabel: "மாத்திரை (Mora / Duration)",
-        cognateLabel: "இன எழுத்து (Cognate / Harmony)",
-        quantityLabel: "எழுத்துக் கால அளவு"
+        selectPrompt: "விவரங்களைக் காண ஓர் எழுத்தைத் தேர்ந்தெடுக்கவும்",
+        moraLabel: "மாத்திரை (கால அளவு)",
+        cognateLabel: "இன எழுத்து",
+        quantityLabel: "எழுத்துக் கால அளவு",
+        tabBreakdown: "எழுத்துப் பகுப்பு",
+        tabComposer: "உயிர்மெய் இணைப்பி",
+        tabOlippasai: "ஒலிப்பசை & இன எழுத்து",
+        composerMeiLabel: "மெய்யெழுத்து",
+        composerUyirLabel: "உயிரெழுத்து",
+        composedResultLabel: "இணைந்த உயிர்மெய்",
+        allVowelsRowLabel: "இந்த மெய்யின் 12 உயிர்மெய் வரிசை",
+        olippasaiHeading: "ஒலிப்பசை பிரிப்பு (Olippasai)",
+        codaYes: "மெய் ஒற்று உண்டு",
+        codaNo: "திறந்த அசை",
+        cognateCheckHeading: "இன எழுத்துச் சரிபார்ப்பு (are_cognates)",
+        cognateYes: "இன எழுத்துக்கள் ஆகும்",
+        cognateNo: "இன எழுத்துக்கள் அல்ல"
       },
       normalizer: {
         title: "ஒருங்குறி சீரமைப்பி",
         desc: "பிழையான புள்ளி, உடைந்த உயிர்மெய்க் குறிகள் மற்றும் தேவையற்ற குறியீடுகளைச் சரிசெய்து, தூய தமிழ் ஒருங்குறியாக மாற்றுக.",
         inputPlaceholder: "சீரமைக்க வேண்டிய தமிழ் உரையை உள்ளிடுக...",
-        inputLabel: "மூல உரை (Input):",
-        outputLabel: "வெளியீட்டு உரை (Output):",
-        nfcLabel: "இயல்பு வடிவம் (NFC - பரிந்துரைக்கப்பட்டது)",
-        nfdLabel: "பிரித்த வடிவம் (NFD - Decomposed)",
-        repairedLabel: "பிழைதிருத்தம் (Repaired NFC)",
-        foldLabel: "தேடல் மடிப்பு (Search Folding)",
-        statusClean: "உரையில் எவ்வித ஒருங்குறிப் பிழைகளும் இல்லை (தூய உரை)",
-        statusAnomalies: "ஒருங்குறிப் பிழைகள் கண்டறியப்பட்டு சரிசெய்யப்பட்டன!",
-        anomaliesFixedLabel: "சரிசெய்யப்பட்ட பிழைகள்:",
+        inputLabel: "மூல உரை",
+        outputLabel: "சீரமைக்கப்பட்ட உரை",
+        nfcLabel: "இயல்பு வடிவம் (NFC)",
+        nfdLabel: "பிரித்த வடிவம் (NFD)",
+        repairedLabel: "பிழைதிருத்தம்",
+        foldLabel: "தேடல் மடிப்பு",
+        statusClean: "தூய ஒருங்குறி (பிழை இல்லை)",
+        statusAnomalies: "பிழைகள் சரிசெய்யப்பட்டன",
+        anomaliesFixedLabel: "கண்டறியப்பட்ட பிழைகள்",
         copyNormalizedButton: "வெளியீட்டு உரையை நகலெடு",
         diffHeading: "சீரமைப்பு ஒப்பீடு",
-        sampleVowelsButton: "இரட்டைக் குறியீடுகள் (கொ, கோ, கௌ)",
+        sampleVowelsButton: "இரட்டைக் குறியீடுகள் (கொ, கோ)",
         sampleDefectiveButton: "பிழை உரை மாதிரி",
-        codepointInspectorHeading: "ஒருங்குறி பைட் வரிசை ஆய்வு (Codepoints Inspector)",
-        nfcBanner: "NFC (ஒருங்கிணைந்த வடிவம்): இரட்டைக் குறியீடுகளை (கொம்பு + துணைக்கால்/ளகரம்) ஒற்றைக் குறியீடாக (ொ, ோ, ௌ) இணைத்துத் தருகிறது.",
-        nfdBanner: "NFD (பிரித்த வடிவம்): இரட்டை உயிர்மெய்க் குறிகளை (ொ, ோ, ௌ) அவற்றின் அடிப்படைக் கொம்பு (ெ/ே) மற்றும் துணைக்கால்/ளகரக் கூறுகளாகப் (ா/ௗ) பிரிக்கிறது. உலாவி எழுத்துருவில் இரண்டும் ஒரே மாதிரி தெரிந்தாலும், கீழே உள்ள Codepoints ஆய்வில் பைட் வரிசை வேறுபாட்டைக் காணலாம்.",
-        repairedBanner: "தூய பிழைதிருத்தம்: இரட்டைப் புள்ளிகள் சுருக்கப்பட்டு, மறைமுகத் தேவையற்ற குறியீடுகள் நீக்கப்பட்டு, தூய NFC வடிவில் தரப்பட்டுள்ளது.",
-        foldBanner: "தேடல் மடிப்பு (Search Folding - Contract 3): மயங்கொலி வேறுபாடுகள் (ள/ழ/ல, ண/ந/ன, ற/ர) மற்றும் கிரந்த எழுத்துக்களை (ஜ, ஷ, ஸ, ஹ, ஸ்ரீ, க்ஷ) சீரமைத்து, துல்லியமான அகராதி மற்றும் தரவுத்தளத் தேடலுக்கு உகந்ததாக மாற்றுகிறது.",
-        decomposedCountLabel: "இரட்டை உயிர்மெய்க் கூறுகள் பிரிக்கப்பட்டன",
-        profileComprehensive: "முழு மடிப்பு (Comprehensive)",
-        profileMayangoli: "மயங்கொலி மட்டும் (Mayangoli)",
-        profileGrantha: "கிரந்தம் மட்டும் (Grantha)",
-        repairOptionsHeading: "சீரமைப்புத் தேர்வுகள் & விவரங்கள் (Repair Diagnostics)",
+        codepointInspectorHeading: "ஒருங்குறி பைட் வரிசை ஆய்வு",
+        nfcBanner: "NFC (ஒருங்கிணைந்த வடிவம்): பிரிந்த இரட்டைக் குறியீடுகளை (ொ, ோ, ௌ) நிலையான ஒற்றை ஒருங்குறி வடிவமாக இணைக்கிறது.",
+        nfdBanner: "NFD (பிரித்த வடிவம்): இரட்டை உயிர்மெய்க் குறிகளை (ொ, ோ, ௌ) கொம்பு (ெ/ே) மற்றும் துணைக்கால்/ளகரக் கூறுகளாகப் (ா/ௗ) பிரிக்கிறது. கீழே உள்ள ஒருங்குறி பைட் ஆய்வில் மாற்றத்தைக் காணலாம்.",
+        repairedBanner: "பிழைதிருத்தம்: இரட்டைப் புள்ளிகள் சுருக்கப்பட்டு, சிதைந்த கொம்புகளும் மறைமுகக் குறியீடுகளும் சரிசெய்யப்பட்டு தூய NFC வடிவில் தரப்படுகிறது.",
+        foldBanner: "தேடல் மடிப்பு: மயங்கொலி வேறுபாடுகள் (ள/ழ/ல, ண/ந/ன, ற/ர) மற்றும் கிரந்த எழுத்துக்களைச் (ஜ, ஷ, ஸ, ஹ, ஸ்ரீ, க்ஷ) சமப்படுத்தித் தேடலுக்கு உகந்ததாக்குகிறது.",
+        decomposedCountLabel: "இரட்டைக் குறியீடுகள் பிரிக்கப்பட்டன",
+        profileComprehensive: "முழு மடிப்பு",
+        profileMayangoli: "மயங்கொலி மட்டும்",
+        profileGrantha: "கிரந்தம் மட்டும்",
+        repairOptionsHeading: "சீரமைப்புத் தேர்வுகள் & விவரங்கள்",
         optCollapsePulli: "இரட்டைப் புள்ளி சுருக்குதல்",
         optReorderKombu: "முன்நிற்கும் கொம்பு சீரமைப்பு",
         optStripShy: "மென்-இணைப்புக் குறியீடு (SHY) நீக்கம்",
@@ -660,13 +1056,13 @@ export const translations: Record<Language, Translations> = {
         diagTotalRepairs: "மொத்தத் திருத்தங்கள்"
       },
       lexicon: {
-        title: "தமிழ் சொற்களஞ்சிய ஆய்வி",
-        desc: "சரிபார்க்கப்பட்ட தொகுப்புகளில் (core, names_taxa, regional) துல்லியமான NFC தலைச்சொல் தேடல், ஒப்பொலிப் பதிவுகள், வட்டார/நடை வரம்புகள் மற்றும் ஆதாரச் சான்றுகள்.",
+        title: "தமிழ் அகராதி",
+        desc: "தமிழ் மற்றும் ஆங்கில விக்சனரி தொகுப்புகளில் சொற்களின் பொருள், வட்டார வழக்குகள், எடுத்துக்காட்டுகள் மற்றும் ஆதாரங்களைத் தேடுக.",
         searchLabel: "சொல் தேடல் (இடைவெளி & இணைப்பிகள் மாற்றமின்றி):",
         searchPlaceholder: "தமிழ் தலைச்சொல்லை உள்ளிடுக (எ.கா: நன்றி, செப்பம், கோளாறு)...",
         searchButton: "தேடு",
         exactPreserveNote: "இடைவெளி, ZWJ/ZWNJ, மென்-இணைப்பி (SHY) நீக்கப்படாது; Rust NFC சமநிலையாக்கம் மட்டுமே.",
-        packsLabel: "சொற்களஞ்சியத் தொகுப்புகள் (Packs):",
+        packsLabel: "சொற்களஞ்சியத் தொகுப்புகள்:",
         selectAllAvailable: "கிடைப்பவை அனைத்தையும் தேர்ந்தெடு",
         clearSelection: "தேர்வை நீக்கு",
         packUnavailableBadge: "கிடைக்கவில்லை",
@@ -686,22 +1082,22 @@ export const translations: Record<Language, Translations> = {
         sensesLabel: "பொருள்கள்",
         historicalExclusionHeading: "நீக்கப்பட்ட வரலாற்றுத் தரவுகள் (307,243 பதிவுகள்)",
         historicalExclusionBody: "முந்தைய 307,243 வரலாற்றுப் பதிவுகள் (12 கோப்புகள்) சரிபார்க்கப்படாததால்/உரிம உறுதி இல்லாததால் விலக்கப்பட்டுத் தனிமைப்படுத்தப்பட்டுள்ளன (0 தகுதியான சான்றுகள்). தற்போதைய முழுத் தொகுப்பில் 9,410 தனி வடிவங்கள், 11,377 பதிவுகள், 25,742 பொருள்கள் உள்ளன; terminology தொகுப்பு இன்னும் கிடைக்கவில்லை.",
-        loadingEngine: "Rust WebAssembly சொற்களஞ்சிய இயந்திரம் ஏற்றப்படுகிறது…",
-        noDataBuildHeading: "இந்த WASM உருவாக்கத்தில் சொற்களஞ்சியத் தரவு இல்லை",
-        noDataBuildBody: "default (zero-payload) உருவாக்கத்தில் தரவுத் தொகுப்புகள் இணைக்கப்படவில்லை. core அல்லது full சுயவிவரத்துடன் உருவாக்கவும்.",
+        loadingEngine: "தமிழ் அகராதி இயந்திரம் ஏற்றப்படுகிறது…",
+        noDataBuildHeading: "இந்த உருவாக்கத்தில் சொற்களஞ்சியத் தரவு இல்லை",
+        noDataBuildBody: "default உருவாக்கத்தில் தரவுத் தொகுப்புகள் இணைக்கப்படவில்லை.",
         statusMatched: "பொருந்திய பதிவுகள்",
         statusNotFound: "பதிவு கிடைக்கவில்லை",
-        statusError: "ஒப்பந்தப் பிழை",
-        canonicalQueryLabel: "Rust NFC வினவல்:",
+        statusError: "பிழை",
+        canonicalQueryLabel: "NFC வினவல்:",
         notFoundHeading: "துல்லியமான தலைச்சொல் எதுவும் கிடைக்கவில்லை",
-        notFoundBody: "தேர்ந்தெடுக்கப்பட்ட தொகுப்புகளில் இந்த NFC வடிவத்திற்குச் சரியான தலைச்சொல் பொருந்தவில்லை (பகுதி/நடை வடிகட்டிகள் unknown வரம்புகளை விலக்கும்).",
+        notFoundBody: "தேர்ந்தெடுக்கப்பட்ட தொகுப்புகளில் இந்த வடிவத்திற்குச் சரியான தலைச்சொல் பொருந்தவில்லை.",
         entryIdLabel: "பதிவு ID",
-        posLabel: "சொல் வகை (POS)",
+        posLabel: "சொல் வகை",
         formsHeading: "சொல் வடிவங்கள்",
-        sensesHeading: "பொருள்கள் (Senses)",
+        sensesHeading: "பொருள்கள்",
         examplesListHeading: "எடுத்துக்காட்டுகள்",
         relationsHeading: "தொடர்புகள்",
-        annotationsHeading: "குறிப்புகள் (Annotations)",
+        annotationsHeading: "குறிப்புகள்",
         regionScopeLabel: "பகுதி வரம்பு",
         registerScopeLabel: "நடை வரம்பு",
         unrestrictedScope: "வரம்பற்றது (அனைத்துப் பகுதிகளும்)",
@@ -712,11 +1108,11 @@ export const translations: Record<Language, Translations> = {
         provenanceToggle: "சான்று & ஆதார விவரங்கள்",
         sourceLinksHeading: "பாதுகாப்பான மூல இணைப்புகள்:",
         rawInspectorHeading: "மூல JSON கோரிக்கை & முடிவு",
-        rawRequestLabel: "JSON கோரிக்கை (Request)",
-        rawResponseLabel: "JSON முடிவு / பிழை (Response)",
+        rawRequestLabel: "JSON கோரிக்கை",
+        rawResponseLabel: "JSON முடிவு / பிழை",
         downloadRequest: "கோரிக்கையைப் பதிவிறக்கு",
         downloadResponse: "முடிவைப் பதிவிறக்கு",
-        contractPresetsToggle: "ஒப்பந்தச் சோதனை மாதிரிகள் (Contract-Test Presets)",
+        contractPresetsToggle: "உருவாக்குநர் ஒப்பந்தச் சோதனை மாதிரிகள்",
         contractPresetsDesc: "வெற்றுப் பட்டியல், அறியப்படாத/கிடைக்காத தொகுப்பு, தவறான வடிகட்டி, இடைவெளி/ZWJ மற்றும் NFD→NFC நடத்தைகளைச் சோதிக்க.",
         resetToAvailablePacks: "கிடைக்கும் தொகுப்புகளை மீட்டமை",
         packCoreDesc: "அடிப்படை தமிழ் அகராதித் தொகுப்பு",
@@ -725,21 +1121,21 @@ export const translations: Record<Language, Translations> = {
         packTerminologyDesc: "கலைச்சொல் தொகுப்பு (இன்னும் கிடைக்கவில்லை)",
         staleMetadataBadge: "பழைய / பொருந்தாத தரவு",
         staleMetadataWarning: "இயந்திரத்தின் PackInfo.manifest_sha256 மதிப்பு catalog-உடன் பொருந்தவில்லை; நிலையான எண்ணிக்கைகள் நிறுத்தி வைக்கப்பட்டுள்ளன.",
-        verifyingManifests: "WASM தொகுப்பு manifest_sha256 சரிபார்க்கப்படுகிறது…",
+        verifyingManifests: "தொகுப்பு விவரங்கள் சரிபார்க்கப்படுகின்றன…",
         unavailableCounts: "கிடைக்கவில்லை / பொருந்தவில்லை",
-        partialProfileBadge: "பகுதி WASM சுயவிவரம் (சரிபார்க்கப்பட்ட தொகுப்புகள் மட்டும்)",
+        partialProfileBadge: "பகுதி சுயவிவரம்",
         attributionNoticesHeading: "பங்களிப்பு & உரிம அறிவிப்புகள் (CC-BY-SA-4.0):",
-        firstLoadSizeNote: "முதல் முறை முழு-தொகுப்பு WebAssembly கோப்பு (~46 MiB / 47,971,718 பைட்டுகள், பெரும்பாலும் சான்று ஆதாரங்கள்) பதிவிறக்கம் செய்யப்படும்; பின்னர் உலாவியில் ஆஃப்லைன் பயன்பாட்டிற்காகச் சேமிக்கப்படும்.",
+        firstLoadSizeNote: "முதல் முறை அகராதி இயந்திரம் (~46 MiB) பதிவிறக்கம் செய்யப்படும்; பின்னர் உலாவியில் ஆஃப்லைன் பயன்பாட்டிற்காகச் சேமிக்கப்படும்.",
         offlineCacheHeading: "முதல் பதிவிறக்க அளவு & ஆஃப்லைன் சேமிப்பு",
-        offlineCacheNote: "முழு-தொகுப்பு உலாவி WASM தொகுப்பு ~46 MiB (47,971,718 பைட்டுகள்; பெரும்பாலும் அகராதிச் சான்றுகள்) அளவு கொண்டது. PWA சேமிப்பு வரம்பு 64 MiB-க்குள் இதுவும் உரிமக் கோப்புகளும் ஆஃப்லைன் பயன்பாட்டிற்காக முன்பே சேமிக்கப்படுகின்றன.",
+        offlineCacheNote: "முழு-தொகுப்பு உலாவி WASM தொகுப்பு ~46 MiB அளவு கொண்டது; ஆஃப்லைன் பயன்பாட்டிற்காகச் சேமிக்கப்படுகிறது.",
         dataDetailsToggle: "தரவு வரம்பு, விலக்கல்கள் & உரிமங்கள்"
       }
     }
   },
   en: {
     siteTitle: "Tamil Toolkit Playground",
-    siteSubtitle: "High-performance Tamil language tools & diagnostics powered by WebAssembly",
-    documentTitle: "Tamil Toolkit Playground | WebAssembly Diagnostics",
+    siteSubtitle: "Dictionary, legacy font conversion, Tamil calendar, numerals, and script utilities — running privately in your browser.",
+    documentTitle: "Tamil Toolkit Playground | Language Workbench",
     privacyBadge: "100% Client-Side Execution (Zero Data Leaves Your Device)",
     tabs: {
       hub: "Home",
@@ -750,7 +1146,39 @@ export const translations: Record<Language, Translations> = {
       switchPrompt: "மொழியை மாற்ற",
       currentLanguageName: "English",
       switchLanguageName: "தமிழ்",
-      footerNotice: "100% client-side WebAssembly execution (Zero server transmission). No data ever leaves your browser."
+      footerNotice: "Runs 100% in your browser. Your text never leaves your device."
+    },
+    shell: {
+      homeLabel: "Home",
+      searchPlaceholder: "Find a tool…",
+      noToolsFound: "No matching tools",
+      clearSearch: "Clear search",
+      openMenu: "Open navigation menu",
+      closeMenu: "Close navigation menu",
+      themeDark: "Dark theme",
+      themeLight: "Light theme",
+      engineReady: "Offline ready",
+      engineLoading: "Loading engine…",
+      offlineNote: "Runs locally on your device"
+    },
+    navGroups: {
+      words: "Dictionary & Words",
+      writing: "Writing & Conversion",
+      reference: "Numbers & Calendar",
+      developer: "Developer"
+    },
+    home: {
+      heroSummary: "Look up Tamil words, convert legacy fonts like Bamini to Unicode, write cheque amounts in Tamil, and check today's solar calendar and Panchangam.",
+      searchPlaceholder: "Look up a Tamil word or English meaning (e.g. நன்றி, அறம், water)…",
+      searchAction: "Look up",
+      quickStartLabel: "Common tasks:",
+      quickBamini: "Convert Bamini → Unicode",
+      quickCheque: "Write a Cheque in Tamil",
+      quickCalendar: "Today's Tamil Date & Rahu Kalam",
+      quickClean: "Clean Broken Unicode",
+      developerSectionTitle: "Developer & Unicode Tools",
+      developerSectionDesc: "Inspect Unicode scalars, send raw JSON requests, or copy SDK snippets.",
+      dictionaryCountSuffix: "words"
     },
     actions: {
       copy: "Copy",
@@ -771,7 +1199,7 @@ export const translations: Record<Language, Translations> = {
       quickJump: "Direct Utilities",
       encodingsSupported: "7 Legacy Encodings Supported",
       realtimeHeading: "Script, Numeral & Calendar Utilities",
-      realtimeDesc: "Legacy font conversion, legal cheque numeral formatting, and classical solar calendar diagnostics.",
+      realtimeDesc: "Legacy font conversion, legal cheque numeral formatting, and classical solar calendar tools.",
       devToolsHeading: "Diagnostic Console & Unicode Inspector",
       devToolsDesc: "Raw WebAssembly dispatcher execution, polyglot SDK generation, and scalar boundary inspection.",
       featuredBadge: "Featured Tool",
@@ -789,150 +1217,298 @@ export const translations: Record<Language, Translations> = {
     },
     tools: {
       codec: {
-        title: "Legacy Font & Encoding Converter",
-        desc: "Bidirectional real-time conversion for Bamini, TSCII, TAB, TAM, Anjal, Vanavil, and LT-TM into modern Unicode.",
-        inputPlaceholder: "Paste or type legacy encoded or Unicode text here...",
-        outputPlaceholder: "Converted text appears here in real time...",
-        detectedEncoding: "Detected Encoding",
+        title: "Legacy Font Converter",
+        desc: "Convert between Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM, and modern Tamil Unicode.",
+        inputPlaceholder: "Paste or type text to convert...",
+        outputPlaceholder: "Converted text appears here...",
+        detectedEncoding: "Detected Font",
         confidence: "Confidence",
-        allProfiles: "Supported Encodings",
-        directionLegacyToUnicode: "  Unicode",
-        directionUnicodeToLegacy: "  Legacy Font",
-        inputLegacyLabel: "Input (Legacy Text / Font):",
-        inputUnicodeLabel: "Input (Tamil Unicode):",
-        outputUnicodeLabel: "Output (Modern Unicode):",
-        outputLegacyLabel: "Output (Legacy Encoded Font):"
+        allProfiles: "Source Encoding",
+        directionLegacyToUnicode: "Legacy → Unicode",
+        directionUnicodeToLegacy: "Unicode → Legacy",
+        inputLegacyLabel: "Legacy Text",
+        inputUnicodeLabel: "Tamil Unicode",
+        outputUnicodeLabel: "Modern Unicode",
+        outputLegacyLabel: "Legacy Font Output",
+        targetFontLabel: "Target Font",
+        errorPolicyLabel: "Error Policy",
+        policyStrict: "Strict",
+        policyPreserve: "Preserve Unknown",
+        hexModeToggle: "Hex Bytes (8-bit)",
+        detectedCandidatesLabel: "Detection Candidates:",
+        sampleTsciiHex: "TSCII (Hex)"
       },
       numeral: {
-        title: "Numerals & Currency Formatter",
-        desc: "Format numbers and financial amounts into formal Tamil words, legal cheque phrasing, and traditional numerals.",
+        title: "Numbers & Cheques",
+        desc: "Write numbers, Indian/Sri Lankan rupee amounts, fractions, percentages, ordinals, and Tamil dates in words and traditional numerals.",
         inputPlaceholder: "Enter a number or amount (e.g. 125000 or 1050.75)...",
-        inputLabel: "Number or Financial Amount:",
+        inputLabel: "Number or Amount",
         currencyToggle: "Currency (INR / LKR)",
         spokenToggle: "Spoken Colloquial",
         formalWordsLabel: "Formal Tamil Words",
-        chequeWordsLabel: "Legal Cheque Format",
+        chequeWordsLabel: "Cheque Format",
         spokenWordsLabel: "Spoken Variant",
-        traditionalSymbolsLabel: "Traditional Tamil Numerals",
+        traditionalSymbolsLabel: "Classical Tamil Numerals",
         fractionLabel: "Tamil Fractions",
-        spokenVariantBadge: "Spoken Colloquial Variant",
+        spokenVariantBadge: "Spoken Variant",
         classicalTamilBadge: "Classical Tamil",
-        classicalNotationHeading: "Classical Tamil Numeral Notation"
+        classicalNotationHeading: "Classical Tamil Notation",
+        modeNumber: "Plain Number",
+        modeInr: "Indian Rupee (₹ INR)",
+        modeLkr: "Sri Lankan Rupee (Rs LKR)",
+        localeTN: "Tamil Nadu (TN)",
+        localeSL: "Sri Lanka (SL)",
+        tabCurrencyWords: "Currency & Words",
+        tabTraditionalDigits: "Traditional & Digits",
+        tabFractionsRanges: "Fractions, % & Ranges",
+        tabDatesMath: "Dates & Date Math",
+        currencyLabel: "Currency",
+        regionLabel: "Region / Dialect",
+        inputTypeLabel: "Format",
+        modeCurrency: "Currency",
+        modeOrdinal: "Ordinal (1st, 2nd…)",
+        modeDigitSeq: "Digit Sequence (Phone / OTP)",
+        inputDigitsLabel: "Input Digits",
+        outputDigitsLabel: "Output Digits",
+        digitsLatin: "Latin (0–9)",
+        digitsTamil: "Tamil (௦–௯)",
+        groupingToggle: "Indian Grouping (1,25,000)",
+        formattedAmountLabel: "Formatted Output",
+        resultWordsLabel: "Tamil Words",
+        tradFormatHeading: "Arabic → Traditional Tamil Integer",
+        tradParseHeading: "Traditional Tamil → Arabic Integer",
+        tradInputLabel: "Integer (1 – 1,000,000)",
+        tradSymbolsInputLabel: "Traditional Tamil Numerals",
+        tradParsePlaceholder: "e.g. ௲௨௱௫௰",
+        digitScriptHeading: "Convert Digits Inside Text",
+        digitScriptInputPlaceholder: "Enter text containing digits (e.g. Year 2026 / ௨௦௨௬)...",
+        convertToTamil: "Convert to Tamil Digits (௦–௯)",
+        convertToLatin: "Convert to Latin Digits (0–9)",
+        fractionCalcHeading: "Fraction & Mixed Fraction Calculator",
+        wholeLabel: "Whole",
+        numeratorLabel: "Numerator",
+        denominatorLabel: "Denominator",
+        fractionSymbolLabel: "Unicode Symbol",
+        fractionWordsLabel: "Fraction in Tamil Words",
+        percentHeading: "Percentage ↔ Exact Ratio",
+        percentInputLabel: "Percent (e.g. 12.5%)",
+        percentRatioLabel: "Exact Ratio / Decimal",
+        rangeHeading: "Numeric Range Formatter",
+        rangeStartLabel: "Start",
+        rangeEndLabel: "End",
+        rangeStartIncl: "Start inclusive [",
+        rangeEndIncl: "End inclusive ]",
+        rangeOutputLabel: "Formatted Range",
+        dateFormatHeading: "Format Gregorian Date in Tamil",
+        dateStyleLabel: "Display Style",
+        styleShort: "Short",
+        styleMedium: "Medium",
+        styleLong: "Long",
+        styleFull: "Full (with Weekday)",
+        weekdayLabel: "Weekday",
+        dateMathHeading: "Date Difference & Arithmetic",
+        startDateLabel: "Start Date",
+        endDateLabel: "End Date",
+        dateDifferenceLabel: "Day Difference",
+        daysSuffix: "days",
+        addUnitLabel: "Unit",
+        addAmountLabel: "Offset (+/-)",
+        unitDays: "Days",
+        unitMonths: "Months",
+        unitYears: "Years",
+        resultingDateLabel: "Resulting Date"
       },
       calendar: {
-        title: "Calendar & Panchangam Explorer",
-        desc: "Explore Tamil solar months, Thiruvalluvar year, 60-year cycle titles, nakshatra, tithi, and daylight periods.",
-        dateSelectLabel: "Select Gregorian Date:",
+        title: "Tamil Calendar & Panchangam",
+        desc: "Explore Tamil solar dates, 12-month years, Panchangam limbs, festivals, TN/SL holidays, lunar phases, and Thirukanitham vs Vakya comparison.",
+        dateSelectLabel: "Gregorian Date",
         tamilDateLabel: "Tamil Solar Date",
         thiruvalluvarYearLabel: "Thiruvalluvar Year",
-        cycleYearLabel: "60-Year Cycle Name",
+        cycleYearLabel: "60-Year Cycle",
         nakshatraLabel: "Nakshatra",
         tithiLabel: "Tithi",
+        yogaLabel: "Yoga",
+        karanaLabel: "Karana",
+        sunriseLabel: "Sunrise",
+        sunsetLabel: "Sunset",
         rahuKalamLabel: "Rahu Kalam",
         yamagandamLabel: "Yamagandam",
-        gulikaiLabel: "Gulikai",
+        gulikaiLabel: "Kuligai",
         holidayLabel: "Official Public Holidays",
-        locationPrompt: "Use Current Location",
-        locationFallback: "Chennai Coordinates (Default)",
-        coordsLabel: "Panchangam Calculation Coordinates:",
+        locationPrompt: "Use GPS",
+        locationFallback: "Chennai (Default)",
+        coordsLabel: "City / Location",
         gpsLocationLabel: "Current Location (GPS)",
-        chennaiFallbackLabel: "Chennai (Fallback)",
-        yearFallback: "Tamil Year"
+        chennaiFallbackLabel: "Chennai (Default)",
+        yearFallback: "Tamil Year",
+        todayButton: "Today",
+        prevDay: "Previous day",
+        nextDay: "Next day",
+        cityLabel: "City",
+        panchangamHeading: "Panchangam (at local sunrise)",
+        daylightHeading: "Daily Timings",
+        outOfBoundsNotice: "GPS coordinates are outside supported Tamil Nadu / Sri Lanka bounds; using Chennai.",
+        tabDaily: "Daily Sheet",
+        tabConvertYear: "Tamil ↔ Gregorian & Year",
+        tabFestivals: "Festivals, Holidays & Moon",
+        tabCompare: "Thirukanitham vs Vakya",
+        profileLabel: "Calculation Profile",
+        profileThirukanitham: "Thirukanitham",
+        profileVakya: "Vakya Civil (Ujjain)",
+        digitsToggle: "Tamil Digits (௦–௯)",
+        atTimeLabel: "Panchangam at Time (HH:MM)",
+        atTimeHeading: "Panchangam at Selected Time",
+        transitionsHeading: "Limb Transitions Today",
+        noTransitions: "No limb transitions during this civil day",
+        panchangamError: "Outside supported calendar date/location range",
+        reverseConvertHeading: "Tamil Solar Date → Gregorian Date",
+        tamilYearLabel: "Solar Year",
+        tamilMonthLabel: "Tamil Month",
+        tamilDayLabel: "Tamil Day",
+        gregorianResultLabel: "Gregorian Date",
+        addTamilDateHeading: "Add Days / Months / Years to Tamil Date",
+        addButtonLabel: "Calculate",
+        yearMonthsHeading: "12-Month Solar Year Schedule",
+        monthCol: "Month",
+        startDateCol: "Start Date",
+        endDateCol: "End (Exclusive)",
+        daysCol: "Days",
+        observancesHeading: "Named Observances & Festivals",
+        monthFilterAll: "All Months",
+        holidaysHeading: "Official Public Holidays",
+        jurisdictionTN: "Tamil Nadu (TN)",
+        jurisdictionSL: "Sri Lanka (SL)",
+        lunarPhasesHeading: "Lunar Phases (Month)",
+        noEvents: "No events found",
+        compareHeading: "Thirukanitham vs Vakya Profile Comparison",
+        differingFieldsLabel: "Differing Fields:",
+        thirukanithamCol: "Thirukanitham",
+        vakyaCol: "Vakya Civil",
+        solarDateLabel: "Tamil Solar Date"
       },
       sorter: {
         title: "Agara Varisai Sorter",
-        desc: "Sort Tamil words strictly according to classical Agara varisai grammatical order (உயிர், மெய், உயிர்மெய்).",
+        desc: "Sort Tamil words in classical Agara Varisai order (உயிர், மெய், உயிர்மெய்), compare pairs, and inspect sort/search keys.",
         inputPlaceholder: "Enter Tamil words, one per line...",
         outputPlaceholder: "Sorted word list...",
-        sortAsc: "Ascending (அ → ன)",
-        sortDesc: "Descending (ன → அ)",
+        sortAsc: "A → Z (அ → ன)",
+        sortDesc: "Z → A (ன → அ)",
         removeDups: "Remove Duplicates",
         syllableStats: "Word Count",
-        inputWordsLabel: "Input words (one per line):",
-        collationOutputLabel: "Collation Output:",
-        wordsCountSuffix: "words"
+        inputWordsLabel: "Input words (one per line)",
+        collationOutputLabel: "Sorted Result",
+        wordsCountSuffix: "words",
+        profileAgara: "Agara Varisai",
+        profileUyirmei: "Uyirmei First",
+        compareHeading: "Compare Words & Inspect Keys",
+        wordALabel: "Word A",
+        wordBLabel: "Word B",
+        compareResultBefore: "Word A comes before Word B (<)",
+        compareResultAfter: "Word A comes after Word B (>)",
+        compareResultEqual: "Words are collation-equal (=)",
+        sortKeyLabel: "Sort Key",
+        searchKeyLabel: "Search Key",
+        foldedKeyLabel: "Folded Search Key"
       },
       scalar: {
         title: "Unicode Scalar Inspector",
-        desc: "Inspect Unicode codepoints, hex escapes, grapheme cluster boundaries, and detect invisible joiner codes.",
+        desc: "Inspect Unicode codepoints, hex escapes, grapheme clusters, Rust structural classification, and invisible joiners.",
         inputPlaceholder: "Enter Tamil text to inspect (e.g. தமிழ், ஸ்ரீ)...",
-        inputLabel: "Tamil String to Inspect (Input):",
+        inputLabel: "Text to Inspect",
         scalarCountLabel: "Unicode Scalars",
         clusterCountLabel: "Grapheme Clusters",
-        invisibleNotice: "Invisible control codes (ZWJ / ZWNJ) detected!",
-        noInvisibleNotice: "No invisible control codes detected (Clean text)"
+        invisibleNotice: "Invisible control codes (ZWJ / ZWNJ / SHY / BOM) detected!",
+        noInvisibleNotice: "No invisible control codes detected (Clean text)",
+        sampleInvisible: "ZWJ / NFD sample",
+        rustInspectHeading: "Rust Inspection Summary (inspect_tamil_string)",
+        nfcStatusLabel: "NFC",
+        nfdStatusLabel: "NFD",
+        ezhuthuCountLabel: "Ezhuthu Count",
+        classificationsHeading: "Letter Phonetic Classifications"
       },
       dispatcher: {
         title: "Dispatcher Sandbox",
-        desc: "Execute raw JSON requests directly against the unified Rust WebAssembly dispatcher.",
+        desc: "Send raw JSON requests directly to the Rust WebAssembly engine and inspect the response.",
         presetLabel: "Choose Preset Request:",
         sendRequest: "Send Request",
         latencyLabel: "Execution Latency",
         responseLabel: "JSON Response",
-        payloadLabel: "JSON Request Payload:",
+        payloadLabel: "JSON Request Payload",
         statusSuccess: "Success",
         statusError: "Error",
-        responsePlaceholder: "Response will appear here (Click 'Send Request')"
+        responsePlaceholder: "Response will appear here",
+        shortcutHint: "Press Ctrl/⌘ + Enter to run"
       },
       codegen: {
-        title: "Code Snippet Generator",
-        desc: "Generate copy-pasteable integration code for Rust, Python, TypeScript, and Dart matching the active parameters.",
+        title: "Code Snippets",
+        desc: "Copy starter snippets for TypeScript, Python, Rust, and Dart across every module.",
         selectLang: "Select Language:",
         installCommand: "Install Command",
-        snippetHeading: "Integration Snippet (Example Code)",
+        snippetHeading: "Example Code",
         tabCodec: "Font Converter",
-        tabNumeral: "Numerals & Words",
-        tabCalendar: "Calendar"
+        tabNumeral: "Numerals (INR/LKR)",
+        tabCalendar: "Calendar",
+        tabLexicon: "Dictionary",
+        tabHyphenator: "Hyphenator",
+        tabNormalizer: "Normalizer",
+        tabSorter: "Sorter"
       },
       batch: {
-        title: "Batch File Processor",
-        desc: "Convert large documents and text archives locally in your browser using a background Web Worker.",
+        title: "Batch File Converter",
+        desc: "Convert large .txt and .csv files locally in your browser using a background Web Worker.",
         dropzoneTitle: "Drop text files here to convert",
         dropzoneSubtitle: "or click to browse (.txt, .csv files)",
         progressLabel: "Conversion Progress",
-        completedNotice: "Batch conversion complete!",
-        formatError: "Unsupported file format. Please upload .txt or .csv files."
+        completedNotice: "Conversion complete!",
+        formatError: "Unsupported file format. Please upload .txt or .csv files.",
+        encodingLabel: "Source encoding:",
+        convertAnother: "Convert another file"
       },
       symbols: {
-        title: "Traditional Fractions & Symbols",
-        desc: "Explore classical Tamil fractions (Munthiri, Kani, Veesam, Kal), land area, currency, and volume measurement glyphs.",
-        searchPlaceholder: "Search by glyph, name, or value (e.g. Kani, 1/80, 0.75)...",
+        title: "Classical Fractions & Symbols",
+        desc: "Browse traditional Tamil fractions (Munthiri, Kani, Veesam, Kal), land area, volume, and coin symbols, or inspect any of the 72 Unicode symbols.",
+        searchPlaceholder: "Search by symbol, name, or fraction (e.g. Kani, 1/80, 0.75)...",
         categoryAll: "All Glyphs",
         categoryFractions: "Fractions",
         categoryLand: "Land Measures",
         categoryVolume: "Volume Measures",
         categoryCurrency: "Currency / Weight",
-        symbolDetailsHeading: "Symbol Inspector",
+        symbolDetailsHeading: "Symbol Details",
         glyphLabel: "Glyph",
         codepointLabel: "Unicode Codepoint",
         nameLabel: "Classical Name",
         rationalLabel: "Rational Fraction",
         decimalLabel: "Decimal Value",
         periodLabel: "Historical Context",
-        copySymbolButton: "Copy Glyph",
+        copySymbolButton: "Copy Symbol",
         quickLookupHeading: "Number to Fraction Lookup",
         quickLookupPlaceholder: "Enter number or fraction (e.g. 0.25 or 1/4)...",
-        noMatches: "No matching traditional symbols found"
+        noMatches: "No matching traditional symbols found",
+        liveCalcHeading: "Live Rust Symbol & Fraction Lookup",
+        inspectAnySymbolLabel: "Inspect Any Tamil Symbol (72 Unicode Symbols)",
+        inspectAnyPlaceholder: "Paste symbol (e.g. 𑿔, ௹, ௳)...",
+        fractionBuilderLabel: "Fraction to Symbol & Words",
+        buildFractionBtn: "Convert"
       },
       hyphenator: {
         title: "Syllabic Hyphenator & Line Wrapper",
-        desc: "Grammar-compliant Tamil syllabification, soft-hyphen (&shy;) injection, and responsive column wrapping preserving coda binding invariants.",
+        desc: "Split Tamil words into syllables, insert soft hyphens without breaking pure consonants (ஒற்று), and test narrow column wrapping.",
         tabWord: "Word Syllables",
         tabText: "Paragraph Soft-Hyphens",
-        tabWrap: "Column Wrap Simulator",
-        wordInputLabel: "Target Tamil Word:",
+        tabWrap: "Column Wrap",
+        wordInputLabel: "Tamil Word",
         wordPlaceholder: "e.g. தமிழ்நாடு, பல்கலைக்கழகம், திருக்குறள்...",
-        textInputLabel: "Paragraph Text:",
-        textPlaceholder: "Enter Tamil paragraph or prose to inject soft hyphens or test line breaks...",
-        syllableChipsHeading: "Syllable Units (Syllable Chunks)",
-        breakpointsHeading: "Permissible Hyphenation Breakpoints",
-        breakpointsDesc: "Valid places where a hyphen (-) can be inserted at the end of a line so the rest wraps safely without violating coda binding rules.",
-        codaBindingNotice: "Coda Binding Invariant",
-        codaBindingRule: "In Tamil orthography, pure consonants (ஒற்று) must stay bound to their preceding nucleus; a line or hyphenated segment must never start with a pulli letter.",
-        marginHeading: "Safe Margin Restraints",
-        leftMarginLabel: "Left Minimum Margin (letters)",
-        rightMarginLabel: "Right Minimum Margin (letters)",
-        delimiterLabel: "Syllable Delimiter",
+        textInputLabel: "Paragraph Text",
+        textPlaceholder: "Enter Tamil text to add soft hyphens or test line wrapping...",
+        syllableChipsHeading: "Syllable Units",
+        breakpointsHeading: "Allowed Breakpoints",
+        breakpointsDesc: "Valid points where a hyphen (-) can wrap to the next line without splitting a pure consonant from its vowel.",
+        codaBindingNotice: "Coda Binding Rule",
+        codaBindingRule: "Pure consonants (ஒற்று / pulli letters) stay attached to the preceding syllable and never begin a new line.",
+        marginHeading: "Margins & Delimiter",
+        leftMarginLabel: "Start Margin (min letters)",
+        rightMarginLabel: "End Margin (min letters)",
+        delimiterLabel: "Delimiter",
         delimiterHyphen: "Hyphen (-)",
         delimiterBullet: "Middle Dot (·)",
         delimiterSlash: "Slash (/)",
@@ -940,127 +1516,145 @@ export const translations: Record<Language, Translations> = {
         delimiterNone: "None / ZWSP",
         syllablesCount: "Syllables",
         breakpointsCount: "Breakpoints",
-        noBreakpoints: "No valid breakpoints within current safe margins",
-        shortWordNotice: "Word is too short for current margin constraints",
+        noBreakpoints: "No valid breakpoints within current margins",
+        shortWordNotice: "Word is too short for current margin settings",
         showSoftHyphensToggle: "Highlight Soft Hyphens ([·])",
-        copyWordButton: "Copy for MS Word / Docs",
+        copyWordButton: "Copy for Word / Docs",
         copyNoHyphenButton: "Copy without Hyphen (ZWSP)",
         copyHtmlButton: "Copy HTML (&shy;)",
-        copyTextButton: "Copy Unicode Soft-Hyphen Text",
-        columnWidthLabel: "Column Width (Tamil Letters):",
+        copyTextButton: "Copy Soft-Hyphen Text",
+        columnWidthLabel: "Column Width:",
         columnWidthLetters: "letters / line",
         compareToggle: "Compare with Naive Character Wrap",
-        defaultWrapHeading: "Naive / Browser Wrap (Breaks pulli to newline)",
-        syllabicWrapHeading: "Tamil Syllabic Wrap (Grammatically Compliant)",
+        defaultWrapHeading: "Naive Character Wrap (Breaks pulli)",
+        syllabicWrapHeading: "Tamil Syllabic Wrap (Compliant)",
         lineCount: "Lines",
-        sampleWordsHeading: "Sample Words:",
-        sampleParagraphButton: "Load Sample Paragraph",
+        sampleWordsHeading: "Try a word:",
+        sampleParagraphButton: "Load sample",
         errOrphanedPulli: "(Orphaned Pulli / Virama!)",
         errOrphanedVisiri: "(Orphaned Visiri ி/ீ!)",
         errOrphanedDiacritic: "(Orphaned Diacritic!)",
         errPureConsonant: "(Starts with Pure Consonant / Mei!)",
         errAytham: "(Starts with Aytham ஃ!)",
         integrationsTitle: "Desktop Publishing & Office Integrations",
-        integrationsDesc: "Verified Frank Liang / Hunspell hyphenation dictionaries for LibreOffice Writer, Adobe InDesign, and Scribus.",
-        downloadOxtButton: "Download LibreOffice Extension (.oxt)",
-        downloadDicButton: "Download Hunspell Dictionary (.dic)",
+        integrationsDesc: "Hyphenation dictionaries for LibreOffice Writer, Adobe InDesign, and Scribus.",
+        downloadOxtButton: "LibreOffice Extension (.oxt)",
+        downloadDicButton: "Hunspell Dictionary (.dic)",
         libreofficeGuide: "LibreOffice Guide",
         indesignGuide: "InDesign Guide",
-        scribusGuide: "Scribus Guide"
+        scribusGuide: "Scribus Guide",
+        formattedSyllablesLabel: "Hyphenated Word",
+        settingsToggle: "Settings",
+        visualPreviewHeading: "Soft-Hyphen Visual Preview",
+        browserFlowHeading: "Browser Flow Preview (Resize Window)",
+        setupGuidesLabel: "Setup Guides:"
       },
       letter: {
-        title: "Letter & Syllable Analyzer",
-        desc: "Deconstruct Tamil words into vowels (உயிர்), consonants (மெய்), composite syllables (உயிர்மெய்), and Grantha loan letters.",
-        inputPlaceholder: "Type or paste words to analyze (e.g. தமிழ்நாடு, புரட்சி, ஸ்ரீலங்கா)...",
-        inputLabel: "Text to Analyze:",
-        syllablesCount: "Total Syllables",
+        title: "Word & Syllable Breakdown",
+        desc: "Break Tamil words into vowels (உயிர்), consonants (மெய்), composite letters (உயிர்மெய்), and Grantha letters.",
+        inputPlaceholder: "Type or paste Tamil words to analyze (e.g. தமிழ்நாடு, புரட்சி, ஸ்ரீலங்கா)...",
+        inputLabel: "Text to Analyze",
+        syllablesCount: "Total Letters",
         uyirCount: "Vowels (உயிர்)",
         meiCount: "Consonants (மெய்)",
         uyirmeiCount: "Composite (உயிர்மெய்)",
         granthaCount: "Grantha (கிரந்தம்)",
-        selectedSyllableHeading: "Syllable Structure Breakdown",
+        selectedSyllableHeading: "Letter Breakdown",
         rootConsonantLabel: "Root Consonant (மெய்)",
-        vowelLabel: "Associated Vowel (உயிர்)",
-        vowelSignLabel: "Vowel Sign Glyph",
+        vowelLabel: "Vowel (உயிர்)",
+        vowelSignLabel: "Vowel Sign",
         codepointsLabel: "Unicode Sequence",
-        classificationLabel: "Grammatical Category",
-        selectPrompt: "Click any syllable above to view its morphological breakdown",
-        moraLabel: "Duration (Māthirai / Mora)",
-        cognateLabel: "Cognate Consonant (Inam)",
-        quantityLabel: "Phonological Quantity"
+        classificationLabel: "Category",
+        selectPrompt: "Select any letter above to see how it is formed",
+        moraLabel: "Duration (Māthirai)",
+        cognateLabel: "Cognate Consonant",
+        quantityLabel: "Quantity",
+        tabBreakdown: "Letter Breakdown",
+        tabComposer: "Uyirmei Composer",
+        tabOlippasai: "Syllables & Cognates",
+        composerMeiLabel: "Consonant (மெய்)",
+        composerUyirLabel: "Vowel (உயிர்)",
+        composedResultLabel: "Composed Uyirmei",
+        allVowelsRowLabel: "All 12 Vowel Forms for This Consonant",
+        olippasaiHeading: "Spoken Syllables (Olippasai)",
+        codaYes: "Coda consonant",
+        codaNo: "Open syllable",
+        cognateCheckHeading: "Cognate Pair Check (are_cognates)",
+        cognateYes: "Cognate pair (இன எழுத்து)",
+        cognateNo: "Not cognates"
       },
       normalizer: {
-        title: "Unicode Text Normalizer",
-        desc: "Audit and repair broken diacritics, anomalous pulli marks, and non-canonical sequences into clean Tamil Unicode.",
-        inputPlaceholder: "Paste Tamil text to audit and normalize...",
-        inputLabel: "Raw Input Text:",
-        outputLabel: "Normalized Unicode (Output):",
-        nfcLabel: "Canonical Composition (NFC - Recommended)",
-        nfdLabel: "Canonical Decomposition (NFD)",
-        repairedLabel: "Clean & Repaired (NFC)",
-        foldLabel: "Search Folding (Contract 3)",
-        statusClean: "Text is in clean canonical Unicode standard (0 anomalies)",
-        statusAnomalies: "Encoding anomalies detected and repaired!",
-        anomaliesFixedLabel: "Repairs Performed:",
+        title: "Unicode Cleanup & Repair",
+        desc: "Fix broken vowel signs, duplicate pulli marks, and stray invisible characters into clean Tamil Unicode.",
+        inputPlaceholder: "Paste Tamil text to clean or normalize...",
+        inputLabel: "Original Text",
+        outputLabel: "Cleaned Output",
+        nfcLabel: "Standard NFC",
+        nfdLabel: "Decomposed NFD",
+        repairedLabel: "Repair Broken Text",
+        foldLabel: "Search Fold",
+        statusClean: "Clean Unicode (0 issues)",
+        statusAnomalies: "issues fixed",
+        anomaliesFixedLabel: "Issues Detected",
         copyNormalizedButton: "Copy Clean Text",
         diffHeading: "Normalization Diff",
-        sampleVowelsButton: "Two-Part Vowels (கொ, கோ, கௌ)",
-        sampleDefectiveButton: "Corrupted Text Sample",
-        codepointInspectorHeading: "Unicode Codepoint Inspector",
-        nfcBanner: "NFC (Canonical Composition): Composes split two-part vowel sequences into single canonical Unicode characters (ொ, ோ, ௌ) for standard storage and database queries.",
-        nfdBanner: "NFD (Canonical Decomposition): Decomposes two-part vowel signs (ொ, ோ, ௌ) into constituent kombu (ெ/ே) and auxiliary glyphs (ா/ௗ). While rendered identically by Tamil fonts, inspect the Codepoints breakdown below to verify byte-level decomposition.",
-        repairedBanner: "Clean & Repaired: Collapses duplicate pulli marks, strips stray invisible format controls (ZWJ/ZWNJ/BOM), and emits canonical NFC.",
-        foldBanner: "Search Folding (Contract 3): Versioned lossy phonetic and loanword folding for robust search indexes. Folds Mayangoli confusion sets (ள/ழ/ல, ண/ந/ன, ற/ர) and Grantha letters (ஜ, ஷ, ஸ, ஹ, ஸ்ரீ, க்ஷ) to canonical search keys.",
+        sampleVowelsButton: "Two-part vowels (கொ, கோ)",
+        sampleDefectiveButton: "Broken text sample",
+        codepointInspectorHeading: "Codepoint Inspector",
+        nfcBanner: "Standard NFC: Combines split two-part vowel signs (ொ, ோ, ௌ) into canonical single Unicode codepoints.",
+        nfdBanner: "Decomposed NFD: Splits composite vowel signs (ொ, ோ, ௌ) into kombu (ெ/ே) plus trailing sign (ா/ௗ). Although visually identical in fonts, the Codepoint Inspector below reveals the underlying sequence.",
+        repairedBanner: "Repair Broken Text: Collapses duplicate pulli marks, reorders misplaced visual kombu signs, strips stray invisible controls, and outputs clean NFC.",
+        foldBanner: "Search Fold: Maps similar-sounding Mayangoli letters (ள/ழ/ல, ண/ந/ன, ற/ர) and Grantha letters (ஜ, ஷ, ஸ, ஹ, ஸ்ரீ, க்ஷ) into canonical search keys.",
         decomposedCountLabel: "Two-part vowel signs decomposed",
-        profileComprehensive: "Comprehensive (All)",
-        profileMayangoli: "Mayangoli Confusion Sets",
-        profileGrantha: "Grantha Consonants",
-        repairOptionsHeading: "Repair Options & Diagnostics",
+        profileComprehensive: "All (Mayangoli + Grantha)",
+        profileMayangoli: "Mayangoli Only",
+        profileGrantha: "Grantha Only",
+        repairOptionsHeading: "Repair Options & Counts",
         optCollapsePulli: "Collapse Duplicate Pulli",
         optReorderKombu: "Reorder Visual Kombu",
         optStripShy: "Strip Soft Hyphens (SHY)",
         optStripJoiners: "Strip Joiners (ZWJ/ZWNJ)",
-        diagDuplicatePulli: "Duplicate Pulli Marks",
-        diagVisualKombu: "Visual Kombu Positions",
-        diagStrippedControls: "Stripped Control Chars",
-        diagTotalRepairs: "Total Repairs Performed"
+        diagDuplicatePulli: "Duplicate Pulli",
+        diagVisualKombu: "Visual Kombu",
+        diagStrippedControls: "Stripped Controls",
+        diagTotalRepairs: "Total Repairs"
       },
       lexicon: {
-        title: "Tamil Lexicon Explorer",
-        desc: "Exact NFC headword lookup across approved packs (core, names_taxa, regional) with homographs, all senses, finite scope filters, and verifiable provenance.",
-        searchLabel: "Exact Headword Query (preserves whitespace & joiners):",
-        searchPlaceholder: "Enter Tamil headword (e.g. நன்றி, செப்பம், கோளாறு)...",
-        searchButton: "Lookup",
+        title: "Tamil Dictionary",
+        desc: "Look up verified Tamil and English Wiktionary entries with definitions, regional dialects, examples, and sources.",
+        searchLabel: "Headword Search (preserves whitespace & joiners):",
+        searchPlaceholder: "Enter Tamil word or English meaning (e.g. நன்றி, செப்பம், water)...",
+        searchButton: "Search",
         exactPreserveNote: "Whitespace, ZWJ/ZWNJ, and soft hyphens are preserved verbatim; only Rust NFC canonicalization runs.",
         packsLabel: "Lexicon Packs:",
         selectAllAvailable: "Select All Available",
         clearSelection: "Clear All",
         packUnavailableBadge: "Unavailable",
         packLoadedBadge: "Loaded",
-        packNotBuiltBadge: "Not in this WASM build",
-        regionFilterLabel: "Region Filter:",
-        registerFilterLabel: "Register Filter:",
-        allRegionsOption: "All Regions (unfiltered)",
+        packNotBuiltBadge: "Not in this build",
+        regionFilterLabel: "Dialect / Region:",
+        registerFilterLabel: "Register:",
+        allRegionsOption: "All Regions",
         allRegistersOption: "All Registers (unfiltered)",
-        unknownScopeNote: "Finite registry region options (including valid unattested codes) and selected-pack register codes are shown; unknown entry scopes are never inferred.",
-        examplesHeading: "Checked-in Pack Examples:",
-        corpusInventoryHeading: "Pack Totals & Data Provenance Scope",
+        unknownScopeNote: "Finite registry region options and selected-pack register codes are shown; unknown entry scopes are never inferred.",
+        examplesHeading: "Try these words:",
+        corpusInventoryHeading: "Pack Totals & Provenance Scope",
         fullProfileBadge: "Full Profile (core + names_taxa + regional)",
-        activeBuildLabel: "Current WASM Build:",
+        activeBuildLabel: "Current Build:",
         distinctFormsLabel: "Distinct Forms",
         entriesLabel: "Entries",
         sensesLabel: "Senses",
         historicalExclusionHeading: "Excluded Historical Intake (307,243 records)",
-        historicalExclusionBody: "The original 307,243 historical intake records (12 frozen files) remain excluded/unverified (0 eligible assertions) and are never bundled. Current full profile contains 9,410 distinct forms, 11,377 entries, and 25,742 senses across core, names_taxa, and regional; terminology remains unavailable.",
-        loadingEngine: "Loading Rust WebAssembly lexicon engine…",
-        noDataBuildHeading: "No lexicon data embedded in this WASM build",
-        noDataBuildBody: "This zero-payload build contains no compiled dictionary packs. Rebuild with the core or full lexicon profile.",
+        historicalExclusionBody: "The original 307,243 historical intake records (12 frozen files) remain excluded from the verified dictionary (0 eligible assertions) and are searchable separately under Historical Archive.",
+        loadingEngine: "Loading dictionary engine…",
+        noDataBuildHeading: "No dictionary data embedded in this build",
+        noDataBuildBody: "This zero-payload build contains no compiled dictionary packs.",
         statusMatched: "Matched",
         statusNotFound: "Not Found",
-        statusError: "Contract Error",
-        canonicalQueryLabel: "Rust Canonical Query (NFC):",
-        notFoundHeading: "No exact canonical headword match",
-        notFoundBody: "No entry matched this exact NFC headword in the selected packs and filters (active region/register filters exclude unknown scopes).",
+        statusError: "Error",
+        canonicalQueryLabel: "Canonical Query (NFC):",
+        notFoundHeading: "No exact headword match",
+        notFoundBody: "No entry matched this exact headword in the selected packs and filters.",
         entryIdLabel: "Entry ID",
         posLabel: "Part of Speech",
         formsHeading: "Forms",
@@ -1082,8 +1676,8 @@ export const translations: Record<Language, Translations> = {
         rawResponseLabel: "Raw Response / Error JSON",
         downloadRequest: "Download Request",
         downloadResponse: "Download Response",
-        contractPresetsToggle: "Contract-Test Presets (Developer)",
-        contractPresetsDesc: "Optional presets to test empty/unknown/unavailable packs, invalid filters, whitespace/joiner preservation, and NFD→NFC behavior.",
+        contractPresetsToggle: "Developer Contract-Test Presets",
+        contractPresetsDesc: "Presets to test empty/unknown/unavailable packs, invalid filters, whitespace/joiner preservation, and NFD→NFC behavior.",
         resetToAvailablePacks: "Reset to Available Packs",
         packCoreDesc: "Approved core Tamil lexicon pack",
         packNamesTaxaDesc: "Proper names & biological/cultural taxa",
@@ -1091,13 +1685,13 @@ export const translations: Record<Language, Translations> = {
         packTerminologyDesc: "Technical terminology pack (unavailable)",
         staleMetadataBadge: "Stale / Mismatched Metadata",
         staleMetadataWarning: "Engine PackInfo.manifest_sha256 does not match catalog; static catalog counts are withheld as stale/unavailable.",
-        verifyingManifests: "Verifying compiled WASM pack manifest_sha256 against catalog…",
+        verifyingManifests: "Verifying dictionary metadata…",
         unavailableCounts: "Unavailable / stale",
-        partialProfileBadge: "Partial WASM Profile (Verified Loaded Packs Only)",
+        partialProfileBadge: "Partial Profile (Verified Loaded Packs Only)",
         attributionNoticesHeading: "Public Attribution & License Notices (CC-BY-SA-4.0):",
-        firstLoadSizeNote: "First-time load downloads the full-profile WebAssembly engine (~46 MiB / 47,971,718 bytes, mostly dictionary provenance), then caches it locally for offline use.",
+        firstLoadSizeNote: "First load downloads the dictionary (~46 MiB), then caches it locally for offline lookup.",
         offlineCacheHeading: "First-Load Size & Offline Cache",
-        offlineCacheNote: "The full-profile browser WASM bundle is ~46 MiB (47,971,718 bytes, primarily per-claim dictionary provenance) and is precached alongside attribution notices under the 64 MiB PWA cache limit for offline client-side lookup.",
+        offlineCacheNote: "The browser WASM bundle (~46 MiB) is cached locally alongside attribution notices for offline lookup.",
         dataDetailsToggle: "Data coverage, exclusions & attribution"
       }
     }
@@ -1149,7 +1743,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     setLanguageState(newLang);
     try {
       localStorage.setItem("tt_playground_lang", newLang);
-      
+
       // Update URL query parameter seamlessly without full reload
       if (typeof window !== "undefined") {
         const url = new URL(window.location.href);
