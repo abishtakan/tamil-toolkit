@@ -86,14 +86,20 @@ Node execution of the browser WASM target does not establish browser UI support.
    harness lack this metadata and must not be reused with the new publishers.
 3. Dispatch **Publish release** (`publish-release.yml`) from `master` with
    `artifact_run_id`, the full `source_sha`, and `confirm_publish=publish`.
-   The unified workflow verifies the reviewed run and runs three jobs:
-   - `crates`: publishes all 6 Rust crates in dependency order (`tamil-core`,
-     `tamil-norm`, `tamil-collate`, `tamil-numerals`, `tamil-codec`, `tamil-toolkit`).
-     Before publishing each crate, it checks crates.io to ensure re-runs are idempotent.
-   - `npm`: verifies byte-identical Node 22/24 tarballs and publishes to npm via OIDC.
-   - `pypi`: verifies Linux/Windows/macOS wheels and sdist, then publishes via OIDC.
-   Alternatively, individual publishers (`publish-crate.yml` with `package: all` or
-   a single crate, `publish-npm.yml`, `publish-pypi.yml`) remain available for isolated retries.
+   It validates the reviewed artifact run and dispatches the three individual
+   registry publishers on `master` so npm and PyPI OIDC trusted-publisher
+   tokens always originate from their registered workflow filenames:
+   - `publish-crate.yml` (`package: all`): publishes all approved Rust crates in
+     dependency order (`tamil-core`, `tamil-norm`, `tamil-collate`,
+     `tamil-numerals`, `tamil-calendar`, `tamil-codec`, `tamil-hyphen`,
+     `tamil-toolkit`), skipping any crate already present on crates.io so
+     re-runs are idempotent.
+   - `publish-npm.yml`: verifies byte-identical Node 22/24 tarballs and
+     publishes to npm via OIDC.
+   - `publish-pypi.yml`: verifies Linux/Windows/macOS wheels and sdist, then
+     publishes via OIDC after required `pypi` environment reviewer approval.
+   Each individual publisher also remains available for direct dispatch and
+   isolated retries.
 4. Run `just release-record <artifact_run_id>` to automatically query GitHub Actions
    and registry APIs (crates.io, npm, PyPI) or local manifests, updating
    `docs/releases/<release-record>.md` with the exact commit SHA, artifact run link,

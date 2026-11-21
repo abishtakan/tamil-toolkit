@@ -269,6 +269,17 @@ def test_publishing_workflows_require_manual_review_and_serialize():
         assert "verify-run" in text and "--source-sha" in text
         assert "0.1.0-alpha.1" not in text
 
+    release_workflow = (gate.ROOT / ".github/workflows/publish-release.yml").read_text()
+    for target in ("publish-crate.yml", "publish-npm.yml", "publish-pypi.yml"):
+        assert f"gh workflow run {target}" in release_workflow
+    assert "id-token: write" not in release_workflow
+    assert "npm publish" not in release_workflow
+    assert "gh-action-pypi-publish" not in release_workflow
+
+    crate_workflow = (gate.ROOT / ".github/workflows/publish-crate.yml").read_text()
+    for crate in gate.load()["public_crates"]:
+        assert f"'{crate}'" in crate_workflow
+
 
 def test_parse_version():
     p1 = gate.parse_version("0.1.0-alpha.4")
