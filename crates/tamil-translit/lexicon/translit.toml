@@ -1,0 +1,430 @@
+# Phase 8 declarative transliteration and deterministic input tables.
+# Policy: uniform readable NFC UTF-8 Tamil (detached marks escaped); see docs/specs/translit-v0.1.md.
+profile = "translit-v0.1"
+pulli = "\u0BCD"
+aytham = "ஃ"
+ksha = "க்ஷ"
+sri = "ஸ்ரீ"
+
+# 12 Tamil vowels (independent + dependent vowel sign)
+[[vowels]]
+independent = "அ"
+dependent = ""
+iso_15919 = "a"
+madras_lexicon = "a"
+itrans = "a"
+harvard_kyoto = "a"
+phonetic = "a"
+
+[[vowels]]
+independent = "ஆ"
+dependent = "\u0BBE"
+iso_15919 = "\u0101"
+madras_lexicon = "\u0101"
+itrans = "aa"
+harvard_kyoto = "A"
+phonetic = "aa"
+
+[[vowels]]
+independent = "இ"
+dependent = "\u0BBF"
+iso_15919 = "i"
+madras_lexicon = "i"
+itrans = "i"
+harvard_kyoto = "i"
+phonetic = "i"
+
+[[vowels]]
+independent = "ஈ"
+dependent = "\u0BC0"
+iso_15919 = "\u012B"
+madras_lexicon = "\u012B"
+itrans = "ii"
+harvard_kyoto = "I"
+phonetic = "ee"
+
+[[vowels]]
+independent = "உ"
+dependent = "\u0BC1"
+iso_15919 = "u"
+madras_lexicon = "u"
+itrans = "u"
+harvard_kyoto = "u"
+phonetic = "u"
+
+[[vowels]]
+independent = "ஊ"
+dependent = "\u0BC2"
+iso_15919 = "\u016B"
+madras_lexicon = "\u016B"
+itrans = "uu"
+harvard_kyoto = "U"
+phonetic = "oo"
+
+[[vowels]]
+independent = "எ"
+dependent = "\u0BC6"
+iso_15919 = "e"
+madras_lexicon = "e"
+itrans = "e"
+harvard_kyoto = "e"
+phonetic = "e"
+
+[[vowels]]
+independent = "ஏ"
+dependent = "\u0BC7"
+iso_15919 = "\u0113"
+madras_lexicon = "\u0113"
+itrans = "E"
+harvard_kyoto = "E"
+phonetic = "ae"
+
+[[vowels]]
+independent = "ஐ"
+dependent = "\u0BC8"
+iso_15919 = "ai"
+madras_lexicon = "ai"
+itrans = "ai"
+harvard_kyoto = "ai"
+phonetic = "ai"
+
+[[vowels]]
+independent = "ஒ"
+dependent = "\u0BCA"
+iso_15919 = "o"
+madras_lexicon = "o"
+itrans = "o"
+harvard_kyoto = "o"
+phonetic = "o"
+
+[[vowels]]
+independent = "ஓ"
+dependent = "\u0BCB"
+iso_15919 = "\u014D"
+madras_lexicon = "\u014D"
+itrans = "O"
+harvard_kyoto = "O"
+phonetic = "oa"
+
+[[vowels]]
+independent = "ஔ"
+dependent = "\u0BCC"
+iso_15919 = "au"
+madras_lexicon = "au"
+itrans = "au"
+harvard_kyoto = "au"
+phonetic = "au"
+
+# 18 native + 5 Grantha Tamil consonants
+[[consonants]]
+tamil = "க"
+iso_15919 = "k"
+madras_lexicon = "k"
+itrans = "k"
+harvard_kyoto = "k"
+phonetic = "k"
+
+[[consonants]]
+tamil = "ங"
+iso_15919 = "\u1E45"
+madras_lexicon = "\u1E45"
+itrans = "~N"
+harvard_kyoto = "G"
+phonetic = "ng"
+
+[[consonants]]
+tamil = "ச"
+iso_15919 = "c"
+madras_lexicon = "c"
+itrans = "ch"
+harvard_kyoto = "c"
+phonetic = "ch"
+
+[[consonants]]
+tamil = "ஞ"
+iso_15919 = "\u00F1"
+madras_lexicon = "\u00F1"
+itrans = "~n"
+harvard_kyoto = "J"
+phonetic = "nj"
+
+[[consonants]]
+tamil = "ட"
+iso_15919 = "\u1E6D"
+madras_lexicon = "\u1E6D"
+itrans = "T"
+harvard_kyoto = "T"
+phonetic = "t"
+
+[[consonants]]
+tamil = "ண"
+iso_15919 = "\u1E47"
+madras_lexicon = "\u1E47"
+itrans = "N"
+harvard_kyoto = "N"
+phonetic = "N"
+
+[[consonants]]
+tamil = "த"
+iso_15919 = "t"
+madras_lexicon = "t"
+itrans = "t"
+harvard_kyoto = "t"
+phonetic = "th"
+
+[[consonants]]
+tamil = "ந"
+iso_15919 = "n"
+madras_lexicon = "n"
+itrans = "n"
+harvard_kyoto = "n"
+phonetic = "nh"
+
+[[consonants]]
+tamil = "ன"
+iso_15919 = "\u1E49"
+madras_lexicon = "\u1E49"
+itrans = "^n"
+harvard_kyoto = "X"
+phonetic = "n"
+
+[[consonants]]
+tamil = "ப"
+iso_15919 = "p"
+madras_lexicon = "p"
+itrans = "p"
+harvard_kyoto = "p"
+phonetic = "p"
+
+[[consonants]]
+tamil = "ம"
+iso_15919 = "m"
+madras_lexicon = "m"
+itrans = "m"
+harvard_kyoto = "m"
+phonetic = "m"
+
+[[consonants]]
+tamil = "ய"
+iso_15919 = "y"
+madras_lexicon = "y"
+itrans = "y"
+harvard_kyoto = "y"
+phonetic = "y"
+
+[[consonants]]
+tamil = "ர"
+iso_15919 = "r"
+madras_lexicon = "r"
+itrans = "r"
+harvard_kyoto = "r"
+phonetic = "r"
+
+[[consonants]]
+tamil = "ற"
+iso_15919 = "\u1E5F"
+madras_lexicon = "\u1E5F"
+itrans = "R"
+harvard_kyoto = "R"
+phonetic = "R"
+
+[[consonants]]
+tamil = "ல"
+iso_15919 = "l"
+madras_lexicon = "l"
+itrans = "l"
+harvard_kyoto = "l"
+phonetic = "l"
+
+[[consonants]]
+tamil = "ள"
+iso_15919 = "\u1E37"
+madras_lexicon = "\u1E37"
+itrans = "L"
+harvard_kyoto = "L"
+phonetic = "L"
+
+[[consonants]]
+tamil = "ழ"
+iso_15919 = "\u1E3B"
+madras_lexicon = "\u1E3B"
+itrans = "zh"
+harvard_kyoto = "Z"
+phonetic = "zh"
+
+[[consonants]]
+tamil = "வ"
+iso_15919 = "v"
+madras_lexicon = "v"
+itrans = "v"
+harvard_kyoto = "v"
+phonetic = "v"
+
+[[consonants]]
+tamil = "ஜ"
+iso_15919 = "j"
+madras_lexicon = "j"
+itrans = "j"
+harvard_kyoto = "j"
+phonetic = "j"
+
+[[consonants]]
+tamil = "ஶ"
+iso_15919 = "\u015B"
+madras_lexicon = "\u015B"
+itrans = "sh"
+harvard_kyoto = "M"
+phonetic = "sh"
+
+[[consonants]]
+tamil = "ஷ"
+iso_15919 = "\u1E63"
+madras_lexicon = "\u1E63"
+itrans = "Sh"
+harvard_kyoto = "S"
+phonetic = "Sh"
+
+[[consonants]]
+tamil = "ஸ"
+iso_15919 = "s"
+madras_lexicon = "s"
+itrans = "s"
+harvard_kyoto = "s"
+phonetic = "s"
+
+[[consonants]]
+tamil = "ஹ"
+iso_15919 = "h"
+madras_lexicon = "h"
+itrans = "h"
+harvard_kyoto = "h"
+phonetic = "h"
+
+[aytham_tokens]
+iso_15919 = "\u1E35"
+madras_lexicon = "\u1E25"
+itrans = "q"
+harvard_kyoto = "H"
+phonetic = "q"
+
+# Official TamilNet'99 (Tamil99) keyboard layout
+[tamil99]
+pulli_key = "f"
+aytham_key = "F"
+vowels = [
+  { key = "a", independent = "அ", dependent = "" },
+  { key = "q", independent = "ஆ", dependent = "\u0BBE" },
+  { key = "s", independent = "இ", dependent = "\u0BBF" },
+  { key = "w", independent = "ஈ", dependent = "\u0BC0" },
+  { key = "d", independent = "உ", dependent = "\u0BC1" },
+  { key = "e", independent = "ஊ", dependent = "\u0BC2" },
+  { key = "g", independent = "எ", dependent = "\u0BC6" },
+  { key = "t", independent = "ஏ", dependent = "\u0BC7" },
+  { key = "r", independent = "ஐ", dependent = "\u0BC8" },
+  { key = "c", independent = "ஒ", dependent = "\u0BCA" },
+  { key = "x", independent = "ஓ", dependent = "\u0BCB" },
+  { key = "z", independent = "ஔ", dependent = "\u0BCC" },
+]
+consonants = [
+  { key = "h", tamil = "க" },
+  { key = "b", tamil = "ங" },
+  { key = "[", tamil = "ச" },
+  { key = "]", tamil = "ஞ" },
+  { key = "o", tamil = "ட" },
+  { key = "p", tamil = "ண" },
+  { key = "l", tamil = "த" },
+  { key = ";", tamil = "ந" },
+  { key = "i", tamil = "ன" },
+  { key = "j", tamil = "ப" },
+  { key = "k", tamil = "ம" },
+  { key = "'", tamil = "ய" },
+  { key = "m", tamil = "ர" },
+  { key = "u", tamil = "ற" },
+  { key = "n", tamil = "ல" },
+  { key = "y", tamil = "ள" },
+  { key = "/", tamil = "ழ" },
+  { key = "v", tamil = "வ" },
+  { key = "Q", tamil = "ஸ" },
+  { key = "W", tamil = "ஷ" },
+  { key = "E", tamil = "ஜ" },
+  { key = "R", tamil = "ஹ" },
+]
+special = [
+  { key = "T", tamil = "க்ஷ" },
+  { key = "Y", tamil = "ஸ்ரீ" },
+]
+homorganic_pairs = [
+  ["ங", "க"],
+  ["ஞ", "ச"],
+  ["ண", "ட"],
+  ["ந", "த"],
+  ["ம", "ப"],
+  ["ன", "ற"],
+]
+
+# Suratha Bamini live keystroke-to-Unicode layout
+[suratha_bamini]
+pulli_key = ";"
+pre_vowel_e = "n"
+pre_vowel_ee = "N"
+pre_vowel_ai = "i"
+post_vowel_aa = "h"
+post_vowel_i = "p"
+post_vowel_ii = "P"
+post_vowel_au_suffix = "s"
+vowels = [
+  { key = "m", tamil = "அ" },
+  { key = "M", tamil = "ஆ" },
+  { key = ",", tamil = "இ" },
+  { key = "<", tamil = "ஈ" },
+  { key = "c", tamil = "உ" },
+  { key = "C", tamil = "ஊ" },
+  { key = "v", tamil = "எ" },
+  { key = "V", tamil = "ஏ" },
+  { key = "I", tamil = "ஐ" },
+  { key = "x", tamil = "ஒ" },
+  { key = "X", tamil = "ஓ" },
+  { key = "~", tamil = "ஃ" },
+]
+consonants = [
+  { key = "f", tamil = "க" },
+  { key = "q", tamil = "ங" },
+  { key = "r", tamil = "ச" },
+  { key = "Q", tamil = "ஞ" },
+  { key = "l", tamil = "ட" },
+  { key = "z", tamil = "ண" },
+  { key = "j", tamil = "த" },
+  { key = "e", tamil = "ந" },
+  { key = "d", tamil = "ன" },
+  { key = "g", tamil = "ப" },
+  { key = "k", tamil = "ம" },
+  { key = "a", tamil = "ய" },
+  { key = "u", tamil = "ர" },
+  { key = "w", tamil = "ற" },
+  { key = "y", tamil = "ல" },
+  { key = "s", tamil = "ள" },
+  { key = "o", tamil = "ழ" },
+  { key = "t", tamil = "வ" },
+  { key = "[", tamil = "ஜ" },
+  { key = "\\", tamil = "ஷ" },
+  { key = "]", tamil = "ஸ" },
+  { key = "`", tamil = "ஹ" },
+]
+precomposed_u = [
+  { key = "F", tamil = "கு" },
+  { key = "R", tamil = "சு" },
+  { key = "L", tamil = "டு" },
+  { key = "Z", tamil = "ணு" },
+  { key = "J", tamil = "து" },
+  { key = "E", tamil = "நு" },
+  { key = "D", tamil = "னு" },
+  { key = "G", tamil = "பு" },
+  { key = "K", tamil = "மு" },
+  { key = "A", tamil = "யு" },
+  { key = "U", tamil = "ரு" },
+  { key = "W", tamil = "று" },
+  { key = "Y", tamil = "லு" },
+  { key = "S", tamil = "ளு" },
+  { key = "O", tamil = "ழு" },
+  { key = "T", tamil = "வு" },
+]

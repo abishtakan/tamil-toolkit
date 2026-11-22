@@ -543,6 +543,8 @@ export function createApi(nativeExecute: (request: string) => string) {
     parse_mixed_fraction: (text: string, source_digits: DigitStyle) => execute({ op: "parse_mixed_fraction", input: { text, source_digits } }) as MixedFraction,
     mixed_fraction_to_words: (value: MixedFraction, locale: Locale = "TN") => execute({ op: "mixed_fraction_to_words", input: { ...value, locale } }) as string,
     words_to_number: (text: string, locale: Locale = "TN") => execute({ op: "words_to_number", input: { text, locale } }) as number,
+    transliterate: (text: string, scheme: string, direction: "to_tamil" | "to_latin" = "to_tamil") => execute({ op: "transliterate", input: { text, scheme, direction } }) as string,
+    transliterate_schemes: () => execute({ op: "transliterate_schemes", input: {} }) as { id: string; category: string; directions: string[] }[],
     format_traditional_integer: (value: number) => execute({ op: "format_traditional_integer", input: { value } }) as string,
     parse_traditional_integer: (text: string) => execute({ op: "parse_traditional_integer", input: { text } }) as number,
     parse_percent: (text: string, source_digits: DigitStyle, grouping: Grouping = "none") => execute({ op: "parse_percent", input: { text, source_digits, grouping } }) as ExactDecimal,

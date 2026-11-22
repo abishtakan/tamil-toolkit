@@ -889,6 +889,8 @@ pub const OPERATIONS: &[&str] = &[
     "parse_mixed_fraction",
     "mixed_fraction_to_words",
     "words_to_number",
+    "transliterate",
+    "transliterate_schemes",
     "format_traditional_integer",
     "parse_traditional_integer",
     "parse_percent",
@@ -1721,6 +1723,39 @@ pub fn execute(request: &Value) -> Result<Value, String> {
             let text = string(&input["text"])?;
             let loc = locale(input)?;
             numerals::words_to_number(text, loc).map(|value| json!(value))
+        }
+        "transliterate" => {
+            let text = string(&input["text"])?;
+            let scheme = tamil_translit::Scheme::parse(
+                input
+                    .get("scheme")
+                    .and_then(Value::as_str)
+                    .ok_or("unsupported transliteration scheme")?,
+            )?;
+            let direction = tamil_translit::Direction::parse(
+                input
+                    .get("direction")
+                    .and_then(Value::as_str)
+                    .ok_or("unsupported transliteration direction")?,
+            )?;
+            tamil_translit::transliterate(text, scheme, direction).map(|out| json!(out))
+        }
+        "transliterate_schemes" => {
+            let list: Vec<Value> = tamil_translit::SCHEMES
+                .iter()
+                .map(|s| {
+                    json!({
+                        "id": s.id,
+                        "category": s.category,
+                        "directions": if s.bidirectional {
+                            vec!["to_tamil", "to_latin"]
+                        } else {
+                            vec!["to_tamil"]
+                        }
+                    })
+                })
+                .collect();
+            Ok(json!(list))
         }
         "format_traditional_integer" => {
             let value = integer(&input["value"],99_999_999).map_err(|_| "expected a traditional Tamil integer in the supported range")?;

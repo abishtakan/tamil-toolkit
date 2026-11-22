@@ -115,6 +115,7 @@ INPUTS = {
         "tbo.toml",
         "braille.toml",
     ),
+    "tamil-translit": ("translit.toml",),
 }
 SUMMARIES = {
     "tamil-core": "Tailored UAX #29 letter segmentation, Mei/Uyir splitting, Tholkappiyam phonology (mora/Maathirai, cognates/Ina Ezhuthu), zero-allocation syllable nuclei (Olippasai), and Unicode inspection.",
@@ -124,6 +125,7 @@ SUMMARIES = {
     "tamil-calendar": "Tamil calendar systems, Thirukanitham, Vakiya, panchangam, and observances.",
     "tamil-codec": "Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles.",
     "tamil-hyphen": "Syllable breakdown, prosodic Asai segmentation, soft hyphenation, and publication-grade line wrapping.",
+    "tamil-translit": "Lossless Tamil orthographic romanization (ISO 15919, Madras Lexicon, ITRANS, Harvard-Kyoto) and deterministic offline input (Tamil99, Anjal phonetic, Suratha Bamini, Phonetic v1).",
     "tamil-toolkit": "Unified high-performance Rust entry point for Tamil text, Agara ordering, bounded exact numerals, Tholkappiyam phonology, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, and legacy conversion APIs.",
 }
 FEATURE_TABLES = {
@@ -174,6 +176,10 @@ FEATURE_TABLES = {
 | **Text Hyphenation** | Full paragraph soft hyphenation preserving punctuation, whitespace, and non-Tamil runs (`hyphenate_text`). |
 | **Line Wrapping** | Publication-grade line wrapping with customizable margins and delimiters (`wrap_text`). |
 | **OpenXML & Dictionaries** | Batch OOXML Word document processing (`process_docx_file`), Frank Liang dictionary export (`export_dic_file`), and LibreOffice extension bundling (`package_oxt`). |""",
+    "tamil-translit": """| Area | Capabilities |
+| --- | --- |
+| **Scholarly Romanization** | Lossless bidirectional ISO 15919, Madras Lexicon, ITRANS, and Harvard-Kyoto transliteration (`transliterate`). |
+| **Offline Input** | Deterministic Tamil99, Anjal phonetic, Suratha Bamini, and rule-based Phonetic/Tanglish v1 input (`transliterate`). |""",
 }
 CONTRACTS = {
     "tamil-core": "docs/specs/core-v0.1.md",
@@ -183,6 +189,7 @@ CONTRACTS = {
     "tamil-calendar": "docs/specs/calendar-year-cycle-v1.md",
     "tamil-codec": "docs/specs/codec-lt-tm.md",
     "tamil-hyphen": "docs/specs/hyphen-v0.1.md",
+    "tamil-translit": "docs/specs/translit-v0.1.md",
     "tamil-toolkit": "README.md#capability-contracts",
 }
 UNRELEASED_NOTES = {
@@ -252,6 +259,14 @@ fn main() -> Result<(), String> {
     };
     let result = hyphenate_word(word, Some(&config))?;
     println!("{} -> {}", result.original, result.hyphenated);
+    Ok(())
+}''',
+    "tamil-translit": '''use tamil_translit::{transliterate, Direction, Scheme};
+
+fn main() -> Result<(), String> {
+    let roman = transliterate("தமிழ்", Scheme::Iso15919, Direction::ToLatin)?;
+    let back = transliterate(&roman, Scheme::Iso15919, Direction::ToTamil)?;
+    println!("{roman} -> {back}");
     Ok(())
 }''',
     "tamil-toolkit": '''use tamil_toolkit::{codec, core, numerals};
@@ -510,7 +525,7 @@ def artifact_license_spdx(artifact: str, *, profiles=()) -> str:
     """Return the exact SPDX license expression for a packaged artifact profile."""
     normalized = _validate_profiles(profiles)
     if artifact in ("tamil-core", "tamil-norm", "tamil-collate", "tamil-numerals",
-                    "tamil-calendar", "tamil-codec", "tamil-hyphen"):
+                    "tamil-calendar", "tamil-codec", "tamil-hyphen", "tamil-translit"):
         if normalized:
             raise ValueError(f"Lower crate {artifact} cannot enable dictionary pack profiles: {normalized}")
         return "MIT"

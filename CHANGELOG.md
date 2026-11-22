@@ -3,6 +3,17 @@
 
 ## Unreleased
 
+- **Phase 8 (`tamil-translit` v0.1):** Create Rank 2 crate `crates/tamil-translit`
+  (`#![forbid(unsafe_code)]`, depending only on `tamil-core` and `tamil-norm`),
+  declarative uniform UTF-8 Tamil table `lexicon/translit.toml`, and
+  `docs/specs/translit-v0.1.md`. Implements lossless bidirectional scholarly
+  romanization (`iso-15919`, `madras-lexicon`, `itrans`, `harvard-kyoto`) plus
+  deterministic offline keyboard & phonetic input (`tamil99` with auto-pulli
+  gemination & homorganic nasal+stop rules, `anjal-phonetic`, `suratha-bamini`,
+  and `phonetic-v1`), backed by 522 active golden vectors
+  (`tests/golden/translit_v01.jsonl`), `transliterate` / `transliterate_schemes`
+  dispatcher ops, `release-policy.toml` / `release_files.py` integration, and
+  full Rust/Python/WASM/Dart parity.
 - **Uniform UTF-8 Tamil in `lexicon/*.toml` (Constitution 3.0.0):** Migrated all
   canonical `lexicon/*.toml` rule tables and their 10 generator scripts onto a
   shared formatter (`tools/toml_utf8.py`): literal NFC UTF-8 Tamil (UTF-8 no

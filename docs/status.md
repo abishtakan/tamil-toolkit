@@ -1,5 +1,13 @@
 # Project handoff
 
+## Phase 8 (`tamil-translit` v0.1 Complete): Orthographic Romanization & Deterministic Offline Input (2026-11-22)
+
+- **Scope (`crates/tamil-translit/`, `lexicon/translit.toml`, `docs/specs/translit-v0.1.md`, `tests/golden/translit_v01.jsonl`):**
+  - Created Rank 2 crate `tamil-translit` (`#![forbid(unsafe_code)]`, depending only on `tamil-core` and `tamil-norm`) compiled from uniform readable NFC UTF-8 `lexicon/translit.toml`.
+  - Implemented 8 deterministic schemes: 4 lossless bidirectional scholarly schemes (`iso-15919`, `madras-lexicon`, `itrans`, `harvard-kyoto`) + 4 offline keyboard/phonetic profiles (`tamil99` stateful gemination & homorganic nasal+stop auto-pulli, `anjal-phonetic`, `suratha-bamini` live left-kombu composer, and `phonetic-v1` bidirectional Tanglish v1).
+  - Added 522 active golden vectors (`tests/golden/translit_v01.jsonl`, 40,160 total active vectors), registered in `release-policy.toml` and `release_files.py` (139 synced copies), and exposed `transliterate` / `transliterate_schemes` across Rust, Python, Node/Browser WASM, and Dart.
+- **Next:** Phase 9 (`tamil-tokenize`) or Chrome/Edge MV3 Browser Extension v1.
+
 ## Uniform Readable UTF-8 Tamil in `lexicon/*.toml` (2026-11-22, Constitution 3.0.0)
 
 - **Scope (`tools/toml_utf8.py`, 27 `lexicon/*.toml` files, 10 generators, `check_source_unicode.py`, `.github/workflows/ci.yml`, Constitution 3.0.0 & docs):**

@@ -338,7 +338,7 @@ __all__ += ["convert_digits", "parse_decimal", "format_decimal", "decimal_to_wor
             "ordinal_to_words", "digit_sequence_to_words", "format_currency_decimal",
             "currency_decimal_to_words", "parse_fraction_symbol", "symbol_info",
             "format_mixed_fraction", "parse_mixed_fraction", "mixed_fraction_to_words",
-            "words_to_number", "format_traditional_integer",
+            "words_to_number", "transliterate", "transliterate_schemes", "format_traditional_integer",
             "parse_traditional_integer", "parse_percent", "format_percent", "ratio_to_percent",
             "percent_to_ratio", "format_numeric_range", "validate_gregorian_date",
             "parse_gregorian_date", "weekday", "add_gregorian_date", "date_difference", "date_interval"]
@@ -398,6 +398,14 @@ def mixed_fraction_to_words(negative: bool, whole: int, numerator: int, denomina
 
 def words_to_number(text: str, locale: str = "TN") -> int:
     return execute({"op": "words_to_number", "input": {"text": text, "locale": locale}})
+
+
+def transliterate(text: str, scheme: str, direction: str = "to_tamil") -> str:
+    return execute({"op": "transliterate", "input": {"text": text, "scheme": scheme, "direction": direction}})
+
+
+def transliterate_schemes() -> list[dict[str, Any]]:
+    return execute({"op": "transliterate_schemes", "input": {}})
 
 
 def format_traditional_integer(value: int) -> str:

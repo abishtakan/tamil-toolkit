@@ -753,7 +753,20 @@ dependencies = [
  "tamil-hyphen",
  "tamil-norm",
  "tamil-numerals",
+ "tamil-translit",
  "toml",
+]
+
+[[package]]
+name = "tamil-translit"
+version = "0.1.0-alpha.8"
+dependencies = [
+ "proptest",
+ "serde",
+ "tamil-core",
+ "tamil-norm",
+ "toml",
+ "unicode-normalization",
 ]
 
 [[package]]

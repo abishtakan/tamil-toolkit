@@ -1118,6 +1118,8 @@
               "parse_mixed_fraction",
               "mixed_fraction_to_words",
               "words_to_number",
+              "transliterate",
+              "transliterate_schemes",
               "format_traditional_integer",
               "parse_traditional_integer",
               "parse_percent",

@@ -433,6 +433,14 @@
       ]
     },
     {
+      "file": "translit_v01.jsonl",
+      "status": "active",
+      "operations": [
+        "transliterate",
+        "transliterate_schemes"
+      ]
+    },
+    {
       "file": "codec_detection.jsonl",
       "status": "active",
       "operations": [

@@ -684,6 +684,16 @@ class TamilToolkit {
         'op': 'words_to_number',
         'input': {'text': text, 'locale': locale},
       }) as int;
+  String transliterate(String text, String scheme,
+          {String direction = 'to_tamil'}) =>
+      execute({
+        'op': 'transliterate',
+        'input': {'text': text, 'scheme': scheme, 'direction': direction},
+      }) as String;
+  List<dynamic> transliterateSchemes() => execute({
+        'op': 'transliterate_schemes',
+        'input': <String, dynamic>{},
+      }) as List<dynamic>;
   String formatTraditionalInteger(int value) => execute({
         'op': 'format_traditional_integer',
         'input': {'value': value}
