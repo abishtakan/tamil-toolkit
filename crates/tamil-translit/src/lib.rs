@@ -172,6 +172,9 @@ impl Direction {
     }
 }
 
+pub const DEFAULT_SUGGEST_LIMIT: usize = 5;
+pub const MAX_SUGGEST_LIMIT: usize = 10;
+
 /// Transliterate text between Tamil Unicode and a scholarly/keyboard/phonetic scheme.
 pub fn transliterate(text: &str, scheme: Scheme, direction: Direction) -> Result<String, String> {
     match direction {
@@ -194,6 +197,29 @@ pub fn transliterate(text: &str, scheme: Scheme, direction: Direction) -> Result
             Scheme::SurathaBamini => Ok(suratha_bamini_to_tamil(text)),
             Scheme::PhoneticV1 => Ok(phonetic_scheme_to_tamil(text, &PHONETIC_V1_TABLE)),
         },
+    }
+}
+
+/// Generate primary Tamil transliteration plus phonotactically valid Mayangoli alternatives.
+pub fn transliterate_suggest(
+    text: &str,
+    scheme: Scheme,
+    limit: usize,
+) -> Result<Vec<String>, String> {
+    if limit == 0 {
+        return Err("expected a positive integer limit".into());
+    }
+    let max_items = limit.min(MAX_SUGGEST_LIMIT);
+    let primary = transliterate(text, scheme, Direction::ToTamil)?;
+    if primary.trim().is_empty() {
+        return Ok(Vec::new());
+    }
+    if matches!(scheme, Scheme::PhoneticV1 | Scheme::AnjalPhonetic)
+        || text.chars().any(|c| ('\u{0B80}'..='\u{0BFF}').contains(&c))
+    {
+        Ok(mayangoli_variants(&primary, max_items))
+    } else {
+        Ok(vec![primary])
     }
 }
 
@@ -546,8 +572,10 @@ fn phonetic_scheme_to_tamil(text: &str, cfg: &PhoneticTable) -> String {
             out.push_str(tam);
             i += clen;
             at_word_start = false;
-            if let Some(&(vpat, _, dep)) =
-                cfg.vowels.iter().find(|&&(p, _, _)| text[i..].starts_with(p))
+            if let Some(&(vpat, _, dep)) = cfg
+                .vowels
+                .iter()
+                .find(|&&(p, _, _)| text[i..].starts_with(p))
             {
                 if let Some(sign) = dep {
                     out.push(sign);
@@ -572,10 +600,312 @@ fn phonetic_scheme_to_tamil(text: &str, cfg: &PhoneticTable) -> String {
     normalize_nfc(&out)
 }
 
+fn is_tamil_word_char(ch: char) -> bool {
+    matches!(ch, '\u{0B82}'..='\u{0BCD}' | '\u{0BD7}') || ch.is_alphabetic()
+}
+
+enum MayangoliSegment {
+    Fixed(String),
+    Variable(&'static [&'static str]),
+}
+
+fn push_fixed_str(segments: &mut Vec<MayangoliSegment>, text: &str) {
+    if let Some(MayangoliSegment::Fixed(existing)) = segments.last_mut() {
+        existing.push_str(text);
+    } else {
+        segments.push(MayangoliSegment::Fixed(text.to_owned()));
+    }
+}
+
+fn push_fixed_char(segments: &mut Vec<MayangoliSegment>, ch: char) {
+    if let Some(MayangoliSegment::Fixed(existing)) = segments.last_mut() {
+        existing.push(ch);
+    } else {
+        segments.push(MayangoliSegment::Fixed(ch.to_string()));
+    }
+}
+
+fn render_segments(segments: &[MayangoliSegment], choices: &[usize]) -> String {
+    let mut rendered = String::new();
+    for (idx, seg) in segments.iter().enumerate() {
+        match seg {
+            MayangoliSegment::Fixed(text) => rendered.push_str(text),
+            MayangoliSegment::Variable(opts) => rendered.push_str(opts[choices[idx]]),
+        }
+    }
+    normalize_nfc(&rendered)
+}
+
+fn push_unique_candidate(out: &mut Vec<String>, candidate: String, limit: usize) {
+    if out.len() < limit && !out.contains(&candidate) {
+        out.push(candidate);
+    }
+}
+
+fn emit_sub_combinations(
+    segments: &[MayangoliSegment],
+    active_vars: &[usize],
+    pos: usize,
+    subs_left: usize,
+    choices: &mut [usize],
+    out: &mut Vec<String>,
+    limit: usize,
+) {
+    if out.len() >= limit {
+        return;
+    }
+    if subs_left == 0 {
+        push_unique_candidate(out, render_segments(segments, choices), limit);
+        return;
+    }
+    if pos + subs_left > active_vars.len() {
+        return;
+    }
+    let seg_idx = active_vars[pos];
+    if let MayangoliSegment::Variable(opts) = segments[seg_idx] {
+        for choice in 1..opts.len() {
+            choices[seg_idx] = choice;
+            emit_sub_combinations(
+                segments,
+                active_vars,
+                pos + 1,
+                subs_left - 1,
+                choices,
+                out,
+                limit,
+            );
+            if out.len() >= limit {
+                choices[seg_idx] = 0;
+                return;
+            }
+        }
+        choices[seg_idx] = 0;
+    }
+    emit_sub_combinations(
+        segments,
+        active_vars,
+        pos + 1,
+        subs_left,
+        choices,
+        out,
+        limit,
+    );
+}
+
+fn mayangoli_variants(tamil_text: &str, limit: usize) -> Vec<String> {
+    let normalized = normalize_nfc(tamil_text);
+    let chars: Vec<char> = normalized.chars().collect();
+    let mut segments: Vec<MayangoliSegment> = Vec::new();
+    let mut i = 0;
+
+    while i < chars.len() {
+        let ch = chars[i];
+        let at_word_start = i == 0 || !is_tamil_word_char(chars[i - 1]);
+
+        if i + 2 < chars.len() && chars[i + 1] == tables::PULLI {
+            let next = chars[i + 2];
+            match (ch, next) {
+                ('\u{0BA8}', '\u{0BA4}')
+                | ('\u{0BA3}', '\u{0B9F}')
+                | ('\u{0BA9}', '\u{0BB1}')
+                | ('\u{0BB1}', '\u{0BB1}') => {
+                    let cluster: String = chars[i..i + 3].iter().collect();
+                    push_fixed_str(&mut segments, &cluster);
+                    i += 3;
+                    continue;
+                }
+                ('\u{0BA9}', '\u{0BA9}') if !at_word_start => {
+                    segments.push(MayangoliSegment::Variable(&[
+                        "\u{0BA9}\u{0BCD}\u{0BA9}",
+                        "\u{0BA3}\u{0BCD}\u{0BA3}",
+                    ]));
+                    i += 3;
+                    continue;
+                }
+                ('\u{0BA3}', '\u{0BA3}') if !at_word_start => {
+                    segments.push(MayangoliSegment::Variable(&[
+                        "\u{0BA3}\u{0BCD}\u{0BA3}",
+                        "\u{0BA9}\u{0BCD}\u{0BA9}",
+                    ]));
+                    i += 3;
+                    continue;
+                }
+                ('\u{0BB2}', '\u{0BB2}') if !at_word_start => {
+                    segments.push(MayangoliSegment::Variable(&[
+                        "\u{0BB2}\u{0BCD}\u{0BB2}",
+                        "\u{0BB3}\u{0BCD}\u{0BB3}",
+                    ]));
+                    i += 3;
+                    continue;
+                }
+                ('\u{0BB3}', '\u{0BB3}') if !at_word_start => {
+                    segments.push(MayangoliSegment::Variable(&[
+                        "\u{0BB3}\u{0BCD}\u{0BB3}",
+                        "\u{0BB2}\u{0BCD}\u{0BB2}",
+                    ]));
+                    i += 3;
+                    continue;
+                }
+                _ => {}
+            }
+        }
+
+        if !at_word_start {
+            match ch {
+                '\u{0BA9}' => {
+                    segments.push(MayangoliSegment::Variable(&["\u{0BA9}", "\u{0BA3}"]));
+                    i += 1;
+                    continue;
+                }
+                '\u{0BA3}' => {
+                    segments.push(MayangoliSegment::Variable(&["\u{0BA3}", "\u{0BA9}"]));
+                    i += 1;
+                    continue;
+                }
+                '\u{0BB2}' => {
+                    if chars.get(i + 1) == Some(&tables::PULLI) {
+                        segments.push(MayangoliSegment::Variable(&[
+                            "\u{0BB2}", "\u{0BB3}", "\u{0BB4}",
+                        ]));
+                    } else {
+                        segments.push(MayangoliSegment::Variable(&[
+                            "\u{0BB2}", "\u{0BB4}", "\u{0BB3}",
+                        ]));
+                    }
+                    i += 1;
+                    continue;
+                }
+                '\u{0BB4}' => {
+                    segments.push(MayangoliSegment::Variable(&[
+                        "\u{0BB4}", "\u{0BB2}", "\u{0BB3}",
+                    ]));
+                    i += 1;
+                    continue;
+                }
+                '\u{0BB3}' => {
+                    segments.push(MayangoliSegment::Variable(&[
+                        "\u{0BB3}", "\u{0BB2}", "\u{0BB4}",
+                    ]));
+                    i += 1;
+                    continue;
+                }
+                '\u{0BB0}' if chars.get(i + 1) != Some(&tables::PULLI) => {
+                    segments.push(MayangoliSegment::Variable(&["\u{0BB0}", "\u{0BB1}"]));
+                    i += 1;
+                    continue;
+                }
+                '\u{0BB1}' if chars.get(i + 1) != Some(&tables::PULLI) => {
+                    segments.push(MayangoliSegment::Variable(&["\u{0BB1}", "\u{0BB0}"]));
+                    i += 1;
+                    continue;
+                }
+                _ => {}
+            }
+        }
+
+        push_fixed_char(&mut segments, ch);
+        i += 1;
+    }
+
+    let var_indices: Vec<usize> = segments
+        .iter()
+        .enumerate()
+        .filter_map(|(idx, seg)| matches!(seg, MayangoliSegment::Variable(_)).then_some(idx))
+        .collect();
+
+    let mut choices = vec![0usize; segments.len()];
+    let mut out = Vec::with_capacity(limit);
+    push_unique_candidate(&mut out, render_segments(&segments, &choices), limit);
+    if var_indices.is_empty() || out.len() >= limit {
+        return out;
+    }
+
+    let active_vars = &var_indices[..var_indices.len().min(4)];
+
+    // Distance 1: breadth-first across choice tiers (first alt per slot, then second alt per slot)
+    for choice_tier in 1..=2usize {
+        for &seg_idx in active_vars {
+            if let MayangoliSegment::Variable(opts) = segments[seg_idx] {
+                if choice_tier < opts.len() {
+                    choices[seg_idx] = choice_tier;
+                    push_unique_candidate(&mut out, render_segments(&segments, &choices), limit);
+                    choices[seg_idx] = 0;
+                    if out.len() >= limit {
+                        return out;
+                    }
+                }
+            }
+        }
+    }
+
+    // Distance >= 2: multi-slot combinations up to active slot count
+    for dist in 2..=active_vars.len() {
+        emit_sub_combinations(
+            &segments,
+            active_vars,
+            0,
+            dist,
+            &mut choices,
+            &mut out,
+            limit,
+        );
+        if out.len() >= limit {
+            break;
+        }
+    }
+
+    out
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use proptest::prelude::*;
+
+    #[test]
+    fn mayangoli_suggestions_respect_phonotactics() {
+        assert_eq!(
+            transliterate_suggest("vanakkam", Scheme::PhoneticV1, 5).unwrap(),
+            vec!["வனக்கம்", "வணக்கம்"]
+        );
+        assert_eq!(
+            transliterate_suggest("malai", Scheme::PhoneticV1, 5).unwrap(),
+            vec!["மலை", "மழை", "மளை"]
+        );
+        assert_eq!(
+            transliterate_suggest("manam", Scheme::PhoneticV1, 5).unwrap(),
+            vec!["மனம்", "மணம்"]
+        );
+        assert_eq!(
+            transliterate_suggest("karai", Scheme::PhoneticV1, 5).unwrap(),
+            vec!["கரை", "கறை"]
+        );
+        assert_eq!(
+            transliterate_suggest("palli", Scheme::PhoneticV1, 5).unwrap(),
+            vec!["பல்லி", "பள்ளி"]
+        );
+        assert_eq!(
+            transliterate_suggest("anna", Scheme::PhoneticV1, 5).unwrap(),
+            vec!["அன்ன", "அண்ண"]
+        );
+        assert_eq!(
+            transliterate_suggest("thamil", Scheme::PhoneticV1, 5).unwrap(),
+            vec!["தமில்", "தமிள்", "தமிழ்"]
+        );
+        assert_eq!(
+            transliterate_suggest("avargal", Scheme::PhoneticV1, 5).unwrap(),
+            vec!["அவர்கல்", "அவர்கள்", "அவர்கழ்"]
+        );
+        assert_eq!(
+            transliterate_suggest("nandri", Scheme::PhoneticV1, 5).unwrap(),
+            vec!["நன்றி"]
+        );
+        assert_eq!(
+            transliterate_suggest("avar", Scheme::PhoneticV1, 5).unwrap(),
+            vec!["அவர்"]
+        );
+        assert!(transliterate_suggest("vanakkam", Scheme::PhoneticV1, 0).is_err());
+    }
 
     const SCHOLARLY: [Scheme; 4] = [
         Scheme::Iso15919,

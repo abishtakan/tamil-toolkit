@@ -8,6 +8,7 @@ export interface FloatingPillCallbacks {
   onChangeLayout: (layout: TypingLayout) => void;
   onScratchpadTransliterate: (raw: string) => Promise<string>;
   onScratchpadInsert: (text: string) => void;
+  onSelectCandidate?: (index: number) => void;
 }
 
 const HOST_ID = "tamil-toolkit-floating-pill-host";
@@ -71,20 +72,66 @@ const PILL_STYLES = `
   position: fixed;
   z-index: 2147483647;
   border-radius: var(--radius-card);
-  padding: 5px 10px;
+  padding: 6px 10px;
   display: none;
-  align-items: center;
-  gap: 8px;
-  pointer-events: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  pointer-events: auto;
   white-space: nowrap;
+  max-width: calc(100vw - 16px);
 }
 .preview-chip.show { display: inline-flex; }
 .preview-chip.anchored-fallback {
   right: 16px;
   bottom: 58px;
 }
+.preview-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
 .preview-raw { color: var(--fg-muted); font-family: ui-monospace, monospace; font-size: 11px; }
 .preview-out { color: var(--accent); font-weight: 600; font-size: 13px; }
+.cand-list {
+  display: none;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+.cand-list.show { display: flex; }
+.cand-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg-muted);
+  color: var(--fg);
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 12.5px;
+  font-family: inherit;
+  cursor: pointer;
+  line-height: 1.3;
+}
+.cand-chip:hover { border-color: var(--accent); }
+.cand-chip.active {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+.cand-num {
+  font-size: 10px;
+  opacity: 0.78;
+  font-family: ui-monospace, monospace;
+}
+.cand-hint {
+  display: none;
+  font-size: 10px;
+  color: var(--fg-muted);
+}
+.cand-hint.show { display: block; }
 .pill-bar {
   display: inline-flex;
   align-items: center;
@@ -183,6 +230,8 @@ export class FloatingPill {
   private previewChip: HTMLElement | null = null;
   private previewRaw: HTMLElement | null = null;
   private previewOut: HTMLElement | null = null;
+  private candListEl: HTMLElement | null = null;
+  private candHintEl: HTMLElement | null = null;
   private scratchCard: HTMLElement | null = null;
   private scratchInput: HTMLInputElement | null = null;
   private scratchOut: HTMLElement | null = null;
@@ -212,9 +261,13 @@ export class FloatingPill {
     root.className = "tt-root";
     root.innerHTML = `
       <div class="preview-chip" id="tt-preview">
-        <span class="preview-raw" id="tt-raw"></span>
-        <span>\u2192</span>
-        <span class="preview-out" id="tt-out"></span>
+        <div class="preview-head">
+          <span class="preview-raw" id="tt-raw"></span>
+          <span>\u2192</span>
+          <span class="preview-out" id="tt-out"></span>
+        </div>
+        <div class="cand-list" id="tt-cands"></div>
+        <div class="cand-hint" id="tt-cand-hint"></div>
       </div>
       <div class="pill-shell" id="tt-shell">
         <div class="scratch-card" id="tt-scratch">
@@ -251,10 +304,13 @@ export class FloatingPill {
     this.previewChip = this.shadow.getElementById("tt-preview");
     this.previewRaw = this.shadow.getElementById("tt-raw");
     this.previewOut = this.shadow.getElementById("tt-out");
+    this.candListEl = this.shadow.getElementById("tt-cands");
+    this.candHintEl = this.shadow.getElementById("tt-cand-hint");
     this.scratchCard = this.shadow.getElementById("tt-scratch");
     this.scratchInput = this.shadow.getElementById("tt-scratch-in") as HTMLInputElement;
     this.scratchOut = this.shadow.getElementById("tt-scratch-out");
 
+    this.previewChip?.addEventListener("mousedown", (e) => e.preventDefault());
     this.toggleBtn.addEventListener("mousedown", (e) => e.preventDefault());
     this.toggleBtn.addEventListener("click", () => this.callbacks.onToggleEnabled());
     this.layoutSelect.addEventListener("change", () => {
@@ -351,19 +407,61 @@ export class FloatingPill {
     this.syncVisibility();
   }
 
-  setPreview(raw: string, out: string, caretRect?: CaretRect | null): void {
+  setPreview(
+    raw: string,
+    out: string,
+    caretRect?: CaretRect | null,
+    candidates?: string[],
+    selectedIndex = 0
+  ): void {
     if (!this.previewChip || !this.previewRaw || !this.previewOut) return;
-    const show = this.enabled && raw.length > 0 && out.length > 0;
+    const list = candidates && candidates.length > 0 ? candidates : out ? [out] : [];
+    const safeIdx = selectedIndex >= 0 && selectedIndex < list.length ? selectedIndex : 0;
+    const activeText = list[safeIdx] ?? out;
+    const show = this.enabled && raw.length > 0 && activeText.length > 0;
     this.previewChip.classList.toggle("show", show);
     if (show) {
       this.previewRaw.textContent = raw;
-      this.previewOut.textContent = out;
+      this.previewOut.textContent = activeText;
+      const showMulti = list.length > 1;
+      if (this.candListEl) {
+        this.candListEl.classList.toggle("show", showMulti);
+        this.candListEl.replaceChildren();
+        if (showMulti) {
+          list.forEach((cand, idx) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = idx === safeIdx ? "cand-chip active" : "cand-chip";
+            const num = document.createElement("span");
+            num.className = "cand-num";
+            num.textContent = String(idx + 1);
+            const txt = document.createElement("span");
+            txt.textContent = cand;
+            btn.append(num, txt);
+            btn.addEventListener("mousedown", (e) => e.preventDefault());
+            btn.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              this.callbacks.onSelectCandidate?.(idx);
+            });
+            this.candListEl?.appendChild(btn);
+          });
+        }
+      }
+      if (this.candHintEl) {
+        this.candHintEl.classList.toggle("show", showMulti);
+        this.candHintEl.textContent = showMulti ? `\u2191\u2193/Tab \u00B7 1\u2013${list.length} / Space` : "";
+      }
       if (caretRect && typeof window !== "undefined") {
         this.previewChip.classList.remove("anchored-fallback");
-        const estWidth = Math.max(120, (raw.length + out.length) * 9 + 44);
+        const estWidth = Math.min(
+          window.innerWidth - 16,
+          Math.max(140, (raw.length + activeText.length) * 10 + (showMulti ? list.length * 84 : 44))
+        );
+        const estHeight = showMulti ? 72 : 36;
         const left = Math.max(8, Math.min(caretRect.left, window.innerWidth - estWidth - 8));
         const spaceBelow = window.innerHeight - caretRect.bottom;
-        const top = spaceBelow >= 44 ? caretRect.bottom + 6 : Math.max(8, caretRect.top - 36);
+        const top = spaceBelow >= estHeight + 12 ? caretRect.bottom + 6 : Math.max(8, caretRect.top - estHeight - 6);
         this.previewChip.style.left = `${Math.round(left)}px`;
         this.previewChip.style.top = `${Math.round(top)}px`;
       } else {

@@ -338,7 +338,7 @@ __all__ += ["convert_digits", "parse_decimal", "format_decimal", "decimal_to_wor
             "ordinal_to_words", "digit_sequence_to_words", "format_currency_decimal",
             "currency_decimal_to_words", "parse_fraction_symbol", "symbol_info",
             "format_mixed_fraction", "parse_mixed_fraction", "mixed_fraction_to_words",
-            "words_to_number", "transliterate", "transliterate_schemes", "format_traditional_integer",
+            "words_to_number", "transliterate", "transliterate_schemes", "transliterate_suggest", "format_traditional_integer",
             "parse_traditional_integer", "parse_percent", "format_percent", "ratio_to_percent",
             "percent_to_ratio", "format_numeric_range", "validate_gregorian_date",
             "parse_gregorian_date", "weekday", "add_gregorian_date", "date_difference", "date_interval"]
@@ -406,6 +406,10 @@ def transliterate(text: str, scheme: str, direction: str = "to_tamil") -> str:
 
 def transliterate_schemes() -> list[dict[str, Any]]:
     return execute({"op": "transliterate_schemes", "input": {}})
+
+
+def transliterate_suggest(text: str, scheme: str = "phonetic-v1", limit: int = 5) -> list[str]:
+    return execute({"op": "transliterate_suggest", "input": {"text": text, "scheme": scheme, "limit": limit}})
 
 
 def format_traditional_integer(value: int) -> str:

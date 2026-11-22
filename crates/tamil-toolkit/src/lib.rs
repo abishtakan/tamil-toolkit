@@ -891,6 +891,7 @@ pub const OPERATIONS: &[&str] = &[
     "words_to_number",
     "transliterate",
     "transliterate_schemes",
+    "transliterate_suggest",
     "format_traditional_integer",
     "parse_traditional_integer",
     "parse_percent",
@@ -1756,6 +1757,26 @@ pub fn execute(request: &Value) -> Result<Value, String> {
                 })
                 .collect();
             Ok(json!(list))
+        }
+        "transliterate_suggest" => {
+            let text = string(&input["text"])?;
+            let scheme = tamil_translit::Scheme::parse(
+                input
+                    .get("scheme")
+                    .and_then(Value::as_str)
+                    .ok_or("unsupported transliteration scheme")?,
+            )?;
+            let limit = match input.get("limit") {
+                None => tamil_translit::DEFAULT_SUGGEST_LIMIT,
+                Some(val) => {
+                    let parsed = integer(val, i64::MAX)?;
+                    if parsed <= 0 {
+                        return Err("expected a positive integer limit".into());
+                    }
+                    parsed as usize
+                }
+            };
+            tamil_translit::transliterate_suggest(text, scheme, limit).map(|out| json!(out))
         }
         "format_traditional_integer" => {
             let value = integer(&input["value"],99_999_999).map_err(|_| "expected a traditional Tamil integer in the supported range")?;

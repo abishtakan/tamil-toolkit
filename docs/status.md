@@ -1,5 +1,13 @@
 # Project handoff
 
+## Mayangoli Preview Candidates & Google/Microsoft IME Cycling (`tamil-translit`, Browser Extension & Word Add-in, 2026-11-22)
+
+- **Scope (`crates/tamil-translit/`, `crates/tamil-toolkit/`, `bindings/`, `tests/golden/`, `docs/specs/translit-v0.1.md`, `integrations/browser-extension/`, `integrations/office-word-addin/`):**
+  - Added `transliterate_suggest` in `crates/tamil-translit/src/lib.rs` and exposed it via `crates/tamil-toolkit` (`OPERATIONS` & `execute`), `bindings/js-wasm`, `bindings/python`, and `bindings/dart-flutter`, backed by 11 new golden vectors in `tests/golden/translit_v01.jsonl` (570 total translit vectors; 40,211 active vectors overall).
+  - Enforced Tamil phonotactic locks in `mayangoli_variants`: word-initial letters (`ந`, `ல`, `ர`) never mutate into illegal initials (`ண/ன/ள/ழ/ற`), homorganic/rhotic clusters (`ந்த`, `ண்ட`, `ன்ற`, `ற்ற`) and `ர்`/`ற்` codas stay locked, geminates (`ன்ன↔ண்ண`, `ல்ல↔ள்ள`) mutate as atomic units, and `ழ` never geminates.
+  - Upgraded the Browser Extension (`floating-pill.ts`, `live-typing.ts`, `content/index.ts`, `background/index.ts`) and Word Add-in (`index.html`, `styles.css`, `taskpane.ts`, `word-adapter.ts`, `tamil-engine.ts`) with numbered Mayangoli candidate menus, Google/Microsoft keyboard cycling (`ArrowDown`/`ArrowUp`, `Tab`/`Shift+Tab`, `Space`/`Enter`/punctuation commit, `1`–`5` direct pick, mouse click, `Escape`), and 1-click Word cursor/selection replacement.
+- **Checks:** `check-unicode` (40,211 active vectors, 151 release files verified), `cargo test -p tamil-translit --locked` (3/3), `cargo test -p tamil-toolkit --locked --test golden_suite` (5/5), `test-parity` (Rust 5/5, Python 31/31, Node/Browser WASM 40,236/40,236), `tamil-browser-extension` (`13/13` tests, Chrome/Firefox builds, `2/2` E2E bundle checks), `tamil-word-addin` (`16/16` tests, build + manifest), and `tamil-toolkit-playground` `build:beta` + `test` (`22` test files, `133/133` tests) all passed.
+
 ## Orthographic Visual-Kombu Repair Fix (`tamil-norm`, 2026-11-22)
 
 - **Scope (`crates/tamil-norm/src/repair.rs`, `tests/golden/norm_repair.jsonl`, `integrations/browser-extension/`, `integrations/office-word-addin/`):**

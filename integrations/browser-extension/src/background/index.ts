@@ -23,6 +23,7 @@ import {
   initTamilEngine,
   repairTamil,
   sortLines,
+  transliterateSuggestToTamil,
   transliterateToTamil,
 } from "../engine/tamil-engine.js";
 import {
@@ -289,7 +290,9 @@ async function handleMessage(msg: RuntimeRequest, sender: any): Promise<unknown>
   switch (msg.type) {
     case "ENGINE_TRANSLITERATE": {
       await initTamilEngine();
-      return { ok: true, output: transliterateToTamil(msg.text, msg.scheme) };
+      const output = transliterateToTamil(msg.text, msg.scheme);
+      const candidates = transliterateSuggestToTamil(msg.text, msg.scheme, 5);
+      return { ok: true, output, candidates };
     }
     case "ENGINE_INSPECT": {
       await initTamilEngine();

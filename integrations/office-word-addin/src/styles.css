@@ -584,3 +584,57 @@ input[type="radio"] {
   color: var(--brand);
   text-decoration: none;
 }
+
+.candidate-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--input-bg);
+}
+
+.candidate-bar[hidden] {
+  display: none;
+}
+
+.candidate-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 3px 7px;
+  font-family: "Nirmala UI", "Noto Sans Tamil", var(--font-ui);
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.candidate-chip:hover {
+  border-color: var(--brand);
+  background: var(--surface-hover);
+}
+
+.candidate-chip.active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--brand-fg);
+  font-weight: 600;
+}
+
+.candidate-num {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.candidate-hint {
+  width: 100%;
+  font-size: 10px;
+  color: var(--text-secondary);
+}

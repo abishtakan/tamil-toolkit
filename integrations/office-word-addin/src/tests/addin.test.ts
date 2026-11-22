@@ -31,6 +31,7 @@ import {
   sortTableRows,
   sortTamilLines,
   tamilAwareReplace,
+  transliterateSuggestText,
   transliterateText,
   wordsToNumber,
 } from "../lib/tamil-engine.js";
@@ -228,6 +229,12 @@ describe("Tamil Word Add-in Engine (Real Slim Rust/WASM)", () => {
     expect(transliterateText("se", "phonetic-v1", "to_tamil")).toBe("செ");
     expect(transliterateText("Se", "phonetic-v1", "to_tamil")).toBe("ஸெ");
     expect(transliterateText("jkpo;", "suratha-bamini", "to_tamil")).toBe("தமிழ்");
+
+    expect(transliterateSuggestText("vanakkam", "phonetic-v1")).toEqual(["வனக்கம்", "வணக்கம்"]);
+    expect(transliterateSuggestText("malai", "phonetic-v1")).toEqual(["மலை", "மழை", "மளை"]);
+    expect(transliterateSuggestText("karai", "phonetic-v1")).toEqual(["கரை", "கறை"]);
+    expect(transliterateSuggestText("palli", "phonetic-v1")).toEqual(["பல்லி", "பள்ளி"]);
+    expect(transliterateSuggestText("thamil", "phonetic-v1")).toEqual(["தமில்", "தமிள்", "தமிழ்"]);
   });
 });
 

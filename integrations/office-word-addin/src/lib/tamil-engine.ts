@@ -250,6 +250,16 @@ export function transliterateText(
   return api.transliterate(text, scheme, direction);
 }
 
+export function transliterateSuggestText(
+  text: string,
+  scheme: string = "phonetic-v1",
+  limit: number = 5
+): string[] {
+  ensureReady();
+  if (!text) return [];
+  return api.transliterate_suggest(text, scheme, limit);
+}
+
 export function getTransliterationSchemes(): Array<{ id: string; category: string; directions: string[] }> {
   ensureReady();
   return api.transliterate_schemes();

@@ -25,6 +25,9 @@ Status: Phase 8 engineering contract (2026-11-22). Crate: `crates/tamil-translit
   - Requesting `"to_latin"` on keyboard-only schemes (`tamil99`, `anjal-phonetic`, `suratha-bamini`) returns `"reverse transliteration is not supported for keyboard layout"`.
 - `transliterate_schemes {} -> array`
   - Returns metadata objects `{ id, category, directions }` for all 8 schemes in deterministic order.
+- `transliterate_suggest { text, scheme, limit? } -> array<string>`
+  - Generates the primary `to_tamil` transliteration followed by phonotactically valid Mayangoli (`ன/ண`, `ல/ள/ழ`, `ர/ற`) candidate alternatives for `phonetic-v1`, `anjal-phonetic`, or Tamil-script input, deduplicated up to `limit` (default `5`, capped at `10`; `limit <= 0` returns `"expected a positive integer limit"`).
+  - Enforces Tamil phonotactic constraints: word-initial letters (`ந`, `ல`, `ர`) never mutate into illegal initials (`ண/ன/ள/ழ/ற`), homorganic nasal+stop or hard-rhotic clusters (`ந்த`, `ண்ட`, `ன்ற`, `ற்ற`) and `ர்`/`ற்` codas remain locked, geminate pairs (`ன்ன ↔ ண்ண`, `ல்ல ↔ ள்ள`) mutate as atomic units, and `ழ` never geminates.
 
 ## 3. Guarantees & Boundaries
 

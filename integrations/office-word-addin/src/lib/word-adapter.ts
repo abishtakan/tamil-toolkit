@@ -641,6 +641,71 @@ export async function runDirectLiveTypingTick(
   return outcome;
 }
 
+export async function readWordAtCursorOrSelection(): Promise<string> {
+  let word = "";
+  await Word.run(async (context) => {
+    const sel = context.document.getSelection();
+    sel.load("text");
+    const para = sel.paragraphs.getFirst();
+    const beforeCursor = para.getRange(Word.RangeLocation.start).expandTo(sel);
+    beforeCursor.load("text");
+    await context.sync();
+
+    if (sel.text && sel.text.trim().length > 0) {
+      word = sel.text.trim();
+      return;
+    }
+
+    const before = (beforeCursor.text || "").trimEnd();
+    const match = before.match(/([\u0B80-\u0BFF]+|[A-Za-z][A-Za-z_-]*)$/);
+    word = match ? match[1] : "";
+  });
+  return word;
+}
+
+export async function replaceTrailingOrSelectedWord(
+  targetWord: string,
+  replacementWord: string,
+  unicodeFont?: string
+): Promise<boolean> {
+  if (!targetWord || !replacementWord || targetWord === replacementWord) return false;
+  let replaced = false;
+  await Word.run(async (context) => {
+    const sel = context.document.getSelection();
+    sel.load("text");
+    const para = sel.paragraphs.getFirst();
+    const beforeCursor = para.getRange(Word.RangeLocation.start).expandTo(sel);
+    beforeCursor.load("text");
+    await context.sync();
+
+    if (sel.text && sel.text.trim() === targetWord) {
+      const inserted = sel.insertText(replacementWord, Word.InsertLocation.replace);
+      if (unicodeFont) {
+        inserted.font.name = unicodeFont;
+      }
+      inserted.select(Word.SelectionMode.end);
+      await context.sync();
+      replaced = true;
+      return;
+    }
+
+    const hits = beforeCursor.search(targetWord, { matchCase: true });
+    hits.load("items");
+    await context.sync();
+    if (hits.items.length === 0) return;
+
+    const lastHit = hits.items[hits.items.length - 1];
+    const inserted = lastHit.insertText(replacementWord, Word.InsertLocation.replace);
+    if (unicodeFont) {
+      inserted.font.name = unicodeFont;
+    }
+    inserted.select(Word.SelectionMode.end);
+    await context.sync();
+    replaced = true;
+  });
+  return replaced;
+}
+
 export async function runRemoveHyphens(
   scope: TargetScope,
   onProgress?: (p: BatchProgress) => void

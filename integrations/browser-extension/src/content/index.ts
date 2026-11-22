@@ -87,7 +87,22 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
     return res?.ok && typeof res.output === "string" ? res.output : raw;
   };
 
-  const typingEngine = new HybridTypingEngine(layout, transliterateViaBackground);
+  const suggestViaBackground = async (raw: string, scheme: TypingLayout): Promise<string[]> => {
+    const res = await safeSendMessage({
+      type: "ENGINE_TRANSLITERATE",
+      text: raw,
+      scheme,
+    });
+    if (res?.ok && Array.isArray(res.candidates) && res.candidates.length > 0) {
+      return res.candidates.filter((c: unknown): c is string => typeof c === "string" && c.length > 0);
+    }
+    if (res?.ok && typeof res.output === "string" && res.output.length > 0) {
+      return [res.output];
+    }
+    return raw ? [raw] : [];
+  };
+
+  const typingEngine = new HybridTypingEngine(layout, transliterateViaBackground, suggestViaBackground);
 
   const pill = new FloatingPill({
     onToggleEnabled: () => {
@@ -105,6 +120,25 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
     onScratchpadInsert: (text) => {
       if (activeEl) {
         replaceCharsBeforeCaret(activeEl, 0, text);
+      }
+    },
+    onSelectCandidate: (index) => {
+      if (!activeEl) return;
+      const beforeCaret = getTextBeforeCaret(activeEl);
+      const result = typingEngine.commitCandidateAt(index, beforeCaret);
+      if (result.handled && result.insertText !== undefined) {
+        replaceCharsBeforeCaret(activeEl, result.deleteBeforeCaret ?? 0, result.insertText);
+        scheduleMicroCounterUpdate(activeEl);
+      }
+      pill.setPreview(
+        result.rawBuffer,
+        result.previewText,
+        getCaretViewportRect(activeEl),
+        result.candidates,
+        result.selectedIndex ?? 0
+      );
+      if (activeEl instanceof HTMLElement) {
+        activeEl.focus();
       }
     },
   });
@@ -192,19 +226,52 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
       pill.setFocused(true, kind);
 
       const beforeCaret = getTextBeforeCaret(targetEl);
+      const stateSnapshot = typingEngine.getState();
+      const hasActiveWord =
+        stateSnapshot.commitMode === "word-boundary" &&
+        !stateSnapshot.escapedCurrentWord &&
+        !e.ctrlKey &&
+        !e.metaKey &&
+        !e.altKey &&
+        LATIN_WORD_RE.test(beforeCaret);
+      const isCycleKey =
+        hasActiveWord &&
+        stateSnapshot.candidates.length > 1 &&
+        (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Tab");
+      const isNumberPickKey =
+        hasActiveWord &&
+        stateSnapshot.candidates.length > 0 &&
+        /^[1-5]$/.test(e.key) &&
+        Number(e.key) - 1 < stateSnapshot.candidates.length;
       const isSyncCommitCandidate =
-        typingEngine.getState().commitMode === "instant-keystroke" ||
+        stateSnapshot.commitMode === "instant-keystroke" ||
+        isCycleKey ||
+        isNumberPickKey ||
         e.key === " " ||
         e.key === "Enter" ||
         e.key === "Escape" ||
         /^[.,!?;:)\]}]$/.test(e.key);
 
-      if (!isSyncCommitCandidate) return;
+      if (!isSyncCommitCandidate) {
+        if (
+          e.key === "ArrowLeft" ||
+          e.key === "ArrowRight" ||
+          e.key === "ArrowUp" ||
+          e.key === "ArrowDown" ||
+          e.key === "Home" ||
+          e.key === "End"
+        ) {
+          typingEngine.resetWord();
+          pill.setPreview("", "");
+        }
+        return;
+      }
 
-      const stateSnapshot = typingEngine.getState();
       let preventedBoundaryKey: string | null = null;
 
       if (
+        isCycleKey ||
+        isNumberPickKey ||
         e.key === "Escape" ||
         (stateSnapshot.commitMode === "instant-keystroke" &&
           !e.ctrlKey &&
@@ -214,18 +281,19 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
             (e.key === "Backspace" && stateSnapshot.rawBuffer.length > 0)))
       ) {
         e.preventDefault();
+        if (isNumberPickKey) {
+          preventedBoundaryKey = e.key;
+        }
       } else if (
-        stateSnapshot.commitMode === "word-boundary" &&
-        !stateSnapshot.escapedCurrentWord &&
-        (e.key === " " || e.key === "Enter" || /^[.,!?;:)\]}]$/.test(e.key)) &&
-        LATIN_WORD_RE.test(beforeCaret)
+        hasActiveWord &&
+        (e.key === " " || e.key === "Enter" || /^[.,!?;:)\]}]$/.test(e.key))
       ) {
         e.preventDefault();
         preventedBoundaryKey = e.key === "Enter" ? "\n" : e.key === "Tab" ? "\t" : e.key;
       }
 
       const key = e.key;
-      const mods = { ctrlKey: e.ctrlKey, metaKey: e.metaKey, altKey: e.altKey };
+      const mods = { ctrlKey: e.ctrlKey, metaKey: e.metaKey, altKey: e.altKey, shiftKey: e.shiftKey };
       keyQueue = keyQueue
         .then(async () => {
           const freshBeforeCaret = targetEl ? getTextBeforeCaret(targetEl) : beforeCaret;
@@ -236,7 +304,13 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
           } else if (!result.handled && preventedBoundaryKey !== null && targetEl) {
             replaceCharsBeforeCaret(targetEl, 0, preventedBoundaryKey);
           }
-          pill.setPreview(result.rawBuffer, result.previewText, getCaretViewportRect(targetEl));
+          pill.setPreview(
+            result.rawBuffer,
+            result.previewText,
+            getCaretViewportRect(targetEl),
+            result.candidates,
+            result.selectedIndex ?? 0
+          );
         })
         .catch(() => {
           if (preventedBoundaryKey !== null && targetEl) {
@@ -260,7 +334,15 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
     pill.setFocused(true, kind);
     const beforeCaret = getTextBeforeCaret(target);
     void typingEngine.updateWordPreviewFromTextBeforeCaret(beforeCaret).then((st) => {
-      if (!disposed) pill.setPreview(st.rawBuffer, st.previewText, getCaretViewportRect(target));
+      if (!disposed) {
+        pill.setPreview(
+          st.rawBuffer,
+          st.previewText,
+          getCaretViewportRect(target),
+          st.candidates,
+          st.selectedIndex
+        );
+      }
     });
   });
 

@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+- **Mayangoli Preview Candidates & Google/Microsoft IME Cycling (`tamil-translit`, Browser Extension & Word Add-in):**
+  - Implemented `transliterate_suggest` (`crates/tamil-translit`, `crates/tamil-toolkit`, `bindings/js-wasm`, `bindings/python`, `bindings/dart-flutter`, `docs/specs/translit-v0.1.md`, and 11 golden vectors in `tests/golden/translit_v01.jsonl`) generating phonotactically valid Mayangoli (`ன/ண`, `ல/ள/ழ`, `ர/ற`) candidates in breadth-first Hamming order while locking word-initial consonants, homorganic/hard-rhotic clusters (`ந்த`, `ண்ட`, `ன்ற`, `ற்ற`), and `ர்`/`ற்` codas, and mutating geminate pairs (`ன்ன↔ண்ண`, `ல்ல↔ள்ள`) atomically.
+  - Upgraded the Browser Extension live preview (`floating-pill.ts`, `live-typing.ts`, `content/index.ts`, `background/index.ts`) with numbered clickable Mayangoli candidate pills and Google Input Tools / Microsoft Indic Phonetic cycling (`ArrowDown`/`ArrowUp`, `Tab`/`Shift+Tab`, `Space`/`Enter`/punctuation commit, `1`–`5` direct commit, and `Escape` bypass).
+  - Upgraded the Microsoft Word Add-in (`index.html`, `styles.css`, `taskpane.ts`, `word-adapter.ts`, `tamil-engine.ts`) with a Fluent Mayangoli candidate bar & keyboard cycling inside the Transliteration Composer plus 1-click Word document cursor/selection replacement.
 - **Orthographic Visual-Kombu Repair Fix (`tamil-norm`):**
   - Fixed `repair_tamil_text` in `crates/tamil-norm/src/repair.rs` so attached `ெ`/`ே`/`ை` (`\u0BC6`/`\u0BC7`/`\u0BC8`) after a bare consonant is never misclassified as a visual left-kombu before the following consonant (fixing false-positive `1 visual kombu` warnings and text corruption on words like `பல்கலைக்கழகம்`, `சென்னை`, and `வேலை`), and avoided misreading `ெ + C + ள + vowel_sign` as `ௌ`.
   - Updated browser extension `inspect-tab.ts` and `content/index.ts` to support in-place manual repair and reset rolling live-typing state on replace/insert.

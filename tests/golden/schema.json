@@ -1120,6 +1120,7 @@
               "words_to_number",
               "transliterate",
               "transliterate_schemes",
+              "transliterate_suggest",
               "format_traditional_integer",
               "parse_traditional_integer",
               "parse_percent",

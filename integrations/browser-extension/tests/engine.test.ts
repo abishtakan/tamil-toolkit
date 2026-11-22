@@ -10,6 +10,7 @@ import {
   initTamilEngineSync,
   repairTamil,
   sortLines,
+  transliterateSuggestToTamil,
   transliterateToTamil,
 } from "../src/engine/tamil-engine.js";
 
@@ -35,6 +36,16 @@ describe("Canonical slim WASM engine adapter", () => {
     expect(transliterateToTamil("h", "tamil99")).toBe("\u0B95");
     expect(transliterateToTamil("f", "suratha-bamini")).toBe("\u0B95");
     expect(transliterateToTamil("jkpo;", "suratha-bamini")).toBe("\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD");
+
+    expect(transliterateSuggestToTamil("vanakkam", "phonetic-v1")).toEqual([
+      "\u0BB5\u0BA9\u0B95\u0BCD\u0B95\u0BAE\u0BCD",
+      "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD",
+    ]);
+    expect(transliterateSuggestToTamil("malai", "phonetic-v1")).toEqual([
+      "\u0BAE\u0BB2\u0BC8",
+      "\u0BAE\u0BB4\u0BC8",
+      "\u0BAE\u0BB3\u0BC8",
+    ]);
   });
 
   it("US2: inspects true Tamil letter count, category breakdown, and Unicode health", () => {

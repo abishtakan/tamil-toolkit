@@ -169,6 +169,27 @@ def render() -> str:
     lines.append(row("tr_phonetic_nandri_to_lat", "transliterate", {"text": "\u0BA8\u0BA9\u0BCD\u0BB1\u0BBF", "scheme": "phonetic-v1", "direction": "to_latin"}, "nanRi", ["phonetic_v1"]))
     lines.append(row("tr_phonetic_vanthu_to_lat", "transliterate", {"text": "\u0BB5\u0BA8\u0BCD\u0BA4\u0BC1", "scheme": "phonetic-v1", "direction": "to_latin"}, "vanthu", ["phonetic_v1"]))
 
+    # 5b. Phonotactic Mayangoli suggestion candidates
+    suggest_cases = [
+        ("vanakkam", "phonetic-v1", 5, ["\u0BB5\u0BA9\u0B95\u0BCD\u0B95\u0BAE\u0BCD", "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD"]),
+        ("malai", "phonetic-v1", 5, ["\u0BAE\u0BB2\u0BC8", "\u0BAE\u0BB4\u0BC8", "\u0BAE\u0BB3\u0BC8"]),
+        ("manam", "phonetic-v1", 5, ["\u0BAE\u0BA9\u0BAE\u0BCD", "\u0BAE\u0BA3\u0BAE\u0BCD"]),
+        ("karai", "phonetic-v1", 5, ["\u0B95\u0BB0\u0BC8", "\u0B95\u0BB1\u0BC8"]),
+        ("palli", "phonetic-v1", 5, ["\u0BAA\u0BB2\u0BCD\u0BB2\u0BBF", "\u0BAA\u0BB3\u0BCD\u0BB3\u0BBF"]),
+        ("anna", "phonetic-v1", 5, ["\u0B85\u0BA9\u0BCD\u0BA9", "\u0B85\u0BA3\u0BCD\u0BA3"]),
+        ("tamil", "phonetic-v1", 5, ["\u0BA4\u0BAE\u0BBF\u0BB2\u0BCD", "\u0BA4\u0BAE\u0BBF\u0BB3\u0BCD", "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD"]),
+        ("avargal", "phonetic-v1", 5, ["\u0B85\u0BB5\u0BB0\u0BCD\u0B95\u0BB2\u0BCD", "\u0B85\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD", "\u0B85\u0BB5\u0BB0\u0BCD\u0B95\u0BB4\u0BCD"]),
+        ("nandri", "phonetic-v1", 5, ["\u0BA8\u0BA9\u0BCD\u0BB1\u0BBF"]),
+        ("anjal_vanakkam", "anjal-phonetic", 5, ["\u0BB5\u0BA9\u0B95\u0BCD\u0B95\u0BAE\u0BCD", "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD"]),
+    ]
+    suggest_texts = {
+        "anjal_vanakkam": "vanakkam",
+        "tamil": "thamil",
+    }
+    for tag, scheme_id, lim, expected in suggest_cases:
+        src_text = suggest_texts.get(tag, tag)
+        lines.append(row(f"tr_suggest_{tag}", "transliterate_suggest", {"text": src_text, "scheme": scheme_id, "limit": lim}, expected, ["suggest"]))
+
     # 6. Error contracts
     errors = [
         ("bad_scheme", {"text": "a", "scheme": "unknown", "direction": "to_tamil"}, "unsupported transliteration scheme"),
@@ -180,6 +201,7 @@ def render() -> str:
     ]
     for tag, inp, err in errors:
         lines.append(row(f"tr_err_{tag}", "transliterate", inp, err, ["error"], error=True))
+    lines.append(row("tr_err_suggest_zero_limit", "transliterate_suggest", {"text": "vanakkam", "scheme": "phonetic-v1", "limit": 0}, "expected a positive integer limit", ["suggest", "error"], error=True))
 
     return "\n".join(lines) + "\n"
 

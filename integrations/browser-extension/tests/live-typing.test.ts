@@ -122,4 +122,62 @@ describe("HybridTypingEngine & sensitive field guard", () => {
     expect(committed.deleteBeforeCaret).toBe(4);
     expect(committed.insertText).toBe("\u0BA9\u0BBE ");
   });
+
+  it("supports Google/Microsoft candidate cycling (ArrowDown/Up/Tab, Space, 1-5, and click)", async () => {
+    const mockSuggest = async (raw: string): Promise<string[]> => {
+      if (raw === "vanakkam") return ["\u0BB5\u0BA9\u0B95\u0BCD\u0B95\u0BAE\u0BCD", "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD"];
+      if (raw === "malai") return ["\u0BAE\u0BB2\u0BC8", "\u0BAE\u0BB4\u0BC8", "\u0BAE\u0BB3\u0BC8"];
+      return [raw];
+    };
+
+    const engine = new HybridTypingEngine("phonetic-v1", mockTranslit, mockSuggest);
+    await engine.updateWordPreviewFromTextBeforeCaret("vanakkam");
+    expect(engine.getState().candidates).toEqual(["\u0BB5\u0BA9\u0B95\u0BCD\u0B95\u0BAE\u0BCD", "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD"]);
+    expect(engine.getState().selectedIndex).toBe(0);
+
+    // ArrowDown cycles to 2nd Mayangoli candidate without committing yet
+    const down = await engine.handleKeyDown("ArrowDown", {}, "vanakkam");
+    expect(down.handled).toBe(true);
+    expect(down.insertText).toBeUndefined();
+    expect(down.selectedIndex).toBe(1);
+    expect(down.previewText).toBe("\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD");
+
+    // Space commits the highlighted candidate
+    const spaceCommit = await engine.handleKeyDown(" ", {}, "vanakkam");
+    expect(spaceCommit.handled).toBe(true);
+    expect(spaceCommit.deleteBeforeCaret).toBe(8);
+    expect(spaceCommit.insertText).toBe("\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD ");
+
+    // Tab / Shift+Tab cycling and Enter without trailing newline on cycled candidate
+    await engine.updateWordPreviewFromTextBeforeCaret("malai");
+    const tab1 = await engine.handleKeyDown("Tab", {}, "malai");
+    expect(tab1.selectedIndex).toBe(1);
+    expect(tab1.previewText).toBe("\u0BAE\u0BB4\u0BC8");
+    const tab2 = await engine.handleKeyDown("Tab", {}, "malai");
+    expect(tab2.selectedIndex).toBe(2);
+    expect(tab2.previewText).toBe("\u0BAE\u0BB3\u0BC8");
+    const shiftTab = await engine.handleKeyDown("Tab", { shiftKey: true }, "malai");
+    expect(shiftTab.selectedIndex).toBe(1);
+    const enterCycled = await engine.handleKeyDown("Enter", {}, "malai");
+    expect(enterCycled.handled).toBe(true);
+    expect(enterCycled.insertText).toBe("\u0BAE\u0BB4\u0BC8");
+
+    // Number key 2 direct pick
+    await engine.updateWordPreviewFromTextBeforeCaret("malai");
+    const numPick = await engine.handleKeyDown("2", {}, "malai");
+    expect(numPick.handled).toBe(true);
+    expect(numPick.insertText).toBe("\u0BAE\u0BB4\u0BC8 ");
+
+    // Out-of-range digit is not swallowed
+    await engine.updateWordPreviewFromTextBeforeCaret("vanakkam");
+    const digitOut = await engine.handleKeyDown("4", {}, "vanakkam");
+    expect(digitOut.handled).toBe(false);
+
+    // Click commitCandidateAt
+    await engine.updateWordPreviewFromTextBeforeCaret("malai");
+    const clickPick = engine.commitCandidateAt(2, "malai");
+    expect(clickPick.handled).toBe(true);
+    expect(clickPick.deleteBeforeCaret).toBe(5);
+    expect(clickPick.insertText).toBe("\u0BAE\u0BB3\u0BC8 ");
+  });
 });

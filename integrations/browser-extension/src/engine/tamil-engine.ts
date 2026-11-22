@@ -70,6 +70,16 @@ export function transliterateToTamil(text: string, scheme: TypingLayout): string
   return api.transliterate(text, scheme, "to_tamil");
 }
 
+export function transliterateSuggestToTamil(
+  text: string,
+  scheme: TypingLayout,
+  limit = 5
+): string[] {
+  ensureEngineReady();
+  if (!text) return [];
+  return api.transliterate_suggest(text, scheme, limit);
+}
+
 // ---------------------------------------------------------------------------
 // 2. Legacy Encoding Detection & Conversion (7 Codecs + Auto Ambiguity Guard)
 // ---------------------------------------------------------------------------

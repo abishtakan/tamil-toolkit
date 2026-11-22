@@ -135,8 +135,14 @@ fn char_lit(ch: char) -> String {
 }
 
 fn emit_phonetic_scheme(prefix: &str, cfg: &PhoneticSchemeConfig) -> String {
-    assert!(!cfg.sri_tokens.is_empty(), "{prefix} sri_tokens must not be empty");
-    assert!(!cfg.aytham_keys.is_empty(), "{prefix} aytham_keys must not be empty");
+    assert!(
+        !cfg.sri_tokens.is_empty(),
+        "{prefix} sri_tokens must not be empty"
+    );
+    assert!(
+        !cfg.aytham_keys.is_empty(),
+        "{prefix} aytham_keys must not be empty"
+    );
     assert!(
         is_nfc(&cfg.initial_n) && cfg.initial_n.chars().count() == 1,
         "{prefix} invalid initial_n"

@@ -694,6 +694,13 @@ class TamilToolkit {
         'op': 'transliterate_schemes',
         'input': <String, dynamic>{},
       }) as List<dynamic>;
+  List<String> transliterateSuggest(String text,
+          {String scheme = 'phonetic-v1', int limit = 5}) =>
+      (execute({
+        'op': 'transliterate_suggest',
+        'input': {'text': text, 'scheme': scheme, 'limit': limit},
+      }) as List<dynamic>)
+          .cast<String>();
   String formatTraditionalInteger(int value) => execute({
         'op': 'format_traditional_integer',
         'input': {'value': value}

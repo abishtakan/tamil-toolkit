@@ -437,7 +437,8 @@
       "status": "active",
       "operations": [
         "transliterate",
-        "transliterate_schemes"
+        "transliterate_schemes",
+        "transliterate_suggest"
       ]
     },
     {

@@ -545,6 +545,7 @@ export function createApi(nativeExecute: (request: string) => string) {
     words_to_number: (text: string, locale: Locale = "TN") => execute({ op: "words_to_number", input: { text, locale } }) as number,
     transliterate: (text: string, scheme: string, direction: "to_tamil" | "to_latin" = "to_tamil") => execute({ op: "transliterate", input: { text, scheme, direction } }) as string,
     transliterate_schemes: () => execute({ op: "transliterate_schemes", input: {} }) as { id: string; category: string; directions: string[] }[],
+    transliterate_suggest: (text: string, scheme: string = "phonetic-v1", limit: number = 5) => execute({ op: "transliterate_suggest", input: { text, scheme, limit } }) as string[],
     format_traditional_integer: (value: number) => execute({ op: "format_traditional_integer", input: { value } }) as string,
     parse_traditional_integer: (text: string) => execute({ op: "parse_traditional_integer", input: { text } }) as number,
     parse_percent: (text: string, source_digits: DigitStyle, grouping: Grouping = "none") => execute({ op: "parse_percent", input: { text, source_digits, grouping } }) as ExactDecimal,
