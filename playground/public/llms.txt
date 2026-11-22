@@ -16,7 +16,7 @@
 ## Source & SDKs
 
 - [GitHub Repository](https://github.com/abishtakan/tamil-toolkit): Source code, specs, and golden test vectors.
-- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.1.0-alpha.8`
-- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.1.0a8`
+- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.1.0-alpha.9`
+- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.1.0a9`
 - [npm ESM/WASM](https://www.npmjs.com/package/tamil-toolkit): `npm install tamil-toolkit@alpha`
 - [Microsoft Word Add-in Support](https://tamil-toolkit-word.vercel.app/support.html): Local-processing Word add-in guide and installation.

@@ -15,10 +15,10 @@ Source checkout verification: 40,160 active golden vectors across core, normaliz
 - [Tamil Syllabic Hyphenator](https://tamil-toolkit-playground.vercel.app/tools/tamil-hyphenation/): Coda-binding soft hyphens (`\u00AD`), line wrapping, Hunspell `.dic`, and LibreOffice `.oxt`.
 - [Tamil Solar Calendar & Panchangam](https://tamil-toolkit-playground.vercel.app/tools/tamil-panchangam/): Bounded Thirukanitham (Drik) and 1962 Vakya civil solar dates, five Panchangam limbs, and TN/SL holiday snapshots.
 
-## Installation (Current Alpha-8 Release)
+## Installation (Current Alpha-9 Release)
 
-- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.1.0-alpha.8`
-- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.1.0a8`
+- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.1.0-alpha.9`
+- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.1.0a9`
 - [npm ESM/WASM](https://www.npmjs.com/package/tamil-toolkit): `npm install tamil-toolkit@alpha`
 - [Microsoft Word Add-in](https://tamil-toolkit-word.vercel.app/support.html): Local-processing Fluent 2 Office.js add-in for Word (Windows, macOS, Web).
 

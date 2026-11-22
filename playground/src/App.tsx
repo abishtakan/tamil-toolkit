@@ -334,7 +334,7 @@ export function App() {
               {t.siteTitle}
             </span>
             <span className="text-[10px] text-[var(--color-muted)] font-mono-tamil block">
-              v0.1.0-alpha.8
+              v0.1.0-alpha.9
             </span>
           </div>
         </button>

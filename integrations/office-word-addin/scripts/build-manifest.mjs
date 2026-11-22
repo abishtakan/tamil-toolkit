@@ -8,7 +8,7 @@ const distDir = path.join(addinDir, "dist");
 
 const DEV_BASE_URL = "https://localhost:3000";
 const PROD_BASE_URL = (process.env.ADDIN_BASE_URL || "https://tamil-toolkit-word.vercel.app").replace(/\/+$/, "");
-const ADDIN_VERSION = "2.2.0.0";
+const ADDIN_VERSION = "2.3.0.0";
 const ICON_VER = "2";
 const ADDIN_ID = "9c2e4f11-88a3-4d9c-b244-1f7a30650283";
 
