@@ -62,7 +62,7 @@ export const TRANSLIT_SCHEMES: readonly SchemeMeta[] = [
     bidirectional: true,
     sampleLatin: "vaNakkam thamizh",
     sampleTamil: "வணக்கம் தமிழ்",
-    hint: "th=த, t=ட, nh=ந, n=ன, N=ண, zh=ழ, L=ள, R=ற",
+    hint: "s/c/ch=ச, S=ஸ, th=த, t/d=ட, ee=ஈ, oo=ஊ, nh=ந, n=ந/ன, N=ண, zh=ழ, L=ள, R=ற, x=க்ஷ",
   },
   {
     id: "tamil99",
@@ -80,7 +80,7 @@ export const TRANSLIT_SCHEMES: readonly SchemeMeta[] = [
     bidirectional: false,
     sampleLatin: "thamizh vaNakkam",
     sampleTamil: "தமிழ் வணக்கம்",
-    hint: "th=த, t=ட, nh=ந, n=ன, N=ண, zh=ழ, L=ள, R=ற",
+    hint: "s/c/ch=ச, S=ஸ, th=த, t/d=ட, ee=ஏ, oo=ஓ, w=ந, W=ன, n=ந/ன, N=ண, zh=ழ, L=ள, R=ற, x=க்ஷ",
   },
   {
     id: "suratha-bamini",

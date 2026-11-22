@@ -58,6 +58,10 @@ fn match_consonant_prefix(s: &str) -> Option<(&str, usize)> {
     None
 }
 
+fn is_dependent_vowel_or_pulli(c: char) -> bool {
+    matches!(c, '\u{0B82}' | '\u{0BBE}'..='\u{0BCD}' | '\u{0BD7}')
+}
+
 /// Repair orthographic corruptions (duplicate pullis, visual kombus, soft-hyphens) in Tamil text.
 pub fn repair_tamil_text(text: &str, options: &RepairOptions) -> RepairResult {
     let mut out = String::with_capacity(text.len());
@@ -95,12 +99,21 @@ pub fn repair_tamil_text(text: &str, options: &RepairOptions) -> RepairResult {
         }
 
         // 4. Check visual left-kombu placed before consonant
-        if options.reorder_visual_kombu && (c == KOMBU_E || c == KOMBU_EE || c == KOMBU_AI) {
+        let prev_is_bare_consonant = out.chars().next_back().is_some_and(is_consonant_scalar);
+        if options.reorder_visual_kombu
+            && !prev_is_bare_consonant
+            && (c == KOMBU_E || c == KOMBU_EE || c == KOMBU_AI)
+        {
             let remainder: String = chars[i + 1..].iter().collect();
             if let Some((base_cons, len_bytes)) = match_consonant_prefix(&remainder) {
                 let cons_char_count = remainder[..len_bytes].chars().count();
                 let after_cons_idx = i + 1 + cons_char_count;
                 let next_char = chars.get(after_cons_idx).copied();
+                let la_followed_by_sign = next_char == Some(TAMIL_LA)
+                    && chars
+                        .get(after_cons_idx + 1)
+                        .copied()
+                        .is_some_and(is_dependent_vowel_or_pulli);
 
                 if c == KOMBU_E && next_char == Some(VOWEL_SIGN_AA) {
                     // ெ + C + ா -> C + ொ
@@ -117,7 +130,8 @@ pub fn repair_tamil_text(text: &str, options: &RepairOptions) -> RepairResult {
                     i = after_cons_idx + 1;
                     continue;
                 } else if c == KOMBU_E
-                    && (next_char == Some(LENGTH_MARK) || next_char == Some(TAMIL_LA))
+                    && (next_char == Some(LENGTH_MARK)
+                        || (next_char == Some(TAMIL_LA) && !la_followed_by_sign))
                 {
                     // ெ + C + ௗ/ள -> C + ௌ
                     out.push_str(base_cons);

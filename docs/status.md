@@ -1,5 +1,18 @@
 # Project handoff
 
+## Orthographic Visual-Kombu Repair Fix (`tamil-norm`, 2026-11-22)
+
+- **Scope (`crates/tamil-norm/src/repair.rs`, `tests/golden/norm_repair.jsonl`, `integrations/browser-extension/`, `integrations/office-word-addin/`):**
+  - Fixed `repair_tamil_text` in `crates/tamil-norm/src/repair.rs` to verify `!prev_is_bare_consonant` before treating `ெ`/`ே`/`ை` (`\u0BC6`/`\u0BC7`/`\u0BC8`) as a visual left-kombu before a consonant, and checked `!la_followed_by_sign` on typewriter `ெ + C + ள` -> `ௌ`. Added unit test and 3 golden vectors (`norm_repair_016..018`).
+  - Updated browser extension `inspect-tab.ts` (manual repair button visibility/guard) and `content/index.ts` (`typingEngine.resetWord()` on `TAB_REPLACE_TEXT` / `TAB_INSERT_TEXT`), plus regression tests in `engine.test.ts` and `addin.test.ts`.
+
+## Anjal & Phonetic Keyboard Mapping Fix (`tamil-translit`, 2026-11-22)
+
+- **Scope (`lexicon/translit.toml`, `crates/tamil-translit/`, `docs/specs/translit-v0.1.md`, `tools/generate_translit_golden.py`, `tests/golden/translit_v01.jsonl`, `playground/`, `integrations/browser-extension/`, `integrations/office-word-addin/`):**
+  - Replaced the shared hardcoded `phonetic_to_tamil` mapping in `crates/tamil-translit/src/lib.rs` with separate declarative `[anjal_phonetic]` and `[phonetic_v1]` tables in `lexicon/translit.toml` compiled via `build.rs`.
+  - Fixed lowercase `s` -> `ச` (`se` -> `செ`, `selvam` -> `செல்வம்`, `sennai` -> `சென்னை`) and uppercase `S` -> `ஸ` (`Se` -> `ஸெ`), with `sk`/`Sk` -> `ஸ்க` and `phonetic = "S"` for `ஸ`.
+  - Separated Anjal (`ee`/`oo` -> `ஏ`/`ஓ`, `w`/`W` -> `ந`/`ன`) from `phonetic-v1` (`ee`/`oo` -> `ஈ`/`ஊ`, `w`/`W` -> `வ`), added homorganic clusters (`nd`, `ndr`/`nR`, `nt`/`nth`/`ndh`, `ttr`/`rr`, `ngg`/medial `ng`, `njj`/medial `nj`, `x`/`ksh`), case-tolerant consonant handling, positional `ந` -> `n` in `phonetic-v1` `to_latin`, and `n-`/`n_` buffer support in browser-extension `LATIN_WORD_RE`.
+
 ## Native-Themed Chrome/Edge & Firefox Browser Extension (`023-browser-extension`, 2026-11-22)
 
 - **Scope (`integrations/browser-extension/`, `integrations/shared/prepare-slim-wasm.mjs`, `integrations/office-word-addin/scripts/prepare-wasm.mjs`, `pnpm-workspace.yaml`, `specs/023-browser-extension/`):**

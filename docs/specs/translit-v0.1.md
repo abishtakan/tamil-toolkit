@@ -12,9 +12,9 @@ Status: Phase 8 engineering contract (2026-11-22). Crate: `crates/tamil-translit
 | `itrans` | Scholarly (ASCII) | `to_latin`, `to_tamil` | Lossless ASCII ITRANS 5.3 Tamil scheme (`aa, ii, uu, E, O, q, ~N, ch, ~n, T, N, ^n, R, L, zh, sh, Sh`). |
 | `harvard-kyoto` | Scholarly (ASCII) | `to_latin`, `to_tamil` | Lossless ASCII Harvard-Kyoto Tamil scheme (`A, I, U, E, O, H, G, J, T, N, X, R, L, Z, M, S`). |
 | `tamil99` | Keyboard Layout | `to_tamil` | Official Government of Tamil Nadu TamilNet'99 stateful keyboard layout (auto-pulli gemination & homorganic nasal+stop rules). |
-| `anjal-phonetic` | Phonetic Input | `to_tamil` | Deterministic Anjal / Murasu phonetic Roman-to-Tamil input (`ng, nj, th, zh, R, L, N`, positional `n` -> `ந`/`ன`). |
+| `anjal-phonetic` | Phonetic Input | `to_tamil` | Deterministic Anjal / Murasu phonetic Roman-to-Tamil input (`s/c/ch` -> `ச`, `S` -> `ஸ`, `ee`/`oo` -> `ஏ`/`ஓ`, `w`/`W` -> `ந`/`ன`, `th/dh` -> `த`, `t/d` -> `ட`, `zh` -> `ழ`, `R, L, N`, `x/ksh` -> `க்ஷ`, homorganic clusters `nd/ndr/nt/ngg/njj`, positional `n` -> `ந`/`ன`). |
 | `suratha-bamini` | Keyboard Layout | `to_tamil` | Deterministic Suratha Bamini live keystroke-to-Unicode composer (left-kombu `n`/`N`/`i` reordering, `;` pulli). |
-| `phonetic-v1` | Phonetic / Tanglish | `to_tamil`, `to_latin` | Deterministic rule-based Phonetic/Tanglish v1 input and readable ASCII Tamil Romanization (statistical/noisy disambiguation stays in Phase 17). |
+| `phonetic-v1` | Phonetic / Tanglish | `to_tamil`, `to_latin` | Deterministic rule-based Phonetic/Tanglish v1 input (`s/c/ch` -> `ச`, `S` -> `ஸ`, `ee`/`oo` -> `ஈ`/`ஊ`, `w/W` -> `வ`, `th/dh` -> `த`, `t/d` -> `ட`, `x/ksh` -> `க்ஷ`, homorganic clusters `nd/ndr/nt/ngg/njj`, positional `n` -> `ந`/`ன`) and readable ASCII Tamil Romanization (statistical/noisy disambiguation stays in Phase 17). |
 
 ## 2. Public Operations
 

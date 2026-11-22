@@ -24,6 +24,14 @@ describe("Canonical slim WASM engine adapter", () => {
     expect(transliterateToTamil("vaNakkam", "phonetic-v1")).toBe("\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD");
     expect(transliterateToTamil("thamizh", "phonetic-v1")).toBe("\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD");
     expect(transliterateToTamil("vaNakkam", "anjal-phonetic")).toBe("\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD");
+    expect(transliterateToTamil("se", "anjal-phonetic")).toBe("\u0B9A\u0BC6");
+    expect(transliterateToTamil("Se", "anjal-phonetic")).toBe("\u0BB8\u0BC6");
+    expect(transliterateToTamil("se", "phonetic-v1")).toBe("\u0B9A\u0BC6");
+    expect(transliterateToTamil("Se", "phonetic-v1")).toBe("\u0BB8\u0BC6");
+    expect(transliterateToTamil("vettri", "anjal-phonetic")).toBe("\u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF");
+    expect(transliterateToTamil("vettri", "phonetic-v1")).toBe("\u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF");
+    expect(transliterateToTamil("kaarru", "phonetic-v1")).toBe("\u0B95\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1");
+    expect(api.transliterate("\u0BA8\u0BA9\u0BCD\u0BB1\u0BBF", "phonetic-v1", "to_latin")).toBe("nanRi");
     expect(transliterateToTamil("h", "tamil99")).toBe("\u0B95");
     expect(transliterateToTamil("f", "suratha-bamini")).toBe("\u0B95");
     expect(transliterateToTamil("jkpo;", "suratha-bamini")).toBe("\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD");
@@ -45,6 +53,13 @@ describe("Canonical slim WASM engine adapter", () => {
     expect(broken.health.visualKombus).toBeGreaterThanOrEqual(1);
     expect(broken.health.duplicatePullis).toBeGreaterThanOrEqual(1);
     expect(broken.health.totalIssues).toBeGreaterThanOrEqual(2);
+
+    // Clean word with attached ை before consonant must report zero visual kombus
+    const cleanWord = "\u0BAA\u0BB2\u0BCD\u0B95\u0BB2\u0BC8\u0B95\u0BCD\u0B95\u0BB4\u0B95\u0BAE\u0BCD";
+    const ok = inspectText(cleanWord, "active-editor", true);
+    expect(ok.health.visualKombus).toBe(0);
+    expect(ok.health.totalIssues).toBe(0);
+    expect(repairTamil(cleanWord).text).toBe(cleanWord);
   });
 
   it("US3: repairs Tamil while preserving ZWJ/ZWNJ, converts legacy codecs, and sorts lines", () => {

@@ -7,6 +7,8 @@ const mockTranslit = async (raw: string, layout: string): Promise<string> => {
   if (layout === "phonetic-v1" || layout === "anjal-phonetic") {
     if (raw === "vanakkam") return "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD";
     if (raw === "tamil") return "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD";
+    if (raw === "mawn-a") return "\u0BAE\u0BA8\u0BCD\u0BA9";
+    if (raw === "n_aa") return "\u0BA9\u0BBE";
   }
   if (layout === "tamil99") {
     if (raw === "h") return "\u0B95";
@@ -107,5 +109,17 @@ describe("HybridTypingEngine & sensitive field guard", () => {
     expect(isSensitiveField(makeInput("text", "one-time-code"))).toBe(true);
     expect(isSensitiveField(makeInput("text", "cc-number"))).toBe(true);
     expect(isSensitiveField(makeInput("text"))).toBe(false);
+  });
+
+  it("keeps n- and n_ inside the word-boundary buffer instead of splitting the word", async () => {
+    const engine = new HybridTypingEngine("anjal-phonetic", mockTranslit);
+    await engine.updateWordPreviewFromTextBeforeCaret("mawn-a");
+    expect(engine.getState().rawBuffer).toBe("mawn-a");
+    expect(engine.getState().previewText).toBe("\u0BAE\u0BA8\u0BCD\u0BA9");
+
+    const committed = await engine.handleKeyDown(" ", {}, "n_aa");
+    expect(committed.handled).toBe(true);
+    expect(committed.deleteBeforeCaret).toBe(4);
+    expect(committed.insertText).toBe("\u0BA9\u0BBE ");
   });
 });

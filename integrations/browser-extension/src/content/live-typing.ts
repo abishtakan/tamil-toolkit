@@ -20,7 +20,7 @@ export interface KeyActionResult {
 }
 
 const WORD_BOUNDARY_KEYS = new Set([" ", "Enter", "Tab", ".", ",", "!", "?", ";", ":", ")", "]", "}"]);
-const LATIN_WORD_RE = /([A-Za-z]+)$/;
+export const LATIN_WORD_RE = /([A-Za-z][A-Za-z_-]*)$/;
 
 export class HybridTypingEngine {
   private state: CompositionState;

@@ -105,6 +105,25 @@ def render() -> str:
         ("chennai", "chennai", "\u0B9A\u0BC6\u0BA9\u0BCD\u0BA9\u0BC8"),
         ("amma", "ammaa", "\u0B85\u0BAE\u0BCD\u0BAE\u0BBE"),
         ("thanga", "thanga", "\u0BA4\u0B99\u0BCD\u0B95"),
+        ("se_ca", "se", "\u0B9A\u0BC6"),
+        ("grantha_se", "Se", "\u0BB8\u0BC6"),
+        ("selvam", "selvam", "\u0B9A\u0BC6\u0BB2\u0BCD\u0BB5\u0BAE\u0BCD"),
+        ("sennai", "sennai", "\u0B9A\u0BC6\u0BA9\u0BCD\u0BA9\u0BC8"),
+        ("see_ee", "see", "\u0B9A\u0BC7"),
+        ("soo_oo", "soo", "\u0B9A\u0BCB"),
+        ("nandri_ndr", "nandri", "\u0BA8\u0BA9\u0BCD\u0BB1\u0BBF"),
+        ("kandu_nd", "kandu", "\u0B95\u0BA3\u0BCD\u0B9F\u0BC1"),
+        ("vantu_nt", "vantu", "\u0BB5\u0BA8\u0BCD\u0BA4\u0BC1"),
+        ("manjjal_njj", "manjjaL", "\u0BAE\u0B9E\u0BCD\u0B9A\u0BB3\u0BCD"),
+        ("konjam_nj", "konjam", "\u0B95\u0BCA\u0B9E\u0BCD\u0B9A\u0BAE\u0BCD"),
+        ("laxmi_x", "laxmi", "\u0BB2\u0B95\u0BCD\u0BB7\u0BCD\u0BAE\u0BBF"),
+        ("thamizh_cap", "Thamizh", "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD"),
+        ("sri_cap", "Sri", "\u0BB8\u0BCD\u0BB0\u0BC0"),
+        ("wanakkam_w", "wanakkam", "\u0BA8\u0BA9\u0B95\u0BCD\u0B95\u0BAE\u0BCD"),
+        ("mawnam_w", "mawnam", "\u0BAE\u0BA8\u0BCD\u0BA9\u0BAE\u0BCD"),
+        ("maaw_upper", "maaW", "\u0BAE\u0BBE\u0BA9\u0BCD"),
+        ("vettri_ttr", "vettri", "\u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF"),
+        ("kaarru_rr", "kaarru", "\u0B95\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1"),
     ]
     for tag, keys, expected in anjal_cases:
         lines.append(row(f"tr_anjal_{tag}", "transliterate", {"text": keys, "scheme": "anjal-phonetic", "direction": "to_tamil"}, expected, ["anjal_phonetic"]))
@@ -127,10 +146,28 @@ def render() -> str:
         ("vanakkam", "vaNakkam", "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD"),
         ("chennai", "chennai", "\u0B9A\u0BC6\u0BA9\u0BCD\u0BA9\u0BC8"),
         ("namaskaram", "namaskaaram", "\u0BA8\u0BAE\u0BB8\u0BCD\u0B95\u0BBE\u0BB0\u0BAE\u0BCD"),
+        ("se_ca", "se", "\u0B9A\u0BC6"),
+        ("grantha_se", "Se", "\u0BB8\u0BC6"),
+        ("selvam", "selvam", "\u0B9A\u0BC6\u0BB2\u0BCD\u0BB5\u0BAE\u0BCD"),
+        ("sennai", "sennai", "\u0B9A\u0BC6\u0BA9\u0BCD\u0BA9\u0BC8"),
+        ("see_ii", "see", "\u0B9A\u0BC0"),
+        ("soo_uu", "soo", "\u0B9A\u0BC2"),
+        ("nandri_ndr", "nandri", "\u0BA8\u0BA9\u0BCD\u0BB1\u0BBF"),
+        ("kandu_nd", "kandu", "\u0B95\u0BA3\u0BCD\u0B9F\u0BC1"),
+        ("vantu_nt", "vantu", "\u0BB5\u0BA8\u0BCD\u0BA4\u0BC1"),
+        ("manjjal_njj", "manjjaL", "\u0BAE\u0B9E\u0BCD\u0B9A\u0BB3\u0BCD"),
+        ("konjam_nj", "konjam", "\u0B95\u0BCA\u0B9E\u0BCD\u0B9A\u0BAE\u0BCD"),
+        ("laxmi_x", "laxmi", "\u0BB2\u0B95\u0BCD\u0BB7\u0BCD\u0BAE\u0BBF"),
+        ("thamizh_cap", "Thamizh", "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD"),
+        ("sri_cap", "Sri", "\u0BB8\u0BCD\u0BB0\u0BC0"),
+        ("vettri_ttr", "vettri", "\u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF"),
+        ("kaarru_rr", "kaarru", "\u0B95\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1"),
     ]
     for tag, keys, expected in phonetic_cases:
         lines.append(row(f"tr_phonetic_{tag}_to_ta", "transliterate", {"text": keys, "scheme": "phonetic-v1", "direction": "to_tamil"}, expected, ["phonetic_v1"]))
     lines.append(row("tr_phonetic_tamil_to_lat", "transliterate", {"text": "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD", "scheme": "phonetic-v1", "direction": "to_latin"}, "thamizh", ["phonetic_v1"]))
+    lines.append(row("tr_phonetic_nandri_to_lat", "transliterate", {"text": "\u0BA8\u0BA9\u0BCD\u0BB1\u0BBF", "scheme": "phonetic-v1", "direction": "to_latin"}, "nanRi", ["phonetic_v1"]))
+    lines.append(row("tr_phonetic_vanthu_to_lat", "transliterate", {"text": "\u0BB5\u0BA8\u0BCD\u0BA4\u0BC1", "scheme": "phonetic-v1", "direction": "to_latin"}, "vanthu", ["phonetic_v1"]))
 
     # 6. Error contracts
     errors = [

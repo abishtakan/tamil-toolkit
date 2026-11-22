@@ -15,6 +15,28 @@ struct TranslitProfile {
     aytham_tokens: AythamTokens,
     tamil99: Tamil99Config,
     suratha_bamini: SurathaBaminiConfig,
+    anjal_phonetic: PhoneticSchemeConfig,
+    phonetic_v1: PhoneticSchemeConfig,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct PhoneticSchemeConfig {
+    sri_tokens: Vec<String>,
+    aytham_keys: Vec<String>,
+    initial_n: String,
+    medial_n: String,
+    contextual_clusters: Vec<KeyTamil>,
+    vowels: Vec<PhoneticVowel>,
+    consonants: Vec<KeyTamil>,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct PhoneticVowel {
+    key: String,
+    independent: String,
+    dependent: String,
 }
 
 #[derive(Deserialize)]
@@ -110,6 +132,86 @@ fn single_char(s: &str) -> char {
 
 fn char_lit(ch: char) -> String {
     format!("'\\u{{{:x}}}'", u32::from(ch))
+}
+
+fn emit_phonetic_scheme(prefix: &str, cfg: &PhoneticSchemeConfig) -> String {
+    assert!(!cfg.sri_tokens.is_empty(), "{prefix} sri_tokens must not be empty");
+    assert!(!cfg.aytham_keys.is_empty(), "{prefix} aytham_keys must not be empty");
+    assert!(
+        is_nfc(&cfg.initial_n) && cfg.initial_n.chars().count() == 1,
+        "{prefix} invalid initial_n"
+    );
+    assert!(
+        is_nfc(&cfg.medial_n) && cfg.medial_n.chars().count() == 1,
+        "{prefix} invalid medial_n"
+    );
+
+    let sri_tokens: Vec<String> = cfg
+        .sri_tokens
+        .iter()
+        .map(|k| {
+            assert!(!k.is_empty(), "{prefix} empty sri token");
+            lit(k)
+        })
+        .collect();
+    let aytham_keys: Vec<String> = cfg
+        .aytham_keys
+        .iter()
+        .map(|k| char_lit(single_char(k)))
+        .collect();
+    let contextual: Vec<String> = cfg
+        .contextual_clusters
+        .iter()
+        .map(|c| {
+            assert!(
+                !c.key.is_empty() && is_nfc(&c.tamil),
+                "{prefix} invalid contextual cluster"
+            );
+            format!("({}, {})", lit(&c.key), lit(&c.tamil))
+        })
+        .collect();
+    let vowels: Vec<String> = cfg
+        .vowels
+        .iter()
+        .map(|v| {
+            assert!(!v.key.is_empty(), "{prefix} empty vowel key");
+            let ind = single_char(&v.independent);
+            let dep = if v.dependent.is_empty() {
+                "None".to_owned()
+            } else {
+                format!("Some({})", char_lit(single_char(&v.dependent)))
+            };
+            format!("({}, {}, {dep})", lit(&v.key), char_lit(ind))
+        })
+        .collect();
+    let consonants: Vec<String> = cfg
+        .consonants
+        .iter()
+        .map(|c| {
+            assert!(
+                !c.key.is_empty() && is_nfc(&c.tamil),
+                "{prefix} invalid consonant"
+            );
+            format!("({}, {})", lit(&c.key), lit(&c.tamil))
+        })
+        .collect();
+
+    format!(
+        "pub const {prefix}_SRI_TOKENS: &[&str] = &[{}];\n\
+         pub const {prefix}_AYTHAM_KEYS: &[char] = &[{}];\n\
+         pub const {prefix}_INITIAL_N: &str = {};\n\
+         pub const {prefix}_MEDIAL_N: &str = {};\n\
+         pub const {prefix}_CONTEXTUAL_CLUSTERS: &[(&str, &str)] = &[{}];\n\
+         pub const {prefix}_VOWELS: &[(&str, char, Option<char>)] = &[{}];\n\
+         pub const {prefix}_CONSONANTS: &[(&str, &str)] = &[{}];\n",
+        sri_tokens.join(","),
+        aytham_keys.join(","),
+        lit(&cfg.initial_n),
+        lit(&cfg.medial_n),
+        contextual.join(","),
+        vowels.join(","),
+        consonants.join(","),
+    )
 }
 
 fn main() {
@@ -249,10 +351,14 @@ fn main() {
         .map(|u| format!("({}, {})", char_lit(single_char(&u.key)), lit(&u.tamil)))
         .collect();
 
+    let anjal_section = emit_phonetic_scheme("ANJAL", &data.anjal_phonetic);
+    let phonetic_v1_section = emit_phonetic_scheme("PHONETIC_V1", &data.phonetic_v1);
+
     let out = format!(
         "pub const PROFILE: &str = {};\n\
          pub const PULLI: char = {};\n\
          pub const AYTHAM: char = {};\n\
+         pub const SRI: &str = {};\n\
          pub const VOWELS: &[VowelEntry] = &[{}];\n\
          pub const CONSONANTS: &[ConsonantEntry] = &[{}];\n\
          pub const AYTHAM_ISO: &str = {};\n\
@@ -276,10 +382,13 @@ fn main() {
          pub const SB_POST_AU: char = {};\n\
          pub const SB_VOWELS: &[(char, char)] = &[{}];\n\
          pub const SB_CONSONANTS: &[(char, char)] = &[{}];\n\
-         pub const SB_PRECOMPOSED_U: &[(char, &str)] = &[{}];\n",
+         pub const SB_PRECOMPOSED_U: &[(char, &str)] = &[{}];\n\
+         {anjal_section}\
+         {phonetic_v1_section}",
         lit(&data.profile),
         char_lit(single_char(&data.pulli)),
         char_lit(single_char(&data.aytham)),
+        lit(&data.sri),
         vowel_rows.join(","),
         cons_rows.join(","),
         lit(&data.aytham_tokens.iso_15919),

@@ -90,6 +90,18 @@ describe("Tamil Word Add-in Engine (Real Slim Rust/WASM)", () => {
     expect(repaired.text).toBe("\u0B95\u0BCD\u0B85");
     expect(repaired.diagnostics.duplicate_pullis_removed).toBeGreaterThanOrEqual(1);
     expect(repaired.diagnostics.zero_width_removed).toBeGreaterThanOrEqual(1);
+
+    // Clean words with attached ெ/ே/ை before consonants must not be flagged or corrupted
+    for (const clean of ["பல்கலைக்கழகம்", "சென்னை வேலை பெண்"]) {
+      const cleanRes = repairTamilText(clean, {
+        fixDuplicatePulli: true,
+        reorderVisualVowels: true,
+        stripZeroWidth: false,
+      });
+      expect(cleanRes.changed).toBe(false);
+      expect(cleanRes.text).toBe(clean);
+      expect(cleanRes.diagnostics.visual_left_kombu_reordered).toBe(0);
+    }
   });
 
   it("performs Tamil-aware Find & Replace across zero-width & Mayangoli variants", () => {
@@ -211,6 +223,10 @@ describe("Tamil Word Add-in Engine (Real Slim Rust/WASM)", () => {
     expect(transliterateText("தமிழ்", "iso-15919", "to_latin")).toBe("tamiḻ");
     expect(transliterateText("tamiḻ", "iso-15919", "to_tamil")).toBe("தமிழ்");
     expect(transliterateText("thamizh", "anjal-phonetic", "to_tamil")).toBe("தமிழ்");
+    expect(transliterateText("se", "anjal-phonetic", "to_tamil")).toBe("செ");
+    expect(transliterateText("Se", "anjal-phonetic", "to_tamil")).toBe("ஸெ");
+    expect(transliterateText("se", "phonetic-v1", "to_tamil")).toBe("செ");
+    expect(transliterateText("Se", "phonetic-v1", "to_tamil")).toBe("ஸெ");
     expect(transliterateText("jkpo;", "suratha-bamini", "to_tamil")).toBe("தமிழ்");
   });
 });

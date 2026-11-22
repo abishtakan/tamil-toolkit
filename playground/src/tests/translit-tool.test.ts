@@ -29,4 +29,14 @@ describe("Phase 8: TranslitTool & tamil-translit WASM bindings", () => {
       }
     }
   });
+
+  it("maps lowercase s to ச and uppercase S to ஸ in anjal-phonetic and phonetic-v1", () => {
+    for (const scheme of ["anjal-phonetic", "phonetic-v1"] as const) {
+      expect(tt.transliterate("se", scheme, "to_tamil")).toBe("செ");
+      expect(tt.transliterate("Se", scheme, "to_tamil")).toBe("ஸெ");
+      expect(tt.transliterate("selvam", scheme, "to_tamil")).toBe("செல்வம்");
+    }
+    expect(tt.transliterate("see", "anjal-phonetic", "to_tamil")).toBe("சே");
+    expect(tt.transliterate("see", "phonetic-v1", "to_tamil")).toBe("சீ");
+  });
 });

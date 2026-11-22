@@ -190,9 +190,9 @@ pub fn transliterate(text: &str, scheme: Scheme, direction: Direction) -> Result
                 Ok(scholarly_latin_to_tamil(text, scheme))
             }
             Scheme::Tamil99 => Ok(tamil99_to_tamil(text)),
-            Scheme::AnjalPhonetic => Ok(phonetic_to_tamil(text)),
+            Scheme::AnjalPhonetic => Ok(phonetic_scheme_to_tamil(text, &ANJAL_TABLE)),
             Scheme::SurathaBamini => Ok(suratha_bamini_to_tamil(text)),
-            Scheme::PhoneticV1 => Ok(phonetic_to_tamil(text)),
+            Scheme::PhoneticV1 => Ok(phonetic_scheme_to_tamil(text, &PHONETIC_V1_TABLE)),
         },
     }
 }
@@ -214,11 +214,22 @@ fn tamil_to_latin(text: &str, scheme: Scheme) -> String {
     let chars: Vec<char> = normalized.chars().collect();
     let mut out = String::with_capacity(normalized.len());
     let mut i = 0;
+    let mut at_word_start = true;
     while i < chars.len() {
         let ch = chars[i];
         if let Some(cons) = find_consonant(ch) {
-            out.push_str(scheme.consonant_token(cons));
+            if scheme == Scheme::PhoneticV1
+                && ch == '\u{0BA8}'
+                && (at_word_start
+                    || (chars.get(i + 1) == Some(&tables::PULLI)
+                        && chars.get(i + 2) == Some(&'\u{0BA4}')))
+            {
+                out.push('n');
+            } else {
+                out.push_str(scheme.consonant_token(cons));
+            }
             i += 1;
+            at_word_start = false;
             if let Some(&next) = chars.get(i) {
                 if next == tables::PULLI {
                     i += 1;
@@ -234,12 +245,15 @@ fn tamil_to_latin(text: &str, scheme: Scheme) -> String {
         } else if let Some(v) = find_vowel_by_ind(ch) {
             out.push_str(scheme.vowel_token(v));
             i += 1;
+            at_word_start = false;
         } else if ch == tables::AYTHAM {
             out.push_str(scheme.aytham_token());
             i += 1;
+            at_word_start = false;
         } else {
             out.push(ch);
             i += 1;
+            at_word_start = !ch.is_alphabetic();
         }
     }
     out
@@ -443,100 +457,85 @@ fn suratha_bamini_to_tamil(text: &str) -> String {
     normalize_nfc(&out)
 }
 
+struct PhoneticTable {
+    sri_tokens: &'static [&'static str],
+    aytham_keys: &'static [char],
+    initial_n: &'static str,
+    medial_n: &'static str,
+    contextual_clusters: &'static [(&'static str, &'static str)],
+    vowels: &'static [(&'static str, char, Option<char>)],
+    consonants: &'static [(&'static str, &'static str)],
+}
+
+const ANJAL_TABLE: PhoneticTable = PhoneticTable {
+    sri_tokens: tables::ANJAL_SRI_TOKENS,
+    aytham_keys: tables::ANJAL_AYTHAM_KEYS,
+    initial_n: tables::ANJAL_INITIAL_N,
+    medial_n: tables::ANJAL_MEDIAL_N,
+    contextual_clusters: tables::ANJAL_CONTEXTUAL_CLUSTERS,
+    vowels: tables::ANJAL_VOWELS,
+    consonants: tables::ANJAL_CONSONANTS,
+};
+
+const PHONETIC_V1_TABLE: PhoneticTable = PhoneticTable {
+    sri_tokens: tables::PHONETIC_V1_SRI_TOKENS,
+    aytham_keys: tables::PHONETIC_V1_AYTHAM_KEYS,
+    initial_n: tables::PHONETIC_V1_INITIAL_N,
+    medial_n: tables::PHONETIC_V1_MEDIAL_N,
+    contextual_clusters: tables::PHONETIC_V1_CONTEXTUAL_CLUSTERS,
+    vowels: tables::PHONETIC_V1_VOWELS,
+    consonants: tables::PHONETIC_V1_CONSONANTS,
+};
+
 /// Rule-based deterministic Anjal / Phonetic v1 Roman-to-Tamil input.
-fn phonetic_to_tamil(text: &str) -> String {
-    const VOWEL_RULES: &[(&str, char, Option<char>)] = &[
-        ("aa", '\u{0B86}', Some('\u{0BBE}')),
-        ("ee", '\u{0B88}', Some('\u{0BC0}')),
-        ("ii", '\u{0B88}', Some('\u{0BC0}')),
-        ("oo", '\u{0B8A}', Some('\u{0BC2}')),
-        ("uu", '\u{0B8A}', Some('\u{0BC2}')),
-        ("ae", '\u{0B8F}', Some('\u{0BC7}')),
-        ("ai", '\u{0B90}', Some('\u{0BC8}')),
-        ("oa", '\u{0B93}', Some('\u{0BCB}')),
-        ("au", '\u{0B94}', Some('\u{0BCC}')),
-        ("ow", '\u{0B94}', Some('\u{0BCC}')),
-        ("A", '\u{0B86}', Some('\u{0BBE}')),
-        ("I", '\u{0B88}', Some('\u{0BC0}')),
-        ("U", '\u{0B8A}', Some('\u{0BC2}')),
-        ("E", '\u{0B8F}', Some('\u{0BC7}')),
-        ("O", '\u{0B93}', Some('\u{0BCB}')),
-        ("a", '\u{0B85}', None),
-        ("i", '\u{0B87}', Some('\u{0BBF}')),
-        ("u", '\u{0B89}', Some('\u{0BC1}')),
-        ("e", '\u{0B8E}', Some('\u{0BC6}')),
-        ("o", '\u{0B92}', Some('\u{0BCA}')),
-    ];
-
-    // Special clusters that emit a nasal+pulli + stop (like ng -> ங்க when followed by vowel, or ங்)
-    const CONS_RULES: &[(&str, &str)] = &[
-        ("ksh", "\u{0B95}\u{0BCD}\u{0BB7}"),
-        ("sh", "\u{0BB7}"),
-        ("Sh", "\u{0BB7}"),
-        ("zh", "\u{0BB4}"),
-        ("ch", "\u{0B9A}"),
-        ("th", "\u{0BA4}"),
-        ("dh", "\u{0BA4}"),
-        ("nh", "\u{0BA8}"),
-        ("nj", "\u{0B9E}"),
-        ("ny", "\u{0B9E}"),
-        ("ng", "\u{0B99}\u{0BCD}\u{0B95}"),
-        ("k", "\u{0B95}"),
-        ("g", "\u{0B95}"),
-        ("c", "\u{0B9A}"),
-        ("s", "\u{0BB8}"),
-        ("j", "\u{0B9C}"),
-        ("T", "\u{0B9F}"),
-        ("t", "\u{0B9F}"),
-        ("d", "\u{0B9F}"),
-        ("N", "\u{0BA3}"),
-        ("p", "\u{0BAA}"),
-        ("b", "\u{0BAA}"),
-        ("m", "\u{0BAE}"),
-        ("y", "\u{0BAF}"),
-        ("r", "\u{0BB0}"),
-        ("R", "\u{0BB1}"),
-        ("l", "\u{0BB2}"),
-        ("L", "\u{0BB3}"),
-        ("z", "\u{0BB4}"),
-        ("v", "\u{0BB5}"),
-        ("w", "\u{0BB5}"),
-        ("S", "\u{0BB6}"),
-        ("h", "\u{0BB9}"),
-    ];
-
+fn phonetic_scheme_to_tamil(text: &str, cfg: &PhoneticTable) -> String {
     let mut out = String::with_capacity(text.len() * 2);
     let mut i = 0;
     let bytes = text.as_bytes();
     let mut at_word_start = true;
     while i < bytes.len() {
         let tail = &text[i..];
-        if tail.starts_with("sri") || tail.starts_with("shri") {
-            out.push_str("\u{0BB8}\u{0BCD}\u{0BB0}\u{0BC0}");
-            i += if tail.starts_with("shri") { 4 } else { 3 };
+        if let Some(&tok) = cfg.sri_tokens.iter().find(|&&tok| tail.starts_with(tok)) {
+            out.push_str(tables::SRI);
+            i += tok.len();
             at_word_start = false;
             continue;
         }
-        if tail.starts_with('q') {
+        if let Some(&k) = cfg.aytham_keys.iter().find(|&&k| tail.starts_with(k)) {
             out.push(tables::AYTHAM);
-            i += 1;
+            i += k.len_utf8();
             at_word_start = false;
             continue;
         }
-        // Check consonant rules first (longest match), plus positional 'n' (word-initial -> ந, else -> ன; before th/dh -> ந)
-        let matched_cons: Option<(usize, &str)> = if tail.starts_with("nth")
-            || tail.starts_with("ndh")
+        // Contextual clusters (e.g. medial ng/nj followed by a vowel -> ங்க/ஞ்ச)
+        let contextual_match =
+            if !at_word_start && !tail.starts_with("ngg") && !tail.starts_with("njj") {
+                cfg.contextual_clusters
+                    .iter()
+                    .find(|&&(pat, _)| {
+                        tail.starts_with(pat)
+                            && cfg
+                                .vowels
+                                .iter()
+                                .any(|&(vpat, _, _)| tail[pat.len()..].starts_with(vpat))
+                    })
+                    .map(|&(pat, tam)| (pat.len(), tam))
+            } else {
+                None
+            };
+
+        let matched_cons: Option<(usize, &str)> = if contextual_match.is_some() {
+            contextual_match
+        } else if let Some(&(pat, tam)) = cfg.consonants.iter().find(|&&(p, _)| tail.starts_with(p))
         {
-            Some((1, "\u{0BA8}"))
-        } else if let Some(&(pat, tam)) = CONS_RULES.iter().find(|&&(p, _)| tail.starts_with(p)) {
             Some((pat.len(), tam))
         } else if tail.starts_with('n') {
             Some((
                 1,
                 if at_word_start {
-                    "\u{0BA8}"
+                    cfg.initial_n
                 } else {
-                    "\u{0BA9}"
+                    cfg.medial_n
                 },
             ))
         } else {
@@ -547,9 +546,8 @@ fn phonetic_to_tamil(text: &str) -> String {
             out.push_str(tam);
             i += clen;
             at_word_start = false;
-            if let Some(&(vpat, _, dep)) = VOWEL_RULES
-                .iter()
-                .find(|&&(p, _, _)| text[i..].starts_with(p))
+            if let Some(&(vpat, _, dep)) =
+                cfg.vowels.iter().find(|&&(p, _, _)| text[i..].starts_with(p))
             {
                 if let Some(sign) = dep {
                     out.push(sign);
@@ -560,7 +558,7 @@ fn phonetic_to_tamil(text: &str) -> String {
             }
             continue;
         }
-        if let Some(&(vpat, ind, _)) = VOWEL_RULES.iter().find(|&&(p, _, _)| tail.starts_with(p)) {
+        if let Some(&(vpat, ind, _)) = cfg.vowels.iter().find(|&&(p, _, _)| tail.starts_with(p)) {
             out.push(ind);
             i += vpat.len();
             at_word_start = false;

@@ -3,6 +3,13 @@
 
 ## Unreleased
 
+- **Orthographic Visual-Kombu Repair Fix (`tamil-norm`):**
+  - Fixed `repair_tamil_text` in `crates/tamil-norm/src/repair.rs` so attached `ெ`/`ே`/`ை` (`\u0BC6`/`\u0BC7`/`\u0BC8`) after a bare consonant is never misclassified as a visual left-kombu before the following consonant (fixing false-positive `1 visual kombu` warnings and text corruption on words like `பல்கலைக்கழகம்`, `சென்னை`, and `வேலை`), and avoided misreading `ெ + C + ள + vowel_sign` as `ௌ`.
+  - Updated browser extension `inspect-tab.ts` and `content/index.ts` to support in-place manual repair and reset rolling live-typing state on replace/insert.
+- **Anjal & Phonetic Keyboard Mapping Fix (`tamil-translit`, `lexicon/translit.toml`):**
+  - Moved `anjal-phonetic` and `phonetic-v1` input rules into declarative tables in `lexicon/translit.toml` compiled via `crates/tamil-translit/build.rs`.
+  - Fixed lowercase `s` -> `ச` (so `se` produces `செ`, `selvam` -> `செல்வம்`, `sennai` -> `சென்னை`) while uppercase `S` maps to Grantha `ஸ` (`Se` -> `ஸெ`) and `sk` maps to `ஸ்க`.
+  - Separated Murasu Anjal `ee`/`oo` (`ஏ`/`ஓ`) and `w`/`W` (`ந`/`ன`) from Tanglish `phonetic-v1` `ee`/`oo` (`ஈ`/`ஊ`) and `w`/`W` (`வ`), added homorganic clusters (`nd` -> `ண்ட`, `ndr`/`nR` -> `ன்ற`, `nt`/`nth`/`ndh` -> `ந்த`, `ttr`/`rr` -> `ற்ற`, `ngg`/medial `ng` -> `ங்க`, `njj`/medial `nj` -> `ஞ்ச`, `x`/`ksh` -> `க்ஷ`), uppercase consonant support, positional `ந` -> `n` in `phonetic-v1` `to_latin`, and `n-`/`n_` support in browser-extension live typing.
 - **Native-Themed Chrome/Edge & Firefox Browser Extension (`integrations/browser-extension/`):**
   - Added dual-target Manifest V3 browser extension for Chrome/Edge (`dist/chrome`, 1.46 MiB zipped) and Firefox (`dist/firefox`, 1.45 MiB zipped + reproducible AMO source bundle) powered offline by the canonical slim Apache-2.0 `tamil-toolkit` Rust/WASM engine with zero install-time `host_permissions` and the canonical Aytham (`ஃ`) icon.
   - Supports **Live Inline Tamil Typing** (`Alt+Shift+L` shortcut + compact native toolbar popup with 1-click Side Panel launcher, `த` badge, caret-anchored word-boundary preview for Phonetic/Anjal and instant per-keystroke commit for Tamil99/Bamini, focus-aware Shadow DOM floating pill, sensitive-field exclusion, canvas Quick-Compose fallback, and opt-in per-site Always-on).

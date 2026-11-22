@@ -139,7 +139,10 @@ export function mountInspectTab(container: HTMLElement, ctx: InspectTabContext):
         detailEl.textContent = parts.join(" \u00B7 ");
       }
       if (repairBtn) {
-        repairBtn.style.display = snap.editable && !snap.health.detectedLegacyEncoding ? "inline-block" : "none";
+        repairBtn.style.display =
+          (snap.editable || currentSource === "manual") && !snap.health.detectedLegacyEncoding
+            ? "inline-block"
+            : "none";
       }
     } else {
       if (titleEl) {
@@ -192,13 +195,15 @@ export function mountInspectTab(container: HTMLElement, ctx: InspectTabContext):
   async function repairInPlace(): Promise<void> {
     const res = await api.runtime.sendMessage({ type: "ENGINE_REPAIR", text: currentText });
     if (!res?.ok) return;
-    const tabId = await ctx.getActiveTabId();
-    await api.runtime.sendMessage({
-      type: "PANEL_REPLACE_TAB_TEXT",
-      tabId,
-      text: res.text,
-      scope: currentSource === "selection" ? "selection" : "active-editor",
-    });
+    if (currentSource !== "manual" && currentEditable) {
+      const tabId = await ctx.getActiveTabId();
+      await api.runtime.sendMessage({
+        type: "PANEL_REPLACE_TAB_TEXT",
+        tabId,
+        text: res.text,
+        scope: currentSource === "selection" ? "selection" : "active-editor",
+      });
+    }
     currentText = res.text;
     const manualTa = container.querySelector("#ins-manual") as HTMLTextAreaElement | null;
     if (manualTa) manualTa.value = currentText;

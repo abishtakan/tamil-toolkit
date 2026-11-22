@@ -97,6 +97,40 @@ fn test_repair_clean_text_is_idempotent() {
     assert_eq!(res2.diagnostics.total_repairs, 0);
 }
 
+#[test]
+fn canonical_attached_kombus_before_consonants_are_never_flagged_or_corrupted() {
+    let opts = RepairOptions::default();
+    for clean in [
+        "பல்கலைக்கழகம்",
+        "சென்னை",
+        "வேலை",
+        "பெண்",
+        "கெகா",
+    ] {
+        let res = repair_tamil_text(clean, &opts);
+        assert_eq!(res.text, clean, "clean word modified: {clean}");
+        assert_eq!(res.diagnostics.visual_kombu_count, 0, "false visual kombu: {clean}");
+        assert_eq!(res.diagnostics.total_repairs, 0, "unexpected repair: {clean}");
+    }
+
+    let r1 = repair_tamil_text("\u{0BC6}\u{0B95}", &opts);
+    assert_eq!(r1.text, "\u{0B95}\u{0BC6}");
+    assert_eq!(r1.diagnostics.visual_kombu_count, 1);
+
+    let r2 = repair_tamil_text("\u{0BC6}\u{0B9A}\u{0BA9}\u{0BCD}\u{0BCD}\u{0BA9}\u{0BC8}", &opts);
+    assert_eq!(r2.text, "\u{0B9A}\u{0BC6}\u{0BA9}\u{0BCD}\u{0BA9}\u{0BC8}");
+    assert_eq!(r2.diagnostics.visual_kombu_count, 1);
+    assert_eq!(r2.diagnostics.duplicate_pulli_count, 1);
+
+    let r3 = repair_tamil_text("பல்\u{0BC8}க", &opts);
+    assert_eq!(r3.text, "பல்கை");
+    assert_eq!(r3.diagnostics.visual_kombu_count, 1);
+
+    let r4 = repair_tamil_text("\u{0BC6}\u{0B95}\u{0BB3}\u{0BBF}", &opts);
+    assert_eq!(r4.text, "கெளி");
+    assert_eq!(r4.diagnostics.visual_kombu_count, 1);
+}
+
 mod nfd_repair_validation {
     use tamil_norm::{repair_tamil_text, RepairOptions};
 

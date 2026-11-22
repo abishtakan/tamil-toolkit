@@ -9,7 +9,7 @@ import {
   replaceEditorOrSelectionText,
 } from "./editor-adapter.js";
 import { FloatingPill } from "./floating-pill.js";
-import { HybridTypingEngine } from "./live-typing.js";
+import { HybridTypingEngine, LATIN_WORD_RE } from "./live-typing.js";
 
 const api = getBrowserApi();
 
@@ -218,7 +218,7 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
         stateSnapshot.commitMode === "word-boundary" &&
         !stateSnapshot.escapedCurrentWord &&
         (e.key === " " || e.key === "Enter" || /^[.,!?;:)\]}]$/.test(e.key)) &&
-        /[A-Za-z]+$/.test(beforeCaret)
+        LATIN_WORD_RE.test(beforeCaret)
       ) {
         e.preventDefault();
         preventedBoundaryKey = e.key === "Enter" ? "\n" : e.key === "Tab" ? "\t" : e.key;
@@ -339,7 +339,10 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
     if (msg?.type === "TAB_REPLACE_TEXT") {
       const target = activeEl ?? document.activeElement;
       const replaced = replaceEditorOrSelectionText(target, String(msg.text ?? ""), msg.scope ?? "selection");
-      if (replaced) scheduleMicroCounterUpdate(target);
+      if (replaced) {
+        typingEngine.resetWord();
+        scheduleMicroCounterUpdate(target);
+      }
       sendResponse({ ok: true, replaced });
       return false;
     }
@@ -347,7 +350,10 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
     if (msg?.type === "TAB_INSERT_TEXT") {
       const target = activeEl ?? document.activeElement;
       const inserted = target ? replaceCharsBeforeCaret(target, 0, String(msg.text ?? "")) : false;
-      if (inserted) scheduleMicroCounterUpdate(target);
+      if (inserted) {
+        typingEngine.resetWord();
+        scheduleMicroCounterUpdate(target);
+      }
       sendResponse({ ok: true, inserted });
       return false;
     }
