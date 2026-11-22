@@ -81,6 +81,7 @@ INPUTS = {
         "numerals-ordinals.toml",
         "numerals-symbols.toml",
         "numerals-traditional.toml",
+        "numerals-v04.toml",
         "calendar-vakya-solar.toml",
         "calendar-vakya-moon.toml",
         "calendar-vakya-civil.toml",

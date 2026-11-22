@@ -171,7 +171,7 @@ test("numeral convenience APIs on both WASM targets", () => {
         expect(api[row.op](input.amount_minor, input.currency, input.locale)).toBe(row.expected);
       }
     }
-    expect(() => api.format_currency(1, "USD" as Currency)).toThrow("unsupported currency");
+    expect(() => api.format_currency(1, "ZZZ" as Currency)).toThrow("unsupported currency");
   }
 });
 
@@ -188,6 +188,9 @@ test("v0.3 typed numeral and civil APIs on both WASM targets", () => {
     expect(api.symbol_info("\u{11fd1}").canonical_alternative).toBe(73681);
     expect(api.format_mixed_fraction({ negative: false, whole: 5, numerator: 2, denominator: 4 })).toBe("5 1/2");
     expect(api.parse_mixed_fraction("5 1/2", "latin")).toEqual({ negative: false, whole: 5, numerator: 1, denominator: 2 });
+    expect(api.mixed_fraction_to_words({ negative: false, whole: 1, numerator: 1, denominator: 2 })).toBe("\u0b92\u0ba9\u0bcd\u0bb1\u0bb0\u0bc8");
+    expect(api.words_to_number(api.to_words(100001, "SL"), "SL")).toBe(100001);
+    expect(api.format_currency(10000021, "SGD")).toBe("SGD 100,000.21");
     const traditional = api.format_traditional_integer(1234567);
     expect(api.parse_traditional_integer(traditional)).toBe(1234567);
     expect(api.parse_percent("12.50%", "latin")).toEqual({ negative: false, coefficient: "1250", scale: 2 });

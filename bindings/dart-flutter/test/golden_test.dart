@@ -230,7 +230,7 @@ void main() {
           : tamil.currencyToWords(amount, currency, locale: locale);
       expect(result, row['expected']);
     }
-    expect(() => tamil.formatCurrency(1, 'USD'), throwsArgumentError);
+    expect(() => tamil.formatCurrency(1, 'ZZZ'), throwsArgumentError);
   });
   test('codec convenience API', () {
     final word = codecWord!;
@@ -352,6 +352,13 @@ void main() {
       'numerator': 1,
       'denominator': 2,
     });
+    expect(
+        tamil.mixedFractionToWords(
+            negative: false, whole: 1, numerator: 1, denominator: 2),
+        '\u0b92\u0ba9\u0bcd\u0bb1\u0bb0\u0bc8');
+    expect(tamil.wordsToNumber(tamil.toWords(100001, locale: 'SL'), locale: 'SL'),
+        100001);
+    expect(tamil.formatCurrency(10000021, 'SGD'), 'SGD 100,000.21');
     final traditional = tamil.formatTraditionalInteger(1234567);
     expect(tamil.parseTraditionalInteger(traditional), 1234567);
     expect(tamil.parsePercent('12.50%', 'latin'), {

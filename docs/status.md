@@ -1,5 +1,14 @@
 # Project handoff
 
+## Phase 6 (`tamil-numerals` v0.4): Diaspora Currencies, Colloquial Mixed Fractions & Formal ITN (2026-11-22)
+
+- **Scope (`crates/tamil-numerals/`, `docs/specs/numerals-v0.4.md`, `lexicon/numerals-v04.toml`):**
+  - Extended `Currency` directly from `{INR, LKR}` to `{INR, LKR, SGD, MYR, USD, EUR, GBP, CAD}` across `format_currency`, `currency_to_words`, `format_currency_decimal`, and `currency_decimal_to_words` (3-2 Indian grouping preserved for `INR`/`LKR`; 3-3 international grouping for diaspora currencies). Updated v0.1 unknown-currency negative fixture from `"USD"` to `"ZZZ"` with owner approval.
+  - Added `mixed_fraction_to_words` (`-999,999,999..=999,999,999`, `TN`/`SL`) with declarative ending rules in `lexicon/numerals-v04.toml` (`ஒன்றேகால்`, `ஒன்றரை`, `ஒன்றேமுக்கால்`, `ஆயிரத்தரை`, `ஒரு கோடியரை`, fraction reduction matching `format_mixed_fraction`, and explicit `மற்றும்` fallback).
+  - Added `words_to_number` (exact formal ITN inverse of `to_words` over `-999,999,999..=999,999,999` for `TN` and `SL`) driven directly from the compiled CLDR 49 RBNF rule tables with a canonical round-trip check; wired CLI `tamil-toolkit numerals parse` to fall back from traditional glyphs to `words_to_number`.
+  - Added 739 active golden vectors (`tests/golden/numerals_v04.jsonl`, generated deterministically by `tools/generate_numerals_v04_golden.py` from frozen ICU4J outputs), schema/manifest entries, harness checks (`tests/harness/test_numerals_v04_acceptance.py`), and Python/TypeScript-WASM/Dart typed wrappers and convenience tests.
+- **Next:** Phase 7 (`tamil-codec` Senthamil/Shree-Tam/Softview/TBO + Playground `PDF.js` text-layer extraction), then Phase 8 (`tamil-translit`).
+
 ## Microsoft Word Add-in v2.2 — Tamil Toolkit for Word & AppSource Submission (2026-11-22)
 
 - **Scope (`integrations/office-word-addin/`, Spec 014):** Upgraded from a standalone JS hyphenation-only add-in to **Tamil Toolkit (`v2.2.0.0`)**, a Fluent 2 + TypeScript Office.js utility suite backed 100% client-side by the slim MIT default-profile Rust/WASM build (`scripts/prepare-wasm.mjs`, ~3.1 MiB uncompressed / ~1.37 MiB gzipped — 15x smaller than the full-lexicon playground WASM). Retired the duplicate `engine.js`, `commands.js`, `taskpane.js`, and `taskpane.css` files.

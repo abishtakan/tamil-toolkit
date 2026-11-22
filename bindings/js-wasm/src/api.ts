@@ -171,7 +171,7 @@ export interface DetectionResult {
   candidates: EncodingCandidate[];
 }
 export type Locale = "TN" | "SL";
-export type Currency = "INR" | "LKR";
+export type Currency = "INR" | "LKR" | "SGD" | "MYR" | "USD" | "EUR" | "GBP" | "CAD";
 export type CodecErrorPolicy = "strict" | "preserve";
 export type DigitStyle = "latin" | "tamil";
 export type DateStyle = "short" | "medium" | "long" | "full";
@@ -523,6 +523,8 @@ export function createApi(nativeExecute: (request: string) => string) {
     symbol_info: (text: string) => execute({ op: "symbol_info", input: { text } }) as SymbolInfo,
     format_mixed_fraction: (value: MixedFraction, digits: DigitStyle = "latin") => execute({ op: "format_mixed_fraction", input: { ...value, digits } }) as string,
     parse_mixed_fraction: (text: string, source_digits: DigitStyle) => execute({ op: "parse_mixed_fraction", input: { text, source_digits } }) as MixedFraction,
+    mixed_fraction_to_words: (value: MixedFraction, locale: Locale = "TN") => execute({ op: "mixed_fraction_to_words", input: { ...value, locale } }) as string,
+    words_to_number: (text: string, locale: Locale = "TN") => execute({ op: "words_to_number", input: { text, locale } }) as number,
     format_traditional_integer: (value: number) => execute({ op: "format_traditional_integer", input: { value } }) as string,
     parse_traditional_integer: (text: string) => execute({ op: "parse_traditional_integer", input: { text } }) as number,
     parse_percent: (text: string, source_digits: DigitStyle, grouping: Grouping = "none") => execute({ op: "parse_percent", input: { text, source_digits, grouping } }) as ExactDecimal,

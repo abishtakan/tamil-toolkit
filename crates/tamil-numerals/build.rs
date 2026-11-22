@@ -28,6 +28,33 @@ struct Currency {
     minor: String,
     factor: u64,
 }
+#[derive(Deserialize)]
+struct V04Profile {
+    profile: String,
+    diaspora_currencies: Vec<DiasporaCurrency>,
+    mixed_fraction_words: MixedFractionWords,
+}
+#[derive(Deserialize)]
+struct DiasporaCurrency {
+    code: String,
+    major: String,
+    minor: String,
+    factor: u64,
+    primary_group: usize,
+    secondary_group: usize,
+}
+#[derive(Deserialize)]
+struct MixedFractionWords {
+    conjunction: String,
+    endings: Vec<MixedEnding>,
+}
+#[derive(Deserialize)]
+struct MixedEnding {
+    strip_suffix: String,
+    quarter: String,
+    half: String,
+    three_quarters: String,
+}
 #[derive(Deserialize, Clone)]
 struct Ruleset {
     name: String,
@@ -267,6 +294,40 @@ fn compile_extra_data(output: &mut String) {
     }).collect::<Vec<_>>().join(",");
     assert!(profile.symbols.len() >= 50);
     output.push_str(&format!("pub const SYMBOLS:&[SymbolInfo]=&[{symbols}];\n"));
+
+    let v04_path = "lexicon/numerals-v04.toml";
+    println!("cargo:rerun-if-changed={v04_path}");
+    let v04: V04Profile =
+        toml::from_str(&fs::read_to_string(v04_path).expect("read numerals-v04.toml"))
+            .expect("valid numerals-v04.toml");
+    assert_eq!(v04.profile, "numerals-v0.4");
+    assert!(
+        !v04.mixed_fraction_words.conjunction.is_empty()
+            && is_nfc(&v04.mixed_fraction_words.conjunction)
+    );
+    let endings = v04
+        .mixed_fraction_words
+        .endings
+        .iter()
+        .map(|entry| {
+            assert!(!entry.strip_suffix.is_empty() && is_nfc(&entry.strip_suffix));
+            assert!(!entry.quarter.is_empty() && is_nfc(&entry.quarter));
+            assert!(!entry.half.is_empty() && is_nfc(&entry.half));
+            assert!(!entry.three_quarters.is_empty() && is_nfc(&entry.three_quarters));
+            format!(
+                "MixedEndingRule {{strip_suffix: {}, quarter: {}, half: {}, three_quarters: {}}}",
+                literal(&entry.strip_suffix),
+                literal(&entry.quarter),
+                literal(&entry.half),
+                literal(&entry.three_quarters)
+            )
+        })
+        .collect::<Vec<_>>()
+        .join(",");
+    output.push_str(&format!(
+        "pub const MIXED_CONJUNCTION: &str = {};\npub const MIXED_ENDINGS: &[MixedEndingRule] = &[{endings}];\n",
+        literal(&v04.mixed_fraction_words.conjunction)
+    ));
 }
 
 fn main() {
@@ -287,7 +348,12 @@ fn main() {
         assert!(!text.is_empty() && is_nfc(text));
     }
     assert_eq!(profile.currencies.len(), 2);
-    let currencies = profile
+    let v04_curr: V04Profile = toml::from_str(
+        &fs::read_to_string("lexicon/numerals-v04.toml").expect("read numerals-v04.toml"),
+    )
+    .expect("valid numerals-v04.toml");
+    assert_eq!(v04_curr.diaspora_currencies.len(), 6);
+    let mut currency_entries: Vec<String> = profile
         .currencies
         .iter()
         .zip(["INR", "LKR"])
@@ -297,15 +363,39 @@ fn main() {
             assert!(!data.major.is_empty() && is_nfc(&data.major));
             assert!(!data.minor.is_empty() && is_nfc(&data.minor));
             format!(
-                "CurrencyUnits {{code: {}, major: {}, minor: {}, factor: {}}}",
+                "CurrencyUnits {{code: {}, major: {}, minor: {}, factor: {}, primary_group: {}, secondary_group: {}}}",
                 literal(code),
                 literal(&data.major),
                 literal(&data.minor),
-                data.factor
+                data.factor,
+                profile.primary_group,
+                profile.secondary_group
             )
         })
-        .collect::<Vec<_>>()
-        .join(",");
+        .collect();
+    currency_entries.extend(
+        v04_curr
+            .diaspora_currencies
+            .iter()
+            .zip(["SGD", "MYR", "USD", "EUR", "GBP", "CAD"])
+            .map(|(data, code)| {
+                assert_eq!(data.code, code);
+                assert_eq!(data.factor, 100);
+                assert_eq!((data.primary_group, data.secondary_group), (3, 3));
+                assert!(!data.major.is_empty() && is_nfc(&data.major));
+                assert!(!data.minor.is_empty() && is_nfc(&data.minor));
+                format!(
+                    "CurrencyUnits {{code: {}, major: {}, minor: {}, factor: {}, primary_group: {}, secondary_group: {}}}",
+                    literal(code),
+                    literal(&data.major),
+                    literal(&data.minor),
+                    data.factor,
+                    data.primary_group,
+                    data.secondary_group
+                )
+            }),
+    );
+    let currencies = currency_entries.join(",");
     let names: BTreeMap<_, _> = profile
         .rulesets
         .iter()
@@ -317,12 +407,10 @@ fn main() {
     let numbering = names["%spellout-numbering"];
     let cardinal = names["%spellout-cardinal"];
     let mut output = format!(
-        "pub const PROFILE: &str = {};\npub const MAX_INTEGER: i64 = {};\npub const MAX_MINOR: i64 = {};\npub const PRIMARY_GROUP: usize = {};\npub const SECONDARY_GROUP: usize = {};\npub const NEGATIVE: &str = {};\npub const CURRENCIES: &[CurrencyUnits] = &[{currencies}];\npub const NUMBERING: usize = {numbering};\npub const CARDINAL: usize = {cardinal};\n",
+        "pub const PROFILE: &str = {};\npub const MAX_INTEGER: i64 = {};\npub const MAX_MINOR: i64 = {};\npub const NEGATIVE: &str = {};\npub const CURRENCIES: &[CurrencyUnits] = &[{currencies}];\npub const NUMBERING: usize = {numbering};\npub const CARDINAL: usize = {cardinal};\n",
         literal(&profile.profile),
         profile.max_integer,
         profile.max_minor,
-        profile.primary_group,
-        profile.secondary_group,
         literal(&profile.negative),
     );
     for (locale, regional) in [("TN", false), ("SL", true)] {

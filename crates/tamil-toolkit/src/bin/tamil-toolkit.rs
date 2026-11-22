@@ -1199,8 +1199,12 @@ fn handle_numerals(args: &[String]) {
             let text = &args[1];
             if let Ok(n) = tamil_numerals::parse_traditional_integer(text) {
                 println!("{n}");
+            } else if let Ok(n) = tamil_numerals::words_to_number(text, tamil_numerals::Locale::TN)
+                .or_else(|_| tamil_numerals::words_to_number(text, tamil_numerals::Locale::SL))
+            {
+                println!("{n}");
             } else {
-                eprintln!("Error: Unable to parse traditional numerals '{text}'");
+                eprintln!("Error: Unable to parse Tamil numerals or number words '{text}'");
                 exit(1);
             }
         }

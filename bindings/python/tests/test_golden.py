@@ -203,7 +203,7 @@ def test_numeral_convenience_apis():
         if case["op"] in ("format_currency", "currency_to_words") and "expected" in case:
             assert getattr(tamil, case["op"])(**case["input"]) == case["expected"]
     with pytest.raises(ValueError, match="unsupported currency"):
-        tamil.format_currency(1, "USD")
+        tamil.format_currency(1, "ZZZ")
 
 
 def test_codec_convenience_api():
@@ -263,6 +263,9 @@ def test_numerals_v03_typed_convenience_apis():
     assert tamil.symbol_info("\U00011fd1")["canonical_alternative"] == 73681
     mixed = tamil.parse_mixed_fraction(tamil.format_mixed_fraction(False, 5, 2, 4), "latin")
     assert mixed == {"negative": False, "whole": 5, "numerator": 1, "denominator": 2}
+    assert tamil.mixed_fraction_to_words(False, 1, 1, 2) == "\u0b92\u0ba9\u0bcd\u0bb1\u0bb0\u0bc8"
+    assert tamil.words_to_number(tamil.to_words(100001, "SL"), "SL") == 100001
+    assert tamil.format_currency(10000021, "SGD") == "SGD 100,000.21"
     traditional = tamil.format_traditional_integer(1234567)
     assert tamil.parse_traditional_integer(traditional) == 1234567
     assert tamil.parse_percent("12.50%", "latin") == {"negative": False, "coefficient": "1250", "scale": 2}

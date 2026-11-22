@@ -869,6 +869,8 @@ pub const OPERATIONS: &[&str] = &[
     "symbol_info",
     "format_mixed_fraction",
     "parse_mixed_fraction",
+    "mixed_fraction_to_words",
+    "words_to_number",
     "format_traditional_integer",
     "parse_traditional_integer",
     "parse_percent",
@@ -1688,6 +1690,19 @@ pub fn execute(request: &Value) -> Result<Value, String> {
             let value = numerals::parse_mixed_fraction(string(&input["text"])?,
                 string(&input["source_digits"])?)?;
             Ok(json!({"negative":value.negative,"whole":value.whole,"numerator":value.numerator,"denominator":value.denominator}))
+        }
+        "mixed_fraction_to_words" => {
+            let number = |name:&str| input.get(name).and_then(Value::as_u64).ok_or("invalid mixed fraction".to_owned());
+            let value = numerals::MixedFraction { negative:input.get("negative").and_then(Value::as_bool).ok_or("invalid mixed fraction")?,
+                whole:number("whole")?, numerator:number("numerator")?, denominator:number("denominator")? };
+            numerals::validate_mixed_fraction(&value)?;
+            let loc = locale(input)?;
+            numerals::mixed_fraction_to_words(&value, loc).map(|text| json!(text))
+        }
+        "words_to_number" => {
+            let text = string(&input["text"])?;
+            let loc = locale(input)?;
+            numerals::words_to_number(text, loc).map(|value| json!(value))
         }
         "format_traditional_integer" => {
             let value = integer(&input["value"],99_999_999).map_err(|_| "expected a traditional Tamil integer in the supported range")?;

@@ -581,6 +581,26 @@ class TamilToolkit {
         'op': 'parse_mixed_fraction',
         'input': {'text': text, 'source_digits': sourceDigits},
       }) as Map<String, dynamic>;
+  String mixedFractionToWords(
+          {required bool negative,
+          required int whole,
+          required int numerator,
+          required int denominator,
+          String locale = 'TN'}) =>
+      execute({
+        'op': 'mixed_fraction_to_words',
+        'input': {
+          'negative': negative,
+          'whole': whole,
+          'numerator': numerator,
+          'denominator': denominator,
+          'locale': locale
+        },
+      }) as String;
+  int wordsToNumber(String text, {String locale = 'TN'}) => execute({
+        'op': 'words_to_number',
+        'input': {'text': text, 'locale': locale},
+      }) as int;
   String formatTraditionalInteger(int value) => execute({
         'op': 'format_traditional_integer',
         'input': {'value': value}

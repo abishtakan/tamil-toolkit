@@ -531,7 +531,13 @@
               "currency": {
                 "enum": [
                   "INR",
-                  "LKR"
+                  "LKR",
+                  "SGD",
+                  "MYR",
+                  "USD",
+                  "EUR",
+                  "GBP",
+                  "CAD"
                 ]
               },
               "locale": {
@@ -1092,6 +1098,8 @@
               "symbol_info",
               "format_mixed_fraction",
               "parse_mixed_fraction",
+              "mixed_fraction_to_words",
+              "words_to_number",
               "format_traditional_integer",
               "parse_traditional_integer",
               "parse_percent",

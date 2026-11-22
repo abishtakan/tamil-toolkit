@@ -265,7 +265,8 @@ def format_date(year: int, month: int, day: int, locale: str = "TN", style: str 
 __all__ += ["convert_digits", "parse_decimal", "format_decimal", "decimal_to_words",
             "ordinal_to_words", "digit_sequence_to_words", "format_currency_decimal",
             "currency_decimal_to_words", "parse_fraction_symbol", "symbol_info",
-            "format_mixed_fraction", "parse_mixed_fraction", "format_traditional_integer",
+            "format_mixed_fraction", "parse_mixed_fraction", "mixed_fraction_to_words",
+            "words_to_number", "format_traditional_integer",
             "parse_traditional_integer", "parse_percent", "format_percent", "ratio_to_percent",
             "percent_to_ratio", "format_numeric_range", "validate_gregorian_date",
             "parse_gregorian_date", "weekday", "add_gregorian_date", "date_difference", "date_interval"]
@@ -317,6 +318,14 @@ def format_mixed_fraction(negative: bool, whole: int, numerator: int, denominato
 
 def parse_mixed_fraction(text: str, source_digits: str) -> dict[str, Any]:
     return execute({"op": "parse_mixed_fraction", "input": {"text": text, "source_digits": source_digits}})
+
+
+def mixed_fraction_to_words(negative: bool, whole: int, numerator: int, denominator: int, locale: str = "TN") -> str:
+    return execute({"op": "mixed_fraction_to_words", "input": {"negative": negative, "whole": whole, "numerator": numerator, "denominator": denominator, "locale": locale}})
+
+
+def words_to_number(text: str, locale: str = "TN") -> int:
+    return execute({"op": "words_to_number", "input": {"text": text, "locale": locale}})
 
 
 def format_traditional_integer(value: int) -> str:

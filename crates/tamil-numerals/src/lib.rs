@@ -30,6 +30,14 @@ struct CurrencyUnits {
     major: &'static str,
     minor: &'static str,
     factor: u64,
+    primary_group: usize,
+    secondary_group: usize,
+}
+pub(crate) struct MixedEndingRule {
+    pub strip_suffix: &'static str,
+    pub quarter: &'static str,
+    pub half: &'static str,
+    pub three_quarters: &'static str,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SymbolInfo {
@@ -42,7 +50,7 @@ pub struct SymbolInfo {
     pub source_version: &'static str,
 }
 mod tables {
-    use super::{CurrencyUnits, Op, Operand, Rule, SymbolInfo};
+    use super::{CurrencyUnits, MixedEndingRule, Op, Operand, Rule, SymbolInfo};
     include!(concat!(env!("OUT_DIR"), "/numeral_tables.rs"));
 }
 pub use tables::{MAX_INTEGER, MAX_MINOR, PROFILE};
@@ -87,12 +95,24 @@ impl Locale {
 pub enum Currency {
     INR,
     LKR,
+    SGD,
+    MYR,
+    USD,
+    EUR,
+    GBP,
+    CAD,
 }
 impl Currency {
     pub fn parse(value: &str) -> Result<Self, String> {
         match value {
             "INR" => Ok(Self::INR),
             "LKR" => Ok(Self::LKR),
+            "SGD" => Ok(Self::SGD),
+            "MYR" => Ok(Self::MYR),
+            "USD" => Ok(Self::USD),
+            "EUR" => Ok(Self::EUR),
+            "GBP" => Ok(Self::GBP),
+            "CAD" => Ok(Self::CAD),
             _ => Err("unsupported currency".into()),
         }
     }
@@ -100,6 +120,12 @@ impl Currency {
         &tables::CURRENCIES[match self {
             Self::INR => 0,
             Self::LKR => 1,
+            Self::SGD => 2,
+            Self::MYR => 3,
+            Self::USD => 4,
+            Self::EUR => 5,
+            Self::GBP => 6,
+            Self::CAD => 7,
         }]
     }
 }
@@ -179,23 +205,23 @@ pub fn to_words(value: i64, locale: Locale) -> Result<String, String> {
     Ok(normalize_nfc(&output))
 }
 
-fn grouped(value: u64) -> String {
+fn grouped(value: u64, primary_group: usize, secondary_group: usize) -> String {
     let digits = value.to_string();
     let mut end = digits.len();
-    let mut width = tables::PRIMARY_GROUP;
+    let mut width = primary_group;
     let mut groups = Vec::new();
     while end > 0 {
         let start = end.saturating_sub(width);
         groups.push(&digits[start..end]);
         end = start;
-        width = tables::SECONDARY_GROUP;
+        width = secondary_group;
     }
     groups.reverse();
     groups.join(",")
 }
 
-/// ISO code and 3-2-grouped Latin digits with exactly two decimal places.
-/// Both profiles share grouping. Input is exact signed minor units; no rounding.
+/// ISO code and currency-grouped Latin digits with exactly two decimal places.
+/// Input is exact signed minor units; no rounding.
 pub fn format_currency(
     amount_minor: i64,
     currency: Currency,
@@ -207,7 +233,11 @@ pub fn format_currency(
     Ok(format!(
         "{} {sign}{}.{:02}",
         units.code,
-        grouped(value / units.factor),
+        grouped(
+            value / units.factor,
+            units.primary_group,
+            units.secondary_group
+        ),
         value % units.factor
     ))
 }
@@ -244,10 +274,171 @@ pub fn currency_to_words(
     Ok(normalize_nfc(&output))
 }
 
+/// Colloquial Tamil mixed-fraction words for 1/4, 1/2, 3/4, or explicit conjunction otherwise.
+pub fn mixed_fraction_to_words(value: &MixedFraction, locale: Locale) -> Result<String, String> {
+    validate_mixed_fraction(value)?;
+    if value.numerator == 0 {
+        let signed = if value.negative {
+            -(value.whole as i64)
+        } else {
+            value.whole as i64
+        };
+        return to_words(signed, locale);
+    }
+    if value.whole == 0 {
+        let signed_num = if value.negative {
+            -(value.numerator as i64)
+        } else {
+            value.numerator as i64
+        };
+        return fraction_to_words(Fraction::new(signed_num, value.denominator as i64)?, locale);
+    }
+    let reduced = Fraction::new(value.numerator as i64, value.denominator as i64)?;
+    let (num, den) = (reduced.numerator().unsigned_abs(), reduced.denominator());
+    let whole_words = to_words(value.whole as i64, locale)?;
+    let prefix = if value.negative {
+        format!("{} ", tables::NEGATIVE)
+    } else {
+        String::new()
+    };
+    let compound = match (num, den) {
+        (1, 4) | (1, 2) | (3, 4) => {
+            let rule = tables::MIXED_ENDINGS
+                .iter()
+                .find(|r| whole_words.ends_with(r.strip_suffix))
+                .ok_or_else(|| "invalid mixed fraction".to_owned())?;
+            let stem = &whole_words[..whole_words.len() - rule.strip_suffix.len()];
+            let suffix = match (num, den) {
+                (1, 4) => rule.quarter,
+                (1, 2) => rule.half,
+                _ => rule.three_quarters,
+            };
+            format!("{prefix}{stem}{suffix}")
+        }
+        _ => {
+            let frac = fraction_to_words(reduced, locale)?;
+            format!("{prefix}{whole_words} {} {frac}", tables::MIXED_CONJUNCTION)
+        }
+    };
+    Ok(normalize_nfc(&compound))
+}
+
+fn parse_optional_remainder(
+    tail: &str,
+    nonzero: &[Op],
+    zero: &[Op],
+    divisor: u64,
+    rules: &[&[Rule]],
+    depth: usize,
+) -> Option<u64> {
+    // Check zero branch first
+    match zero {
+        [] if tail.is_empty() => return Some(0),
+        [Op::Literal(zlit)] if tail == *zlit => return Some(0),
+        _ => {}
+    }
+    // Check nonzero branch: [Op::Literal(nz_lit), Op::Substitute(Operand::Remainder, target_set)]
+    if let [Op::Literal(nz_lit), Op::Substitute(Operand::Remainder, target_set)] = nonzero {
+        if let Some(rem_str) = tail.strip_prefix(nz_lit) {
+            if let Some(rem) = parse_ruleset(rem_str, *target_set, rules, depth + 1) {
+                if rem > 0 && rem < divisor {
+                    return Some(rem);
+                }
+            }
+        }
+    }
+    None
+}
+
+fn parse_ruleset(text: &str, set: usize, rules: &[&[Rule]], depth: usize) -> Option<u64> {
+    if depth > 64 || text.is_empty() {
+        return None;
+    }
+    for rule in rules[set].iter().rev() {
+        match rule.ops {
+            [Op::Literal(lit)] if text == *lit => {
+                return Some(rule.base);
+            }
+            [Op::Literal(lit), Op::Optional(nonzero, zero)] => {
+                if let Some(tail) = text.strip_prefix(lit) {
+                    if let Some(rem) =
+                        parse_optional_remainder(tail, nonzero, zero, rule.divisor, rules, depth)
+                    {
+                        return rule.base.checked_add(rem);
+                    }
+                }
+            }
+            [Op::Substitute(Operand::Quotient, q_set), Op::Literal(lit), Op::Optional(nonzero, zero)] => {
+                for (pos, _) in text.match_indices(lit) {
+                    let left = &text[..pos];
+                    let tail = &text[pos + lit.len()..];
+                    if let Some(q) = parse_ruleset(left, *q_set, rules, depth + 1) {
+                        let min_q = rule.base / rule.divisor;
+                        if q >= min_q && q <= 99 {
+                            if let Some(rem) = parse_optional_remainder(
+                                tail,
+                                nonzero,
+                                zero,
+                                rule.divisor,
+                                rules,
+                                depth,
+                            ) {
+                                if let Some(val) =
+                                    q.checked_mul(rule.divisor).and_then(|v| v.checked_add(rem))
+                                {
+                                    return Some(val);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+    None
+}
+
+/// Exact inverse of `to_words` for CLDR 49 formal Tamil number words (`-MAX_INTEGER..=MAX_INTEGER`).
+pub fn words_to_number(text: &str, locale: Locale) -> Result<i64, String> {
+    let err = || "invalid Tamil number words".to_owned();
+    let normalized = normalize_nfc(text);
+    if normalized.is_empty() || normalized.trim() != normalized {
+        return Err(err());
+    }
+    let neg_prefix = format!("{} ", tables::NEGATIVE);
+    let (negative, body) = if let Some(rest) = normalized.strip_prefix(&neg_prefix) {
+        (true, rest)
+    } else {
+        (false, normalized.as_str())
+    };
+    let mag = parse_ruleset(body, tables::NUMBERING, locale.rules(), 0).ok_or_else(err)?;
+    if mag > MAX_INTEGER as u64 || (negative && mag == 0) {
+        return Err(err());
+    }
+    let signed = if negative { -(mag as i64) } else { mag as i64 };
+    if to_words(signed, locale).ok().as_deref() == Some(normalized.as_str()) {
+        Ok(signed)
+    } else {
+        Err(err())
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use proptest::prelude::*;
+
+    const ALL_CURRENCIES: [Currency; 8] = [
+        Currency::INR,
+        Currency::LKR,
+        Currency::SGD,
+        Currency::MYR,
+        Currency::USD,
+        Currency::EUR,
+        Currency::GBP,
+        Currency::CAD,
+    ];
 
     proptest! {
         #![proptest_config(ProptestConfig::with_cases(10_000))]
@@ -255,29 +446,50 @@ mod tests {
         fn arbitrary_signed_inputs_never_panic(value in any::<i64>()) {
             for locale in [Locale::TN, Locale::SL] {
                 prop_assert_eq!(to_words(value, locale).is_ok(), value.unsigned_abs() <= MAX_INTEGER as u64);
-                for currency in [Currency::INR, Currency::LKR] {
+                for currency in ALL_CURRENCIES {
                     prop_assert_eq!(format_currency(value, currency, locale).is_ok(), value.unsigned_abs() <= MAX_MINOR as u64);
                     prop_assert_eq!(currency_to_words(value, currency, locale).is_ok(), value.unsigned_abs() <= MAX_MINOR as u64);
                 }
             }
         }
         #[test]
-        fn currency_digits_roundtrip_exactly(value in -MAX_MINOR..=MAX_MINOR, sl in any::<bool>(), lkr in any::<bool>()) {
-            let currency = if lkr { Currency::LKR } else { Currency::INR };
+        fn currency_digits_roundtrip_exactly(value in -MAX_MINOR..=MAX_MINOR, sl in any::<bool>(), curr_idx in 0usize..8) {
+            let currency = ALL_CURRENCIES[curr_idx];
             let text = format_currency(value, currency, if sl { Locale::SL } else { Locale::TN }).unwrap();
             let digits: String = text.split_once(' ').unwrap().1.chars().filter(|c| *c != ',' && *c != '.').collect();
             prop_assert_eq!(digits.parse::<i64>().unwrap(), value);
             prop_assert_eq!(text.rsplit_once('.').unwrap().1.len(), 2);
         }
         #[test]
-        fn supported_words_are_nfc_and_clean(value in -MAX_INTEGER..=MAX_INTEGER, minor in 0_i64..100, sl in any::<bool>(), lkr in any::<bool>()) {
+        fn supported_words_are_nfc_and_clean(value in -MAX_INTEGER..=MAX_INTEGER, minor in 0_i64..100, sl in any::<bool>(), curr_idx in 0usize..8) {
             let locale = if sl { Locale::SL } else { Locale::TN };
-            let currency = if lkr { Currency::LKR } else { Currency::INR };
+            let currency = ALL_CURRENCIES[curr_idx];
             for words in [to_words(value, locale).unwrap(), currency_to_words(value * 100 + minor, currency, locale).unwrap()] {
                 prop_assert_eq!(&words, &normalize_nfc(&words));
                 prop_assert!(!words.is_empty() && words.trim() == words && !words.contains("  "));
                 prop_assert!(words.chars().all(|c| !matches!(u32::from(c), 0x200c | 0x200d)), "generated words must not contain joiners");
             }
+        }
+        #[test]
+        fn words_to_number_bijection_roundtrips(value in -MAX_INTEGER..=MAX_INTEGER, sl in any::<bool>()) {
+            let locale = if sl { Locale::SL } else { Locale::TN };
+            let words = to_words(value, locale).unwrap();
+            prop_assert_eq!(words_to_number(&words, locale).unwrap(), value);
+        }
+        #[test]
+        fn mixed_fraction_words_are_nfc_and_clean(whole in 0_u64..=MAX_INTEGER as u64, kind in 0_u8..4, neg in any::<bool>(), sl in any::<bool>()) {
+            let locale = if sl { Locale::SL } else { Locale::TN };
+            let (numerator, denominator) = match kind {
+                0 => (1, 4),
+                1 => (1, 2),
+                2 => (3, 4),
+                _ => (2, 5),
+            };
+            let mf = MixedFraction { negative: neg, whole, numerator, denominator };
+            let words = mixed_fraction_to_words(&mf, locale).unwrap();
+            prop_assert_eq!(&words, &normalize_nfc(&words));
+            prop_assert!(!words.is_empty() && words.trim() == words && !words.contains("  "));
+            prop_assert!(words.chars().all(|c| !matches!(u32::from(c), 0x200c | 0x200d)));
         }
     }
 }

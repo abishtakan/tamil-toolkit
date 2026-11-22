@@ -132,7 +132,7 @@ def render():
         for value in [None, True, "100", 1.25, [], {}, 100000000000, -100000000000]:
             failures.append((op, {"amount_minor": value, "currency": "INR"}, bad_integer))
         failures.extend([(op, value, bad_integer) for value in [None, 1, [], {}]])
-        for currency in [None, "USD", "inr", 1, ""]:
+        for currency in [None, "ZZZ", "inr", 1, ""]:
             failures.append((op, {"amount_minor": 100, "currency": currency}, "unsupported currency"))
         failures.append((op, {"amount_minor": 100}, "unsupported currency"))
     for op in ("to_words", "format_currency", "currency_to_words"):
@@ -140,8 +140,8 @@ def render():
             inputs = {"value": 1, "locale": locale} if op == "to_words" else {"amount_minor": 100, "currency": "INR", "locale": locale}
             failures.append((op, inputs, "unsupported locale"))
     for op in ("format_currency", "currency_to_words"):
-        failures.append((op, {"amount_minor": 1.25, "locale": "XX", "currency": "USD"}, bad_integer))
-        failures.append((op, {"amount_minor": 100, "locale": "XX", "currency": "USD"}, "unsupported locale"))
+        failures.append((op, {"amount_minor": 1.25, "locale": "XX", "currency": "ZZZ"}, bad_integer))
+        failures.append((op, {"amount_minor": 100, "locale": "XX", "currency": "ZZZ"}, "unsupported locale"))
     for index, (op, inputs, message) in enumerate(failures):
         for dialect in ("TN", "SL"):
             add(f"number_error_{index:03}_{dialect.lower()}", op, inputs, message, dialect, error=True, tags=["shared_error"])

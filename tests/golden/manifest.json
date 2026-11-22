@@ -165,6 +165,18 @@
       ]
     },
     {
+      "file": "numerals_v04.jsonl",
+      "status": "active",
+      "operations": [
+        "format_currency",
+        "currency_to_words",
+        "format_currency_decimal",
+        "currency_decimal_to_words",
+        "mixed_fraction_to_words",
+        "words_to_number"
+      ]
+    },
+    {
       "file": "calendar_thirukanitham.jsonl",
       "status": "planned",
       "reason": "Thirukanitham has a source-pinned bounded Drik definition and independent expected cases; calendar fixtures require the separate owner review and do not activate through numeric v0.3 approval.",

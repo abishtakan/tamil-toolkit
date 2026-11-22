@@ -3,6 +3,15 @@
 
 ## Unreleased
 
+- **Phase 6 (`tamil-numerals` v0.4):** Add diaspora currency support (`SGD`,
+  `MYR`, `USD`, `EUR`, `GBP`, `CAD` with 3-3 international grouping and Tamil
+  major/minor labels in `lexicon/numerals-v04.toml`), colloquial Tamil
+  mixed-fraction words (`mixed_fraction_to_words`, e.g., `ஒன்றேகால்`,
+  `இரண்டரை`, `ஆயிரத்தரை`, `ஒரு கோடியரை`), and exact formal reverse
+  word-to-number parsing (`words_to_number` ITN over `-999,999,999..=999,999,999`
+  for `TN` and `SL`), backed by `docs/specs/numerals-v0.4.md`, 739 active
+  golden vectors (`tests/golden/numerals_v04.jsonl`), CLI `numerals parse`
+  support, and full Rust/Python/WASM/Dart parity.
 - Upgrade the Microsoft Word Office.js Add-in (`integrations/office-word-addin/`,
   Spec 014) to **Tamil Toolkit (`v2.2.0.0`)** as an AppSource-ready, 100%
   client-side Fluent 2 utility suite powered by the slim MIT default-profile
