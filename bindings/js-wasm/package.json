@@ -1,6 +1,6 @@
 {
   "name": "tamil-toolkit",
-  "version": "0.1.0-alpha.9",
+  "version": "0.1.0-alpha.10",
   "license": "Apache-2.0",
   "repository": {"type": "git", "url": "https://github.com/abishtakan/tamil-toolkit.git", "directory": "bindings/js-wasm"},
   "homepage": "https://tamil-toolkit-playground.vercel.app/",

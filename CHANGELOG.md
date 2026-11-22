@@ -3,6 +3,8 @@
 
 ## Unreleased
 
+## 0.1.0-alpha.10 / Python 0.1.0a10 - 2026-11-23
+
 - **Mayangoli Preview Candidates & Google/Microsoft IME Cycling (`tamil-translit`, Browser Extension & Word Add-in):**
   - Implemented `transliterate_suggest` (`crates/tamil-translit`, `crates/tamil-toolkit`, `bindings/js-wasm`, `bindings/python`, `bindings/dart-flutter`, `docs/specs/translit-v0.1.md`, and 11 golden vectors in `tests/golden/translit_v01.jsonl`) generating phonotactically valid Mayangoli (`ன/ண`, `ல/ள/ழ`, `ர/ற`) candidates in breadth-first Hamming order while locking word-initial consonants, homorganic/hard-rhotic clusters (`ந்த`, `ண்ட`, `ன்ற`, `ற்ற`), and `ர்`/`ற்` codas, and mutating geminate pairs (`ன்ன↔ண்ண`, `ல்ல↔ள்ள`) atomically.
   - Upgraded the Browser Extension live preview (`floating-pill.ts`, `live-typing.ts`, `content/index.ts`, `background/index.ts`) with numbered clickable Mayangoli candidate pills and Google Input Tools / Microsoft Indic Phonetic cycling (`ArrowDown`/`ArrowUp`, `Tab`/`Shift+Tab`, `Space`/`Enter`/punctuation commit, `1`–`5` direct commit, and `Escape` bypass).
