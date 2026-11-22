@@ -17,6 +17,9 @@ import { OverviewHub } from "./components/common/OverviewHub";
 const CodecConverter = lazy(() =>
   import("./components/public-tools/CodecConverter").then((m) => ({ default: m.CodecConverter }))
 );
+const TranslitTool = lazy(() =>
+  import("./components/public-tools/TranslitTool").then((m) => ({ default: m.TranslitTool }))
+);
 const NumeralFormatter = lazy(() =>
   import("./components/public-tools/NumeralFormatter").then((m) => ({ default: m.NumeralFormatter }))
 );
@@ -62,6 +65,7 @@ import {
   X,
   Search,
   Type,
+  Languages,
   Banknote,
   Calendar,
   ArrowDownAZ,
@@ -103,6 +107,8 @@ export function ToolIcon({ icon, className }: { icon: ToolIconKey; className?: s
       return <AlignLeft className={className} />;
     case "type":
       return <Type className={className} />;
+    case "languages":
+      return <Languages className={className} />;
     case "shield-check":
       return <ShieldCheck className={className} />;
     case "scissors":
@@ -566,6 +572,7 @@ export function App() {
               />
             )}
             {activeTool === "codec" && <CodecConverter engineReady={engineReady} />}
+            {activeTool === "translit" && <TranslitTool engineReady={engineReady} />}
             {activeTool === "numeral" && <NumeralFormatter engineReady={engineReady} />}
             {activeTool === "calendar" && <CalendarExplorer engineReady={engineReady} />}
             {activeTool === "sorter" && <TextSorter engineReady={engineReady} />}

@@ -36,6 +36,10 @@ describe("pdf-extract client-side text layer", () => {
     expect(inferCodecFromPdfFonts(["Bamini-Regular"])).toBe("bamini-v1");
     expect(inferCodecFromPdfFonts(["Vanavil-Avvaiyar"])).toBe("vanavil-avvaiyar-cid-v1");
     expect(inferCodecFromPdfFonts(["LT-TM-Barani"])).toBe("lt-tm-cid-v1");
+    expect(inferCodecFromPdfFonts(["Senthamil-Regular"])).toBe("senthamil-cid-v1");
+    expect(inferCodecFromPdfFonts(["SHREE-TAM-0802"])).toBe("shree-tam-cid-v1");
+    expect(inferCodecFromPdfFonts(["Softview-Amudham"])).toBe("softview-amudham-cid-v1");
+    expect(inferCodecFromPdfFonts(["Tboomi-Regular"])).toBe("tbo-tboomi-cid-v1");
     expect(inferCodecFromPdfFonts(["TSC_Times"])).toBe("tscii-1.7-v1");
     expect(inferCodecFromPdfFonts(["TAB-Anna"])).toBe("tab-v1");
     expect(inferCodecFromPdfFonts(["TAM_Kadal"])).toBe("tam-v1");

@@ -3,6 +3,9 @@
 
 ## Unreleased
 
+- **Playground & Microsoft Word Add-in (Phase 6, 7B & 8 parity):**
+  - Updated `playground/` (`CodecConverter.tsx`, `pdf-extract.ts`, `NumeralFormatter.tsx`, new `TranslitTool.tsx`, `tools.ts`, `App.tsx`, `i18n.ts`) to expose all 12 legacy codecs + Bharathi Tamil Braille (with PDF font hinting for Senthamil, Shree-Tam, Softview, and TBO), all 8 currencies (`INR`, `LKR`, `SGD`, `MYR`, `USD`, `EUR`, `GBP`, `CAD`), colloquial `mixed_fraction_to_words`, formal `words_to_number` (ITN), and a dedicated **Transliteration & Tamil99** tool covering all 8 `tamil-translit` schemes (`iso-15919`, `madras-lexicon`, `itrans`, `harvard-kyoto`, `phonetic-v1`, `tamil99`, `anjal-phonetic`, `suratha-bamini`).
+  - Updated `integrations/office-word-addin/` (`src/lib/tamil-engine.ts`, `index.html`, `src/taskpane.ts`, slim MIT WASM rebuilt) to support Senthamil, Shree-Tam, Softview, TBO, and Bharathi Braille conversion, all 8 currencies + `words_to_number` (ITN) in the Insert tab, and a **Transliteration & Tamil99 Composer** drawer in the Type tab.
 - **Phase 8 (`tamil-translit` v0.1):** Create Rank 2 crate `crates/tamil-translit`
   (`#![forbid(unsafe_code)]`, depending only on `tamil-core` and `tamil-norm`),
   declarative uniform UTF-8 Tamil table `lexicon/translit.toml`, and

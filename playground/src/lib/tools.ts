@@ -17,6 +17,7 @@ export type ToolId =
   | "sorter"
   | "letter"
   | "codec"
+  | "translit"
   | "normalizer"
   | "hyphenator"
   | "batch"
@@ -34,6 +35,7 @@ export type ToolIconKey =
   | "arrow-down-az"
   | "letter-a"
   | "type"
+  | "languages"
   | "shield-check"
   | "scissors"
   | "files"
@@ -134,10 +136,38 @@ export const TOOLS: readonly ToolMeta[] = [
       "anjal",
       "vanavil",
       "lt-tm",
+      "senthamil",
+      "shree-tam",
+      "softview",
+      "tbo",
+      "braille",
       "unicode",
       "பாமினி",
+      "பிரெய்லி",
       "எழுத்துரு",
       "மாற்றி"
+    ]
+  },
+  {
+    id: "translit",
+    group: "writing",
+    icon: "languages",
+    keywords: [
+      "transliteration",
+      "translit",
+      "romanize",
+      "iso-15919",
+      "madras-lexicon",
+      "itrans",
+      "harvard-kyoto",
+      "tamil99",
+      "anjal",
+      "tanglish",
+      "phonetic",
+      "keyboard",
+      "ஒலிபெயர்ப்பு",
+      "தமிழ்99",
+      "தட்டச்சு"
     ]
   },
   {

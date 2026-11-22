@@ -19,7 +19,12 @@ export type LegacyEncoding =
   | "tam"
   | "anjal"
   | "vanavil"
-  | "lt_tm";
+  | "lt_tm"
+  | "senthamil"
+  | "shree_tam"
+  | "softview"
+  | "tbo"
+  | "braille";
 
 export type TargetLegacyEncoding = Exclude<LegacyEncoding, "auto">;
 export type NumeralLocale = Locale;
@@ -183,6 +188,22 @@ export function convertLegacyToUnicode(
     case "lt-tm":
     case "lttm":
       return { text: api.lt_tm_text_to_unicode(text, "preserve"), detectedEncoding: "lt_tm", confidence };
+    case "senthamil":
+    case "senthamil-cid-v1":
+      return { text: api.senthamil_text_to_unicode(text, "preserve"), detectedEncoding: "senthamil", confidence };
+    case "shree_tam":
+    case "shree-tam":
+    case "shree-tam-cid-v1":
+      return { text: api.shree_tam_text_to_unicode(text, "preserve"), detectedEncoding: "shree_tam", confidence };
+    case "softview":
+    case "softview-amudham-cid-v1":
+      return { text: api.softview_text_to_unicode(text, "preserve"), detectedEncoding: "softview", confidence };
+    case "tbo":
+    case "tbo-tboomi-cid-v1":
+      return { text: api.tbo_text_to_unicode(text, "preserve"), detectedEncoding: "tbo", confidence };
+    case "braille":
+    case "bharathi-tamil-g1-v1":
+      return { text: api.braille_to_unicode(text, "preserve"), detectedEncoding: "braille", confidence };
     default:
       return { text: api.normalize_nfc(text), detectedEncoding: chosen, confidence };
   }
@@ -206,7 +227,32 @@ export function convertUnicodeToLegacy(text: string, target: TargetLegacyEncodin
       return api.unicode_to_vanavil_text(text);
     case "lt_tm":
       return api.unicode_to_lt_tm_text(text);
+    case "senthamil":
+      return api.unicode_to_senthamil_text(text);
+    case "shree_tam":
+      return api.unicode_to_shree_tam_text(text);
+    case "softview":
+      return api.unicode_to_softview_text(text);
+    case "tbo":
+      return api.unicode_to_tbo_text(text);
+    case "braille":
+      return api.unicode_to_braille(text, "preserve");
   }
+}
+
+export function transliterateText(
+  text: string,
+  scheme: string,
+  direction: "to_tamil" | "to_latin" = "to_tamil"
+): string {
+  ensureReady();
+  if (!text) return "";
+  return api.transliterate(text, scheme, direction);
+}
+
+export function getTransliterationSchemes(): Array<{ id: string; category: string; directions: string[] }> {
+  ensureReady();
+  return api.transliterate_schemes();
 }
 
 // ---------------------------------------------------------------------------
@@ -484,6 +530,27 @@ export function convertDigits(text: string, to: "tamil" | "latin"): string {
 export function formatTraditionalInteger(value: number): string {
   ensureReady();
   return api.format_traditional_integer(value);
+}
+
+export function wordsToNumber(text: string, locale: NumeralLocale = "TN"): number {
+  ensureReady();
+  return api.words_to_number(text, locale);
+}
+
+export function mixedFractionToWords(
+  value: { negative?: boolean; whole: number; numerator: number; denominator: number },
+  locale: NumeralLocale = "TN"
+): string {
+  ensureReady();
+  return api.mixed_fraction_to_words(
+    {
+      negative: value.negative ?? false,
+      whole: value.whole,
+      numerator: value.numerator,
+      denominator: value.denominator,
+    },
+    locale
+  );
 }
 
 export const TRADITIONAL_SYMBOLS_PALETTE: TraditionalSymbolItem[] = [

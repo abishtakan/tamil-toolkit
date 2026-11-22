@@ -20,15 +20,19 @@ import {
   convertLegacyToUnicode,
   convertUnicodeToLegacy,
   formatTraditionalInteger,
+  getTransliterationSchemes,
   hyphenateText,
   initTamilEngineSync,
   inspectDocumentText,
+  mixedFractionToWords,
   numberToTamilWords,
   removeHyphens,
   repairTamilText,
   sortTableRows,
   sortTamilLines,
   tamilAwareReplace,
+  transliterateText,
+  wordsToNumber,
 } from "../lib/tamil-engine.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -178,6 +182,36 @@ describe("Tamil Word Add-in Engine (Real Slim Rust/WASM)", () => {
     expect(report.soft_hyphen_count).toBe(1);
     expect(report.zero_width_count).toBe(1);
     expect(report.is_nfc).toBe(true);
+  });
+
+  it("supports Phase 6 diaspora currencies, wordsToNumber (ITN), and mixedFractionToWords", () => {
+    const sgd = numberToTamilWords("1250.50", "currency", { locale: "TN", currency: "SGD" });
+    expect(sgd).toContain("சிங்கப்பூர் டாலர்");
+
+    const usd = numberToTamilWords("100", "currency", { locale: "TN", currency: "USD" });
+    expect(usd).toContain("டாலர்");
+
+    expect(wordsToNumber("நூற்று இருபத்து மூன்று", "TN")).toBe(123);
+    expect(mixedFractionToWords({ whole: 1, numerator: 1, denominator: 2 }, "TN")).toBe("ஒன்றரை");
+  });
+
+  it("supports Phase 7B CID fonts (Senthamil, Shree-Tam, Softview, TBO) and Bharathi Braille", () => {
+    const word = "தமிழ்";
+    for (const enc of ["senthamil", "shree_tam", "softview", "tbo", "braille"] as const) {
+      const encoded = convertUnicodeToLegacy(word, enc);
+      expect(encoded.length).toBeGreaterThan(0);
+      expect(convertLegacyToUnicode(encoded, enc).text).toBe(word);
+    }
+  });
+
+  it("supports Phase 8 transliteration and Tamil99 / Anjal / Suratha Bamini schemes", () => {
+    const schemes = getTransliterationSchemes();
+    expect(schemes).toHaveLength(8);
+    expect(schemes.map((s) => s.id)).toContain("tamil99");
+    expect(transliterateText("தமிழ்", "iso-15919", "to_latin")).toBe("tamiḻ");
+    expect(transliterateText("tamiḻ", "iso-15919", "to_tamil")).toBe("தமிழ்");
+    expect(transliterateText("thamizh", "anjal-phonetic", "to_tamil")).toBe("தமிழ்");
+    expect(transliterateText("jkpo;", "suratha-bamini", "to_tamil")).toBe("தமிழ்");
   });
 });
 

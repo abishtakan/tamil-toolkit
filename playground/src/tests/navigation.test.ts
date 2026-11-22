@@ -10,10 +10,10 @@ import {
 } from "../lib/tools";
 
 describe("Playground Navigation & Tool Registry", () => {
-  it("registers all 13 unique tools under valid navigation groups", () => {
-    expect(TOOLS).toHaveLength(13);
+  it("registers all 14 unique tools under valid navigation groups", () => {
+    expect(TOOLS).toHaveLength(14);
     const ids = TOOLS.map((tool) => tool.id);
-    expect(new Set(ids).size).toBe(13);
+    expect(new Set(ids).size).toBe(14);
 
     const validGroups = new Set(TOOL_GROUPS.map((g) => g.id));
     for (const tool of TOOLS) {
@@ -33,10 +33,13 @@ describe("Playground Navigation & Tool Registry", () => {
   });
 
   it("filters tools by English and Tamil titles and keywords", () => {
-    expect(filterToolsByQuery("", translations.en)).toHaveLength(13);
+    expect(filterToolsByQuery("", translations.en)).toHaveLength(14);
 
     const baminiHits = filterToolsByQuery("bamini", translations.en);
     expect(baminiHits.some((t) => t.id === "codec")).toBe(true);
+
+    const translitHits = filterToolsByQuery("tamil99", translations.en);
+    expect(translitHits.some((t) => t.id === "translit")).toBe(true);
 
     const chequeHits = filterToolsByQuery("cheque", translations.en);
     expect(chequeHits.some((t) => t.id === "numeral")).toBe(true);

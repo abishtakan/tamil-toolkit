@@ -22,6 +22,8 @@ import {
   isTamilEngineReady,
   numberToTamilWords,
   repairTamilText,
+  transliterateText,
+  wordsToNumber,
 } from "./lib/tamil-engine.js";
 import {
   TargetScope,
@@ -302,6 +304,74 @@ function wireTypeTab(): void {
       setStatus("Copied Unicode Tamil.", "success");
     });
   });
+
+  // Transliteration & Tamil99 Composer
+  const translitScheme = $("translit-scheme") as HTMLSelectElement;
+  const translitDir = $("translit-direction") as HTMLSelectElement;
+  const translitInput = $("translit-input") as HTMLTextAreaElement;
+  const translitOutput = $("translit-output");
+  const KEYBOARD_ONLY_SCHEMES = new Set(["tamil99", "anjal-phonetic", "suratha-bamini"]);
+  let currentTranslit = "";
+
+  const updateTranslitPreview = (): void => {
+    const scheme = translitScheme.value;
+    const isKeyboardOnly = KEYBOARD_ONLY_SCHEMES.has(scheme);
+    if (isKeyboardOnly && translitDir.value !== "to_tamil") {
+      translitDir.value = "to_tamil";
+    }
+    translitDir.disabled = isKeyboardOnly;
+
+    const raw = translitInput.value;
+    if (!raw) {
+      currentTranslit = "";
+      translitOutput.innerHTML = '<span class="live-output-empty">Live transliteration preview...</span>';
+      return;
+    }
+    if (!isTamilEngineReady()) return;
+    try {
+      const dir = (isKeyboardOnly ? "to_tamil" : translitDir.value) as "to_tamil" | "to_latin";
+      currentTranslit = transliterateText(raw, scheme, dir);
+      translitOutput.textContent = currentTranslit;
+    } catch (err) {
+      currentTranslit = "";
+      translitOutput.textContent = err instanceof Error ? err.message : String(err);
+    }
+  };
+
+  const insertTranslit = async (): Promise<void> => {
+    updateTranslitPreview();
+    if (!currentTranslit.trim()) {
+      setStatus("Type text to transliterate first.", "error");
+      return;
+    }
+    if (isWordHost()) {
+      await insertAtCursor(currentTranslit, true, fontSelect.value || undefined);
+      setStatus("Inserted transliterated text at cursor.", "success");
+    } else {
+      await navigator.clipboard?.writeText(currentTranslit).catch(() => {});
+      setStatus("Copied transliterated text.", "info");
+    }
+  };
+
+  translitInput.addEventListener("input", updateTranslitPreview);
+  translitScheme.addEventListener("change", updateTranslitPreview);
+  translitDir.addEventListener("change", updateTranslitPreview);
+  translitInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      void runGuarded(insertTranslit);
+    }
+  });
+  $("btn-translit-insert").addEventListener("click", () => void runGuarded(insertTranslit));
+  $("btn-translit-copy").addEventListener("click", () => {
+    void runGuarded(async () => {
+      updateTranslitPreview();
+      if (!currentTranslit) return;
+      await navigator.clipboard?.writeText(currentTranslit);
+      setStatus("Copied transliterated text.", "success");
+    });
+  });
+  updateTranslitPreview();
 }
 
 function wirePrepareTab(): void {
@@ -548,13 +618,17 @@ function wireInsertTab(): void {
       | "decimal"
       | "ordinal"
       | "currency"
-      | "traditional";
+      | "traditional"
+      | "words_to_number";
     const locale = ($("num-locale") as HTMLSelectElement).value as NumeralLocale;
     const currency = ($("num-currency") as HTMLSelectElement).value as SupportedCurrency;
 
     if (!raw) return "";
     if (mode === "traditional") {
       return formatTraditionalInteger(Number.parseInt(raw.replace(/,/g, ""), 10));
+    }
+    if (mode === "words_to_number") {
+      return String(wordsToNumber(raw, locale));
     }
     return numberToTamilWords(raw, mode, { locale, currency });
   };

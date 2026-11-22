@@ -22,4 +22,20 @@ describe("T016: NumeralFormatter", () => {
     const traditional = tt.format_traditional_integer(10);
     expect(traditional).toBe("௰"); // Traditional symbol for 10
   });
+
+  it("supports Phase 6 diaspora currencies, mixed fraction words, and words_to_number (ITN)", () => {
+    const sgd = tt.currency_decimal_to_words("1250.50", "latin", "SGD", "TN", "none");
+    expect(sgd).toContain("சிங்கப்பூர் டாலர்");
+
+    const usd = tt.currency_decimal_to_words("100", "latin", "USD", "TN", "none");
+    expect(usd).toContain("டாலர்");
+
+    const half = tt.mixed_fraction_to_words(
+      { negative: false, whole: 1, numerator: 1, denominator: 2 },
+      "TN"
+    );
+    expect(half).toBe("ஒன்றரை");
+
+    expect(tt.words_to_number("நூற்று இருபத்து மூன்று", "TN")).toBe(123);
+  });
 });

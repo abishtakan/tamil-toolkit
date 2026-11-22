@@ -31,9 +31,11 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
   const [outputDigits, setOutputDigits] = useState<tt.DigitStyle>("latin");
   const [grouping, setGrouping] = useState<tt.Grouping>("indian");
 
-  // Tab 2: Traditional Integer & Digit Script
+  // Tab 2: Traditional Integer, Words->Number (ITN) & Digit Script
   const [tradIntInput, setTradIntInput] = useState("1250");
   const [tradParseInput, setTradParseInput] = useState("௲௨௱௫௰");
+  const [itnInput, setItnInput] = useState("நூற்று இருபத்து மூன்று");
+  const [itnLocale, setItnLocale] = useState<tt.Locale>("TN");
   const [digitScriptText, setDigitScriptText] = useState("ஆண்டு 2026 — 1250");
 
   // Tab 3: Fractions, Percentages & Ranges
@@ -147,6 +149,8 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
         tradError: null as string | null,
         parsedArabic: "",
         parseError: null as string | null,
+        itnNumber: "",
+        itnError: null as string | null,
         toTamilDigits: "",
         toLatinDigits: "",
       };
@@ -173,6 +177,16 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
       parseError = err instanceof Error ? err.message : String(err);
     }
 
+    let itnNumber = "";
+    let itnError: string | null = null;
+    try {
+      if (itnInput.trim()) {
+        itnNumber = String(tt.words_to_number(itnInput.trim(), itnLocale));
+      }
+    } catch (err: unknown) {
+      itnError = err instanceof Error ? err.message : String(err);
+    }
+
     let toTamilDigits = "";
     let toLatinDigits = "";
     try {
@@ -189,10 +203,12 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
       tradError,
       parsedArabic,
       parseError,
+      itnNumber,
+      itnError,
       toTamilDigits,
       toLatinDigits,
     };
-  }, [tradIntInput, tradParseInput, digitScriptText, ready]);
+  }, [tradIntInput, tradParseInput, itnInput, itnLocale, digitScriptText, ready]);
 
   // Tab 3 Computation
   const tab3Result = useMemo(() => {
@@ -224,10 +240,14 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
             { negative: false, whole: w, numerator: n, denominator: d },
             fracDigits
           );
+          fracWords = tt.mixed_fraction_to_words(
+            { negative: false, whole: w, numerator: n, denominator: d },
+            fracLocale
+          );
         } else {
           formattedFrac = tt.format_fraction(n, d, fracDigits);
+          fracWords = tt.fraction_to_words(n, d, fracLocale);
         }
-        fracWords = tt.fraction_to_words(n, d, fracLocale);
         try {
           fracSymbol = tt.fraction_symbol(n, d);
         } catch {
@@ -417,36 +437,39 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
               </div>
             </div>
 
-            {/* Row 2: Explicit Currency (INR/LKR) & Region/Dialect (TN/SL) Selectors */}
+            {/* Row 2: Explicit Currency (8 currencies) & Region/Dialect (TN/SL) Selectors */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
               {inputType === "currency" && (
                 <div className="space-y-1.5">
                   <span className="text-xs font-semibold text-[var(--color-muted)] block">
                     {t.tools.numeral.currencyLabel}
                   </span>
-                  <div className="grid grid-cols-2 gap-1.5 p-1 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-line)]">
-                    <button
-                      type="button"
-                      onClick={() => setCurrency("INR")}
-                      className={`px-3 py-2 min-h-[38px] rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
-                        currency === "INR"
-                          ? "bg-[var(--color-semman)] text-[#faf7f2]"
-                          : "text-[var(--color-mai)] hover:bg-[var(--bg-raised)]"
-                      }`}
-                    >
-                      {t.tools.numeral.modeInr}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setCurrency("LKR")}
-                      className={`px-3 py-2 min-h-[38px] rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
-                        currency === "LKR"
-                          ? "bg-[var(--color-semman)] text-[#faf7f2]"
-                          : "text-[var(--color-mai)] hover:bg-[var(--bg-raised)]"
-                      }`}
-                    >
-                      {t.tools.numeral.modeLkr}
-                    </button>
+                  <div className="grid grid-cols-4 gap-1 p-1 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-line)]">
+                    {(
+                      [
+                        { code: "INR", label: "₹ INR" },
+                        { code: "LKR", label: "Rs LKR" },
+                        { code: "SGD", label: "S$ SGD" },
+                        { code: "MYR", label: "RM MYR" },
+                        { code: "USD", label: "$ USD" },
+                        { code: "EUR", label: "€ EUR" },
+                        { code: "GBP", label: "£ GBP" },
+                        { code: "CAD", label: "C$ CAD" },
+                      ] as const
+                    ).map((c) => (
+                      <button
+                        key={c.code}
+                        type="button"
+                        onClick={() => setCurrency(c.code)}
+                        className={`px-2 py-1.5 min-h-[34px] rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                          currency === c.code
+                            ? "bg-[var(--color-semman)] text-[#faf7f2]"
+                            : "text-[var(--color-mai)] hover:bg-[var(--bg-raised)]"
+                        }`}
+                      >
+                        {c.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
               )}
@@ -564,6 +587,21 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
                     className="text-xs font-mono-tamil"
                   >
                     SL · Rs 750.50
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setInputType("currency");
+                      setCurrency("SGD");
+                      setRegion("TN");
+                      setSourceDigits("latin");
+                      setInput("1250.50");
+                    }}
+                    className="text-xs font-mono-tamil"
+                  >
+                    SG · S$1,250.50
                   </Button>
                   <Button
                     type="button"
@@ -784,6 +822,67 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
             </Card>
           </div>
 
+          {/* Tamil Words -> Number (ITN) */}
+          <Card className="p-5 space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h2 className="text-sm font-bold text-[var(--color-mai)]">
+                {t.tools.numeral.itnHeading}
+              </h2>
+              <div className="inline-flex items-center gap-1 p-1 rounded-lg bg-[var(--bg-raised)] border border-[var(--border-line)]">
+                {(["TN", "SL"] as const).map((loc) => (
+                  <button
+                    key={loc}
+                    type="button"
+                    onClick={() => setItnLocale(loc)}
+                    className={`px-2.5 py-1 rounded text-xs font-medium cursor-pointer ${
+                      itnLocale === loc
+                        ? "bg-[var(--bg-surface)] text-[var(--color-semman)] font-semibold shadow-xs"
+                        : "text-[var(--color-muted)]"
+                    }`}
+                  >
+                    {loc}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-xs text-[var(--color-muted)] block">
+                {t.tools.numeral.itnInputLabel}
+              </label>
+              <input
+                type="text"
+                value={itnInput}
+                onChange={(e) => setItnInput(e.target.value)}
+                placeholder={t.tools.numeral.itnPlaceholder}
+                className="w-full min-h-[42px] px-3 py-2 rounded-xl border border-[var(--border-line)] bg-[var(--bg-canvas)] font-tamil text-base text-[var(--color-mai)]"
+              />
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {["நூற்று இருபத்து மூன்று", "இருபத்தைந்து", "இரண்டு லட்சத்து ஐம்பதாயிரம்"].map((sample) => (
+                <button
+                  key={sample}
+                  type="button"
+                  onClick={() => setItnInput(sample)}
+                  className="px-2.5 py-1 rounded-lg border border-[var(--border-line)] bg-[var(--bg-raised)] text-xs font-tamil hover:border-[var(--color-semman)] cursor-pointer"
+                >
+                  {sample}
+                </button>
+              ))}
+            </div>
+            {tab2Result.itnError ? (
+              <p className="text-xs text-red-600 dark:text-red-400">{tab2Result.itnError}</p>
+            ) : (
+              <div className="p-4 rounded-xl bg-[var(--bg-canvas)] border border-[var(--border-line)] flex items-center justify-between gap-3">
+                <span className="text-2xl font-mono-tamil font-bold text-[var(--color-semman)]">
+                  {tab2Result.itnNumber || "—"}
+                </span>
+                {tab2Result.itnNumber && (
+                  <CopyButton text={tab2Result.itnNumber} size="sm" variant="outline" />
+                )}
+              </div>
+            )}
+          </Card>
+
           {/* Digit Script Converter */}
           <Card className="p-5 space-y-4">
             <h2 className="text-sm font-bold text-[var(--color-mai)]">
@@ -905,6 +1004,28 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
                   className="w-full min-h-[40px] px-3 py-1.5 rounded-xl border border-[var(--border-line)] bg-[var(--bg-canvas)] font-mono-tamil text-sm"
                 />
               </div>
+            </div>
+
+            <div className="flex flex-wrap gap-1.5">
+              {[
+                { label: "3/4", w: "0", n: "3", d: "4" },
+                { label: "1 1/2 (ஒன்றரை)", w: "1", n: "1", d: "2" },
+                { label: "1 1/4 (ஒன்றேகால்)", w: "1", n: "1", d: "4" },
+                { label: "2 3/4 (இரண்டேமுக்கால்)", w: "2", n: "3", d: "4" },
+              ].map((preset) => (
+                <button
+                  key={preset.label}
+                  type="button"
+                  onClick={() => {
+                    setFracWhole(preset.w);
+                    setFracNum(preset.n);
+                    setFracDen(preset.d);
+                  }}
+                  className="px-2.5 py-1 rounded-lg border border-[var(--border-line)] bg-[var(--bg-raised)] text-xs font-tamil hover:border-[var(--color-semman)] cursor-pointer"
+                >
+                  {preset.label}
+                </button>
+              ))}
             </div>
 
             {tab3Result.fracError ? (

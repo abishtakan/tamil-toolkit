@@ -36,4 +36,24 @@ describe("T015: CodecConverter & Auto-detection", () => {
     const backToUnicode = tt.tscii_bytes_to_unicode(new Uint8Array(tsciiBytes));
     expect(backToUnicode).toBe(unicodeText);
   });
+
+  it("round-trips Phase 7B CID fonts (Senthamil, Shree-Tam, Softview, TBO) and Bharathi Braille", () => {
+    const word = "தமிழ்";
+
+    const senthamil = tt.unicode_to_senthamil_text(word);
+    expect(tt.senthamil_text_to_unicode(senthamil, "preserve")).toBe(word);
+
+    const shree = tt.unicode_to_shree_tam_text(word);
+    expect(tt.shree_tam_text_to_unicode(shree, "preserve")).toBe(word);
+
+    const softview = tt.unicode_to_softview_text(word);
+    expect(tt.softview_text_to_unicode(softview, "preserve")).toBe(word);
+
+    const tbo = tt.unicode_to_tbo_text(word);
+    expect(tt.tbo_text_to_unicode(tbo, "preserve")).toBe(word);
+
+    const braille = tt.unicode_to_braille(word, "preserve");
+    expect(braille.length).toBeGreaterThan(0);
+    expect(tt.braille_to_unicode(braille, "preserve")).toBe(word);
+  });
 });

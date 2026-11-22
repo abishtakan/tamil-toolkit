@@ -11,6 +11,10 @@ export type PdfCodecHint =
   | "anjal-v1"
   | "vanavil-avvaiyar-cid-v1"
   | "lt-tm-cid-v1"
+  | "senthamil-cid-v1"
+  | "shree-tam-cid-v1"
+  | "softview-amudham-cid-v1"
+  | "tbo-tboomi-cid-v1"
   | null;
 
 export interface PdfExtractionResult {
@@ -34,6 +38,10 @@ export function inferCodecFromPdfFonts(fontNames: string[]): PdfCodecHint {
   if (/\bbamini\b|baamini/.test(joined)) return "bamini-v1";
   if (/vanavil|avvaiyar/.test(joined)) return "vanavil-avvaiyar-cid-v1";
   if (/lt-tm|lttm|indoword/.test(joined)) return "lt-tm-cid-v1";
+  if (/senthamil|stmzh/.test(joined)) return "senthamil-cid-v1";
+  if (/shree[-_ ]?tam|shreetam/.test(joined)) return "shree-tam-cid-v1";
+  if (/softview|amudham/.test(joined)) return "softview-amudham-cid-v1";
+  if (/tboomi|tamilbible|\btbo\b/.test(joined)) return "tbo-tboomi-cid-v1";
   if (/tscii|\btsc[_-]/.test(joined)) return "tscii-1.7-v1";
   if (/\btab[_-]|\btab\b/.test(joined)) return "tab-v1";
   if (/\btam[_-]|\btam\b/.test(joined)) return "tam-v1";

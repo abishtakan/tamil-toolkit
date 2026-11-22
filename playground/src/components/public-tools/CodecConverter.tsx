@@ -24,7 +24,12 @@ export type CodecProfile =
   | "tam-v1"
   | "anjal-v1"
   | "vanavil-avvaiyar-cid-v1"
-  | "lt-tm-cid-v1";
+  | "lt-tm-cid-v1"
+  | "senthamil-cid-v1"
+  | "shree-tam-cid-v1"
+  | "softview-amudham-cid-v1"
+  | "tbo-tboomi-cid-v1"
+  | "bharathi-tamil-g1-v1";
 
 const PROFILES: { id: CodecProfile; labelEn: string; labelTa: string }[] = [
   { id: "auto", labelEn: "Auto-Detect", labelTa: "தானியங்கி" },
@@ -35,6 +40,11 @@ const PROFILES: { id: CodecProfile; labelEn: string; labelTa: string }[] = [
   { id: "anjal-v1", labelEn: "Anjal", labelTa: "அஞ்சல்" },
   { id: "vanavil-avvaiyar-cid-v1", labelEn: "Vanavil", labelTa: "வானவில்" },
   { id: "lt-tm-cid-v1", labelEn: "LT-TM", labelTa: "LT-TM" },
+  { id: "senthamil-cid-v1", labelEn: "Senthamil", labelTa: "செந்தமிழ்" },
+  { id: "shree-tam-cid-v1", labelEn: "Shree-Tam", labelTa: "ஸ்ரீ-தமிழ்" },
+  { id: "softview-amudham-cid-v1", labelEn: "Softview", labelTa: "அமுதம்" },
+  { id: "tbo-tboomi-cid-v1", labelEn: "TBO", labelTa: "தினபூமி" },
+  { id: "bharathi-tamil-g1-v1", labelEn: "Braille", labelTa: "பிரெய்லி" },
 ];
 
 const BYTE_CODECS = new Set<CodecProfile>([
@@ -48,6 +58,11 @@ const TEXT_POLICY_CODECS = new Set<CodecProfile>([
   "bamini-v1",
   "vanavil-avvaiyar-cid-v1",
   "lt-tm-cid-v1",
+  "senthamil-cid-v1",
+  "shree-tam-cid-v1",
+  "softview-amudham-cid-v1",
+  "tbo-tboomi-cid-v1",
+  "bharathi-tamil-g1-v1",
 ]);
 
 const BAMINI_SAMPLE = "jkpo; nkhop cyfpd; njhd;ikahd nkhopfspy; xd;whFk;.";
@@ -150,6 +165,21 @@ export function CodecConverter({ engineReady }: CodecConverterProps) {
           case "lt-tm-cid-v1":
             res = tt.lt_tm_text_to_unicode(input, errorPolicy);
             break;
+          case "senthamil-cid-v1":
+            res = tt.senthamil_text_to_unicode(input, errorPolicy);
+            break;
+          case "shree-tam-cid-v1":
+            res = tt.shree_tam_text_to_unicode(input, errorPolicy);
+            break;
+          case "softview-amudham-cid-v1":
+            res = tt.softview_text_to_unicode(input, errorPolicy);
+            break;
+          case "tbo-tboomi-cid-v1":
+            res = tt.tbo_text_to_unicode(input, errorPolicy);
+            break;
+          case "bharathi-tamil-g1-v1":
+            res = tt.braille_to_unicode(input, errorPolicy);
+            break;
           default:
             res = tt.bamini_to_unicode(input, errorPolicy);
         }
@@ -186,6 +216,21 @@ export function CodecConverter({ engineReady }: CodecConverterProps) {
             break;
           case "lt-tm-cid-v1":
             res = tt.unicode_to_lt_tm_text(input);
+            break;
+          case "senthamil-cid-v1":
+            res = tt.unicode_to_senthamil_text(input);
+            break;
+          case "shree-tam-cid-v1":
+            res = tt.unicode_to_shree_tam_text(input);
+            break;
+          case "softview-amudham-cid-v1":
+            res = tt.unicode_to_softview_text(input);
+            break;
+          case "tbo-tboomi-cid-v1":
+            res = tt.unicode_to_tbo_text(input);
+            break;
+          case "bharathi-tamil-g1-v1":
+            res = tt.unicode_to_braille(input, errorPolicy);
             break;
           default:
             res = tt.unicode_to_bamini(input);

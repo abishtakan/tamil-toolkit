@@ -1,5 +1,21 @@
 # Project handoff
 
+## Playground & Microsoft Word Add-in Update: Phases 6, 7B & 8 Feature Parity (2026-11-22)
+
+- **Scope (`playground/`, `integrations/office-word-addin/`):**
+  - **Playground (`playground/`):**
+    - `CodecConverter.tsx` + `pdf-extract.ts`: Added Senthamil (`senthamil-cid-v1`), Shree-Tam (`shree-tam-cid-v1`), Softview (`softview-amudham-cid-v1`), TBO (`tbo-tboomi-cid-v1`), and Bharathi Tamil Braille (`bharathi-tamil-g1-v1`), plus PDF font-family heuristic hints for the 4 new CID fonts.
+    - `NumeralFormatter.tsx`: Expanded Currency selector to all 8 currencies (`INR`, `LKR`, `SGD`, `MYR`, `USD`, `EUR`, `GBP`, `CAD`), wired `mixed_fraction_to_words` for mixed fractions (`1 1/2` -> `ஒன்றரை`, etc.), and added a **Tamil Words → Number (ITN)** (`words_to_number`) card in Tab 2.
+    - `TranslitTool.tsx` + `tools.ts` + `App.tsx` + `i18n.ts`: Added 14th tool (**Transliteration & Tamil99**) exposing all 8 `tamil-translit` schemes (`iso-15919`, `madras-lexicon`, `itrans`, `harvard-kyoto`, `phonetic-v1`, `tamil99`, `anjal-phonetic`, `suratha-bamini`) with full EN/TA bilingual UI.
+  - **Microsoft Word Add-in (`integrations/office-word-addin/`):**
+    - Rebuilt slim MIT default-profile WASM (`3,296.4 KiB` / `1,412 KiB` gzipped) with Phases 6, 7B, and 8.
+    - Extended `src/lib/tamil-engine.ts`, `index.html`, and `src/taskpane.ts` with Senthamil, Shree-Tam, Softview, TBO, and Bharathi Braille conversion, all 8 currencies + `words_to_number` (ITN) in the Insert tab, and a **Transliteration & Tamil99 Composer** drawer in the Type tab.
+- **Checks:**
+  - `pnpm --filter tamil-word-addin build` + `pnpm --filter tamil-word-addin test`: slim WASM rebuilt, `tsc --noEmit`, `vite build`, manifest generation, and **16/16** Vitest tests passed.
+  - `pnpm --filter tamil-toolkit-playground build:beta` + `pnpm --filter tamil-toolkit-playground test`: `tsc --noEmit`, `vite build`, PWA precache, and **22/22 test files (131/131 tests)** passed.
+  - `uv run --locked python tools/tasks.py check-unicode`: passed (40,160 active vectors, 139 release source copies verified).
+- **Next:** Phase 9 (`tamil-tokenize`) or Chrome/Edge MV3 Browser Extension v1.
+
 ## Phase 8 (`tamil-translit` v0.1 Complete): Orthographic Romanization & Deterministic Offline Input (2026-11-22)
 
 - **Scope (`crates/tamil-translit/`, `lexicon/translit.toml`, `docs/specs/translit-v0.1.md`, `tests/golden/translit_v01.jsonl`):**

@@ -39,6 +39,10 @@
               <option value="bamini" selected>Bamini (பாமினி)</option>
               <option value="vanavil">Vanavil Avvaiyar</option>
               <option value="lt_tm">LT-TM (Shree-Lipi)</option>
+              <option value="senthamil">Senthamil (செந்தமிழ்)</option>
+              <option value="shree_tam">Shree-Tam (ஸ்ரீ-தமிழ்)</option>
+              <option value="softview">Softview (அமுதம்)</option>
+              <option value="tbo">TBO (தினபூமி)</option>
               <option value="anjal">Anjal</option>
               <option value="tscii">TSCII</option>
             </select>
@@ -99,6 +103,42 @@
           </div>
         </div>
       </details>
+
+      <details class="tool-drawer">
+        <summary>Transliteration &amp; Tamil99 Composer</summary>
+        <div class="drawer-body">
+          <div class="row-2" style="margin-bottom: 8px;">
+            <div class="field" style="margin-bottom: 0;">
+              <label for="translit-scheme">Scheme</label>
+              <select id="translit-scheme">
+                <option value="anjal-phonetic" selected>Anjal Phonetic</option>
+                <option value="tamil99">Tamil99</option>
+                <option value="phonetic-v1">Phonetic (Tanglish)</option>
+                <option value="suratha-bamini">Suratha Bamini</option>
+                <option value="iso-15919">ISO 15919</option>
+                <option value="madras-lexicon">Madras Lexicon</option>
+                <option value="itrans">ITRANS</option>
+                <option value="harvard-kyoto">Harvard-Kyoto</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom: 0;">
+              <label for="translit-direction">Direction</label>
+              <select id="translit-direction">
+                <option value="to_tamil" selected>Latin → Tamil</option>
+                <option value="to_latin">Tamil → Latin</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <textarea id="translit-input" rows="2" spellcheck="false" autocomplete="off" placeholder="Type phonetic/Tamil99/ISO text (Ctrl+Enter to insert)..."></textarea>
+          </div>
+          <div id="translit-output" class="live-output-box" style="min-height: 46px; font-size: 14px;"><span class="live-output-empty">Live transliteration preview...</span></div>
+          <div class="btn-row">
+            <button id="btn-translit-insert" data-action class="btn btn-primary">Insert into Word</button>
+            <button id="btn-translit-copy" data-action class="btn">Copy</button>
+          </div>
+        </div>
+      </details>
     </section>
 
     <!-- 2. PREPARE: 1-Click Pipeline + Find/Replace + Sort + Hyphen + Inspect -->
@@ -135,6 +175,11 @@
               <option value="anjal">Anjal</option>
               <option value="vanavil">Vanavil</option>
               <option value="lt_tm">LT-TM</option>
+              <option value="senthamil">Senthamil</option>
+              <option value="shree_tam">Shree-Tam</option>
+              <option value="softview">Softview</option>
+              <option value="tbo">TBO</option>
+              <option value="braille">Braille (Bharathi)</option>
             </select>
           </div>
           <div class="field" style="margin-bottom: 0;">
@@ -242,6 +287,11 @@
                 <option value="anjal">Anjal</option>
                 <option value="vanavil">Vanavil</option>
                 <option value="lt_tm">LT-TM</option>
+                <option value="senthamil">Senthamil</option>
+                <option value="shree_tam">Shree-Tam</option>
+                <option value="softview">Softview</option>
+                <option value="tbo">TBO</option>
+                <option value="braille">Braille (Bharathi)</option>
               </select>
             </div>
             <div class="field" style="margin-bottom: 0; display: flex; align-items: flex-end;">
@@ -315,6 +365,7 @@
               <option value="decimal">Decimal Words</option>
               <option value="ordinal">Ordinal Words</option>
               <option value="traditional">Traditional (௰ ௱ ௲)</option>
+              <option value="words_to_number">Tamil Words → Number (ITN)</option>
             </select>
           </div>
           <div class="field" style="margin-bottom: 0;">
@@ -328,8 +379,14 @@
         <div class="field">
           <label for="num-currency">Currency</label>
           <select id="num-currency">
-            <option value="INR">INR (இந்திய ரூபாய்)</option>
-            <option value="LKR">LKR (இலங்கை ரூபாய்)</option>
+            <option value="INR">INR (₹ இந்திய ரூபாய்)</option>
+            <option value="LKR">LKR (Rs இலங்கை ரூபாய்)</option>
+            <option value="SGD">SGD (S$ சிங்கப்பூர் டாலர்)</option>
+            <option value="MYR">MYR (RM மலேசிய ரிங்கிட்)</option>
+            <option value="USD">USD ($ அமெரிக்க டாலர்)</option>
+            <option value="EUR">EUR (€ யூரோ)</option>
+            <option value="GBP">GBP (£ பிரித்தானிய பவுண்ட்)</option>
+            <option value="CAD">CAD (C$ கனடிய டாலர்)</option>
           </select>
         </div>
         <div class="btn-row" style="margin-bottom: 6px;">

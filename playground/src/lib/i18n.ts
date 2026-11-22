@@ -112,6 +112,21 @@ export interface Translations {
       pdfNoTextLayer: string;
       pdfExtractedSummary: string;
     };
+    translit: {
+      title: string;
+      desc: string;
+      schemeLabel: string;
+      bidirectionalBadge: string;
+      keyboardOnlyBadge: string;
+      dirToTamil: string;
+      dirToLatin: string;
+      inputLatinLabel: string;
+      inputTamilLabel: string;
+      outputTamilLabel: string;
+      outputLatinLabel: string;
+      inputPlaceholder: string;
+      outputPlaceholder: string;
+    };
     numeral: {
       title: string;
       desc: string;
@@ -147,6 +162,7 @@ export interface Translations {
       digitsLatin: string;
       digitsTamil: string;
       groupingToggle: string;
+      groupingInternational: string;
       formattedAmountLabel: string;
       resultWordsLabel: string;
       tradFormatHeading: string;
@@ -154,6 +170,9 @@ export interface Translations {
       tradInputLabel: string;
       tradSymbolsInputLabel: string;
       tradParsePlaceholder: string;
+      itnHeading: string;
+      itnInputLabel: string;
+      itnPlaceholder: string;
       digitScriptHeading: string;
       digitScriptInputPlaceholder: string;
       convertToTamil: string;
@@ -637,7 +656,7 @@ export const translations: Record<Language, Translations> = {
       heroBadge: "தமிழ் ஒருங்குறி, எழுத்துரு & பஞ்சாங்கப் பணித்தளம்",
       engineStatus: "WebAssembly இயந்திரம் தயார் (Offline)",
       quickJump: "நேரடிப் பயன்பாடுகள்",
-      encodingsSupported: "7 எழுத்துருக்கள் ஆதரிக்கப்படுகின்றன",
+      encodingsSupported: "12 எழுத்துருக்கள் & பிரெய்லி ஆதரவு",
       realtimeHeading: "சொல், எழுத்துரு & நாட்காட்டிக் கருவிகள்",
       realtimeDesc: "பழைய எழுத்துருக்களை ஒருங்குறியாக மாற்றுதல், காசோலை எண்களைச் சொற்களாக்குதல், மற்றும் மரபு நாட்காட்டி.",
       devToolsHeading: "பொறியியல் ஆய்வகம் & ஒருங்குறித் தரவுகள்",
@@ -657,8 +676,8 @@ export const translations: Record<Language, Translations> = {
     },
     tools: {
       codec: {
-        title: "பழைய எழுத்துரு மாற்றி",
-        desc: "பாமினி, TSCII, TAB, TAM, அஞ்சல், வானவில், LT-TM எழுத்துருக்களை ஒருங்குறியாக (Unicode) நொடியில் மாற்றுக.",
+        title: "பழைய எழுத்துரு & பிரெய்லி மாற்றி",
+        desc: "பாமினி, TSCII, TAB, TAM, அஞ்சல், வானவில், LT-TM, செந்தமிழ், ஸ்ரீ-தமிழ், அமுதம், தினபூமி மற்றும் பாரதி பிரெய்லியை ஒருங்குறியாக மாற்றுக.",
         inputPlaceholder: "மாற்ற வேண்டிய பழைய அல்லது தமிழ் ஒருங்குறி உரையை இங்கே ஒட்டவும் அல்லது தட்டச்சு செய்க...",
         outputPlaceholder: "மாற்றப்பட்ட உரை இங்கே தோன்றும்...",
         detectedEncoding: "கண்டறியப்பட்ட எழுத்துரு",
@@ -681,6 +700,21 @@ export const translations: Record<Language, Translations> = {
         importingPdf: "PDF படிக்கப்படுகிறது...",
         pdfNoTextLayer: "இந்த PDF கோப்பில் தேர்ந்தெடுக்கக்கூடிய உரை அடுக்கு இல்லை (ஸ்கேன் செய்யப்பட்ட பட PDF; OCR இங்கு செய்யப்படுவதில்லை).",
         pdfExtractedSummary: "உலாவியில் PDF உரை பிரித்தெடுக்கப்பட்டது (பதிவேற்றம் இல்லை)"
+      },
+      translit: {
+        title: "ஒலிபெயர்ப்பு & தமிழ்99 தட்டச்சு",
+        desc: "ISO 15919, சென்னை அகராதி, ITRANS, Harvard-Kyoto, Tanglish ஒலியியல் மற்றும் தமிழ்99, அஞ்சல், சுரதா பாமினி விசைப்பலகை மாற்றம்.",
+        schemeLabel: "ஒலிபெயர்ப்பு / விசைப்பலகை முறை",
+        bidirectionalBadge: "இருவழி (லத்தீன் ↔ தமிழ்)",
+        keyboardOnlyBadge: "தமிழ் உள்ளீடு மட்டும்",
+        dirToTamil: "லத்தீன் → தமிழ்",
+        dirToLatin: "தமிழ் → லத்தீன்",
+        inputLatinLabel: "உள்ளீடு (லத்தீன் / விசைப்பலகை)",
+        inputTamilLabel: "உள்ளீடு (தமிழ் ஒருங்குறி)",
+        outputTamilLabel: "வெளியீடு (தமிழ் ஒருங்குறி)",
+        outputLatinLabel: "வெளியீடு (லத்தீன் ஒலிபெயர்ப்பு)",
+        inputPlaceholder: "ஒலிபெயர்க்க வேண்டிய உரையை இங்கே தட்டச்சு செய்க...",
+        outputPlaceholder: "மாற்றப்பட்ட உரை இங்கே தோன்றும்..."
       },
       numeral: {
         title: "எண் - சொல் & காசோலை வடிவம்",
@@ -717,6 +751,7 @@ export const translations: Record<Language, Translations> = {
         digitsLatin: "லத்தீன் (0–9)",
         digitsTamil: "தமிழ் (௦–௯)",
         groupingToggle: "இந்திய பிரிவு (1,25,000)",
+        groupingInternational: "பன்னாட்டு பிரிவு (125,000)",
         formattedAmountLabel: "வடிவமைக்கப்பட்ட எண்",
         resultWordsLabel: "தமிழ் சொற்கள்",
         tradFormatHeading: "அரபு எண் → பழந்தமிழ் எண்",
@@ -724,6 +759,9 @@ export const translations: Record<Language, Translations> = {
         tradInputLabel: "முழு எண் (1 – 10,00,000)",
         tradSymbolsInputLabel: "பழந்தமிழ் எண் குறியீடுகள்",
         tradParsePlaceholder: "எ.கா: ௲௨௱௫௰",
+        itnHeading: "தமிழ் சொற்கள் → எண் (ITN)",
+        itnInputLabel: "அதிகாரப்பூர்வ தமிழ் எண் சொற்கள்",
+        itnPlaceholder: "எ.கா: நூற்று இருபத்து மூன்று",
         digitScriptHeading: "உரையில் இலக்க மாற்றம்",
         digitScriptInputPlaceholder: "எண்களைக் கொண்ட தமிழ் அல்லது ஆங்கில உரையை உள்ளிடுக (எ.கா: ஆண்டு 2026)...",
         convertToTamil: "தமிழ் எண்களாக மாற்று (௦–௯)",
@@ -1205,7 +1243,7 @@ export const translations: Record<Language, Translations> = {
       heroBadge: "Tamil Script, Numeral & Calendar Workbench",
       engineStatus: "WASM Engine Ready (Offline)",
       quickJump: "Direct Utilities",
-      encodingsSupported: "7 Legacy Encodings Supported",
+      encodingsSupported: "12 Legacy Encodings & Braille Supported",
       realtimeHeading: "Script, Numeral & Calendar Utilities",
       realtimeDesc: "Legacy font conversion, legal cheque numeral formatting, and classical solar calendar tools.",
       devToolsHeading: "Diagnostic Console & Unicode Inspector",
@@ -1225,8 +1263,8 @@ export const translations: Record<Language, Translations> = {
     },
     tools: {
       codec: {
-        title: "Legacy Font Converter",
-        desc: "Convert between Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM, and modern Tamil Unicode.",
+        title: "Legacy Font & Braille Converter",
+        desc: "Convert between Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM, Senthamil, Shree-Tam, Softview, TBO, Bharathi Braille, and modern Tamil Unicode.",
         inputPlaceholder: "Paste or type text to convert...",
         outputPlaceholder: "Converted text appears here...",
         detectedEncoding: "Detected Font",
@@ -1249,6 +1287,21 @@ export const translations: Record<Language, Translations> = {
         importingPdf: "Reading PDF...",
         pdfNoTextLayer: "No selectable text layer was found in this PDF (likely a scanned image PDF; client-side extraction does not run OCR).",
         pdfExtractedSummary: "Extracted PDF text layer locally in your browser (zero upload)"
+      },
+      translit: {
+        title: "Transliteration & Tamil99",
+        desc: "Convert Tamil using ISO 15919, Madras Lexicon, ITRANS, Harvard-Kyoto, Tanglish Phonetic, Tamil99, Anjal Phonetic, and Suratha Bamini.",
+        schemeLabel: "Transliteration / Input Scheme",
+        bidirectionalBadge: "Bidirectional (Latin ↔ Tamil)",
+        keyboardOnlyBadge: "Input to Tamil only",
+        dirToTamil: "Latin → Tamil",
+        dirToLatin: "Tamil → Latin",
+        inputLatinLabel: "Input (Latin / Keystrokes)",
+        inputTamilLabel: "Input (Tamil Unicode)",
+        outputTamilLabel: "Output (Tamil Unicode)",
+        outputLatinLabel: "Output (Latin Transliteration)",
+        inputPlaceholder: "Type or paste text to transliterate...",
+        outputPlaceholder: "Transliterated output appears here..."
       },
       numeral: {
         title: "Numbers & Cheques",
@@ -1285,6 +1338,7 @@ export const translations: Record<Language, Translations> = {
         digitsLatin: "Latin (0–9)",
         digitsTamil: "Tamil (௦–௯)",
         groupingToggle: "Indian Grouping (1,25,000)",
+        groupingInternational: "International Grouping (125,000)",
         formattedAmountLabel: "Formatted Output",
         resultWordsLabel: "Tamil Words",
         tradFormatHeading: "Arabic → Traditional Tamil Integer",
@@ -1292,6 +1346,9 @@ export const translations: Record<Language, Translations> = {
         tradInputLabel: "Integer (1 – 1,000,000)",
         tradSymbolsInputLabel: "Traditional Tamil Numerals",
         tradParsePlaceholder: "e.g. ௲௨௱௫௰",
+        itnHeading: "Tamil Words → Number (ITN)",
+        itnInputLabel: "Formal Tamil Number Words",
+        itnPlaceholder: "e.g. நூற்று இருபத்து மூன்று",
         digitScriptHeading: "Convert Digits Inside Text",
         digitScriptInputPlaceholder: "Enter text containing digits (e.g. Year 2026 / ௨௦௨௬)...",
         convertToTamil: "Convert to Tamil Digits (௦–௯)",
