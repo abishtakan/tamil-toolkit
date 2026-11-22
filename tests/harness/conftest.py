@@ -120,6 +120,8 @@ def _fingerprint_paths(paths: Sequence[Path], *, base: Path = ROOT) -> str:
         if path.is_dir():
             for child in sorted(path.rglob("*")):
                 if child.is_file():
+                    if ".dart_tool" in child.parts or child.name == "pubspec.lock":
+                        continue
                     child_res = child.resolve()
                     try:
                         rel = child_res.relative_to(base.resolve()).as_posix()
@@ -318,6 +320,7 @@ def _build_small_canonical_repo(
         "Cargo.toml",
         "Cargo.lock",
         "LICENSE",
+        "NOTICE",
         "README.md",
         "THIRD_PARTY_NOTICES.md",
         "release-policy.toml",
@@ -442,6 +445,7 @@ def small_canonical_repo(
         ROOT / "schemas/lexicon",
         ROOT / "release-policy.toml",
         ROOT / "LICENSE",
+        ROOT / "NOTICE",
     )
     input_fp = _fingerprint_paths(inputs)
     repo_dir = _run_once_dir(
