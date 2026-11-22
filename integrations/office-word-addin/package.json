@@ -1,9 +1,27 @@
 {
   "name": "tamil-word-addin",
-  "version": "1.1.0",
-  "description": "Tamil Hyphenation Office.js Word Add-in with Native Top-Bar Ribbon Buttons",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Tamil Toolkit Utility Suite for Microsoft Word (Office.js + Rust/WASM, AppSource-ready)",
   "scripts": {
-    "start": "node server.js",
-    "validate": "office-addin-manifest validate manifest.xml"
+    "prepare-wasm": "node scripts/prepare-wasm.mjs",
+    "build-manifest": "node scripts/build-manifest.mjs",
+    "dev": "node scripts/prepare-wasm.mjs && node scripts/build-manifest.mjs && vite",
+    "build": "node scripts/prepare-wasm.mjs && tsc --noEmit && vite build && node scripts/build-manifest.mjs",
+    "preview": "vite preview",
+    "test": "node scripts/prepare-wasm.mjs && vitest run",
+    "serve:local": "node server.js"
+  },
+  "dependencies": {
+    "tamil-toolkit": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/office-js": "^1.0.506",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6",
+    "vite-plugin-wasm": "^3.6.0",
+    "vitest": "^5.0.5"
   }
 }

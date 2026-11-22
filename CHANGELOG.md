@@ -3,6 +3,20 @@
 
 ## Unreleased
 
+- Upgrade the Microsoft Word Office.js Add-in (`integrations/office-word-addin/`,
+  Spec 014) to **Tamil Toolkit (`v2.2.0.0`)** as an AppSource-ready, 100%
+  client-side Fluent 2 utility suite powered by the slim MIT default-profile
+  Rust/WASM build (~1.37 MB gzipped), retiring the standalone JS `engine.js`
+  duplicate. Adds a 3-tab Fluent 2 Taskpane (**Type**, **Prepare**, **Insert**)
+  with Light/Dark Office theme sync, `தமிழ் / EN` UI toggle, Direct Live
+  Bamini Word Typing, legacy font conversion + Unicode font reassignment,
+  orthographic repair, Tamil-aware Find & Replace, *Akara Varisai* paragraph &
+  table sorting, numerals/currency words & traditional symbol palette, Tamil
+  Calendar & Panchangam stamps, OOXML formatting-preserving hyphenation, and
+  Document Inspector, plus expanded `தமிழ்` Ribbon commands, `privacy.html` /
+  `support.html`, `icon-64.png`, AppSource submission kit (`release/`),
+  configurable production manifest generator (`ADDIN_BASE_URL` ->
+  `manifest.prod.xml`), and static hosting headers (`vercel.json`, `_headers`).
 - Redesign the Playground UI/UX (`playground/`) into a cohesive, human-centered
   Tamil language workbench: replace the three-tier tab/sub-chip navigation with
   a single persistent left sidebar (plus mobile drawer), quick-filter search

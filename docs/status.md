@@ -1,5 +1,17 @@
 # Project handoff
 
+## Microsoft Word Add-in v2.2 — Tamil Toolkit for Word & AppSource Submission (2026-11-22)
+
+- **Scope (`integrations/office-word-addin/`, Spec 014):** Upgraded from a standalone JS hyphenation-only add-in to **Tamil Toolkit (`v2.2.0.0`)**, a Fluent 2 + TypeScript Office.js utility suite backed 100% client-side by the slim MIT default-profile Rust/WASM build (`scripts/prepare-wasm.mjs`, ~3.1 MiB uncompressed / ~1.37 MiB gzipped — 15x smaller than the full-lexicon playground WASM). Retired the duplicate `engine.js`, `commands.js`, `taskpane.js`, and `taskpane.css` files.
+- **Capabilities:**
+  - **Expanded `தமிழ்` Ribbon (`src/commands.ts`):** Open Taskpane (`Tamil Toolkit`), Convert to Unicode, Live Bamini ON/OFF, Sort *Akara Varisai*, Insert Tamil Date, Repair Unicode, Hyphenate Selection, Hyphenate Document, Wrap Without Hyphen, Remove Hyphens.
+  - **3-Tab Fluent 2 Taskpane (`index.html`, `src/taskpane.ts`, `src/styles.css`, `src/lib/*`):** **Type** (Live Bamini direct Word typing, instant/batch legacy conversion across Bamini, TSCII, TAB, TAM, Anjal, Vanavil, and LT-TM with `<w:rFonts>` Unicode font reassignment, orthographic repair, live composer, Tamil-aware Find & Replace, Document Inspector), **Prepare** (*Akara Varisai* & `uyirmei-first-v1` paragraph/list/table sorting, 1-click Prepare Legacy Document, OOXML formatting-preserving hyphenation in 25-paragraph batches), and **Insert** (Tamil Calendar & Panchangam stamps for `Thirukanitham`/`Vakya`, numerals/currency `INR`/`LKR` for `TN`/`SL`, traditional fractions & heritage symbols), with automatic Office Light/Dark theme sync and `தமிழ் / EN` UI language toggle (`src/lib/i18n.ts`).
+  - **AppSource & Production Deployment:** Added `scripts/build-manifest.mjs` generating `manifest.xml` (`https://localhost:3000`) and `dist/manifest.prod.xml` (parameterized via `ADDIN_BASE_URL`, zero `localhost` URLs, `<DisplayName>Tamil Toolkit</DisplayName>`, `<HighResolutionIconUrl>` `icon-64.png`, `WordApi 1.3`, `ReadWriteDocument`), `privacy.html`, `support.html`, `public/vercel.json`, `public/_headers`, and store assets under `release/` (`tamil-toolkit-word-manifest.xml`, `store-logo-300x300.png`, `banner-1366x768.png`, `APPSOURCE_SUBMISSION.md`). Deployed to Vercel Production (`https://tamil-toolkit-word.vercel.app`) and submitted to Partner Center (`Pre-processing` / publisher vetting in review). Updated `docs/integrations/word-office-addin.md`.
+- **Checks:**
+  - `pnpm --filter tamil-word-addin build` + `pnpm --filter tamil-word-addin test`: slim WASM prepare, `tsc --noEmit`, `vite build`, manifest generation, and 13/13 Vitest tests passed against real slim Rust/WASM.
+  - `npx --yes office-addin-manifest validate integrations/office-word-addin/release/tamil-toolkit-word-manifest.xml`: valid.
+  - `uv run --locked python tools/tasks.py check-unicode`: passed (36,205 active vectors; 129 release source copies verified).
+
 ## Playground UI/UX redesign & full WASM feature parity (2026-11-20, current uncommitted work)
 
 - **Scope (`playground/`)**: Replaced the 3-tier `Home / Public Tools / Developer Tools` + sub-chip layout with a single persistent desktop sidebar (`264px`), mobile slide-over drawer, keyboard-focusable tool filter (`/` or `Ctrl/Cmd+K`), and URL query synchronization (`?tool=<id>`). Added `playground/src/lib/tools.ts`, `playground/src/components/common/ToolHeader.tsx`, `playground/src/tests/navigation.test.ts`, and `playground/src/tests/full-features.test.ts`.

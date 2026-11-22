@@ -1,56 +1,377 @@
 <!DOCTYPE html>
-<html lang="ta">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tamil Hyphenation (தமிழ் மென்-இணைப்புக் குறியீடு)</title>
-  <!-- Office.js library from official Microsoft CDN -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tamil Toolkit</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <link rel="stylesheet" href="taskpane.css">
+  <link rel="stylesheet" href="/src/styles.css" />
 </head>
 <body>
-  <header>
-    <span class="brand-badge">tamil-toolkit</span>
-    <h1>தமிழ் மென்-இணைப்பு</h1>
-    <div class="subtitle">Syllabic Soft-Hyphenator for Justified Word Documents</div>
+  <div id="host-banner" class="host-banner" hidden></div>
+
+  <header class="top-bar">
+    <nav class="pivot-nav" role="tablist" aria-label="Tamil Toolkit Sections">
+      <button type="button" class="tab-btn active" role="tab" aria-selected="true" tabindex="0" data-tab="type" data-i18n="tabType">Type</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" tabindex="-1" data-tab="prepare" data-i18n="tabPrepare">Prepare</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" tabindex="-1" data-tab="insert" data-i18n="tabInsert">Insert</button>
+    </nav>
+    <button type="button" id="btn-lang-toggle" class="lang-toggle" title="Switch UI Language (தமிழ் / English)">தமிழ்</button>
   </header>
 
-  <main>
-    <div class="card">
-      <div class="card-title">அளபுருக்கள் (Syllable Margins)</div>
-      <div class="form-group">
-        <label for="left-min">இடது குறைந்தபட்சம் (Left Min Letters):</label>
-        <input type="number" id="left-min" value="3" min="1" max="5">
-      </div>
-      <div class="form-group">
-        <label for="right-min">வலது குறைந்தபட்சம் (Right Min Letters):</label>
-        <input type="number" id="right-min" value="3" min="1" max="5">
-      </div>
-    </div>
+  <main class="main-content">
+    <!-- 1. TYPE: Direct Live Typing in Word + Explicit Convert + Optional Composer -->
+    <section id="panel-type" class="tab-panel" role="tabpanel">
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="quickConvertTitle">Direct Live Typing (Bamini → Unicode)</h2>
+          <span id="direct-mode-badge" class="section-hint">OFF</span>
+        </div>
+        <p class="helper-text" data-i18n="quickConvertDesc">
+          Turn ON, click directly on your Word page, and type in Bamini (e.g. <code>jkpo;</code>). Characters convert live to Unicode Tamil as you type.
+        </p>
 
-    <div class="card">
-      <div class="card-title">செயல்கள் (Actions)</div>
-      <div class="btn-group">
-        <button id="btn-hyphenate-selection" class="btn-primary">
-          <span>தேர்ந்தெடுத்ததை இணைக்கவும்</span>
-          <span style="font-size: 11px; opacity: 0.85;">(Hyphenate Selection)</span>
+        <div class="row-2" style="margin-bottom: 8px;">
+          <div class="field" style="margin-bottom: 0;">
+            <label for="type-layout">Keyboard Layout</label>
+            <select id="type-layout">
+              <option value="bamini" selected>Bamini (பாமினி)</option>
+              <option value="vanavil">Vanavil Avvaiyar</option>
+              <option value="lt_tm">LT-TM (Shree-Lipi)</option>
+              <option value="anjal">Anjal</option>
+              <option value="tscii">TSCII</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom: 0;">
+            <label for="type-font">Unicode Font</label>
+            <select id="type-font">
+              <option value="Nirmala UI">Nirmala UI</option>
+              <option value="Noto Sans Tamil">Noto Sans Tamil</option>
+              <option value="Latha">Latha</option>
+              <option value="">Keep Existing</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="btn-direct-toggle" data-action class="btn btn-primary" style="width: 100%; margin-bottom: 6px;" data-i18n="btnStartLive">
+          Start Live Word Typing (Bamini → Unicode)
         </button>
-        <button id="btn-hyphenate-document" class="btn-secondary">
-          <span>முழு ஆவணத்தையும் இணைக்கவும்</span>
-          <span style="font-size: 11px; opacity: 0.85;">(Hyphenate Entire Document)</span>
+
+        <div class="btn-row">
+          <button id="btn-convert-active-para" data-action class="btn" data-i18n="btnConvertPara">Convert Paragraph</button>
+          <button id="btn-convert-selection" data-action class="btn" data-i18n="btnConvertSel">Convert Selection</button>
+        </div>
+
+        <details class="keymap-details">
+          <summary>Bamini Quick Key Guide</summary>
+          <div class="keymap-grid">
+            <div class="keymap-cell"><span>க</span><kbd>f</kbd></div>
+            <div class="keymap-cell"><span>ச</span><kbd>r</kbd></div>
+            <div class="keymap-cell"><span>ட</span><kbd>l</kbd></div>
+            <div class="keymap-cell"><span>த</span><kbd>j</kbd></div>
+            <div class="keymap-cell"><span>ப</span><kbd>g</kbd></div>
+            <div class="keymap-cell"><span>ம</span><kbd>k</kbd></div>
+            <div class="keymap-cell"><span>ழ</span><kbd>o</kbd></div>
+            <div class="keymap-cell"><span>வ</span><kbd>t</kbd></div>
+            <div class="keymap-cell"><span>ண</span><kbd>z</kbd></div>
+            <div class="keymap-cell"><span>் (Pulli)</span><kbd>;</kbd></div>
+            <div class="keymap-cell"><span>ா</span><kbd>h</kbd></div>
+            <div class="keymap-cell"><span>ி / ீ</span><kbd>p / P</kbd></div>
+            <div class="keymap-cell"><span>ெ / ே</span><kbd>n / N</kbd></div>
+            <div class="keymap-cell"><span>ை</span><kbd>i</kbd></div>
+            <div class="keymap-cell"><span>தமிழ்</span><kbd>jkpo;</kbd></div>
+          </div>
+        </details>
+      </div>
+
+      <details class="tool-drawer">
+        <summary data-i18n="composerTitle">Optional Scratchpad Composer</summary>
+        <div class="drawer-body">
+          <div class="field">
+            <textarea id="type-raw-input" rows="2" spellcheck="false" autocomplete="off" placeholder="Optional: test Bamini keys here (Ctrl+Enter to insert)..."></textarea>
+          </div>
+          <div id="type-live-output" class="live-output-box" style="min-height: 46px; font-size: 14px;"><span class="live-output-empty">Live Unicode Tamil preview...</span></div>
+          <label class="check-row"><input id="opt-type-clear" type="checkbox" checked /> Clear after insert</label>
+          <div class="btn-row">
+            <button id="btn-type-insert" data-action class="btn btn-primary" data-i18n="btnInsertWord">Insert into Word</button>
+            <button id="btn-type-copy" data-action class="btn" data-i18n="btnCopy">Copy</button>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 2. PREPARE: 1-Click Pipeline + Find/Replace + Sort + Hyphen + Inspect -->
+    <section id="panel-prepare" class="tab-panel" role="tabpanel" hidden>
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="prepareTitle">1-Click Prepare Document</h2>
+        </div>
+        <p class="helper-text" data-i18n="prepareDesc">
+          Convert legacy fonts, repair NFC, and hyphenate in a single batched pass.
+        </p>
+
+        <div class="field">
+          <label for="prepare-scope">Target Scope</label>
+          <select id="prepare-scope">
+            <option value="selection" data-i18n="scopeSel">Selection</option>
+            <option value="paragraph" data-i18n="scopePara">Current Paragraph</option>
+            <option value="document" selected data-i18n="scopeDoc">Body &amp; Tables</option>
+          </select>
+        </div>
+
+        <label class="check-row"><input id="opt-prep-headers" type="checkbox" /> <span data-i18n="optHeadersFooters">Include headers &amp; footers</span></label>
+        <label class="check-row"><input id="opt-prep-convert" type="checkbox" checked /> <span data-i18n="optConvert">Convert legacy font → Unicode</span></label>
+
+        <div class="row-2" style="margin-bottom: 8px;">
+          <div class="field" style="margin-bottom: 0;">
+            <label for="legacy-source-encoding">Source</label>
+            <select id="legacy-source-encoding">
+              <option value="auto">Auto-Detect</option>
+              <option value="bamini">Bamini</option>
+              <option value="tscii">TSCII</option>
+              <option value="tab">TAB</option>
+              <option value="tam">TAM</option>
+              <option value="anjal">Anjal</option>
+              <option value="vanavil">Vanavil</option>
+              <option value="lt_tm">LT-TM</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom: 0;">
+            <label for="unicode-font-family">Unicode Font</label>
+            <select id="unicode-font-family">
+              <option value="Nirmala UI">Nirmala UI</option>
+              <option value="Noto Sans Tamil">Noto Sans Tamil</option>
+              <option value="Latha">Latha</option>
+              <option value="">Keep Existing</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="check-row"><input id="opt-prep-repair" type="checkbox" checked /> <span data-i18n="optRepair">Normalize NFC &amp; repair pulli/kombu (keeps ZWJ/ZWNJ)</span></label>
+        <label class="check-row"><input id="opt-prep-hyphen" type="checkbox" /> <span data-i18n="optHyphen">Add canonical syllabic soft-hyphens</span></label>
+
+        <button id="btn-prepare-run" data-action class="btn btn-primary" style="width: 100%; margin-top: 4px;" data-i18n="btnPrepareRun">
+          Prepare Now
         </button>
       </div>
 
-      <div id="status-message" class="status-box"></div>
-    </div>
+      <details class="tool-drawer">
+        <summary data-i18n="findReplaceTitle">Tamil-Aware Find &amp; Replace</summary>
+        <div class="drawer-body">
+          <div class="field">
+            <label for="find-query">Find (NFC/NFD &amp; zero-width insensitive)</label>
+            <input id="find-query" type="text" placeholder="எ.கா: தமிழ்" />
+          </div>
+          <div class="field">
+            <label for="replace-value">Replace with</label>
+            <input id="replace-value" type="text" placeholder="Replacement text" />
+          </div>
+          <label class="check-row"><input id="opt-fuzzy-mayangoli" type="checkbox" /> Fuzzy Mayangoli / Grantha (ல/ள/ழ, ன/ண, ர/ற)</label>
+          <button id="btn-find-replace" data-action class="btn btn-primary" style="width: 100%;">Replace All in Scope</button>
+        </div>
+      </details>
 
-    <div class="info-note">
-      <strong>குறிப்பு (Note):</strong> மென்-இணைப்புகள் (Soft Hyphens) வரிகளுக்கு நடுவே தெரியாது (0px). வரிகள் 'Justify' செய்யும்போது வலது ஓர முட்டல்களில் மட்டுமே அழகாகப் பிரியும். எழுத்து இடைவெளியோ மெய் எழுத்துக்களோ பாதிக்கப்படாது.
-    </div>
+      <details class="tool-drawer">
+        <summary data-i18n="sortTitle">Akara Varisai Sorting</summary>
+        <div class="drawer-body">
+          <div class="row-2" style="margin-bottom: 8px;">
+            <div class="field" style="margin-bottom: 0;">
+              <label for="sort-profile">Profile</label>
+              <select id="sort-profile">
+                <option value="agara-v1">Agara Varisai (Mei-first)</option>
+                <option value="uyirmei-first-v1">School (Uyirmei-first)</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom: 0;">
+              <label for="sort-direction">Order</label>
+              <select id="sort-direction">
+                <option value="asc">Ascending (அ → ன)</option>
+                <option value="desc">Descending (ன → அ)</option>
+              </select>
+            </div>
+          </div>
+          <label class="check-row"><input id="opt-ignore-prefix" type="checkbox" /> Ignore leading numbers / bullets</label>
+          <button id="btn-sort-paragraphs" data-action class="btn btn-primary" style="width: 100%; margin-bottom: 8px;">Sort Selected Paragraphs</button>
+          <div class="row-2" style="margin-bottom: 6px;">
+            <div class="field" style="margin-bottom: 0;">
+              <label for="sort-col-index">Table Column #</label>
+              <input id="sort-col-index" type="number" min="1" value="1" />
+            </div>
+            <div class="field" style="margin-bottom: 0; display: flex; align-items: flex-end;">
+              <label class="check-row" style="margin-bottom: 4px;"><input id="opt-table-header" type="checkbox" checked /> Keep header</label>
+            </div>
+          </div>
+          <button id="btn-sort-table" data-action class="btn" style="width: 100%;">Sort Table by Column</button>
+        </div>
+      </details>
+
+      <details class="tool-drawer">
+        <summary data-i18n="hyphenTitle">Syllabic Hyphenation</summary>
+        <div class="drawer-body">
+          <div class="row-2" style="margin-bottom: 8px;">
+            <div class="field" style="margin-bottom: 0;">
+              <label for="left-min">Left Min Letters</label>
+              <input id="left-min" type="number" min="1" max="5" value="3" />
+            </div>
+            <div class="field" style="margin-bottom: 0;">
+              <label for="right-min">Right Min Letters</label>
+              <input id="right-min" type="number" min="1" max="5" value="3" />
+            </div>
+          </div>
+          <div class="btn-stack">
+            <button id="btn-hyphen-sel" data-action class="btn btn-primary">Hyphenate Selection</button>
+            <button id="btn-hyphen-doc" data-action class="btn">Hyphenate Body &amp; Tables</button>
+            <button id="btn-wrap-nohyphen" data-action class="btn">Wrap Without Hyphen (ZWSP)</button>
+            <button id="btn-remove-hyphens" data-action class="btn btn-danger">Remove Hyphenation (Keep Manual -)</button>
+          </div>
+        </div>
+      </details>
+
+      <details class="tool-drawer">
+        <summary>Unicode → Legacy Export</summary>
+        <div class="drawer-body">
+          <div class="row-2">
+            <div class="field" style="margin-bottom: 0;">
+              <label for="legacy-target-encoding">Target</label>
+              <select id="legacy-target-encoding">
+                <option value="bamini">Bamini</option>
+                <option value="tscii">TSCII</option>
+                <option value="tab">TAB</option>
+                <option value="tam">TAM</option>
+                <option value="anjal">Anjal</option>
+                <option value="vanavil">Vanavil</option>
+                <option value="lt_tm">LT-TM</option>
+              </select>
+            </div>
+            <div class="field" style="margin-bottom: 0; display: flex; align-items: flex-end;">
+              <button id="btn-unicode-to-legacy" data-action class="btn" style="width: 100%;">Encode Legacy</button>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="tool-drawer">
+        <summary data-i18n="inspectTitle">Document Inspector</summary>
+        <div class="drawer-body">
+          <div class="btn-row" style="margin-bottom: 8px;">
+            <button id="btn-inspect-sel" data-action class="btn btn-primary">Inspect Selection</button>
+            <button id="btn-inspect-doc" data-action class="btn">Inspect Body</button>
+          </div>
+          <div id="inspect-results" class="helper-text">Click Inspect to analyze Tamil graphemes, syllables, and invisible codepoints.</div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 3. INSERT: Tamil Date, Numerals/Currency, Traditional Symbols -->
+    <section id="panel-insert" class="tab-panel" role="tabpanel" hidden>
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="dateTitle">Tamil Date &amp; Panchangam Stamp</h2>
+        </div>
+        <div class="field">
+          <label for="cal-date">Gregorian Date</label>
+          <input id="cal-date" type="date" />
+        </div>
+        <div class="row-2" style="margin-bottom: 8px;">
+          <div class="field" style="margin-bottom: 0;">
+            <label for="cal-profile">Profile</label>
+            <select id="cal-profile">
+              <option value="thirukanitham">Thirukanitham (Drik)</option>
+              <option value="vakya">Vakya (1962 Civil)</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom: 0;">
+            <label for="cal-region">Region</label>
+            <select id="cal-region">
+              <option value="TN">Tamil Nadu (TN)</option>
+              <option value="SL">Sri Lanka (SL)</option>
+            </select>
+          </div>
+        </div>
+        <label class="check-row"><input id="opt-cal-panchangam" type="checkbox" /> Include Panchangam limbs</label>
+        <button id="btn-cal-refresh" data-action class="btn" style="width: 100%; margin-bottom: 8px;">Update Preview</button>
+        <div id="cal-preview" class="cal-preview">Select a date and click Update.</div>
+        <div class="btn-row">
+          <button id="btn-cal-insert-short" data-action class="btn">Insert Short</button>
+          <button id="btn-cal-insert-formal" data-action class="btn btn-primary">Insert Formal</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="numTitle">Numbers &amp; Currency to Words</h2>
+        </div>
+        <div class="field">
+          <label for="num-input">Number or Amount</label>
+          <input id="num-input" type="text" value="125450.75" placeholder="e.g. 125450.75" />
+        </div>
+        <div class="row-2" style="margin-bottom: 8px;">
+          <div class="field" style="margin-bottom: 0;">
+            <label for="num-mode">Mode</label>
+            <select id="num-mode">
+              <option value="currency">Currency Words</option>
+              <option value="cardinal">Cardinal Words</option>
+              <option value="decimal">Decimal Words</option>
+              <option value="ordinal">Ordinal Words</option>
+              <option value="traditional">Traditional (௰ ௱ ௲)</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom: 0;">
+            <label for="num-locale">Region</label>
+            <select id="num-locale">
+              <option value="TN">Tamil Nadu (ta-IN)</option>
+              <option value="SL">Sri Lanka (ta-LK)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="num-currency">Currency</label>
+          <select id="num-currency">
+            <option value="INR">INR (இந்திய ரூபாய்)</option>
+            <option value="LKR">LKR (இலங்கை ரூபாய்)</option>
+          </select>
+        </div>
+        <div class="btn-row" style="margin-bottom: 6px;">
+          <button id="btn-num-from-selection" data-action class="btn">Read Selection</button>
+          <button id="btn-num-preview" data-action class="btn">Preview</button>
+        </div>
+        <div class="field">
+          <textarea id="num-output" placeholder="Tamil words output..."></textarea>
+        </div>
+        <button id="btn-num-insert" data-action class="btn btn-primary" style="width: 100%; margin-bottom: 6px;">
+          Insert / Replace in Word
+        </button>
+        <div class="btn-row">
+          <button id="btn-digits-to-tamil" data-action class="btn">0–9 → ௦–௯</button>
+          <button id="btn-digits-to-latin" data-action class="btn">௦–௯ → 0–9</button>
+        </div>
+      </div>
+
+      <details class="tool-drawer">
+        <summary data-i18n="symTitle">Traditional Fractions &amp; Symbols</summary>
+        <div class="drawer-body">
+          <div class="field">
+            <select id="symbol-insert-mode">
+              <option value="glyph">Insert Glyph Only</option>
+              <option value="glyph-name">Insert Glyph + Tamil Name</option>
+              <option value="name">Insert Tamil Name Only</option>
+            </select>
+          </div>
+          <div id="symbol-palette" class="symbol-grid"></div>
+        </div>
+      </details>
+    </section>
+
+    <footer class="app-footer">
+      <span>100% local · </span>
+      <a href="./privacy.html" target="_blank" rel="noopener">Privacy</a> ·
+      <a href="./support.html" target="_blank" rel="noopener">Support</a>
+    </footer>
   </main>
 
-  <script src="engine.js"></script>
-  <script src="taskpane.js"></script>
+  <div id="status-bar" class="status-bar" role="status" aria-live="polite">Initializing Tamil engine...</div>
+
+  <script type="module" src="/src/taskpane.ts"></script>
 </body>
 </html>

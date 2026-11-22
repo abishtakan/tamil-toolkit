@@ -7,9 +7,14 @@
 /bindings/js-wasm/pkg-web/
 /bindings/js-wasm/dist/
 /playground/dist/
+/integrations/office-word-addin/dist/
+/integrations/office-word-addin/src/wasm/
 /.vercel/
 /playground/.vercel/
 /playground/dist/.vercel/
+/integrations/office-word-addin/.vercel/
+/integrations/office-word-addin/dist/.vercel/
+/integrations/office-word-addin/release/.vercel/
 /bindings/python/python/tamil_toolkit/_native*.pyd
 /bindings/python/python/tamil_toolkit/_native*.so
 /bindings/python/python/tamil_toolkit/_native*.pdb
