@@ -107,6 +107,10 @@ export interface Translations {
       hexModeToggle: string;
       detectedCandidatesLabel: string;
       sampleTsciiHex: string;
+      importPdf: string;
+      importingPdf: string;
+      pdfNoTextLayer: string;
+      pdfExtractedSummary: string;
     };
     numeral: {
       title: string;
@@ -672,7 +676,11 @@ export const translations: Record<Language, Translations> = {
         policyPreserve: "மூலம் காக்க (Preserve)",
         hexModeToggle: "Hex பைட்டுகள் (8-bit)",
         detectedCandidatesLabel: "கண்டறியப்பட்ட வாய்ப்புகள்:",
-        sampleTsciiHex: "TSCII (Hex)"
+        sampleTsciiHex: "TSCII (Hex)",
+        importPdf: "PDF இறக்குமதி",
+        importingPdf: "PDF படிக்கப்படுகிறது...",
+        pdfNoTextLayer: "இந்த PDF கோப்பில் தேர்ந்தெடுக்கக்கூடிய உரை அடுக்கு இல்லை (ஸ்கேன் செய்யப்பட்ட பட PDF; OCR இங்கு செய்யப்படுவதில்லை).",
+        pdfExtractedSummary: "உலாவியில் PDF உரை பிரித்தெடுக்கப்பட்டது (பதிவேற்றம் இல்லை)"
       },
       numeral: {
         title: "எண் - சொல் & காசோலை வடிவம்",
@@ -1236,7 +1244,11 @@ export const translations: Record<Language, Translations> = {
         policyPreserve: "Preserve Unknown",
         hexModeToggle: "Hex Bytes (8-bit)",
         detectedCandidatesLabel: "Detection Candidates:",
-        sampleTsciiHex: "TSCII (Hex)"
+        sampleTsciiHex: "TSCII (Hex)",
+        importPdf: "Import PDF",
+        importingPdf: "Reading PDF...",
+        pdfNoTextLayer: "No selectable text layer was found in this PDF (likely a scanned image PDF; client-side extraction does not run OCR).",
+        pdfExtractedSummary: "Extracted PDF text layer locally in your browser (zero upload)"
       },
       numeral: {
         title: "Numbers & Cheques",

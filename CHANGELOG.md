@@ -3,6 +3,14 @@
 
 ## Unreleased
 
+- **Phase 7A (Playground client-side PDF text-layer extraction):** Add 100%
+  client-side, zero-upload `pdfjs-dist` text-layer extraction in
+  `playground/src/lib/pdf-extract.ts` and wire **Import PDF** into
+  `CodecConverter.tsx` with embedded PDF font-family profile hinting (Bamini,
+  Vanavil, LT-TM, TSCII, TAB, TAM, Anjal) and explicit warnings for scanned
+  image-only PDFs (no OCR). Record Phase 7 provenance/licensing status for
+  queued legacy font tables (Senthamil, Shree-Tam, Softview, TBO) in
+  `docs/specs/codec-roadmap.md`.
 - **Phase 6 (`tamil-numerals` v0.4):** Add diaspora currency support (`SGD`,
   `MYR`, `USD`, `EUR`, `GBP`, `CAD` with 3-3 international grouping and Tamil
   major/minor labels in `lexicon/numerals-v04.toml`), colloquial Tamil

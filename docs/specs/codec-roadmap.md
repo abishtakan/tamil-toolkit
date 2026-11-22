@@ -109,3 +109,19 @@ transposition between LT-TM and Vanavil Avvaiyar are documented in the
 [LT-TM contract](codec-lt-tm.md) and [Vanavil contract](codec-vanavil.md).
 Do not merge LT-TM or Vanavil with AnuGraphics or Pallavar without comparing
 their code tables.
+
+## Phase 7 Status (2026-11-22)
+
+- **Client-side legacy PDF text-layer extraction (Completed in `playground/`):**
+  Added 100% client-side `pdfjs-dist` text-layer extraction (`playground/src/lib/pdf-extract.ts`,
+  wired into `CodecConverter.tsx`) with embedded PDF font-family profile hinting
+  (Bamini, Vanavil, LT-TM, TSCII, TAB, TAM, Anjal), zero-upload offline execution,
+  and explicit warnings for scanned image-only PDFs (no OCR).
+- **Queued legacy font tables (Senthamil, Shree-Tam, Softview, TBO):**
+  Open-source references (`open-tamil`'s `encode2utf8.py` under GPL-3.0-or-later,
+  commercial Shree-Lipi/Softview binaries) are not MIT-compatible for direct copying
+  into `crates/tamil-codec`. Adding Senthamil, Shree-Tam, Softview, or TBO requires
+  primary `.ttf` `cmap` inspection or a permissively licensed primary mapping witness
+  before authoring their `lexicon/*.toml` tables and golden suites.
+- **`tamil-codec::braille` (Bharathi / Unicode Braille `U+2800..U+28FF` Grade 1):**
+  Remains an optional deferred slice (public Unicode standard data; no licensing blocker).

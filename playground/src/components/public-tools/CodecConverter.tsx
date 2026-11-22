@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, type ChangeEvent } from "react";
 import {
   bytesToHex,
   hexToBytes,
@@ -7,13 +7,14 @@ import {
   stringToLatin1Bytes,
   tt,
 } from "../../lib/engine";
+import { extractPdfTextLayer, type PdfExtractionResult } from "../../lib/pdf-extract";
 import { useLanguage } from "../../lib/i18n";
 import { ToolHeader } from "../common/ToolHeader";
 import { CopyButton } from "../common/CopyButton";
 import { StickyActionBar } from "../common/StickyActionBar";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { AlertCircle, ArrowLeftRight, X } from "lucide-react";
+import { AlertCircle, ArrowLeftRight, FileText, X } from "lucide-react";
 
 export type CodecProfile =
   | "auto"
@@ -76,6 +77,10 @@ export function CodecConverter({ engineReady }: CodecConverterProps) {
   const [direction, setDirection] = useState<"to_unicode" | "from_unicode">("to_unicode");
   const [errorPolicy, setErrorPolicy] = useState<"preserve" | "strict">("preserve");
   const [hexMode, setHexMode] = useState(false);
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const [pdfInfo, setPdfInfo] = useState<PdfExtractionResult | null>(null);
+  const [pdfError, setPdfError] = useState<string | null>(null);
+  const pdfInputRef = useRef<HTMLInputElement | null>(null);
 
   const conversion = useMemo(() => {
     if (!ready || !input.trim()) {
@@ -220,6 +225,38 @@ export function CodecConverter({ engineReady }: CodecConverterProps) {
 
   const handleClear = () => {
     setInput("");
+    setPdfInfo(null);
+    setPdfError(null);
+  };
+
+  const handlePdfChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    setPdfLoading(true);
+    setPdfError(null);
+    setPdfInfo(null);
+    try {
+      const buffer = await file.arrayBuffer();
+      const result = await extractPdfTextLayer(buffer, file.name);
+      setPdfInfo(result);
+      if (!result.hasTextLayer) {
+        setPdfError(t.tools.codec.pdfNoTextLayer);
+        return;
+      }
+      setDirection("to_unicode");
+      setHexMode(false);
+      if (result.suggestedProfile) {
+        setSelectedProfile(result.suggestedProfile);
+      } else {
+        setSelectedProfile("auto");
+      }
+      setInput(result.text);
+    } catch (err) {
+      setPdfError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setPdfLoading(false);
+    }
   };
 
   const handleLoadSample = () => {
@@ -256,6 +293,23 @@ export function CodecConverter({ engineReady }: CodecConverterProps) {
         description={t.tools.codec.desc}
         actions={
           <>
+            <input
+              ref={pdfInputRef}
+              type="file"
+              accept=".pdf,application/pdf"
+              onChange={handlePdfChange}
+              className="hidden"
+              aria-label={t.tools.codec.importPdf}
+            />
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={pdfLoading}
+              onClick={() => pdfInputRef.current?.click()}
+            >
+              <FileText className="w-3.5 h-3.5 mr-1.5 text-[var(--color-semman)]" />
+              <span>{pdfLoading ? t.tools.codec.importingPdf : t.tools.codec.importPdf}</span>
+            </Button>
             <Button variant="outline" size="sm" onClick={handleLoadSample}>
               {t.actions.loadSample}
             </Button>
@@ -371,10 +425,27 @@ export function CodecConverter({ engineReady }: CodecConverterProps) {
         )}
       </div>
 
-      {conversion.error && (
+      {pdfInfo && pdfInfo.hasTextLayer && (
+        <div className="p-3 rounded-lg border border-[var(--border-line)] bg-[var(--bg-surface)] text-xs text-[var(--color-mai)] flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <FileText className="w-4 h-4 shrink-0 text-[var(--color-semman)]" />
+            <span>
+              <strong>{pdfInfo.fileName}</strong> · {pdfInfo.extractedPages}/{pdfInfo.pageCount}{" "}
+              {pdfInfo.pageCount === 1 ? "page" : "pages"} · {t.tools.codec.pdfExtractedSummary}
+            </span>
+          </div>
+          {pdfInfo.suggestedProfile && (
+            <Badge variant="terracotta" className="text-[11px]">
+              {getProfileLabel(pdfInfo.suggestedProfile)}
+            </Badge>
+          )}
+        </div>
+      )}
+
+      {(pdfError || conversion.error) && (
         <div className="p-3 rounded-lg border border-red-300 bg-red-50/70 text-xs text-red-700 flex items-center gap-2">
           <AlertCircle className="w-4 h-4 shrink-0" />
-          <span>{conversion.error}</span>
+          <span>{pdfError ?? conversion.error}</span>
         </div>
       )}
 

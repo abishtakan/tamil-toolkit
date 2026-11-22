@@ -1,5 +1,14 @@
 # Project handoff
 
+## Phase 7A (`tamil-codec` / Playground): Client-Side Legacy PDF Text-Layer Extraction (2026-11-22)
+
+- **Scope (`playground/src/lib/pdf-extract.ts`, `playground/src/components/public-tools/CodecConverter.tsx`, `docs/specs/codec-roadmap.md`):**
+  - Added 100% client-side, zero-upload `pdfjs-dist` (legacy build for broad browser/Node compatibility) text-layer extraction, lazy-loaded via dynamic `import()` so initial Playground load is unaffected.
+  - Added embedded PDF font-family heuristic hinting (`inferCodecFromPdfFonts`) for Bamini, Vanavil, LT-TM, TSCII, TAB, TAM, and Anjal, plus explicit bilingual EN/TA warnings for scanned image-only PDFs (no OCR).
+  - Documented provenance/licensing status for queued legacy font tables (Senthamil, Shree-Tam, Softview, TBO) in `docs/specs/codec-roadmap.md` (no GPL-3.0 table copying into MIT `crates/tamil-codec`; primary `.ttf` `cmap` or permissive mapping witnesses required).
+- **Checks:** `pnpm --filter tamil-toolkit-playground test` (21/21 files, 127/127 passed), `pnpm --filter tamil-toolkit-playground build:beta` (`tsc --noEmit` + `vite build` + PWA precache), `check-unicode` (36,944 active vectors, 130 release source copies verified).
+- **Next:** Decide whether to add `tamil-codec::braille` (Bharathi / Unicode Braille Grade 1) or proceed directly to **Phase 8 (`tamil-translit`)**.
+
 ## Phase 6 (`tamil-numerals` v0.4): Diaspora Currencies, Colloquial Mixed Fractions & Formal ITN (2026-11-22)
 
 - **Scope (`crates/tamil-numerals/`, `docs/specs/numerals-v0.4.md`, `lexicon/numerals-v04.toml`):**
