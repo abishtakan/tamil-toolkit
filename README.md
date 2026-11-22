@@ -23,9 +23,9 @@
 
 ---
 
-**tamil-toolkit** is an industrial-strength, memory-safe Tamil linguistic engine and text processing suite. Engineered in Rust with zero-cost abstractions, it provides seamless, zero-copy, first-class bindings for **Python (CPython abi3)** and **JavaScript / TypeScript / WebAssembly (Node.js & Browsers)** with 100% cross-runtime behavioral parity.
+**tamil-toolkit** is an all-in-one, memory-safe Tamil linguistic engine written in Rust (`#![forbid(unsafe_code)]`) and compiled to native libraries and WebAssembly for **Rust (crates.io)**, **Python (PyPI abi3 wheels)**, **JavaScript / TypeScript (npm ESM/WASM for Node.js & Browsers)**, **Dart/Flutter**, and **Microsoft Word**.
 
-Whether you are converting legacy fonts in a browser, building Tamil NLP pipelines, formatting legal cheque amounts, segmenting poetic meters (*Maathirai* & *Olippasai*), sorting dictionaries in *Agara Varisai*, or hyphenating text for desktop publishing in LibreOffice and InDesign, **tamil-toolkit** delivers deterministic, microsecond-level performance.
+One canonical Rust core powers every runtime with verified golden-vector parity (**40,160 active vectors** in the source checkout; **36,161–36,205 vectors** per isolated consumer in `0.1.0-alpha.8`). Try it immediately in the [live WebAssembly Playground](https://tamil-toolkit-playground.vercel.app/) or read the machine-readable index in [llms.txt](llms.txt).
 
 ---
 
@@ -33,34 +33,28 @@ Whether you are converting legacy fonts in a browser, building Tamil NLP pipelin
 
 | Capability | What It Delivers |
 |---|---|
-| 🔤 **Unicode & Segmentation** | Tailored UAX #29 grapheme cluster segmentation correctly treating `க்ஷ` and `ஸ்ரீ` as single atomic letters. Mei/Uyirmei decomposition, canonical NFC/NFD normalization preserving ZWJ/ZWNJ joiners, and granular scalar inspection. |
-| 🎵 **Phonology & Mora Metrics** | Tholkappiyam-grounded phonological analysis: exact mora (*Maathirai*) fractional duration (`KURIL = 1.0`, `NEDIL = 2.0`, `MEI = 0.5`, `AYTHAM = 0.5`), letter quantity classification (`is_kuril`, `is_nedil`, `is_mei`, `is_aytham`), homorganic stop-nasal cognates (*Ina Ezhuthu* like `க்` ↔ `ங்`, `ச்` ↔ `ஞ்`), and zero-allocation syllable nucleus segmentation (*Olippasai*). |
-| 🔄 **Legacy Font Transcoder** | High-throughput, lossless bidirectional transcoding between Unicode and legacy Tamil encoding formats: **Bamini**, **TSCII**, **TAB**, **TAM**, **Anjal**, **Vanavil Avvaiyar**, and **LT-TM / IndoWord** 16-bit CID profiles. |
-| 🔠 **Agara Varisai Sorting** | Lexicographical Tamil alphabetical collation following the traditional Mei-first dictionary order (*Agara Varisai*). Provides versioned, deterministic numeric sort keys and exact normalized search keys. |
-| 🔢 **Numerals & Currency** | Bounded Tamil Nadu (`ta-IN`) and Sri Lankan (`ta-LK`) number-to-words spellout, exact financial currency formatting (INR/LKR) with zero floating-point drift, 20 traditional epigraphical fractions (*Mundhiri* `1/320` to *Mukkāl* `3/4`), and Unicode 17 Tamil numeral glyphs (`U+0BF0..U+0BF2`). |
-| 📅 **Solar Calendar & Panchangam** | Classical **Thirukanitham** (Drik Ganitha) and 1962 **Vākyakaraṇa** solar-lunar calendar engines: Gregorian ↔ Tamil solar date conversion, 60-year Jovian cycles, five limbs (*Tithi*, *Nakshatram*, *Yogam*, *Karanam*, *Vāram*), Rahukalam / Yamagandam / Kuligai daylight intervals, and Tamil Nadu official gazette holiday schedules. |
-| 📐 **DTP Syllabic Hyphenation** | Coda-preserving syllabic hyphenation engine, idempotent soft-hyphen (`\u{00AD}`) injection, responsive line-wrapping, Frank Liang / Hunspell `.dic` pattern generator, and ready-to-use LibreOffice extension (`tamil-hyphenation.oxt`). |
-| ⚡ **Tri-Runtime Parity** | Single Rust source of truth compiled to native Rust crates, CPython ABI3 wheels, and ESM/CommonJS WebAssembly packages. Every single output is verified against 35,000+ golden test vectors across all three runtimes. |
-| 🛡️ **100% Offline & Private** | Zero network telemetry, zero external web requests. Pure WebAssembly runs completely inside the client's browser or web worker for total privacy. |
+| 🔤 **Unicode & Segmentation** | Tailored UAX #29 grapheme cluster segmentation treating `க்ஷ` and `ஸ்ரீ` as atomic letters, Mei/Uyirmei decomposition & composition, canonical NFC/NFD normalization preserving ZWJ/ZWNJ joiners, orthographic repair, Mayangoli search folding, and scalar inspection. |
+| 🎵 **Phonology & Mora Metrics** | Tholkappiyam-grounded phonological analysis: exact mora (*Maathirai*) duration (`KURIL = 1.0`, `NEDIL = 2.0`, `MEI = 0.5`, `AYTHAM = 0.5`), quantity classification (`is_kuril`, `is_nedil`, `is_mei`, `is_aytham`), homorganic cognates (*Ina Ezhuthu*), and borrowed syllable nuclei (*Olippasai*). |
+| 🔠 **Agara Varisai Sorting** | Lexicographical Tamil alphabetical collation following traditional Mei-first dictionary order (`agara-v1`) and school Uyirmei-first order (`uyirmei-first-v1`), with versioned sort keys and canonical search keys. |
+| 📐 **DTP Syllabic Hyphenation** | Coda-binding syllabic hyphenation (`\u{00AD}`) that never strands a pulli consonant (ஒற்று), responsive line wrapping, Hunspell `.dic` export, LibreOffice `.oxt`, and a [Microsoft Word Add-in](https://tamil-toolkit-word.vercel.app/support.html). |
+| ⌨️ **Transliteration & Offline Input** *(source checkout)* | Lossless bidirectional scholarly romanization (`iso-15919`, `madras-lexicon`, `itrans`, `harvard-kyoto`), bidirectional Tanglish (`phonetic-v1`), and deterministic keyboard input (`tamil99`, `anjal-phonetic`, `suratha-bamini`). |
+| 🔢 **Numerals, Currencies & ITN** | Bounded Tamil Nadu (`TN`) and Sri Lanka (`SL`) number-to-words (`-999,999,999..=999,999,999`), exact currency formatting (`INR`/`LKR` in alpha-8; plus `SGD`, `MYR`, `USD`, `EUR`, `GBP`, `CAD`, colloquial mixed fractions, and formal `words_to_number` ITN in source checkout), traditional numerals (`௰`, `௱`, `௲`), and 72 Unicode Tamil symbols. |
+| 🔄 **Legacy Codecs & Bharathi Braille** | Bidirectional conversion between Tamil Unicode and bounded legacy profiles: **Bamini**, **TSCII**, **TAB**, **TAM**, **Anjal**, **Vanavil Avvaiyar**, **LT-TM** (plus **Senthamil**, **Shree-Tam**, **Softview**, **TBO**, and **Bharathi Tamil Braille Grade 1** in source checkout; client-side PDF text-layer import in the Playground). |
+| 📅 **Solar Calendar & Panchangam** | Bounded **Thirukanitham** (Drik) and 1962 **Vākyakaraṇa** solar-lunar calendar engines: Gregorian ↔ Tamil solar dates, 60-year Jovian cycle, five limbs (*Tithi*, *Nakshatram*, *Yogam*, *Karanam*, *Vāram*), Rahu Kalam / Yamagandam / Kuligai, and TN/SL holiday snapshots. |
+| ⚡ **Multi-Package-Manager Parity** | Single Rust engine shipped across `crates.io`, `PyPI`, and `npm` (ESM + WebAssembly), plus Dart FFI and Microsoft Word. Processes text locally in browser/server runtimes without external API calls. |
 
 ---
 
 ## Interactive Playground
 
-Experience the toolkit directly in your browser with our zero-latency WebAssembly workbench:
+Try all tools live in your browser at **[tamil-toolkit-playground.vercel.app](https://tamil-toolkit-playground.vercel.app/)** (processes text locally via WebAssembly):
 
-- **Public Utilities**:
-  - **எழுத்துரு மாற்றி (Font & Encoding Transcoder)**: Live conversion between Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM, and Unicode.
-  - **எண் - சொல் & நாணயம் (Numeral & Cheque Formatter)**: Numbers to formal Tamil words, cheque legal strings, and financial formatting.
-  - **நாட்காட்டி & பஞ்சாங்கம் (Calendar & Panchangam Explorer)**: Solar month converter, Jovian year lookup, and five-limb astronomical reports.
-  - **அகர வரிசை (Agara Varisai Sorter)**: Traditional alphabetical sorting of Tamil words.
-  - **பழந்தமிழ் பின்னங்கள் & குறியீடுகள் (Traditional Fractions & Symbols)**: Explore ancient measurement glyphs and rational fractions.
-  - **சொல் & பத்தி அசையசைப்பி (Hyphenator & Line Wrapper)**: Syllabic hyphenation and responsive paragraph wrapping.
-- **Developer Diagnostics**:
-  - **Unicode Scalar Inspector**: Examine hidden codepoints, pulli, and joiners.
-  - **Morphological Syllable Decomposer**: Split letters into uyir, mei, and diacritic components.
-  - **Polyglot Code Generator**: Generate working code snippets in Rust, Python, TypeScript, and Dart.
-  - **Offline PWA**: Full Progressive Web App support for field and desktop usage.
+- [Agara Varisai Tamil Sorter](https://tamil-toolkit-playground.vercel.app/tools/agara-varisai-sorter/) — Mei-first & Uyirmei-first alphabetical sorting
+- [Tamil99 Keyboard & Transliteration](https://tamil-toolkit-playground.vercel.app/tools/tamil99-keyboard/) — ISO 15919, Madras Lexicon, ITRANS, Harvard-Kyoto, Tanglish, Tamil99, Anjal, Suratha Bamini
+- [Tamil Number to Words & Cheque Formatter](https://tamil-toolkit-playground.vercel.app/tools/tamil-number-to-words/) — TN/SL spellout, 8 currencies, ITN, mixed fractions & traditional numerals
+- [Tamil Syllabic Hyphenator](https://tamil-toolkit-playground.vercel.app/tools/tamil-hyphenation/) — Coda-binding soft hyphens, `.dic` & LibreOffice `.oxt`
+- [Tamil Calendar & Panchangam](https://tamil-toolkit-playground.vercel.app/tools/tamil-panchangam/) — Thirukanitham & Vakya solar dates and five limbs
+- [Legacy Tamil Font Converter](https://tamil-toolkit-playground.vercel.app/tools/bamini-to-unicode/) & [Bharathi Tamil Braille Converter](https://tamil-toolkit-playground.vercel.app/tools/tamil-braille-converter/) — Legacy encodings, Braille Grade 1 & client-side PDF text-layer import
 
 ```bash
 # Run playground locally
@@ -325,12 +319,6 @@ Bug reports, documentation improvements, and sourced test cases are welcome. Rea
 ## License
 
 Original code is [Apache-2.0 licensed][license] (see [NOTICE](NOTICE) for attribution). Unicode data, encoding maps, and other upstream material retain the terms recorded in [third-party notices](THIRD_PARTY_NOTICES.md).
-
----
-
-## Search & Discovery Keywords
-
-`tamil-toolkit`, `tamil nlp`, `tamil text processing`, `tamil unicode`, `bamini to unicode`, `tscii to unicode`, `unicode to bamini`, `tab tam converter`, `vanavil to unicode`, `lt-tm font converter`, `tamil alphabet sorter`, `agara varisai sorting`, `tamil numbers to words`, `tamil currency formatter inr lkr`, `tamil fractions`, `tamil panchangam api`, `thirukanitham calendar`, `vakya panchangam`, `tamil hyphenation libreoffice`, `tamil soft hyphen`, `olippasai`, `maathirai calculation`, `ina ezhuthu cognates`, `tamil rust crate`, `tamil python library`, `tamil npm package`, `tamil wasm webassembly`.
 
 [ci-badge]: https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=Rust%20CI
 [ci]: https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml

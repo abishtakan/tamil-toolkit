@@ -1824,12 +1824,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Sync DOM attributes and title
+  // Sync DOM language & direction (document.title is owned by App.tsx route metadata)
   useEffect(() => {
     if (typeof document === "undefined") return;
     document.documentElement.lang = language;
     document.documentElement.dir = "ltr";
-    document.title = translations[language].documentTitle;
   }, [language]);
 
   // Sync with browser back/forward navigation

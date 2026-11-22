@@ -9,7 +9,9 @@ repository.workspace = true
 readme = "README.md"
 documentation = "https://docs.rs/tamil-core/0.1.0-alpha.8"
 include = ["src/**", "build*.rs", "lexicon/*.toml", "README.md", "LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
-description = "Tamil Unicode primitives, driven by declarative tables"
+description = "Tamil Unicode letter segmentation, Uyirmei composition, and scalar inspection"
+keywords = ["tamil", "unicode", "grapheme", "segmentation", "uyirmei"]
+categories = ["text-processing", "internationalization"]
 
 [dependencies]
 serde.workspace = true

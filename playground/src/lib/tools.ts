@@ -1,4 +1,5 @@
 import type { Translations } from "./i18n";
+import { findPrimarySeoPageByToolId, findSeoPageByPath } from "./seo-pages";
 
 export const IS_PUBLIC_BETA =
   import.meta.env.VITE_PUBLIC_BETA === "1" || import.meta.env.VITE_PUBLIC_BETA === "true";
@@ -353,6 +354,20 @@ export function resolveToolFromSearch(search: string): ToolId | "home" {
     // Ignore malformed query string
   }
   return "home";
+}
+
+export function resolveToolFromLocation(pathname: string, search: string): ToolId | "home" {
+  const seoPage = findSeoPageByPath(pathname);
+  if (seoPage) {
+    return seoPage.toolId;
+  }
+  return resolveToolFromSearch(search);
+}
+
+export function getToolHref(id: ToolId | "home"): string {
+  if (id === "home") return "/";
+  const seoPage = findPrimarySeoPageByToolId(id);
+  return seoPage ? `/tools/${seoPage.slug}/` : `/?tool=${id}`;
 }
 
 export function getToolMeta(id: ToolId): ToolMeta {

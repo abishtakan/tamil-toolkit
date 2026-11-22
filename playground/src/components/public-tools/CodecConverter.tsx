@@ -119,14 +119,15 @@ function encodeInputBytes(text: string, hexMode: boolean): Uint8Array | null {
 
 interface CodecConverterProps {
   engineReady?: boolean;
+  initialProfile?: CodecProfile;
 }
 
-export function CodecConverter({ engineReady }: CodecConverterProps) {
+export function CodecConverter({ engineReady, initialProfile }: CodecConverterProps) {
   const { language, t } = useLanguage();
   const ready = engineReady ?? isEngineReady();
 
   const [input, setInput] = useState("");
-  const [selectedProfile, setSelectedProfile] = useState<CodecProfile>("auto");
+  const [selectedProfile, setSelectedProfile] = useState<CodecProfile>(initialProfile ?? "auto");
   const [direction, setDirection] = useState<"to_unicode" | "from_unicode">("to_unicode");
   const [errorPolicy, setErrorPolicy] = useState<"preserve" | "strict">("preserve");
   const [hexMode, setHexMode] = useState(false);

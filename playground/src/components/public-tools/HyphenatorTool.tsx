@@ -784,7 +784,7 @@ export function HyphenatorTool({ engineReady }: HyphenatorToolProps) {
               {t.tools.hyphenator.setupGuidesLabel}
             </span>
             <a
-              href="https://github.com/tamil-toolkit/tamil-toolkit/blob/main/docs/integrations/libreoffice.md"
+              href="https://github.com/abishtakan/tamil-toolkit/blob/master/docs/integrations/libreoffice.md"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1 text-[var(--color-semman)] hover:underline"
@@ -794,7 +794,7 @@ export function HyphenatorTool({ engineReady }: HyphenatorToolProps) {
             </a>
             <span>·</span>
             <a
-              href="https://github.com/tamil-toolkit/tamil-toolkit/blob/main/docs/integrations/indesign.md"
+              href="https://github.com/abishtakan/tamil-toolkit/blob/master/docs/integrations/indesign.md"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1 text-[var(--color-semman)] hover:underline"
@@ -804,7 +804,7 @@ export function HyphenatorTool({ engineReady }: HyphenatorToolProps) {
             </a>
             <span>·</span>
             <a
-              href="https://github.com/tamil-toolkit/tamil-toolkit/blob/main/docs/integrations/scribus.md"
+              href="https://github.com/abishtakan/tamil-toolkit/blob/master/docs/integrations/scribus.md"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1 text-[var(--color-semman)] hover:underline"

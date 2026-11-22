@@ -3,13 +3,13 @@
   "version": "0.1.0-alpha.8",
   "license": "Apache-2.0",
   "repository": {"type": "git", "url": "https://github.com/abishtakan/tamil-toolkit.git", "directory": "bindings/js-wasm"},
-  "homepage": "https://github.com/abishtakan/tamil-toolkit#readme",
+  "homepage": "https://tamil-toolkit-playground.vercel.app/",
   "bugs": "https://github.com/abishtakan/tamil-toolkit/issues",
-  "keywords": ["tamil", "unicode", "wasm", "collation", "numerals", "bamini"],
+  "keywords": ["tamil", "unicode", "webassembly", "wasm", "rust", "agara-varisai", "collation", "number-to-words", "bamini", "tscii", "panchangam", "hyphenation"],
   "engines": {"node": ">=22"},
   "publishConfig": {"access": "public", "tag": "alpha"},
   "type": "module",
-  "description": "Thin TypeScript/WASM bindings for the Rust Tamil toolkit",
+  "description": "All-in-one Rust/WebAssembly Tamil linguistic engine for Node.js and browsers: Unicode rules, Agara Varisai sorting, numerals, hyphenation, Panchangam, and legacy codecs.",
   "exports": {
     ".": {
       "node": {"types": "./dist/index.d.ts", "default": "./dist/index.js"},

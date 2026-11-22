@@ -1,17 +1,85 @@
 <!doctype html>
-<html lang="ta" dir="ltr">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <meta name="theme-color" content="#963824" />
-    <meta name="description" content="தமிழ் கருவிப் பட்டறை - Tamil Toolkit Interactive Public & Developer Playground" />
+    <meta name="robots" content="index, follow" />
+    <title>Tamil Toolkit — All-in-One Rust &amp; WebAssembly Tamil Linguistic Engine | தமிழ் கருவிப் பட்டறை</title>
+    <meta
+      name="description"
+      content="Fast, all-in-one Tamil linguistic engine powered by memory-safe Rust and WebAssembly for Rust (crates.io), Python (PyPI), JavaScript/TS (npm), Dart, and browser: Tamil Unicode graphemes &amp; phonology, Agara Varisai sorting, Unicode repair, Tamil99 &amp; ISO 15919 transliteration, TN/SL numerals &amp; cheque words, Panchangam calendar, syllabic hyphenation, legacy fonts &amp; Bharathi Braille."
+    />
+    <meta name="author" content="Abishtakan Sivachandrathevan and tamil-toolkit contributors" />
+    <link rel="canonical" href="https://tamil-toolkit-playground.vercel.app/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tamil Toolkit (தமிழ் கருவிப் பட்டறை)" />
+    <meta property="og:url" content="https://tamil-toolkit-playground.vercel.app/" />
+    <meta property="og:title" content="Tamil Toolkit — All-in-One Rust &amp; WebAssembly Tamil Linguistic Engine" />
+    <meta
+      property="og:description"
+      content="One fast Rust + WebAssembly Tamil linguistic core across crates.io, PyPI, npm, Dart &amp; Microsoft Word: Unicode graphemes &amp; phonology, Agara Varisai, Tamil99, numerals, Panchangam, hyphenation, legacy fonts &amp; Braille."
+    />
+    <meta property="og:image" content="https://tamil-toolkit-playground.vercel.app/og-card.svg" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ta_IN" />
+    <meta property="og:locale:alternate" content="ta_LK" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tamil Toolkit — All-in-One Rust &amp; WebAssembly Tamil Linguistic Engine" />
+    <meta
+      name="twitter:description"
+      content="Fast Rust + WASM Tamil engine across Rust, Python, JS/TS &amp; Dart: Unicode rules, phonology, Agara Varisai, Tamil99, numerals, Panchangam, hyphenation, legacy fonts &amp; Braille."
+    />
+    <meta name="twitter:image" content="https://tamil-toolkit-playground.vercel.app/og-card.svg" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <title>தமிழ் கருவிப் பட்டறை | Tamil Toolkit Playground</title>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Tamil Toolkit Playground (தமிழ் கருவிப் பட்டறை)",
+        "alternateName": ["tamil-toolkit", "தமிழ் கருவிப் பட்டறை"],
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript and WebAssembly",
+        "isAccessibleForFree": true,
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "url": "https://tamil-toolkit-playground.vercel.app/",
+        "codeRepository": "https://github.com/abishtakan/tamil-toolkit",
+        "creator": {
+          "@type": "Person",
+          "name": "Abishtakan Sivachandrathevan"
+        },
+        "inLanguage": ["en", "ta"],
+        "description": "Browser-based Tamil language workbench powered by Rust and WebAssembly: legacy font converter (Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM, Senthamil, Shree-Tam, Softview, TBO, Bharathi Braille, and client-side PDF text-layer import), transliteration and Tamil99 keyboard, Tamil numbers & 8-currency cheque words, Agara Varisai sorting, Thirukanitham & Vakya Panchangam calendar, syllabic hyphenation, and Unicode repair."
+      }
+    </script>
   </head>
   <body class="min-h-screen bg-[var(--bg-canvas)] text-[var(--color-mai)] selection:bg-[var(--color-semman-light)] selection:text-[var(--color-semman)]">
-    <div id="root"></div>
+    <div id="root">
+      <main style="max-width: 760px; margin: 2rem auto; padding: 1.5rem; font-family: system-ui, sans-serif; line-height: 1.6;">
+        <h1>Tamil Toolkit Playground (தமிழ் கருவிப் பட்டறை)</h1>
+        <p>Browser-based Tamil language workbench powered by Rust and WebAssembly. Processes text locally in your browser.</p>
+        <ul>
+          <li><a href="/tools/bamini-to-unicode/">Bamini, TSCII &amp; Legacy Tamil Font to Unicode Converter</a></li>
+          <li><a href="/tools/tamil-braille-converter/">Bharathi Tamil Braille Grade 1 Converter</a></li>
+          <li><a href="/tools/tamil99-keyboard/">Tamil99 Online Keyboard &amp; Transliteration (ISO 15919, Tanglish)</a></li>
+          <li><a href="/tools/tamil-number-to-words/">Tamil Number to Words &amp; Cheque Formatter (INR, LKR, SGD, USD)</a></li>
+          <li><a href="/tools/agara-varisai-sorter/">Agara Varisai Tamil Alphabetical Sorter</a></li>
+          <li><a href="/tools/tamil-hyphenation/">Tamil Syllabic Hyphenator (Word, LibreOffice, InDesign)</a></li>
+          <li><a href="/tools/tamil-panchangam/">Tamil Calendar &amp; Panchangam (Thirukanitham &amp; Vakya)</a></li>
+        </ul>
+        <p>Open-source Rust, Python, and JavaScript/WebAssembly packages: <a href="https://github.com/abishtakan/tamil-toolkit">github.com/abishtakan/tamil-toolkit</a>.</p>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

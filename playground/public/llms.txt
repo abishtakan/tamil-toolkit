@@ -1,0 +1,22 @@
+# Tamil Toolkit Playground (தமிழ் கருவிப் பட்டறை)
+
+> Browser-based Tamil language workbench powered by Rust and WebAssembly. Processes text locally in your browser. Apache-2.0 open source, created by Abishtakan Sivachandrathevan and tamil-toolkit contributors.
+
+## Canonical Tool Pages
+
+- [Playground Home](https://tamil-toolkit-playground.vercel.app/): Overview and quick Tamil dictionary lookup.
+- [Bamini & Legacy Tamil Font Converter](https://tamil-toolkit-playground.vercel.app/tools/bamini-to-unicode/): Convert Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM, Senthamil, Shree-Tam, Softview, and TBO to Unicode, plus client-side PDF text-layer import.
+- [Tamil Braille Converter](https://tamil-toolkit-playground.vercel.app/tools/tamil-braille-converter/): Bharathi Tamil Braille Grade 1 (`U+2800..U+28FF`) bidirectional converter.
+- [Tamil99 Keyboard & Transliteration](https://tamil-toolkit-playground.vercel.app/tools/tamil99-keyboard/): ISO 15919, Madras Lexicon, ITRANS, Harvard-Kyoto, Phonetic (Tanglish), Tamil99, Anjal Phonetic, and Suratha Bamini.
+- [Tamil Number & Cheque Words](https://tamil-toolkit-playground.vercel.app/tools/tamil-number-to-words/): TN/SL number-to-words, 8-currency cheque spellout (`INR`, `LKR`, `SGD`, `MYR`, `USD`, `EUR`, `GBP`, `CAD`), words-to-number (ITN), mixed fractions, and traditional numerals.
+- [Agara Varisai Tamil Sorter](https://tamil-toolkit-playground.vercel.app/tools/agara-varisai-sorter/): Mei-first Agara Varisai and Uyirmei-first alphabetical sorting.
+- [Tamil Syllabic Hyphenator](https://tamil-toolkit-playground.vercel.app/tools/tamil-hyphenation/): Coda-binding soft hyphens, line wrapping, `.dic`, and LibreOffice `.oxt` downloads.
+- [Tamil Solar Calendar & Panchangam](https://tamil-toolkit-playground.vercel.app/tools/tamil-panchangam/): Bounded Thirukanitham (Drik) and 1962 Vakya solar dates, five limbs, and TN/SL holiday snapshots.
+
+## Source & SDKs
+
+- [GitHub Repository](https://github.com/abishtakan/tamil-toolkit): Source code, specs, and golden test vectors.
+- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.1.0-alpha.8`
+- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.1.0a8`
+- [npm ESM/WASM](https://www.npmjs.com/package/tamil-toolkit): `npm install tamil-toolkit@alpha`
+- [Microsoft Word Add-in Support](https://tamil-toolkit-word.vercel.app/support.html): Local-processing Word add-in guide and installation.

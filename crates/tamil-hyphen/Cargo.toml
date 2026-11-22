@@ -9,7 +9,9 @@ repository.workspace = true
 readme = "README.md"
 documentation = "https://docs.rs/tamil-hyphen/0.1.0-alpha.8"
 include = ["src/**", "README.md", "LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
-description = "Syllable and orthographic boundary hyphenation"
+description = "Tamil syllabic hyphenation, soft hyphens, and line wrapping"
+keywords = ["tamil", "hyphenation", "syllables", "line-breaking", "typography"]
+categories = ["text-processing", "localization"]
 
 [dependencies]
 tamil-core.workspace = true

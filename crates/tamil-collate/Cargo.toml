@@ -9,7 +9,9 @@ readme = "README.md"
 documentation = "https://docs.rs/tamil-collate/0.1.0-alpha.8"
 include = ["src/**", "build*.rs", "lexicon/*.toml", "README.md", "LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
 rust-version.workspace = true
-description = "Agara Varisai collation and search keys"
+description = "Tamil alphabetical sorting and search keys for Agara Varisai and Uyirmei-first order"
+keywords = ["tamil", "collation", "sorting", "agara-varisai", "unicode"]
+categories = ["text-processing", "internationalization"]
 
 [dependencies]
 tamil-core.workspace = true

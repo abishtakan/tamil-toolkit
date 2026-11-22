@@ -1,5 +1,15 @@
 # Project handoff
 
+## SEO & AI/LLM Discoverability Upgrade (2026-11-22)
+
+- **Scope (`llms.txt`, `playground/`, `crates/*/Cargo.toml`, `bindings/`, `integrations/office-word-addin/`, `README.md`):**
+  - Audited with Sol Medium and positioned around our core USP: fast, memory-safe, all-in-one Rust + WebAssembly Tamil linguistic engine with multi-package-manager parity (`crates.io`, `PyPI`, `npm`, `Dart`, `Word`).
+  - Added `llms.txt` (root & `playground/public/llms.txt`), `playground/public/robots.txt`, `playground/public/sitemap.xml`, `playground/public/og-card.svg`, and build-time prerendering (`playground/vite.config.ts` + `playground/src/lib/seo-pages.ts`) for 7 canonical `/tools/<slug>/` static HTML pages (`bamini-to-unicode`, `tamil-number-to-words`, `tamil99-keyboard`, `agara-varisai-sorter`, `tamil-braille-converter`, `tamil-hyphenation`, `tamil-panchangam`).
+  - Converted sidebar tool links to `<a href>` with `pushState`, kept `?tool=` bookmarks working, unified `document.title`/`canonical`/`description` ownership in `App.tsx`, and fixed broken integration doc links in `HyphenatorTool.tsx`.
+  - Added validated `keywords` and `categories` to all 9 public `crates/*/Cargo.toml`, enriched PyPI & npm metadata, updated `README.md`, added `noindex` to Word taskpane `index.html`, and upgraded `integrations/office-word-addin/support.html` as the public landing page.
+- **Checks:** Word Add-in build + 16/16 tests, Playground `build:beta` (all 7 prerendered `dist/tools/*/index.html` verified) + 22/22 test files (132/132 tests), and `check-unicode` (151 release files verified, 40,160 active vectors).
+- **Owner follow-up outside git:** Fill in GitHub About/Description/Website/Topics, redeploy Playground & Word Add-in to Vercel, submit `sitemap.xml` in Google Search Console & Bing Webmaster Tools.
+
 ## License Migration: `MIT` → `Apache-2.0` + `NOTICE` (2026-11-22)
 
 - **Scope (`LICENSE`, `NOTICE`, `Cargo.toml`, `crates/*/Cargo.toml`, `bindings/`, `playground/`, `integrations/office-word-addin/`, `tools/release_*.py`, `tests/harness/`):**

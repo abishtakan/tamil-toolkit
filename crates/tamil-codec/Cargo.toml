@@ -9,7 +9,9 @@ repository.workspace = true
 readme = "README.md"
 documentation = "https://docs.rs/tamil-codec/0.1.0-alpha.8"
 include = ["src/**", "build*.rs", "lexicon/*.toml", "README.md", "LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
-description = "Versioned legacy encodings and orthography conversion"
+description = "Tamil Unicode conversion for Bamini, TSCII, other legacy profiles, and Bharathi Braille"
+keywords = ["tamil", "bamini", "tscii", "unicode", "braille"]
+categories = ["encoding", "text-processing", "accessibility"]
 
 [dependencies]
 tamil-core.workspace = true

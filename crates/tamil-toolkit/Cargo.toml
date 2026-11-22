@@ -17,7 +17,9 @@ include = [
   "THIRD_PARTY_NOTICES.md",
 ]
 rust-version.workspace = true
-description = "Unified Tamil linguistic toolkit and shared FFI dispatcher"
+description = "All-in-one Rust Tamil linguistic engine: Unicode rules, Agara Varisai sorting, numerals, hyphenation, transliteration, and legacy codecs"
+keywords = ["tamil", "unicode", "nlp", "agara-varisai", "bamini"]
+categories = ["text-processing", "encoding", "internationalization"]
 
 [features]
 default = []

@@ -9,7 +9,9 @@ repository.workspace = true
 readme = "README.md"
 documentation = "https://docs.rs/tamil-numerals/0.1.0-alpha.8"
 include = ["src/**", "build*.rs", "lexicon/*.toml", "README.md", "LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
-description = "Tamil numerals, fractions, dates, and LKR/INR currencies"
+description = "Tamil number-to-words, cheque amount spellout, traditional numerals, and fractions"
+keywords = ["tamil", "number-to-words", "currency", "spellout", "numerals"]
+categories = ["localization", "text-processing"]
 
 [dependencies]
 tamil-core.workspace = true

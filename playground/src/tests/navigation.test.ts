@@ -4,8 +4,10 @@ import {
   TOOLS,
   TOOL_GROUPS,
   filterToolsByQuery,
+  getToolHref,
   isValidToolId,
   resolveLexiconViewMode,
+  resolveToolFromLocation,
   resolveToolFromSearch,
 } from "../lib/tools";
 
@@ -24,12 +26,26 @@ describe("Playground Navigation & Tool Registry", () => {
     expect(isValidToolId(null)).toBe(false);
   });
 
-  it("resolves ?tool= query parameters safely", () => {
+  it("resolves ?tool= query parameters and canonical /tools/<slug>/ paths safely", () => {
     expect(resolveToolFromSearch("")).toBe("home");
     expect(resolveToolFromSearch("?lang=ta")).toBe("home");
     expect(resolveToolFromSearch("?tool=lexicon&mode=historical")).toBe("lexicon");
     expect(resolveToolFromSearch("?tool=calendar")).toBe("calendar");
     expect(resolveToolFromSearch("?tool=unknown")).toBe("home");
+
+    expect(resolveToolFromLocation("/tools/bamini-to-unicode/", "")).toBe("codec");
+    expect(resolveToolFromLocation("/tools/tamil-braille-converter/", "")).toBe("codec");
+    expect(resolveToolFromLocation("/tools/tamil99-keyboard/", "")).toBe("translit");
+    expect(resolveToolFromLocation("/tools/tamil-number-to-words/", "")).toBe("numeral");
+    expect(resolveToolFromLocation("/tools/agara-varisai-sorter/", "")).toBe("sorter");
+    expect(resolveToolFromLocation("/tools/tamil-hyphenation/", "")).toBe("hyphenator");
+    expect(resolveToolFromLocation("/tools/tamil-panchangam/", "")).toBe("calendar");
+    expect(resolveToolFromLocation("/", "?tool=normalizer")).toBe("normalizer");
+
+    expect(getToolHref("home")).toBe("/");
+    expect(getToolHref("codec")).toBe("/tools/bamini-to-unicode/");
+    expect(getToolHref("translit")).toBe("/tools/tamil99-keyboard/");
+    expect(getToolHref("lexicon")).toBe("/?tool=lexicon");
   });
 
   it("filters tools by English and Tamil titles and keywords", () => {

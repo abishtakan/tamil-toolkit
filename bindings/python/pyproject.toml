@@ -6,16 +6,18 @@ build-backend = "maturin"
 name = "tamil-toolkit"
 version = "0.1.0a8"
 requires-python = ">=3.11"
-description = "Thin Python bindings for the Rust Tamil toolkit"
+description = "All-in-one Rust-powered Tamil linguistic engine for Python: Unicode rules, Agara Varisai sorting, numerals, hyphenation, Panchangam, and Bamini/TSCII codecs."
 readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md", "THIRD_PARTY_LICENSES.txt"]
 classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Rust", "Programming Language :: Python :: 3 :: Only", "Programming Language :: Python :: Implementation :: CPython"]
-keywords = ["tamil", "unicode", "collation", "numerals", "bamini"]
+keywords = ["tamil", "unicode", "nlp", "rust", "agara varisai", "number to words", "bamini", "tscii", "panchangam", "hyphenation"]
 
 [project.urls]
+Homepage = "https://tamil-toolkit-playground.vercel.app/"
 Repository = "https://github.com/abishtakan/tamil-toolkit"
 Documentation = "https://github.com/abishtakan/tamil-toolkit#readme"
+Changelog = "https://github.com/abishtakan/tamil-toolkit/blob/master/CHANGELOG.md"
 Issues = "https://github.com/abishtakan/tamil-toolkit/issues"
 
 [tool.maturin]

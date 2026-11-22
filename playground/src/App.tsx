@@ -9,9 +9,11 @@ import {
   ToolId,
   filterToolsByQuery,
   getToolCopy,
+  getToolHref,
   getToolMeta,
-  resolveToolFromSearch,
+  resolveToolFromLocation,
 } from "./lib/tools";
+import { PLAYGROUND_ORIGIN, findSeoPageByPath } from "./lib/seo-pages";
 import { OverviewHub } from "./components/common/OverviewHub";
 
 const CodecConverter = lazy(() =>
@@ -134,8 +136,16 @@ export function App() {
   const { language, setLanguage, t } = useLanguage();
   const [engineReady, setEngineReady] = useState(isEngineReady());
   const [activeTool, setActiveTool] = useState<ToolId | "home">(() =>
-    typeof window !== "undefined" ? resolveToolFromSearch(window.location.search) : "home"
+    typeof window !== "undefined"
+      ? resolveToolFromLocation(window.location.pathname, window.location.search)
+      : "home"
   );
+  const initialCodecProfile =
+    typeof window !== "undefined"
+      ? (findSeoPageByPath(window.location.pathname)?.defaultCodecProfile as
+          | import("./components/public-tools/CodecConverter").CodecProfile
+          | undefined)
+      : undefined;
   const [pendingLexiconQuery, setPendingLexiconQuery] = useState<{
     query: string;
     nonce: number;
@@ -172,11 +182,11 @@ export function App() {
       .catch((err) => console.error("Engine init error:", err));
   }, []);
 
-  // Sync browser back/forward navigation with ?tool=...
+  // Sync browser back/forward navigation with /tools/<slug>/ and ?tool=...
   useEffect(() => {
     if (typeof window === "undefined") return;
     const handlePopState = () => {
-      setActiveTool(resolveToolFromSearch(window.location.search));
+      setActiveTool(resolveToolFromLocation(window.location.pathname, window.location.search));
     };
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
@@ -232,17 +242,13 @@ export function App() {
     setMobileMenuOpen(false);
     try {
       if (typeof window !== "undefined") {
-        const url = new URL(window.location.href);
-        if (next === "home") {
-          url.searchParams.delete("tool");
-          url.searchParams.delete("mode");
-        } else {
-          url.searchParams.set("tool", next);
-          if (next !== "lexicon") {
-            url.searchParams.delete("mode");
-          }
+        const nextHref = getToolHref(next);
+        const url = new URL(nextHref, window.location.origin);
+        const currentLang = new URLSearchParams(window.location.search).get("lang");
+        if (currentLang === "ta" || currentLang === "en") {
+          url.searchParams.set("lang", currentLang);
         }
-        window.history.replaceState(null, "", url.toString());
+        window.history.pushState(null, "", url.pathname + url.search);
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } catch {
@@ -290,6 +296,28 @@ export function App() {
     if (activeTool === "home") return t.siteTitle;
     return getToolCopy(activeTool, t).title;
   }, [activeTool, t]);
+
+  // Single owner of document title, meta description & canonical URL
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const seoPage =
+      typeof window !== "undefined" ? findSeoPageByPath(window.location.pathname) : null;
+    const canonical = document.querySelector('link[rel="canonical"]');
+    const meta = document.querySelector('meta[name="description"]');
+
+    if (activeTool === "home") {
+      document.title = t.documentTitle;
+      if (meta) meta.setAttribute("content", t.siteSubtitle);
+      if (canonical) canonical.setAttribute("href", `${PLAYGROUND_ORIGIN}/`);
+      return;
+    }
+    const copy = getToolCopy(activeTool, t);
+    document.title = seoPage && language === "en" ? seoPage.title : `${copy.title} | ${t.siteTitle}`;
+    if (meta) meta.setAttribute("content", seoPage && language === "en" ? seoPage.description : copy.desc);
+    if (canonical) {
+      canonical.setAttribute("href", `${PLAYGROUND_ORIGIN}${getToolHref(activeTool)}`);
+    }
+  }, [activeTool, language, t]);
 
   const renderSidebarBody = (searchInputRef: React.RefObject<HTMLInputElement | null>) => (
     <div className="flex flex-col h-full">
@@ -385,10 +413,14 @@ export function App() {
                 const copy = getToolCopy(tool.id, t);
                 const isActive = activeTool === tool.id;
                 return (
-                  <button
+                  <a
                     key={tool.id}
-                    type="button"
-                    onClick={() => navigateToTool(tool.id)}
+                    href={getToolHref(tool.id)}
+                    onClick={(e) => {
+                      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                      e.preventDefault();
+                      navigateToTool(tool.id);
+                    }}
                     aria-current={isActive ? "page" : undefined}
                     className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left text-[13px] transition-colors cursor-pointer ${
                       isActive
@@ -403,7 +435,7 @@ export function App() {
                       }`}
                     />
                     <span className="truncate">{copy.title}</span>
-                  </button>
+                  </a>
                 );
               })}
             </div>
@@ -571,7 +603,9 @@ export function App() {
                 initialQueryNonce={pendingLexiconQuery?.nonce}
               />
             )}
-            {activeTool === "codec" && <CodecConverter engineReady={engineReady} />}
+            {activeTool === "codec" && (
+              <CodecConverter engineReady={engineReady} initialProfile={initialCodecProfile} />
+            )}
             {activeTool === "translit" && <TranslitTool engineReady={engineReady} />}
             {activeTool === "numeral" && <NumeralFormatter engineReady={engineReady} />}
             {activeTool === "calendar" && <CalendarExplorer engineReady={engineReady} />}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tamil-toolkit-playground.vercel.app/sitemap.xml
