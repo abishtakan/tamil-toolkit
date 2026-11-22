@@ -10,6 +10,6 @@ public_crates = [
   "tamil-calendar", "tamil-codec", "tamil-hyphen", "tamil-translit", "tamil-toolkit",
 ]
 
-# All published crates.io archives are slim MIT engine packages (< 10 MiB);
+# All published crates.io archives are slim Apache-2.0 engine packages (< 10 MiB);
 # CC-BY-SA-4.0 dictionary packs are compiled from source checkouts or separate artifacts.
 [crate_licenses]

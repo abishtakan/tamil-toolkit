@@ -157,7 +157,7 @@ def test_expected_dictionary_mapping_count_and_no_dev_only_assets(
     assert schema_targets == [
         f"crates/tamil-toolkit/schemas/lexicon/{name}" for name in EXPECTED_SCHEMA_FILES
     ]
-    assert len(expected) == 65 + (20 * 3) + 4
+    assert len(expected) == 87 + (20 * 3) + 4
 
     all_rel = [p.relative_to(ROOT).as_posix() for p in expected]
     assert all("cldf" not in rel for rel in all_rel)
@@ -306,22 +306,22 @@ def test_license_boundary_and_artifact_notice_api(
     assert "CC-BY-SA-4.0" in notice_text
     assert "Wiktionary" in notice_text
     assert "lexicon/dictionary/notices/CC-BY-SA-4.0.md" in notice_text
-    assert "MIT License" in notice_text or "MIT" in notice_text
+    assert "Apache-2.0" in notice_text
 
-    # Slim crates.io archive stays MIT (< 10 MiB); Python sdist carries MIT AND CC-BY-SA-4.0.
-    assert release_files.artifact_license_spdx("tamil-toolkit") == "MIT"
-    assert release_files.artifact_license_spdx("python-sdist") == "MIT AND CC-BY-SA-4.0"
+    # Slim crates.io archive stays Apache-2.0 (< 10 MiB); Python sdist carries Apache-2.0 AND CC-BY-SA-4.0.
+    assert release_files.artifact_license_spdx("tamil-toolkit") == "Apache-2.0"
+    assert release_files.artifact_license_spdx("python-sdist") == "Apache-2.0 AND CC-BY-SA-4.0"
 
-    # Lower crates and default zero-data profiles stay strictly MIT.
-    assert release_files.artifact_license_spdx("tamil-core") == "MIT"
-    assert release_files.artifact_license_spdx("python-wheel") == "MIT"
-    assert release_files.artifact_license_spdx("npm") == "MIT"
-    assert release_files.artifact_license_spdx("dart") == "MIT"
+    # Lower crates and default zero-data profiles stay strictly Apache-2.0.
+    assert release_files.artifact_license_spdx("tamil-core") == "Apache-2.0"
+    assert release_files.artifact_license_spdx("python-wheel") == "Apache-2.0"
+    assert release_files.artifact_license_spdx("npm") == "Apache-2.0"
+    assert release_files.artifact_license_spdx("dart") == "Apache-2.0"
 
     # Enabling the 'core' profile on binary artifacts upgrades SPDX & notice list.
-    assert release_files.artifact_license_spdx("python-wheel", profiles=("core",)) == "MIT AND CC-BY-SA-4.0"
-    assert release_files.artifact_license_spdx("npm", profiles=("core",)) == "MIT AND CC-BY-SA-4.0"
-    assert release_files.artifact_license_spdx("dart", profiles=("core",)) == "MIT AND CC-BY-SA-4.0"
+    assert release_files.artifact_license_spdx("python-wheel", profiles=("core",)) == "Apache-2.0 AND CC-BY-SA-4.0"
+    assert release_files.artifact_license_spdx("npm", profiles=("core",)) == "Apache-2.0 AND CC-BY-SA-4.0"
+    assert release_files.artifact_license_spdx("dart", profiles=("core",)) == "Apache-2.0 AND CC-BY-SA-4.0"
 
     assert release_files.artifact_notice_paths("tamil-toolkit", root=ROOT) == ["THIRD_PARTY_NOTICES.md"]
     sdist_notices = release_files.artifact_notice_paths("python-sdist", root=ROOT)
@@ -376,12 +376,12 @@ def test_release_policy_scopes_dual_license_only_to_facade_crate(tmp_path: Path)
     policy = release_policy.check(ROOT)
     assert policy["crate_licenses"] == {}
 
-    # Lower crate cannot override workspace MIT license.
+    # Lower crate cannot override workspace Apache-2.0 license.
     repo = _copy_policy_repo(tmp_path / "lower_override")
     core_toml = repo / "crates/tamil-core/Cargo.toml"
     core_toml.write_text(
         core_toml.read_text(encoding="utf-8").replace(
-            "license.workspace = true", 'license = "MIT AND CC-BY-SA-4.0"'
+            "license.workspace = true", 'license = "Apache-2.0 AND CC-BY-SA-4.0"'
         ),
         encoding="utf-8",
     )
@@ -392,7 +392,7 @@ def test_release_policy_scopes_dual_license_only_to_facade_crate(tmp_path: Path)
     repo2 = _copy_policy_repo(tmp_path / "bad_policy_key")
     policy_toml = repo2 / "release-policy.toml"
     policy_toml.write_text(
-        policy_toml.read_text(encoding="utf-8") + '\ntamil-core = "MIT AND CC-BY-SA-4.0"\n',
+        policy_toml.read_text(encoding="utf-8") + '\ntamil-core = "Apache-2.0 AND CC-BY-SA-4.0"\n',
         encoding="utf-8",
     )
     with pytest.raises(ValueError, match="crate_licenses"):

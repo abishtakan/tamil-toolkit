@@ -3,6 +3,17 @@
 
 ## Unreleased
 
+- **License migration (`MIT` → `Apache-2.0` + `NOTICE`):** Relicensed all
+  original `tamil-toolkit` code, crates, bindings, Playground, and Word Add-in
+  under **Apache License 2.0** (`LICENSE`) with a root **`NOTICE`** file
+  crediting creator **Abishtakan Sivachandrathevan and tamil-toolkit
+  contributors** (`https://github.com/abishtakan/tamil-toolkit`) plus all
+  upstream datasets, standards, and references. Updated `release_files.py`,
+  `release_policy.py`, `release.py`, `lexicon_dart_archive.py`, all crate/npm/
+  PyPI manifests, and synchronized `LICENSE`, `NOTICE`, `THIRD_PARTY_NOTICES.md`,
+  and crate `README.md` across all 9 public crates and 3 bindings (151 synced
+  files). Third-party dataset licenses (Wiktionary CC-BY-SA-4.0, Unicode-3.0,
+  upstream MIT/CC references) remain preserved.
 - **Playground & Microsoft Word Add-in (Phase 6, 7B & 8 parity):**
   - Updated `playground/` (`CodecConverter.tsx`, `pdf-extract.ts`, `NumeralFormatter.tsx`, new `TranslitTool.tsx`, `tools.ts`, `App.tsx`, `i18n.ts`) to expose all 12 legacy codecs + Bharathi Tamil Braille (with PDF font hinting for Senthamil, Shree-Tam, Softview, and TBO), all 8 currencies (`INR`, `LKR`, `SGD`, `MYR`, `USD`, `EUR`, `GBP`, `CAD`), colloquial `mixed_fraction_to_words`, formal `words_to_number` (ITN), and a dedicated **Transliteration & Tamil99** tool covering all 8 `tamil-translit` schemes (`iso-15919`, `madras-lexicon`, `itrans`, `harvard-kyoto`, `phonetic-v1`, `tamil99`, `anjal-phonetic`, `suratha-bamini`).
   - Updated `integrations/office-word-addin/` (`src/lib/tamil-engine.ts`, `index.html`, `src/taskpane.ts`, slim MIT WASM rebuilt) to support Senthamil, Shree-Tam, Softview, TBO, and Bharathi Braille conversion, all 8 currencies + `words_to_number` (ITN) in the Insert tab, and a **Transliteration & Tamil99 Composer** drawer in the Type tab.

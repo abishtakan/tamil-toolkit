@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions are welcome under the MIT license in LICENSE. By submitting a
+Contributions are welcome under the Apache-2.0 license in LICENSE (see NOTICE). By submitting a
 contribution, you agree to license your original contribution under those terms.
 Keep any upstream copyright, license, and attribution notices intact.
 

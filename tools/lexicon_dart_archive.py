@@ -58,8 +58,9 @@ def build_and_verify(profile: str) -> dict:
             target = stage / "lib" / path.relative_to(source / "lib")
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, target)
-        for name in ("pubspec.yaml", "pubspec.lock", "README.md", "LICENSE"):
-            shutil.copy2(source / name, stage / name)
+        for name in ("pubspec.yaml", "pubspec.lock", "README.md", "LICENSE", "NOTICE"):
+            if (source / name).is_file():
+                shutil.copy2(source / name, stage / name)
         copy_profile_notices(stage, profiles=spec.expected_packs)
         (stage / "native").mkdir()
         shutil.copy2(library, stage / "native" / library_name)
@@ -72,7 +73,7 @@ def build_and_verify(profile: str) -> dict:
             "manifest_sha256": spec.manifest_sha256,
             "pack_manifests": spec.pack_manifests_map(),
             "spdx": artifact_license_spdx("dart", profiles=spec.expected_packs),
-            "engine_code_spdx": "MIT",
+            "engine_code_spdx": "Apache-2.0",
             "native_sha256": hashlib.sha256(library.read_bytes()).hexdigest(),
         }
         (stage / "ARTIFACT_PROFILE.json").write_text(json.dumps(metadata, sort_keys=True, indent=2) + "\n")

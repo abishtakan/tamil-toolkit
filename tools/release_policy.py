@@ -51,7 +51,6 @@ CRATE_RANKS = {
 }
 
 UNSCAFFOLDED_PLANNED_CRATES = frozenset({
-    "tamil-translit",
     "tamil-phonetics",
     "tamil-tokenize",
     "tamil-spell",
@@ -185,7 +184,7 @@ def check(root=ROOT):
     workspace = read_toml(root / "Cargo.toml")["workspace"]
     public = policy["public_crates"]
     require(workspace["package"]["publish"] is False, "Workspace default must remain unpublished")
-    require(workspace["package"]["license"] == "MIT", "Workspace license must be MIT")
+    require(workspace["package"]["license"] == "Apache-2.0", "Workspace license must be Apache-2.0")
     require(workspace["package"]["repository"] == "https://github.com/" + REPOSITORY,
             "Workspace repository identity drift")
     manifests = list((root / "crates").glob("*/Cargo.toml"))
@@ -222,10 +221,10 @@ def check(root=ROOT):
             if any("lexicon/dictionary" in pat or "lexicon/packs" in pat for pat in include_patterns):
                 require(
                     isinstance(package.get("license"), str)
-                    and "MIT" in package["license"]
+                    and "Apache-2.0" in package["license"]
                     and "CC-BY-SA-4.0" in package["license"]
                     and name in crate_licenses,
-                    "tamil-toolkit bundles lexicon/dictionary or lexicon/packs and requires scoped MIT AND CC-BY-SA-4.0 license",
+                    "tamil-toolkit bundles lexicon/dictionary or lexicon/packs and requires scoped Apache-2.0 AND CC-BY-SA-4.0 license",
                 )
         else:
             include_patterns = package.get("include", [])
@@ -260,12 +259,12 @@ def check(root=ROOT):
     python = read_toml(root / "bindings/python/pyproject.toml")["project"]
     require(python["name"] == "tamil-toolkit" and python["version"] == policy["python_version"],
             "Python package identity/version drift")
-    require(python.get("license") == "MIT", "Python license must be MIT")
+    require(python.get("license") == "Apache-2.0", "Python license must be Apache-2.0")
     npm = read_json(root / "bindings/js-wasm/package.json")
     require(npm["name"] == "tamil-toolkit" and npm["version"] == policy["version"] and not npm.get("private"),
             "npm package identity/version/private drift")
     require(npm["publishConfig"] == {"access": "public", "tag": policy["npm_tag"]}, "npm release channel drift")
-    require(npm.get("license") == "MIT", "npm license must be MIT")
+    require(npm.get("license") == "Apache-2.0", "npm license must be Apache-2.0")
     require(read_json(root / "package.json").get("private") is True, "package.json must remain private")
     require(re.search(r"(?m)^publish_to:\s*none\s*$", (root / "bindings/dart-flutter/pubspec.yaml").read_text()),
             "Dart publishing is deferred")
@@ -372,7 +371,7 @@ def verify(registry, directory, source_sha, package=None, dist=None, root=ROOT):
             require(len(paths) == 1 and paths[0].name == f"tamil-toolkit-{policy['version']}.tgz", "npm artifact scope/version mismatch")
             metadata = json.loads(tar_files(paths[0])["package/package.json"])
             require(metadata.get("name") == "tamil-toolkit" and metadata.get("version") == policy["version"]
-                    and not metadata.get("private") and metadata.get("license") == "MIT"
+                    and not metadata.get("private") and metadata.get("license") == "Apache-2.0"
                     and metadata.get("publishConfig") == {"access": "public", "tag": policy["npm_tag"]},
                     "npm archive metadata/channel mismatch")
             archives.append(paths[0])

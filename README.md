@@ -13,7 +13,7 @@
 [![PyPI monthly downloads][pypi-downloads]][pypistats]
 [![npm alpha version][npm-version]][npm]
 [![npm monthly downloads][npm-downloads]][npm]
-[![MIT license][license-badge]][license]
+[![Apache-2.0 license][license-badge]][license]
 [![Zero Unsafe](https://img.shields.io/badge/unsafe-zero-success?style=flat-square&logo=rust)](crates/tamil-core)
 [![WebAssembly](https://img.shields.io/badge/WASM-100%25%20offline-blueviolet?style=flat-square&logo=webassembly)](bindings/js-wasm)
 
@@ -324,7 +324,7 @@ Bug reports, documentation improvements, and sourced test cases are welcome. Rea
 
 ## License
 
-Original code is [MIT licensed][license]. Unicode data, encoding maps, and other upstream material retain the terms recorded in [third-party notices](THIRD_PARTY_NOTICES.md).
+Original code is [Apache-2.0 licensed][license] (see [NOTICE](NOTICE) for attribution). Unicode data, encoding maps, and other upstream material retain the terms recorded in [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ---
 

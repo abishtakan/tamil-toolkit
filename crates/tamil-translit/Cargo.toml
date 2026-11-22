@@ -8,7 +8,7 @@ license.workspace = true
 repository.workspace = true
 readme = "README.md"
 documentation = "https://docs.rs/tamil-translit/0.1.0-alpha.8"
-include = ["src/**", "build.rs", "lexicon/**", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md"]
+include = ["src/**", "build.rs", "lexicon/**", "README.md", "LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
 description = "Lossless Tamil orthographic romanization (ISO 15919, MTL, ITRANS, Harvard-Kyoto) and deterministic offline input (Tamil99, Anjal, Suratha Bamini, Phonetic)"
 
 [dependencies]

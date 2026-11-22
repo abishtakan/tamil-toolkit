@@ -19,7 +19,7 @@ def read_toml(path):
 def test_alpha_scope_and_versions():
     workspace = read_toml(ROOT / "Cargo.toml")
     assert workspace["workspace"]["package"]["version"] == VERSION
-    assert workspace["workspace"]["package"]["license"] == "MIT"
+    assert workspace["workspace"]["package"]["license"] == "Apache-2.0"
     assert workspace["workspace"]["package"]["repository"] == REPOSITORY
     umbrella = read_toml(ROOT / "crates/tamil-toolkit/Cargo.toml")
     assert {name for name in umbrella["dependencies"] if name.startswith("tamil-")} == PUBLIC - {"tamil-toolkit"}
@@ -45,6 +45,7 @@ def test_public_build_inputs_are_self_contained_and_canonical():
     for name in PUBLIC:
         package = ROOT / "crates" / name
         assert (package / "LICENSE").read_bytes() == (ROOT / "LICENSE").read_bytes()
+        assert (package / "NOTICE").read_bytes() == (ROOT / "NOTICE").read_bytes()
         assert (package / "THIRD_PARTY_NOTICES.md").read_bytes() == (ROOT / "THIRD_PARTY_NOTICES.md").read_bytes()
         assert (package / "README.md").is_file()
         for script in package.glob("build*.rs"):
@@ -53,7 +54,7 @@ def test_public_build_inputs_are_self_contained_and_canonical():
 
 def test_npm_archive_contract_includes_binary_and_type_outputs():
     package = json.loads((ROOT / "bindings/js-wasm/package.json").read_text())
-    assert package["license"] == "MIT"
+    assert package["license"] == "Apache-2.0"
     assert package["repository"]["url"] == REPOSITORY + ".git"
     assert package["publishConfig"]["tag"] == POLICY["npm_tag"]
-    assert {"dist", "pkg-node", "pkg-web", "LICENSE", "THIRD_PARTY_NOTICES.md"} <= set(package["files"])
+    assert {"dist", "pkg-node", "pkg-web", "LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"} <= set(package["files"])

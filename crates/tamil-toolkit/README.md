@@ -8,7 +8,7 @@
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-toolkit?style=flat-square&label=downloads)](https://crates.io/crates/tamil-toolkit)
 [![docs.rs](https://docs.rs/tamil-toolkit/badge.svg)](https://docs.rs/tamil-toolkit/0.1.0-alpha.8)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
-[![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
+[![Apache-2.0 license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 
 [Install](#install) · [Example](#example) · [Documentation](#documentation)
 
@@ -66,7 +66,7 @@ fn main() -> Result<(), String> {
 
 ## License
 
-Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
+Original code is [Apache-2.0 licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE) (see [NOTICE](https://github.com/abishtakan/tamil-toolkit/blob/master/NOTICE) for attribution).
 Bundled data and mappings retain their recorded terms in the
 [third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).
 Contributions are welcome; see the [contributor guide](https://github.com/abishtakan/tamil-toolkit/blob/master/CONTRIBUTING.md).

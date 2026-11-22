@@ -1,5 +1,14 @@
 # Project handoff
 
+## License Migration: `MIT` → `Apache-2.0` + `NOTICE` (2026-11-22)
+
+- **Scope (`LICENSE`, `NOTICE`, `Cargo.toml`, `crates/*/Cargo.toml`, `bindings/`, `playground/`, `integrations/office-word-addin/`, `tools/release_*.py`, `tests/harness/`):**
+  - Replaced root `LICENSE` with verbatim **Apache License, Version 2.0** (`Copyright 2026 Abishtakan Sivachandrathevan and tamil-toolkit contributors`) and added canonical root `NOTICE` crediting `Abishtakan Sivachandrathevan and tamil-toolkit contributors` (`https://github.com/abishtakan/tamil-toolkit`) alongside all upstream data, standard, and reference attributions.
+  - Updated `Cargo.toml`, all 9 public `crates/*/Cargo.toml` (`include` lists now ship `NOTICE`), `bindings/python/pyproject.toml`, `bindings/js-wasm/package.json`, `release-policy.toml`, `tools/release_policy.py`, `tools/release_files.py`, `tools/release.py`, `tools/lexicon_dart_archive.py`, `README.md`, `CONTRIBUTING.md`, `playground/src/App.tsx`, and `integrations/office-word-addin/`.
+  - Synchronized all 151 release source copies (`LICENSE`, `NOTICE`, `THIRD_PARTY_NOTICES.md`, crate `README.md`, and lexicon copies) across all 9 public crates and 3 bindings; preserved all third-party dataset licenses (`CC-BY-SA-4.0`, `Unicode-3.0`, upstream MIT/CC references).
+  - Also removed implemented `tamil-translit` from `UNSCAFFOLDED_PLANNED_CRATES` and added `'tamil-translit'` to `.github/workflows/publish-crate.yml`.
+- **Checks:** `check-unicode` (151 release files verified, 40,160 active vectors) and all 91 release/license harness tests passed.
+
 ## Playground & Microsoft Word Add-in Update: Phases 6, 7B & 8 Feature Parity (2026-11-22)
 
 - **Scope (`playground/`, `integrations/office-word-addin/`):**

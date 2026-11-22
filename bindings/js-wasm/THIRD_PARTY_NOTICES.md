@@ -1,17 +1,24 @@
 # Third-party notices
 
-Original tamil-toolkit code is MIT licensed. The following upstream data and
-mapping notices retain their original terms; the project MIT license does not
-replace them. Generated lexicon copies are checked against the canonical data.
+Original tamil-toolkit code is Apache-2.0 licensed (see NOTICE for creator and
+project attribution). The following upstream data and mapping notices retain
+their original terms; the project Apache-2.0 license does not replace them.
+Generated lexicon copies are checked against the canonical data.
 
 Unicode 17 and CLDR 49 data: https://www.unicode.org/ and https://cldr.unicode.org/
 Bamini mapping sources: https://github.com/ag-sanjjeev/app-tamil-fonts-unicode-converter
 and https://github.com/Pakeetharan/unicode-bamini-converter
 TSCII mapping source: https://github.com/mayooresan/Android-TamilUtil
-LT-TM and Vanavil mapping references: Azhagi+ Portable configurations; source
-digests and scope are recorded in docs/specs/codec-lt-tm.md and
-docs/specs/codec-vanavil.md. Their bundled terms remain applicable to the
+LT-TM, Vanavil, Senthamil, Shree-Tam, Softview, and TBO mapping references:
+Azhagi+ Portable configurations; source digests and scope are recorded in
+docs/specs/codec-lt-tm.md, docs/specs/codec-vanavil.md, and
+docs/specs/codec-phase7-legacy.md. Their bundled terms remain applicable to the
 derived mapping tables.
+Bharathi Tamil Braille Grade 1 reference: World Braille Usage / NIEPVD
+(docs/specs/codec-braille.md).
+Transliteration and keyboard layout references: ISO 15919, University of Madras
+Tamil Lexicon, ITRANS, Harvard-Kyoto, TamilNet'99 (ELCOT), Anjal Phonetic, and
+Suratha Bamini (docs/specs/translit-v0.1.md).
 Tamil calendar display labels are extracted as short factual name lists from
 Tamil Virtual Academy's educational page; its reuse terms were not stated, so
 no license or permission is asserted and no prose or page/table image is copied.
@@ -203,7 +210,7 @@ THE SOFTWARE.
 The canonical Wiktionary data packs (`core`, `names_taxa`, `regional`) and source-archive
 copies distributed with `tamil-toolkit` are separately licensed under **CC-BY-SA-4.0**
 (upstream English Wiktionary contributors, dual CC-BY-SA-4.0 / GFDL upstream). The project
-MIT license continues to cover original Rust/binding code, lower crates, and default
+Apache-2.0 license continues to cover original Rust/binding code, lower crates, and default
 zero-data runtime distributions without embedded dictionary data. Complete attribution,
 revision/history links, section 7 disclaimers, and full CC-BY-SA-4.0 legal text are
 distributed in:

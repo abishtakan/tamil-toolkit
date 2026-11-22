@@ -68,7 +68,7 @@ def artifacts(repository, tmp_path, monkeypatch):
     for name in policy["public_crates"]:
         pack(root / "rust/rust" / f"{name}-{policy['version']}.crate", {"payload": "reviewed"})
     stamp(root / "rust", policy)
-    metadata = {"name": "tamil-toolkit", "version": policy["version"], "license": "MIT",
+    metadata = {"name": "tamil-toolkit", "version": policy["version"], "license": "Apache-2.0",
                 "publishConfig": {"access": "public", "tag": policy["npm_tag"]}}
     archive = root / "npm-node22/npm" / f"tamil-toolkit-{policy['version']}.tgz"
     pack(archive, {"package/package.json": json.dumps(metadata)})
@@ -102,7 +102,7 @@ def test_current_repository_meets_policy():
     ("Cargo.toml", f'version = "={POLICY["version"]}"', 'version = "=9.9.9-alpha.99"', "Dependency version"),
     ("crates/tamil-toolkit/Cargo.toml", "tamil-core.workspace = true", "tamil-unfinished.workspace = true", "unfinished dependency"),
     ("bindings/dart-flutter/pubspec.yaml", "publish_to: none", "publish_to: https://pub.dev", "Dart publishing"),
-    ("bindings/python/pyproject.toml", 'license = "MIT"', 'license = "Proprietary"', "Python license"),
+    ("bindings/python/pyproject.toml", 'license = "Apache-2.0"', 'license = "Proprietary"', "Python license"),
 ])
 def test_policy_rejects_release_drift(repository, path, old, new, message):
     replace(repository, path, old, new)
@@ -421,14 +421,14 @@ def test_dag_rejects_reverse_and_peer_dependencies(repository, manifest_rel, sec
 
 
 def test_dag_rejects_premature_empty_scaffold_for_planned_crates(repository):
-    translit_dir = repository / "crates/tamil-translit"
-    (translit_dir / "src").mkdir(parents=True)
-    (translit_dir / "Cargo.toml").write_text(
-        '[package]\nname = "tamil-translit"\nversion.workspace = true\npublish.workspace = true\n'
+    planned_dir = repository / "crates/tamil-tokenize"
+    (planned_dir / "src").mkdir(parents=True)
+    (planned_dir / "Cargo.toml").write_text(
+        '[package]\nname = "tamil-tokenize"\nversion.workspace = true\npublish.workspace = true\n'
         'license.workspace = true\nrepository.workspace = true\n',
         encoding="utf-8",
     )
-    (translit_dir / "src/lib.rs").write_text('pub const STATUS: &str = "planned";\n', encoding="utf-8")
+    (planned_dir / "src/lib.rs").write_text('pub const STATUS: &str = "planned";\n', encoding="utf-8")
     with pytest.raises(ValueError, match="unscaffolded planned crate cannot be created as an empty placeholder"):
         gate.check(repository)
 

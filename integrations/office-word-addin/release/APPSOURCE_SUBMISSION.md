@@ -15,7 +15,7 @@
 - **Name:** `Tamil Toolkit`
 - **Summary (<= 100 chars):** `100% client-side Tamil suite: legacy font conversions, sorting, numerals, calendar & hyphenation.`
 - **Description:**
-  > **Tamil Toolkit** brings a complete, 100% client-side Tamil linguistic utility suite directly into Microsoft Word (Windows, macOS, and Word on the Web) — powered by a fast, MIT-licensed Rust/WebAssembly engine with zero cloud data transmission.
+  > **Tamil Toolkit** brings a complete, 100% client-side Tamil linguistic utility suite directly into Microsoft Word (Windows, macOS, and Word on the Web) — powered by a fast, Apache-2.0-licensed Rust/WebAssembly engine with zero cloud data transmission.
   >
   > **Key Capabilities:**
   > - **Live Bamini → Unicode Typing & Legacy Conversion:** Type directly on your Word page using Bamini layout with live Unicode conversion (toggle ON/OFF from the top `தமிழ்` Ribbon), or convert existing Bamini, TSCII, TAB, TAM, Anjal, Vanavil Avvaiyar, and LT-TM (Shree-Lipi) selections/documents while preserving inline bold/italic formatting and English run fonts.

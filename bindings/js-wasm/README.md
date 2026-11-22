@@ -9,7 +9,7 @@
 [![npm alpha version](https://img.shields.io/npm/v/tamil-toolkit/alpha?style=flat-square&logo=npm&label=npm%20alpha)](https://www.npmjs.com/package/tamil-toolkit)
 [![npm monthly downloads](https://img.shields.io/npm/dm/tamil-toolkit?style=flat-square&label=monthly)](https://www.npmjs.com/package/tamil-toolkit)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
-[![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
+[![Apache-2.0 license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 [![TypeScript types](https://img.shields.io/badge/types-included-blue?style=flat-square&logo=typescript)](bindings/js-wasm)
 [![WebAssembly](https://img.shields.io/badge/WASM-100%25%20offline-blueviolet?style=flat-square&logo=webassembly)](bindings/js-wasm)
 
@@ -218,7 +218,7 @@ const text = tamil.execute({ op: "lt_tm_codes_to_unicode", input: { codes } });
 
 ## License
 
-Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
+Original code is [Apache-2.0 licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE) (see [NOTICE](https://github.com/abishtakan/tamil-toolkit/blob/master/NOTICE)).
 Bundled data and mappings retain their recorded terms in the
 [third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).
 

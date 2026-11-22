@@ -9,7 +9,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/tamil-toolkit?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/tamil-toolkit/)
 [![PyPI monthly downloads](https://img.shields.io/pypi/dm/tamil-toolkit?style=flat-square&label=monthly)](https://pypistats.org/packages/tamil-toolkit)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
-[![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
+[![Apache-2.0 license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg?style=flat-square&logo=python&logoColor=white)](https://pypi.org/project/tamil-toolkit/)
 [![CPython abi3](https://img.shields.io/badge/wheel-abi3-success.svg?style=flat-square)](https://pypi.org/project/tamil-toolkit/)
 
@@ -216,7 +216,7 @@ for artifact details.
 
 ## License
 
-Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
+Original code is [Apache-2.0 licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE) (see [NOTICE](https://github.com/abishtakan/tamil-toolkit/blob/master/NOTICE)).
 Bundled data and mappings retain their recorded terms in the
 [third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).
 

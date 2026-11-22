@@ -88,7 +88,7 @@ def _valid_crate_files(name: str, *, license_override: str | None = None) -> dic
 
 def _valid_sdist_files(
     *,
-    license_expr: str = "MIT AND CC-BY-SA-4.0",
+    license_expr: str = "Apache-2.0 AND CC-BY-SA-4.0",
     license_files: list[str] | None = None,
     omit_paths: set[str] | None = None,
     extra_files: dict[str, bytes | str] | None = None,
@@ -192,7 +192,7 @@ def _valid_wheel_files(
 
 def _make_fake_js_wasm_dir(directory: Path) -> Path:
     directory.mkdir(parents=True, exist_ok=True)
-    for rel in ("package.json", "README.md", "LICENSE", "THIRD_PARTY_NOTICES.md", "THIRD_PARTY_LICENSES.txt"):
+    for rel in ("package.json", "README.md", "LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md", "THIRD_PARTY_LICENSES.txt"):
         shutil.copy2(ROOT / "bindings/js-wasm" / rel, directory / rel)
     (directory / "dist").mkdir()
     for name in ("index.js", "index.d.ts", "web.js", "web.d.ts", "api.js", "api.d.ts"):
@@ -205,7 +205,7 @@ def _make_fake_js_wasm_dir(directory: Path) -> Path:
         (out / "tamil_toolkit_bg.wasm").write_bytes(b"\x00asm\x01\x00\x00\x00")
         (out / ".npmignore").write_text("# Include wasm-pack outputs.\n", encoding="utf-8")
         (out / "package.json").write_text(
-            json.dumps({"name": "tamil-wasm", "version": VERSION, "license": "MIT"}, indent=2),
+            json.dumps({"name": "tamil-wasm", "version": VERSION, "license": "Apache-2.0"}, indent=2),
             encoding="utf-8",
         )
     return directory
@@ -292,14 +292,14 @@ def test_rust_crate_verification_accepts_scoped_facade_and_mit_lower_crates(tmp_
 def test_rust_crate_verification_rejects_wrong_license_missing_notices_or_private_leak(tmp_path: Path, monkeypatch) -> None:
     bad_facade = _write_targz(
         tmp_path / "bad_facade.crate",
-        _valid_crate_files("tamil-toolkit", license_override="MIT AND CC-BY-SA-4.0"),
+        _valid_crate_files("tamil-toolkit", license_override="Apache-2.0 AND CC-BY-SA-4.0"),
     )
     with pytest.raises(ValueError, match="license"):
         release.verify_rust_crate_archive(bad_facade, "tamil-toolkit")
 
     bad_lower = _write_targz(
         tmp_path / "bad_lower.crate",
-        _valid_crate_files("tamil-core", license_override="MIT AND CC-BY-SA-4.0"),
+        _valid_crate_files("tamil-core", license_override="Apache-2.0 AND CC-BY-SA-4.0"),
     )
     with pytest.raises(ValueError, match="license"):
         release.verify_rust_crate_archive(bad_lower, "tamil-core")
@@ -349,7 +349,7 @@ def test_python_sdist_and_wheel_staging_patches_isolated_copies_only(
     release.prepare_python_sdist(sdist_dir, root=small_canonical_repo)
 
     sdist_toml = tomllib.loads((sdist_dir / "pyproject.toml").read_text(encoding="utf-8"))
-    assert sdist_toml["project"]["license"] == "MIT AND CC-BY-SA-4.0"
+    assert sdist_toml["project"]["license"] == "Apache-2.0 AND CC-BY-SA-4.0"
     for rel in release_files.artifact_notice_paths("python-sdist", root=ROOT):
         assert rel in sdist_toml["project"]["license-files"]
         assert (sdist_dir / rel).is_file()
@@ -359,7 +359,7 @@ def test_python_sdist_and_wheel_staging_patches_isolated_copies_only(
     shutil.copytree(sdist_dir, default_wheel_dir)
     release.prepare_python_wheel(default_wheel_dir, profile="default", root=small_canonical_repo)
     default_toml = tomllib.loads((default_wheel_dir / "pyproject.toml").read_text(encoding="utf-8"))
-    assert default_toml["project"]["license"] == "MIT"
+    assert default_toml["project"]["license"] == "Apache-2.0"
     assert default_toml["project"]["license-files"] == [
         "LICENSE",
         "THIRD_PARTY_LICENSES.txt",
@@ -372,7 +372,7 @@ def test_python_sdist_and_wheel_staging_patches_isolated_copies_only(
     shutil.copytree(sdist_dir, core_wheel_dir)
     release.prepare_python_wheel(core_wheel_dir, profile="core", root=small_canonical_repo)
     core_toml = tomllib.loads((core_wheel_dir / "pyproject.toml").read_text(encoding="utf-8"))
-    assert core_toml["project"]["license"] == "MIT AND CC-BY-SA-4.0"
+    assert core_toml["project"]["license"] == "Apache-2.0 AND CC-BY-SA-4.0"
     for rel in release_files.artifact_notice_paths("python-wheel", profiles=("core",), root=ROOT):
         assert rel in core_toml["project"]["license-files"]
         assert (core_wheel_dir / rel).is_file()
@@ -387,9 +387,9 @@ def test_python_sdist_verification_enforces_mixed_spdx_notices_and_no_leaks(tmp_
 
     wrong_spdx = _write_targz(
         tmp_path / "wrong_spdx.tar.gz",
-        _valid_sdist_files(license_expr="MIT"),
+        _valid_sdist_files(license_expr="Apache-2.0"),
     )
-    with pytest.raises(ValueError, match="MIT AND CC-BY-SA-4.0"):
+    with pytest.raises(ValueError, match="Apache-2.0 AND CC-BY-SA-4.0"):
         release.verify_python_sdist(wrong_spdx, expected_python_version=PY_VERSION)
 
     missing_notice = _write_targz(
@@ -440,9 +440,9 @@ def test_python_wheel_verification_enforces_profile_spdx_notices_and_no_raw_csv(
     # Core wheel claiming MIT fails
     core_mit = _write_zip(
         tmp_path / "core_mit.whl",
-        _valid_wheel_files(profile="core", license_expr="MIT"),
+        _valid_wheel_files(profile="core", license_expr="Apache-2.0"),
     )
-    with pytest.raises(ValueError, match="MIT AND CC-BY-SA-4.0"):
+    with pytest.raises(ValueError, match="Apache-2.0 AND CC-BY-SA-4.0"):
         release.verify_python_wheel(core_mit, profile="core", expected_python_version=PY_VERSION)
 
     # Core wheel missing CC-BY-SA-4.0 notice fails
@@ -501,7 +501,7 @@ def test_npm_staging_preserves_source_package_json_and_stages_profile_terms(
         root=small_canonical_repo,
     )
     default_pkg = json.loads((staged_default / "package.json").read_text(encoding="utf-8"))
-    assert default_pkg["license"] == "MIT"
+    assert default_pkg["license"] == "Apache-2.0"
     assert default_pkg["version"] == orig_parsed["version"]
     assert default_pkg["exports"] == orig_parsed["exports"]
     assert default_pkg["files"] == orig_parsed["files"]
@@ -515,15 +515,15 @@ def test_npm_staging_preserves_source_package_json_and_stages_profile_terms(
         root=small_canonical_repo,
     )
     core_pkg = json.loads((staged_core / "package.json").read_text(encoding="utf-8"))
-    assert core_pkg["license"] == "MIT AND CC-BY-SA-4.0"
+    assert core_pkg["license"] == "Apache-2.0 AND CC-BY-SA-4.0"
     assert core_pkg["version"] == orig_parsed["version"]
     assert core_pkg["exports"] == orig_parsed["exports"]
     assert set(orig_parsed["files"]) <= set(core_pkg["files"])
     for rel in release_files.artifact_notice_paths("npm", profiles=("core",), root=ROOT):
         assert rel in core_pkg["files"]
         assert (staged_core / rel).is_file()
-    assert json.loads((staged_core / "pkg-node/package.json").read_text(encoding="utf-8"))["license"] == "MIT AND CC-BY-SA-4.0"
-    assert json.loads((staged_core / "pkg-web/package.json").read_text(encoding="utf-8"))["license"] == "MIT AND CC-BY-SA-4.0"
+    assert json.loads((staged_core / "pkg-node/package.json").read_text(encoding="utf-8"))["license"] == "Apache-2.0 AND CC-BY-SA-4.0"
+    assert json.loads((staged_core / "pkg-web/package.json").read_text(encoding="utf-8"))["license"] == "Apache-2.0 AND CC-BY-SA-4.0"
     assert not list(staged_core.rglob("*.csv"))
 
     # Source package.json was NOT mutated
@@ -571,9 +571,9 @@ def test_npm_archive_verification_enforces_notices_spdx_exports_and_no_raw_csv(t
     # Core tarball with license=MIT fails
     core_mit = _write_targz(
         tmp_path / "core_mit.tgz",
-        _valid_npm_tar_files(profile="core", license_override="MIT"),
+        _valid_npm_tar_files(profile="core", license_override="Apache-2.0"),
     )
-    with pytest.raises(ValueError, match="MIT AND CC-BY-SA-4.0"):
+    with pytest.raises(ValueError, match="Apache-2.0 AND CC-BY-SA-4.0"):
         release.verify_npm_archive(core_mit, profile="core", expected_version=VERSION)
 
     # Core tarball missing a notice MD referenced in THIRD_PARTY_NOTICES.md fails
@@ -705,8 +705,8 @@ def test_python_orchestration_patches_staged_and_extracted_metadata_by_profile(
     expected_dest = out_dir / "python" if profile == "default" else out_dir / "profiles" / profile / "python"
     assert (expected_dest / f"tamil_toolkit-{PY_VERSION}.tar.gz").is_file()
     assert (expected_dest / f"tamil_toolkit-{PY_VERSION}-cp311-abi3-win_amd64.whl").is_file()
-    assert recorded_sdist_toml["project"]["license"] == "MIT AND CC-BY-SA-4.0"
-    expected_wheel_spdx = "MIT" if profile == "default" else "MIT AND CC-BY-SA-4.0"
+    assert recorded_sdist_toml["project"]["license"] == "Apache-2.0 AND CC-BY-SA-4.0"
+    expected_wheel_spdx = "Apache-2.0" if profile == "default" else "Apache-2.0 AND CC-BY-SA-4.0"
     assert recorded_wheel_toml["project"]["license"] == expected_wheel_spdx
     assert (ROOT / "bindings/python/pyproject.toml").read_text(encoding="utf-8") == checked_in_pyproject
 

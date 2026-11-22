@@ -7,7 +7,7 @@
 **Native Rust C-ABI adapter · Mei-first Agara collation · Legacy font conversion (Bamini, TSCII, TAB, TAM, Anjal) · Zero-memory-leak memory management**
 
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
-[![MIT license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
+[![Apache-2.0 license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 [![Flutter / Dart](https://img.shields.io/badge/Dart-3.0+-blue?style=flat-square&logo=dart)](bindings/dart-flutter)
 
 [Overview](#overview) · [Architecture](#architecture) · [Collation & Sorting](#tamil-collation--sorting) · [Legacy Font Transcoding](#legacy-font-transcoding) · [License](#license)
@@ -102,7 +102,7 @@ This compiles the Rust C ABI dynamic library and executes tests verifying golden
 
 ## License
 
-Original code is [MIT licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE).
+Original code is [Apache-2.0 licensed](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE) (see [NOTICE](https://github.com/abishtakan/tamil-toolkit/blob/master/NOTICE)).
 Bundled data and mappings retain their recorded terms in the
 [third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md).
 

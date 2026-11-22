@@ -591,7 +591,7 @@ export function App() {
         <footer className="border-t border-[var(--border-line)] bg-[var(--bg-surface)]/50 py-4 mt-auto">
           <div className="max-w-5xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[var(--color-muted)] text-center sm:text-left">
             <p>{t.nav.footerNotice}</p>
-            <p className="font-mono-tamil text-[11px]">{TOOLS.length} tools · MIT License</p>
+            <p className="font-mono-tamil text-[11px]">{TOOLS.length} tools · Apache-2.0 License</p>
           </div>
         </footer>
       </div>

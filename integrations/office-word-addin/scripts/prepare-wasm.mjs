@@ -19,7 +19,7 @@ if (!force && fs.existsSync(wasmFile) && fs.existsSync(jsFile)) {
   process.exit(0);
 }
 
-console.log("[prepare-wasm] Building slim MIT default-profile WASM for Word Add-in...");
+console.log("[prepare-wasm] Building slim Apache-2.0 default-profile WASM for Word Add-in...");
 
 const cargoBin = path.join(process.env.USERPROFILE || process.env.HOME || "", ".cargo", "bin");
 const env = {

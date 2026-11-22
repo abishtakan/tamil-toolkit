@@ -13,6 +13,7 @@ include = [
   "lexicon/*.toml",
   "README.md",
   "LICENSE",
+  "NOTICE",
   "THIRD_PARTY_NOTICES.md",
 ]
 rust-version.workspace = true

@@ -306,7 +306,7 @@ def _verify_notice_contents(
         if not allow_repo_notices:
             _require(
                 not referenced,
-                f"{artifact_label}: MIT-only THIRD_PARTY_NOTICES.md references CC pack notices: {', '.join(sorted(referenced))}",
+                f"{artifact_label}: Apache-2.0-only THIRD_PARTY_NOTICES.md references CC pack notices: {', '.join(sorted(referenced))}",
             )
         return
     _require(
@@ -580,7 +580,7 @@ def verify_python_sdist(
     expected_python_version: str | None = None,
     root: Path = ROOT,
 ) -> None:
-    """Verify Python sdist carries MIT AND CC-BY-SA-4.0 metadata, canonical notices, and clean vendoring."""
+    """Verify Python sdist carries Apache-2.0 AND CC-BY-SA-4.0 metadata, canonical notices, and clean vendoring."""
     raw_files = _safe_tar_members(sdist_path)
     pkg_infos = [path for path in raw_files if path.count("/") == 1 and path.endswith("/PKG-INFO")]
     _require(len(pkg_infos) == 1, f"Expected single PKG-INFO in sdist {sdist_path}, found {pkg_infos}")
@@ -622,7 +622,7 @@ def verify_python_sdist(
     vendored_pkg = vendored_manifest.get("package", {})
     vendored_license = vendored_pkg.get("license")
     _require(
-        vendored_license == "MIT" or (isinstance(vendored_license, dict) and vendored_license.get("workspace") is True),
+        vendored_license == "Apache-2.0" or (isinstance(vendored_license, dict) and vendored_license.get("workspace") is True),
         "python-sdist vendored tamil-toolkit Cargo.toml license mismatch",
     )
     for pack_id, cfg in DICTIONARY_PACK_PROFILES.items():
@@ -789,8 +789,10 @@ def stage_npm_package(
         src_sub = source_dir / subdir
         _require(src_sub.is_dir(), f"Missing built npm output directory: {src_sub}")
         shutil.copytree(src_sub, destination / subdir)
-    for rel_file in ("README.md", "LICENSE", "THIRD_PARTY_LICENSES.txt"):
+    for rel_file in ("README.md", "LICENSE", "NOTICE", "THIRD_PARTY_LICENSES.txt"):
         src_file = source_dir / rel_file
+        if rel_file == "NOTICE" and not src_file.is_file():
+            src_file = root / "NOTICE"
         _require(src_file.is_file(), f"Missing required npm package file: {src_file}")
         shutil.copy2(src_file, destination / rel_file)
 
