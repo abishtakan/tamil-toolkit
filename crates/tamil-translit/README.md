@@ -6,7 +6,7 @@
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-translit?style=flat-square)](https://crates.io/crates/tamil-translit)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-translit?style=flat-square&label=downloads)](https://crates.io/crates/tamil-translit)
-[![docs.rs](https://docs.rs/tamil-translit/badge.svg)](https://docs.rs/tamil-translit/0.1.0-alpha.8)
+[![docs.rs](https://docs.rs/tamil-translit/badge.svg)](https://docs.rs/tamil-translit/0.1.0-alpha.9)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
 [![Apache-2.0 license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 
@@ -21,20 +21,20 @@
 | **Scholarly Romanization** | Lossless bidirectional ISO 15919, Madras Lexicon, ITRANS, and Harvard-Kyoto transliteration (`transliterate`). |
 | **Offline Input** | Deterministic Tamil99, Anjal phonetic, Suratha Bamini, and rule-based Phonetic/Tanglish v1 input (`transliterate`). |
 
-Experimental alpha `0.1.0-alpha.8`. APIs may change before stability. This package provides bounded APIs and does not
+Experimental alpha `0.1.0-alpha.9`. APIs may change before stability. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage.
 
 ## Install
 
 ```sh
-cargo add tamil-translit@=0.1.0-alpha.8
+cargo add tamil-translit@=0.1.0-alpha.9
 ```
 
 Or add the exact alpha dependency to `Cargo.toml`:
 
 ```toml
 [dependencies]
-tamil-translit = "=0.1.0-alpha.8"
+tamil-translit = "=0.1.0-alpha.9"
 ```
 
 ## Example
@@ -52,10 +52,10 @@ fn main() -> Result<(), String> {
 
 ## Documentation
 
-- [API reference on docs.rs](https://docs.rs/tamil-translit/0.1.0-alpha.8)
+- [API reference on docs.rs](https://docs.rs/tamil-translit/0.1.0-alpha.9)
 - [Feature contract and examples](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/translit-v0.1.md)
 - [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-8.md)
+- [Alpha release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-9.md)
 
 ## License
 

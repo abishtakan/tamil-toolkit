@@ -3,6 +3,8 @@
 
 ## Unreleased
 
+## 0.1.0-alpha.9 / Python 0.1.0a9 - 2026-11-22
+
 - **SEO & AI/LLM discoverability (`llms.txt`, prerendered Playground routes, registry metadata, Word support page):**
   - Added canonical root `llms.txt` and `playground/public/{llms.txt,robots.txt,sitemap.xml,og-card.svg}` targeting `https://tamil-toolkit-playground.vercel.app/`, plus build-time prerendering in `playground/vite.config.ts` (`playground/src/lib/seo-pages.ts`) for 7 clean `/tools/<slug>/` landing pages with unique titles, meta descriptions, canonical URLs, Open Graph tags, and semantic HTML fallback before React/WASM hydration.
   - Updated `playground/src/App.tsx` and `playground/src/lib/tools.ts` to navigate via real `<a href>` links with `pushState` while preserving `?tool=` bookmarks, and unified `document.title` / `<meta description>` / `<link rel="canonical">` ownership.
