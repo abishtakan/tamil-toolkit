@@ -83,7 +83,7 @@ def run_pre_release_tests(root=ROOT):
         run_command(sys.executable, str(tasks_script), "test-dart", cwd=root)
     # 3. release-check (smoke tests on actual repackaged archives)
     release_script = root / "tools" / "release.py"
-    run_command(sys.executable, str(release_script), "all", cwd=root)
+    run_command(sys.executable, str(release_script), "all", "--lexicon-profile", "default", cwd=root)
     print("=== Pre-Release Test Gate Passed ===", flush=True)
 
 
