@@ -11,11 +11,11 @@ unicode = "\u2019"
 
 [[mappings]]
 hex = "93"
-unicode = "\u201c"
+unicode = "\u201C"
 
 [[mappings]]
 hex = "94"
-unicode = "\u201d"
+unicode = "\u201D"
 
 [[mappings]]
 hex = "95"
@@ -23,19 +23,19 @@ unicode = "\u2022"
 
 [[mappings]]
 hex = "a0"
-unicode = "\u00a0"
+unicode = "\u00A0"
 
 [[mappings]]
 hex = "a2"
-unicode = "\u0bcd"
+unicode = "\u0BCD"
 
 [[mappings]]
 hex = "a3"
-unicode = "\u0bbe"
+unicode = "\u0BBE"
 
 [[mappings]]
 hex = "a4"
-unicode = "\u0bbf"
+unicode = "\u0BBF"
 
 [[mappings]]
 hex = "a5"
@@ -43,619 +43,619 @@ unicode = "\u2022"
 
 [[mappings]]
 hex = "a6"
-unicode = "\u0bc0"
+unicode = "\u0BC0"
 
 [[mappings]]
 hex = "a7"
-unicode = "\u0bc1"
+unicode = "\u0BC1"
 
 [[mappings]]
 hex = "a8"
-unicode = "\u0bc2"
+unicode = "\u0BC2"
 
 [[mappings]]
 hex = "a9"
-unicode = "\u00a9"
+unicode = "\u00A9"
 
 [[mappings]]
 hex = "aa"
-unicode = "\u0bc6"
+unicode = "\u0BC6"
 
 [[mappings]]
 hex = "aae8"
-unicode = "\u0b95\u0bc6"
+unicode = "கெ"
 
 [[mappings]]
 hex = "aae8a3"
-unicode = "\u0b95\u0bca"
+unicode = "கொ"
 
 [[mappings]]
 hex = "aae8f7"
-unicode = "\u0b95\u0bcc"
+unicode = "கௌ"
 
 [[mappings]]
 hex = "aae9"
-unicode = "\u0b99\u0bc6"
+unicode = "ஙெ"
 
 [[mappings]]
 hex = "aae9a3"
-unicode = "\u0b99\u0bca"
+unicode = "ஙொ"
 
 [[mappings]]
 hex = "aae9f7"
-unicode = "\u0b99\u0bcc"
+unicode = "ஙௌ"
 
 [[mappings]]
 hex = "aaea"
-unicode = "\u0b9a\u0bc6"
+unicode = "செ"
 
 [[mappings]]
 hex = "aaeaa3"
-unicode = "\u0b9a\u0bca"
+unicode = "சொ"
 
 [[mappings]]
 hex = "aaeaf7"
-unicode = "\u0b9a\u0bcc"
+unicode = "சௌ"
 
 [[mappings]]
 hex = "aaeb"
-unicode = "\u0b9e\u0bc6"
+unicode = "ஞெ"
 
 [[mappings]]
 hex = "aaeba3"
-unicode = "\u0b9e\u0bca"
+unicode = "ஞொ"
 
 [[mappings]]
 hex = "aaebf7"
-unicode = "\u0b9e\u0bcc"
+unicode = "ஞௌ"
 
 [[mappings]]
 hex = "aaec"
-unicode = "\u0b9f\u0bc6"
+unicode = "டெ"
 
 [[mappings]]
 hex = "aaeca3"
-unicode = "\u0b9f\u0bca"
+unicode = "டொ"
 
 [[mappings]]
 hex = "aaecf7"
-unicode = "\u0b9f\u0bcc"
+unicode = "டௌ"
 
 [[mappings]]
 hex = "aaed"
-unicode = "\u0ba3\u0bc6"
+unicode = "ணெ"
 
 [[mappings]]
 hex = "aaeda3"
-unicode = "\u0ba3\u0bca"
+unicode = "ணொ"
 
 [[mappings]]
 hex = "aaedf7"
-unicode = "\u0ba3\u0bcc"
+unicode = "ணௌ"
 
 [[mappings]]
 hex = "aaee"
-unicode = "\u0ba4\u0bc6"
+unicode = "தெ"
 
 [[mappings]]
 hex = "aaeea3"
-unicode = "\u0ba4\u0bca"
+unicode = "தொ"
 
 [[mappings]]
 hex = "aaeef7"
-unicode = "\u0ba4\u0bcc"
+unicode = "தௌ"
 
 [[mappings]]
 hex = "aaef"
-unicode = "\u0ba8\u0bc6"
+unicode = "நெ"
 
 [[mappings]]
 hex = "aaefa3"
-unicode = "\u0ba8\u0bca"
+unicode = "நொ"
 
 [[mappings]]
 hex = "aaeff7"
-unicode = "\u0ba8\u0bcc"
+unicode = "நௌ"
 
 [[mappings]]
 hex = "aaf0"
-unicode = "\u0baa\u0bc6"
+unicode = "பெ"
 
 [[mappings]]
 hex = "aaf0a3"
-unicode = "\u0baa\u0bca"
+unicode = "பொ"
 
 [[mappings]]
 hex = "aaf0f7"
-unicode = "\u0baa\u0bcc"
+unicode = "பௌ"
 
 [[mappings]]
 hex = "aaf1"
-unicode = "\u0bae\u0bc6"
+unicode = "மெ"
 
 [[mappings]]
 hex = "aaf1a3"
-unicode = "\u0bae\u0bca"
+unicode = "மொ"
 
 [[mappings]]
 hex = "aaf1f7"
-unicode = "\u0bae\u0bcc"
+unicode = "மௌ"
 
 [[mappings]]
 hex = "aaf2"
-unicode = "\u0baf\u0bc6"
+unicode = "யெ"
 
 [[mappings]]
 hex = "aaf2a3"
-unicode = "\u0baf\u0bca"
+unicode = "யொ"
 
 [[mappings]]
 hex = "aaf2f7"
-unicode = "\u0baf\u0bcc"
+unicode = "யௌ"
 
 [[mappings]]
 hex = "aaf3"
-unicode = "\u0bb0\u0bc6"
+unicode = "ரெ"
 
 [[mappings]]
 hex = "aaf3a3"
-unicode = "\u0bb0\u0bca"
+unicode = "ரொ"
 
 [[mappings]]
 hex = "aaf3f7"
-unicode = "\u0bb0\u0bcc"
+unicode = "ரௌ"
 
 [[mappings]]
 hex = "aaf4"
-unicode = "\u0bb2\u0bc6"
+unicode = "லெ"
 
 [[mappings]]
 hex = "aaf4a3"
-unicode = "\u0bb2\u0bca"
+unicode = "லொ"
 
 [[mappings]]
 hex = "aaf4f7"
-unicode = "\u0bb2\u0bcc"
+unicode = "லௌ"
 
 [[mappings]]
 hex = "aaf5"
-unicode = "\u0bb5\u0bc6"
+unicode = "வெ"
 
 [[mappings]]
 hex = "aaf5a3"
-unicode = "\u0bb5\u0bca"
+unicode = "வொ"
 
 [[mappings]]
 hex = "aaf5f7"
-unicode = "\u0bb5\u0bcc"
+unicode = "வௌ"
 
 [[mappings]]
 hex = "aaf6"
-unicode = "\u0bb4\u0bc6"
+unicode = "ழெ"
 
 [[mappings]]
 hex = "aaf6a3"
-unicode = "\u0bb4\u0bca"
+unicode = "ழொ"
 
 [[mappings]]
 hex = "aaf6f7"
-unicode = "\u0bb4\u0bcc"
+unicode = "ழௌ"
 
 [[mappings]]
 hex = "aaf7"
-unicode = "\u0bb3\u0bc6"
+unicode = "ளெ"
 
 [[mappings]]
 hex = "aaf7a3"
-unicode = "\u0bb3\u0bca"
+unicode = "ளொ"
 
 [[mappings]]
 hex = "aaf7f7"
-unicode = "\u0bb3\u0bcc"
+unicode = "ளௌ"
 
 [[mappings]]
 hex = "aaf8"
-unicode = "\u0bb1\u0bc6"
+unicode = "றெ"
 
 [[mappings]]
 hex = "aaf8a3"
-unicode = "\u0bb1\u0bca"
+unicode = "றொ"
 
 [[mappings]]
 hex = "aaf8f7"
-unicode = "\u0bb1\u0bcc"
+unicode = "றௌ"
 
 [[mappings]]
 hex = "aaf9"
-unicode = "\u0ba9\u0bc6"
+unicode = "னெ"
 
 [[mappings]]
 hex = "aaf9a3"
-unicode = "\u0ba9\u0bca"
+unicode = "னொ"
 
 [[mappings]]
 hex = "aaf9f7"
-unicode = "\u0ba9\u0bcc"
+unicode = "னௌ"
 
 [[mappings]]
 hex = "aafa"
-unicode = "\u0bb8\u0bc6"
+unicode = "ஸெ"
 
 [[mappings]]
 hex = "aafaa3"
-unicode = "\u0bb8\u0bca"
+unicode = "ஸொ"
 
 [[mappings]]
 hex = "aafaf7"
-unicode = "\u0bb8\u0bcc"
+unicode = "ஸௌ"
 
 [[mappings]]
 hex = "aafb"
-unicode = "\u0bb7\u0bc6"
+unicode = "ஷெ"
 
 [[mappings]]
 hex = "aafba3"
-unicode = "\u0bb7\u0bca"
+unicode = "ஷொ"
 
 [[mappings]]
 hex = "aafbf7"
-unicode = "\u0bb7\u0bcc"
+unicode = "ஷௌ"
 
 [[mappings]]
 hex = "aafc"
-unicode = "\u0b9c\u0bc6"
+unicode = "ஜெ"
 
 [[mappings]]
 hex = "aafca3"
-unicode = "\u0b9c\u0bca"
+unicode = "ஜொ"
 
 [[mappings]]
 hex = "aafcf7"
-unicode = "\u0b9c\u0bcc"
+unicode = "ஜௌ"
 
 [[mappings]]
 hex = "aafd"
-unicode = "\u0bb9\u0bc6"
+unicode = "ஹெ"
 
 [[mappings]]
 hex = "aafda3"
-unicode = "\u0bb9\u0bca"
+unicode = "ஹொ"
 
 [[mappings]]
 hex = "aafdf7"
-unicode = "\u0bb9\u0bcc"
+unicode = "ஹௌ"
 
 [[mappings]]
 hex = "aafe"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc6"
+unicode = "க்ஷெ"
 
 [[mappings]]
 hex = "aafea3"
-unicode = "\u0b95\u0bcd\u0bb7\u0bca"
+unicode = "க்ஷொ"
 
 [[mappings]]
 hex = "aafef7"
-unicode = "\u0b95\u0bcd\u0bb7\u0bcc"
+unicode = "க்ஷௌ"
 
 [[mappings]]
 hex = "ab"
-unicode = "\u0bc7"
+unicode = "\u0BC7"
 
 [[mappings]]
 hex = "abe8"
-unicode = "\u0b95\u0bc7"
+unicode = "கே"
 
 [[mappings]]
 hex = "abe8a3"
-unicode = "\u0b95\u0bcb"
+unicode = "கோ"
 
 [[mappings]]
 hex = "abe9"
-unicode = "\u0b99\u0bc7"
+unicode = "ஙே"
 
 [[mappings]]
 hex = "abe9a3"
-unicode = "\u0b99\u0bcb"
+unicode = "ஙோ"
 
 [[mappings]]
 hex = "abea"
-unicode = "\u0b9a\u0bc7"
+unicode = "சே"
 
 [[mappings]]
 hex = "abeaa3"
-unicode = "\u0b9a\u0bcb"
+unicode = "சோ"
 
 [[mappings]]
 hex = "abeb"
-unicode = "\u0b9e\u0bc7"
+unicode = "ஞே"
 
 [[mappings]]
 hex = "abeba3"
-unicode = "\u0b9e\u0bcb"
+unicode = "ஞோ"
 
 [[mappings]]
 hex = "abec"
-unicode = "\u0b9f\u0bc7"
+unicode = "டே"
 
 [[mappings]]
 hex = "abeca3"
-unicode = "\u0b9f\u0bcb"
+unicode = "டோ"
 
 [[mappings]]
 hex = "abed"
-unicode = "\u0ba3\u0bc7"
+unicode = "ணே"
 
 [[mappings]]
 hex = "abeda3"
-unicode = "\u0ba3\u0bcb"
+unicode = "ணோ"
 
 [[mappings]]
 hex = "abee"
-unicode = "\u0ba4\u0bc7"
+unicode = "தே"
 
 [[mappings]]
 hex = "abeea3"
-unicode = "\u0ba4\u0bcb"
+unicode = "தோ"
 
 [[mappings]]
 hex = "abef"
-unicode = "\u0ba8\u0bc7"
+unicode = "நே"
 
 [[mappings]]
 hex = "abefa3"
-unicode = "\u0ba8\u0bcb"
+unicode = "நோ"
 
 [[mappings]]
 hex = "abf0"
-unicode = "\u0baa\u0bc7"
+unicode = "பே"
 
 [[mappings]]
 hex = "abf0a3"
-unicode = "\u0baa\u0bcb"
+unicode = "போ"
 
 [[mappings]]
 hex = "abf1"
-unicode = "\u0bae\u0bc7"
+unicode = "மே"
 
 [[mappings]]
 hex = "abf1a3"
-unicode = "\u0bae\u0bcb"
+unicode = "மோ"
 
 [[mappings]]
 hex = "abf2"
-unicode = "\u0baf\u0bc7"
+unicode = "யே"
 
 [[mappings]]
 hex = "abf2a3"
-unicode = "\u0baf\u0bcb"
+unicode = "யோ"
 
 [[mappings]]
 hex = "abf3"
-unicode = "\u0bb0\u0bc7"
+unicode = "ரே"
 
 [[mappings]]
 hex = "abf3a3"
-unicode = "\u0bb0\u0bcb"
+unicode = "ரோ"
 
 [[mappings]]
 hex = "abf4"
-unicode = "\u0bb2\u0bc7"
+unicode = "லே"
 
 [[mappings]]
 hex = "abf4a3"
-unicode = "\u0bb2\u0bcb"
+unicode = "லோ"
 
 [[mappings]]
 hex = "abf5"
-unicode = "\u0bb5\u0bc7"
+unicode = "வே"
 
 [[mappings]]
 hex = "abf5a3"
-unicode = "\u0bb5\u0bcb"
+unicode = "வோ"
 
 [[mappings]]
 hex = "abf6"
-unicode = "\u0bb4\u0bc7"
+unicode = "ழே"
 
 [[mappings]]
 hex = "abf6a3"
-unicode = "\u0bb4\u0bcb"
+unicode = "ழோ"
 
 [[mappings]]
 hex = "abf7"
-unicode = "\u0bb3\u0bc7"
+unicode = "ளே"
 
 [[mappings]]
 hex = "abf7a3"
-unicode = "\u0bb3\u0bcb"
+unicode = "ளோ"
 
 [[mappings]]
 hex = "abf8"
-unicode = "\u0bb1\u0bc7"
+unicode = "றே"
 
 [[mappings]]
 hex = "abf8a3"
-unicode = "\u0bb1\u0bcb"
+unicode = "றோ"
 
 [[mappings]]
 hex = "abf9"
-unicode = "\u0ba9\u0bc7"
+unicode = "னே"
 
 [[mappings]]
 hex = "abf9a3"
-unicode = "\u0ba9\u0bcb"
+unicode = "னோ"
 
 [[mappings]]
 hex = "abfa"
-unicode = "\u0bb8\u0bc7"
+unicode = "ஸே"
 
 [[mappings]]
 hex = "abfaa3"
-unicode = "\u0bb8\u0bcb"
+unicode = "ஸோ"
 
 [[mappings]]
 hex = "abfb"
-unicode = "\u0bb7\u0bc7"
+unicode = "ஷே"
 
 [[mappings]]
 hex = "abfba3"
-unicode = "\u0bb7\u0bcb"
+unicode = "ஷோ"
 
 [[mappings]]
 hex = "abfc"
-unicode = "\u0b9c\u0bc7"
+unicode = "ஜே"
 
 [[mappings]]
 hex = "abfca3"
-unicode = "\u0b9c\u0bcb"
+unicode = "ஜோ"
 
 [[mappings]]
 hex = "abfd"
-unicode = "\u0bb9\u0bc7"
+unicode = "ஹே"
 
 [[mappings]]
 hex = "abfda3"
-unicode = "\u0bb9\u0bcb"
+unicode = "ஹோ"
 
 [[mappings]]
 hex = "abfe"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc7"
+unicode = "க்ஷே"
 
 [[mappings]]
 hex = "abfea3"
-unicode = "\u0b95\u0bcd\u0bb7\u0bcb"
+unicode = "க்ஷோ"
 
 [[mappings]]
 hex = "ac"
-unicode = "\u0bc8"
+unicode = "\u0BC8"
 
 [[mappings]]
 hex = "ace8"
-unicode = "\u0b95\u0bc8"
+unicode = "கை"
 
 [[mappings]]
 hex = "ace9"
-unicode = "\u0b99\u0bc8"
+unicode = "ஙை"
 
 [[mappings]]
 hex = "acea"
-unicode = "\u0b9a\u0bc8"
+unicode = "சை"
 
 [[mappings]]
 hex = "aceb"
-unicode = "\u0b9e\u0bc8"
+unicode = "ஞை"
 
 [[mappings]]
 hex = "acec"
-unicode = "\u0b9f\u0bc8"
+unicode = "டை"
 
 [[mappings]]
 hex = "aced"
-unicode = "\u0ba3\u0bc8"
+unicode = "ணை"
 
 [[mappings]]
 hex = "acee"
-unicode = "\u0ba4\u0bc8"
+unicode = "தை"
 
 [[mappings]]
 hex = "acef"
-unicode = "\u0ba8\u0bc8"
+unicode = "நை"
 
 [[mappings]]
 hex = "acf0"
-unicode = "\u0baa\u0bc8"
+unicode = "பை"
 
 [[mappings]]
 hex = "acf1"
-unicode = "\u0bae\u0bc8"
+unicode = "மை"
 
 [[mappings]]
 hex = "acf2"
-unicode = "\u0baf\u0bc8"
+unicode = "யை"
 
 [[mappings]]
 hex = "acf3"
-unicode = "\u0bb0\u0bc8"
+unicode = "ரை"
 
 [[mappings]]
 hex = "acf4"
-unicode = "\u0bb2\u0bc8"
+unicode = "லை"
 
 [[mappings]]
 hex = "acf5"
-unicode = "\u0bb5\u0bc8"
+unicode = "வை"
 
 [[mappings]]
 hex = "acf6"
-unicode = "\u0bb4\u0bc8"
+unicode = "ழை"
 
 [[mappings]]
 hex = "acf7"
-unicode = "\u0bb3\u0bc8"
+unicode = "ளை"
 
 [[mappings]]
 hex = "acf8"
-unicode = "\u0bb1\u0bc8"
+unicode = "றை"
 
 [[mappings]]
 hex = "acf9"
-unicode = "\u0ba9\u0bc8"
+unicode = "னை"
 
 [[mappings]]
 hex = "acfa"
-unicode = "\u0bb8\u0bc8"
+unicode = "ஸை"
 
 [[mappings]]
 hex = "acfb"
-unicode = "\u0bb7\u0bc8"
+unicode = "ஷை"
 
 [[mappings]]
 hex = "acfc"
-unicode = "\u0b9c\u0bc8"
+unicode = "ஜை"
 
 [[mappings]]
 hex = "acfd"
-unicode = "\u0bb9\u0bc8"
+unicode = "ஹை"
 
 [[mappings]]
 hex = "acfe"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc8"
+unicode = "க்ஷை"
 
 [[mappings]]
 hex = "ae"
-unicode = "\u0b9f\u0bbf"
+unicode = "டி"
 
 [[mappings]]
 hex = "af"
-unicode = "\u0b9f\u0bc0"
+unicode = "டீ"
 
 [[mappings]]
 hex = "b0"
-unicode = "\u0b95\u0bc1"
+unicode = "கு"
 
 [[mappings]]
 hex = "b1"
-unicode = "\u0b99\u0bc1"
+unicode = "ஙு"
 
 [[mappings]]
 hex = "b2"
-unicode = "\u0b9a\u0bc1"
+unicode = "சு"
 
 [[mappings]]
 hex = "b3"
-unicode = "\u0b9e\u0bc1"
+unicode = "ஞு"
 
 [[mappings]]
 hex = "b4"
-unicode = "\u0b9f\u0bc1"
+unicode = "டு"
 
 [[mappings]]
 hex = "b5"
-unicode = "\u0ba3\u0bc1"
+unicode = "ணு"
 
 [[mappings]]
 hex = "b6"
-unicode = "\u0ba4\u0bc1"
+unicode = "து"
 
 [[mappings]]
 hex = "b7"
@@ -663,107 +663,107 @@ unicode = "\u2022"
 
 [[mappings]]
 hex = "b8"
-unicode = "\u0ba8\u0bc1"
+unicode = "நு"
 
 [[mappings]]
 hex = "b9"
-unicode = "\u0baa\u0bc1"
+unicode = "பு"
 
 [[mappings]]
 hex = "ba"
-unicode = "\u0bae\u0bc1"
+unicode = "மு"
 
 [[mappings]]
 hex = "bb"
-unicode = "\u0baf\u0bc1"
+unicode = "யு"
 
 [[mappings]]
 hex = "bc"
-unicode = "\u0bb0\u0bc1"
+unicode = "ரு"
 
 [[mappings]]
 hex = "bd"
-unicode = "\u0bb2\u0bc1"
+unicode = "லு"
 
 [[mappings]]
 hex = "be"
-unicode = "\u0bb5\u0bc1"
+unicode = "வு"
 
 [[mappings]]
 hex = "bf"
-unicode = "\u0bb4\u0bc1"
+unicode = "ழு"
 
 [[mappings]]
 hex = "c0"
-unicode = "\u0bb3\u0bc1"
+unicode = "ளு"
 
 [[mappings]]
 hex = "c1"
-unicode = "\u0bb1\u0bc1"
+unicode = "று"
 
 [[mappings]]
 hex = "c2"
-unicode = "\u0ba9\u0bc1"
+unicode = "னு"
 
 [[mappings]]
 hex = "c3"
-unicode = "\u0b95\u0bc2"
+unicode = "கூ"
 
 [[mappings]]
 hex = "c4"
-unicode = "\u0b99\u0bc2"
+unicode = "ஙூ"
 
 [[mappings]]
 hex = "c5"
-unicode = "\u0b9a\u0bc2"
+unicode = "சூ"
 
 [[mappings]]
 hex = "c6"
-unicode = "\u0b9e\u0bc2"
+unicode = "ஞூ"
 
 [[mappings]]
 hex = "c7"
-unicode = "\u0b9f\u0bc2"
+unicode = "டூ"
 
 [[mappings]]
 hex = "c8"
-unicode = "\u0ba3\u0bc2"
+unicode = "ணூ"
 
 [[mappings]]
 hex = "c9"
-unicode = "\u0ba4\u0bc2"
+unicode = "தூ"
 
 [[mappings]]
 hex = "ca"
-unicode = "\u00a0"
+unicode = "\u00A0"
 
 [[mappings]]
 hex = "cb"
-unicode = "\u0ba8\u0bc2"
+unicode = "நூ"
 
 [[mappings]]
 hex = "cc"
-unicode = "\u0baa\u0bc2"
+unicode = "பூ"
 
 [[mappings]]
 hex = "cd"
-unicode = "\u0bae\u0bc2"
+unicode = "மூ"
 
 [[mappings]]
 hex = "ce"
-unicode = "\u0baf\u0bc2"
+unicode = "யூ"
 
 [[mappings]]
 hex = "cf"
-unicode = "\u0bb0\u0bc2"
+unicode = "ரூ"
 
 [[mappings]]
 hex = "d2"
-unicode = "\u201c"
+unicode = "\u201C"
 
 [[mappings]]
 hex = "d3"
-unicode = "\u201d"
+unicode = "\u201D"
 
 [[mappings]]
 hex = "d4"
@@ -775,571 +775,571 @@ unicode = "\u2019"
 
 [[mappings]]
 hex = "d6"
-unicode = "\u0bb2\u0bc2"
+unicode = "லூ"
 
 [[mappings]]
 hex = "d7"
-unicode = "\u0bb5\u0bc2"
+unicode = "வூ"
 
 [[mappings]]
 hex = "d8"
-unicode = "\u0bb4\u0bc2"
+unicode = "ழூ"
 
 [[mappings]]
 hex = "d9"
-unicode = "\u0bb3\u0bc2"
+unicode = "ளூ"
 
 [[mappings]]
 hex = "da"
-unicode = "\u0bb1\u0bc2"
+unicode = "றூ"
 
 [[mappings]]
 hex = "db"
-unicode = "\u0ba9\u0bc2"
+unicode = "னூ"
 
 [[mappings]]
 hex = "dc"
-unicode = "\u0b85"
+unicode = "அ"
 
 [[mappings]]
 hex = "dd"
-unicode = "\u0b86"
+unicode = "ஆ"
 
 [[mappings]]
 hex = "de"
-unicode = "\u0b87"
+unicode = "இ"
 
 [[mappings]]
 hex = "df"
-unicode = "\u0b88"
+unicode = "ஈ"
 
 [[mappings]]
 hex = "e0"
-unicode = "\u0b89"
+unicode = "உ"
 
 [[mappings]]
 hex = "e1"
-unicode = "\u0b8a"
+unicode = "ஊ"
 
 [[mappings]]
 hex = "e2"
-unicode = "\u0b8e"
+unicode = "எ"
 
 [[mappings]]
 hex = "e3"
-unicode = "\u0b8f"
+unicode = "ஏ"
 
 [[mappings]]
 hex = "e4"
-unicode = "\u0b90"
+unicode = "ஐ"
 
 [[mappings]]
 hex = "e5"
-unicode = "\u0b92"
+unicode = "ஒ"
 
 [[mappings]]
 hex = "e5f7"
-unicode = "\u0b94"
+unicode = "ஔ"
 
 [[mappings]]
 hex = "e6"
-unicode = "\u0b93"
+unicode = "ஓ"
 
 [[mappings]]
 hex = "e7"
-unicode = "\u0b83"
+unicode = "ஃ"
 
 [[mappings]]
 hex = "e8"
-unicode = "\u0b95"
+unicode = "க"
 
 [[mappings]]
 hex = "e8a2"
-unicode = "\u0b95\u0bcd"
+unicode = "க்"
 
 [[mappings]]
 hex = "e8a3"
-unicode = "\u0b95\u0bbe"
+unicode = "கா"
 
 [[mappings]]
 hex = "e8a4"
-unicode = "\u0b95\u0bbf"
+unicode = "கி"
 
 [[mappings]]
 hex = "e8a6"
-unicode = "\u0b95\u0bc0"
+unicode = "கீ"
 
 [[mappings]]
 hex = "e9"
-unicode = "\u0b99"
+unicode = "ங"
 
 [[mappings]]
 hex = "e9a2"
-unicode = "\u0b99\u0bcd"
+unicode = "ங்"
 
 [[mappings]]
 hex = "e9a3"
-unicode = "\u0b99\u0bbe"
+unicode = "ஙா"
 
 [[mappings]]
 hex = "e9a4"
-unicode = "\u0b99\u0bbf"
+unicode = "ஙி"
 
 [[mappings]]
 hex = "e9a6"
-unicode = "\u0b99\u0bc0"
+unicode = "ஙீ"
 
 [[mappings]]
 hex = "ea"
-unicode = "\u0b9a"
+unicode = "ச"
 
 [[mappings]]
 hex = "eaa2"
-unicode = "\u0b9a\u0bcd"
+unicode = "ச்"
 
 [[mappings]]
 hex = "eaa3"
-unicode = "\u0b9a\u0bbe"
+unicode = "சா"
 
 [[mappings]]
 hex = "eaa4"
-unicode = "\u0b9a\u0bbf"
+unicode = "சி"
 
 [[mappings]]
 hex = "eaa6"
-unicode = "\u0b9a\u0bc0"
+unicode = "சீ"
 
 [[mappings]]
 hex = "eb"
-unicode = "\u0b9e"
+unicode = "ஞ"
 
 [[mappings]]
 hex = "eba2"
-unicode = "\u0b9e\u0bcd"
+unicode = "ஞ்"
 
 [[mappings]]
 hex = "eba3"
-unicode = "\u0b9e\u0bbe"
+unicode = "ஞா"
 
 [[mappings]]
 hex = "eba4"
-unicode = "\u0b9e\u0bbf"
+unicode = "ஞி"
 
 [[mappings]]
 hex = "eba6"
-unicode = "\u0b9e\u0bc0"
+unicode = "ஞீ"
 
 [[mappings]]
 hex = "ec"
-unicode = "\u0b9f"
+unicode = "ட"
 
 [[mappings]]
 hex = "eca2"
-unicode = "\u0b9f\u0bcd"
+unicode = "ட்"
 
 [[mappings]]
 hex = "eca3"
-unicode = "\u0b9f\u0bbe"
+unicode = "டா"
 
 [[mappings]]
 hex = "eca4"
-unicode = "\u0b9f\u0bbf"
+unicode = "டி"
 
 [[mappings]]
 hex = "eca6"
-unicode = "\u0b9f\u0bc0"
+unicode = "டீ"
 
 [[mappings]]
 hex = "ed"
-unicode = "\u0ba3"
+unicode = "ண"
 
 [[mappings]]
 hex = "eda2"
-unicode = "\u0ba3\u0bcd"
+unicode = "ண்"
 
 [[mappings]]
 hex = "eda3"
-unicode = "\u0ba3\u0bbe"
+unicode = "ணா"
 
 [[mappings]]
 hex = "eda4"
-unicode = "\u0ba3\u0bbf"
+unicode = "ணி"
 
 [[mappings]]
 hex = "eda6"
-unicode = "\u0ba3\u0bc0"
+unicode = "ணீ"
 
 [[mappings]]
 hex = "ee"
-unicode = "\u0ba4"
+unicode = "த"
 
 [[mappings]]
 hex = "eea2"
-unicode = "\u0ba4\u0bcd"
+unicode = "த்"
 
 [[mappings]]
 hex = "eea3"
-unicode = "\u0ba4\u0bbe"
+unicode = "தா"
 
 [[mappings]]
 hex = "eea4"
-unicode = "\u0ba4\u0bbf"
+unicode = "தி"
 
 [[mappings]]
 hex = "eea6"
-unicode = "\u0ba4\u0bc0"
+unicode = "தீ"
 
 [[mappings]]
 hex = "ef"
-unicode = "\u0ba8"
+unicode = "ந"
 
 [[mappings]]
 hex = "efa2"
-unicode = "\u0ba8\u0bcd"
+unicode = "ந்"
 
 [[mappings]]
 hex = "efa3"
-unicode = "\u0ba8\u0bbe"
+unicode = "நா"
 
 [[mappings]]
 hex = "efa4"
-unicode = "\u0ba8\u0bbf"
+unicode = "நி"
 
 [[mappings]]
 hex = "efa6"
-unicode = "\u0ba8\u0bc0"
+unicode = "நீ"
 
 [[mappings]]
 hex = "f0"
-unicode = "\u0baa"
+unicode = "ப"
 
 [[mappings]]
 hex = "f0a2"
-unicode = "\u0baa\u0bcd"
+unicode = "ப்"
 
 [[mappings]]
 hex = "f0a3"
-unicode = "\u0baa\u0bbe"
+unicode = "பா"
 
 [[mappings]]
 hex = "f0a4"
-unicode = "\u0baa\u0bbf"
+unicode = "பி"
 
 [[mappings]]
 hex = "f0a6"
-unicode = "\u0baa\u0bc0"
+unicode = "பீ"
 
 [[mappings]]
 hex = "f1"
-unicode = "\u0bae"
+unicode = "ம"
 
 [[mappings]]
 hex = "f1a2"
-unicode = "\u0bae\u0bcd"
+unicode = "ம்"
 
 [[mappings]]
 hex = "f1a3"
-unicode = "\u0bae\u0bbe"
+unicode = "மா"
 
 [[mappings]]
 hex = "f1a4"
-unicode = "\u0bae\u0bbf"
+unicode = "மி"
 
 [[mappings]]
 hex = "f1a6"
-unicode = "\u0bae\u0bc0"
+unicode = "மீ"
 
 [[mappings]]
 hex = "f2"
-unicode = "\u0baf"
+unicode = "ய"
 
 [[mappings]]
 hex = "f2a2"
-unicode = "\u0baf\u0bcd"
+unicode = "ய்"
 
 [[mappings]]
 hex = "f2a3"
-unicode = "\u0baf\u0bbe"
+unicode = "யா"
 
 [[mappings]]
 hex = "f2a4"
-unicode = "\u0baf\u0bbf"
+unicode = "யி"
 
 [[mappings]]
 hex = "f2a6"
-unicode = "\u0baf\u0bc0"
+unicode = "யீ"
 
 [[mappings]]
 hex = "f3"
-unicode = "\u0bb0"
+unicode = "ர"
 
 [[mappings]]
 hex = "f3a2"
-unicode = "\u0bb0\u0bcd"
+unicode = "ர்"
 
 [[mappings]]
 hex = "f3a3"
-unicode = "\u0bb0\u0bbe"
+unicode = "ரா"
 
 [[mappings]]
 hex = "f3a4"
-unicode = "\u0bb0\u0bbf"
+unicode = "ரி"
 
 [[mappings]]
 hex = "f3a6"
-unicode = "\u0bb0\u0bc0"
+unicode = "ரீ"
 
 [[mappings]]
 hex = "f4"
-unicode = "\u0bb2"
+unicode = "ல"
 
 [[mappings]]
 hex = "f4a2"
-unicode = "\u0bb2\u0bcd"
+unicode = "ல்"
 
 [[mappings]]
 hex = "f4a3"
-unicode = "\u0bb2\u0bbe"
+unicode = "லா"
 
 [[mappings]]
 hex = "f4a4"
-unicode = "\u0bb2\u0bbf"
+unicode = "லி"
 
 [[mappings]]
 hex = "f4a6"
-unicode = "\u0bb2\u0bc0"
+unicode = "லீ"
 
 [[mappings]]
 hex = "f5"
-unicode = "\u0bb5"
+unicode = "வ"
 
 [[mappings]]
 hex = "f5a2"
-unicode = "\u0bb5\u0bcd"
+unicode = "வ்"
 
 [[mappings]]
 hex = "f5a3"
-unicode = "\u0bb5\u0bbe"
+unicode = "வா"
 
 [[mappings]]
 hex = "f5a4"
-unicode = "\u0bb5\u0bbf"
+unicode = "வி"
 
 [[mappings]]
 hex = "f5a6"
-unicode = "\u0bb5\u0bc0"
+unicode = "வீ"
 
 [[mappings]]
 hex = "f6"
-unicode = "\u0bb4"
+unicode = "ழ"
 
 [[mappings]]
 hex = "f6a2"
-unicode = "\u0bb4\u0bcd"
+unicode = "ழ்"
 
 [[mappings]]
 hex = "f6a3"
-unicode = "\u0bb4\u0bbe"
+unicode = "ழா"
 
 [[mappings]]
 hex = "f6a4"
-unicode = "\u0bb4\u0bbf"
+unicode = "ழி"
 
 [[mappings]]
 hex = "f6a6"
-unicode = "\u0bb4\u0bc0"
+unicode = "ழீ"
 
 [[mappings]]
 hex = "f7"
-unicode = "\u0bb3"
+unicode = "ள"
 
 [[mappings]]
 hex = "f7a2"
-unicode = "\u0bb3\u0bcd"
+unicode = "ள்"
 
 [[mappings]]
 hex = "f7a3"
-unicode = "\u0bb3\u0bbe"
+unicode = "ளா"
 
 [[mappings]]
 hex = "f7a4"
-unicode = "\u0bb3\u0bbf"
+unicode = "ளி"
 
 [[mappings]]
 hex = "f7a6"
-unicode = "\u0bb3\u0bc0"
+unicode = "ளீ"
 
 [[mappings]]
 hex = "f8"
-unicode = "\u0bb1"
+unicode = "ற"
 
 [[mappings]]
 hex = "f8a2"
-unicode = "\u0bb1\u0bcd"
+unicode = "ற்"
 
 [[mappings]]
 hex = "f8a3"
-unicode = "\u0bb1\u0bbe"
+unicode = "றா"
 
 [[mappings]]
 hex = "f8a4"
-unicode = "\u0bb1\u0bbf"
+unicode = "றி"
 
 [[mappings]]
 hex = "f8a6"
-unicode = "\u0bb1\u0bc0"
+unicode = "றீ"
 
 [[mappings]]
 hex = "f9"
-unicode = "\u0ba9"
+unicode = "ன"
 
 [[mappings]]
 hex = "f9a2"
-unicode = "\u0ba9\u0bcd"
+unicode = "ன்"
 
 [[mappings]]
 hex = "f9a3"
-unicode = "\u0ba9\u0bbe"
+unicode = "னா"
 
 [[mappings]]
 hex = "f9a4"
-unicode = "\u0ba9\u0bbf"
+unicode = "னி"
 
 [[mappings]]
 hex = "f9a6"
-unicode = "\u0ba9\u0bc0"
+unicode = "னீ"
 
 [[mappings]]
 hex = "fa"
-unicode = "\u0bb8"
+unicode = "ஸ"
 
 [[mappings]]
 hex = "faa2"
-unicode = "\u0bb8\u0bcd"
+unicode = "ஸ்"
 
 [[mappings]]
 hex = "faa3"
-unicode = "\u0bb8\u0bbe"
+unicode = "ஸா"
 
 [[mappings]]
 hex = "faa4"
-unicode = "\u0bb8\u0bbf"
+unicode = "ஸி"
 
 [[mappings]]
 hex = "faa6"
-unicode = "\u0bb8\u0bc0"
+unicode = "ஸீ"
 
 [[mappings]]
 hex = "fb"
-unicode = "\u0bb7"
+unicode = "ஷ"
 
 [[mappings]]
 hex = "fba2"
-unicode = "\u0bb7\u0bcd"
+unicode = "ஷ்"
 
 [[mappings]]
 hex = "fba3"
-unicode = "\u0bb7\u0bbe"
+unicode = "ஷா"
 
 [[mappings]]
 hex = "fba4"
-unicode = "\u0bb7\u0bbf"
+unicode = "ஷி"
 
 [[mappings]]
 hex = "fba6"
-unicode = "\u0bb7\u0bc0"
+unicode = "ஷீ"
 
 [[mappings]]
 hex = "fc"
-unicode = "\u0b9c"
+unicode = "ஜ"
 
 [[mappings]]
 hex = "fca2"
-unicode = "\u0b9c\u0bcd"
+unicode = "ஜ்"
 
 [[mappings]]
 hex = "fca3"
-unicode = "\u0b9c\u0bbe"
+unicode = "ஜா"
 
 [[mappings]]
 hex = "fca4"
-unicode = "\u0b9c\u0bbf"
+unicode = "ஜி"
 
 [[mappings]]
 hex = "fca6"
-unicode = "\u0b9c\u0bc0"
+unicode = "ஜீ"
 
 [[mappings]]
 hex = "fca7"
-unicode = "\u0b9c\u0bc1"
+unicode = "ஜு"
 
 [[mappings]]
 hex = "fca8"
-unicode = "\u0b9c\u0bc2"
+unicode = "ஜூ"
 
 [[mappings]]
 hex = "fd"
-unicode = "\u0bb9"
+unicode = "ஹ"
 
 [[mappings]]
 hex = "fda2"
-unicode = "\u0bb9\u0bcd"
+unicode = "ஹ்"
 
 [[mappings]]
 hex = "fda3"
-unicode = "\u0bb9\u0bbe"
+unicode = "ஹா"
 
 [[mappings]]
 hex = "fda4"
-unicode = "\u0bb9\u0bbf"
+unicode = "ஹி"
 
 [[mappings]]
 hex = "fda6"
-unicode = "\u0bb9\u0bc0"
+unicode = "ஹீ"
 
 [[mappings]]
 hex = "fe"
-unicode = "\u0b95\u0bcd\u0bb7"
+unicode = "க்ஷ"
 
 [[mappings]]
 hex = "fea2"
-unicode = "\u0b95\u0bcd\u0bb7\u0bcd"
+unicode = "க்ஷ்"
 
 [[mappings]]
 hex = "fea3"
-unicode = "\u0b95\u0bcd\u0bb7\u0bbe"
+unicode = "க்ஷா"
 
 [[mappings]]
 hex = "fea4"
-unicode = "\u0b95\u0bcd\u0bb7\u0bbf"
+unicode = "க்ஷி"
 
 [[mappings]]
 hex = "fea6"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc0"
+unicode = "க்ஷீ"
 
 [[mappings]]
 hex = "fea7"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc1"
+unicode = "க்ஷு"
 
 [[mappings]]
 hex = "fea8"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc2"
+unicode = "க்ஷூ"
 
 [[mappings]]
 hex = "ff"
-unicode = "\u0bb8\u0bcd\u0bb0\u0bc0"
+unicode = "ஸ்ரீ"
 
 [[encoding_preferences]]
 hex = "a0"
-unicode = "\u00a0"
+unicode = "\u00A0"
 
 [[encoding_preferences]]
 hex = "ae"
-unicode = "\u0b9f\u0bbf"
+unicode = "டி"
 
 [[encoding_preferences]]
 hex = "af"
-unicode = "\u0b9f\u0bc0"
+unicode = "டீ"
 
 [[encoding_preferences]]
 hex = "91"
@@ -1351,11 +1351,11 @@ unicode = "\u2019"
 
 [[encoding_preferences]]
 hex = "93"
-unicode = "\u201c"
+unicode = "\u201C"
 
 [[encoding_preferences]]
 hex = "94"
-unicode = "\u201d"
+unicode = "\u201D"
 
 [[encoding_preferences]]
 hex = "95"

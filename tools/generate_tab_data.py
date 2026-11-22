@@ -58,15 +58,20 @@ def canonical(table):
 
 
 def lexicon(table):
+    import sys
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from tools.toml_utf8 import format_toml_string
+
     lines = ['profile = "tab-tamilutil-bounded-v1"', 'source = "TamilUtil 1f659e70; Unicode TAB UTN 17"', '']
     for key, value in table.items():
-        lines.extend(['[[mappings]]', f'hex = "{key.hex()}"', 'unicode = ' + json.dumps(value, ensure_ascii=True), ''])
+        lines.extend(['[[mappings]]', f'hex = "{key.hex()}"', 'unicode = ' + format_toml_string(value), ''])
     grouped = defaultdict(list)
     for key, value in table.items(): grouped[value].append(key)
     for value, keys in sorted(grouped.items()):
         if len(keys) > 1:
             key = min(keys, key=lambda item: (len(item), item))
-            lines.extend(['[[encoding_preferences]]', f'hex = "{key.hex()}"', 'unicode = ' + json.dumps(value, ensure_ascii=True), ''])
+            lines.extend(['[[encoding_preferences]]', f'hex = "{key.hex()}"', 'unicode = ' + format_toml_string(value), ''])
     return "\n".join(lines)
 
 

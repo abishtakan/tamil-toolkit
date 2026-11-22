@@ -14,9 +14,17 @@ review and L4 compact runtime artifacts remain pending.
 - Large editorial and approved lexicon CSV tables store ordinary Tamil and other
   visible text as UTF-8, without a BOM and with LF record endings. They do not
   expand every non-ASCII scalar into a hexadecimal escape.
-- Golden JSONL, exact scalar diagnostics, and small declarative rule tables keep
+- Golden JSONL (`tests/golden/*.jsonl`) and exact scalar diagnostics keep
   explicit escapes where required for codepoint review. Human-facing review
   views may show Tamil alongside those diagnostics.
+- **TOML rule-table addendum (2026-11-22, Constitution 3.0.0):** Canonical
+  `lexicon/*.toml` rule tables use uniform readable NFC UTF-8 Tamil (UTF-8 no
+  BOM, LF line endings) for complete Tamil letters, attached marks, digits, and
+  signs, while keeping detached Tamil combining marks (`U+0B82`,
+  `U+0BBE..U+0BC2`, `U+0BC6..U+0BC8`, `U+0BCA..U+0BCD`, `U+0BD7`), Braille
+  (`U+2800..U+28FF`), Tamil Supplement (`U+11FC0..U+11FFF`), and
+  control/special characters explicitly escaped via `tools/toml_utf8.py` and
+  enforced by `just check-unicode`.
 - Released lookup artifacts use the compact deterministic representation chosen
   and measured by the Rust compiler. CSV source encoding does not prescribe the
   runtime format, and no runtime pack is approved by this decision.

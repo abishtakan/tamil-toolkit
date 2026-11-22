@@ -1,5 +1,12 @@
 # Project handoff
 
+## Uniform Readable UTF-8 Tamil in `lexicon/*.toml` (2026-11-22, Constitution 3.0.0)
+
+- **Scope (`tools/toml_utf8.py`, 27 `lexicon/*.toml` files, 10 generators, `check_source_unicode.py`, `.github/workflows/ci.yml`, Constitution 3.0.0 & docs):**
+  - Migrated all canonical `lexicon/*.toml` rule tables to uniform readable NFC UTF-8 Tamil (UTF-8 no BOM, LF line endings) while keeping detached Tamil combining marks (`U+0B82`, `U+0BBE..U+0BC2`, `U+0BC6..U+0BC8`, `U+0BCA..U+0BCD`, `U+0BD7`), Braille (`U+2800..U+28FF`), Tamil Supplement (`U+11FC0..U+11FFF`), and control/special characters escaped. Golden JSONL (`tests/golden/*.jsonl`) and dictionary pack metadata (`lexicon/dictionary/*.toml`, `lexicon/packs/*/*.toml`) stay untouched.
+  - Verified 100% parsed `tomllib.loads` semantic equality against `HEAD` across all 41 `lexicon/**/*.toml` files, replayed all 10 generators, synced 135 release copies (`release_files.py sync`), enforced TOML spelling/BOM/LF in `check_source_unicode.py`, added `tests/harness/test_toml_utf8.py`, and added `just check-release-files` before sync in `.github/workflows/ci.yml`.
+- **Next:** Phase 8 (`tamil-translit`).
+
 ## Phase 7B (`tamil-codec` Complete): Senthamil, Shree-Tam, Softview, TBO & Bharathi Braille (2026-11-22)
 
 - **Scope (`crates/tamil-codec/`, `lexicon/{senthamil,shree_tam,softview,tbo,braille}.toml`, `docs/specs/codec-phase7-legacy.md`, `docs/specs/codec-braille.md`):**

@@ -52,6 +52,12 @@ def main():
     for failure in failures:
         print(failure, file=sys.stderr)
     from tools.lexicon_validate import check_curated_csv
+    from tools.toml_utf8 import check_toml_file
+    for toml_path in sorted((ROOT / "lexicon").glob("*.toml")):
+        toml_findings = check_toml_file(toml_path)
+        failures.extend(toml_findings)
+        for finding in toml_findings:
+            print(finding, file=sys.stderr)
     curated = check_curated_csv()
     failures.extend(curated["findings"])
     for failure in curated["findings"]:

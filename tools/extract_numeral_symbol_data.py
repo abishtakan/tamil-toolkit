@@ -3,10 +3,15 @@
 import hashlib
 import argparse
 import json
+import sys
 from fractions import Fraction
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from tools.toml_utf8 import format_toml_string  # noqa: E402
+
 SOURCE = ROOT / "tests/reference/numerals-v0.3/UnicodeData-Tamil.txt"
 OUTPUT = ROOT / "lexicon/numerals-symbols.toml"
 SOURCE_SHA256 = "79385cd202b825038270bb253b057d83bbaed5a67b776dcfe5cc84684ba9d059"
@@ -15,21 +20,7 @@ FRACTION_SHA256 = "aaa7132a55eb2e1dbb7afb5afd0849d8f68f4b66be4dae65b6789f38a4a41
 
 
 def quoted(value: str) -> str:
-    pieces = ['"']
-    for character in value:
-        scalar = ord(character)
-        if character == '"':
-            pieces.append('\\"')
-        elif character == "\\":
-            pieces.append("\\\\")
-        elif 0x20 <= scalar <= 0x7E:
-            pieces.append(character)
-        elif scalar <= 0xFFFF:
-            pieces.append(f"\\u{scalar:04x}")
-        else:
-            pieces.append(f"\\U{scalar:08x}")
-    pieces.append('"')
-    return "".join(pieces)
+    return format_toml_string(value)
 
 
 def rows():

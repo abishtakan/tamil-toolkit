@@ -26,15 +26,15 @@ unicode = "\u00a0"
 
 [[mappings]]
 hex = "a2"
-unicode = "\u0bcd"
+unicode = "\u0BCD"
 
 [[mappings]]
 hex = "a3"
-unicode = "\u0bbe"
+unicode = "\u0BBE"
 
 [[mappings]]
 hex = "a4"
-unicode = "\u0bbf"
+unicode = "\u0BBF"
 
 [[mappings]]
 hex = "a5"
@@ -42,15 +42,15 @@ unicode = "\u2022"
 
 [[mappings]]
 hex = "a6"
-unicode = "\u0bc0"
+unicode = "\u0BC0"
 
 [[mappings]]
 hex = "a7"
-unicode = "\u0bc1"
+unicode = "\u0BC1"
 
 [[mappings]]
 hex = "a8"
-unicode = "\u0bc2"
+unicode = "\u0BC2"
 
 [[mappings]]
 hex = "a9"
@@ -58,15 +58,15 @@ unicode = "\u00a9"
 
 [[mappings]]
 hex = "aa"
-unicode = "\u0bc6"
+unicode = "\u0BC6"
 
 [[mappings]]
 hex = "ab"
-unicode = "\u0bc7"
+unicode = "\u0BC7"
 
 [[mappings]]
 hex = "ac"
-unicode = "\u0bc8"
+unicode = "\u0BC8"
 
 [[mappings]]
 hex = "b7"

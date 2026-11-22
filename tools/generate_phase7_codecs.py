@@ -3,11 +3,15 @@
 import argparse
 import hashlib
 import json
+import sys
 import tomllib
 import unicodedata
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from tools.toml_utf8 import escape_toml_utf8  # noqa: E402
 AZHAGI_DIR = (
     ROOT
     / "target/codec-research/azhagi/AzhagiPlus-Porto/azXMLs/Tamil/Tamil-All-PhoneticTransliteration"
@@ -24,16 +28,7 @@ PROFILES = [
 
 
 def escape_toml_str(text: str) -> str:
-    parts = []
-    for ch in text:
-        cp = ord(ch)
-        if 0x20 <= cp <= 0x7E and ch not in ('"', "\\"):
-            parts.append(ch)
-        elif cp <= 0xFFFF:
-            parts.append(f"\\u{cp:04X}")
-        else:
-            parts.append(f"\\U{cp:08X}")
-    return "".join(parts)
+    return escape_toml_utf8(text)
 
 
 def build_legacy_tomls():

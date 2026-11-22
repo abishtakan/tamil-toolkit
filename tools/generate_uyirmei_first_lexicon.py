@@ -51,7 +51,7 @@ def generate():
     footer = lines[331:]
 
     all_lines = header + vowel_lines + new_consonant_lines + footer
-    with open("lexicon/collate_uyirmei_first.toml", "w", encoding="utf-8") as f:
+    with open("lexicon/collate_uyirmei_first.toml", "w", encoding="utf-8", newline="\n") as f:
         f.writelines(all_lines)
 
     # Verify newly written toml

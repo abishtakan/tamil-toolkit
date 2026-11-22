@@ -91,8 +91,11 @@ or a planned suite as completed support.
 
 ## Large dictionary text storage
 
-Use readable UTF-8 Tamil in large lexicon CSV tables, with the declared
-`json-string-utf8-v1` reversible cell codec. Preserve escaped golden JSONL and
+Use readable NFC UTF-8 Tamil in canonical `lexicon/*.toml` rule tables (keeping
+detached Tamil marks, Braille, Tamil Supplement, and control/special characters
+escaped via `tools/toml_utf8.py`) and in large lexicon CSV tables under the
+declared `json-string-utf8-v1` reversible cell codec. Preserve escaped golden
+JSONL and exact scalar diagnostics.
 exact scalar/control diagnostics. Do not infer composition from rendered words,
 normalize during serialization, or strip controls. Follow the
 [storage decision](decisions/lexicon-text-storage.md) for the user-directed clean UTF-8 rebuild,

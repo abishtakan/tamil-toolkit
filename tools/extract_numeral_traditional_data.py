@@ -3,10 +3,14 @@
 import argparse
 import hashlib
 import json
+import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from tools.toml_utf8 import format_toml_string  # noqa: E402
 SOURCE = ROOT / "tests/reference/numerals-v0.3/root-rbnf.xml"
 OUTPUT = ROOT / "lexicon/numerals-traditional.toml"
 SOURCE_SHA256 = "43fcb8dab6f1afa8c59be9eb6be9b6df0da45dc5cc91f6a3710cf2631e01ed2e"
@@ -66,7 +70,7 @@ def project() -> str:
                     "[[rulesets.rules]]",
                     f"base = {base}",
                     f"divisor = {divisor}",
-                    f"pattern = {json.dumps(pattern, ensure_ascii=True)}",
+                    f"pattern = {format_toml_string(pattern)}",
                 ]
             )
     return "\n".join(lines) + "\n"

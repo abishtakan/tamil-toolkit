@@ -4,7 +4,7 @@
 profile = "calendar-tamil-display-v1"
 tva_source_url = "https://www.tamilvu.org/tdb/titles_cont/inscription/html/panchangam.htm"
 tva_source_sha256 = "ea510ec5a2ceacf3cc4c75f0dfb1a9f6f866ef398db2f1ab1639109c53a5300e"
-tva_source_locator = "Tamil Virtual Academy, \u0b95\u0bb2\u0bcd\u0bb5\u0bc6\u0b9f\u0bcd\u0b9f\u0bc1\u0b95\u0bcd\u0b95\u0bb3\u0bbf\u0bb2\u0bcd \u0baa\u0b9e\u0bcd\u0b9a\u0bbe\u0b99\u0bcd\u0b95\u0b95\u0bcd \u0b95\u0bc1\u0bb1\u0bbf\u0baa\u0bcd\u0baa\u0bc1\u0b95\u0bb3\u0bcd, lines 9-11 (months), 22-49 (nakshatras), 50-64 (tithis), 64-90 (yogas), 92-104 (karanas), 105-163 (Tamil year names)"
+tva_source_locator = "Tamil Virtual Academy, கல்வெட்டுக்களில் பஞ்சாங்கக் குறிப்புகள், lines 9-11 (months), 22-49 (nakshatras), 50-64 (tithis), 64-90 (yogas), 92-104 (karanas), 105-163 (Tamil year names)"
 tva_reuse_terms_status = "not stated; limited lexical facts only; no license asserted"
 cldr_source_url = "https://github.com/unicode-org/cldr/blob/release-49/common/main/ta.xml"
 cldr_source_sha256 = "69ca3f6a2792ed1ce1cc01a708462ae30d5fc25e25e026b73c1fa3b1fb63c626"
@@ -17,44 +17,44 @@ cycle_romanized_source_id = "south-indian-solar-60-year-cycle-1889"
 cycle_romanized_source_sha256 = "11130caa3fee257f77ca11a7aff482518e6a47cc32fe70c4397d49a37e504a23"
 cycle_tamil_crosscheck_url = "https://www.cict.in/pdf/cyclic%20list%20of%20tamil%20year.pdf"
 display_scope = "Tamil Nadu Tamil Virtual Academy lexical spellings; no Sri Lankan publisher spelling is asserted"
-karana_source_note = "The TVA page says eleven kinds but its list has both \u0baa\u0ba4\u0bcd\u0bb0\u0bc8 and \u0bb5\u0bbf\u0bb7\u0bcd\u0b9f\u0bbf and irregular numbering; the indexed runtime name Vishti is labelled \u0bb5\u0bbf\u0bb7\u0bcd\u0b9f\u0bbf, with \u0baa\u0ba4\u0bcd\u0bb0\u0bc8 retained as a source variant in the contract and ledger."
+karana_source_note = "The TVA page says eleven kinds but its list has both பத்ரை and விஷ்டி and irregular numbering; the indexed runtime name Vishti is labelled விஷ்டி, with பத்ரை retained as a source variant in the contract and ledger."
 
 months_tamil = [
-  "\u0b9a\u0bbf\u0ba4\u0bcd\u0ba4\u0bbf\u0bb0\u0bc8", "\u0bb5\u0bc8\u0b95\u0bbe\u0b9a\u0bbf", "\u0b86\u0ba9\u0bbf", "\u0b86\u0b9f\u0bbf", "\u0b86\u0bb5\u0ba3\u0bbf", "\u0baa\u0bc1\u0bb0\u0b9f\u0bcd\u0b9f\u0bbe\u0b9a\u0bbf",
-  "\u0b90\u0baa\u0bcd\u0baa\u0b9a\u0bbf", "\u0b95\u0bbe\u0bb0\u0bcd\u0ba4\u0bcd\u0ba4\u0bbf\u0b95\u0bc8", "\u0bae\u0bbe\u0bb0\u0bcd\u0b95\u0bb4\u0bbf", "\u0ba4\u0bc8", "\u0bae\u0bbe\u0b9a\u0bbf", "\u0baa\u0b99\u0bcd\u0b95\u0bc1\u0ba9\u0bbf"
+  "சித்திரை", "வைகாசி", "ஆனி", "ஆடி", "ஆவணி", "புரட்டாசி",
+  "ஐப்பசி", "கார்த்திகை", "மார்கழி", "தை", "மாசி", "பங்குனி"
 ]
-weekdays_tamil = ["\u0b9e\u0bbe\u0baf\u0bbf\u0bb1\u0bc1", "\u0ba4\u0bbf\u0b99\u0bcd\u0b95\u0bb3\u0bcd", "\u0b9a\u0bc6\u0bb5\u0bcd\u0bb5\u0bbe\u0baf\u0bcd", "\u0baa\u0bc1\u0ba4\u0ba9\u0bcd", "\u0bb5\u0bbf\u0baf\u0bbe\u0bb4\u0ba9\u0bcd", "\u0bb5\u0bc6\u0bb3\u0bcd\u0bb3\u0bbf", "\u0b9a\u0ba9\u0bbf"]
+weekdays_tamil = ["ஞாயிறு", "திங்கள்", "செவ்வாய்", "புதன்", "வியாழன்", "வெள்ளி", "சனி"]
 weekdays_romanized = ["Nyaayitru-kizhamai", "Thingat-kizhamai", "Sevvaai-kizhamai", "Budhan-kizhamai", "Vyaazha-kizhamai", "Velli-kizhamai", "Sani-kizhamai"]
 tithi_names_tamil = [
-  "\u0baa\u0bbf\u0bb0\u0ba4\u0bae\u0bc8", "\u0ba4\u0bcd\u0bb5\u0bbf\u0ba4\u0bbf\u0baf\u0bc8", "\u0ba4\u0bcd\u0bb0\u0bc1\u0ba4\u0bbf\u0baf\u0bc8", "\u0b9a\u0ba4\u0bc1\u0bb0\u0bcd\u0ba4\u0bcd\u0ba4\u0bbf", "\u0baa\u0b9e\u0bcd\u0b9a\u0bae\u0bbf", "\u0b9a\u0bb7\u0bcd\u0b9f\u0bbf",
-  "\u0b9a\u0baa\u0bcd\u0ba4\u0bae\u0bbf", "\u0b85\u0bb7\u0bcd\u0b9f\u0bae\u0bbf", "\u0ba8\u0bb5\u0bae\u0bbf", "\u0ba4\u0b9a\u0bae\u0bbf", "\u0b8f\u0b95\u0bbe\u0ba4\u0b9a\u0bbf", "\u0ba4\u0bc1\u0bb5\u0bbe\u0ba4\u0b9a\u0bbf",
-  "\u0ba4\u0bcd\u0bb0\u0bc8\u0baf\u0bcb\u0ba4\u0b9a\u0bbf", "\u0b9a\u0ba4\u0bc1\u0bb0\u0bcd\u0ba4\u0bcd\u0ba4\u0b9a\u0bbf", "\u0baa\u0bcc\u0bb0\u0bcd\u0ba3\u0bae\u0bbf"
+  "பிரதமை", "த்விதியை", "த்ருதியை", "சதுர்த்தி", "பஞ்சமி", "சஷ்டி",
+  "சப்தமி", "அஷ்டமி", "நவமி", "தசமி", "ஏகாதசி", "துவாதசி",
+  "த்ரையோதசி", "சதுர்த்தசி", "பௌர்ணமி"
 ]
-tithi_new_moon_tamil = "\u0b85\u0bae\u0bbe\u0bb5\u0bbe\u0bb8\u0bcd\u0baf\u0bc8"
+tithi_new_moon_tamil = "அமாவாஸ்யை"
 nakshatra_names_tamil = [
-  "\u0b85\u0bb8\u0bcd\u0bb5\u0bbf\u0ba9\u0bbf", "\u0baa\u0bb0\u0ba3\u0bbf", "\u0b95\u0bbe\u0bb0\u0bcd\u0ba4\u0bcd\u0ba4\u0bbf\u0b95\u0bc8", "\u0bb0\u0bcb\u0b95\u0bbf\u0ba3\u0bbf", "\u0bae\u0bbf\u0bb0\u0bc1\u0b95\u0b9a\u0bbf\u0bb0\u0bc0\u0b9f\u0bae\u0bcd", "\u0ba4\u0bbf\u0bb0\u0bc1\u0bb5\u0bbe\u0ba4\u0bbf\u0bb0\u0bc8",
-  "\u0baa\u0bc1\u0ba9\u0bb0\u0bcd\u0baa\u0bc2\u0b9a\u0bae\u0bcd", "\u0baa\u0bc2\u0b9a\u0bae\u0bcd", "\u0b86\u0baf\u0bbf\u0bb2\u0bcd\u0baf\u0bae\u0bcd", "\u0bae\u0b95\u0bae\u0bcd", "\u0baa\u0bc2\u0bb0\u0bae\u0bcd", "\u0b89\u0ba4\u0bcd\u0ba4\u0bbf\u0bb0\u0bae\u0bcd", "\u0b85\u0bb8\u0bcd\u0ba4\u0bae\u0bcd",
-  "\u0b9a\u0bbf\u0ba4\u0bcd\u0ba4\u0bbf\u0bb0\u0bc8", "\u0b9a\u0bc1\u0bb5\u0bbe\u0ba4\u0bbf", "\u0bb5\u0bbf\u0b9a\u0bbe\u0b95\u0bae\u0bcd", "\u0b85\u0ba9\u0bc1\u0bb7\u0bae\u0bcd", "\u0b95\u0bc7\u0b9f\u0bcd\u0b9f\u0bc8", "\u0bae\u0bc2\u0bb2\u0bae\u0bcd", "\u0baa\u0bc2\u0bb0\u0bbe\u0b9f\u0bae\u0bcd",
-  "\u0b89\u0ba4\u0bcd\u0ba4\u0bbf\u0bb0\u0bbe\u0b9f\u0bae\u0bcd", "\u0ba4\u0bbf\u0bb0\u0bc1\u0bb5\u0bcb\u0ba3\u0bae\u0bcd", "\u0b85\u0bb5\u0bbf\u0b9f\u0bcd\u0b9f\u0bae\u0bcd", "\u0b9a\u0ba4\u0baf\u0bae\u0bcd", "\u0baa\u0bc2\u0bb0\u0b9f\u0bcd\u0b9f\u0bbe\u0ba4\u0bbf", "\u0b89\u0ba4\u0bcd\u0ba4\u0bbf\u0bb0\u0b9f\u0bcd\u0b9f\u0bbe\u0ba4\u0bbf", "\u0bb0\u0bc7\u0bb5\u0ba4\u0bbf"
+  "அஸ்வினி", "பரணி", "கார்த்திகை", "ரோகிணி", "மிருகசிரீடம்", "திருவாதிரை",
+  "புனர்பூசம்", "பூசம்", "ஆயில்யம்", "மகம்", "பூரம்", "உத்திரம்", "அஸ்தம்",
+  "சித்திரை", "சுவாதி", "விசாகம்", "அனுஷம்", "கேட்டை", "மூலம்", "பூராடம்",
+  "உத்திராடம்", "திருவோணம்", "அவிட்டம்", "சதயம்", "பூரட்டாதி", "உத்திரட்டாதி", "ரேவதி"
 ]
 yoga_names_tamil = [
-  "\u0bb5\u0bbf\u0b9f\u0bcd\u0b95\u0bae\u0bcd\u0baa\u0bae\u0bcd", "\u0baa\u0bbf\u0bb0\u0bbf\u0ba4\u0bcd\u0ba4\u0bbf", "\u0b86\u0baf\u0bc1\u0bb7\u0bcd\u0bae\u0ba4\u0bcd", "\u0b9a\u0bcc\u0baa\u0bbe\u0b95\u0bcd\u0baf", "\u0bb7\u0bcb\u0baa\u0ba9\u0bae\u0bcd", "\u0ba4\u0bbf\u0b95\u0ba3\u0bcd\u0b9f\u0bae\u0bcd",
-  "\u0b9a\u0bc1\u0b95\u0bb0\u0bcd\u0bae\u0ba9\u0bcd", "\u0ba4\u0bcd\u0bb0\u0bc1\u0ba4\u0bbf", "\u0b9a\u0bc2\u0bb2\u0bae\u0bcd", "\u0b95\u0ba3\u0bcd\u0b9f\u0bae\u0bcd", "\u0bb5\u0bbf\u0bb0\u0bc1\u0ba4\u0bcd\u0ba4\u0bbf", "\u0ba4\u0bc1\u0bb0\u0bc1\u0bb5\u0bae\u0bcd", "\u0bb5\u0bbf\u0baf\u0bbe\u0b95\u0bbe\u0ba4\u0bae\u0bcd",
-  "\u0b85\u0bb0\u0bbf\u0b9a\u0ba9\u0bae\u0bcd", "\u0bb5\u0b9c\u0bcd\u0bb0\u0bae\u0bcd", "\u0b9a\u0bbf\u0ba4\u0bcd\u0ba4\u0bbf", "\u0bb5\u0bbf\u0baf\u0bbe\u0ba4\u0bbf\u0baa\u0bbe\u0ba4\u0bae\u0bcd", "\u0bb5\u0bb0\u0bbf\u0baf\u0bbe\u0ba9\u0bcd", "\u0baa\u0bb0\u0bbf\u0b95\u0bae\u0bcd", "\u0b9a\u0bbf\u0bb5\u0bae\u0bcd",
-  "\u0b9a\u0bbf\u0ba4\u0bcd\u0ba4\u0bae\u0bcd", "\u0b9a\u0bbe\u0ba4\u0bcd\u0ba4\u0bbf\u0baf\u0bae\u0bcd", "\u0b9a\u0bc1\u0baa\u0bae\u0bcd", "\u0b9a\u0bc1\u0baa\u0bcd\u0baa\u0bbf\u0bb0\u0bae\u0bcd", "\u0baa\u0bbf\u0bb0\u0bbe\u0bae\u0bbf\u0baf\u0bae\u0bcd", "\u0b90\u0ba8\u0bcd\u0ba4\u0bcd\u0bb0\u0bae\u0bcd", "\u0bb5\u0bc8\u0ba4\u0bcd\u0bb0\u0bc1\u0ba4\u0bbf"
+  "விட்கம்பம்", "பிரித்தி", "ஆயுஷ்மத்", "சௌபாக்ய", "ஷோபனம்", "திகண்டம்",
+  "சுகர்மன்", "த்ருதி", "சூலம்", "கண்டம்", "விருத்தி", "துருவம்", "வியாகாதம்",
+  "அரிசனம்", "வஜ்ரம்", "சித்தி", "வியாதிபாதம்", "வரியான்", "பரிகம்", "சிவம்",
+  "சித்தம்", "சாத்தியம்", "சுபம்", "சுப்பிரம்", "பிராமியம்", "ஐந்த்ரம்", "வைத்ருதி"
 ]
 karana_names_tamil = [
-  "\u0b95\u0bbf\u0bae\u0bbf\u0ba4\u0bcd\u0ba4\u0bc1\u0b95\u0ba3\u0bae\u0bcd", "\u0baa\u0bb5\u0bae\u0bcd", "\u0baa\u0bbe\u0bb2\u0bb5\u0bae\u0bcd", "\u0b95\u0bcc\u0bb2\u0bb5\u0bae\u0bcd", "\u0ba4\u0bc8\u0ba4\u0bbf\u0bb2\u0bae\u0bcd", "\u0b95\u0bb0\u0b9a\u0bc8",
-  "\u0bb5\u0ba9\u0bbf\u0b9a\u0bc8", "\u0bb5\u0bbf\u0bb7\u0bcd\u0b9f\u0bbf", "\u0b9a\u0b95\u0bc1\u0ba9\u0bbf", "\u0b9a\u0ba4\u0bc1\u0bb8\u0bcd\u0baa\u0bbe\u0ba4\u0bae\u0bcd", "\u0ba8\u0bbe\u0b95\u0bb5\u0bae\u0bcd"
+  "கிமித்துகணம்", "பவம்", "பாலவம்", "கௌலவம்", "தைதிலம்", "கரசை",
+  "வனிசை", "விஷ்டி", "சகுனி", "சதுஸ்பாதம்", "நாகவம்"
 ]
 cycle_names_tamil = [
-  "\u0baa\u0bbf\u0bb0\u0baa\u0bb5", "\u0bb5\u0bbf\u0baa\u0bb5", "\u0b9a\u0bc1\u0b95\u0bcd\u0b95\u0bbf\u0bb2", "\u0baa\u0bbf\u0bb0\u0bae\u0bcb\u0ba4\u0bc2\u0ba4", "\u0baa\u0bbf\u0bb0\u0b9a\u0bcb\u0bb1\u0bcd\u0baa\u0ba4\u0bcd\u0ba4\u0bbf", "\u0b86\u0b99\u0bcd\u0b95\u0bbf\u0bb0\u0b9a",
-  "\u0bb8\u0bcd\u0bb0\u0bc0\u0bae\u0bc1\u0b95", "\u0baa\u0bb5", "\u0baf\u0bc1\u0bb5", "\u0ba4\u0bbe\u0ba4\u0bc1", "\u0b88\u0bb7\u0bcd\u0bb5\u0bb0", "\u0bb5\u0bc6\u0b95\u0bc1\u0ba4\u0bbe\u0ba9\u0bbf\u0baf", "\u0baa\u0bbf\u0bb0\u0bae\u0bbe\u0ba4\u0bbf", "\u0bb5\u0bbf\u0b95\u0bcd\u0b95\u0bbf\u0bb0\u0bae",
-  "\u0bb5\u0bbf\u0bb7\u0bc1", "\u0b9a\u0bbf\u0ba4\u0bcd\u0ba4\u0bbf\u0bb0\u0baa\u0bbe\u0ba9\u0bc1", "\u0b9a\u0bc1\u0baa\u0bbe\u0ba9\u0bc1", "\u0ba4\u0bbe\u0bb0\u0ba3", "\u0baa\u0bbe\u0bb0\u0bcd\u0ba4\u0bcd\u0ba4\u0bbf\u0bb5", "\u0bb5\u0bbf\u0baf\u0baf", "\u0b9a\u0bb0\u0bcd\u0bb5\u0b9a\u0bbf\u0ba4\u0bcd\u0ba4\u0bc1",
-  "\u0b9a\u0bb0\u0bcd\u0bb5\u0ba4\u0bbe\u0bb0\u0bbf", "\u0bb5\u0bbf\u0bb0\u0bcb\u0ba4\u0bbf", "\u0bb5\u0bbf\u0b95\u0bcd\u0b95\u0bbf\u0bb0\u0bc1\u0ba4\u0bbf", "\u0b95\u0bb0", "\u0ba8\u0ba8\u0bcd\u0ba4\u0ba9", "\u0bb5\u0bbf\u0b9a\u0baf", "\u0b9a\u0baf", "\u0bae\u0ba9\u0bcd\u0bae\u0ba4",
-  "\u0ba4\u0bc1\u0ba9\u0bcd\u0bae\u0bc1\u0b95\u0bbf", "\u0b8f\u0bb5\u0bbf\u0bb3\u0bae\u0bcd\u0baa\u0bbf", "\u0bb5\u0bbf\u0bb3\u0bae\u0bcd\u0baa\u0bbf", "\u0bb5\u0bbf\u0b95\u0bbe\u0bb0\u0bbf", "\u0b9a\u0bbe\u0bb0\u0bcd\u0bb5\u0bb0\u0bbf", "\u0baa\u0bbf\u0bb2\u0bb5", "\u0b9a\u0bc1\u0baa\u0b95\u0bbf\u0bb0\u0bc1\u0ba4\u0bc1",
-  "\u0b9a\u0bcb\u0baa\u0b95\u0bbf\u0bb0\u0bc1\u0ba4\u0bc1", "\u0b95\u0bc1\u0bb0\u0bcb\u0ba4\u0bbf", "\u0bb5\u0bbf\u0b9a\u0bc1\u0bb5\u0bbe\u0bb5\u0b9a\u0bc1", "\u0baa\u0bb0\u0bbe\u0baa\u0bb5", "\u0baa\u0bbf\u0bb2\u0bb5\u0b99\u0bcd\u0b95", "\u0b95\u0bc0\u0bb2\u0b95", "\u0b9a\u0bcc\u0bae\u0bbf\u0baf",
-  "\u0b9a\u0bbe\u0ba4\u0bbe\u0bb0\u0ba3", "\u0bb5\u0bbf\u0bb0\u0bcb\u0ba4\u0bbf\u0b95\u0bbf\u0bb0\u0bc1\u0ba4\u0bc1", "\u0baa\u0bb0\u0bc0\u0ba4\u0bbe\u0baa\u0bbf", "\u0baa\u0bbf\u0bb0\u0bae\u0bbe\u0ba4\u0bc0\u0b9a", "\u0b86\u0ba9\u0ba8\u0bcd\u0ba4", "\u0b87\u0bb0\u0bbe\u0b9f\u0bcd\u0b9a\u0b9a", "\u0ba8\u0bb3",
-  "\u0baa\u0bbf\u0b99\u0bcd\u0b95\u0bb3", "\u0b95\u0bbe\u0bb3\u0baf\u0bc1\u0b95\u0bcd\u0ba4\u0bbf", "\u0b9a\u0bbf\u0ba4\u0bcd\u0ba4\u0bbe\u0bb0\u0bcd\u0ba4\u0bcd\u0ba4\u0bbf", "\u0b87\u0bb0\u0bcc\u0ba4\u0bcd\u0bb0\u0bbf", "\u0ba4\u0bc1\u0ba9\u0bcd\u0bae\u0ba4\u0bbf", "\u0ba4\u0bc1\u0ba8\u0bcd\u0ba4\u0bc1\u0baa\u0bbf",
-  "\u0bb0\u0bc1\u0ba4\u0bcd\u0bb0\u0bcb\u0ba4\u0bcd\u0b95\u0bbe\u0bb0\u0bbf", "\u0b87\u0bb0\u0ba4\u0bcd\u0ba4\u0bbe\u0b9f\u0bcd\u0b9a\u0bbf", "\u0b95\u0bc1\u0bb0\u0bcb\u0ba4\u0ba9", "\u0b85\u0b9f\u0bcd\u0b9a\u0baf"
+  "பிரபவ", "விபவ", "சுக்கில", "பிரமோதூத", "பிரசோற்பத்தி", "ஆங்கிரச",
+  "ஸ்ரீமுக", "பவ", "யுவ", "தாது", "ஈஷ்வர", "வெகுதானிய", "பிரமாதி", "விக்கிரம",
+  "விஷு", "சித்திரபானு", "சுபானு", "தாரண", "பார்த்திவ", "வியய", "சர்வசித்து",
+  "சர்வதாரி", "விரோதி", "விக்கிருதி", "கர", "நந்தன", "விசய", "சய", "மன்மத",
+  "துன்முகி", "ஏவிளம்பி", "விளம்பி", "விகாரி", "சார்வரி", "பிலவ", "சுபகிருது",
+  "சோபகிருது", "குரோதி", "விசுவாவசு", "பராபவ", "பிலவங்க", "கீலக", "சௌமிய",
+  "சாதாரண", "விரோதிகிருது", "பரீதாபி", "பிரமாதீச", "ஆனந்த", "இராட்சச", "நள",
+  "பிங்கள", "காளயுக்தி", "சித்தார்த்தி", "இரௌத்ரி", "துன்மதி", "துந்துபி",
+  "ருத்ரோத்காரி", "இரத்தாட்சி", "குரோதன", "அட்சய"
 ]

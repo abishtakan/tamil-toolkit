@@ -2,10 +2,15 @@
 
 import hashlib
 import json
+import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from tools.toml_utf8 import format_toml_string  # noqa: E402
+
 SOURCE = ROOT / "tests/reference/numerals-v0.3/ta-rbnf.xml"
 OUTPUT = ROOT / "lexicon/numerals-ordinals.toml"
 SOURCE_SHA256 = "f826ec4815c3d60d6bb7c9365dc152a9c7a1a1da99b883a0b648e9da451fadc5"
@@ -14,7 +19,7 @@ RULESETS = ("%%spellout-ordinal-compound", "%spellout-ordinal")
 
 
 def escaped(value: str) -> str:
-    return json.dumps(value, ensure_ascii=True)
+    return format_toml_string(value)
 
 
 def project() -> str:

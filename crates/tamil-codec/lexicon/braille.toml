@@ -4,159 +4,159 @@ profile = "bharathi-tamil-g1-v1"
 source = "World Braille Usage (3rd Ed.) / NIEPVD Bharathi Tamil Grade 1 Braille"
 pulli_cell = "\u2808"
 space_cell = "\u2800"
-aytham_unicode = "\u0B83"
+aytham_unicode = "ஃ"
 aytham_cell = "\u2820"
-ksha_unicode = "\u0B95\u0BCD\u0BB7"
+ksha_unicode = "க்ஷ"
 ksha_cell = "\u281F"
 
 [[vowels]]
-independent = "\u0B85"
+independent = "அ"
 dependent = ""
 cell = "\u2801"
 
 [[vowels]]
-independent = "\u0B86"
+independent = "ஆ"
 dependent = "\u0BBE"
 cell = "\u281C"
 
 [[vowels]]
-independent = "\u0B87"
+independent = "இ"
 dependent = "\u0BBF"
 cell = "\u280A"
 
 [[vowels]]
-independent = "\u0B88"
+independent = "ஈ"
 dependent = "\u0BC0"
 cell = "\u2814"
 
 [[vowels]]
-independent = "\u0B89"
+independent = "உ"
 dependent = "\u0BC1"
 cell = "\u2825"
 
 [[vowels]]
-independent = "\u0B8A"
+independent = "ஊ"
 dependent = "\u0BC2"
 cell = "\u2833"
 
 [[vowels]]
-independent = "\u0B8E"
+independent = "எ"
 dependent = "\u0BC6"
 cell = "\u2822"
 
 [[vowels]]
-independent = "\u0B8F"
+independent = "ஏ"
 dependent = "\u0BC7"
 cell = "\u2811"
 
 [[vowels]]
-independent = "\u0B90"
+independent = "ஐ"
 dependent = "\u0BC8"
 cell = "\u280C"
 
 [[vowels]]
-independent = "\u0B92"
+independent = "ஒ"
 dependent = "\u0BCA"
 cell = "\u282D"
 
 [[vowels]]
-independent = "\u0B93"
+independent = "ஓ"
 dependent = "\u0BCB"
 cell = "\u2815"
 
 [[vowels]]
-independent = "\u0B94"
+independent = "ஔ"
 dependent = "\u0BCC"
 cell = "\u282A"
 
 [[consonants]]
-unicode = "\u0B95"
+unicode = "க"
 cell = "\u2805"
 
 [[consonants]]
-unicode = "\u0B99"
+unicode = "ங"
 cell = "\u282C"
 
 [[consonants]]
-unicode = "\u0B9A"
+unicode = "ச"
 cell = "\u2809"
 
 [[consonants]]
-unicode = "\u0B9E"
+unicode = "ஞ"
 cell = "\u2812"
 
 [[consonants]]
-unicode = "\u0B9F"
+unicode = "ட"
 cell = "\u283E"
 
 [[consonants]]
-unicode = "\u0BA3"
+unicode = "ண"
 cell = "\u283C"
 
 [[consonants]]
-unicode = "\u0BA4"
+unicode = "த"
 cell = "\u281E"
 
 [[consonants]]
-unicode = "\u0BA8"
+unicode = "ந"
 cell = "\u281D"
 
 [[consonants]]
-unicode = "\u0BA9"
+unicode = "ன"
 cell = "\u2830"
 
 [[consonants]]
-unicode = "\u0BAA"
+unicode = "ப"
 cell = "\u280F"
 
 [[consonants]]
-unicode = "\u0BAE"
+unicode = "ம"
 cell = "\u280D"
 
 [[consonants]]
-unicode = "\u0BAF"
+unicode = "ய"
 cell = "\u283D"
 
 [[consonants]]
-unicode = "\u0BB0"
+unicode = "ர"
 cell = "\u2817"
 
 [[consonants]]
-unicode = "\u0BB1"
+unicode = "ற"
 cell = "\u283B"
 
 [[consonants]]
-unicode = "\u0BB2"
+unicode = "ல"
 cell = "\u2807"
 
 [[consonants]]
-unicode = "\u0BB3"
+unicode = "ள"
 cell = "\u2838"
 
 [[consonants]]
-unicode = "\u0BB4"
+unicode = "ழ"
 cell = "\u2837"
 
 [[consonants]]
-unicode = "\u0BB5"
+unicode = "வ"
 cell = "\u2827"
 
 [[consonants]]
-unicode = "\u0B9C"
+unicode = "ஜ"
 cell = "\u281A"
 
 [[consonants]]
-unicode = "\u0BB6"
+unicode = "ஶ"
 cell = "\u2829"
 
 [[consonants]]
-unicode = "\u0BB7"
+unicode = "ஷ"
 cell = "\u282F"
 
 [[consonants]]
-unicode = "\u0BB8"
+unicode = "ஸ"
 cell = "\u280E"
 
 [[consonants]]
-unicode = "\u0BB9"
+unicode = "ஹ"
 cell = "\u2813"

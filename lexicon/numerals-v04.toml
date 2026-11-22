@@ -4,69 +4,69 @@ profile = "numerals-v0.4"
 
 [[diaspora_currencies]]
 code = "SGD"
-major = "\u0B9A\u0BBF\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0BC2\u0BB0\u0BCD \u0B9F\u0BBE\u0BB2\u0BB0\u0BCD"
-minor = "\u0B9A\u0BC6\u0BA9\u0BCD\u0B9F\u0BCD"
+major = "சிங்கப்பூர் டாலர்"
+minor = "சென்ட்"
 factor = 100
 primary_group = 3
 secondary_group = 3
 
 [[diaspora_currencies]]
 code = "MYR"
-major = "\u0BAE\u0BB2\u0BC7\u0B9A\u0BBF\u0BAF \u0BB0\u0BBF\u0B99\u0BCD\u0B95\u0BBF\u0B9F\u0BCD"
-minor = "\u0B9A\u0BC6\u0BA9\u0BCD"
+major = "மலேசிய ரிங்கிட்"
+minor = "சென்"
 factor = 100
 primary_group = 3
 secondary_group = 3
 
 [[diaspora_currencies]]
 code = "USD"
-major = "\u0B85\u0BAE\u0BC6\u0BB0\u0BBF\u0B95\u0BCD\u0B95 \u0B9F\u0BBE\u0BB2\u0BB0\u0BCD"
-minor = "\u0B9A\u0BC6\u0BA9\u0BCD\u0B9F\u0BCD"
+major = "அமெரிக்க டாலர்"
+minor = "சென்ட்"
 factor = 100
 primary_group = 3
 secondary_group = 3
 
 [[diaspora_currencies]]
 code = "EUR"
-major = "\u0BAF\u0BC2\u0BB0\u0BCB"
-minor = "\u0B9A\u0BC6\u0BA9\u0BCD\u0B9F\u0BCD"
+major = "யூரோ"
+minor = "சென்ட்"
 factor = 100
 primary_group = 3
 secondary_group = 3
 
 [[diaspora_currencies]]
 code = "GBP"
-major = "\u0BAA\u0BBF\u0BB0\u0BBF\u0B9F\u0BCD\u0B9F\u0BBF\u0BB7\u0BCD \u0BAA\u0BB5\u0BC1\u0BA3\u0BCD\u0B9F\u0BCD"
-minor = "\u0BAA\u0BC6\u0BA9\u0BCD\u0BB8\u0BCD"
+major = "பிரிட்டிஷ் பவுண்ட்"
+minor = "பென்ஸ்"
 factor = 100
 primary_group = 3
 secondary_group = 3
 
 [[diaspora_currencies]]
 code = "CAD"
-major = "\u0B95\u0BA9\u0B9F\u0BBF\u0BAF \u0B9F\u0BBE\u0BB2\u0BB0\u0BCD"
-minor = "\u0B9A\u0BC6\u0BA9\u0BCD\u0B9F\u0BCD"
+major = "கனடிய டாலர்"
+minor = "சென்ட்"
 factor = 100
 primary_group = 3
 secondary_group = 3
 
 [mixed_fraction_words]
-conjunction = "\u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD"
+conjunction = "மற்றும்"
 
 [[mixed_fraction_words.endings]]
 strip_suffix = "\u0BC1"
-quarter = "\u0BC7\u0B95\u0BBE\u0BB2\u0BCD"
-half = "\u0BB0\u0BC8"
-three_quarters = "\u0BC7\u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BB2\u0BCD"
+quarter = "\u0BC7கால்"
+half = "ரை"
+three_quarters = "\u0BC7முக்கால்"
 
 [[mixed_fraction_words.endings]]
-strip_suffix = "\u0BAE\u0BCD"
-quarter = "\u0BA4\u0BCD\u0BA4\u0BC7\u0B95\u0BBE\u0BB2\u0BCD"
-half = "\u0BA4\u0BCD\u0BA4\u0BB0\u0BC8"
-three_quarters = "\u0BA4\u0BCD\u0BA4\u0BC7\u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BB2\u0BCD"
+strip_suffix = "ம்"
+quarter = "த்தேகால்"
+half = "த்தரை"
+three_quarters = "த்தேமுக்கால்"
 
 [[mixed_fraction_words.endings]]
 strip_suffix = "\u0BBF"
-quarter = "\u0BBF\u0BAF\u0BC7\u0B95\u0BBE\u0BB2\u0BCD"
-half = "\u0BBF\u0BAF\u0BB0\u0BC8"
-three_quarters = "\u0BBF\u0BAF\u0BC7\u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BB2\u0BCD"
+quarter = "\u0BBFயேகால்"
+half = "\u0BBFயரை"
+three_quarters = "\u0BBFயேமுக்கால்"

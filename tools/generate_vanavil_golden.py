@@ -1,11 +1,15 @@
 """Generate Vanavil Avvaiyar mapping fixtures from the canonical declarative table."""
 
 import json
+import sys
 import tomllib
 import unicodedata
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from tools.toml_utf8 import format_toml_string  # noqa: E402
 LEXICON = ROOT / "lexicon/vanavil.toml"
 OUTPUT = ROOT / "tests/golden/codec_vanavil.jsonl"
 CONFIG_SHA256 = "4948396d50fbbaf251ddfe620ca5d8a0ccdb65b5bef07231065a5d6439754b67"
@@ -160,8 +164,7 @@ def build_lexicon():
     ]
     for cids, unicode_text in entries:
         cid_str = ", ".join(f"0x{cid:04X}" for cid in cids)
-        uni_str = "".join(f"\\u{ord(ch):04X}" for ch in unicode_text)
-        lines.extend(["", "[[mappings]]", f"cids = [{cid_str}]", f'unicode = "{uni_str}"'])
+        lines.extend(["", "[[mappings]]", f"cids = [{cid_str}]", f"unicode = {format_toml_string(unicode_text)}"])
     return "\n".join(lines) + "\n"
 
 
@@ -169,8 +172,5 @@ if __name__ == "__main__":
     if not LEXICON.is_file():
         lexicon_text = build_lexicon()
         LEXICON.write_text(lexicon_text, encoding="utf-8", newline="\n")
-        (ROOT / "crates/tamil-codec/lexicon/vanavil.toml").write_text(
-            lexicon_text, encoding="utf-8", newline="\n"
-        )
     OUTPUT.write_text(generate(), encoding="utf-8", newline="\n")
     print(f"Wrote {OUTPUT.relative_to(ROOT)}")

@@ -3,6 +3,17 @@
 
 ## Unreleased
 
+- **Uniform UTF-8 Tamil in `lexicon/*.toml` (Constitution 3.0.0):** Migrated all
+  canonical `lexicon/*.toml` rule tables and their 10 generator scripts onto a
+  shared formatter (`tools/toml_utf8.py`): literal NFC UTF-8 Tamil (UTF-8 no
+  BOM, LF endings) for complete Tamil letters, attached marks, digits, and
+  signs, while keeping detached Tamil combining marks, Braille
+  (`U+2800..U+28FF`), Tamil Supplement (`U+11FC0..U+11FFF`), and controls
+  explicitly escaped. Added TOML-aware enforcement to `check_source_unicode.py`,
+  added `tests/harness/test_toml_utf8.py`, added `just check-release-files`
+  ahead of `sync-release-files` in `.github/workflows/ci.yml`, and synced all
+  135 release copies with 100% parsed-object equality. Golden JSONL remains
+  escaped.
 - **Phase 7B (`tamil-codec` — Senthamil, Shree-Tam, Softview, TBO & Bharathi Braille):**
   Add 4 new 16-bit CID legacy font profiles (`senthamil-cid-v1`, `shree-tam-cid-v1`,
   `softview-amudham-cid-v1`, `tbo-tboomi-cid-v1`) and Grade 1 Bharathi Tamil Braille

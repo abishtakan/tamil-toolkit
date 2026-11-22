@@ -1,27 +1,27 @@
 # CLDR 49 / Unicode 17 facts; sources and licenses: docs/specs/numerals-v0.2.md and numerals-v0.3.md
 profile = "numerals-formats-v1"
-division = "\u0BB5\u0B95\u0BC1\u0BA4\u0BCD\u0BA4\u0BB2\u0BCD"
-decimal_point_word = "\u0BAA\u0BC1\u0BB3\u0BCD\u0BB3\u0BBF"
+division = "வகுத்தல்"
+decimal_point_word = "புள்ளி"
 latin_digits = "0123456789"
-tamil_digits = "\u0BE6\u0BE7\u0BE8\u0BE9\u0BEA\u0BEB\u0BEC\u0BED\u0BEE\u0BEF"
-months = ["\u0B9C\u0BA9\u0BB5\u0BB0\u0BBF", "\u0BAA\u0BBF\u0BAA\u0BCD\u0BB0\u0BB5\u0BB0\u0BBF", "\u0BAE\u0BBE\u0BB0\u0BCD\u0B9A\u0BCD", "\u0B8F\u0BAA\u0BCD\u0BB0\u0BB2\u0BCD", "\u0BAE\u0BC7", "\u0B9C\u0BC2\u0BA9\u0BCD", "\u0B9C\u0BC2\u0BB2\u0BC8", "\u0B86\u0B95\u0BB8\u0BCD\u0B9F\u0BCD", "\u0B9A\u0BC6\u0BAA\u0BCD\u0B9F\u0BAE\u0BCD\u0BAA\u0BB0\u0BCD", "\u0B85\u0B95\u0BCD\u0B9F\u0BCB\u0BAA\u0BB0\u0BCD", "\u0BA8\u0BB5\u0BAE\u0BCD\u0BAA\u0BB0\u0BCD", "\u0B9F\u0BBF\u0B9A\u0BAE\u0BCD\u0BAA\u0BB0\u0BCD"]
-abbreviated_months = ["\u0B9C\u0BA9.", "\u0BAA\u0BBF\u0BAA\u0BCD.", "\u0BAE\u0BBE\u0BB0\u0BCD.", "\u0B8F\u0BAA\u0BCD.", "\u0BAE\u0BC7", "\u0B9C\u0BC2\u0BA9\u0BCD", "\u0B9C\u0BC2\u0BB2\u0BC8", "\u0B86\u0B95.", "\u0B9A\u0BC6\u0BAA\u0BCD.", "\u0B85\u0B95\u0BCD.", "\u0BA8\u0BB5.", "\u0B9F\u0BBF\u0B9A."]
-weekdays = ["\u0B9E\u0BBE\u0BAF\u0BBF\u0BB1\u0BC1", "\u0BA4\u0BBF\u0B99\u0BCD\u0B95\u0BB3\u0BCD", "\u0B9A\u0BC6\u0BB5\u0BCD\u0BB5\u0BBE\u0BAF\u0BCD", "\u0BAA\u0BC1\u0BA4\u0BA9\u0BCD", "\u0BB5\u0BBF\u0BAF\u0BBE\u0BB4\u0BA9\u0BCD", "\u0BB5\u0BC6\u0BB3\u0BCD\u0BB3\u0BBF", "\u0B9A\u0BA9\u0BBF"]
+tamil_digits = "௦௧௨௩௪௫௬௭௮௯"
+months = ["ஜனவரி", "பிப்ரவரி", "மார்ச்", "ஏப்ரல்", "மே", "ஜூன்", "ஜூலை", "ஆகஸ்ட்", "செப்டம்பர்", "அக்டோபர்", "நவம்பர்", "டிசம்பர்"]
+abbreviated_months = ["ஜன.", "பிப்.", "மார்.", "ஏப்.", "மே", "ஜூன்", "ஜூலை", "ஆக.", "செப்.", "அக்.", "நவ.", "டிச."]
+weekdays = ["ஞாயிறு", "திங்கள்", "செவ்வாய்", "புதன்", "வியாழன்", "வெள்ளி", "சனி"]
 
 [[common_fractions]]
 numerator = 1
 denominator = 4
-words = "\u0B95\u0BBE\u0BB2\u0BCD"
+words = "கால்"
 
 [[common_fractions]]
 numerator = 1
 denominator = 2
-words = "\u0B85\u0BB0\u0BC8"
+words = "அரை"
 
 [[common_fractions]]
 numerator = 3
 denominator = 4
-words = "\u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BB2\u0BCD"
+words = "முக்கால்"
 
 [[symbols]]
 numerator = 1

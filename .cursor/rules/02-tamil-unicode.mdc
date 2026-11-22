@@ -5,5 +5,8 @@ alwaysApply: true
 
 Never trust visual Tamil glyph inspection. Use mcp-tamil-oracle tools or explicit
 hex escapes. NFC is required unless a golden value has an exact, reasoned Unicode
-exception. Inspect decoded JSON escapes too. Never silently delete ZWJ/ZWNJ or
-change intentionally decomposed tests. Run just check-unicode after edits.
+exception. Keep golden JSONL escaped; canonical `lexicon/*.toml` tables use
+readable NFC UTF-8 Tamil with detached Tamil marks, Braille, Tamil Supplement,
+and control/special characters escaped (`tools/toml_utf8.py`). Never silently
+delete ZWJ/ZWNJ or change intentionally decomposed tests. Run `just check-unicode`
+after edits.

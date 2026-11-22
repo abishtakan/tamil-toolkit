@@ -4,47 +4,47 @@ remove_hex = ["8686", "8686a1", "8b8b20"]
 
 [[mappings]]
 hex = "80"
-unicode = "\u0be6"
+unicode = "௦"
 
 [[mappings]]
 hex = "86"
-unicode = "\u0bb9"
+unicode = "ஹ"
 
 [[mappings]]
 hex = "86a1"
-unicode = "\u0bb9\u0bbe"
+unicode = "ஹா"
 
 [[mappings]]
 hex = "87"
-unicode = "\u0b95\u0bcd\u0bb7"
+unicode = "க்ஷ"
 
 [[mappings]]
 hex = "87a1"
-unicode = "\u0b95\u0bcd\u0bb7\u0bbe"
+unicode = "க்ஷா"
 
 [[mappings]]
 hex = "87a2"
-unicode = "\u0b95\u0bcd\u0bb7\u0bbf"
+unicode = "க்ஷி"
 
 [[mappings]]
 hex = "87a3"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc0"
+unicode = "க்ஷீ"
 
 [[mappings]]
 hex = "87a4"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc1"
+unicode = "க்ஷு"
 
 [[mappings]]
 hex = "87a5"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc2"
+unicode = "க்ஷூ"
 
 [[mappings]]
 hex = "8b"
-unicode = "\u0bb9\u0bcd"
+unicode = "ஹ்"
 
 [[mappings]]
 hex = "8c"
-unicode = "\u0b95\u0bcd\u0bb7\u0bcd"
+unicode = "க்ஷ்"
 
 [[mappings]]
 hex = "92"
@@ -60,63 +60,63 @@ unicode = "\u201d"
 
 [[mappings]]
 hex = "95"
-unicode = "\u0bec"
+unicode = "௬"
 
 [[mappings]]
 hex = "a1"
-unicode = "\u0bbe"
+unicode = "\u0BBE"
 
 [[mappings]]
 hex = "a2"
-unicode = "\u0bbf"
+unicode = "\u0BBF"
 
 [[mappings]]
 hex = "a3"
-unicode = "\u0bc0"
+unicode = "\u0BC0"
 
 [[mappings]]
 hex = "a4"
-unicode = "\u0bc1"
+unicode = "\u0BC1"
 
 [[mappings]]
 hex = "a5"
-unicode = "\u0bc2"
+unicode = "\u0BC2"
 
 [[mappings]]
 hex = "a6"
-unicode = "\u0bc6"
+unicode = "\u0BC6"
 
 [[mappings]]
 hex = "a687"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc6"
+unicode = "க்ஷெ"
 
 [[mappings]]
 hex = "a687a1"
-unicode = "\u0b95\u0bcd\u0bb7\u0bca"
+unicode = "க்ஷொ"
 
 [[mappings]]
 hex = "a687aa"
-unicode = "\u0b95\u0bcd\u0bb7\u0bcc"
+unicode = "க்ஷௌ"
 
 [[mappings]]
 hex = "a7"
-unicode = "\u0bc7"
+unicode = "\u0BC7"
 
 [[mappings]]
 hex = "a787"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc7"
+unicode = "க்ஷே"
 
 [[mappings]]
 hex = "a787a1"
-unicode = "\u0b95\u0bcd\u0bb7\u0bcb"
+unicode = "க்ஷோ"
 
 [[mappings]]
 hex = "a8"
-unicode = "\u0bc8"
+unicode = "\u0BC8"
 
 [[mappings]]
 hex = "a887"
-unicode = "\u0b95\u0bcd\u0bb7\u0bc8"
+unicode = "க்ஷை"
 
 [[mappings]]
 hex = "a9"
@@ -124,4 +124,4 @@ unicode = "\u00a9"
 
 [[mappings]]
 hex = "aa"
-unicode = "\u0bd7"
+unicode = "\u0BD7"

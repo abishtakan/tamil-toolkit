@@ -101,10 +101,15 @@ def fixtures(table):
 
 
 def lexicon(table):
+    import sys
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from tools.toml_utf8 import format_toml_string
+
     lines = ['profile = "tscii-tamilutil-bounded-v1"', 'source = "TamilUtil 1f659e70; IANA registration draft and audited supplement"', ""]
     for key, value in table.items():
-        lines.extend(["[[mappings]]", f'hex = "{key.hex()}"', "unicode = " + json.dumps(value, ensure_ascii=True), ""])
-    lines.extend(["[[encoding_preferences]]", 'hex = "fe"', 'unicode = "\\u0b87"', ""])
+        lines.extend(["[[mappings]]", f'hex = "{key.hex()}"', "unicode = " + format_toml_string(value), ""])
+    lines.extend(["[[encoding_preferences]]", 'hex = "fe"', "unicode = " + format_toml_string("\u0b87"), ""])
     return "\n".join(lines)
 
 

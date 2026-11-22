@@ -8,11 +8,18 @@
 2. **Inspect Tamil by scalars.** Never infer canonical composition, character
    boundaries, or invisible joiners from rendered text. Call the local
    `tamil-oracle` MCP tool `inspect_tamil_string` / `inspect_codepoints`, or use
-   explicit hexadecimal escapes. Keep golden JSONL and small declarative rule
-   tables escaped and reviewable. Large lexicon CSV tables use readable UTF-8
-   Tamil, with reversible cell encoding and escaped control/scalar diagnostics;
-   see `docs/decisions/lexicon-text-storage.md`. Never silently remove ZWJ/ZWNJ
-   from user input. Runtime data uses its measured deterministic compact format.
+   explicit hexadecimal escapes. Keep golden JSONL (`tests/golden/*.jsonl`) and
+   scalar diagnostics escaped and reviewable. Canonical declarative rule tables
+   (`lexicon/*.toml`) use uniform readable NFC UTF-8 Tamil (UTF-8 no BOM, LF
+   line endings) for complete Tamil letters, attached marks, digits, and signs,
+   while keeping detached Tamil marks (`U+0B82`, `U+0BBE..U+0BC2`,
+   `U+0BC6..U+0BC8`, `U+0BCA..U+0BCD`, `U+0BD7`), Braille (`U+2800..U+28FF`),
+   Tamil Supplement (`U+11FC0..U+11FFF`), and control/special characters escaped
+   (enforced by `tools/toml_utf8.py` and `just check-unicode`). Large lexicon
+   CSV tables use readable UTF-8 Tamil with reversible cell encoding and escaped
+   control/scalar diagnostics; see `docs/decisions/lexicon-text-storage.md`.
+   Never silently remove ZWJ/ZWNJ from user input. Runtime data uses its
+   measured deterministic compact format.
 3. **Golden vectors precede implementation.** Add sourced cases in
    `tests/golden/<module>.jsonl` and a specification before algorithms. Every
    active case runs unchanged in Rust, Python, and WASM. Unsupported operations

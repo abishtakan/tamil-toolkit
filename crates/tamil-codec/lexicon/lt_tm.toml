@@ -6,1328 +6,1328 @@ max_key_cids = 3
 
 [[mappings]]
 cids = [0x0023]
-unicode = "\u0B9C"
+unicode = "ஜ"
 
 [[mappings]]
 cids = [0x0023, 0x0026]
-unicode = "\u0B9C\u0BC1"
+unicode = "ஜு"
 
 [[mappings]]
 cids = [0x0023, 0x005D]
-unicode = "\u0B9C\u0BC2"
+unicode = "ஜூ"
 
 [[mappings]]
 cids = [0x0023, 0x0068]
-unicode = "\u0B9C\u0BBE"
+unicode = "ஜா"
 
 [[mappings]]
 cids = [0x0024]
-unicode = "\u0BB8\u0BCD\u0BB0\u0BC0"
+unicode = "ஸ்ரீ"
 
 [[mappings]]
 cids = [0x0025]
-unicode = "\u0BB0\u0BC2"
+unicode = "ரூ"
 
 [[mappings]]
 cids = [0x003C]
-unicode = "\u0B88"
+unicode = "ஈ"
 
 [[mappings]]
 cids = [0x003E]
-unicode = "\u0BB4\u0BC2"
+unicode = "ழூ"
 
 [[mappings]]
 cids = [0x0041]
-unicode = "\u0BB9"
+unicode = "ஹ"
 
 [[mappings]]
 cids = [0x0041, 0x0026]
-unicode = "\u0BB9\u0BC1"
+unicode = "ஹு"
 
 [[mappings]]
 cids = [0x0041, 0x005D]
-unicode = "\u0BB9\u0BC2"
+unicode = "ஹூ"
 
 [[mappings]]
 cids = [0x0041, 0x0068]
-unicode = "\u0BB9\u0BBE"
+unicode = "ஹா"
 
 [[mappings]]
 cids = [0x0042]
-unicode = "\u0B95\u0BCD\u0BB7"
+unicode = "க்ஷ"
 
 [[mappings]]
 cids = [0x0042, 0x0026]
-unicode = "\u0B95\u0BCD\u0BB7\u0BC1"
+unicode = "க்ஷு"
 
 [[mappings]]
 cids = [0x0042, 0x005D]
-unicode = "\u0B95\u0BCD\u0BB7\u0BC2"
+unicode = "க்ஷூ"
 
 [[mappings]]
 cids = [0x0042, 0x0068]
-unicode = "\u0B95\u0BCD\u0BB7\u0BBE"
+unicode = "க்ஷா"
 
 [[mappings]]
 cids = [0x0043]
-unicode = "\u0B8A"
+unicode = "ஊ"
 
 [[mappings]]
 cids = [0x0044]
-unicode = "\u0BA9\u0BC1"
+unicode = "னு"
 
 [[mappings]]
 cids = [0x0045]
-unicode = "\u0BA8\u0BC1"
+unicode = "நு"
 
 [[mappings]]
 cids = [0x0046]
-unicode = "\u0B95\u0BC1"
+unicode = "கு"
 
 [[mappings]]
 cids = [0x0047]
-unicode = "\u0BB4\u0BC1"
+unicode = "ழு"
 
 [[mappings]]
 cids = [0x0048]
-unicode = "\u0BB4"
+unicode = "ழ"
 
 [[mappings]]
 cids = [0x0048, 0x0068]
-unicode = "\u0BB4\u0BBE"
+unicode = "ழா"
 
 [[mappings]]
 cids = [0x0049]
-unicode = "\u0B90"
+unicode = "ஐ"
 
 [[mappings]]
 cids = [0x004A]
-unicode = "\u0BA4\u0BC1"
+unicode = "து"
 
 [[mappings]]
 cids = [0x004B]
-unicode = "\u0BAE\u0BC1"
+unicode = "மு"
 
 [[mappings]]
 cids = [0x004C]
-unicode = "\u0B9F\u0BC1"
+unicode = "டு"
 
 [[mappings]]
 cids = [0x004D]
-unicode = "\u0B86"
+unicode = "ஆ"
 
 [[mappings]]
 cids = [0x004E]
-unicode = "\u0B9A\u0BC2"
+unicode = "சூ"
 
 [[mappings]]
 cids = [0x004F]
-unicode = "\u0B9F\u0BC0"
+unicode = "டீ"
 
 [[mappings]]
 cids = [0x0050]
-unicode = "\u0B9E"
+unicode = "ஞ"
 
 [[mappings]]
 cids = [0x0050, 0x0068]
-unicode = "\u0B9E\u0BBE"
+unicode = "ஞா"
 
 [[mappings]]
 cids = [0x0051]
-unicode = "\u0BA3\u0BC1"
+unicode = "ணு"
 
 [[mappings]]
 cids = [0x0052]
-unicode = "\u0B9A\u0BC1"
+unicode = "சு"
 
 [[mappings]]
 cids = [0x0053]
-unicode = "\u0BB3\u0BC1"
+unicode = "ளு"
 
 [[mappings]]
 cids = [0x0054]
-unicode = "\u0B95\u0BC2"
+unicode = "கூ"
 
 [[mappings]]
 cids = [0x0055]
-unicode = "\u0BB0\u0BC1"
+unicode = "ரு"
 
 [[mappings]]
 cids = [0x0056]
-unicode = "\u0B8F"
+unicode = "ஏ"
 
 [[mappings]]
 cids = [0x0057]
-unicode = "\u0BB1\u0BC1"
+unicode = "று"
 
 [[mappings]]
 cids = [0x0058]
-unicode = "\u0B93"
+unicode = "ஓ"
 
 [[mappings]]
 cids = [0x0059]
-unicode = "\u0BB2\u0BC1"
+unicode = "லு"
 
 [[mappings]]
 cids = [0x005A]
-unicode = "\u0BB7\u0BCD"
+unicode = "ஷ்"
 
 [[mappings]]
 cids = [0x005B]
-unicode = "\u0BB8"
+unicode = "ஸ"
 
 [[mappings]]
 cids = [0x005B, 0x0026]
-unicode = "\u0BB8\u0BC1"
+unicode = "ஸு"
 
 [[mappings]]
 cids = [0x005B, 0x005D]
-unicode = "\u0BB8\u0BC2"
+unicode = "ஸூ"
 
 [[mappings]]
 cids = [0x005B, 0x0068]
-unicode = "\u0BB8\u0BBE"
+unicode = "ஸா"
 
 [[mappings]]
 cids = [0x005E]
-unicode = "\u0B9F\u0BC2"
+unicode = "டூ"
 
 [[mappings]]
 cids = [0x005F]
-unicode = "\u0BAE\u0BC2"
+unicode = "மூ"
 
 [[mappings]]
 cids = [0x0061]
-unicode = "\u0BAF"
+unicode = "ய"
 
 [[mappings]]
 cids = [0x0061, 0x0068]
-unicode = "\u0BAF\u0BBE"
+unicode = "யா"
 
 [[mappings]]
 cids = [0x0062, 0x0023]
-unicode = "\u0B9C\u0BC6"
+unicode = "ஜெ"
 
 [[mappings]]
 cids = [0x0062, 0x0023, 0x0068]
-unicode = "\u0B9C\u0BCA"
+unicode = "ஜொ"
 
 [[mappings]]
 cids = [0x0062, 0x0023, 0x0073]
-unicode = "\u0B9C\u0BCC"
+unicode = "ஜௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0041]
-unicode = "\u0BB9\u0BC6"
+unicode = "ஹெ"
 
 [[mappings]]
 cids = [0x0062, 0x0041, 0x0068]
-unicode = "\u0BB9\u0BCA"
+unicode = "ஹொ"
 
 [[mappings]]
 cids = [0x0062, 0x0041, 0x0073]
-unicode = "\u0BB9\u0BCC"
+unicode = "ஹௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0042]
-unicode = "\u0B95\u0BCD\u0BB7\u0BC6"
+unicode = "க்ஷெ"
 
 [[mappings]]
 cids = [0x0062, 0x0042, 0x0068]
-unicode = "\u0B95\u0BCD\u0BB7\u0BCA"
+unicode = "க்ஷொ"
 
 [[mappings]]
 cids = [0x0062, 0x0042, 0x0073]
-unicode = "\u0B95\u0BCD\u0BB7\u0BCC"
+unicode = "க்ஷௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0048]
-unicode = "\u0BB4\u0BC6"
+unicode = "ழெ"
 
 [[mappings]]
 cids = [0x0062, 0x0048, 0x0068]
-unicode = "\u0BB4\u0BCA"
+unicode = "ழொ"
 
 [[mappings]]
 cids = [0x0062, 0x0048, 0x0073]
-unicode = "\u0BB4\u0BCC"
+unicode = "ழௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0050]
-unicode = "\u0B9E\u0BC6"
+unicode = "ஞெ"
 
 [[mappings]]
 cids = [0x0062, 0x0050, 0x0068]
-unicode = "\u0B9E\u0BCA"
+unicode = "ஞொ"
 
 [[mappings]]
 cids = [0x0062, 0x0050, 0x0073]
-unicode = "\u0B9E\u0BCC"
+unicode = "ஞௌ"
 
 [[mappings]]
 cids = [0x0062, 0x005B]
-unicode = "\u0BB8\u0BC6"
+unicode = "ஸெ"
 
 [[mappings]]
 cids = [0x0062, 0x005B, 0x0068]
-unicode = "\u0BB8\u0BCA"
+unicode = "ஸொ"
 
 [[mappings]]
 cids = [0x0062, 0x005B, 0x0073]
-unicode = "\u0BB8\u0BCC"
+unicode = "ஸௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0061]
-unicode = "\u0BAF\u0BC6"
+unicode = "யெ"
 
 [[mappings]]
 cids = [0x0062, 0x0061, 0x0068]
-unicode = "\u0BAF\u0BCA"
+unicode = "யொ"
 
 [[mappings]]
 cids = [0x0062, 0x0061, 0x0073]
-unicode = "\u0BAF\u0BCC"
+unicode = "யௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0064]
-unicode = "\u0BA9\u0BC6"
+unicode = "னெ"
 
 [[mappings]]
 cids = [0x0062, 0x0064, 0x0068]
-unicode = "\u0BA9\u0BCA"
+unicode = "னொ"
 
 [[mappings]]
 cids = [0x0062, 0x0064, 0x0073]
-unicode = "\u0BA9\u0BCC"
+unicode = "னௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0065]
-unicode = "\u0BA8\u0BC6"
+unicode = "நெ"
 
 [[mappings]]
 cids = [0x0062, 0x0065, 0x0068]
-unicode = "\u0BA8\u0BCA"
+unicode = "நொ"
 
 [[mappings]]
 cids = [0x0062, 0x0065, 0x0073]
-unicode = "\u0BA8\u0BCC"
+unicode = "நௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0066]
-unicode = "\u0B95\u0BC6"
+unicode = "கெ"
 
 [[mappings]]
 cids = [0x0062, 0x0066, 0x0068]
-unicode = "\u0B95\u0BCA"
+unicode = "கொ"
 
 [[mappings]]
 cids = [0x0062, 0x0066, 0x0073]
-unicode = "\u0B95\u0BCC"
+unicode = "கௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0067]
-unicode = "\u0BAA\u0BC6"
+unicode = "பெ"
 
 [[mappings]]
 cids = [0x0062, 0x0067, 0x0068]
-unicode = "\u0BAA\u0BCA"
+unicode = "பொ"
 
 [[mappings]]
 cids = [0x0062, 0x0067, 0x0073]
-unicode = "\u0BAA\u0BCC"
+unicode = "பௌ"
 
 [[mappings]]
 cids = [0x0062, 0x006A]
-unicode = "\u0BA4\u0BC6"
+unicode = "தெ"
 
 [[mappings]]
 cids = [0x0062, 0x006A, 0x0068]
-unicode = "\u0BA4\u0BCA"
+unicode = "தொ"
 
 [[mappings]]
 cids = [0x0062, 0x006A, 0x0073]
-unicode = "\u0BA4\u0BCC"
+unicode = "தௌ"
 
 [[mappings]]
 cids = [0x0062, 0x006B]
-unicode = "\u0BAE\u0BC6"
+unicode = "மெ"
 
 [[mappings]]
 cids = [0x0062, 0x006B, 0x0068]
-unicode = "\u0BAE\u0BCA"
+unicode = "மொ"
 
 [[mappings]]
 cids = [0x0062, 0x006B, 0x0073]
-unicode = "\u0BAE\u0BCC"
+unicode = "மௌ"
 
 [[mappings]]
 cids = [0x0062, 0x006C]
-unicode = "\u0B9F\u0BC6"
+unicode = "டெ"
 
 [[mappings]]
 cids = [0x0062, 0x006C, 0x0068]
-unicode = "\u0B9F\u0BCA"
+unicode = "டொ"
 
 [[mappings]]
 cids = [0x0062, 0x006C, 0x0073]
-unicode = "\u0B9F\u0BCC"
+unicode = "டௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0072]
-unicode = "\u0B9A\u0BC6"
+unicode = "செ"
 
 [[mappings]]
 cids = [0x0062, 0x0072, 0x0068]
-unicode = "\u0B9A\u0BCA"
+unicode = "சொ"
 
 [[mappings]]
 cids = [0x0062, 0x0072, 0x0073]
-unicode = "\u0B9A\u0BCC"
+unicode = "சௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0073]
-unicode = "\u0BB3\u0BC6"
+unicode = "ளெ"
 
 [[mappings]]
 cids = [0x0062, 0x0073, 0x0068]
-unicode = "\u0BB3\u0BCA"
+unicode = "ளொ"
 
 [[mappings]]
 cids = [0x0062, 0x0073, 0x0073]
-unicode = "\u0BB3\u0BCC"
+unicode = "ளௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0074]
-unicode = "\u0BB5\u0BC6"
+unicode = "வெ"
 
 [[mappings]]
 cids = [0x0062, 0x0074, 0x0068]
-unicode = "\u0BB5\u0BCA"
+unicode = "வொ"
 
 [[mappings]]
 cids = [0x0062, 0x0074, 0x0073]
-unicode = "\u0BB5\u0BCC"
+unicode = "வௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0075]
-unicode = "\u0BB0\u0BC6"
+unicode = "ரெ"
 
 [[mappings]]
 cids = [0x0062, 0x0075, 0x0068]
-unicode = "\u0BB0\u0BCA"
+unicode = "ரொ"
 
 [[mappings]]
 cids = [0x0062, 0x0075, 0x0073]
-unicode = "\u0BB0\u0BCC"
+unicode = "ரௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0077]
-unicode = "\u0BB1\u0BC6"
+unicode = "றெ"
 
 [[mappings]]
 cids = [0x0062, 0x0077, 0x0068]
-unicode = "\u0BB1\u0BCA"
+unicode = "றொ"
 
 [[mappings]]
 cids = [0x0062, 0x0077, 0x0073]
-unicode = "\u0BB1\u0BCC"
+unicode = "றௌ"
 
 [[mappings]]
 cids = [0x0062, 0x0079]
-unicode = "\u0BB2\u0BC6"
+unicode = "லெ"
 
 [[mappings]]
 cids = [0x0062, 0x0079, 0x0068]
-unicode = "\u0BB2\u0BCA"
+unicode = "லொ"
 
 [[mappings]]
 cids = [0x0062, 0x0079, 0x0073]
-unicode = "\u0BB2\u0BCC"
+unicode = "லௌ"
 
 [[mappings]]
 cids = [0x0062, 0x007A]
-unicode = "\u0BA3\u0BC6"
+unicode = "ணெ"
 
 [[mappings]]
 cids = [0x0062, 0x007A, 0x0068]
-unicode = "\u0BA3\u0BCA"
+unicode = "ணொ"
 
 [[mappings]]
 cids = [0x0062, 0x007A, 0x0073]
-unicode = "\u0BA3\u0BCC"
+unicode = "ணௌ"
 
 [[mappings]]
 cids = [0x0062, 0x00F5]
-unicode = "\u0BB7\u0BC6"
+unicode = "ஷெ"
 
 [[mappings]]
 cids = [0x0062, 0x00F5, 0x0068]
-unicode = "\u0BB7\u0BCA"
+unicode = "ஷொ"
 
 [[mappings]]
 cids = [0x0062, 0x00F5, 0x0073]
-unicode = "\u0BB7\u0BCC"
+unicode = "ஷௌ"
 
 [[mappings]]
 cids = [0x0062, 0x2021]
-unicode = "\u0B99\u0BC6"
+unicode = "ஙெ"
 
 [[mappings]]
 cids = [0x0062, 0x2021, 0x0068]
-unicode = "\u0B99\u0BCA"
+unicode = "ஙொ"
 
 [[mappings]]
 cids = [0x0062, 0x2021, 0x0073]
-unicode = "\u0B99\u0BCC"
+unicode = "ஙௌ"
 
 [[mappings]]
 cids = [0x0062, 0x2122]
-unicode = "\u0BB6\u0BC6"
+unicode = "ஶெ"
 
 [[mappings]]
 cids = [0x0062, 0x2122, 0x0068]
-unicode = "\u0BB6\u0BCA"
+unicode = "ஶொ"
 
 [[mappings]]
 cids = [0x0062, 0x2122, 0x0073]
-unicode = "\u0BB6\u0BCC"
+unicode = "ஶௌ"
 
 [[mappings]]
 cids = [0x0063]
-unicode = "\u0B89"
+unicode = "உ"
 
 [[mappings]]
 cids = [0x0064]
-unicode = "\u0BA9"
+unicode = "ன"
 
 [[mappings]]
 cids = [0x0064, 0x0068]
-unicode = "\u0BA9\u0BBE"
+unicode = "னா"
 
 [[mappings]]
 cids = [0x0065]
-unicode = "\u0BA8"
+unicode = "ந"
 
 [[mappings]]
 cids = [0x0065, 0x0068]
-unicode = "\u0BA8\u0BBE"
+unicode = "நா"
 
 [[mappings]]
 cids = [0x0066]
-unicode = "\u0B95"
+unicode = "க"
 
 [[mappings]]
 cids = [0x0066, 0x0068]
-unicode = "\u0B95\u0BBE"
+unicode = "கா"
 
 [[mappings]]
 cids = [0x0067]
-unicode = "\u0BAA"
+unicode = "ப"
 
 [[mappings]]
 cids = [0x0067, 0x0068]
-unicode = "\u0BAA\u0BBE"
+unicode = "பா"
 
 [[mappings]]
 cids = [0x0069, 0x0023]
-unicode = "\u0B9C\u0BC8"
+unicode = "ஜை"
 
 [[mappings]]
 cids = [0x0069, 0x0041]
-unicode = "\u0BB9\u0BC8"
+unicode = "ஹை"
 
 [[mappings]]
 cids = [0x0069, 0x0042]
-unicode = "\u0B95\u0BCD\u0BB7\u0BC8"
+unicode = "க்ஷை"
 
 [[mappings]]
 cids = [0x0069, 0x0048]
-unicode = "\u0BB4\u0BC8"
+unicode = "ழை"
 
 [[mappings]]
 cids = [0x0069, 0x0050]
-unicode = "\u0B9E\u0BC8"
+unicode = "ஞை"
 
 [[mappings]]
 cids = [0x0069, 0x005B]
-unicode = "\u0BB8\u0BC8"
+unicode = "ஸை"
 
 [[mappings]]
 cids = [0x0069, 0x0061]
-unicode = "\u0BAF\u0BC8"
+unicode = "யை"
 
 [[mappings]]
 cids = [0x0069, 0x0064]
-unicode = "\u0BA9\u0BC8"
+unicode = "னை"
 
 [[mappings]]
 cids = [0x0069, 0x0065]
-unicode = "\u0BA8\u0BC8"
+unicode = "நை"
 
 [[mappings]]
 cids = [0x0069, 0x0066]
-unicode = "\u0B95\u0BC8"
+unicode = "கை"
 
 [[mappings]]
 cids = [0x0069, 0x0067]
-unicode = "\u0BAA\u0BC8"
+unicode = "பை"
 
 [[mappings]]
 cids = [0x0069, 0x006A]
-unicode = "\u0BA4\u0BC8"
+unicode = "தை"
 
 [[mappings]]
 cids = [0x0069, 0x006B]
-unicode = "\u0BAE\u0BC8"
+unicode = "மை"
 
 [[mappings]]
 cids = [0x0069, 0x006C]
-unicode = "\u0B9F\u0BC8"
+unicode = "டை"
 
 [[mappings]]
 cids = [0x0069, 0x0072]
-unicode = "\u0B9A\u0BC8"
+unicode = "சை"
 
 [[mappings]]
 cids = [0x0069, 0x0073]
-unicode = "\u0BB3\u0BC8"
+unicode = "ளை"
 
 [[mappings]]
 cids = [0x0069, 0x0074]
-unicode = "\u0BB5\u0BC8"
+unicode = "வை"
 
 [[mappings]]
 cids = [0x0069, 0x0075]
-unicode = "\u0BB0\u0BC8"
+unicode = "ரை"
 
 [[mappings]]
 cids = [0x0069, 0x0077]
-unicode = "\u0BB1\u0BC8"
+unicode = "றை"
 
 [[mappings]]
 cids = [0x0069, 0x0079]
-unicode = "\u0BB2\u0BC8"
+unicode = "லை"
 
 [[mappings]]
 cids = [0x0069, 0x007A]
-unicode = "\u0BA3\u0BC8"
+unicode = "ணை"
 
 [[mappings]]
 cids = [0x0069, 0x00F5]
-unicode = "\u0BB7\u0BC8"
+unicode = "ஷை"
 
 [[mappings]]
 cids = [0x0069, 0x2021]
-unicode = "\u0B99\u0BC8"
+unicode = "ஙை"
 
 [[mappings]]
 cids = [0x0069, 0x2122]
-unicode = "\u0BB6\u0BC8"
+unicode = "ஶை"
 
 [[mappings]]
 cids = [0x006A]
-unicode = "\u0BA4"
+unicode = "த"
 
 [[mappings]]
 cids = [0x006A, 0x0068]
-unicode = "\u0BA4\u0BBE"
+unicode = "தா"
 
 [[mappings]]
 cids = [0x006B]
-unicode = "\u0BAE"
+unicode = "ம"
 
 [[mappings]]
 cids = [0x006B, 0x0068]
-unicode = "\u0BAE\u0BBE"
+unicode = "மா"
 
 [[mappings]]
 cids = [0x006C]
-unicode = "\u0B9F"
+unicode = "ட"
 
 [[mappings]]
 cids = [0x006C, 0x0068]
-unicode = "\u0B9F\u0BBE"
+unicode = "டா"
 
 [[mappings]]
 cids = [0x006D]
-unicode = "\u0B85"
+unicode = "அ"
 
 [[mappings]]
 cids = [0x006E, 0x0023]
-unicode = "\u0B9C\u0BC7"
+unicode = "ஜே"
 
 [[mappings]]
 cids = [0x006E, 0x0023, 0x0068]
-unicode = "\u0B9C\u0BCB"
+unicode = "ஜோ"
 
 [[mappings]]
 cids = [0x006E, 0x0041]
-unicode = "\u0BB9\u0BC7"
+unicode = "ஹே"
 
 [[mappings]]
 cids = [0x006E, 0x0041, 0x0068]
-unicode = "\u0BB9\u0BCB"
+unicode = "ஹோ"
 
 [[mappings]]
 cids = [0x006E, 0x0042]
-unicode = "\u0B95\u0BCD\u0BB7\u0BC7"
+unicode = "க்ஷே"
 
 [[mappings]]
 cids = [0x006E, 0x0042, 0x0068]
-unicode = "\u0B95\u0BCD\u0BB7\u0BCB"
+unicode = "க்ஷோ"
 
 [[mappings]]
 cids = [0x006E, 0x0048]
-unicode = "\u0BB4\u0BC7"
+unicode = "ழே"
 
 [[mappings]]
 cids = [0x006E, 0x0048, 0x0068]
-unicode = "\u0BB4\u0BCB"
+unicode = "ழோ"
 
 [[mappings]]
 cids = [0x006E, 0x0050]
-unicode = "\u0B9E\u0BC7"
+unicode = "ஞே"
 
 [[mappings]]
 cids = [0x006E, 0x0050, 0x0068]
-unicode = "\u0B9E\u0BCB"
+unicode = "ஞோ"
 
 [[mappings]]
 cids = [0x006E, 0x005B]
-unicode = "\u0BB8\u0BC7"
+unicode = "ஸே"
 
 [[mappings]]
 cids = [0x006E, 0x005B, 0x0068]
-unicode = "\u0BB8\u0BCB"
+unicode = "ஸோ"
 
 [[mappings]]
 cids = [0x006E, 0x0061]
-unicode = "\u0BAF\u0BC7"
+unicode = "யே"
 
 [[mappings]]
 cids = [0x006E, 0x0061, 0x0068]
-unicode = "\u0BAF\u0BCB"
+unicode = "யோ"
 
 [[mappings]]
 cids = [0x006E, 0x0064]
-unicode = "\u0BA9\u0BC7"
+unicode = "னே"
 
 [[mappings]]
 cids = [0x006E, 0x0064, 0x0068]
-unicode = "\u0BA9\u0BCB"
+unicode = "னோ"
 
 [[mappings]]
 cids = [0x006E, 0x0065]
-unicode = "\u0BA8\u0BC7"
+unicode = "நே"
 
 [[mappings]]
 cids = [0x006E, 0x0065, 0x0068]
-unicode = "\u0BA8\u0BCB"
+unicode = "நோ"
 
 [[mappings]]
 cids = [0x006E, 0x0066]
-unicode = "\u0B95\u0BC7"
+unicode = "கே"
 
 [[mappings]]
 cids = [0x006E, 0x0066, 0x0068]
-unicode = "\u0B95\u0BCB"
+unicode = "கோ"
 
 [[mappings]]
 cids = [0x006E, 0x0067]
-unicode = "\u0BAA\u0BC7"
+unicode = "பே"
 
 [[mappings]]
 cids = [0x006E, 0x0067, 0x0068]
-unicode = "\u0BAA\u0BCB"
+unicode = "போ"
 
 [[mappings]]
 cids = [0x006E, 0x006A]
-unicode = "\u0BA4\u0BC7"
+unicode = "தே"
 
 [[mappings]]
 cids = [0x006E, 0x006A, 0x0068]
-unicode = "\u0BA4\u0BCB"
+unicode = "தோ"
 
 [[mappings]]
 cids = [0x006E, 0x006B]
-unicode = "\u0BAE\u0BC7"
+unicode = "மே"
 
 [[mappings]]
 cids = [0x006E, 0x006B, 0x0068]
-unicode = "\u0BAE\u0BCB"
+unicode = "மோ"
 
 [[mappings]]
 cids = [0x006E, 0x006C]
-unicode = "\u0B9F\u0BC7"
+unicode = "டே"
 
 [[mappings]]
 cids = [0x006E, 0x006C, 0x0068]
-unicode = "\u0B9F\u0BCB"
+unicode = "டோ"
 
 [[mappings]]
 cids = [0x006E, 0x0072]
-unicode = "\u0B9A\u0BC7"
+unicode = "சே"
 
 [[mappings]]
 cids = [0x006E, 0x0072, 0x0068]
-unicode = "\u0B9A\u0BCB"
+unicode = "சோ"
 
 [[mappings]]
 cids = [0x006E, 0x0073]
-unicode = "\u0BB3\u0BC7"
+unicode = "ளே"
 
 [[mappings]]
 cids = [0x006E, 0x0073, 0x0068]
-unicode = "\u0BB3\u0BCB"
+unicode = "ளோ"
 
 [[mappings]]
 cids = [0x006E, 0x0074]
-unicode = "\u0BB5\u0BC7"
+unicode = "வே"
 
 [[mappings]]
 cids = [0x006E, 0x0074, 0x0068]
-unicode = "\u0BB5\u0BCB"
+unicode = "வோ"
 
 [[mappings]]
 cids = [0x006E, 0x0075]
-unicode = "\u0BB0\u0BC7"
+unicode = "ரே"
 
 [[mappings]]
 cids = [0x006E, 0x0075, 0x0068]
-unicode = "\u0BB0\u0BCB"
+unicode = "ரோ"
 
 [[mappings]]
 cids = [0x006E, 0x0077]
-unicode = "\u0BB1\u0BC7"
+unicode = "றே"
 
 [[mappings]]
 cids = [0x006E, 0x0077, 0x0068]
-unicode = "\u0BB1\u0BCB"
+unicode = "றோ"
 
 [[mappings]]
 cids = [0x006E, 0x0079]
-unicode = "\u0BB2\u0BC7"
+unicode = "லே"
 
 [[mappings]]
 cids = [0x006E, 0x0079, 0x0068]
-unicode = "\u0BB2\u0BCB"
+unicode = "லோ"
 
 [[mappings]]
 cids = [0x006E, 0x007A]
-unicode = "\u0BA3\u0BC7"
+unicode = "ணே"
 
 [[mappings]]
 cids = [0x006E, 0x007A, 0x0068]
-unicode = "\u0BA3\u0BCB"
+unicode = "ணோ"
 
 [[mappings]]
 cids = [0x006E, 0x00F5]
-unicode = "\u0BB7\u0BC7"
+unicode = "ஷே"
 
 [[mappings]]
 cids = [0x006E, 0x00F5, 0x0068]
-unicode = "\u0BB7\u0BCB"
+unicode = "ஷோ"
 
 [[mappings]]
 cids = [0x006E, 0x2021]
-unicode = "\u0B99\u0BC7"
+unicode = "ஙே"
 
 [[mappings]]
 cids = [0x006E, 0x2021, 0x0068]
-unicode = "\u0B99\u0BCB"
+unicode = "ஙோ"
 
 [[mappings]]
 cids = [0x006E, 0x2122]
-unicode = "\u0BB6\u0BC7"
+unicode = "ஶே"
 
 [[mappings]]
 cids = [0x006E, 0x2122, 0x0068]
-unicode = "\u0BB6\u0BCB"
+unicode = "ஶோ"
 
 [[mappings]]
 cids = [0x006F]
-unicode = "\u0B9F\u0BBF"
+unicode = "டி"
 
 [[mappings]]
 cids = [0x0070]
-unicode = "\u0BAF\u0BC0"
+unicode = "யீ"
 
 [[mappings]]
 cids = [0x0071]
-unicode = "\u0BB3\u0BC2"
+unicode = "ளூ"
 
 [[mappings]]
 cids = [0x0072]
-unicode = "\u0B9A"
+unicode = "ச"
 
 [[mappings]]
 cids = [0x0072, 0x0068]
-unicode = "\u0B9A\u0BBE"
+unicode = "சா"
 
 [[mappings]]
 cids = [0x0073]
-unicode = "\u0BB3"
+unicode = "ள"
 
 [[mappings]]
 cids = [0x0073, 0x0068]
-unicode = "\u0BB3\u0BBE"
+unicode = "ளா"
 
 [[mappings]]
 cids = [0x0074]
-unicode = "\u0BB5"
+unicode = "வ"
 
 [[mappings]]
 cids = [0x0074, 0x0068]
-unicode = "\u0BB5\u0BBE"
+unicode = "வா"
 
 [[mappings]]
 cids = [0x0075]
-unicode = "\u0BB0"
+unicode = "ர"
 
 [[mappings]]
 cids = [0x0075, 0x0068]
-unicode = "\u0BB0\u0BBE"
+unicode = "ரா"
 
 [[mappings]]
 cids = [0x0076]
-unicode = "\u0B8E"
+unicode = "எ"
 
 [[mappings]]
 cids = [0x0077]
-unicode = "\u0BB1"
+unicode = "ற"
 
 [[mappings]]
 cids = [0x0077, 0x0068]
-unicode = "\u0BB1\u0BBE"
+unicode = "றா"
 
 [[mappings]]
 cids = [0x0078]
-unicode = "\u0B92"
+unicode = "ஒ"
 
 [[mappings]]
 cids = [0x0078, 0x0073]
-unicode = "\u0B94"
+unicode = "ஔ"
 
 [[mappings]]
 cids = [0x0079]
-unicode = "\u0BB2"
+unicode = "ல"
 
 [[mappings]]
 cids = [0x0079, 0x0068]
-unicode = "\u0BB2\u0BBE"
+unicode = "லா"
 
 [[mappings]]
 cids = [0x007A]
-unicode = "\u0BA3"
+unicode = "ண"
 
 [[mappings]]
 cids = [0x007A, 0x0068]
-unicode = "\u0BA3\u0BBE"
+unicode = "ணா"
 
 [[mappings]]
 cids = [0x007B]
-unicode = "\u0B9C\u0BCD"
+unicode = "ஜ்"
 
 [[mappings]]
 cids = [0x007C]
-unicode = "\u0B9E\u0BC1"
+unicode = "ஞு"
 
 [[mappings]]
 cids = [0x007D]
-unicode = "\u0BA9\u0BC2"
+unicode = "னூ"
 
 [[mappings]]
 cids = [0x007E]
-unicode = "\u0B83"
+unicode = "ஃ"
 
 [[mappings]]
 cids = [0x00A1]
-unicode = "\u0B95\u0BCD"
+unicode = "க்"
 
 [[mappings]]
 cids = [0x00A2]
-unicode = "\u0B9A\u0BCD"
+unicode = "ச்"
 
 [[mappings]]
 cids = [0x00A3]
-unicode = "\u0B9F\u0BCD"
+unicode = "ட்"
 
 [[mappings]]
 cids = [0x00A4]
-unicode = "\u0BA4\u0BCD"
+unicode = "த்"
 
 [[mappings]]
 cids = [0x00A5]
-unicode = "\u0BAA\u0BCD"
+unicode = "ப்"
 
 [[mappings]]
 cids = [0x00A7]
-unicode = "\u0B99\u0BCD"
+unicode = "ங்"
 
 [[mappings]]
 cids = [0x00A9]
-unicode = "\u0BA3\u0BCD"
+unicode = "ண்"
 
 [[mappings]]
 cids = [0x00AA]
-unicode = "\u0BA8\u0BCD"
+unicode = "ந்"
 
 [[mappings]]
 cids = [0x00AB]
-unicode = "\u0BAE\u0BCD"
+unicode = "ம்"
 
 [[mappings]]
 cids = [0x00AE]
-unicode = "\u0BB0\u0BCD"
+unicode = "ர்"
 
 [[mappings]]
 cids = [0x00B0]
-unicode = "\u0BB8\u0BCD"
+unicode = "ஸ்"
 
 [[mappings]]
 cids = [0x00B1]
-unicode = "\u0BD0"
+unicode = "ௐ"
 
 [[mappings]]
 cids = [0x00B2]
-unicode = "\u0BF3"
+unicode = "௳"
 
 [[mappings]]
 cids = [0x00B3]
-unicode = "\u0BF8"
+unicode = "௸"
 
 [[mappings]]
 cids = [0x00B4]
-unicode = "\u0BF5"
+unicode = "௵"
 
 [[mappings]]
 cids = [0x00B5]
-unicode = "\u0BF4"
+unicode = "௴"
 
 [[mappings]]
 cids = [0x00BA]
-unicode = "\u0B95\u0BCD\u0BB7\u0BCD"
+unicode = "க்ஷ்"
 
 [[mappings]]
 cids = [0x00BB]
-unicode = "\u0B95\u0BBF"
+unicode = "கி"
 
 [[mappings]]
 cids = [0x00BC]
-unicode = "\u0B99\u0BC1"
+unicode = "ஙு"
 
 [[mappings]]
 cids = [0x00BD]
-unicode = "\u0B99\u0BC2"
+unicode = "ஙூ"
 
 [[mappings]]
 cids = [0x00BF]
-unicode = "\u0BB1\u0BBF"
+unicode = "றி"
 
 [[mappings]]
 cids = [0x00C0]
-unicode = "\u0B99\u0BBF"
+unicode = "ஙி"
 
 [[mappings]]
 cids = [0x00C1]
-unicode = "\u0B9E\u0BBF"
+unicode = "ஞி"
 
 [[mappings]]
 cids = [0x00C2]
-unicode = "\u0BA3\u0BBF"
+unicode = "ணி"
 
 [[mappings]]
 cids = [0x00C3]
-unicode = "\u0BA8\u0BBF"
+unicode = "நி"
 
 [[mappings]]
 cids = [0x00C4]
-unicode = "\u0BAE\u0BBF"
+unicode = "மி"
 
 [[mappings]]
 cids = [0x00C5]
-unicode = "\u0BA9\u0BBF"
+unicode = "னி"
 
 [[mappings]]
 cids = [0x00C6]
-unicode = "\u0BAF\u0BBF"
+unicode = "யி"
 
 [[mappings]]
 cids = [0x00C7]
-unicode = "\u0BB0\u0BBF"
+unicode = "ரி"
 
 [[mappings]]
 cids = [0x00C8]
-unicode = "\u0BB2\u0BBF"
+unicode = "லி"
 
 [[mappings]]
 cids = [0x00C9]
-unicode = "\u0BB5\u0BBF"
+unicode = "வி"
 
 [[mappings]]
 cids = [0x00CA]
-unicode = "\u0BB4\u0BBF"
+unicode = "ழி"
 
 [[mappings]]
 cids = [0x00CB]
-unicode = "\u0BB3\u0BBF"
+unicode = "ளி"
 
 [[mappings]]
 cids = [0x00CC]
-unicode = "\u0BB8\u0BBF"
+unicode = "ஸி"
 
 [[mappings]]
 cids = [0x00CD]
-unicode = "\u0B9C\u0BBF"
+unicode = "ஜி"
 
 [[mappings]]
 cids = [0x00CE]
-unicode = "\u0BB7\u0BBF"
+unicode = "ஷி"
 
 [[mappings]]
 cids = [0x00CF]
-unicode = "\u0BB9\u0BBF"
+unicode = "ஹி"
 
 [[mappings]]
 cids = [0x00D1]
-unicode = "\u0B95\u0BC0"
+unicode = "கீ"
 
 [[mappings]]
 cids = [0x00D3]
-unicode = "\u0B9A\u0BC0"
+unicode = "சீ"
 
 [[mappings]]
 cids = [0x00D4]
-unicode = "\u0BA4\u0BC0"
+unicode = "தீ"
 
 [[mappings]]
 cids = [0x00D5]
-unicode = "\u0BAA\u0BC0"
+unicode = "பீ"
 
 [[mappings]]
 cids = [0x00D6]
-unicode = "\u0BB1\u0BC0"
+unicode = "றீ"
 
 [[mappings]]
 cids = [0x00D8]
-unicode = "\u0B9E\u0BC0"
+unicode = "ஞீ"
 
 [[mappings]]
 cids = [0x00D9]
-unicode = "\u0BA3\u0BC0"
+unicode = "ணீ"
 
 [[mappings]]
 cids = [0x00DA]
-unicode = "\u0BA8\u0BC0"
+unicode = "நீ"
 
 [[mappings]]
 cids = [0x00DB]
-unicode = "\u0BAE\u0BC0"
+unicode = "மீ"
 
 [[mappings]]
 cids = [0x00DC]
-unicode = "\u0BA9\u0BC0"
+unicode = "னீ"
 
 [[mappings]]
 cids = [0x00DF]
-unicode = "\u0BB0\u0BC0"
+unicode = "ரீ"
 
 [[mappings]]
 cids = [0x00E0]
-unicode = "\u0BB9\u0BCD"
+unicode = "ஹ்"
 
 [[mappings]]
 cids = [0x00E1]
-unicode = "\u0B9A\u0BBF"
+unicode = "சி"
 
 [[mappings]]
 cids = [0x00E2]
-unicode = "\u0BA4\u0BBF"
+unicode = "தி"
 
 [[mappings]]
 cids = [0x00E3]
-unicode = "\u0BAA\u0BBF"
+unicode = "பி"
 
 [[mappings]]
 cids = [0x00E4]
-unicode = "\u0BB2\u0BC0"
+unicode = "லீ"
 
 [[mappings]]
 cids = [0x00E5]
-unicode = "\u0BB5\u0BC0"
+unicode = "வீ"
 
 [[mappings]]
 cids = [0x00E6]
-unicode = "\u0BB4\u0BC0"
+unicode = "ழீ"
 
 [[mappings]]
 cids = [0x00E7]
-unicode = "\u0BB3\u0BC0"
+unicode = "ளீ"
 
 [[mappings]]
 cids = [0x00E8]
-unicode = "\u0BB8\u0BC0"
+unicode = "ஸீ"
 
 [[mappings]]
 cids = [0x00E9]
-unicode = "\u0B9C\u0BC0"
+unicode = "ஜீ"
 
 [[mappings]]
 cids = [0x00EA]
-unicode = "\u0BB7\u0BC0"
+unicode = "ஷீ"
 
 [[mappings]]
 cids = [0x00EB]
-unicode = "\u0BB9\u0BC0"
+unicode = "ஹீ"
 
 [[mappings]]
 cids = [0x00EC]
-unicode = "\u0B95\u0BCD\u0BB7\u0BC0"
+unicode = "க்ஷீ"
 
 [[mappings]]
 cids = [0x00ED]
-unicode = "\u0BAF\u0BC1"
+unicode = "யு"
 
 [[mappings]]
 cids = [0x00EE]
-unicode = "\u0BB5\u0BC1"
+unicode = "வு"
 
 [[mappings]]
 cids = [0x00EF]
-unicode = "\u0B87"
+unicode = "இ"
 
 [[mappings]]
 cids = [0x00F1]
-unicode = "\u0BB5\u0BC2"
+unicode = "வூ"
 
 [[mappings]]
 cids = [0x00F2]
-unicode = "\u0BAA\u0BC1"
+unicode = "பு"
 
 [[mappings]]
 cids = [0x00F3]
-unicode = "\u0BAA\u0BC2"
+unicode = "பூ"
 
 [[mappings]]
 cids = [0x00F4]
-unicode = "\u0BAF\u0BC2"
+unicode = "யூ"
 
 [[mappings]]
 cids = [0x00F5]
-unicode = "\u0BB7"
+unicode = "ஷ"
 
 [[mappings]]
 cids = [0x00F5, 0x0026]
-unicode = "\u0BB7\u0BC1"
+unicode = "ஷு"
 
 [[mappings]]
 cids = [0x00F5, 0x005D]
-unicode = "\u0BB7\u0BC2"
+unicode = "ஷூ"
 
 [[mappings]]
 cids = [0x00F5, 0x0068]
-unicode = "\u0BB7\u0BBE"
+unicode = "ஷா"
 
 [[mappings]]
 cids = [0x00F6]
-unicode = "\u0BA4\u0BC2"
+unicode = "தூ"
 
 [[mappings]]
 cids = [0x00F8]
-unicode = "\u0B95\u0BCD\u0BB7\u0BBF"
+unicode = "க்ஷி"
 
 [[mappings]]
 cids = [0x00F9]
-unicode = "\u0BB1\u0BC2"
+unicode = "றூ"
 
 [[mappings]]
 cids = [0x00FA]
-unicode = "\u0B9E\u0BC2"
+unicode = "ஞூ"
 
 [[mappings]]
 cids = [0x00FB]
-unicode = "\u0BA3\u0BC2"
+unicode = "ணூ"
 
 [[mappings]]
 cids = [0x00FC]
-unicode = "\u0BA8\u0BC2"
+unicode = "நூ"
 
 [[mappings]]
 cids = [0x00FF]
-unicode = "\u0BB2\u0BC2"
+unicode = "லூ"
 
 [[mappings]]
 cids = [0x0152]
-unicode = "\u0BAF\u0BCD"
+unicode = "ய்"
 
 [[mappings]]
 cids = [0x0153]
-unicode = "\u0BB4\u0BCD"
+unicode = "ழ்"
 
 [[mappings]]
 cids = [0x0160]
-unicode = "\u0B9E\u0BCD"
+unicode = "ஞ்"
 
 [[mappings]]
 cids = [0x0161]
-unicode = "\u0BB2\u0BCD"
+unicode = "ல்"
 
 [[mappings]]
 cids = [0x0178]
-unicode = "\u0BB3\u0BCD"
+unicode = "ள்"
 
 [[mappings]]
 cids = [0x2013]
-unicode = "\u0BB6\u0BBF"
+unicode = "ஶி"
 
 [[mappings]]
 cids = [0x2014]
-unicode = "\u0BB6\u0BC0"
+unicode = "ஶீ"
 
 [[mappings]]
 cids = [0x2020]
-unicode = "\u0B99\u0BC0"
+unicode = "ஙீ"
 
 [[mappings]]
 cids = [0x2021]
-unicode = "\u0B99"
+unicode = "ங"
 
 [[mappings]]
 cids = [0x2021, 0x0068]
-unicode = "\u0B99\u0BBE"
+unicode = "ஙா"
 
 [[mappings]]
 cids = [0x2022]
-unicode = "\u0BB6\u0BCD"
+unicode = "ஶ்"
 
 [[mappings]]
 cids = [0x2030]
-unicode = "\u0BB1\u0BCD"
+unicode = "ற்"
 
 [[mappings]]
 cids = [0x2039]
-unicode = "\u0BA9\u0BCD"
+unicode = "ன்"
 
 [[mappings]]
 cids = [0x203A]
-unicode = "\u0BB5\u0BCD"
+unicode = "வ்"
 
 [[mappings]]
 cids = [0x2122]
-unicode = "\u0BB6"
+unicode = "ஶ"
 
 [[mappings]]
 cids = [0x2122, 0x0026]
-unicode = "\u0BB6\u0BC1"
+unicode = "ஶு"
 
 [[mappings]]
 cids = [0x2122, 0x005D]
-unicode = "\u0BB6\u0BC2"
+unicode = "ஶூ"
 
 [[mappings]]
 cids = [0x2122, 0x0068]
-unicode = "\u0BB6\u0BBE"
+unicode = "ஶா"
 
 [[mappings]]
 cids = [0x2219]
-unicode = "\u0BFA"
+unicode = "௺"

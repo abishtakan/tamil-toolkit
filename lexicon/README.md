@@ -56,6 +56,12 @@ its 319 keys and unique NFC values before compiling static code and
 reverse-Unicode tries.
 
 
+Canonical `lexicon/*.toml` rule tables use uniform readable NFC UTF-8 Tamil
+(UTF-8 no BOM, LF line endings) for complete Tamil letters, attached marks,
+digits, and signs, while keeping detached Tamil combining marks, Braille, Tamil
+Supplement, and control/special characters escaped (`tools/toml_utf8.py`,
+enforced by `just check-unicode`).
+
 Large approved dictionary CSV tables use readable UTF-8 Tamil under the versioned
 `json-string-utf8-v1` cell codec; JSON-required and audit-sensitive control escapes
 remain reversible. Small rule tables and golden test vectors retain explicit

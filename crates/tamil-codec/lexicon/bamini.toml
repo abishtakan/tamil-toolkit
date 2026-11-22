@@ -5,31 +5,31 @@ passthrough = " \t\r\n0123456789!\"'()-.:?"
 
 [[mappings]]
 legacy = "$"
-unicode = "\u0b95\u0bc2"
+unicode = "கூ"
 
 [[mappings]]
 legacy = "%"
-unicode = "\u0bae\u0bc2"
+unicode = "மூ"
 
 [[mappings]]
 legacy = "&"
-unicode = "\u0bb0\u0bc2"
+unicode = "ரூ"
 
 [[mappings]]
 legacy = ","
-unicode = "\u0b87"
+unicode = "இ"
 
 [[mappings]]
 legacy = "/"
-unicode = "\u0b83"
+unicode = "ஃ"
 
 [[mappings]]
 legacy = "<"
-unicode = "\u0b88"
+unicode = "ஈ"
 
 [[mappings]]
 legacy = "="
-unicode = "\u0bb8\u0bcd\u0bb0\u0bc0"
+unicode = "ஸ்ரீ"
 
 [[mappings]]
 legacy = ">"
@@ -37,1169 +37,1169 @@ unicode = ","
 
 [[mappings]]
 legacy = "A"
-unicode = "\u0baf\u0bc1"
+unicode = "யு"
 
 [[mappings]]
 legacy = "A+"
-unicode = "\u0baf\u0bc2"
+unicode = "யூ"
 
 [[mappings]]
 legacy = "B"
-unicode = "\u0b9f\u0bc0"
+unicode = "டீ"
 
 [[mappings]]
 legacy = "C"
-unicode = "\u0b8a"
+unicode = "ஊ"
 
 [[mappings]]
 legacy = "D"
-unicode = "\u0ba9\u0bc1"
+unicode = "னு"
 
 [[mappings]]
 legacy = "D}"
-unicode = "\u0ba9\u0bc2"
+unicode = "னூ"
 
 [[mappings]]
 legacy = "E"
-unicode = "\u0ba8\u0bc1"
+unicode = "நு"
 
 [[mappings]]
 legacy = "E}"
-unicode = "\u0ba8\u0bc2"
+unicode = "நூ"
 
 [[mappings]]
 legacy = "F"
-unicode = "\u0b95\u0bc1"
+unicode = "கு"
 
 [[mappings]]
 legacy = "G"
-unicode = "\u0baa\u0bc1"
+unicode = "பு"
 
 [[mappings]]
 legacy = "G+"
-unicode = "\u0baa\u0bc2"
+unicode = "பூ"
 
 [[mappings]]
 legacy = "H"
-unicode = "\u0bb0\u0bcd"
+unicode = "ர்"
 
 [[mappings]]
 legacy = "I"
-unicode = "\u0b90"
+unicode = "ஐ"
 
 [[mappings]]
 legacy = "J"
-unicode = "\u0ba4\u0bc1"
+unicode = "து"
 
 [[mappings]]
 legacy = "J}"
-unicode = "\u0ba4\u0bc2"
+unicode = "தூ"
 
 [[mappings]]
 legacy = "K"
-unicode = "\u0bae\u0bc1"
+unicode = "மு"
 
 [[mappings]]
 legacy = "L"
-unicode = "\u0b9f\u0bc1"
+unicode = "டு"
 
 [[mappings]]
 legacy = "M"
-unicode = "\u0b86"
+unicode = "ஆ"
 
 [[mappings]]
 legacy = "NQ"
-unicode = "\u0b9e\u0bc7"
+unicode = "ஞே"
 
 [[mappings]]
 legacy = "NQh"
-unicode = "\u0b9e\u0bcb"
+unicode = "ஞோ"
 
 [[mappings]]
 legacy = "N["
-unicode = "\u0b9c\u0bc7"
+unicode = "ஜே"
 
 [[mappings]]
 legacy = "N[h"
-unicode = "\u0b9c\u0bcb"
+unicode = "ஜோ"
 
 [[mappings]]
 legacy = "N\\"
-unicode = "\u0bb7\u0bc7"
+unicode = "ஷே"
 
 [[mappings]]
 legacy = "N\\h"
-unicode = "\u0bb7\u0bcb"
+unicode = "ஷோ"
 
 [[mappings]]
 legacy = "N]"
-unicode = "\u0bb8\u0bc7"
+unicode = "ஸே"
 
 [[mappings]]
 legacy = "N]h"
-unicode = "\u0bb8\u0bcb"
+unicode = "ஸோ"
 
 [[mappings]]
 legacy = "N`"
-unicode = "\u0bb9\u0bc7"
+unicode = "ஹே"
 
 [[mappings]]
 legacy = "N`h"
-unicode = "\u0bb9\u0bcb"
+unicode = "ஹோ"
 
 [[mappings]]
 legacy = "Na"
-unicode = "\u0baf\u0bc7"
+unicode = "யே"
 
 [[mappings]]
 legacy = "Nah"
-unicode = "\u0baf\u0bcb"
+unicode = "யோ"
 
 [[mappings]]
 legacy = "Nd"
-unicode = "\u0ba9\u0bc7"
+unicode = "னே"
 
 [[mappings]]
 legacy = "Ndh"
-unicode = "\u0ba9\u0bcb"
+unicode = "னோ"
 
 [[mappings]]
 legacy = "Ne"
-unicode = "\u0ba8\u0bc7"
+unicode = "நே"
 
 [[mappings]]
 legacy = "Neh"
-unicode = "\u0ba8\u0bcb"
+unicode = "நோ"
 
 [[mappings]]
 legacy = "Nf"
-unicode = "\u0b95\u0bc7"
+unicode = "கே"
 
 [[mappings]]
 legacy = "Nfh"
-unicode = "\u0b95\u0bcb"
+unicode = "கோ"
 
 [[mappings]]
 legacy = "Ng"
-unicode = "\u0baa\u0bc7"
+unicode = "பே"
 
 [[mappings]]
 legacy = "Ngh"
-unicode = "\u0baa\u0bcb"
+unicode = "போ"
 
 [[mappings]]
 legacy = "Nj"
-unicode = "\u0ba4\u0bc7"
+unicode = "தே"
 
 [[mappings]]
 legacy = "Njh"
-unicode = "\u0ba4\u0bcb"
+unicode = "தோ"
 
 [[mappings]]
 legacy = "Nk"
-unicode = "\u0bae\u0bc7"
+unicode = "மே"
 
 [[mappings]]
 legacy = "Nkh"
-unicode = "\u0bae\u0bcb"
+unicode = "மோ"
 
 [[mappings]]
 legacy = "Nl"
-unicode = "\u0b9f\u0bc7"
+unicode = "டே"
 
 [[mappings]]
 legacy = "Nlh"
-unicode = "\u0b9f\u0bcb"
+unicode = "டோ"
 
 [[mappings]]
 legacy = "No"
-unicode = "\u0bb4\u0bc7"
+unicode = "ழே"
 
 [[mappings]]
 legacy = "Noh"
-unicode = "\u0bb4\u0bcb"
+unicode = "ழோ"
 
 [[mappings]]
 legacy = "Nq"
-unicode = "\u0b99\u0bc7"
+unicode = "ஙே"
 
 [[mappings]]
 legacy = "Nqh"
-unicode = "\u0b99\u0bcb"
+unicode = "ஙோ"
 
 [[mappings]]
 legacy = "Nr"
-unicode = "\u0b9a\u0bc7"
+unicode = "சே"
 
 [[mappings]]
 legacy = "Nrh"
-unicode = "\u0b9a\u0bcb"
+unicode = "சோ"
 
 [[mappings]]
 legacy = "Ns"
-unicode = "\u0bb3\u0bc7"
+unicode = "ளே"
 
 [[mappings]]
 legacy = "Nsh"
-unicode = "\u0bb3\u0bcb"
+unicode = "ளோ"
 
 [[mappings]]
 legacy = "Nt"
-unicode = "\u0bb5\u0bc7"
+unicode = "வே"
 
 [[mappings]]
 legacy = "Nth"
-unicode = "\u0bb5\u0bcb"
+unicode = "வோ"
 
 [[mappings]]
 legacy = "Nu"
-unicode = "\u0bb0\u0bc7"
+unicode = "ரே"
 
 [[mappings]]
 legacy = "Nuh"
-unicode = "\u0bb0\u0bcb"
+unicode = "ரோ"
 
 [[mappings]]
 legacy = "Nw"
-unicode = "\u0bb1\u0bc7"
+unicode = "றே"
 
 [[mappings]]
 legacy = "Nwh"
-unicode = "\u0bb1\u0bcb"
+unicode = "றோ"
 
 [[mappings]]
 legacy = "Ny"
-unicode = "\u0bb2\u0bc7"
+unicode = "லே"
 
 [[mappings]]
 legacy = "Nyh"
-unicode = "\u0bb2\u0bcb"
+unicode = "லோ"
 
 [[mappings]]
 legacy = "Nz"
-unicode = "\u0ba3\u0bc7"
+unicode = "ணே"
 
 [[mappings]]
 legacy = "Nzh"
-unicode = "\u0ba3\u0bcb"
+unicode = "ணோ"
 
 [[mappings]]
 legacy = "O"
-unicode = "\u0bb4\u0bc1"
+unicode = "ழு"
 
 [[mappings]]
 legacy = "Q"
-unicode = "\u0b9e"
+unicode = "ஞ"
 
 [[mappings]]
 legacy = "Q;"
-unicode = "\u0b9e\u0bcd"
+unicode = "ஞ்"
 
 [[mappings]]
 legacy = "QP"
-unicode = "\u0b9e\u0bc0"
+unicode = "ஞீ"
 
 [[mappings]]
 legacy = "Qh"
-unicode = "\u0b9e\u0bbe"
+unicode = "ஞா"
 
 [[mappings]]
 legacy = "Qp"
-unicode = "\u0b9e\u0bbf"
+unicode = "ஞி"
 
 [[mappings]]
 legacy = "R"
-unicode = "\u0b9a\u0bc1"
+unicode = "சு"
 
 [[mappings]]
 legacy = "R+"
-unicode = "\u0b9a\u0bc2"
+unicode = "சூ"
 
 [[mappings]]
 legacy = "S"
-unicode = "\u0bb3\u0bc1"
+unicode = "ளு"
 
 [[mappings]]
 legacy = "Sh"
-unicode = "\u0bb3\u0bc2"
+unicode = "ளூ"
 
 [[mappings]]
 legacy = "T"
-unicode = "\u0bb5\u0bc1"
+unicode = "வு"
 
 [[mappings]]
 legacy = "T+"
-unicode = "\u0bb5\u0bc2"
+unicode = "வூ"
 
 [[mappings]]
 legacy = "U"
-unicode = "\u0bb0\u0bc1"
+unicode = "ரு"
 
 [[mappings]]
 legacy = "V"
-unicode = "\u0b8f"
+unicode = "ஏ"
 
 [[mappings]]
 legacy = "W"
-unicode = "\u0bb1\u0bc1"
+unicode = "று"
 
 [[mappings]]
 legacy = "W}"
-unicode = "\u0bb1\u0bc2"
+unicode = "றூ"
 
 [[mappings]]
 legacy = "X"
-unicode = "\u0b93"
+unicode = "ஓ"
 
 [[mappings]]
 legacy = "Y"
-unicode = "\u0bb2\u0bc1"
+unicode = "லு"
 
 [[mappings]]
 legacy = "Y}"
-unicode = "\u0bb2\u0bc2"
+unicode = "லூ"
 
 [[mappings]]
 legacy = "Z"
-unicode = "\u0ba3\u0bc1"
+unicode = "ணு"
 
 [[mappings]]
 legacy = "Z}"
-unicode = "\u0ba3\u0bc2"
+unicode = "ணூ"
 
 [[mappings]]
 legacy = "["
-unicode = "\u0b9c"
+unicode = "ஜ"
 
 [[mappings]]
 legacy = "[;"
-unicode = "\u0b9c\u0bcd"
+unicode = "ஜ்"
 
 [[mappings]]
 legacy = "[P"
-unicode = "\u0b9c\u0bc0"
+unicode = "ஜீ"
 
 [[mappings]]
 legacy = "[_"
-unicode = "\u0b9c\u0bc2"
+unicode = "ஜூ"
 
 [[mappings]]
 legacy = "[h"
-unicode = "\u0b9c\u0bbe"
+unicode = "ஜா"
 
 [[mappings]]
 legacy = "[p"
-unicode = "\u0b9c\u0bbf"
+unicode = "ஜி"
 
 [[mappings]]
 legacy = "[{"
-unicode = "\u0b9c\u0bc1"
+unicode = "ஜு"
 
 [[mappings]]
 legacy = "\\"
-unicode = "\u0bb7"
+unicode = "ஷ"
 
 [[mappings]]
 legacy = "\\;"
-unicode = "\u0bb7\u0bcd"
+unicode = "ஷ்"
 
 [[mappings]]
 legacy = "\\P"
-unicode = "\u0bb7\u0bc0"
+unicode = "ஷீ"
 
 [[mappings]]
 legacy = "\\_"
-unicode = "\u0bb7\u0bc2"
+unicode = "ஷூ"
 
 [[mappings]]
 legacy = "\\h"
-unicode = "\u0bb7\u0bbe"
+unicode = "ஷா"
 
 [[mappings]]
 legacy = "\\p"
-unicode = "\u0bb7\u0bbf"
+unicode = "ஷி"
 
 [[mappings]]
 legacy = "\\{"
-unicode = "\u0bb7\u0bc1"
+unicode = "ஷு"
 
 [[mappings]]
 legacy = "]"
-unicode = "\u0bb8"
+unicode = "ஸ"
 
 [[mappings]]
 legacy = "];"
-unicode = "\u0bb8\u0bcd"
+unicode = "ஸ்"
 
 [[mappings]]
 legacy = "]P"
-unicode = "\u0bb8\u0bc0"
+unicode = "ஸீ"
 
 [[mappings]]
 legacy = "]_"
-unicode = "\u0bb8\u0bc2"
+unicode = "ஸூ"
 
 [[mappings]]
 legacy = "]h"
-unicode = "\u0bb8\u0bbe"
+unicode = "ஸா"
 
 [[mappings]]
 legacy = "]p"
-unicode = "\u0bb8\u0bbf"
+unicode = "ஸி"
 
 [[mappings]]
 legacy = "]{"
-unicode = "\u0bb8\u0bc1"
+unicode = "ஸு"
 
 [[mappings]]
 legacy = "^"
-unicode = "\u0b9f\u0bc2"
+unicode = "டூ"
 
 [[mappings]]
 legacy = "`"
-unicode = "\u0bb9"
+unicode = "ஹ"
 
 [[mappings]]
 legacy = "`;"
-unicode = "\u0bb9\u0bcd"
+unicode = "ஹ்"
 
 [[mappings]]
 legacy = "`P"
-unicode = "\u0bb9\u0bc0"
+unicode = "ஹீ"
 
 [[mappings]]
 legacy = "`_"
-unicode = "\u0bb9\u0bc2"
+unicode = "ஹூ"
 
 [[mappings]]
 legacy = "`h"
-unicode = "\u0bb9\u0bbe"
+unicode = "ஹா"
 
 [[mappings]]
 legacy = "`p"
-unicode = "\u0bb9\u0bbf"
+unicode = "ஹி"
 
 [[mappings]]
 legacy = "`{"
-unicode = "\u0bb9\u0bc1"
+unicode = "ஹு"
 
 [[mappings]]
 legacy = "a"
-unicode = "\u0baf"
+unicode = "ய"
 
 [[mappings]]
 legacy = "a;"
-unicode = "\u0baf\u0bcd"
+unicode = "ய்"
 
 [[mappings]]
 legacy = "aP"
-unicode = "\u0baf\u0bc0"
+unicode = "யீ"
 
 [[mappings]]
 legacy = "ah"
-unicode = "\u0baf\u0bbe"
+unicode = "யா"
 
 [[mappings]]
 legacy = "ap"
-unicode = "\u0baf\u0bbf"
+unicode = "யி"
 
 [[mappings]]
 legacy = "b"
-unicode = "\u0b9f\u0bbf"
+unicode = "டி"
 
 [[mappings]]
 legacy = "c"
-unicode = "\u0b89"
+unicode = "உ"
 
 [[mappings]]
 legacy = "d"
-unicode = "\u0ba9"
+unicode = "ன"
 
 [[mappings]]
 legacy = "d;"
-unicode = "\u0ba9\u0bcd"
+unicode = "ன்"
 
 [[mappings]]
 legacy = "dP"
-unicode = "\u0ba9\u0bc0"
+unicode = "னீ"
 
 [[mappings]]
 legacy = "dh"
-unicode = "\u0ba9\u0bbe"
+unicode = "னா"
 
 [[mappings]]
 legacy = "dp"
-unicode = "\u0ba9\u0bbf"
+unicode = "னி"
 
 [[mappings]]
 legacy = "e"
-unicode = "\u0ba8"
+unicode = "ந"
 
 [[mappings]]
 legacy = "e;"
-unicode = "\u0ba8\u0bcd"
+unicode = "ந்"
 
 [[mappings]]
 legacy = "eP"
-unicode = "\u0ba8\u0bc0"
+unicode = "நீ"
 
 [[mappings]]
 legacy = "eh"
-unicode = "\u0ba8\u0bbe"
+unicode = "நா"
 
 [[mappings]]
 legacy = "ep"
-unicode = "\u0ba8\u0bbf"
+unicode = "நி"
 
 [[mappings]]
 legacy = "f"
-unicode = "\u0b95"
+unicode = "க"
 
 [[mappings]]
 legacy = "f;"
-unicode = "\u0b95\u0bcd"
+unicode = "க்"
 
 [[mappings]]
 legacy = "fP"
-unicode = "\u0b95\u0bc0"
+unicode = "கீ"
 
 [[mappings]]
 legacy = "fh"
-unicode = "\u0b95\u0bbe"
+unicode = "கா"
 
 [[mappings]]
 legacy = "fp"
-unicode = "\u0b95\u0bbf"
+unicode = "கி"
 
 [[mappings]]
 legacy = "g"
-unicode = "\u0baa"
+unicode = "ப"
 
 [[mappings]]
 legacy = "g;"
-unicode = "\u0baa\u0bcd"
+unicode = "ப்"
 
 [[mappings]]
 legacy = "gP"
-unicode = "\u0baa\u0bc0"
+unicode = "பீ"
 
 [[mappings]]
 legacy = "gh"
-unicode = "\u0baa\u0bbe"
+unicode = "பா"
 
 [[mappings]]
 legacy = "gp"
-unicode = "\u0baa\u0bbf"
+unicode = "பி"
 
 [[mappings]]
 legacy = "h;"
-unicode = "\u0bb0\u0bcd"
+unicode = "ர்"
 
 [[mappings]]
 legacy = "iQ"
-unicode = "\u0b9e\u0bc8"
+unicode = "ஞை"
 
 [[mappings]]
 legacy = "i["
-unicode = "\u0b9c\u0bc8"
+unicode = "ஜை"
 
 [[mappings]]
 legacy = "i\\"
-unicode = "\u0bb7\u0bc8"
+unicode = "ஷை"
 
 [[mappings]]
 legacy = "i]"
-unicode = "\u0bb8\u0bc8"
+unicode = "ஸை"
 
 [[mappings]]
 legacy = "i`"
-unicode = "\u0bb9\u0bc8"
+unicode = "ஹை"
 
 [[mappings]]
 legacy = "ia"
-unicode = "\u0baf\u0bc8"
+unicode = "யை"
 
 [[mappings]]
 legacy = "id"
-unicode = "\u0ba9\u0bc8"
+unicode = "னை"
 
 [[mappings]]
 legacy = "ie"
-unicode = "\u0ba8\u0bc8"
+unicode = "நை"
 
 [[mappings]]
 legacy = "if"
-unicode = "\u0b95\u0bc8"
+unicode = "கை"
 
 [[mappings]]
 legacy = "ig"
-unicode = "\u0baa\u0bc8"
+unicode = "பை"
 
 [[mappings]]
 legacy = "ij"
-unicode = "\u0ba4\u0bc8"
+unicode = "தை"
 
 [[mappings]]
 legacy = "ik"
-unicode = "\u0bae\u0bc8"
+unicode = "மை"
 
 [[mappings]]
 legacy = "il"
-unicode = "\u0b9f\u0bc8"
+unicode = "டை"
 
 [[mappings]]
 legacy = "io"
-unicode = "\u0bb4\u0bc8"
+unicode = "ழை"
 
 [[mappings]]
 legacy = "iq"
-unicode = "\u0b99\u0bc8"
+unicode = "ஙை"
 
 [[mappings]]
 legacy = "ir"
-unicode = "\u0b9a\u0bc8"
+unicode = "சை"
 
 [[mappings]]
 legacy = "is"
-unicode = "\u0bb3\u0bc8"
+unicode = "ளை"
 
 [[mappings]]
 legacy = "it"
-unicode = "\u0bb5\u0bc8"
+unicode = "வை"
 
 [[mappings]]
 legacy = "iu"
-unicode = "\u0bb0\u0bc8"
+unicode = "ரை"
 
 [[mappings]]
 legacy = "iw"
-unicode = "\u0bb1\u0bc8"
+unicode = "றை"
 
 [[mappings]]
 legacy = "iy"
-unicode = "\u0bb2\u0bc8"
+unicode = "லை"
 
 [[mappings]]
 legacy = "iz"
-unicode = "\u0ba3\u0bc8"
+unicode = "ணை"
 
 [[mappings]]
 legacy = "j"
-unicode = "\u0ba4"
+unicode = "த"
 
 [[mappings]]
 legacy = "j;"
-unicode = "\u0ba4\u0bcd"
+unicode = "த்"
 
 [[mappings]]
 legacy = "jP"
-unicode = "\u0ba4\u0bc0"
+unicode = "தீ"
 
 [[mappings]]
 legacy = "jh"
-unicode = "\u0ba4\u0bbe"
+unicode = "தா"
 
 [[mappings]]
 legacy = "jp"
-unicode = "\u0ba4\u0bbf"
+unicode = "தி"
 
 [[mappings]]
 legacy = "k"
-unicode = "\u0bae"
+unicode = "ம"
 
 [[mappings]]
 legacy = "k;"
-unicode = "\u0bae\u0bcd"
+unicode = "ம்"
 
 [[mappings]]
 legacy = "kP"
-unicode = "\u0bae\u0bc0"
+unicode = "மீ"
 
 [[mappings]]
 legacy = "kh"
-unicode = "\u0bae\u0bbe"
+unicode = "மா"
 
 [[mappings]]
 legacy = "kp"
-unicode = "\u0bae\u0bbf"
+unicode = "மி"
 
 [[mappings]]
 legacy = "l"
-unicode = "\u0b9f"
+unicode = "ட"
 
 [[mappings]]
 legacy = "l;"
-unicode = "\u0b9f\u0bcd"
+unicode = "ட்"
 
 [[mappings]]
 legacy = "lh"
-unicode = "\u0b9f\u0bbe"
+unicode = "டா"
 
 [[mappings]]
 legacy = "m"
-unicode = "\u0b85"
+unicode = "அ"
 
 [[mappings]]
 legacy = "nQ"
-unicode = "\u0b9e\u0bc6"
+unicode = "ஞெ"
 
 [[mappings]]
 legacy = "nQh"
-unicode = "\u0b9e\u0bca"
+unicode = "ஞொ"
 
 [[mappings]]
 legacy = "nQs"
-unicode = "\u0b9e\u0bcc"
+unicode = "ஞௌ"
 
 [[mappings]]
 legacy = "n["
-unicode = "\u0b9c\u0bc6"
+unicode = "ஜெ"
 
 [[mappings]]
 legacy = "n[h"
-unicode = "\u0b9c\u0bca"
+unicode = "ஜொ"
 
 [[mappings]]
 legacy = "n[s"
-unicode = "\u0b9c\u0bcc"
+unicode = "ஜௌ"
 
 [[mappings]]
 legacy = "n\\"
-unicode = "\u0bb7\u0bc6"
+unicode = "ஷெ"
 
 [[mappings]]
 legacy = "n\\h"
-unicode = "\u0bb7\u0bca"
+unicode = "ஷொ"
 
 [[mappings]]
 legacy = "n\\s"
-unicode = "\u0bb7\u0bcc"
+unicode = "ஷௌ"
 
 [[mappings]]
 legacy = "n]"
-unicode = "\u0bb8\u0bc6"
+unicode = "ஸெ"
 
 [[mappings]]
 legacy = "n]h"
-unicode = "\u0bb8\u0bca"
+unicode = "ஸொ"
 
 [[mappings]]
 legacy = "n]s"
-unicode = "\u0bb8\u0bcc"
+unicode = "ஸௌ"
 
 [[mappings]]
 legacy = "n`"
-unicode = "\u0bb9\u0bc6"
+unicode = "ஹெ"
 
 [[mappings]]
 legacy = "n`h"
-unicode = "\u0bb9\u0bca"
+unicode = "ஹொ"
 
 [[mappings]]
 legacy = "n`s"
-unicode = "\u0bb9\u0bcc"
+unicode = "ஹௌ"
 
 [[mappings]]
 legacy = "na"
-unicode = "\u0baf\u0bc6"
+unicode = "யெ"
 
 [[mappings]]
 legacy = "nah"
-unicode = "\u0baf\u0bca"
+unicode = "யொ"
 
 [[mappings]]
 legacy = "nas"
-unicode = "\u0baf\u0bcc"
+unicode = "யௌ"
 
 [[mappings]]
 legacy = "nd"
-unicode = "\u0ba9\u0bc6"
+unicode = "னெ"
 
 [[mappings]]
 legacy = "ndh"
-unicode = "\u0ba9\u0bca"
+unicode = "னொ"
 
 [[mappings]]
 legacy = "nds"
-unicode = "\u0ba9\u0bcc"
+unicode = "னௌ"
 
 [[mappings]]
 legacy = "ne"
-unicode = "\u0ba8\u0bc6"
+unicode = "நெ"
 
 [[mappings]]
 legacy = "neh"
-unicode = "\u0ba8\u0bca"
+unicode = "நொ"
 
 [[mappings]]
 legacy = "nes"
-unicode = "\u0ba8\u0bcc"
+unicode = "நௌ"
 
 [[mappings]]
 legacy = "nf"
-unicode = "\u0b95\u0bc6"
+unicode = "கெ"
 
 [[mappings]]
 legacy = "nfh"
-unicode = "\u0b95\u0bca"
+unicode = "கொ"
 
 [[mappings]]
 legacy = "nfs"
-unicode = "\u0b95\u0bcc"
+unicode = "கௌ"
 
 [[mappings]]
 legacy = "ng"
-unicode = "\u0baa\u0bc6"
+unicode = "பெ"
 
 [[mappings]]
 legacy = "ngh"
-unicode = "\u0baa\u0bca"
+unicode = "பொ"
 
 [[mappings]]
 legacy = "ngs"
-unicode = "\u0baa\u0bcc"
+unicode = "பௌ"
 
 [[mappings]]
 legacy = "nj"
-unicode = "\u0ba4\u0bc6"
+unicode = "தெ"
 
 [[mappings]]
 legacy = "njh"
-unicode = "\u0ba4\u0bca"
+unicode = "தொ"
 
 [[mappings]]
 legacy = "njs"
-unicode = "\u0ba4\u0bcc"
+unicode = "தௌ"
 
 [[mappings]]
 legacy = "nk"
-unicode = "\u0bae\u0bc6"
+unicode = "மெ"
 
 [[mappings]]
 legacy = "nkh"
-unicode = "\u0bae\u0bca"
+unicode = "மொ"
 
 [[mappings]]
 legacy = "nks"
-unicode = "\u0bae\u0bcc"
+unicode = "மௌ"
 
 [[mappings]]
 legacy = "nl"
-unicode = "\u0b9f\u0bc6"
+unicode = "டெ"
 
 [[mappings]]
 legacy = "nlh"
-unicode = "\u0b9f\u0bca"
+unicode = "டொ"
 
 [[mappings]]
 legacy = "nls"
-unicode = "\u0b9f\u0bcc"
+unicode = "டௌ"
 
 [[mappings]]
 legacy = "no"
-unicode = "\u0bb4\u0bc6"
+unicode = "ழெ"
 
 [[mappings]]
 legacy = "noh"
-unicode = "\u0bb4\u0bca"
+unicode = "ழொ"
 
 [[mappings]]
 legacy = "nos"
-unicode = "\u0bb4\u0bcc"
+unicode = "ழௌ"
 
 [[mappings]]
 legacy = "nq"
-unicode = "\u0b99\u0bc6"
+unicode = "ஙெ"
 
 [[mappings]]
 legacy = "nqh"
-unicode = "\u0b99\u0bca"
+unicode = "ஙொ"
 
 [[mappings]]
 legacy = "nqs"
-unicode = "\u0b99\u0bcc"
+unicode = "ஙௌ"
 
 [[mappings]]
 legacy = "nr"
-unicode = "\u0b9a\u0bc6"
+unicode = "செ"
 
 [[mappings]]
 legacy = "nrh"
-unicode = "\u0b9a\u0bca"
+unicode = "சொ"
 
 [[mappings]]
 legacy = "nrs"
-unicode = "\u0b9a\u0bcc"
+unicode = "சௌ"
 
 [[mappings]]
 legacy = "ns"
-unicode = "\u0bb3\u0bc6"
+unicode = "ளெ"
 
 [[mappings]]
 legacy = "nsh"
-unicode = "\u0bb3\u0bca"
+unicode = "ளொ"
 
 [[mappings]]
 legacy = "nss"
-unicode = "\u0bb3\u0bcc"
+unicode = "ளௌ"
 
 [[mappings]]
 legacy = "nt"
-unicode = "\u0bb5\u0bc6"
+unicode = "வெ"
 
 [[mappings]]
 legacy = "nth"
-unicode = "\u0bb5\u0bca"
+unicode = "வொ"
 
 [[mappings]]
 legacy = "nts"
-unicode = "\u0bb5\u0bcc"
+unicode = "வௌ"
 
 [[mappings]]
 legacy = "nu"
-unicode = "\u0bb0\u0bc6"
+unicode = "ரெ"
 
 [[mappings]]
 legacy = "nuh"
-unicode = "\u0bb0\u0bca"
+unicode = "ரொ"
 
 [[mappings]]
 legacy = "nus"
-unicode = "\u0bb0\u0bcc"
+unicode = "ரௌ"
 
 [[mappings]]
 legacy = "nw"
-unicode = "\u0bb1\u0bc6"
+unicode = "றெ"
 
 [[mappings]]
 legacy = "nwh"
-unicode = "\u0bb1\u0bca"
+unicode = "றொ"
 
 [[mappings]]
 legacy = "nws"
-unicode = "\u0bb1\u0bcc"
+unicode = "றௌ"
 
 [[mappings]]
 legacy = "ny"
-unicode = "\u0bb2\u0bc6"
+unicode = "லெ"
 
 [[mappings]]
 legacy = "nyh"
-unicode = "\u0bb2\u0bca"
+unicode = "லொ"
 
 [[mappings]]
 legacy = "nys"
-unicode = "\u0bb2\u0bcc"
+unicode = "லௌ"
 
 [[mappings]]
 legacy = "nz"
-unicode = "\u0ba3\u0bc6"
+unicode = "ணெ"
 
 [[mappings]]
 legacy = "nzh"
-unicode = "\u0ba3\u0bca"
+unicode = "ணொ"
 
 [[mappings]]
 legacy = "nzs"
-unicode = "\u0ba3\u0bcc"
+unicode = "ணௌ"
 
 [[mappings]]
 legacy = "o"
-unicode = "\u0bb4"
+unicode = "ழ"
 
 [[mappings]]
 legacy = "o;"
-unicode = "\u0bb4\u0bcd"
+unicode = "ழ்"
 
 [[mappings]]
 legacy = "oP"
-unicode = "\u0bb4\u0bc0"
+unicode = "ழீ"
 
 [[mappings]]
 legacy = "oh"
-unicode = "\u0bb4\u0bbe"
+unicode = "ழா"
 
 [[mappings]]
 legacy = "op"
-unicode = "\u0bb4\u0bbf"
+unicode = "ழி"
 
 [[mappings]]
 legacy = "q"
-unicode = "\u0b99"
+unicode = "ங"
 
 [[mappings]]
 legacy = "q;"
-unicode = "\u0b99\u0bcd"
+unicode = "ங்"
 
 [[mappings]]
 legacy = "qP"
-unicode = "\u0b99\u0bc0"
+unicode = "ஙீ"
 
 [[mappings]]
 legacy = "qh"
-unicode = "\u0b99\u0bbe"
+unicode = "ஙா"
 
 [[mappings]]
 legacy = "qp"
-unicode = "\u0b99\u0bbf"
+unicode = "ஙி"
 
 [[mappings]]
 legacy = "r"
-unicode = "\u0b9a"
+unicode = "ச"
 
 [[mappings]]
 legacy = "r;"
-unicode = "\u0b9a\u0bcd"
+unicode = "ச்"
 
 [[mappings]]
 legacy = "rP"
-unicode = "\u0b9a\u0bc0"
+unicode = "சீ"
 
 [[mappings]]
 legacy = "rh"
-unicode = "\u0b9a\u0bbe"
+unicode = "சா"
 
 [[mappings]]
 legacy = "rp"
-unicode = "\u0b9a\u0bbf"
+unicode = "சி"
 
 [[mappings]]
 legacy = "s"
-unicode = "\u0bb3"
+unicode = "ள"
 
 [[mappings]]
 legacy = "s;"
-unicode = "\u0bb3\u0bcd"
+unicode = "ள்"
 
 [[mappings]]
 legacy = "sP"
-unicode = "\u0bb3\u0bc0"
+unicode = "ளீ"
 
 [[mappings]]
 legacy = "sh"
-unicode = "\u0bb3\u0bbe"
+unicode = "ளா"
 
 [[mappings]]
 legacy = "sp"
-unicode = "\u0bb3\u0bbf"
+unicode = "ளி"
 
 [[mappings]]
 legacy = "t"
-unicode = "\u0bb5"
+unicode = "வ"
 
 [[mappings]]
 legacy = "t;"
-unicode = "\u0bb5\u0bcd"
+unicode = "வ்"
 
 [[mappings]]
 legacy = "tP"
-unicode = "\u0bb5\u0bc0"
+unicode = "வீ"
 
 [[mappings]]
 legacy = "th"
-unicode = "\u0bb5\u0bbe"
+unicode = "வா"
 
 [[mappings]]
 legacy = "tp"
-unicode = "\u0bb5\u0bbf"
+unicode = "வி"
 
 [[mappings]]
 legacy = "u"
-unicode = "\u0bb0"
+unicode = "ர"
 
 [[mappings]]
 legacy = "u;"
-unicode = "\u0bb0\u0bcd"
+unicode = "ர்"
 
 [[mappings]]
 legacy = "uP"
-unicode = "\u0bb0\u0bc0"
+unicode = "ரீ"
 
 [[mappings]]
 legacy = "uh"
-unicode = "\u0bb0\u0bbe"
+unicode = "ரா"
 
 [[mappings]]
 legacy = "up"
-unicode = "\u0bb0\u0bbf"
+unicode = "ரி"
 
 [[mappings]]
 legacy = "v"
-unicode = "\u0b8e"
+unicode = "எ"
 
 [[mappings]]
 legacy = "w"
-unicode = "\u0bb1"
+unicode = "ற"
 
 [[mappings]]
 legacy = "w;"
-unicode = "\u0bb1\u0bcd"
+unicode = "ற்"
 
 [[mappings]]
 legacy = "wP"
-unicode = "\u0bb1\u0bc0"
+unicode = "றீ"
 
 [[mappings]]
 legacy = "wh"
-unicode = "\u0bb1\u0bbe"
+unicode = "றா"
 
 [[mappings]]
 legacy = "wp"
-unicode = "\u0bb1\u0bbf"
+unicode = "றி"
 
 [[mappings]]
 legacy = "x"
-unicode = "\u0b92"
+unicode = "ஒ"
 
 [[mappings]]
 legacy = "xs"
-unicode = "\u0b94"
+unicode = "ஔ"
 
 [[mappings]]
 legacy = "y"
-unicode = "\u0bb2"
+unicode = "ல"
 
 [[mappings]]
 legacy = "y;"
-unicode = "\u0bb2\u0bcd"
+unicode = "ல்"
 
 [[mappings]]
 legacy = "yP"
-unicode = "\u0bb2\u0bc0"
+unicode = "லீ"
 
 [[mappings]]
 legacy = "yh"
-unicode = "\u0bb2\u0bbe"
+unicode = "லா"
 
 [[mappings]]
 legacy = "yp"
-unicode = "\u0bb2\u0bbf"
+unicode = "லி"
 
 [[mappings]]
 legacy = "z"
-unicode = "\u0ba3"
+unicode = "ண"
 
 [[mappings]]
 legacy = "z;"
-unicode = "\u0ba3\u0bcd"
+unicode = "ண்"
 
 [[mappings]]
 legacy = "zP"
-unicode = "\u0ba3\u0bc0"
+unicode = "ணீ"
 
 [[mappings]]
 legacy = "zh"
-unicode = "\u0ba3\u0bbe"
+unicode = "ணா"
 
 [[mappings]]
 legacy = "zp"
-unicode = "\u0ba3\u0bbf"
+unicode = "ணி"
 
 [[ambiguous]]
 legacy = "*"
-candidates = ["\u0b99\u0bc1", "\u0b99\u0bc2", "\u0b9e\u0bc1", "\u0b9e\u0bc2", "\u0bb4\u0bc2"]
+candidates = ["ஙு", "ஙூ", "ஞு", "ஞூ", "ழூ"]
 
 # Primary source first alias; other spellings remain valid for decoding.
 [[encoding_preferences]]
-unicode = "\u0bb0\u0bcd"
+unicode = "ர்"
 legacy = "u;"
