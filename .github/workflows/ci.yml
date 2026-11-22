@@ -47,8 +47,9 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: uv sync --locked --python 3.13
       - run: uv run --locked maturin develop --manifest-path bindings/python/Cargo.toml --locked
-      - run: just check-release-files
       - run: just sync-release-files
+      - run: git diff --exit-code
+      - run: just check-release-files
       - run: just agent-post-edit
       - run: uv run --locked pytest tests/harness/test_release_policy.py tests/harness/test_release_acceptance.py -q
       - run: actionlint
