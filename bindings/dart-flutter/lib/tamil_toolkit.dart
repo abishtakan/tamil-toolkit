@@ -400,6 +400,89 @@ class TamilToolkit {
         'op': 'unicode_to_vanavil_text',
         'input': {'text': text},
       }) as String;
+  String senthamilCodesToUnicode(List<int> codes, {String errors = 'strict'}) =>
+      execute({
+        'op': 'senthamil_codes_to_unicode',
+        'input': {'codes': codes, 'errors': errors},
+      }) as String;
+  String senthamilTextToUnicode(String text, {String errors = 'strict'}) =>
+      execute({
+        'op': 'senthamil_text_to_unicode',
+        'input': {'text': text, 'errors': errors},
+      }) as String;
+  List<int> unicodeToSenthamilCodes(String text) => (execute({
+        'op': 'unicode_to_senthamil_codes',
+        'input': {'text': text},
+      }) as List<dynamic>)
+          .cast<int>();
+  String unicodeToSenthamilText(String text) => execute({
+        'op': 'unicode_to_senthamil_text',
+        'input': {'text': text},
+      }) as String;
+  String shreeTamCodesToUnicode(List<int> codes, {String errors = 'strict'}) =>
+      execute({
+        'op': 'shree_tam_codes_to_unicode',
+        'input': {'codes': codes, 'errors': errors},
+      }) as String;
+  String shreeTamTextToUnicode(String text, {String errors = 'strict'}) =>
+      execute({
+        'op': 'shree_tam_text_to_unicode',
+        'input': {'text': text, 'errors': errors},
+      }) as String;
+  List<int> unicodeToShreeTamCodes(String text) => (execute({
+        'op': 'unicode_to_shree_tam_codes',
+        'input': {'text': text},
+      }) as List<dynamic>)
+          .cast<int>();
+  String unicodeToShreeTamText(String text) => execute({
+        'op': 'unicode_to_shree_tam_text',
+        'input': {'text': text},
+      }) as String;
+  String softviewCodesToUnicode(List<int> codes, {String errors = 'strict'}) =>
+      execute({
+        'op': 'softview_codes_to_unicode',
+        'input': {'codes': codes, 'errors': errors},
+      }) as String;
+  String softviewTextToUnicode(String text, {String errors = 'strict'}) =>
+      execute({
+        'op': 'softview_text_to_unicode',
+        'input': {'text': text, 'errors': errors},
+      }) as String;
+  List<int> unicodeToSoftviewCodes(String text) => (execute({
+        'op': 'unicode_to_softview_codes',
+        'input': {'text': text},
+      }) as List<dynamic>)
+          .cast<int>();
+  String unicodeToSoftviewText(String text) => execute({
+        'op': 'unicode_to_softview_text',
+        'input': {'text': text},
+      }) as String;
+  String tboCodesToUnicode(List<int> codes, {String errors = 'strict'}) =>
+      execute({
+        'op': 'tbo_codes_to_unicode',
+        'input': {'codes': codes, 'errors': errors},
+      }) as String;
+  String tboTextToUnicode(String text, {String errors = 'strict'}) => execute({
+        'op': 'tbo_text_to_unicode',
+        'input': {'text': text, 'errors': errors},
+      }) as String;
+  List<int> unicodeToTboCodes(String text) => (execute({
+        'op': 'unicode_to_tbo_codes',
+        'input': {'text': text},
+      }) as List<dynamic>)
+          .cast<int>();
+  String unicodeToTboText(String text) => execute({
+        'op': 'unicode_to_tbo_text',
+        'input': {'text': text},
+      }) as String;
+  String unicodeToBraille(String text, {String errors = 'strict'}) => execute({
+        'op': 'unicode_to_braille',
+        'input': {'text': text, 'errors': errors},
+      }) as String;
+  String brailleToUnicode(String text, {String errors = 'strict'}) => execute({
+        'op': 'braille_to_unicode',
+        'input': {'text': text, 'errors': errors},
+      }) as String;
   DetectionResult detectEncoding(dynamic data) {
     Map<String, dynamic> input;
     if (data is String) {

@@ -101,7 +101,20 @@ INPUTS = {
         "calendar-official-holidays.toml",
         "calendar-observances.toml",
     ),
-    "tamil-codec": ("bamini.toml", "tscii.toml", "tab.toml", "tam.toml", "anjal.toml", "lt_tm.toml", "vanavil.toml"),
+    "tamil-codec": (
+        "bamini.toml",
+        "tscii.toml",
+        "tab.toml",
+        "tam.toml",
+        "anjal.toml",
+        "lt_tm.toml",
+        "vanavil.toml",
+        "senthamil.toml",
+        "shree_tam.toml",
+        "softview.toml",
+        "tbo.toml",
+        "braille.toml",
+    ),
 }
 SUMMARIES = {
     "tamil-core": "Tailored UAX #29 letter segmentation, Mei/Uyir splitting, Tholkappiyam phonology (mora/Maathirai, cognates/Ina Ezhuthu), zero-allocation syllable nuclei (Olippasai), and Unicode inspection.",

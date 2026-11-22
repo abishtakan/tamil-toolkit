@@ -1,0 +1,162 @@
+# Bharathi Tamil Braille Grade 1 (Unicode U+2800..U+28FF)
+# Standard: World Braille Usage (3rd Ed.) / NIEPVD Bharathi Braille; see docs/specs/codec-braille.md
+profile = "bharathi-tamil-g1-v1"
+source = "World Braille Usage (3rd Ed.) / NIEPVD Bharathi Tamil Grade 1 Braille"
+pulli_cell = "\u2808"
+space_cell = "\u2800"
+aytham_unicode = "\u0B83"
+aytham_cell = "\u2820"
+ksha_unicode = "\u0B95\u0BCD\u0BB7"
+ksha_cell = "\u281F"
+
+[[vowels]]
+independent = "\u0B85"
+dependent = ""
+cell = "\u2801"
+
+[[vowels]]
+independent = "\u0B86"
+dependent = "\u0BBE"
+cell = "\u281C"
+
+[[vowels]]
+independent = "\u0B87"
+dependent = "\u0BBF"
+cell = "\u280A"
+
+[[vowels]]
+independent = "\u0B88"
+dependent = "\u0BC0"
+cell = "\u2814"
+
+[[vowels]]
+independent = "\u0B89"
+dependent = "\u0BC1"
+cell = "\u2825"
+
+[[vowels]]
+independent = "\u0B8A"
+dependent = "\u0BC2"
+cell = "\u2833"
+
+[[vowels]]
+independent = "\u0B8E"
+dependent = "\u0BC6"
+cell = "\u2822"
+
+[[vowels]]
+independent = "\u0B8F"
+dependent = "\u0BC7"
+cell = "\u2811"
+
+[[vowels]]
+independent = "\u0B90"
+dependent = "\u0BC8"
+cell = "\u280C"
+
+[[vowels]]
+independent = "\u0B92"
+dependent = "\u0BCA"
+cell = "\u282D"
+
+[[vowels]]
+independent = "\u0B93"
+dependent = "\u0BCB"
+cell = "\u2815"
+
+[[vowels]]
+independent = "\u0B94"
+dependent = "\u0BCC"
+cell = "\u282A"
+
+[[consonants]]
+unicode = "\u0B95"
+cell = "\u2805"
+
+[[consonants]]
+unicode = "\u0B99"
+cell = "\u282C"
+
+[[consonants]]
+unicode = "\u0B9A"
+cell = "\u2809"
+
+[[consonants]]
+unicode = "\u0B9E"
+cell = "\u2812"
+
+[[consonants]]
+unicode = "\u0B9F"
+cell = "\u283E"
+
+[[consonants]]
+unicode = "\u0BA3"
+cell = "\u283C"
+
+[[consonants]]
+unicode = "\u0BA4"
+cell = "\u281E"
+
+[[consonants]]
+unicode = "\u0BA8"
+cell = "\u281D"
+
+[[consonants]]
+unicode = "\u0BA9"
+cell = "\u2830"
+
+[[consonants]]
+unicode = "\u0BAA"
+cell = "\u280F"
+
+[[consonants]]
+unicode = "\u0BAE"
+cell = "\u280D"
+
+[[consonants]]
+unicode = "\u0BAF"
+cell = "\u283D"
+
+[[consonants]]
+unicode = "\u0BB0"
+cell = "\u2817"
+
+[[consonants]]
+unicode = "\u0BB1"
+cell = "\u283B"
+
+[[consonants]]
+unicode = "\u0BB2"
+cell = "\u2807"
+
+[[consonants]]
+unicode = "\u0BB3"
+cell = "\u2838"
+
+[[consonants]]
+unicode = "\u0BB4"
+cell = "\u2837"
+
+[[consonants]]
+unicode = "\u0BB5"
+cell = "\u2827"
+
+[[consonants]]
+unicode = "\u0B9C"
+cell = "\u281A"
+
+[[consonants]]
+unicode = "\u0BB6"
+cell = "\u2829"
+
+[[consonants]]
+unicode = "\u0BB7"
+cell = "\u282F"
+
+[[consonants]]
+unicode = "\u0BB8"
+cell = "\u280E"
+
+[[consonants]]
+unicode = "\u0BB9"
+cell = "\u2813"

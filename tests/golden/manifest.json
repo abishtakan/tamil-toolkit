@@ -403,6 +403,36 @@
       ]
     },
     {
+      "file": "codec_phase7_legacy.jsonl",
+      "status": "active",
+      "operations": [
+        "senthamil_codes_to_unicode",
+        "senthamil_text_to_unicode",
+        "unicode_to_senthamil_codes",
+        "unicode_to_senthamil_text",
+        "shree_tam_codes_to_unicode",
+        "shree_tam_text_to_unicode",
+        "unicode_to_shree_tam_codes",
+        "unicode_to_shree_tam_text",
+        "softview_codes_to_unicode",
+        "softview_text_to_unicode",
+        "unicode_to_softview_codes",
+        "unicode_to_softview_text",
+        "tbo_codes_to_unicode",
+        "tbo_text_to_unicode",
+        "unicode_to_tbo_codes",
+        "unicode_to_tbo_text"
+      ]
+    },
+    {
+      "file": "codec_braille.jsonl",
+      "status": "active",
+      "operations": [
+        "unicode_to_braille",
+        "braille_to_unicode"
+      ]
+    },
+    {
       "file": "codec_detection.jsonl",
       "status": "active",
       "operations": [

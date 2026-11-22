@@ -719,7 +719,11 @@
           "op": {
             "enum": [
               "lt_tm_codes_to_unicode",
-              "vanavil_codes_to_unicode"
+              "vanavil_codes_to_unicode",
+              "senthamil_codes_to_unicode",
+              "shree_tam_codes_to_unicode",
+              "softview_codes_to_unicode",
+              "tbo_codes_to_unicode"
             ]
           }
         },
@@ -766,7 +770,13 @@
           "op": {
             "enum": [
               "lt_tm_text_to_unicode",
-              "vanavil_text_to_unicode"
+              "vanavil_text_to_unicode",
+              "senthamil_text_to_unicode",
+              "shree_tam_text_to_unicode",
+              "softview_text_to_unicode",
+              "tbo_text_to_unicode",
+              "unicode_to_braille",
+              "braille_to_unicode"
             ]
           }
         },
@@ -808,7 +818,11 @@
           "op": {
             "enum": [
               "unicode_to_lt_tm_codes",
-              "unicode_to_vanavil_codes"
+              "unicode_to_vanavil_codes",
+              "unicode_to_senthamil_codes",
+              "unicode_to_shree_tam_codes",
+              "unicode_to_softview_codes",
+              "unicode_to_tbo_codes"
             ]
           }
         },
@@ -849,7 +863,11 @@
           "op": {
             "enum": [
               "unicode_to_lt_tm_text",
-              "unicode_to_vanavil_text"
+              "unicode_to_vanavil_text",
+              "unicode_to_senthamil_text",
+              "unicode_to_shree_tam_text",
+              "unicode_to_softview_text",
+              "unicode_to_tbo_text"
             ]
           }
         },

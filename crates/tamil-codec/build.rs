@@ -60,6 +60,36 @@ struct CidMapping {
 
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
+struct BrailleProfile {
+    profile: String,
+    source: String,
+    pulli_cell: String,
+    space_cell: String,
+    aytham_unicode: String,
+    aytham_cell: String,
+    ksha_unicode: String,
+    ksha_cell: String,
+    vowels: Vec<BrailleVowelEntry>,
+    consonants: Vec<BrailleConsonantEntry>,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct BrailleVowelEntry {
+    independent: String,
+    dependent: String,
+    cell: String,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct BrailleConsonantEntry {
+    unicode: String,
+    cell: String,
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
 struct TsciiMapping {
     hex: String,
     unicode: String,
@@ -436,6 +466,30 @@ fn main() {
             "4948396d50fbbaf251ddfe620ca5d8a0ccdb65b5bef07231065a5d6439754b67",
             319,
         ),
+        (
+            "senthamil",
+            "senthamil-cid-v1",
+            "17b8dbbb52bcbb993f2be7e30d85bdc3a9fa6ae29a08421fbea42dec0109f0c5",
+            308,
+        ),
+        (
+            "shree_tam",
+            "shree-tam-cid-v1",
+            "8735d58b67f5dc18777cac94619cbf1f7485e5c2d2bffbe9e9854ba0fb575540",
+            316,
+        ),
+        (
+            "softview",
+            "softview-amudham-cid-v1",
+            "146f5c0155dbcbc96c530a06940d57a27c8cb09fbbf03dc405d0e9ddf6a87bc1",
+            313,
+        ),
+        (
+            "tbo",
+            "tbo-tboomi-cid-v1",
+            "c039c54eba2452ee8deb96213286947d69c1371f9039f62b4708536c297ad812",
+            316,
+        ),
     ] {
         let path = format!("lexicon/{name}.toml");
         println!("cargo:rerun-if-changed={path}");
@@ -511,4 +565,80 @@ fn main() {
         )
         .expect("write CID tries");
     }
+
+    // Compile Bharathi Tamil Grade 1 Braille table
+    let braille_path = "lexicon/braille.toml";
+    println!("cargo:rerun-if-changed={braille_path}");
+    let braille: BrailleProfile =
+        toml::from_str(&fs::read_to_string(braille_path).expect("read braille.toml"))
+            .expect("valid braille.toml");
+    assert_eq!(braille.profile, "bharathi-tamil-g1-v1");
+    assert!(!braille.source.is_empty());
+    assert_eq!(braille.vowels.len(), 12);
+    assert_eq!(braille.consonants.len(), 23);
+    let single_char = |s: &str| -> char {
+        let mut chars = s.chars();
+        let ch = chars.next().expect("non-empty char");
+        assert!(chars.next().is_none(), "expected single scalar");
+        ch
+    };
+    let mut seen_cells = BTreeSet::new();
+    let pulli_cell = single_char(&braille.pulli_cell);
+    let space_cell = single_char(&braille.space_cell);
+    let aytham_uni = single_char(&braille.aytham_unicode);
+    let aytham_cell = single_char(&braille.aytham_cell);
+    let ksha_cell = single_char(&braille.ksha_cell);
+    for c in [pulli_cell, space_cell, aytham_cell, ksha_cell] {
+        assert!(seen_cells.insert(c), "duplicate Braille cell");
+    }
+    let vowel_rows: Vec<String> = braille
+        .vowels
+        .iter()
+        .map(|v| {
+            let ind = single_char(&v.independent);
+            let cell = single_char(&v.cell);
+            assert!(seen_cells.insert(cell), "duplicate Braille vowel cell");
+            let dep = if v.dependent.is_empty() {
+                "None".to_owned()
+            } else {
+                format!("Some('\\u{{{:x}}}')", u32::from(single_char(&v.dependent)))
+            };
+            format!(
+                "BrailleVowel {{ independent: '\\u{{{:x}}}', dependent: {dep}, cell: '\\u{{{:x}}}' }}",
+                u32::from(ind),
+                u32::from(cell)
+            )
+        })
+        .collect();
+    let cons_rows: Vec<String> = braille
+        .consonants
+        .iter()
+        .map(|c| {
+            let uni = single_char(&c.unicode);
+            let cell = single_char(&c.cell);
+            assert!(seen_cells.insert(cell), "duplicate Braille consonant cell");
+            format!(
+                "BrailleConsonant {{ unicode: '\\u{{{:x}}}', cell: '\\u{{{:x}}}' }}",
+                u32::from(uni),
+                u32::from(cell)
+            )
+        })
+        .collect();
+    let braille_code = format!(
+        "pub const PROFILE: &str = {};\npub const PULLI_CELL: char = '\\u{{{:x}}}';\npub const SPACE_CELL: char = '\\u{{{:x}}}';\npub const AYTHAM_UNICODE: char = '\\u{{{:x}}}';\npub const AYTHAM_CELL: char = '\\u{{{:x}}}';\npub const KSHA_UNICODE: &str = {};\npub const KSHA_CELL: char = '\\u{{{:x}}}';\npub const VOWELS: &[BrailleVowel] = &[{}];\npub const CONSONANTS: &[BrailleConsonant] = &[{}];\n",
+        literal(&braille.profile),
+        u32::from(pulli_cell),
+        u32::from(space_cell),
+        u32::from(aytham_uni),
+        u32::from(aytham_cell),
+        literal(&braille.ksha_unicode),
+        u32::from(ksha_cell),
+        vowel_rows.join(","),
+        cons_rows.join(","),
+    );
+    fs::write(
+        PathBuf::from(env::var_os("OUT_DIR").expect("OUT_DIR")).join("braille_tables.rs"),
+        braille_code,
+    )
+    .expect("write Braille tables");
 }

@@ -851,6 +851,24 @@ pub const OPERATIONS: &[&str] = &[
     "vanavil_text_to_unicode",
     "unicode_to_vanavil_codes",
     "unicode_to_vanavil_text",
+    "senthamil_codes_to_unicode",
+    "senthamil_text_to_unicode",
+    "unicode_to_senthamil_codes",
+    "unicode_to_senthamil_text",
+    "shree_tam_codes_to_unicode",
+    "shree_tam_text_to_unicode",
+    "unicode_to_shree_tam_codes",
+    "unicode_to_shree_tam_text",
+    "softview_codes_to_unicode",
+    "softview_text_to_unicode",
+    "unicode_to_softview_codes",
+    "unicode_to_softview_text",
+    "tbo_codes_to_unicode",
+    "tbo_text_to_unicode",
+    "unicode_to_tbo_codes",
+    "unicode_to_tbo_text",
+    "unicode_to_braille",
+    "braille_to_unicode",
     "detect_encoding",
     "detect_and_decode",
     "format_fraction",
@@ -1850,6 +1868,73 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         }
         "unicode_to_vanavil_text" => {
             codec::unicode_to_vanavil_text(string(&input["text"])?).map(|text| json!(text))
+        }
+        "senthamil_codes_to_unicode" => codec::senthamil_codes_to_unicode(
+            &cid_codes(input, "Senthamil")?,
+            codec_error_policy(input)?,
+        )
+        .map(|text| json!(text)),
+        "senthamil_text_to_unicode" => {
+            codec::senthamil_text_to_unicode(string(&input["text"])?, codec_error_policy(input)?)
+                .map(|text| json!(text))
+        }
+        "unicode_to_senthamil_codes" => {
+            codec::unicode_to_senthamil_codes(string(&input["text"])?).map(|codes| json!(codes))
+        }
+        "unicode_to_senthamil_text" => {
+            codec::unicode_to_senthamil_text(string(&input["text"])?).map(|text| json!(text))
+        }
+        "shree_tam_codes_to_unicode" => codec::shree_tam_codes_to_unicode(
+            &cid_codes(input, "Shree-Tam")?,
+            codec_error_policy(input)?,
+        )
+        .map(|text| json!(text)),
+        "shree_tam_text_to_unicode" => {
+            codec::shree_tam_text_to_unicode(string(&input["text"])?, codec_error_policy(input)?)
+                .map(|text| json!(text))
+        }
+        "unicode_to_shree_tam_codes" => {
+            codec::unicode_to_shree_tam_codes(string(&input["text"])?).map(|codes| json!(codes))
+        }
+        "unicode_to_shree_tam_text" => {
+            codec::unicode_to_shree_tam_text(string(&input["text"])?).map(|text| json!(text))
+        }
+        "softview_codes_to_unicode" => codec::softview_codes_to_unicode(
+            &cid_codes(input, "Softview")?,
+            codec_error_policy(input)?,
+        )
+        .map(|text| json!(text)),
+        "softview_text_to_unicode" => {
+            codec::softview_text_to_unicode(string(&input["text"])?, codec_error_policy(input)?)
+                .map(|text| json!(text))
+        }
+        "unicode_to_softview_codes" => {
+            codec::unicode_to_softview_codes(string(&input["text"])?).map(|codes| json!(codes))
+        }
+        "unicode_to_softview_text" => {
+            codec::unicode_to_softview_text(string(&input["text"])?).map(|text| json!(text))
+        }
+        "tbo_codes_to_unicode" => {
+            codec::tbo_codes_to_unicode(&cid_codes(input, "TBO")?, codec_error_policy(input)?)
+                .map(|text| json!(text))
+        }
+        "tbo_text_to_unicode" => {
+            codec::tbo_text_to_unicode(string(&input["text"])?, codec_error_policy(input)?)
+                .map(|text| json!(text))
+        }
+        "unicode_to_tbo_codes" => {
+            codec::unicode_to_tbo_codes(string(&input["text"])?).map(|codes| json!(codes))
+        }
+        "unicode_to_tbo_text" => {
+            codec::unicode_to_tbo_text(string(&input["text"])?).map(|text| json!(text))
+        }
+        "unicode_to_braille" => {
+            codec::unicode_to_braille(string(&input["text"])?, codec_error_policy(input)?)
+                .map(|text| json!(text))
+        }
+        "braille_to_unicode" => {
+            codec::braille_to_unicode(string(&input["text"])?, codec_error_policy(input)?)
+                .map(|text| json!(text))
         }
         "unicode_to_anjal_bytes" => {
             codec::unicode_to_anjal_bytes(string(&input["text"])?).map(|bytes| json!(bytes))

@@ -3,6 +3,14 @@
 
 ## Unreleased
 
+- **Phase 7B (`tamil-codec` — Senthamil, Shree-Tam, Softview, TBO & Bharathi Braille):**
+  Add 4 new 16-bit CID legacy font profiles (`senthamil-cid-v1`, `shree-tam-cid-v1`,
+  `softview-amudham-cid-v1`, `tbo-tboomi-cid-v1`) and Grade 1 Bharathi Tamil Braille
+  (`bharathi-tamil-g1-v1`, `unicode_to_braille` / `braille_to_unicode`, `U+2800..U+28FF`)
+  backed by `lexicon/{senthamil,shree_tam,softview,tbo,braille}.toml`,
+  `docs/specs/codec-phase7-legacy.md`, `docs/specs/codec-braille.md`, 2,694 active
+  golden vectors (`codec_phase7_legacy.jsonl`, `codec_braille.jsonl`), and full
+  Rust/Python/WASM/Dart parity (completing Phase 7).
 - **Phase 7A (Playground client-side PDF text-layer extraction):** Add 100%
   client-side, zero-upload `pdfjs-dist` text-layer extraction in
   `playground/src/lib/pdf-extract.ts` and wire **Import PDF** into

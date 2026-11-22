@@ -49,11 +49,33 @@ pub(crate) mod vanavil_tables {
     use super::{CidNode, Node, Terminal};
     include!(concat!(env!("OUT_DIR"), "/vanavil_tables.rs"));
 }
+pub(crate) mod senthamil_tables {
+    use super::{CidNode, Node, Terminal};
+    include!(concat!(env!("OUT_DIR"), "/senthamil_tables.rs"));
+}
+pub(crate) mod shree_tam_tables {
+    use super::{CidNode, Node, Terminal};
+    include!(concat!(env!("OUT_DIR"), "/shree_tam_tables.rs"));
+}
+pub(crate) mod softview_tables {
+    use super::{CidNode, Node, Terminal};
+    include!(concat!(env!("OUT_DIR"), "/softview_tables.rs"));
+}
+pub(crate) mod tbo_tables {
+    use super::{CidNode, Node, Terminal};
+    include!(concat!(env!("OUT_DIR"), "/tbo_tables.rs"));
+}
+pub mod braille;
 pub use anjal_tables::PROFILE as ANJAL_PROFILE;
+pub use braille::{braille_to_unicode, unicode_to_braille, BRAILLE_PROFILE};
 pub use lt_tm_tables::PROFILE as LT_TM_PROFILE;
+pub use senthamil_tables::PROFILE as SENTHAMIL_PROFILE;
+pub use shree_tam_tables::PROFILE as SHREE_TAM_PROFILE;
+pub use softview_tables::PROFILE as SOFTVIEW_PROFILE;
 pub use tab_tables::PROFILE as TAB_PROFILE;
 pub use tables::PROFILE;
 pub use tam_tables::PROFILE as TAM_PROFILE;
+pub use tbo_tables::PROFILE as TBO_PROFILE;
 pub use tscii_tables::PROFILE as TSCII_PROFILE;
 pub use vanavil_tables::PROFILE as VANAVIL_PROFILE;
 pub const ROUNDTRIP_ERROR: &str = "Bamini encoding is not reversible for this input";
@@ -519,6 +541,154 @@ pub fn unicode_to_vanavil_text(text: &str) -> Result<String, String> {
     })
 }
 
+/// Decode 16-bit Senthamil character codes to NFC Unicode.
+pub fn senthamil_codes_to_unicode(codes: &[u16], errors: ErrorPolicy) -> Result<String, String> {
+    decode_cid_codes(
+        codes,
+        errors,
+        senthamil_tables::CID_NODES,
+        senthamil_tables::MAX_KEY_CIDS,
+        "Senthamil",
+    )
+}
+
+/// Decode legacy text whose BMP scalar values represent Senthamil code values.
+pub fn senthamil_text_to_unicode(text: &str, errors: ErrorPolicy) -> Result<String, String> {
+    decode_cid_text(text, errors, "Senthamil", senthamil_codes_to_unicode)
+}
+
+/// Encode the supported Senthamil Unicode subset to 16-bit character codes.
+pub fn unicode_to_senthamil_codes(text: &str) -> Result<Vec<u16>, String> {
+    encode_cid_codes(
+        text,
+        senthamil_tables::ENCODE_NODES,
+        senthamil_tables::MAX_UNICODE_KEY_BYTES,
+        "Senthamil",
+        senthamil_codes_to_unicode,
+    )
+}
+
+/// Encode to a legacy string whose scalar values are Senthamil code values.
+pub fn unicode_to_senthamil_text(text: &str) -> Result<String, String> {
+    unicode_to_senthamil_codes(text).map(|codes| {
+        codes
+            .into_iter()
+            .map(|code| char::from_u32(u32::from(code)).expect("validated Senthamil code point"))
+            .collect()
+    })
+}
+
+/// Decode 16-bit Shree-Tam character codes to NFC Unicode.
+pub fn shree_tam_codes_to_unicode(codes: &[u16], errors: ErrorPolicy) -> Result<String, String> {
+    decode_cid_codes(
+        codes,
+        errors,
+        shree_tam_tables::CID_NODES,
+        shree_tam_tables::MAX_KEY_CIDS,
+        "Shree-Tam",
+    )
+}
+
+/// Decode legacy text whose BMP scalar values represent Shree-Tam code values.
+pub fn shree_tam_text_to_unicode(text: &str, errors: ErrorPolicy) -> Result<String, String> {
+    decode_cid_text(text, errors, "Shree-Tam", shree_tam_codes_to_unicode)
+}
+
+/// Encode the supported Shree-Tam Unicode subset to 16-bit character codes.
+pub fn unicode_to_shree_tam_codes(text: &str) -> Result<Vec<u16>, String> {
+    encode_cid_codes(
+        text,
+        shree_tam_tables::ENCODE_NODES,
+        shree_tam_tables::MAX_UNICODE_KEY_BYTES,
+        "Shree-Tam",
+        shree_tam_codes_to_unicode,
+    )
+}
+
+/// Encode to a legacy string whose scalar values are Shree-Tam code values.
+pub fn unicode_to_shree_tam_text(text: &str) -> Result<String, String> {
+    unicode_to_shree_tam_codes(text).map(|codes| {
+        codes
+            .into_iter()
+            .map(|code| char::from_u32(u32::from(code)).expect("validated Shree-Tam code point"))
+            .collect()
+    })
+}
+
+/// Decode 16-bit Softview (`Amudham`) character codes to NFC Unicode.
+pub fn softview_codes_to_unicode(codes: &[u16], errors: ErrorPolicy) -> Result<String, String> {
+    decode_cid_codes(
+        codes,
+        errors,
+        softview_tables::CID_NODES,
+        softview_tables::MAX_KEY_CIDS,
+        "Softview",
+    )
+}
+
+/// Decode legacy text whose BMP scalar values represent Softview code values.
+pub fn softview_text_to_unicode(text: &str, errors: ErrorPolicy) -> Result<String, String> {
+    decode_cid_text(text, errors, "Softview", softview_codes_to_unicode)
+}
+
+/// Encode the supported Softview Unicode subset to 16-bit character codes.
+pub fn unicode_to_softview_codes(text: &str) -> Result<Vec<u16>, String> {
+    encode_cid_codes(
+        text,
+        softview_tables::ENCODE_NODES,
+        softview_tables::MAX_UNICODE_KEY_BYTES,
+        "Softview",
+        softview_codes_to_unicode,
+    )
+}
+
+/// Encode to a legacy string whose scalar values are Softview code values.
+pub fn unicode_to_softview_text(text: &str) -> Result<String, String> {
+    unicode_to_softview_codes(text).map(|codes| {
+        codes
+            .into_iter()
+            .map(|code| char::from_u32(u32::from(code)).expect("validated Softview code point"))
+            .collect()
+    })
+}
+
+/// Decode 16-bit TBO (`TBoomiS`) character codes to NFC Unicode.
+pub fn tbo_codes_to_unicode(codes: &[u16], errors: ErrorPolicy) -> Result<String, String> {
+    decode_cid_codes(
+        codes,
+        errors,
+        tbo_tables::CID_NODES,
+        tbo_tables::MAX_KEY_CIDS,
+        "TBO",
+    )
+}
+
+/// Decode legacy text whose BMP scalar values represent TBO code values.
+pub fn tbo_text_to_unicode(text: &str, errors: ErrorPolicy) -> Result<String, String> {
+    decode_cid_text(text, errors, "TBO", tbo_codes_to_unicode)
+}
+
+/// Encode the supported TBO Unicode subset to 16-bit character codes.
+pub fn unicode_to_tbo_codes(text: &str) -> Result<Vec<u16>, String> {
+    encode_cid_codes(
+        text,
+        tbo_tables::ENCODE_NODES,
+        tbo_tables::MAX_UNICODE_KEY_BYTES,
+        "TBO",
+        tbo_codes_to_unicode,
+    )
+}
+
+/// Encode to a legacy string whose scalar values are TBO code values.
+pub fn unicode_to_tbo_text(text: &str) -> Result<String, String> {
+    unicode_to_tbo_codes(text).map(|codes| {
+        codes
+            .into_iter()
+            .map(|code| char::from_u32(u32::from(code)).expect("validated TBO code point"))
+            .collect()
+    })
+}
+
 /// Canonical Unicode -> ASCII Bamini. Every accepted input round-trips to its NFC.
 /// Unsupported scalars and key-boundary collisions fail without partial output.
 pub fn unicode_to_bamini(text: &str) -> Result<String, String> {
@@ -642,6 +812,30 @@ mod tests {
             prop_assert_eq!(&result, &unicode_to_vanavil_codes(&tamil_core::normalize_nfd(&text)));
             if let Ok(codes) = result {
                 prop_assert_eq!(vanavil_codes_to_unicode(&codes, ErrorPolicy::Strict).unwrap(), normalize_nfc(&text));
+            }
+        }
+        #[test]
+        fn supported_phase7_cid_sequences_roundtrip(
+            s in prop::collection::vec(prop::sample::select(senthamil_tables::ENCODABLE_TEXT.to_vec()), 0..16),
+            sh in prop::collection::vec(prop::sample::select(shree_tam_tables::ENCODABLE_TEXT.to_vec()), 0..16),
+            sv in prop::collection::vec(prop::sample::select(softview_tables::ENCODABLE_TEXT.to_vec()), 0..16),
+            tb in prop::collection::vec(prop::sample::select(tbo_tables::ENCODABLE_TEXT.to_vec()), 0..16),
+        ) {
+            let s = s.concat();
+            if let Ok(codes) = unicode_to_senthamil_codes(&s) {
+                prop_assert_eq!(senthamil_codes_to_unicode(&codes, ErrorPolicy::Strict).unwrap(), normalize_nfc(&s));
+            }
+            let sh = sh.concat();
+            if let Ok(codes) = unicode_to_shree_tam_codes(&sh) {
+                prop_assert_eq!(shree_tam_codes_to_unicode(&codes, ErrorPolicy::Strict).unwrap(), normalize_nfc(&sh));
+            }
+            let sv = sv.concat();
+            if let Ok(codes) = unicode_to_softview_codes(&sv) {
+                prop_assert_eq!(softview_codes_to_unicode(&codes, ErrorPolicy::Strict).unwrap(), normalize_nfc(&sv));
+            }
+            let tb = tb.concat();
+            if let Ok(codes) = unicode_to_tbo_codes(&tb) {
+                prop_assert_eq!(tbo_codes_to_unicode(&codes, ErrorPolicy::Strict).unwrap(), normalize_nfc(&tb));
             }
         }
         #[test]

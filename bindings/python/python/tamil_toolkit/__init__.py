@@ -5,7 +5,7 @@ from typing import Any
 
 from . import _native
 
-__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "repair_tamil_text", "fold_for_search", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "anjal_bytes_to_unicode", "unicode_to_anjal_bytes", "tam_bytes_to_unicode", "unicode_to_tam_bytes", "tab_bytes_to_unicode", "unicode_to_tab_bytes", "tscii_bytes_to_unicode", "unicode_to_tscii_bytes", "lt_tm_codes_to_unicode", "lt_tm_text_to_unicode", "unicode_to_lt_tm_codes", "unicode_to_lt_tm_text", "vanavil_codes_to_unicode", "vanavil_text_to_unicode", "unicode_to_vanavil_codes", "unicode_to_vanavil_text", "detect_encoding", "detect_and_decode", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date", "vakya_solar_transits", "vakya_true_sun_from_mesha_elapsed"]
+__all__ = ["execute", "get_letters", "normalize_nfc", "normalize_nfd", "repair_tamil_text", "fold_for_search", "split_uyirmei", "compose_uyirmei", "inspect_tamil_string", "compare", "sort_words", "sort_key", "search_key", "to_words", "format_currency", "currency_to_words", "bamini_to_unicode", "unicode_to_bamini", "anjal_bytes_to_unicode", "unicode_to_anjal_bytes", "tam_bytes_to_unicode", "unicode_to_tam_bytes", "tab_bytes_to_unicode", "unicode_to_tab_bytes", "tscii_bytes_to_unicode", "unicode_to_tscii_bytes", "lt_tm_codes_to_unicode", "lt_tm_text_to_unicode", "unicode_to_lt_tm_codes", "unicode_to_lt_tm_text", "vanavil_codes_to_unicode", "vanavil_text_to_unicode", "unicode_to_vanavil_codes", "unicode_to_vanavil_text", "senthamil_codes_to_unicode", "senthamil_text_to_unicode", "unicode_to_senthamil_codes", "unicode_to_senthamil_text", "shree_tam_codes_to_unicode", "shree_tam_text_to_unicode", "unicode_to_shree_tam_codes", "unicode_to_shree_tam_text", "softview_codes_to_unicode", "softview_text_to_unicode", "unicode_to_softview_codes", "unicode_to_softview_text", "tbo_codes_to_unicode", "tbo_text_to_unicode", "unicode_to_tbo_codes", "unicode_to_tbo_text", "unicode_to_braille", "braille_to_unicode", "detect_encoding", "detect_and_decode", "format_fraction", "fraction_to_words", "fraction_symbol", "format_date", "vakya_solar_transits", "vakya_true_sun_from_mesha_elapsed"]
 __all__.append("vakya_true_moon_from_kali_day")
 __all__.append("vakya_reduce_to_local_true_sunrise")
 __all__.append("vakya_cara_from_sayana_sun")
@@ -217,6 +217,78 @@ def unicode_to_vanavil_codes(text: str) -> list[int]:
 
 def unicode_to_vanavil_text(text: str) -> str:
     return execute({"op": "unicode_to_vanavil_text", "input": {"text": text}})
+
+
+def senthamil_codes_to_unicode(codes: list[int], errors: str = "strict") -> str:
+    return execute({"op": "senthamil_codes_to_unicode", "input": {"codes": list(codes), "errors": errors}})
+
+
+def senthamil_text_to_unicode(text: str, errors: str = "strict") -> str:
+    return execute({"op": "senthamil_text_to_unicode", "input": {"text": text, "errors": errors}})
+
+
+def unicode_to_senthamil_codes(text: str) -> list[int]:
+    return execute({"op": "unicode_to_senthamil_codes", "input": {"text": text}})
+
+
+def unicode_to_senthamil_text(text: str) -> str:
+    return execute({"op": "unicode_to_senthamil_text", "input": {"text": text}})
+
+
+def shree_tam_codes_to_unicode(codes: list[int], errors: str = "strict") -> str:
+    return execute({"op": "shree_tam_codes_to_unicode", "input": {"codes": list(codes), "errors": errors}})
+
+
+def shree_tam_text_to_unicode(text: str, errors: str = "strict") -> str:
+    return execute({"op": "shree_tam_text_to_unicode", "input": {"text": text, "errors": errors}})
+
+
+def unicode_to_shree_tam_codes(text: str) -> list[int]:
+    return execute({"op": "unicode_to_shree_tam_codes", "input": {"text": text}})
+
+
+def unicode_to_shree_tam_text(text: str) -> str:
+    return execute({"op": "unicode_to_shree_tam_text", "input": {"text": text}})
+
+
+def softview_codes_to_unicode(codes: list[int], errors: str = "strict") -> str:
+    return execute({"op": "softview_codes_to_unicode", "input": {"codes": list(codes), "errors": errors}})
+
+
+def softview_text_to_unicode(text: str, errors: str = "strict") -> str:
+    return execute({"op": "softview_text_to_unicode", "input": {"text": text, "errors": errors}})
+
+
+def unicode_to_softview_codes(text: str) -> list[int]:
+    return execute({"op": "unicode_to_softview_codes", "input": {"text": text}})
+
+
+def unicode_to_softview_text(text: str) -> str:
+    return execute({"op": "unicode_to_softview_text", "input": {"text": text}})
+
+
+def tbo_codes_to_unicode(codes: list[int], errors: str = "strict") -> str:
+    return execute({"op": "tbo_codes_to_unicode", "input": {"codes": list(codes), "errors": errors}})
+
+
+def tbo_text_to_unicode(text: str, errors: str = "strict") -> str:
+    return execute({"op": "tbo_text_to_unicode", "input": {"text": text, "errors": errors}})
+
+
+def unicode_to_tbo_codes(text: str) -> list[int]:
+    return execute({"op": "unicode_to_tbo_codes", "input": {"text": text}})
+
+
+def unicode_to_tbo_text(text: str) -> str:
+    return execute({"op": "unicode_to_tbo_text", "input": {"text": text}})
+
+
+def unicode_to_braille(text: str, errors: str = "strict") -> str:
+    return execute({"op": "unicode_to_braille", "input": {"text": text, "errors": errors}})
+
+
+def braille_to_unicode(text: str, errors: str = "strict") -> str:
+    return execute({"op": "braille_to_unicode", "input": {"text": text, "errors": errors}})
 
 
 def detect_encoding(data: bytes | bytearray | str | list[int]) -> dict[str, Any]:

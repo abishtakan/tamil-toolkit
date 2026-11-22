@@ -110,18 +110,22 @@ transposition between LT-TM and Vanavil Avvaiyar are documented in the
 Do not merge LT-TM or Vanavil with AnuGraphics or Pallavar without comparing
 their code tables.
 
-## Phase 7 Status (2026-11-22)
+## Phase 7 Status (2026-11-22 — Completed)
 
 - **Client-side legacy PDF text-layer extraction (Completed in `playground/`):**
   Added 100% client-side `pdfjs-dist` text-layer extraction (`playground/src/lib/pdf-extract.ts`,
   wired into `CodecConverter.tsx`) with embedded PDF font-family profile hinting
   (Bamini, Vanavil, LT-TM, TSCII, TAB, TAM, Anjal), zero-upload offline execution,
   and explicit warnings for scanned image-only PDFs (no OCR).
-- **Queued legacy font tables (Senthamil, Shree-Tam, Softview, TBO):**
-  Open-source references (`open-tamil`'s `encode2utf8.py` under GPL-3.0-or-later,
-  commercial Shree-Lipi/Softview binaries) are not MIT-compatible for direct copying
-  into `crates/tamil-codec`. Adding Senthamil, Shree-Tam, Softview, or TBO requires
-  primary `.ttf` `cmap` inspection or a permissively licensed primary mapping witness
-  before authoring their `lexicon/*.toml` tables and golden suites.
-- **`tamil-codec::braille` (Bharathi / Unicode Braille `U+2800..U+28FF` Grade 1):**
-  Remains an optional deferred slice (public Unicode standard data; no licensing blocker).
+- **Phase 7B Legacy CID profiles (Completed in `crates/tamil-codec/`):**
+  Added `senthamil-cid-v1` (308 keys), `shree-tam-cid-v1` (316 keys),
+  `softview-amudham-cid-v1` (313 keys), and `tbo-tboomi-cid-v1` (316 keys)
+  projected from `AzhagiPlus-Portable.zip` (SHA-256
+  `e5fbf4b1f9a5533ac70021119641c51ddfa1df99c54162b9fa74e32ae1c1d510`), with
+  2,534 active golden vectors in `tests/golden/codec_phase7_legacy.jsonl`.
+  See [Phase 7 Legacy Spec](codec-phase7-legacy.md).
+- **`tamil-codec::braille` (Completed in `crates/tamil-codec/src/braille.rs`):**
+  Added Bharathi Tamil Grade 1 Braille (`bharathi-tamil-g1-v1`, `U+2800..U+28FF`)
+  with `unicode_to_braille` and `braille_to_unicode`, `lexicon/braille.toml`, and
+  160 active golden vectors in `tests/golden/codec_braille.jsonl`.
+  See [Braille Spec](codec-braille.md).

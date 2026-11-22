@@ -1,5 +1,13 @@
 # Project handoff
 
+## Phase 7B (`tamil-codec` Complete): Senthamil, Shree-Tam, Softview, TBO & Bharathi Braille (2026-11-22)
+
+- **Scope (`crates/tamil-codec/`, `lexicon/{senthamil,shree_tam,softview,tbo,braille}.toml`, `docs/specs/codec-phase7-legacy.md`, `docs/specs/codec-braille.md`):**
+  - Added `senthamil-cid-v1` (308 keys), `shree-tam-cid-v1` (316 keys), `softview-amudham-cid-v1` (313 keys), and `tbo-tboomi-cid-v1` (316 keys) projected from `AzhagiPlus-Portable.zip` (`e5fbf4b1f9a5533ac70021119641c51ddfa1df99c54162b9fa74e32ae1c1d510`) with 2,534 active golden vectors (`tests/golden/codec_phase7_legacy.jsonl`).
+  - Added `tamil-codec::braille` (`bharathi-tamil-g1-v1`, `unicode_to_braille`, `braille_to_unicode`, `U+2800..U+28FF`) following World Braille Usage / NIEPVD Bharathi Braille with 160 active golden vectors (`tests/golden/codec_braille.jsonl`).
+  - Wired all 18 operations into `tamil-toolkit` dispatcher and Python, TypeScript/WASM, and Dart bindings; synced 135 release source copies.
+- **Next:** Phase 8 (`tamil-translit`).
+
 ## Phase 7A (`tamil-codec` / Playground): Client-Side Legacy PDF Text-Layer Extraction (2026-11-22)
 
 - **Scope (`playground/src/lib/pdf-extract.ts`, `playground/src/components/public-tools/CodecConverter.tsx`, `docs/specs/codec-roadmap.md`):**
