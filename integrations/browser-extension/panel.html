@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tamil Toolkit</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" width="22" height="22" role="img" aria-label="Tamil Toolkit">
+        <rect width="64" height="64" rx="16" fill="#181513" />
+        <circle cx="32" cy="20.8" r="8.4" fill="#e05338" />
+        <circle cx="20" cy="41.6" r="8.4" fill="#faf7f2" />
+        <circle cx="44" cy="41.6" r="8.4" fill="#faf7f2" />
+      </svg>
+      <span id="brand-title">Tamil Toolkit</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn sm" id="lang-toggle" type="button">&#x0BA4;&#x0BAE;&#x0BBF;&#x0BB4;&#x0BCD;</button>
+      <button class="btn sm" id="settings-toggle" type="button" aria-label="Settings">&#x2699;</button>
+    </div>
+  </header>
+
+  <section class="drawer" id="settings-drawer"></section>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn" data-tab="inspect" id="tab-inspect" role="tab" type="button">Inspect</button>
+    <button class="tab-btn" data-tab="live" id="tab-live" role="tab" type="button">Live Type</button>
+    <button class="tab-btn" data-tab="fix" id="tab-fix" role="tab" type="button">Fix Text</button>
+    <button class="tab-btn" data-tab="tools" id="tab-tools" role="tab" type="button">Tools</button>
+  </nav>
+
+  <main class="content">
+    <section id="view-inspect" class="stack"></section>
+    <section id="view-live" class="stack" style="display:none"></section>
+    <section id="view-fix" class="stack" style="display:none"></section>
+    <section id="view-tools" class="stack" style="display:none"></section>
+  </main>
+
+  <script type="module" src="/src/panel/main.ts"></script>
+</body>
+</html>

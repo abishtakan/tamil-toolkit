@@ -9,6 +9,8 @@
 /playground/dist/
 /integrations/office-word-addin/dist/
 /integrations/office-word-addin/src/wasm/
+/integrations/browser-extension/dist/
+/integrations/browser-extension/src/wasm/
 /.vercel/
 /playground/.vercel/
 /playground/dist/.vercel/

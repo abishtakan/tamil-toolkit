@@ -2,6 +2,7 @@ packages:
   - bindings/js-wasm
   - playground
   - integrations/office-word-addin
+  - integrations/browser-extension
 
 allowBuilds:
   '@swc/core': true

@@ -1,5 +1,16 @@
 # Project handoff
 
+## Native-Themed Chrome/Edge & Firefox Browser Extension (`023-browser-extension`, 2026-11-22)
+
+- **Scope (`integrations/browser-extension/`, `integrations/shared/prepare-slim-wasm.mjs`, `integrations/office-word-addin/scripts/prepare-wasm.mjs`, `pnpm-workspace.yaml`, `specs/023-browser-extension/`):**
+  - Extracted the shared slim Apache-2.0 default-profile WASM builder into `integrations/shared/prepare-slim-wasm.mjs` and wired both `integrations/office-word-addin` and `integrations/browser-extension` to reuse it.
+  - Built dual-target MV3 packages (`dist/chrome` and `dist/firefox`) with zero install-time `host_permissions` (`activeTab` + opt-in single-origin permissions only), CSP `'wasm-unsafe-eval'`, Chrome `sidePanel` + `offscreen` silent clipboard host, and Firefox `sidebar_action` (`open_at_install: false`), non-persistent `background.scripts`, and `gecko.data_collection_permissions: none`.
+  - Implemented **Live Inline Tamil Typing** (`Alt+Shift+L` shortcut + compact native toolbar popup `popup.html` with 1-click Side Panel launcher and Aytham `ஃ` icon, `த` badge, hybrid commitment: caret-anchored word-boundary preview + `Esc` English bypass for Phonetic/Anjal and instant per-keystroke conversion for Tamil99/Bamini including `;` pulli and punctuation-key letters, sensitive-field guard, focus-aware Shadow DOM floating pill, canvas-editor Quick-Compose scratchpad, and opt-in per-site Always-on).
+  - Implemented **Live Document & Selection Tamil Inspector** (`tamil-core` / `tamil-norm` true Tamil letter count, word count, UTF-16 comparison, Uyir/Mei/Uyirmei/Aytham/Grantha breakdown, live streaming updates on typing/selection, Unicode health check with 1-click "Repair in place", optional live micro-counter, and 1-click "Inspect visible page").
+  - Implemented **Fix Text** (7 legacy codecs + normalized `-v1` Auto ambiguity guard, joiner-preserving repair, *Agara Varisai* / *Uyirmei-first* sort, right-click silent copy, editable-field in-place repair & cold-start handoff) and **Tools** (native Chrome Refresh 2023 & Firefox Acorn/Proton + `browser.theme` tokens, bilingual `தமிழ் / EN`, TN/SL numerals & INR/LKR currency words, active civil date + official TN/SL holidays, and opt-in per-site Noto Tamil + Tamil Supplement font fixer with user-gesture permission prompt & revocation).
+- **Checks:** `pnpm --filter tamil-browser-extension build` (both `dist/chrome` & `dist/firefox`, `tsc --noEmit`), `pnpm --filter tamil-browser-extension test` (**3/3 test files, 11/11 real-WASM + hybrid-typing + manifest tests**), `pnpm --filter tamil-browser-extension package` (**Chrome ZIP: 1,490.4 KiB**, **Firefox ZIP: 1,489.5 KiB**, **AMO source: 115.4 KiB** — all under the 2 MiB budget), `pnpm --filter tamil-browser-extension e2e` (**2/2 bundle checks**), and repo `check-unicode` / `check-release-policy` / `check-release-files`.
+- **Owner follow-up outside git:** Load `dist/chrome` unpacked in Chrome/Edge and `dist/firefox/manifest.json` in Firefox `about:debugging` for final manual store-submission review.
+
 ## SEO & AI/LLM Discoverability Upgrade (2026-11-22)
 
 - **Scope (`llms.txt`, `playground/`, `crates/*/Cargo.toml`, `bindings/`, `integrations/office-word-addin/`, `README.md`):**

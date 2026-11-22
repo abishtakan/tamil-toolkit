@@ -3,6 +3,11 @@
 
 ## Unreleased
 
+- **Native-Themed Chrome/Edge & Firefox Browser Extension (`integrations/browser-extension/`):**
+  - Added dual-target Manifest V3 browser extension for Chrome/Edge (`dist/chrome`, 1.46 MiB zipped) and Firefox (`dist/firefox`, 1.45 MiB zipped + reproducible AMO source bundle) powered offline by the canonical slim Apache-2.0 `tamil-toolkit` Rust/WASM engine with zero install-time `host_permissions` and the canonical Aytham (`ஃ`) icon.
+  - Supports **Live Inline Tamil Typing** (`Alt+Shift+L` shortcut + compact native toolbar popup with 1-click Side Panel launcher, `த` badge, caret-anchored word-boundary preview for Phonetic/Anjal and instant per-keystroke commit for Tamil99/Bamini, focus-aware Shadow DOM floating pill, sensitive-field exclusion, canvas Quick-Compose fallback, and opt-in per-site Always-on).
+  - Supports **Live Document & Selection Tamil Inspector** (real-time streaming updates, true Tamil letter count, word count, Uyir/Mei/Uyirmei/Aytham/Grantha breakdown, Unicode health check with 1-click in-place repair, and optional live micro-counter), **Fix Text** (7 legacy codecs + Auto ambiguity guard, joiner-preserving repair, *Agara Varisai* / *Uyirmei-first* sorting, right-click silent copy, editable in-place repair & cold-start handoff), **Tools** (TN/SL numerals & INR/LKR currency words, active civil date + official TN/SL holidays, opt-in per-site Noto Tamil font fixer), bilingual `தமிழ் / EN` UI, and native Chrome Refresh 2023 / Firefox Acorn themes.
+
 ## 0.1.0-alpha.9 / Python 0.1.0a9 - 2026-11-22
 
 - **SEO & AI/LLM discoverability (`llms.txt`, prerendered Playground routes, registry metadata, Word support page):**

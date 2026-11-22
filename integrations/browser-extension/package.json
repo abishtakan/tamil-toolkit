@@ -1,0 +1,26 @@
+{
+  "name": "tamil-browser-extension",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Native-themed offline Tamil typing, inspection, repair, and legacy font conversion extension for Chrome, Edge, and Firefox",
+  "scripts": {
+    "prepare-wasm": "node ../shared/prepare-slim-wasm.mjs --out-dir src/wasm --label \"Browser Extension\"",
+    "build:chrome": "node scripts/build-extension.mjs chrome",
+    "build:firefox": "node scripts/build-extension.mjs firefox",
+    "build": "npm run prepare-wasm && tsc --noEmit && npm run build:chrome && npm run build:firefox",
+    "test": "npm run prepare-wasm && vitest run",
+    "e2e": "vitest run --config vitest.e2e.config.ts",
+    "package": "node scripts/package-zips.mjs"
+  },
+  "dependencies": {
+    "tamil-toolkit": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.6",
+    "vite-plugin-wasm": "^3.6.0",
+    "vitest": "^5.0.5"
+  }
+}

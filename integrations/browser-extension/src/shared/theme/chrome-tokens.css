@@ -1,0 +1,34 @@
+/* Chrome Refresh 2023 / Edge Side Panel Native Tokens */
+:root {
+  --font-ui: "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --surface: #f8f9fa;
+  --surface-elevated: #ffffff;
+  --surface-muted: #f1f3f4;
+  --fg: #202124;
+  --fg-muted: #5f6368;
+  --border: #dadce0;
+  --accent: #1a73e8;
+  --accent-fg: #ffffff;
+  --success: #1e8e3e;
+  --warning: #b06000;
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --radius-pill: 999px;
+  --focus-ring: 2px solid #1a73e8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #202124;
+    --surface-elevated: #292a2d;
+    --surface-muted: #35363a;
+    --fg: #e8eaed;
+    --fg-muted: #9aa0a6;
+    --border: #3c4043;
+    --accent: #8ab4f8;
+    --accent-fg: #202124;
+    --success: #81c995;
+    --warning: #fdd663;
+    --focus-ring: 2px solid #8ab4f8;
+  }
+}
