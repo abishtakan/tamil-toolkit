@@ -833,7 +833,17 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
                   <button
                     key={loc}
                     type="button"
-                    onClick={() => setItnLocale(loc)}
+                    onClick={() => {
+                      setItnLocale(loc);
+                      if (ready && itnInput.trim()) {
+                        try {
+                          const parsed = tt.words_to_number(itnInput.trim(), itnLocale);
+                          setItnInput(tt.to_words(parsed, loc));
+                        } catch {
+                          // keep user input as-is
+                        }
+                      }
+                    }}
                     className={`px-2.5 py-1 rounded text-xs font-medium cursor-pointer ${
                       itnLocale === loc
                         ? "bg-[var(--bg-surface)] text-[var(--color-semman)] font-semibold shadow-xs"
@@ -858,7 +868,10 @@ export function NumeralFormatter({ engineReady }: NumeralFormatterProps) {
               />
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {["நூற்று இருபத்து மூன்று", "இருபத்தைந்து", "இரண்டு லட்சத்து ஐம்பதாயிரம்"].map((sample) => (
+              {(ready
+                ? [123, 25, 250000].map((n) => tt.to_words(n, itnLocale))
+                : ["நூற்று இருபத்து மூன்று"]
+              ).map((sample) => (
                 <button
                   key={sample}
                   type="button"

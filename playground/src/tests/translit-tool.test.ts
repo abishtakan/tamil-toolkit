@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import { ensureToolkitInitialized } from "./setup";
 import * as tt from "tamil-toolkit/web";
+import { TRANSLIT_SCHEMES } from "../components/public-tools/TranslitTool";
 
 describe("Phase 8: TranslitTool & tamil-translit WASM bindings", () => {
   beforeAll(async () => {
@@ -17,13 +18,15 @@ describe("Phase 8: TranslitTool & tamil-translit WASM bindings", () => {
     expect(ids).toContain("phonetic-v1");
   });
 
-  it("round-trips scholarly ISO 15919 and converts Tamil99 & Anjal Phonetic", () => {
-    const tamil = "தமிழ்";
-    const latin = tt.transliterate(tamil, "iso-15919", "to_latin");
-    expect(latin).toBe("tamiḻ");
-    expect(tt.transliterate(latin, "iso-15919", "to_tamil")).toBe(tamil);
+  it("verifies EVERY TranslitTool UI sample produces its exact expected Tamil and round-trips when bidirectional", () => {
+    for (const scheme of TRANSLIT_SCHEMES) {
+      const toTamil = tt.transliterate(scheme.sampleLatin, scheme.id, "to_tamil");
+      expect(toTamil, `scheme=${scheme.id} to_tamil`).toBe(scheme.sampleTamil);
 
-    expect(tt.transliterate("thamizh", "anjal-phonetic", "to_tamil")).toBe("தமிழ்");
-    expect(tt.transliterate("jkpo;", "suratha-bamini", "to_tamil")).toBe("தமிழ்");
+      if (scheme.bidirectional) {
+        const toLatin = tt.transliterate(scheme.sampleTamil, scheme.id, "to_latin");
+        expect(toLatin, `scheme=${scheme.id} to_latin`).toBe(scheme.sampleLatin);
+      }
+    }
   });
 });

@@ -69,6 +69,44 @@ const BAMINI_SAMPLE = "jkpo; nkhop cyfpd; njhd;ikahd nkhopfspy; xd;whFk;.";
 const TSCII_HEX_SAMPLE = "be c1 a2 fa";
 const UNICODE_SAMPLE = "தமிழ் மொழி உலகின் தொன்மையான மொழிகளில் ஒன்றாகும்.";
 
+export function encodeSampleForProfile(profile: CodecProfile, hexMode: boolean): string {
+  switch (profile) {
+    case "auto":
+    case "bamini-v1":
+      return BAMINI_SAMPLE;
+    case "tscii-1.7-v1": {
+      const bytes = tt.unicode_to_tscii_bytes(UNICODE_SAMPLE);
+      return hexMode ? bytesToHex(bytes) : latin1BytesToString(bytes);
+    }
+    case "tab-v1": {
+      const bytes = tt.unicode_to_tab_bytes(UNICODE_SAMPLE);
+      return hexMode ? bytesToHex(bytes) : latin1BytesToString(bytes);
+    }
+    case "tam-v1": {
+      const bytes = tt.unicode_to_tam_bytes(UNICODE_SAMPLE);
+      return hexMode ? bytesToHex(bytes) : latin1BytesToString(bytes);
+    }
+    case "anjal-v1": {
+      const bytes = tt.unicode_to_anjal_bytes(UNICODE_SAMPLE);
+      return hexMode ? bytesToHex(bytes) : latin1BytesToString(bytes);
+    }
+    case "vanavil-avvaiyar-cid-v1":
+      return tt.unicode_to_vanavil_text(UNICODE_SAMPLE);
+    case "lt-tm-cid-v1":
+      return tt.unicode_to_lt_tm_text(UNICODE_SAMPLE);
+    case "senthamil-cid-v1":
+      return tt.unicode_to_senthamil_text(UNICODE_SAMPLE);
+    case "shree-tam-cid-v1":
+      return tt.unicode_to_shree_tam_text(UNICODE_SAMPLE);
+    case "softview-amudham-cid-v1":
+      return tt.unicode_to_softview_text(UNICODE_SAMPLE);
+    case "tbo-tboomi-cid-v1":
+      return tt.unicode_to_tbo_text(UNICODE_SAMPLE);
+    case "bharathi-tamil-g1-v1":
+      return tt.unicode_to_braille(UNICODE_SAMPLE, "preserve");
+  }
+}
+
 function encodeInputBytes(text: string, hexMode: boolean): Uint8Array | null {
   if (hexMode) {
     return hexToBytes(text);
@@ -305,11 +343,19 @@ export function CodecConverter({ engineReady }: CodecConverterProps) {
   };
 
   const handleLoadSample = () => {
-    if (direction === "to_unicode" && BYTE_CODECS.has(selectedProfile) && hexMode) {
-      setInput(TSCII_HEX_SAMPLE);
+    if (direction === "from_unicode") {
+      setInput(UNICODE_SAMPLE);
       return;
     }
-    setInput(direction === "to_unicode" ? BAMINI_SAMPLE : UNICODE_SAMPLE);
+    if (!ready) {
+      setInput(BAMINI_SAMPLE);
+      return;
+    }
+    try {
+      setInput(encodeSampleForProfile(selectedProfile, hexMode));
+    } catch {
+      setInput(BAMINI_SAMPLE);
+    }
   };
 
   const handleLoadTsciiHexSample = () => {

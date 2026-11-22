@@ -311,6 +311,16 @@ function wireTypeTab(): void {
   const translitInput = $("translit-input") as HTMLTextAreaElement;
   const translitOutput = $("translit-output");
   const KEYBOARD_ONLY_SCHEMES = new Set(["tamil99", "anjal-phonetic", "suratha-bamini"]);
+  const TRANSLIT_PLACEHOLDERS: Record<string, string> = {
+    "anjal-phonetic": "e.g. thamizh vaNakkam (Ctrl+Enter to insert)...",
+    tamil99: "e.g. lks/f → தமிழ் (Ctrl+Enter to insert)...",
+    "phonetic-v1": "e.g. vaNakkam thamizh (Ctrl+Enter to insert)...",
+    "suratha-bamini": "e.g. jkpo; tzf;fk; (Ctrl+Enter to insert)...",
+    "iso-15919": "e.g. tamiḻ moḻi (Ctrl+Enter to insert)...",
+    "madras-lexicon": "e.g. tamiḻ nāṭu (Ctrl+Enter to insert)...",
+    itrans: "e.g. tamizh vaNakkam (Ctrl+Enter to insert)...",
+    "harvard-kyoto": "e.g. tamiZ vaNakkam (Ctrl+Enter to insert)...",
+  };
   let currentTranslit = "";
 
   const updateTranslitPreview = (): void => {
@@ -320,6 +330,10 @@ function wireTypeTab(): void {
       translitDir.value = "to_tamil";
     }
     translitDir.disabled = isKeyboardOnly;
+    translitInput.placeholder =
+      !isKeyboardOnly && translitDir.value === "to_latin"
+        ? "e.g. தமிழ் வணக்கம் (Ctrl+Enter to insert)..."
+        : (TRANSLIT_PLACEHOLDERS[scheme] ?? "Type text to transliterate (Ctrl+Enter to insert)...");
 
     const raw = translitInput.value;
     if (!raw) {

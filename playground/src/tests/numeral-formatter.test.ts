@@ -37,5 +37,11 @@ describe("T016: NumeralFormatter", () => {
     expect(half).toBe("ஒன்றரை");
 
     expect(tt.words_to_number("நூற்று இருபத்து மூன்று", "TN")).toBe(123);
+    for (const loc of ["TN", "SL"] as const) {
+      for (const n of [123, 25, 250000]) {
+        const w = tt.to_words(n, loc);
+        expect(tt.words_to_number(w, loc), `loc=${loc} n=${n} w=${w}`).toBe(n);
+      }
+    }
   });
 });

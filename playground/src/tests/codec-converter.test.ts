@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import { ensureToolkitInitialized } from "./setup";
 import * as tt from "tamil-toolkit/web";
+import { encodeSampleForProfile, type CodecProfile } from "../components/public-tools/CodecConverter";
 
 describe("T015: CodecConverter & Auto-detection", () => {
   beforeAll(async () => {
@@ -55,5 +56,28 @@ describe("T015: CodecConverter & Auto-detection", () => {
     const braille = tt.unicode_to_braille(word, "preserve");
     expect(braille.length).toBeGreaterThan(0);
     expect(tt.braille_to_unicode(braille, "preserve")).toBe(word);
+  });
+
+  it("generates a non-empty profile-specific sample for every CodecConverter profile", () => {
+    const profiles: CodecProfile[] = [
+      "auto",
+      "bamini-v1",
+      "tscii-1.7-v1",
+      "tab-v1",
+      "tam-v1",
+      "anjal-v1",
+      "vanavil-avvaiyar-cid-v1",
+      "lt-tm-cid-v1",
+      "senthamil-cid-v1",
+      "shree-tam-cid-v1",
+      "softview-amudham-cid-v1",
+      "tbo-tboomi-cid-v1",
+      "bharathi-tamil-g1-v1",
+    ];
+    for (const p of profiles) {
+      const sample = encodeSampleForProfile(p, false);
+      expect(sample.length, `profile=${p}`).toBeGreaterThan(0);
+    }
+    expect(encodeSampleForProfile("bharathi-tamil-g1-v1", false)).toMatch(/[\u2800-\u28FF]/);
   });
 });

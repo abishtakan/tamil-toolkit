@@ -8,16 +8,17 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { AlertCircle, ArrowLeftRight, X } from "lucide-react";
 
-interface SchemeMeta {
+export interface SchemeMeta {
   id: string;
   labelEn: string;
   labelTa: string;
   bidirectional: boolean;
   sampleLatin: string;
   sampleTamil: string;
+  hint: string;
 }
 
-const SCHEMES: readonly SchemeMeta[] = [
+export const TRANSLIT_SCHEMES: readonly SchemeMeta[] = [
   {
     id: "iso-15919",
     labelEn: "ISO 15919",
@@ -25,6 +26,7 @@ const SCHEMES: readonly SchemeMeta[] = [
     bidirectional: true,
     sampleLatin: "tamiḻ moḻi",
     sampleTamil: "தமிழ் மொழி",
+    hint: "ā ī ū ē ō · ṭ ṇ ṉ ṟ ḷ ḻ · ḵ (ஃ)",
   },
   {
     id: "madras-lexicon",
@@ -33,6 +35,7 @@ const SCHEMES: readonly SchemeMeta[] = [
     bidirectional: true,
     sampleLatin: "tamiḻ nāṭu",
     sampleTamil: "தமிழ் நாடு",
+    hint: "ā ī ū ē ō · ṭ ṇ ṉ ṟ ḷ ḻ · ḥ (ஃ)",
   },
   {
     id: "itrans",
@@ -41,48 +44,58 @@ const SCHEMES: readonly SchemeMeta[] = [
     bidirectional: true,
     sampleLatin: "tamizh vaNakkam",
     sampleTamil: "தமிழ் வணக்கம்",
+    hint: "aa ii uu E O · T=ட, N=ண, ^n=ன, R=ற, L=ள, zh=ழ",
   },
   {
     id: "harvard-kyoto",
     labelEn: "Harvard-Kyoto",
     labelTa: "ஹார்வர்ட்-கியோட்டோ",
     bidirectional: true,
-    sampleLatin: "tamiz vaNakkam",
+    sampleLatin: "tamiZ vaNakkam",
     sampleTamil: "தமிழ் வணக்கம்",
+    hint: "A I U E O · T=ட, N=ண, X=ன, R=ற, L=ள, Z=ழ, H=ஃ",
   },
   {
     id: "phonetic-v1",
     labelEn: "Phonetic (Tanglish)",
     labelTa: "ஒலியியல் (Tanglish)",
     bidirectional: true,
-    sampleLatin: "vanakkam tamizh",
+    sampleLatin: "vaNakkam thamizh",
     sampleTamil: "வணக்கம் தமிழ்",
+    hint: "th=த, t=ட, nh=ந, n=ன, N=ண, zh=ழ, L=ள, R=ற",
   },
   {
     id: "tamil99",
     labelEn: "Tamil99",
     labelTa: "தமிழ்99",
     bidirectional: false,
-    sampleLatin: "lksf/f",
+    sampleLatin: "lks/f",
     sampleTamil: "தமிழ்",
+    hint: "l=த, k=ம, s=ி, /=ழ, f=் (auto-pulli on repeated consonants)",
   },
   {
     id: "anjal-phonetic",
     labelEn: "Anjal Phonetic",
     labelTa: "அஞ்சல் ஒலியியல்",
     bidirectional: false,
-    sampleLatin: "thamizh",
-    sampleTamil: "தமிழ்",
+    sampleLatin: "thamizh vaNakkam",
+    sampleTamil: "தமிழ் வணக்கம்",
+    hint: "th=த, t=ட, nh=ந, n=ன, N=ண, zh=ழ, L=ள, R=ற",
   },
   {
     id: "suratha-bamini",
     labelEn: "Suratha Bamini",
     labelTa: "சுரதா பாமினி",
     bidirectional: false,
-    sampleLatin: "jkpo;",
-    sampleTamil: "தமிழ்",
+    sampleLatin: "jkpo; tzf;fk;",
+    sampleTamil: "தமிழ் வணக்கம்",
+    hint: "j=த, k=ம, p=ி, o=ழ, ;=், n/N/i=ெ/ே/ை",
   },
 ];
+
+const ALL_SAMPLES = new Set<string>(
+  TRANSLIT_SCHEMES.flatMap((s) => [s.sampleLatin, s.sampleTamil])
+);
 
 interface TranslitToolProps {
   engineReady?: boolean;
@@ -94,10 +107,10 @@ export function TranslitTool({ engineReady }: TranslitToolProps) {
 
   const [scheme, setScheme] = useState<string>("iso-15919");
   const [direction, setDirection] = useState<"to_tamil" | "to_latin">("to_tamil");
-  const [input, setInput] = useState<string>("tamiḻ moḻi");
+  const [input, setInput] = useState<string>(TRANSLIT_SCHEMES[0].sampleLatin);
 
   const activeScheme = useMemo(
-    () => SCHEMES.find((s) => s.id === scheme) ?? SCHEMES[0],
+    () => TRANSLIT_SCHEMES.find((s) => s.id === scheme) ?? TRANSLIT_SCHEMES[0],
     [scheme]
   );
 
@@ -121,9 +134,13 @@ export function TranslitTool({ engineReady }: TranslitToolProps) {
   }, [ready, input, activeScheme.id, effectiveDirection]);
 
   const handleSelectScheme = (next: SchemeMeta) => {
+    const nextDir: "to_tamil" | "to_latin" = next.bidirectional ? direction : "to_tamil";
     setScheme(next.id);
     if (!next.bidirectional) {
       setDirection("to_tamil");
+    }
+    if (!input.trim() || ALL_SAMPLES.has(input)) {
+      setInput(nextDir === "to_tamil" ? next.sampleLatin : next.sampleTamil);
     }
   };
 
@@ -183,7 +200,7 @@ export function TranslitTool({ engineReady }: TranslitToolProps) {
           </Badge>
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
-          {SCHEMES.map((s) => {
+          {TRANSLIT_SCHEMES.map((s) => {
             const isActive = s.id === activeScheme.id;
             return (
               <button
@@ -202,6 +219,9 @@ export function TranslitTool({ engineReady }: TranslitToolProps) {
             );
           })}
         </div>
+        <p className="text-xs font-mono-tamil text-[var(--color-muted)]">
+          {activeScheme.hint}
+        </p>
       </div>
 
       {result.error && (
