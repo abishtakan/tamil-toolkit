@@ -1,5 +1,13 @@
 # Project handoff
 
+## Release `0.1.0-alpha.10` / Python `0.1.0a10` Published (2026-11-22)
+
+- **Published registries (`v0.1.0-alpha.10`, source commit `ba4fa913bf327157323eeb7f8975e4f39b29224a`, artifact run `45057597093`):**
+  - **crates.io** ([run `45058020552`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45058020552)): all 9 approved crates (`tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`, `tamil-calendar`, `tamil-codec`, `tamil-hyphen`, `tamil-translit`, `tamil-toolkit`) published at `0.1.0-alpha.10`.
+  - **npm** ([run `45058040282`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45058040282)): `tamil-toolkit@0.1.0-alpha.10` published via OIDC (`alpha` and `latest` dist-tags pointing to `0.1.0-alpha.10`; SHA-256 `113b88d7b42db841b1b712cac5b26c4744f4e6ba0787c41932ec2bdb9b8a77f4`).
+  - **PyPI** ([run `45058060092`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45058060092)): `tamil-toolkit 0.1.0a10` published via OIDC (Linux, Windows, macOS wheels + sdist recorded in `docs/releases/alpha-10.md`).
+  - Hardened `dispatch_and_watch()` in `tools/release_pipeline.py` so workflow run matching never latches onto an older run ID before a newly dispatched workflow appears in `gh run list`.
+
 ## Mayangoli Preview Candidates & Google/Microsoft IME Cycling (`tamil-translit`, Browser Extension & Word Add-in, 2026-11-22)
 
 - **Scope (`crates/tamil-translit/`, `crates/tamil-toolkit/`, `bindings/`, `tests/golden/`, `docs/specs/translit-v0.1.md`, `integrations/browser-extension/`, `integrations/office-word-addin/`):**

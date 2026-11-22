@@ -143,27 +143,46 @@ def dispatch_artifact_matrix(head_sha: str, timeout_seconds=1200) -> int:
 def dispatch_and_watch(workflow_file: str, inputs: dict, label: str, optional=False) -> int:
     """Dispatches a workflow on GitHub Actions and streams execution until completion."""
     print(f"\n=== Dispatching {label} ({workflow_file}) ===", flush=True)
+    prev_run_id = 0
+    try:
+        prev_raw = run_command(
+            "gh", "run", "list", f"--workflow={workflow_file}", "--branch=master", "--limit=1",
+            "--json", "databaseId", capture=True
+        )
+        prev_runs = json.loads(prev_raw)
+        if prev_runs:
+            prev_run_id = int(prev_runs[0]["databaseId"])
+    except Exception:
+        pass
+
     args = ["gh", "workflow", "run", workflow_file]
     for k, v in inputs.items():
         args.extend(["-f", f"{k}={v}"])
-    run_command(*args)
+    dispatch_out = run_command(*args, capture=True)
+    if dispatch_out:
+        print(dispatch_out.strip(), flush=True)
 
-    print(f"Waiting for {workflow_file} run to register on GitHub...", flush=True)
     run_id = None
-    start_time = time.time()
-    while time.time() - start_time < 60:
-        time.sleep(5)
-        runs_raw = run_command(
-            "gh", "run", "list", f"--workflow={workflow_file}", "--branch=master", "--limit=3",
-            "--json", "databaseId,status,createdAt", capture=True
-        )
-        try:
-            runs = json.loads(runs_raw)
-            if runs:
-                run_id = runs[0]["databaseId"]
-                break
-        except Exception:
-            continue
+    match = re.search(r"/actions/runs/(\d+)", dispatch_out or "")
+    if match:
+        run_id = int(match.group(1))
+    else:
+        print(f"Waiting for {workflow_file} run to register on GitHub...", flush=True)
+        start_time = time.time()
+        while time.time() - start_time < 60:
+            time.sleep(5)
+            runs_raw = run_command(
+                "gh", "run", "list", f"--workflow={workflow_file}", "--branch=master", "--limit=5",
+                "--json", "databaseId,status,createdAt", capture=True
+            )
+            try:
+                runs = json.loads(runs_raw)
+                newer = [r for r in runs if int(r["databaseId"]) > prev_run_id]
+                if newer:
+                    run_id = int(newer[0]["databaseId"])
+                    break
+            except Exception:
+                continue
 
     if not run_id:
         raise RuntimeError(f"Could not locate {workflow_file} run on GitHub Actions.")
