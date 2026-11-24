@@ -2,12 +2,15 @@ import { registerRibbonCommands } from "./commands.js";
 import { STRINGS, UiLang, getSavedLang, saveLang } from "./lib/i18n.js";
 import {
   configureLiveTyping,
+  isLiveTypingActive,
+  setLiveTypingSuspended,
   subscribeLiveTyping,
   toggleLiveTyping,
 } from "./lib/live-typing.js";
 import {
   CalendarProfile,
   CollationProfile,
+  KeyboardLayout,
   LegacyEncoding,
   NumeralLocale,
   SupportedCurrency,
@@ -15,7 +18,7 @@ import {
   TargetLegacyEncoding,
   buildTamilDateStamp,
   convertDigits,
-  convertLegacyToUnicode,
+  convertKeyboardToUnicode,
   formatTraditionalInteger,
   initTamilEngine,
   inspectDocumentText,
@@ -28,13 +31,14 @@ import {
 } from "./lib/tamil-engine.js";
 import {
   TargetScope,
+  getCanvasMayangoliCandidates,
   insertAtCursor,
   isWordHost,
   readTargetText,
   readWordAtCursorOrSelection,
   replaceTrailingOrSelectedWord,
   runHyphenation,
-  runLegacyToUnicode,
+  runKeyboardToUnicode,
   runPrepareLegacyDocument,
   runRemoveHyphens,
   runSortSelectedTable,
@@ -91,7 +95,7 @@ function applyLanguage(lang: UiLang): void {
   toggleBtn.textContent = lang === "en" ? "தமிழ்" : "EN";
 }
 
-function initTabs(): void {
+function initTabs(onTabActivated?: (tabName: string) => void): void {
   const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>(".tab-btn"));
   const panels = Array.from(document.querySelectorAll<HTMLElement>(".tab-panel"));
 
@@ -107,6 +111,7 @@ function initTabs(): void {
       p.hidden = p.id !== `panel-${target}`;
     });
     if (focusTab) btn.focus();
+    if (target) onTabActivated?.(target);
   };
 
   tabs.forEach((btn, idx) => {
@@ -162,6 +167,7 @@ function renderSymbolPalette(): void {
 
 async function runGuarded(task: () => Promise<void>): Promise<void> {
   setBusy(true);
+  setLiveTypingSuspended(true);
   try {
     await initTamilEngine();
     await task();
@@ -169,36 +175,213 @@ async function runGuarded(task: () => Promise<void>): Promise<void> {
     const msg = err instanceof Error ? err.message : String(err);
     setStatus(`Error: ${msg}`, "error");
   } finally {
+    setLiveTypingSuspended(false);
     setBusy(false);
   }
 }
 
-function wireTypeTab(): void {
+const KEYBOARD_LAYOUT_META: Record<
+  KeyboardLayout,
+  {
+    label: string;
+    desc: string;
+    placeholder: string;
+    keymapTitle: string;
+    keys: Array<[string, string]>;
+  }
+> = {
+  "phonetic-v1": {
+    label: "Phonetic",
+    desc: "Turn ON, click on your Word page, and type Phonetic Tanglish + Space (e.g. vanakkam, malai). Live Mayangoli choices appear below.",
+    placeholder: "e.g. vanakkam thamizh (Space/1-5/↑↓ pick · Ctrl+Enter insert)...",
+    keymapTitle: "Quick Key Guide (Phonetic Tanglish)",
+    keys: [
+      ["அ / ஆ", "a / aa"],
+      ["இ / ஈ", "i / ee"],
+      ["உ / ஊ", "u / oo"],
+      ["எ / ஏ / ஐ", "e / ae / ai"],
+      ["ஒ / ஓ / ஔ", "o / oa / au"],
+      ["க / ங / ச", "k / ng / ch"],
+      ["ட / ண / த", "t / N / th"],
+      ["ந / ன / ம", "nh / n / m"],
+      ["ர / ற / ல", "r / R / l"],
+      ["ள / ழ / வ", "L / zh / v"],
+      ["ற்ற / ன்ற", "ttr / ndr"],
+      ["தமிழ்", "thamizh"],
+    ],
+  },
+  "anjal-phonetic": {
+    label: "Anjal Phonetic",
+    desc: "Turn ON, click on your Word page, and type Anjal Phonetic + Space (e.g. vaNakkam, thamizh). Live Mayangoli choices appear below.",
+    placeholder: "e.g. vaNakkam thamizh (Space/1-5/↑↓ pick · Ctrl+Enter insert)...",
+    keymapTitle: "Quick Key Guide (Anjal Phonetic)",
+    keys: [
+      ["அ / ஆ", "a / aa"],
+      ["இ / ஈ", "i / ii"],
+      ["உ / ஊ", "u / uu"],
+      ["எ / ஏ / ஐ", "e / ee / ai"],
+      ["ஒ / ஓ / ஔ", "o / oo / au"],
+      ["க / ங / ச", "k / ng / ch"],
+      ["ட / ண / த", "t / N / th"],
+      ["ந / ன / ம", "w / W / m"],
+      ["ர / ற / ல", "r / R / l"],
+      ["ள / ழ / வ", "L / z / v"],
+      ["ற்ற / ன்ற", "ttr / ndr"],
+      ["தமிழ்", "thamizh"],
+    ],
+  },
+  tamil99: {
+    label: "Tamil99",
+    desc: "Turn ON, click on your Word page, and type official Tamil99 keys (e.g. lks/f → தமிழ்). Auto-handles pulli for doubled/nasal stops.",
+    placeholder: "e.g. lks/f → தமிழ் (Ctrl+Enter insert)...",
+    keymapTitle: "Quick Key Guide (Tamil99)",
+    keys: [
+      ["அ / ஆ", "a / q"],
+      ["இ / ஈ", "s / w"],
+      ["உ / ஊ", "d / e"],
+      ["எ / ஏ / ஐ", "g / t / r"],
+      ["ஒ / ஓ / ஔ", "c / x / z"],
+      ["க / ங / ச", "h / b / ["],
+      ["ட / ண / த", "o / p / l"],
+      ["ந / ப / ம", "; / j / k"],
+      ["ர / ற / ல", "m / u / n"],
+      ["ள / ழ / வ", "y / / / v"],
+      ["் (Pulli)", "f"],
+      ["தமிழ்", "lks/f"],
+    ],
+  },
+  bamini: {
+    label: "Bamini",
+    desc: "Turn ON, click on your Word page, and type Bamini keys (e.g. jkpo; → தமிழ்). Keys convert live to Unicode as you type.",
+    placeholder: "e.g. jkpo; → தமிழ் (Ctrl+Enter insert)...",
+    keymapTitle: "Quick Key Guide (Bamini)",
+    keys: [
+      ["க / ச / ட", "f / r / l"],
+      ["த / ப / ம", "j / g / k"],
+      ["ழ / வ / ண", "o / t / z"],
+      ["் (Pulli)", ";"],
+      ["ா", "h"],
+      ["ி / ீ", "p / P"],
+      ["ெ / ே", "n / N"],
+      ["ை", "i"],
+      ["தமிழ்", "jkpo;"],
+    ],
+  },
+};
+
+function wireTypeTab(): () => void {
   const toggleBtn = $("btn-direct-toggle") as HTMLButtonElement;
   const badge = $("direct-mode-badge");
   const layoutSelect = $("type-layout") as HTMLSelectElement;
   const fontSelect = $("type-font") as HTMLSelectElement;
-  const rawInput = $("type-raw-input") as HTMLTextAreaElement;
-  const liveOutput = $("type-live-output");
-  const clearOpt = $("opt-type-clear") as HTMLInputElement;
+  const directDesc = $("direct-typing-desc");
+  const keymapSummary = $("keymap-summary");
+  const keymapGrid = $("keymap-grid");
+  const canvasCandidatesEl = $("canvas-candidates");
+  const translitInput = $("translit-input") as HTMLTextAreaElement;
+  const translitCandidatesEl = $("translit-candidates");
+  const translitOutput = $("translit-output");
+  const clearOpt = $("opt-composer-clear") as HTMLInputElement;
 
-  let currentUnicode = "";
+  const COMPOSER_WORD_RE = /([A-Za-z][A-Za-z_-]*)$/;
+  let currentTranslit = "";
+  let activeCandidates: string[] = [];
+  let selectedCandidateIndex = 0;
+  let activeCandidateWord = "";
+  let escapedComposerWord = "";
+  let docCandidateWord = "";
+  let docCandidates: string[] = [];
+  let docSelectedCandidateIndex = 0;
+  const lastRenderKeys = new WeakMap<HTMLElement, string>();
+  let lastRenderedKeymapKey = "";
+  let docRefreshTimer: number | null = null;
+  let isLiveActive = false;
 
-  // Keep Taskpane UI in sync when toggled from either the top Ribbon or the sidebar
+  const getLayout = (): KeyboardLayout => layoutSelect.value as KeyboardLayout;
+
+  const isSuggestLayout = (layout: KeyboardLayout): boolean =>
+    layout === "phonetic-v1" || layout === "anjal-phonetic";
+
+  const renderKeyGuide = (layout: KeyboardLayout): void => {
+    const meta = KEYBOARD_LAYOUT_META[layout];
+    keymapSummary.textContent = meta.keymapTitle;
+    if (lastRenderedKeymapKey === layout) return;
+    lastRenderedKeymapKey = layout;
+    keymapGrid.replaceChildren();
+    for (const [label, key] of meta.keys) {
+      const cell = document.createElement("div");
+      cell.className = "keymap-cell";
+      const span = document.createElement("span");
+      span.textContent = label;
+      const kbd = document.createElement("kbd");
+      kbd.textContent = key;
+      cell.append(span, kbd);
+      keymapGrid.appendChild(cell);
+    }
+  };
+
+  const syncLayoutCopy = (): void => {
+    const layout = getLayout();
+    const meta = KEYBOARD_LAYOUT_META[layout];
+    directDesc.textContent = meta.desc;
+    toggleBtn.textContent = isLiveActive
+      ? `Stop Live Word Typing (${meta.label} · LIVE)`
+      : `Start Live Word Typing (${meta.label} → Unicode)`;
+    translitInput.placeholder = meta.placeholder;
+    renderKeyGuide(layout);
+  };
+
+  // Keep Taskpane UI & live Word Mayangoli candidates in sync
   subscribeLiveTyping((state, status) => {
+    isLiveActive = state.active;
     badge.textContent = state.active ? "LIVE" : "OFF";
     badge.style.color = state.active ? "var(--success-fg)" : "";
-    toggleBtn.textContent = state.active
-      ? "Stop Live Word Typing (Currently LIVE)"
-      : "Start Live Word Typing (Bamini → Unicode)";
     toggleBtn.className = state.active ? "btn btn-danger" : "btn btn-primary";
-    if (status) {
+    syncLayoutCopy();
+
+    if (status?.message && status.kind) {
       setStatus(status.message, status.kind);
+    }
+
+    if (isTamilEngineReady() && status) {
+      if (status.pendingWord && isSuggestLayout(state.layout)) {
+        const cands = getCanvasMayangoliCandidates(status.pendingWord, state.layout, 5);
+        if (cands.length > 0) {
+          if (docCandidateWord !== status.pendingWord) {
+            docSelectedCandidateIndex = 0;
+          } else {
+            docSelectedCandidateIndex = Math.min(docSelectedCandidateIndex, cands.length - 1);
+          }
+          docCandidateWord = status.pendingWord;
+          docCandidates = cands;
+          renderCandidateBar("document", cands, docSelectedCandidateIndex);
+          return;
+        }
+      }
+      if (status.activeTamilWord && isSuggestLayout(state.layout)) {
+        const cands = getCanvasMayangoliCandidates(status.activeTamilWord, state.layout, 5);
+        if (cands.length > 1) {
+          const idx = Math.max(0, cands.indexOf(status.activeTamilWord));
+          docCandidateWord = status.activeTamilWord;
+          docCandidates = cands;
+          docSelectedCandidateIndex = idx;
+          renderCandidateBar("document", cands, idx);
+          return;
+        }
+      }
+      if ("pendingWord" in status || "activeTamilWord" in status) {
+        docCandidateWord = "";
+        docCandidates = [];
+        docSelectedCandidateIndex = 0;
+        renderCandidateBar("document", [], 0);
+      }
     }
   });
 
   layoutSelect.addEventListener("change", () => {
-    configureLiveTyping({ layout: layoutSelect.value as Exclude<LegacyEncoding, "auto"> });
+    configureLiveTyping({ layout: getLayout() });
+    syncLayoutCopy();
+    updateTranslitPreview(true);
   });
   fontSelect.addEventListener("change", () => {
     configureLiveTyping({ font: fontSelect.value });
@@ -206,7 +389,7 @@ function wireTypeTab(): void {
 
   toggleBtn.addEventListener("click", () => {
     configureLiveTyping({
-      layout: layoutSelect.value as Exclude<LegacyEncoding, "auto">,
+      layout: getLayout(),
       font: fontSelect.value,
     });
     void toggleLiveTyping();
@@ -218,10 +401,10 @@ function wireTypeTab(): void {
         setStatus("Open inside Microsoft Word to convert active paragraph.", "info");
         return;
       }
-      const layout = layoutSelect.value as LegacyEncoding;
-      const summary = await runLegacyToUnicode("paragraph", layout, fontSelect.value);
+      const layout = getLayout();
+      const summary = await runKeyboardToUnicode("paragraph", layout, fontSelect.value);
       setStatus(
-        `Converted active paragraph (${layout.toUpperCase()} → Unicode, ${summary.rangesModified} updated).`,
+        `Converted active paragraph (${KEYBOARD_LAYOUT_META[layout].label} → Unicode, ${summary.rangesModified} updated).`,
         summary.rangesFailed > 0 ? "error" : "success"
       );
     });
@@ -233,124 +416,63 @@ function wireTypeTab(): void {
         setStatus("Open inside Microsoft Word to convert selection.", "info");
         return;
       }
-      const layout = layoutSelect.value as LegacyEncoding;
-      const summary = await runLegacyToUnicode("selection", layout, fontSelect.value);
+      const layout = getLayout();
+      const summary = await runKeyboardToUnicode("selection", layout, fontSelect.value);
       if (summary.rangesProcessed === 0) {
-        setStatus("Select text in Word first (or click Convert Active Paragraph).", "info");
+        setStatus("Select text in Word first (or click Convert Paragraph).", "info");
         return;
       }
       setStatus(
-        `Converted selection (${layout.toUpperCase()} → Unicode, ${summary.rangesModified} updated).`,
+        `Converted selection (${KEYBOARD_LAYOUT_META[layout].label} → Unicode, ${summary.rangesModified} updated).`,
         summary.rangesFailed > 0 ? "error" : "success"
       );
     });
   });
 
-  const updateLivePreview = (): void => {
-    const raw = rawInput.value;
-    if (!raw) {
-      currentUnicode = "";
-      liveOutput.innerHTML = '<span class="live-output-empty">Live Unicode Tamil preview...</span>';
-      return;
-    }
-    if (!isTamilEngineReady()) return;
-    try {
-      const layout = layoutSelect.value as LegacyEncoding;
-      const converted = convertLegacyToUnicode(raw, layout).text;
-      currentUnicode = repairTamilText(converted, {
-        fixDuplicatePulli: true,
-        reorderVisualVowels: true,
-        stripZeroWidth: false,
-      }).text;
-      liveOutput.textContent = currentUnicode;
-    } catch {
-      currentUnicode = raw;
-      liveOutput.textContent = raw;
-    }
-  };
+  const applyDocCandidate = async (idx: number): Promise<void> => {
+    const cand = docCandidates[idx];
+    const targetWord = docCandidateWord;
+    if (!cand || !targetWord) return;
+    docSelectedCandidateIndex = idx;
+    renderCandidateBar("document", docCandidates, idx);
+    if (targetWord === cand) return;
 
-  const insertTypedText = async (): Promise<void> => {
-    updateLivePreview();
-    if (!currentUnicode.trim()) {
-      setStatus("Type Bamini keys first (e.g. jkpo;).", "error");
-      return;
-    }
-    if (isWordHost()) {
-      await insertAtCursor(currentUnicode, true, fontSelect.value || undefined);
-      setStatus("Inserted Unicode Tamil at cursor.", "success");
-    } else {
-      await navigator.clipboard?.writeText(currentUnicode).catch(() => {});
-      setStatus("Copied Unicode Tamil.", "info");
-    }
-    if (clearOpt.checked) {
-      rawInput.value = "";
-      updateLivePreview();
-      rawInput.focus();
-    }
-  };
-
-  rawInput.addEventListener("input", updateLivePreview);
-  layoutSelect.addEventListener("change", updateLivePreview);
-  rawInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      void runGuarded(insertTypedText);
-    }
-  });
-
-  $("btn-type-insert").addEventListener("click", () => void runGuarded(insertTypedText));
-  $("btn-type-copy").addEventListener("click", () => {
-    void runGuarded(async () => {
-      updateLivePreview();
-      if (!currentUnicode) return;
-      await navigator.clipboard?.writeText(currentUnicode);
-      setStatus("Copied Unicode Tamil.", "success");
+    await runGuarded(async () => {
+      const ok = await replaceTrailingOrSelectedWord(targetWord, cand, fontSelect.value || undefined);
+      if (ok) {
+        docCandidateWord = cand;
+        docSelectedCandidateIndex = idx;
+        renderCandidateBar("document", docCandidates, idx);
+        setStatus(`Replaced "${targetWord}" → "${cand}" in Word.`, "success");
+      }
     });
-  });
-
-  // Transliteration & Tamil99 Composer
-  const translitScheme = $("translit-scheme") as HTMLSelectElement;
-  const translitDir = $("translit-direction") as HTMLSelectElement;
-  const translitInput = $("translit-input") as HTMLTextAreaElement;
-  const translitCandidatesEl = $("translit-candidates");
-  const translitOutput = $("translit-output");
-  const KEYBOARD_ONLY_SCHEMES = new Set(["tamil99", "anjal-phonetic", "suratha-bamini"]);
-  const TRANSLIT_PLACEHOLDERS: Record<string, string> = {
-    "anjal-phonetic": "e.g. thamizh vaNakkam (Ctrl+Enter to insert)...",
-    tamil99: "e.g. lks/f → தமிழ் (Ctrl+Enter to insert)...",
-    "phonetic-v1": "e.g. vaNakkam thamizh (Ctrl+Enter to insert)...",
-    "suratha-bamini": "e.g. jkpo; tzf;fk; (Ctrl+Enter to insert)...",
-    "iso-15919": "e.g. tamiḻ moḻi (Ctrl+Enter to insert)...",
-    "madras-lexicon": "e.g. tamiḻ nāṭu (Ctrl+Enter to insert)...",
-    itrans: "e.g. tamizh vaNakkam (Ctrl+Enter to insert)...",
-    "harvard-kyoto": "e.g. tamiZ vaNakkam (Ctrl+Enter to insert)...",
   };
-  const COMPOSER_WORD_RE = /([A-Za-z][A-Za-z_-]*)$/;
-  let currentTranslit = "";
-  let activeCandidates: string[] = [];
-  let selectedCandidateIndex = 0;
-  let activeCandidateWord = "";
-  let escapedComposerWord = "";
-  let docCandidateWord = "";
-  let docCandidates: string[] = [];
-  let docRefreshTimer: number | null = null;
-
-  const isSuggestScheme = (scheme: string, isKeyboardOnly: boolean): boolean =>
-    (scheme === "anjal-phonetic" || scheme === "phonetic-v1") &&
-    (isKeyboardOnly || translitDir.value === "to_tamil");
 
   const renderCandidateBar = (
     mode: "composer" | "document",
     candidates: string[],
     selectedIdx: number
   ): void => {
-    translitCandidatesEl.replaceChildren();
-    if (candidates.length === 0 || (mode === "document" && candidates.length <= 1)) {
-      translitCandidatesEl.hidden = true;
+    const container = mode === "document" ? canvasCandidatesEl : translitCandidatesEl;
+    const visible =
+      candidates.length > 0 &&
+      (mode !== "document" || candidates.length > 1 || /^[A-Za-z]/.test(docCandidateWord));
+    const currentWord = mode === "document" ? docCandidateWord : activeCandidateWord;
+    const renderKey = visible
+      ? `${mode}|${currentWord}|${selectedIdx}|${candidates.join("\u0001")}`
+      : "hidden";
+    if (lastRenderKeys.get(container) === renderKey) {
+      return;
+    }
+    lastRenderKeys.set(container, renderKey);
+
+    container.replaceChildren();
+    if (!visible) {
+      container.hidden = true;
       return;
     }
 
-    translitCandidatesEl.hidden = false;
+    container.hidden = false;
     candidates.forEach((cand, idx) => {
       const btn = document.createElement("button");
       btn.type = "button";
@@ -366,30 +488,22 @@ function wireTypeTab(): void {
         if (mode === "composer") {
           commitComposerCandidate(idx, " ");
         } else {
-          void runGuarded(async () => {
-            const targetWord = docCandidateWord;
-            const ok = await replaceTrailingOrSelectedWord(targetWord, cand, fontSelect.value || undefined);
-            if (ok) {
-              docCandidateWord = cand;
-              renderCandidateBar("document", docCandidates, idx);
-              setStatus(`Replaced "${targetWord}" → "${cand}" in Word.`, "success");
-            }
-          });
+          void applyDocCandidate(idx);
         }
       });
-      translitCandidatesEl.appendChild(btn);
+      container.appendChild(btn);
     });
 
     if (mode === "composer" && candidates.length > 1) {
       const hint = document.createElement("div");
       hint.className = "candidate-hint";
       hint.textContent = `↑↓ / Tab cycle · 1–${candidates.length} / Space / Enter select`;
-      translitCandidatesEl.appendChild(hint);
+      container.appendChild(hint);
     } else if (mode === "document") {
       const hint = document.createElement("div");
       hint.className = "candidate-hint";
-      hint.textContent = `Word cursor "${docCandidateWord}" · click to replace in document`;
-      translitCandidatesEl.appendChild(hint);
+      hint.textContent = `Before Space: 1–${candidates.length} / Tab / "/" cycle · or click`;
+      container.appendChild(hint);
     }
   };
 
@@ -420,17 +534,7 @@ function wireTypeTab(): void {
   };
 
   const updateTranslitPreview = (resetCandidateIndex = true): void => {
-    const scheme = translitScheme.value;
-    const isKeyboardOnly = KEYBOARD_ONLY_SCHEMES.has(scheme);
-    if (isKeyboardOnly && translitDir.value !== "to_tamil") {
-      translitDir.value = "to_tamil";
-    }
-    translitDir.disabled = isKeyboardOnly;
-    translitInput.placeholder =
-      !isKeyboardOnly && translitDir.value === "to_latin"
-        ? "e.g. தமிழ் வணக்கம் (Ctrl+Enter to insert)..."
-        : (TRANSLIT_PLACEHOLDERS[scheme] ?? "Type text to transliterate (Ctrl+Enter to insert)...");
-
+    const layout = getLayout();
     const raw = translitInput.value;
     if (!raw) {
       currentTranslit = "";
@@ -438,19 +542,14 @@ function wireTypeTab(): void {
       activeCandidates = [];
       selectedCandidateIndex = 0;
       escapedComposerWord = "";
-      translitOutput.innerHTML = '<span class="live-output-empty">Live transliteration preview...</span>';
-      if (docCandidates.length > 1 && docCandidateWord) {
-        renderCandidateBar("document", docCandidates, Math.max(0, docCandidates.indexOf(docCandidateWord)));
-      } else {
-        renderCandidateBar("composer", [], 0);
-      }
+      translitOutput.innerHTML = '<span class="live-output-empty">Live Tamil preview...</span>';
+      renderCandidateBar("composer", [], 0);
       return;
     }
     if (!isTamilEngineReady()) return;
 
     try {
-      const dir = (isKeyboardOnly ? "to_tamil" : translitDir.value) as "to_tamil" | "to_latin";
-      if (isSuggestScheme(scheme, isKeyboardOnly)) {
+      if (isSuggestLayout(layout)) {
         const caret = translitInput.selectionStart ?? raw.length;
         const beforeCaret = raw.slice(0, caret);
         const afterCaret = raw.slice(caret);
@@ -460,13 +559,13 @@ function wireTypeTab(): void {
           const word = match[1];
           if (resetCandidateIndex || word !== activeCandidateWord || activeCandidates.length === 0) {
             activeCandidateWord = word;
-            activeCandidates = transliterateSuggestText(word, scheme, 5);
+            activeCandidates = transliterateSuggestText(word, layout, 5);
             selectedCandidateIndex = 0;
           }
           const chosen = activeCandidates[selectedCandidateIndex] ?? activeCandidates[0] ?? "";
           const prefixRaw = beforeCaret.slice(0, beforeCaret.length - word.length);
-          const prefixTamil = prefixRaw ? transliterateText(prefixRaw, scheme, "to_tamil") : "";
-          const suffixTamil = afterCaret ? transliterateText(afterCaret, scheme, "to_tamil") : "";
+          const prefixTamil = prefixRaw ? convertKeyboardToUnicode(prefixRaw, layout) : "";
+          const suffixTamil = afterCaret ? convertKeyboardToUnicode(afterCaret, layout) : "";
           currentTranslit = `${prefixTamil}${chosen}${suffixTamil}`;
           translitOutput.textContent = currentTranslit;
           renderCandidateBar("composer", activeCandidates, selectedCandidateIndex);
@@ -478,7 +577,7 @@ function wireTypeTab(): void {
       activeCandidates = [];
       selectedCandidateIndex = 0;
       renderCandidateBar("composer", [], 0);
-      currentTranslit = transliterateText(raw, scheme, dir);
+      currentTranslit = convertKeyboardToUnicode(raw, layout);
       translitOutput.textContent = currentTranslit;
     } catch (err) {
       currentTranslit = "";
@@ -489,24 +588,39 @@ function wireTypeTab(): void {
   };
 
   const refreshDocMayangoliCandidates = async (): Promise<void> => {
-    if (!isWordHost() || !isTamilEngineReady() || translitInput.value.trim().length > 0) return;
+    if (!isWordHost() || !isTamilEngineReady()) return;
     try {
       const word = await readWordAtCursorOrSelection();
-      if (!word || !/[\u0B80-\u0BFF]/.test(word) || translitInput.value.trim().length > 0) {
+      if (!word) {
         docCandidateWord = "";
         docCandidates = [];
-        if (translitInput.value.trim().length === 0) renderCandidateBar("composer", [], 0);
+        docSelectedCandidateIndex = 0;
+        renderCandidateBar("document", [], 0);
         return;
       }
-      const cands = transliterateSuggestText(word, "phonetic-v1", 5);
-      if (cands.length > 1) {
+      const layout = getLayout();
+      const scheme = layout === "anjal-phonetic" ? "anjal-phonetic" : "phonetic-v1";
+      const isLatinPending = /^[A-Za-z][A-Za-z_-]*$/.test(word) && isSuggestLayout(layout);
+      const isTamilWord = /[\u0B80-\u0BFF]/.test(word);
+      if (!isLatinPending && !isTamilWord) {
+        docCandidateWord = "";
+        docCandidates = [];
+        docSelectedCandidateIndex = 0;
+        renderCandidateBar("document", [], 0);
+        return;
+      }
+      const cands = getCanvasMayangoliCandidates(word, scheme, 5);
+      if (cands.length > 1 || (isLatinPending && cands.length > 0)) {
+        const idx = Math.max(0, cands.indexOf(word));
         docCandidateWord = word;
         docCandidates = cands;
-        renderCandidateBar("document", cands, Math.max(0, cands.indexOf(word)));
+        docSelectedCandidateIndex = idx;
+        renderCandidateBar("document", cands, idx);
       } else {
         docCandidateWord = "";
         docCandidates = [];
-        renderCandidateBar("composer", [], 0);
+        docSelectedCandidateIndex = 0;
+        renderCandidateBar("document", [], 0);
       }
     } catch {
       // Ignore transient Word selection read errors
@@ -516,6 +630,7 @@ function wireTypeTab(): void {
   if (isWordHost()) {
     try {
       Office.context?.document?.addHandlerAsync(Office.EventType.DocumentSelectionChanged, () => {
+        if (isLiveTypingActive()) return;
         if (docRefreshTimer !== null) window.clearTimeout(docRefreshTimer);
         docRefreshTimer = window.setTimeout(() => {
           void refreshDocMayangoliCandidates();
@@ -526,31 +641,28 @@ function wireTypeTab(): void {
     }
   }
 
-  subscribeLiveTyping((_state, status) => {
-    if (status?.message.startsWith("Live:") && isWordHost() && translitInput.value.trim().length === 0) {
-      void refreshDocMayangoliCandidates();
-    }
-  });
-
   const insertTranslit = async (): Promise<void> => {
     updateTranslitPreview(false);
     if (!currentTranslit.trim()) {
-      setStatus("Type text to transliterate first.", "error");
+      setStatus("Type text to insert first.", "error");
       return;
     }
     if (isWordHost()) {
       await insertAtCursor(currentTranslit, true, fontSelect.value || undefined);
-      setStatus("Inserted transliterated text at cursor.", "success");
+      setStatus("Inserted Unicode Tamil at cursor.", "success");
     } else {
       await navigator.clipboard?.writeText(currentTranslit).catch(() => {});
-      setStatus("Copied transliterated text.", "info");
+      setStatus("Copied Unicode Tamil.", "info");
+    }
+    if (clearOpt.checked) {
+      translitInput.value = "";
+      updateTranslitPreview(true);
+      translitInput.focus();
     }
   };
 
   translitInput.addEventListener("input", () => updateTranslitPreview(true));
   translitInput.addEventListener("click", () => updateTranslitPreview(true));
-  translitScheme.addEventListener("change", () => updateTranslitPreview(true));
-  translitDir.addEventListener("change", () => updateTranslitPreview(true));
   translitInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
       e.preventDefault();
@@ -558,9 +670,8 @@ function wireTypeTab(): void {
       return;
     }
 
-    const scheme = translitScheme.value;
-    const isKeyboardOnly = KEYBOARD_ONLY_SCHEMES.has(scheme);
-    if (!isSuggestScheme(scheme, isKeyboardOnly) || e.ctrlKey || e.metaKey || e.altKey) {
+    const layout = getLayout();
+    if (!isSuggestLayout(layout) || e.ctrlKey || e.metaKey || e.altKey) {
       return;
     }
 
@@ -617,15 +728,127 @@ function wireTypeTab(): void {
       updateTranslitPreview(false);
       if (!currentTranslit) return;
       await navigator.clipboard?.writeText(currentTranslit);
+      setStatus("Copied Unicode Tamil.", "success");
+    });
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (
+      docCandidates.length === 0 ||
+      canvasCandidatesEl.hidden ||
+      e.ctrlKey ||
+      e.metaKey ||
+      e.altKey
+    ) {
+      return;
+    }
+    const target = e.target as HTMLElement | null;
+    if (target && target.closest("input, textarea, select, [contenteditable='true']")) {
+      return;
+    }
+
+    if (docCandidates.length > 1 && (e.key === "ArrowDown" || (e.key === "Tab" && !e.shiftKey))) {
+      e.preventDefault();
+      const next = (docSelectedCandidateIndex + 1) % docCandidates.length;
+      void applyDocCandidate(next);
+      return;
+    }
+
+    if (docCandidates.length > 1 && (e.key === "ArrowUp" || (e.key === "Tab" && e.shiftKey))) {
+      e.preventDefault();
+      const prev = (docSelectedCandidateIndex - 1 + docCandidates.length) % docCandidates.length;
+      void applyDocCandidate(prev);
+      return;
+    }
+
+    if (/^[1-5]$/.test(e.key)) {
+      const idx = Number(e.key) - 1;
+      if (idx < docCandidates.length) {
+        e.preventDefault();
+        void applyDocCandidate(idx);
+      }
+      return;
+    }
+
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      void applyDocCandidate(docSelectedCandidateIndex);
+    }
+  });
+
+  // Scholarly bidirectional transliteration (ISO 15919 / Madras Lexicon / ITRANS / HK)
+  const scholarlyScheme = $("scholarly-scheme") as HTMLSelectElement;
+  const scholarlyDir = $("scholarly-direction") as HTMLSelectElement;
+  const scholarlyInput = $("scholarly-input") as HTMLTextAreaElement;
+  const scholarlyOutput = $("scholarly-output");
+  let currentScholarly = "";
+
+  const updateScholarlyPreview = (): void => {
+    const raw = scholarlyInput.value;
+    if (!raw) {
+      currentScholarly = "";
+      scholarlyOutput.innerHTML = '<span class="live-output-empty">Live scholarly transliteration preview...</span>';
+      return;
+    }
+    if (!isTamilEngineReady()) return;
+    try {
+      currentScholarly = transliterateText(
+        raw,
+        scholarlyScheme.value,
+        scholarlyDir.value as "to_tamil" | "to_latin"
+      );
+      scholarlyOutput.textContent = currentScholarly;
+    } catch (err) {
+      currentScholarly = "";
+      scholarlyOutput.textContent = err instanceof Error ? err.message : String(err);
+    }
+  };
+
+  const insertScholarly = async (): Promise<void> => {
+    updateScholarlyPreview();
+    if (!currentScholarly.trim()) {
+      setStatus("Type scholarly text first.", "error");
+      return;
+    }
+    if (isWordHost()) {
+      await insertAtCursor(currentScholarly, true, fontSelect.value || undefined);
+      setStatus("Inserted transliterated text at cursor.", "success");
+    } else {
+      await navigator.clipboard?.writeText(currentScholarly).catch(() => {});
+      setStatus("Copied transliterated text.", "info");
+    }
+  };
+
+  scholarlyInput.addEventListener("input", updateScholarlyPreview);
+  scholarlyScheme.addEventListener("change", updateScholarlyPreview);
+  scholarlyDir.addEventListener("change", updateScholarlyPreview);
+  scholarlyInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      void runGuarded(insertScholarly);
+    }
+  });
+  $("btn-scholarly-insert").addEventListener("click", () => void runGuarded(insertScholarly));
+  $("btn-scholarly-copy").addEventListener("click", () => {
+    void runGuarded(async () => {
+      updateScholarlyPreview();
+      if (!currentScholarly) return;
+      await navigator.clipboard?.writeText(currentScholarly);
       setStatus("Copied transliterated text.", "success");
     });
   });
+
+  syncLayoutCopy();
   updateTranslitPreview(true);
+  updateScholarlyPreview();
+  return syncLayoutCopy;
 }
 
-function wirePrepareTab(): void {
+function wirePrepareTab(): (quiet?: boolean) => Promise<void> {
   const getPrepareScope = (): TargetScope =>
     ($("prepare-scope") as HTMLSelectElement).value as TargetScope;
+  const inspectBadge = $("inspect-scope-badge");
+  let inspectTimer: number | null = null;
 
   $("btn-prepare-run").addEventListener("click", () => {
     void runGuarded(async () => {
@@ -774,9 +997,23 @@ function wirePrepareTab(): void {
     });
   });
 
-  const runInspect = async (scope: TargetScope) => {
-    const text = isWordHost() ? await readTargetText(scope) : "தமிழ் மொழி இனிமையானது.";
+  const runInspect = async (
+    scope: TargetScope,
+    quiet = false,
+    preloadedText?: string
+  ): Promise<void> => {
+    const text =
+      preloadedText !== undefined
+        ? preloadedText
+        : isWordHost()
+          ? await readTargetText(scope)
+          : "தமிழ் மொழி இனிமையானது.";
     const report = inspectDocumentText(text);
+    inspectBadge.textContent = !isWordHost()
+      ? "Preview"
+      : scope === "selection"
+        ? "Selection"
+        : "Document";
     $("inspect-results").innerHTML = `
       <div class="stat-grid">
         <div class="stat-card"><span>Words</span><strong>${report.word_count}</strong></div>
@@ -795,11 +1032,46 @@ function wirePrepareTab(): void {
         <div>Zero-Width: <strong>${report.zero_width_count}</strong></div>
       </div>
     `;
-    setStatus(`Inspected ${report.word_count} word(s), ${report.letter_count} Tamil letter(s).`, "success");
+    if (!quiet) {
+      setStatus(`Inspected ${report.word_count} word(s), ${report.letter_count} Tamil letter(s).`, "success");
+    }
   };
+
+  const runInspectAuto = async (quiet = true): Promise<void> => {
+    if (!isTamilEngineReady()) return;
+    try {
+      if (!isWordHost()) {
+        await runInspect("document", quiet);
+        return;
+      }
+      const sel = await readTargetText("selection");
+      if (sel.trim().length > 0) {
+        await runInspect("selection", quiet, sel);
+      } else {
+        await runInspect("document", quiet);
+      }
+    } catch {
+      // Ignore transient Word read errors during auto-inspect
+    }
+  };
+
+  if (isWordHost()) {
+    try {
+      Office.context?.document?.addHandlerAsync(Office.EventType.DocumentSelectionChanged, () => {
+        if ($("panel-prepare").hidden) return;
+        if (inspectTimer !== null) window.clearTimeout(inspectTimer);
+        inspectTimer = window.setTimeout(() => {
+          void runInspectAuto(true);
+        }, 250);
+      });
+    } catch {
+      // Optional event subscription
+    }
+  }
 
   $("btn-inspect-sel").addEventListener("click", () => void runGuarded(() => runInspect("selection")));
   $("btn-inspect-doc").addEventListener("click", () => void runGuarded(() => runInspect("document")));
+  return runInspectAuto;
 }
 
 function wireInsertTab(): void {
@@ -838,7 +1110,7 @@ function wireInsertTab(): void {
     void runGuarded(async () => {
       if (!lastStamp) await refreshCalendar();
       if (lastStamp && isWordHost()) {
-        await insertAtCursor(lastStamp.formatted_short, true, "Nirmala UI");
+        await insertAtCursor(lastStamp.formatted_short, true);
         setStatus("Inserted short Tamil date.", "success");
       }
     });
@@ -852,25 +1124,29 @@ function wireInsertTab(): void {
         ? lastStamp.formatted_panchangam
         : lastStamp.formatted_formal;
       if (isWordHost()) {
-        await insertAtCursor(text, true, "Nirmala UI");
+        await insertAtCursor(text, true);
         setStatus("Inserted formal Tamil date header.", "success");
       }
     });
   });
 
-  void initTamilEngine().then(() => refreshCalendar()).catch(() => {});
+  const numInputEl = $("num-input") as HTMLInputElement;
+  const numModeEl = $("num-mode") as HTMLSelectElement;
+  const numLocaleEl = $("num-locale") as HTMLSelectElement;
+  const numCurrencyEl = $("num-currency") as HTMLSelectElement;
+  const numOutputEl = $("num-output") as HTMLTextAreaElement;
 
   const computeNumPreview = (): string => {
-    const raw = ($("num-input") as HTMLInputElement).value.trim();
-    const mode = ($("num-mode") as HTMLSelectElement).value as
+    const raw = numInputEl.value.trim();
+    const mode = numModeEl.value as
       | "cardinal"
       | "decimal"
       | "ordinal"
       | "currency"
       | "traditional"
       | "words_to_number";
-    const locale = ($("num-locale") as HTMLSelectElement).value as NumeralLocale;
-    const currency = ($("num-currency") as HTMLSelectElement).value as SupportedCurrency;
+    const locale = numLocaleEl.value as NumeralLocale;
+    const currency = numCurrencyEl.value as SupportedCurrency;
 
     if (!raw) return "";
     if (mode === "traditional") {
@@ -882,9 +1158,44 @@ function wireInsertTab(): void {
     return numberToTamilWords(raw, mode, { locale, currency });
   };
 
+  const updateNumOutputLive = (): void => {
+    if (!isTamilEngineReady()) return;
+    if (!numInputEl.value.trim()) {
+      numOutputEl.value = "";
+      return;
+    }
+    try {
+      numOutputEl.value = computeNumPreview();
+    } catch {
+      // Ignore partial intermediate input while typing
+    }
+  };
+
+  numInputEl.addEventListener("input", updateNumOutputLive);
+  numModeEl.addEventListener("change", updateNumOutputLive);
+  numLocaleEl.addEventListener("change", updateNumOutputLive);
+  numCurrencyEl.addEventListener("change", updateNumOutputLive);
+
+  void initTamilEngine()
+    .then(() => {
+      updateNumOutputLive();
+      return refreshCalendar();
+    })
+    .catch(() => {});
+
   $("btn-num-preview").addEventListener("click", () => {
+    if (isTamilEngineReady()) {
+      try {
+        numOutputEl.value = computeNumPreview();
+        setStatus("Tamil words ready.", "success");
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err);
+        setStatus(`Error: ${msg}`, "error");
+      }
+      return;
+    }
     void runGuarded(async () => {
-      ($("num-output") as HTMLTextAreaElement).value = computeNumPreview();
+      numOutputEl.value = computeNumPreview();
       setStatus("Tamil words ready.", "success");
     });
   });
@@ -905,7 +1216,7 @@ function wireInsertTab(): void {
       ($("num-output") as HTMLTextAreaElement).value = out;
       if (!out) return;
       if (isWordHost()) {
-        await insertAtCursor(out, true, "Nirmala UI");
+        await insertAtCursor(out, true);
         setStatus("Inserted Tamil numeral words.", "success");
       }
     });
@@ -935,20 +1246,26 @@ function bootstrap(): void {
 
   let currentLang: UiLang = getSavedLang();
   applyLanguage(currentLang);
-  $("btn-lang-toggle").addEventListener("click", () => {
-    currentLang = currentLang === "en" ? "ta" : "en";
-    saveLang(currentLang);
-    applyLanguage(currentLang);
-  });
 
   // Share Ribbon command execution & status bar in SharedRuntime
   registerRibbonCommands(setStatus);
 
-  initTabs();
   renderSymbolPalette();
-  wireTypeTab();
-  wirePrepareTab();
+  const syncLayoutCopy = wireTypeTab();
+  const refreshInspect = wirePrepareTab();
   wireInsertTab();
+  initTabs((tab) => {
+    if (tab === "prepare") {
+      void refreshInspect(true);
+    }
+  });
+
+  $("btn-lang-toggle").addEventListener("click", () => {
+    currentLang = currentLang === "en" ? "ta" : "en";
+    saveLang(currentLang);
+    applyLanguage(currentLang);
+    syncLayoutCopy();
+  });
 
   if (!isWordHost()) {
     const banner = $("host-banner");
@@ -957,7 +1274,12 @@ function bootstrap(): void {
   }
 
   void initTamilEngine()
-    .then(() => setStatus("Ready · 100% local Rust/WASM", "success"))
+    .then(() => {
+      setStatus("Ready · 100% local Rust/WASM", "success");
+      if (!isWordHost() || !$("panel-prepare").hidden) {
+        void refreshInspect(true);
+      }
+    })
     .catch((err) => setStatus(`Engine init failed: ${String(err)}`, "error"));
 }
 

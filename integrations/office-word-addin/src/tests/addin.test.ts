@@ -77,6 +77,122 @@ describe("Tamil Word Add-in Engine (Real Slim Rust/WASM)", () => {
     expect(s1?.unicodeText).toBe("கெ");
     kombuDoc = s1!.unicodeText + "h";
     expect(computeLiveKeystrokeReplacement(kombuDoc, "bamini")?.unicodeText).toBe("கொ");
+
+    // Live Anjal Phonetic word-boundary simulation: wait mid-word, commit on Space
+    expect(computeLiveKeystrokeReplacement("vanakkam", "anjal-phonetic")).toBeNull();
+    expect(computeLiveKeystrokeReplacement("vanakkam ", "anjal-phonetic")).toEqual({
+      replaceTarget: "vanakkam ",
+      unicodeText: "வனக்கம் ",
+    });
+    expect(computeLiveKeystrokeReplacement("vaNakkam ", "anjal-phonetic")).toEqual({
+      replaceTarget: "vaNakkam ",
+      unicodeText: "வணக்கம் ",
+    });
+    expect(computeLiveKeystrokeReplacement("thamizh ", "anjal-phonetic")).toEqual({
+      replaceTarget: "thamizh ",
+      unicodeText: "தமிழ் ",
+    });
+
+    // Live Phonetic (Tanglish) word-boundary simulation
+    expect(computeLiveKeystrokeReplacement("vanakkam", "phonetic-v1")).toBeNull();
+    expect(computeLiveKeystrokeReplacement("vanakkam ", "phonetic-v1")).toEqual({
+      replaceTarget: "vanakkam ",
+      unicodeText: "வனக்கம் ",
+    });
+
+    // Word canvas direct number-key selection (1-5) mid-word & attached post-word
+    expect(computeLiveKeystrokeReplacement("vanakkam2", "phonetic-v1")).toEqual({
+      replaceTarget: "vanakkam2",
+      unicodeText: "வணக்கம் ",
+    });
+    expect(computeLiveKeystrokeReplacement("malai2", "anjal-phonetic")).toEqual({
+      replaceTarget: "malai2",
+      unicodeText: "மழை ",
+    });
+    expect(computeLiveKeystrokeReplacement("malai3", "phonetic-v1")).toEqual({
+      replaceTarget: "malai3",
+      unicodeText: "மளை ",
+    });
+    expect(computeLiveKeystrokeReplacement("வனக்கம்2", "phonetic-v1")).toEqual({
+      replaceTarget: "வனக்கம்2",
+      unicodeText: "வணக்கம் ",
+    });
+    expect(computeLiveKeystrokeReplacement("மலை3", "phonetic-v1")).toEqual({
+      replaceTarget: "மலை3",
+      unicodeText: "மளை ",
+    });
+
+    // After a single space, normal digits must NOT rewrite previous words
+    expect(computeLiveKeystrokeReplacement("வனக்கம் 2", "phonetic-v1")).toBeNull();
+    expect(computeLiveKeystrokeReplacement("மலை 3", "phonetic-v1")).toBeNull();
+
+    // Word canvas Tab / "/" candidate cycling mid-word & attached post-word
+    expect(computeLiveKeystrokeReplacement("malai\t", "phonetic-v1")).toEqual({
+      replaceTarget: "malai\t",
+      unicodeText: "மழை",
+    });
+    expect(computeLiveKeystrokeReplacement("மழை\t", "phonetic-v1")).toEqual({
+      replaceTarget: "மழை\t",
+      unicodeText: "மளை",
+    });
+    expect(computeLiveKeystrokeReplacement("மளை/", "phonetic-v1")).toEqual({
+      replaceTarget: "மளை/",
+      unicodeText: "மலை",
+    });
+    expect(computeLiveKeystrokeReplacement("மலை \t", "phonetic-v1")).toBeNull();
+
+    // Live Tamil99 keystroke-by-keystroke simulation: l -> k -> s -> / -> f => தமிழ், h -> h => க்க
+    let t99Doc = "";
+    for (const key of ["l", "k", "s", "/", "f"]) {
+      t99Doc += key;
+      const step = computeLiveKeystrokeReplacement(t99Doc, "tamil99");
+      if (step) {
+        t99Doc = t99Doc.slice(0, t99Doc.length - step.replaceTarget.length) + step.unicodeText;
+      }
+    }
+    expect(t99Doc).toBe("தமிழ்");
+
+    let t99Gem = "";
+    for (const key of ["h", "h"]) {
+      t99Gem += key;
+      const step = computeLiveKeystrokeReplacement(t99Gem, "tamil99");
+      if (step) {
+        t99Gem = t99Gem.slice(0, t99Gem.length - step.replaceTarget.length) + step.unicodeText;
+      }
+    }
+    expect(t99Gem).toBe("க்க");
+
+    // Multi-word & partial-next-word fast-typing resilience (Phonetic & Anjal)
+    expect(computeLiveKeystrokeReplacement("vanakkam thamizh ", "phonetic-v1")).toEqual({
+      replaceTarget: "vanakkam thamizh ",
+      unicodeText: "வனக்கம் தமிழ் ",
+    });
+    expect(computeLiveKeystrokeReplacement("vanakkam th", "phonetic-v1")).toEqual({
+      replaceTarget: "vanakkam th",
+      unicodeText: "வனக்கம் th",
+    });
+    expect(computeLiveKeystrokeReplacement("vanakkam thamizh ", "anjal-phonetic")).toEqual({
+      replaceTarget: "vanakkam thamizh ",
+      unicodeText: "வனக்கம் தமிழ் ",
+    });
+    expect(computeLiveKeystrokeReplacement("vanakkam malai2", "phonetic-v1")).toEqual({
+      replaceTarget: "vanakkam malai2",
+      unicodeText: "வனக்கம் மழை ",
+    });
+
+    // Multi-key fast burst & trailing left-kombu handling (Bamini & Tamil99)
+    expect(computeLiveKeystrokeReplacement("jkpo;n", "bamini")).toEqual({
+      replaceTarget: "jkpo;",
+      unicodeText: "தமிழ்",
+    });
+    expect(computeLiveKeystrokeReplacement("jkpo; tzf;fk;", "bamini")).toEqual({
+      replaceTarget: "jkpo; tzf;fk;",
+      unicodeText: "தமிழ் வணக்கம்",
+    });
+    expect(computeLiveKeystrokeReplacement("lks/f ", "tamil99")).toEqual({
+      replaceTarget: "lks/f ",
+      unicodeText: "தமிழ் ",
+    });
   });
 
   it("repairs malformed Tamil Unicode (duplicate pulli, visual left kombu, zero-width)", () => {

@@ -8,8 +8,10 @@ import {
 } from "./ooxml.js";
 import {
   CollationProfile,
+  KeyboardLayout,
   LegacyEncoding,
   TargetLegacyEncoding,
+  convertKeyboardToUnicode,
   convertLegacyToUnicode,
   convertUnicodeToLegacy,
   getTamilLetters,
@@ -18,6 +20,8 @@ import {
   sortTableRows,
   sortTamilLines,
   tamilAwareReplace,
+  transliterateSuggestText,
+  transliterateText,
 } from "./tamil-engine.js";
 
 export type TargetScope = "selection" | "paragraph" | "document";
@@ -319,6 +323,27 @@ export async function runLegacyToUnicode(
   );
 }
 
+export async function runKeyboardToUnicode(
+  scope: TargetScope,
+  layout: KeyboardLayout,
+  unicodeFont: string,
+  onProgress?: (p: BatchProgress) => void
+): Promise<TransformSummary> {
+  if (layout === "bamini") {
+    return runLegacyToUnicode(scope, "bamini", unicodeFont, onProgress);
+  }
+  return runBatchedOoxmlTransform(
+    scope,
+    (xml) =>
+      transformOoxmlRunsWithFont(
+        xml,
+        (txt) => convertKeyboardToUnicode(txt, layout),
+        unicodeFont
+      ).xml,
+    { onProgress }
+  );
+}
+
 export async function runUnicodeToLegacy(
   scope: TargetScope,
   targetEncoding: TargetLegacyEncoding,
@@ -535,33 +560,287 @@ export async function runHyphenation(
 }
 
 const BAMINI_PENDING_PREFIX = new Set(["n", "N", "i"]);
+const PHONETIC_LAYOUTS = new Set<string>(["phonetic-v1", "anjal-phonetic"]);
+const PHONETIC_BOUNDARY_RE = /([A-Za-z][A-Za-z_-]*)([\s.,!?;:)\]}]+)$/;
+const PHONETIC_PENDING_RE = /([A-Za-z][A-Za-z_-]*)$/;
+const PHONETIC_MID_DIGIT_RE = /([A-Za-z][A-Za-z_-]*)([1-5])$/;
+const PHONETIC_POST_DIGIT_RE = /([\u0B80-\u0BFF]+)([1-5])$/;
+const PHONETIC_MID_CYCLE_RE = /([A-Za-z][A-Za-z_-]*)([\t/])$/;
+const PHONETIC_POST_CYCLE_RE = /([\u0B80-\u0BFF]+)([\t/])$/;
+const ACTIVE_TAMIL_WORD_RE = /([\u0B80-\u0BFF]+)$/;
+
+// Inverse of canonical [tamil99] consonants in crates/tamil-translit/lexicon/translit.toml
+const TAMIL99_BARE_CONSONANT_TO_KEY: Record<string, string> = {
+  க: "h",
+  ங: "b",
+  ச: "[",
+  ஞ: "]",
+  ட: "o",
+  ண: "p",
+  த: "l",
+  ந: ";",
+  ன: "i",
+  ப: "j",
+  ம: "k",
+  ய: "'",
+  ர: "m",
+  ற: "u",
+  ல: "n",
+  ள: "y",
+  ழ: "/",
+  வ: "v",
+  ஸ: "Q",
+  ஷ: "W",
+  ஜ: "E",
+  ஹ: "R",
+};
+
+function isUrlOrEmailToken(text: string): boolean {
+  const tokenMatch = text.match(/(\S+)$/);
+  const fullToken = tokenMatch ? tokenMatch[1] : "";
+  return /^https?:\/\//i.test(fullToken) || fullToken.includes("@");
+}
+
+function mayangoliAnchorScore(word: string): number {
+  let score = 0;
+  for (const ch of word) {
+    if (ch === "\u0BA3" || ch === "\u0BB4" || ch === "\u0BB1") {
+      score += 1;
+    } else if (ch === "\u0BB3") {
+      score += 2;
+    }
+  }
+  return score;
+}
+
+export function getCanvasMayangoliCandidates(
+  word: string,
+  layout: KeyboardLayout,
+  limit = 5
+): string[] {
+  if (!word) return [];
+  const rawCands = transliterateSuggestText(word, layout, limit);
+  if (rawCands.length <= 1 || /^[A-Za-z]/.test(word)) {
+    return rawCands;
+  }
+
+  let anchor = rawCands[0];
+  let bestScore = mayangoliAnchorScore(anchor);
+  for (let i = 1; i < rawCands.length; i++) {
+    const cand = rawCands[i];
+    const score = mayangoliAnchorScore(cand);
+    if (score < bestScore || (score === bestScore && cand < anchor)) {
+      bestScore = score;
+      anchor = cand;
+    }
+  }
+
+  if (anchor === word) return rawCands;
+  const anchored = transliterateSuggestText(anchor, layout, limit);
+  return anchored.includes(word) ? anchored : rawCands;
+}
+
+export function extractPendingPhoneticWord(textBeforeCursor: string): string {
+  if (!textBeforeCursor || isUrlOrEmailToken(textBeforeCursor)) return "";
+  const match = textBeforeCursor.match(PHONETIC_PENDING_RE);
+  return match ? match[1] : "";
+}
+
+export function extractActiveCanvasMayangoliWord(
+  textBeforeCursor: string,
+  layout: KeyboardLayout | Exclude<LegacyEncoding, "auto">
+): string {
+  if (!textBeforeCursor || (layout !== "phonetic-v1" && layout !== "anjal-phonetic")) return "";
+  const match = textBeforeCursor.match(ACTIVE_TAMIL_WORD_RE);
+  if (!match) return "";
+  const word = match[1];
+  const candidates = getCanvasMayangoliCandidates(word, layout, 5);
+  return candidates.length > 1 ? word : "";
+}
 
 /**
- * Live keystroke-by-keystroke incremental converter for Direct Word Typing Mode.
- * Handles fresh ASCII keys AND post-base modifiers right after an already-converted
- * Tamil letter (e.g., "தமிழ" + ";" -> "தமிழ்", "கெ" + "h" -> "கொ") by round-tripping
- * the preceding Tamil letter through Rust's legacy codec.
+ * Live keystroke-by-keystroke / word-boundary converter for Direct Word Typing Mode.
+ * - Phonetic & Anjal:
+ *   - Converts completed Roman word on whitespace or sentence punctuation.
+ *   - Supports direct number-key selection (1–5) mid-word ("vanakkam2" -> "வணக்கம் ") or post-word ("வனக்கம் 2" -> "வணக்கம் ").
+ *   - Supports canvas candidate cycling via Tab or "/" mid-word ("malai\t" -> "மழை") or post-word ("மழை\t" -> "மளை").
+ * - Tamil99: converts keystroke-by-keystroke, combining bare consonants with vowels, pulli, geminates, and homorganic nasals.
+ * - Bamini / Legacy: handles fresh ASCII keys and post-base modifiers right after an already-converted Tamil letter.
  */
 export function computeLiveKeystrokeReplacement(
   textBeforeCursor: string,
-  layout: Exclude<LegacyEncoding, "auto">
+  layout: KeyboardLayout | Exclude<LegacyEncoding, "auto">
 ): { replaceTarget: string; unicodeText: string } | null {
   if (!textBeforeCursor) return null;
 
-  const asciiMatch = textBeforeCursor.match(/([^\s\u0B80-\u0BFF]+)$/);
-  if (!asciiMatch) return null;
+  if (layout === "phonetic-v1" || layout === "anjal-phonetic") {
+    // 1. Mid-word direct number selection (e.g. "vanakkam2" -> "வணக்கம் ") when Mayangoli alternatives exist
+    const midDigitMatch = textBeforeCursor.match(PHONETIC_MID_DIGIT_RE);
+    if (midDigitMatch && !isUrlOrEmailToken(textBeforeCursor)) {
+      const word = midDigitMatch[1];
+      const digit = midDigitMatch[2];
+      const idx = Number(digit) - 1;
+      const candidates = getCanvasMayangoliCandidates(word, layout, 5);
+      if (candidates.length > 1 && idx >= 0 && idx < candidates.length) {
+        const beforeWord = textBeforeCursor.slice(
+          0,
+          textBeforeCursor.length - word.length - digit.length
+        );
+        const prefixMatch = beforeWord.match(
+          /((?:[A-Za-z][A-Za-z_-]*[\s.,!?;:)\]}]+)+)$/
+        );
+        if (prefixMatch && !isUrlOrEmailToken(beforeWord.trimEnd())) {
+          const translatedPrefix = prefixMatch[1].replace(/[A-Za-z][A-Za-z_-]*/g, (w) => {
+            const t = transliterateText(w, layout, "to_tamil");
+            return t && /[\u0B80-\u0BFF]/.test(t) ? t : w;
+          });
+          return {
+            replaceTarget: `${prefixMatch[1]}${word}${digit}`,
+            unicodeText: `${translatedPrefix}${candidates[idx]} `,
+          };
+        }
+        return {
+          replaceTarget: `${word}${digit}`,
+          unicodeText: `${candidates[idx]} `,
+        };
+      }
+    }
 
-  const rawAscii = asciiMatch[1];
-  // Never rewrite pure numbers, standard sentence punctuation (excluding Bamini `;`), or URLs/emails
-  if (/^[0-9.,:!?()[\]{}"'\-/\\@#$%^&*+=<>~`]+$/.test(rawAscii)) return null;
-  if (/^https?:\/\//i.test(rawAscii) || rawAscii.includes("@")) return null;
+    // 2. Post-word attached number selection (e.g. "வனக்கம்2" or "மலை2" -> "மழை "; numbers after space type normally)
+    const postDigitMatch = textBeforeCursor.match(PHONETIC_POST_DIGIT_RE);
+    if (postDigitMatch) {
+      const tamilWord = postDigitMatch[1];
+      const digit = postDigitMatch[2];
+      const idx = Number(digit) - 1;
+      const candidates = getCanvasMayangoliCandidates(tamilWord, layout, 5);
+      if (candidates.length > 1 && idx >= 0 && idx < candidates.length) {
+        return {
+          replaceTarget: `${tamilWord}${digit}`,
+          unicodeText: `${candidates[idx]} `,
+        };
+      }
+    }
 
-  // In Bamini, hold single pending left-side vowel prefix (n=ெ, N=ே, i=ை) for the next consonant key
-  if (layout === "bamini" && BAMINI_PENDING_PREFIX.has(rawAscii)) {
-    return null;
+    // 3. Mid-word canvas cycling via Tab or "/" (e.g. "malai\t" -> "மழை")
+    const midCycleMatch = textBeforeCursor.match(PHONETIC_MID_CYCLE_RE);
+    if (midCycleMatch && !isUrlOrEmailToken(textBeforeCursor)) {
+      const word = midCycleMatch[1];
+      const cycleKey = midCycleMatch[2];
+      const candidates = getCanvasMayangoliCandidates(word, layout, 5);
+      if (candidates.length > 0) {
+        const chosen = candidates.length > 1 ? candidates[1] : candidates[0];
+        return {
+          replaceTarget: `${word}${cycleKey}`,
+          unicodeText: chosen,
+        };
+      }
+    }
+
+    // 4. Post-word attached canvas cycling via Tab or "/" (e.g. "மழை\t" -> "மளை")
+    const postCycleMatch = textBeforeCursor.match(PHONETIC_POST_CYCLE_RE);
+    if (postCycleMatch) {
+      const tamilWord = postCycleMatch[1];
+      const cycleKey = postCycleMatch[2];
+      const candidates = getCanvasMayangoliCandidates(tamilWord, layout, 5);
+      if (candidates.length > 1) {
+        const currentIndex = Math.max(0, candidates.indexOf(tamilWord));
+        const nextIndex = (currentIndex + 1) % candidates.length;
+        return {
+          replaceTarget: `${tamilWord}${cycleKey}`,
+          unicodeText: candidates[nextIndex],
+        };
+      }
+    }
+
+    // 5. Multi-word & partial-next-word commit on whitespace or punctuation
+    const multiMatch = textBeforeCursor.match(
+      /((?:[A-Za-z][A-Za-z_-]*[\s.,!?;:)\]}]+)+)([A-Za-z][A-Za-z_-]*)?$/
+    );
+    if (!multiMatch) return null;
+
+    const completedSegment = multiMatch[1];
+    const pendingTail = multiMatch[2] ?? "";
+    const matchStart = multiMatch.index ?? textBeforeCursor.length - multiMatch[0].length;
+    const prefixBefore = textBeforeCursor.slice(0, matchStart);
+    if (matchStart > 0 && /[@:/\w.-]$/.test(prefixBefore)) {
+      // Avoid translating trailing hostname/path tokens attached to URLs or emails
+      const attachedToken = prefixBefore.match(/(\S+)$/)?.[1] ?? "";
+      if (/https?:\/\/|@/i.test(attachedToken) || /\.[A-Za-z0-9-]+$/.test(attachedToken)) {
+        return null;
+      }
+    }
+
+    let convertedAny = false;
+    const translatedSegment = completedSegment.replace(/[A-Za-z][A-Za-z_-]*/g, (word) => {
+      const tamil = transliterateText(word, layout, "to_tamil");
+      if (tamil && tamil !== word && /[\u0B80-\u0BFF]/.test(tamil)) {
+        convertedAny = true;
+        return tamil;
+      }
+      return word;
+    });
+    if (!convertedAny) return null;
+
+    return {
+      replaceTarget: `${completedSegment}${pendingTail}`,
+      unicodeText: `${translatedSegment}${pendingTail}`,
+    };
   }
 
-  const beforeAscii = textBeforeCursor.slice(0, textBeforeCursor.length - rawAscii.length);
+  if (layout === "tamil99") {
+    const asciiMatch = textBeforeCursor.match(/[^\s\u0B80-\u0BFF][^\u0B80-\u0BFF\r\n]*$/);
+    if (!asciiMatch) return null;
+
+    const rawAscii = asciiMatch[0];
+    if (/^https?:\/\//i.test(rawAscii) || rawAscii.includes("@")) return null;
+
+    const beforeAscii = textBeforeCursor.slice(0, textBeforeCursor.length - rawAscii.length);
+    let prevBareCons = "";
+    if (beforeAscii.length > 0 && /[\u0B80-\u0BFF]$/.test(beforeAscii)) {
+      const letters = getTamilLetters(beforeAscii);
+      const last = letters[letters.length - 1];
+      if (last && TAMIL99_BARE_CONSONANT_TO_KEY[last]) {
+        prevBareCons = last;
+      }
+    }
+
+    const replaceTarget = prevBareCons ? `${prevBareCons}${rawAscii}` : rawAscii;
+    const combined = prevBareCons
+      ? `${TAMIL99_BARE_CONSONANT_TO_KEY[prevBareCons]}${rawAscii}`
+      : rawAscii;
+
+    const converted = transliterateText(combined, "tamil99", "to_tamil");
+    if (!converted || converted === replaceTarget || !/[\u0B80-\u0BFF]/.test(converted)) {
+      return null;
+    }
+
+    return { replaceTarget, unicodeText: converted };
+  }
+
+  const asciiMatch = textBeforeCursor.match(/[^\s\u0B80-\u0BFF][^\u0B80-\u0BFF\r\n]*$/);
+  if (!asciiMatch) return null;
+
+  let rawAscii = asciiMatch[0];
+  // Never rewrite pure numbers, standard sentence punctuation (excluding Bamini `;`), or URLs/emails
+  if (/^[0-9.,:!?()[\]{}"'\-/\\@#$%^&*+=<>~`\s]+$/.test(rawAscii)) return null;
+  if (/^https?:\/\//i.test(rawAscii) || rawAscii.includes("@")) return null;
+
+  // In Bamini, hold single pending left-side vowel prefix (n=ெ, N=ே, i=ை) for the next consonant key,
+  // and split trailing [nNi] off multi-key bursts so e.g. "jkpo;n" converts "jkpo;" -> "தமிழ்" while keeping "n".
+  if (layout === "bamini") {
+    if (BAMINI_PENDING_PREFIX.has(rawAscii)) {
+      return null;
+    }
+    if (rawAscii.length > 1 && BAMINI_PENDING_PREFIX.has(rawAscii[rawAscii.length - 1])) {
+      rawAscii = rawAscii.slice(0, -1);
+      if (/^[0-9.,:!?()[\]{}"'\-/\\@#$%^&*+=<>~`\s]+$/.test(rawAscii)) return null;
+    }
+  }
+
+  const beforeAscii = textBeforeCursor.slice(
+    0,
+    textBeforeCursor.length - asciiMatch[0].length
+  );
   let prevTamilLetter = "";
   if (beforeAscii.length > 0 && /[\u0B80-\u0BFF]$/.test(beforeAscii)) {
     const letters = getTamilLetters(beforeAscii);
@@ -589,18 +868,61 @@ export function computeLiveKeystrokeReplacement(
   return { replaceTarget, unicodeText: repaired };
 }
 
+let lastObservedTextBefore = "";
+let lastObservedLayout = "";
+let pendingBurstText = "";
+let pendingBurstLayout = "";
+let pendingBurstTicks = 0;
+
+export function resetLiveTypingCache(): void {
+  lastObservedTextBefore = "";
+  lastObservedLayout = "";
+  pendingBurstText = "";
+  pendingBurstLayout = "";
+  pendingBurstTicks = 0;
+}
+
+function isImmediateTrigger(
+  textBefore: string,
+  layout: KeyboardLayout | Exclude<LegacyEncoding, "auto">
+): boolean {
+  if (!textBefore) return false;
+  if (PHONETIC_LAYOUTS.has(layout)) {
+    return /[\s.,!?;:)\]}1-5\t/]$/.test(textBefore);
+  }
+  return /\s$/.test(textBefore);
+}
+
 /**
- * Hardened live-typing tick: reads text before the collapsed Word cursor, computes
- * the exact trailing replacement via Rust/WASM, re-checks `isStillActive()` to prevent
- * late writes after Stop, and replaces the exact trailing occurrence in-place.
+ * Hardened live-typing tick: reads text before the collapsed Word cursor, debounces
+ * mid-burst keystrokes so fast typing never blocks or teleports the cursor, verifies
+ * no new keystrokes arrived mid-sync, and converts all buffered words/tokens in one pass.
  */
 export async function runDirectLiveTypingTick(
-  layout: Exclude<LegacyEncoding, "auto">,
+  layout: KeyboardLayout | Exclude<LegacyEncoding, "auto">,
   unicodeFont: string,
   isStillActive: () => boolean
-): Promise<{ converted: boolean; original?: string; unicode?: string }> {
+): Promise<{
+  converted: boolean;
+  unchanged?: boolean;
+  activeInput?: boolean;
+  original?: string;
+  unicode?: string;
+  pendingWord?: string;
+  activeTamilWord?: string;
+}> {
   if (!isStillActive()) return { converted: false };
-  let outcome: { converted: boolean; original?: string; unicode?: string } = { converted: false };
+  let outcome: {
+    converted: boolean;
+    unchanged?: boolean;
+    activeInput?: boolean;
+    original?: string;
+    unicode?: string;
+    pendingWord?: string;
+    activeTamilWord?: string;
+  } = {
+    converted: false,
+  };
 
   await Word.run(async (context) => {
     const sel = context.document.getSelection();
@@ -611,30 +933,111 @@ export async function runDirectLiveTypingTick(
     await context.sync();
 
     if (!isStillActive()) return;
-    if (sel.text && sel.text.length > 0) return;
+    if (sel.text && sel.text.length > 0) {
+      outcome = { converted: false, unchanged: true };
+      return;
+    }
 
     const textBefore = beforeCursor.text || "";
-    const live = computeLiveKeystrokeReplacement(textBefore, layout);
-    if (!live) return;
+    if (textBefore === lastObservedTextBefore && layout === lastObservedLayout) {
+      outcome = { converted: false, unchanged: true };
+      return;
+    }
 
-    const hits = beforeCursor.search(live.replaceTarget, { matchCase: true });
+    const isPhonetic = PHONETIC_LAYOUTS.has(layout);
+    const immediate = isImmediateTrigger(textBefore, layout);
+    const burstChanged = textBefore !== pendingBurstText || layout !== pendingBurstLayout;
+    if (burstChanged) {
+      pendingBurstText = textBefore;
+      pendingBurstLayout = layout;
+      pendingBurstTicks++;
+      // Wait briefly when typing mid-word without a space/delimiter so fast bursts convert in one pass
+      if (!immediate && pendingBurstTicks < 3) {
+        const pendingWord = isPhonetic ? extractPendingPhoneticWord(textBefore) : "";
+        const activeTamilWord =
+          isPhonetic && !pendingWord ? extractActiveCanvasMayangoliWord(textBefore, layout) : "";
+        outcome = {
+          converted: false,
+          activeInput: true,
+          pendingWord,
+          activeTamilWord,
+        };
+        return;
+      }
+    }
+    pendingBurstTicks = 0;
+
+    const live = computeLiveKeystrokeReplacement(textBefore, layout);
+    if (!live) {
+      lastObservedTextBefore = textBefore;
+      lastObservedLayout = layout;
+      const pendingWord = isPhonetic ? extractPendingPhoneticWord(textBefore) : "";
+      const activeTamilWord =
+        isPhonetic && !pendingWord ? extractActiveCanvasMayangoliWord(textBefore, layout) : "";
+      outcome = {
+        converted: false,
+        activeInput: true,
+        pendingWord,
+        activeTamilWord,
+      };
+      return;
+    }
+
+    // Word Range.search does not match literal "\t" reliably; search the base token before Tab and expand to sel
+    const searchQuery = live.replaceTarget.includes("\t")
+      ? live.replaceTarget.replace(/[\s\t]+$/, "")
+      : live.replaceTarget;
+    if (!searchQuery) return;
+
+    const hits = beforeCursor.search(searchQuery, {
+      matchCase: true,
+      matchWildcards: false,
+    });
+    const currentSel = context.document.getSelection();
+    const currentBefore = currentSel.paragraphs.getFirst().getRange(Word.RangeLocation.start).expandTo(currentSel);
+    currentBefore.load("text");
     hits.load("items");
     await context.sync();
 
     if (!isStillActive() || hits.items.length === 0) return;
 
+    // If new keys arrived in Word during the search sync, abort this write so next tick batches everything cleanly
+    const latestBefore = currentBefore.text || "";
+    if (latestBefore !== textBefore) {
+      pendingBurstText = latestBefore;
+      pendingBurstLayout = layout;
+      outcome = { converted: false, activeInput: true };
+      return;
+    }
+
     const lastHit = hits.items[hits.items.length - 1];
-    const inserted = lastHit.insertText(live.unicodeText, Word.InsertLocation.replace);
-    if (unicodeFont) {
+    const replaceRange = live.replaceTarget.includes("\t") ? lastHit.expandTo(sel) : lastHit;
+    const inserted = replaceRange.insertText(live.unicodeText, Word.InsertLocation.replace);
+    if (textBefore.endsWith(live.replaceTarget)) {
+      if (unicodeFont) {
+        inserted.font.name = unicodeFont;
+      }
+      inserted.select(Word.SelectionMode.end);
+    } else if (unicodeFont) {
       inserted.font.name = unicodeFont;
     }
-    inserted.select(Word.SelectionMode.end);
     await context.sync();
 
+    lastObservedTextBefore = "";
+    lastObservedLayout = "";
+    pendingBurstText = "";
+    pendingBurstLayout = "";
+    pendingBurstTicks = 0;
+    const activeTamilWord = isPhonetic
+      ? extractActiveCanvasMayangoliWord(live.unicodeText, layout)
+      : "";
     outcome = {
       converted: true,
+      activeInput: true,
       original: live.replaceTarget,
       unicode: live.unicodeText,
+      pendingWord: "",
+      activeTamilWord,
     };
   });
 
@@ -656,7 +1059,7 @@ export async function readWordAtCursorOrSelection(): Promise<string> {
       return;
     }
 
-    const before = (beforeCursor.text || "").trimEnd();
+    const before = beforeCursor.text || "";
     const match = before.match(/([\u0B80-\u0BFF]+|[A-Za-z][A-Za-z_-]*)$/);
     word = match ? match[1] : "";
   });
@@ -689,13 +1092,19 @@ export async function replaceTrailingOrSelectedWord(
       return;
     }
 
-    const hits = beforeCursor.search(targetWord, { matchCase: true });
+    const textBefore = beforeCursor.text || "";
+    const trailingSpace = textBefore.match(/(\s+)$/)?.[1] ?? "";
+    const hits = beforeCursor.search(targetWord, {
+      matchCase: true,
+      matchWildcards: false,
+    });
     hits.load("items");
     await context.sync();
     if (hits.items.length === 0) return;
 
     const lastHit = hits.items[hits.items.length - 1];
-    const inserted = lastHit.insertText(replacementWord, Word.InsertLocation.replace);
+    const replaceRange = trailingSpace ? lastHit.expandTo(sel) : lastHit;
+    const inserted = replaceRange.insertText(`${replacementWord}${trailingSpace}`, Word.InsertLocation.replace);
     if (unicodeFont) {
       inserted.font.name = unicodeFont;
     }

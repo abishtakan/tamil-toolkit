@@ -27,6 +27,7 @@ export type LegacyEncoding =
   | "braille";
 
 export type TargetLegacyEncoding = Exclude<LegacyEncoding, "auto">;
+export type KeyboardLayout = "phonetic-v1" | "anjal-phonetic" | "tamil99" | "bamini";
 export type NumeralLocale = Locale;
 export type SupportedCurrency = Currency;
 export type CalendarProfile = "thirukanitham" | "vakya";
@@ -263,6 +264,20 @@ export function transliterateSuggestText(
 export function getTransliterationSchemes(): Array<{ id: string; category: string; directions: string[] }> {
   ensureReady();
   return api.transliterate_schemes();
+}
+
+export function convertKeyboardToUnicode(text: string, layout: KeyboardLayout): string {
+  ensureReady();
+  if (!text) return "";
+  if (layout === "bamini") {
+    const converted = convertLegacyToUnicode(text, "bamini").text;
+    return repairTamilText(converted, {
+      fixDuplicatePulli: true,
+      reorderVisualVowels: true,
+      stripZeroWidth: false,
+    }).text;
+  }
+  return api.transliterate(text, layout, "to_tamil");
 }
 
 // ---------------------------------------------------------------------------

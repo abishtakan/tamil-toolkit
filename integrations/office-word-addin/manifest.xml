@@ -5,18 +5,18 @@
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
   <Id>9c2e4f11-88a3-4d9c-b244-1f7a30650283</Id>
-  <Version>2.3.0.0</Version>
+  <Version>2.5.0.0</Version>
   <ProviderName>Tamil Toolkit</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Tamil Toolkit">
     <Override Locale="ta-IN" Value="தமிழ் கருவி" />
   </DisplayName>
   <Description DefaultValue="100% client-side Tamil utility suite for Word: legacy font conversion, Unicode repair, Akara Varisai sorting, numerals, Tamil calendar, and syllabic hyphenation." />
-  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png?v=2" />
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png?v=2" />
-  <SupportUrl DefaultValue="https://localhost:3000/support.html" />
+  <IconUrl DefaultValue="https://tamil-toolkit-word.vercel.app/assets/icon-32.png?v=2" />
+  <HighResolutionIconUrl DefaultValue="https://tamil-toolkit-word.vercel.app/assets/icon-64.png?v=2" />
+  <SupportUrl DefaultValue="https://tamil-toolkit-word.vercel.app/support.html" />
   <AppDomains>
-    <AppDomain>https://localhost:3000</AppDomain>
+    <AppDomain>https://tamil-toolkit-word.vercel.app</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Document" />
@@ -27,7 +27,7 @@
     </Sets>
   </Requirements>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3000/index.html" />
+    <SourceLocation DefaultValue="https://tamil-toolkit-word.vercel.app/index.html" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -264,40 +264,40 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16" DefaultValue="https://localhost:3000/assets/icon-16.png?v=2" />
-        <bt:Image id="Icon.32" DefaultValue="https://localhost:3000/assets/icon-32.png?v=2" />
-        <bt:Image id="Icon.80" DefaultValue="https://localhost:3000/assets/icon-80.png?v=2" />
-        <bt:Image id="Icon.Type.16" DefaultValue="https://localhost:3000/assets/type-16.png?v=2" />
-        <bt:Image id="Icon.Type.32" DefaultValue="https://localhost:3000/assets/type-32.png?v=2" />
-        <bt:Image id="Icon.Type.80" DefaultValue="https://localhost:3000/assets/type-80.png?v=2" />
-        <bt:Image id="Icon.Convert.16" DefaultValue="https://localhost:3000/assets/convert-16.png?v=2" />
-        <bt:Image id="Icon.Convert.32" DefaultValue="https://localhost:3000/assets/convert-32.png?v=2" />
-        <bt:Image id="Icon.Convert.80" DefaultValue="https://localhost:3000/assets/convert-80.png?v=2" />
-        <bt:Image id="Icon.Repair.16" DefaultValue="https://localhost:3000/assets/repair-16.png?v=2" />
-        <bt:Image id="Icon.Repair.32" DefaultValue="https://localhost:3000/assets/repair-32.png?v=2" />
-        <bt:Image id="Icon.Repair.80" DefaultValue="https://localhost:3000/assets/repair-80.png?v=2" />
-        <bt:Image id="Icon.Sort.16" DefaultValue="https://localhost:3000/assets/sort-16.png?v=2" />
-        <bt:Image id="Icon.Sort.32" DefaultValue="https://localhost:3000/assets/sort-32.png?v=2" />
-        <bt:Image id="Icon.Sort.80" DefaultValue="https://localhost:3000/assets/sort-80.png?v=2" />
-        <bt:Image id="Icon.Cal.16" DefaultValue="https://localhost:3000/assets/calendar-16.png?v=2" />
-        <bt:Image id="Icon.Cal.32" DefaultValue="https://localhost:3000/assets/calendar-32.png?v=2" />
-        <bt:Image id="Icon.Cal.80" DefaultValue="https://localhost:3000/assets/calendar-80.png?v=2" />
-        <bt:Image id="Icon.Sel.16" DefaultValue="https://localhost:3000/assets/hyphen-sel-16.png?v=2" />
-        <bt:Image id="Icon.Sel.32" DefaultValue="https://localhost:3000/assets/hyphen-sel-32.png?v=2" />
-        <bt:Image id="Icon.Sel.80" DefaultValue="https://localhost:3000/assets/hyphen-sel-80.png?v=2" />
-        <bt:Image id="Icon.Doc.16" DefaultValue="https://localhost:3000/assets/hyphen-doc-16.png?v=2" />
-        <bt:Image id="Icon.Doc.32" DefaultValue="https://localhost:3000/assets/hyphen-doc-32.png?v=2" />
-        <bt:Image id="Icon.Doc.80" DefaultValue="https://localhost:3000/assets/hyphen-doc-80.png?v=2" />
-        <bt:Image id="Icon.Wrap.16" DefaultValue="https://localhost:3000/assets/wrap-nohyphen-16.png?v=2" />
-        <bt:Image id="Icon.Wrap.32" DefaultValue="https://localhost:3000/assets/wrap-nohyphen-32.png?v=2" />
-        <bt:Image id="Icon.Wrap.80" DefaultValue="https://localhost:3000/assets/wrap-nohyphen-80.png?v=2" />
-        <bt:Image id="Icon.Del.16" DefaultValue="https://localhost:3000/assets/remove-hyphen-16.png?v=2" />
-        <bt:Image id="Icon.Del.32" DefaultValue="https://localhost:3000/assets/remove-hyphen-32.png?v=2" />
-        <bt:Image id="Icon.Del.80" DefaultValue="https://localhost:3000/assets/remove-hyphen-80.png?v=2" />
+        <bt:Image id="Icon.16" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/icon-16.png?v=2" />
+        <bt:Image id="Icon.32" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/icon-32.png?v=2" />
+        <bt:Image id="Icon.80" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/icon-80.png?v=2" />
+        <bt:Image id="Icon.Type.16" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/type-16.png?v=2" />
+        <bt:Image id="Icon.Type.32" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/type-32.png?v=2" />
+        <bt:Image id="Icon.Type.80" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/type-80.png?v=2" />
+        <bt:Image id="Icon.Convert.16" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/convert-16.png?v=2" />
+        <bt:Image id="Icon.Convert.32" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/convert-32.png?v=2" />
+        <bt:Image id="Icon.Convert.80" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/convert-80.png?v=2" />
+        <bt:Image id="Icon.Repair.16" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/repair-16.png?v=2" />
+        <bt:Image id="Icon.Repair.32" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/repair-32.png?v=2" />
+        <bt:Image id="Icon.Repair.80" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/repair-80.png?v=2" />
+        <bt:Image id="Icon.Sort.16" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/sort-16.png?v=2" />
+        <bt:Image id="Icon.Sort.32" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/sort-32.png?v=2" />
+        <bt:Image id="Icon.Sort.80" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/sort-80.png?v=2" />
+        <bt:Image id="Icon.Cal.16" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/calendar-16.png?v=2" />
+        <bt:Image id="Icon.Cal.32" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/calendar-32.png?v=2" />
+        <bt:Image id="Icon.Cal.80" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/calendar-80.png?v=2" />
+        <bt:Image id="Icon.Sel.16" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/hyphen-sel-16.png?v=2" />
+        <bt:Image id="Icon.Sel.32" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/hyphen-sel-32.png?v=2" />
+        <bt:Image id="Icon.Sel.80" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/hyphen-sel-80.png?v=2" />
+        <bt:Image id="Icon.Doc.16" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/hyphen-doc-16.png?v=2" />
+        <bt:Image id="Icon.Doc.32" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/hyphen-doc-32.png?v=2" />
+        <bt:Image id="Icon.Doc.80" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/hyphen-doc-80.png?v=2" />
+        <bt:Image id="Icon.Wrap.16" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/wrap-nohyphen-16.png?v=2" />
+        <bt:Image id="Icon.Wrap.32" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/wrap-nohyphen-32.png?v=2" />
+        <bt:Image id="Icon.Wrap.80" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/wrap-nohyphen-80.png?v=2" />
+        <bt:Image id="Icon.Del.16" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/remove-hyphen-16.png?v=2" />
+        <bt:Image id="Icon.Del.32" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/remove-hyphen-32.png?v=2" />
+        <bt:Image id="Icon.Del.80" DefaultValue="https://tamil-toolkit-word.vercel.app/assets/remove-hyphen-80.png?v=2" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/index.html" />
-        <bt:Url id="Support.Url" DefaultValue="https://localhost:3000/support.html" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://tamil-toolkit-word.vercel.app/index.html" />
+        <bt:Url id="Support.Url" DefaultValue="https://tamil-toolkit-word.vercel.app/support.html" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GetStarted.Title" DefaultValue="Tamil Toolkit is ready">
@@ -313,8 +313,8 @@
         <bt:String id="OpenTaskpane.Label" DefaultValue="Tamil Toolkit">
           <bt:Override Locale="ta-IN" Value="தமிழ் கருவி" />
         </bt:String>
-        <bt:String id="LiveTyping.Label" DefaultValue="Live Bamini ON/OFF">
-          <bt:Override Locale="ta-IN" Value="நேரடி பாமினி" />
+        <bt:String id="LiveTyping.Label" DefaultValue="Live Typing ON/OFF">
+          <bt:Override Locale="ta-IN" Value="நேரடி தட்டச்சு" />
         </bt:String>
         <bt:String id="AutoConvert.Label" DefaultValue="Convert to Unicode">
           <bt:Override Locale="ta-IN" Value="Unicode மாற்று" />
@@ -353,7 +353,7 @@
       <bt:LongStrings>
         <bt:String id="GetStarted.Description" DefaultValue="Open the Tamil tab in the ribbon to convert legacy fonts, repair Unicode, sort Akara Varisai, insert Tamil dates or numerals, and hyphenate." />
         <bt:String id="OpenTaskpane.Tooltip" DefaultValue="Open the Tamil Toolkit utility pane (Type, Prepare, and Insert)." />
-        <bt:String id="LiveTyping.Tooltip" DefaultValue="Toggle Live Bamini-to-Unicode typing ON or OFF directly on the Word page." />
+        <bt:String id="LiveTyping.Tooltip" DefaultValue="Toggle Live Tamil typing (Phonetic, Anjal, Tamil99, Bamini) ON or OFF directly on the Word page." />
         <bt:String id="AutoConvert.Tooltip" DefaultValue="Auto-detect legacy Tamil fonts (Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM) and convert selection or active paragraph to Unicode." />
         <bt:String id="RepairText.Tooltip" DefaultValue="Normalize to NFC, fix duplicate pullis, and reorder visual vowel signs while preserving ZWJ/ZWNJ." />
         <bt:String id="SortAkara.Tooltip" DefaultValue="Sort selected Tamil paragraphs in authentic Akara Varisai dictionary order (Mei before Uyirmei)." />

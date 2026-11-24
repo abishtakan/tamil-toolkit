@@ -1,4 +1,4 @@
-import { toggleLiveTyping } from "./lib/live-typing.js";
+import { setLiveTypingSuspended, toggleLiveTyping } from "./lib/live-typing.js";
 import {
   buildTamilDateStamp,
   initTamilEngine,
@@ -35,6 +35,7 @@ export function registerRibbonCommands(onStatus?: RibbonStatusSink): void {
     event: Office.AddinCommands.Event,
     fn: () => Promise<void>
   ): Promise<void> {
+    setLiveTypingSuspended(true);
     try {
       await initTamilEngine();
       await fn();
@@ -42,6 +43,7 @@ export function registerRibbonCommands(onStatus?: RibbonStatusSink): void {
       const msg = error instanceof Error ? error.message : String(error);
       notify(`Ribbon error: ${msg}`, "error");
     } finally {
+      setLiveTypingSuspended(false);
       event.completed();
     }
   }
@@ -51,8 +53,8 @@ export function registerRibbonCommands(onStatus?: RibbonStatusSink): void {
       const isOn = await toggleLiveTyping();
       notify(
         isOn
-          ? "Live Bamini Typing ON — click on your Word page and type."
-          : "Live Bamini Typing OFF.",
+          ? "Live Word Typing ON — click on your Word page and type."
+          : "Live Word Typing OFF.",
         isOn ? "success" : "info"
       );
     });
@@ -123,22 +125,33 @@ export function registerRibbonCommands(onStatus?: RibbonStatusSink): void {
         region: "TN",
         includePanchangam: false,
       });
-      await insertAtCursor(stamp.formatted_formal, true, "Nirmala UI");
+      await insertAtCursor(stamp.formatted_formal, true);
       notify("Inserted formal Tamil date header.", "success");
     });
   });
 
   Office.actions.associate("numberToWordsCommand", (event: Office.AddinCommands.Event) => {
     void withEngine(event, async () => {
-      const sel = (await readTargetText("selection")).trim();
-      if (!sel) {
-        notify("Select a number first to convert to Tamil words.", "info");
-        return;
-      }
-      const mode = sel.includes(".") ? "decimal" : "cardinal";
-      const words = numberToTamilWords(sel, mode, { locale: "TN" });
-      await insertAtCursor(words, true, "Nirmala UI");
-      notify(`Converted ${sel} to Tamil words.`, "success");
+      let convertedText = "";
+      await Word.run(async (context) => {
+        const sel = context.document.getSelection();
+        sel.load("text");
+        await context.sync();
+        const trimmed = (sel.text || "").trim();
+        if (!trimmed) return;
+        const mode = trimmed.includes(".") ? "decimal" : "cardinal";
+        const words = numberToTamilWords(trimmed, mode, { locale: "TN" });
+        const inserted = sel.insertText(words, Word.InsertLocation.replace);
+        inserted.select(Word.SelectionMode.end);
+        await context.sync();
+        convertedText = trimmed;
+      });
+      notify(
+        convertedText
+          ? `Converted ${convertedText} to Tamil words.`
+          : "Select a number first to convert to Tamil words.",
+        convertedText ? "success" : "info"
+      );
     });
   });
 

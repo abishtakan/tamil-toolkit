@@ -1,22 +1,35 @@
-import { LegacyEncoding, initTamilEngine, isTamilEngineReady } from "./tamil-engine.js";
-import { isWordHost, runDirectLiveTypingTick } from "./word-adapter.js";
+import { KeyboardLayout, initTamilEngine, isTamilEngineReady } from "./tamil-engine.js";
+import { isWordHost, resetLiveTypingCache, runDirectLiveTypingTick } from "./word-adapter.js";
 
 export interface LiveTypingState {
   active: boolean;
-  layout: Exclude<LegacyEncoding, "auto">;
+  layout: KeyboardLayout;
   font: string;
 }
 
-type Listener = (state: LiveTypingState, status?: { message: string; kind: "info" | "success" | "error" }) => void;
+export interface LiveTypingStatus {
+  message?: string;
+  kind?: "info" | "success" | "error";
+  converted?: boolean;
+  pendingWord?: string;
+  activeTamilWord?: string;
+}
+
+type Listener = (state: LiveTypingState, status?: LiveTypingStatus) => void;
 
 let active = false;
-let layout: Exclude<LegacyEncoding, "auto"> = "bamini";
-let font = "Nirmala UI";
+let layout: KeyboardLayout = "phonetic-v1";
+let font = "";
 let timer: number | null = null;
 let inFlight = false;
+let suspended = false;
+let lastActivityAt = 0;
+const ACTIVE_POLL_MS = 100;
+const IDLE_POLL_MS = 280;
+const IDLE_THRESHOLD_MS = 2000;
 const listeners = new Set<Listener>();
 
-function emit(status?: { message: string; kind: "info" | "success" | "error" }): void {
+function emit(status?: LiveTypingStatus): void {
   const snapshot: LiveTypingState = { active, layout, font };
   for (const fn of listeners) {
     fn(snapshot, status);
@@ -30,10 +43,14 @@ export function subscribeLiveTyping(fn: Listener): () => void {
 }
 
 export function configureLiveTyping(opts: {
-  layout?: Exclude<LegacyEncoding, "auto">;
+  layout?: KeyboardLayout;
   font?: string;
 }): void {
-  if (opts.layout) layout = opts.layout;
+  if (opts.layout) {
+    layout = opts.layout;
+    resetLiveTypingCache();
+    lastActivityAt = Date.now();
+  }
   if (opts.font !== undefined) font = opts.font;
   emit();
 }
@@ -42,14 +59,65 @@ export function isLiveTypingActive(): boolean {
   return active;
 }
 
+export function setLiveTypingSuspended(value: boolean): void {
+  suspended = value;
+  if (!value && active) {
+    lastActivityAt = Date.now();
+  }
+}
+
 export function stopLiveTyping(): void {
+  resetLiveTypingCache();
   if (!active && timer === null) return;
   active = false;
   if (timer !== null) {
-    window.clearInterval(timer);
+    window.clearTimeout(timer);
     timer = null;
   }
-  emit({ message: "Live Bamini Typing OFF.", kind: "info" });
+  emit({ message: "Live Word Typing OFF.", kind: "info", pendingWord: "" });
+}
+
+function scheduleNextTick(): void {
+  if (!active) return;
+  const isRecentlyActive = Date.now() - lastActivityAt < IDLE_THRESHOLD_MS;
+  const delay = isRecentlyActive ? ACTIVE_POLL_MS : IDLE_POLL_MS;
+  timer = window.setTimeout(() => {
+    timer = null;
+    if (!active) return;
+    if (inFlight || suspended || !isTamilEngineReady()) {
+      scheduleNextTick();
+      return;
+    }
+    inFlight = true;
+    void runDirectLiveTypingTick(layout, font, () => active)
+      .then((res) => {
+        if (res.activeInput || res.converted) {
+          lastActivityAt = Date.now();
+        }
+        if (res.unchanged) return;
+        if (res.converted && res.unicode) {
+          emit({
+            message: `Live: ${res.original} → ${res.unicode}`,
+            kind: "success",
+            converted: true,
+            pendingWord: "",
+            activeTamilWord: res.activeTamilWord ?? "",
+          });
+        } else if (res.pendingWord !== undefined || res.activeTamilWord !== undefined) {
+          emit({
+            pendingWord: res.pendingWord ?? "",
+            activeTamilWord: res.activeTamilWord ?? "",
+          });
+        }
+      })
+      .catch(() => {
+        // Ignore transient Word busy state while typing
+      })
+      .finally(() => {
+        inFlight = false;
+        scheduleNextTick();
+      });
+  }, delay);
 }
 
 export async function startLiveTyping(): Promise<void> {
@@ -60,28 +128,14 @@ export async function startLiveTyping(): Promise<void> {
   }
   if (active) return;
 
+  resetLiveTypingCache();
   active = true;
+  lastActivityAt = Date.now();
   emit({
-    message: `Live Typing ON (${layout.toUpperCase()}) — type directly on the Word page.`,
+    message: `Live Typing ON (${layout}) — type directly on the Word page.`,
     kind: "success",
   });
-
-  timer = window.setInterval(() => {
-    if (!active || inFlight || !isTamilEngineReady()) return;
-    inFlight = true;
-    void runDirectLiveTypingTick(layout, font, () => active)
-      .then((res) => {
-        if (res.converted && res.unicode) {
-          emit({ message: `Live: ${res.original} → ${res.unicode}`, kind: "success" });
-        }
-      })
-      .catch(() => {
-        // Ignore transient Word busy state while typing
-      })
-      .finally(() => {
-        inFlight = false;
-      });
-  }, 120);
+  scheduleNextTick();
 }
 
 export async function toggleLiveTyping(): Promise<boolean> {

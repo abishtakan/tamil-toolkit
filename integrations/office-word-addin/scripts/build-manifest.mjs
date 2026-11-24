@@ -8,7 +8,7 @@ const distDir = path.join(addinDir, "dist");
 
 const DEV_BASE_URL = "https://localhost:3000";
 const PROD_BASE_URL = (process.env.ADDIN_BASE_URL || "https://tamil-toolkit-word.vercel.app").replace(/\/+$/, "");
-const ADDIN_VERSION = "2.3.0.0";
+const ADDIN_VERSION = "2.5.0.0";
 const ICON_VER = "2";
 const ADDIN_ID = "9c2e4f11-88a3-4d9c-b244-1f7a30650283";
 
@@ -331,8 +331,8 @@ export function renderManifestXml(baseUrl) {
         <bt:String id="OpenTaskpane.Label" DefaultValue="Tamil Toolkit">
           <bt:Override Locale="ta-IN" Value="தமிழ் கருவி" />
         </bt:String>
-        <bt:String id="LiveTyping.Label" DefaultValue="Live Bamini ON/OFF">
-          <bt:Override Locale="ta-IN" Value="நேரடி பாமினி" />
+        <bt:String id="LiveTyping.Label" DefaultValue="Live Typing ON/OFF">
+          <bt:Override Locale="ta-IN" Value="நேரடி தட்டச்சு" />
         </bt:String>
         <bt:String id="AutoConvert.Label" DefaultValue="Convert to Unicode">
           <bt:Override Locale="ta-IN" Value="Unicode மாற்று" />
@@ -371,7 +371,7 @@ export function renderManifestXml(baseUrl) {
       <bt:LongStrings>
         <bt:String id="GetStarted.Description" DefaultValue="Open the Tamil tab in the ribbon to convert legacy fonts, repair Unicode, sort Akara Varisai, insert Tamil dates or numerals, and hyphenate." />
         <bt:String id="OpenTaskpane.Tooltip" DefaultValue="Open the Tamil Toolkit utility pane (Type, Prepare, and Insert)." />
-        <bt:String id="LiveTyping.Tooltip" DefaultValue="Toggle Live Bamini-to-Unicode typing ON or OFF directly on the Word page." />
+        <bt:String id="LiveTyping.Tooltip" DefaultValue="Toggle Live Tamil typing (Phonetic, Anjal, Tamil99, Bamini) ON or OFF directly on the Word page." />
         <bt:String id="AutoConvert.Tooltip" DefaultValue="Auto-detect legacy Tamil fonts (Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM) and convert selection or active paragraph to Unicode." />
         <bt:String id="RepairText.Tooltip" DefaultValue="Normalize to NFC, fix duplicate pullis, and reorder visual vowel signs while preserving ZWJ/ZWNJ." />
         <bt:String id="SortAkara.Tooltip" DefaultValue="Sort selected Tamil paragraphs in authentic Akara Varisai dictionary order (Mei before Uyirmei)." />
@@ -391,14 +391,13 @@ export function renderManifestXml(baseUrl) {
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const devXml = renderManifestXml(DEV_BASE_URL);
   const prodXml = renderManifestXml(PROD_BASE_URL);
 
-  fs.writeFileSync(path.join(addinDir, "manifest.xml"), devXml, "utf8");
+  fs.writeFileSync(path.join(addinDir, "manifest.xml"), prodXml, "utf8");
 
   if (fs.existsSync(distDir)) {
     fs.writeFileSync(path.join(distDir, "manifest.prod.xml"), prodXml, "utf8");
   }
 
-  console.log(`[build-manifest] Generated manifest.xml (${DEV_BASE_URL}) and dist/manifest.prod.xml (${PROD_BASE_URL})`);
+  console.log(`[build-manifest] Generated manifest.xml and dist/manifest.prod.xml (${PROD_BASE_URL})`);
 }

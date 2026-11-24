@@ -22,129 +22,118 @@
   </header>
 
   <main class="main-content">
-    <!-- 1. TYPE: Direct Live Typing in Word + Explicit Convert + Optional Composer -->
+    <!-- 1. TYPE: Direct Live Typing in Word + Unified Keyboard Composer -->
     <section id="panel-type" class="tab-panel" role="tabpanel">
       <div class="section">
         <div class="section-header">
-          <h2 class="section-title" data-i18n="quickConvertTitle">Direct Live Typing (Bamini → Unicode)</h2>
+          <h2 class="section-title" data-i18n="quickConvertTitle">Direct Live Word Typing</h2>
           <span id="direct-mode-badge" class="section-hint">OFF</span>
         </div>
-        <p class="helper-text" data-i18n="quickConvertDesc">
-          Turn ON, click directly on your Word page, and type in Bamini (e.g. <code>jkpo;</code>). Characters convert live to Unicode Tamil as you type.
+        <p id="direct-typing-desc" class="helper-text" data-i18n="quickConvertDesc">
+          Turn ON, click directly on your Word page, and type in your chosen Tamil keyboard layout.
         </p>
 
         <div class="row-2" style="margin-bottom: 8px;">
           <div class="field" style="margin-bottom: 0;">
             <label for="type-layout">Keyboard Layout</label>
             <select id="type-layout">
-              <option value="bamini" selected>Bamini (பாமினி)</option>
-              <option value="vanavil">Vanavil Avvaiyar</option>
-              <option value="lt_tm">LT-TM (Shree-Lipi)</option>
-              <option value="senthamil">Senthamil (செந்தமிழ்)</option>
-              <option value="shree_tam">Shree-Tam (ஸ்ரீ-தமிழ்)</option>
-              <option value="softview">Softview (அமுதம்)</option>
-              <option value="tbo">TBO (தினபூமி)</option>
-              <option value="anjal">Anjal</option>
-              <option value="tscii">TSCII</option>
+              <option value="phonetic-v1" selected>Phonetic (Tanglish)</option>
+              <option value="anjal-phonetic">Anjal Phonetic (அஞ்சல்)</option>
+              <option value="tamil99">Tamil99 (தமிழ்99)</option>
+              <option value="bamini">Bamini (பாமினி)</option>
             </select>
           </div>
           <div class="field" style="margin-bottom: 0;">
             <label for="type-font">Unicode Font</label>
             <select id="type-font">
+              <option value="" selected>Document / Selected Font</option>
               <option value="Nirmala UI">Nirmala UI</option>
               <option value="Noto Sans Tamil">Noto Sans Tamil</option>
               <option value="Latha">Latha</option>
-              <option value="">Keep Existing</option>
             </select>
           </div>
         </div>
 
         <button id="btn-direct-toggle" data-action class="btn btn-primary" style="width: 100%; margin-bottom: 6px;" data-i18n="btnStartLive">
-          Start Live Word Typing (Bamini → Unicode)
+          Start Live Word Typing
         </button>
+
+        <div id="canvas-candidates" class="candidate-bar" hidden></div>
 
         <div class="btn-row">
           <button id="btn-convert-active-para" data-action class="btn" data-i18n="btnConvertPara">Convert Paragraph</button>
           <button id="btn-convert-selection" data-action class="btn" data-i18n="btnConvertSel">Convert Selection</button>
         </div>
 
-        <details class="keymap-details">
-          <summary>Bamini Quick Key Guide</summary>
-          <div class="keymap-grid">
-            <div class="keymap-cell"><span>க</span><kbd>f</kbd></div>
-            <div class="keymap-cell"><span>ச</span><kbd>r</kbd></div>
-            <div class="keymap-cell"><span>ட</span><kbd>l</kbd></div>
-            <div class="keymap-cell"><span>த</span><kbd>j</kbd></div>
-            <div class="keymap-cell"><span>ப</span><kbd>g</kbd></div>
-            <div class="keymap-cell"><span>ம</span><kbd>k</kbd></div>
-            <div class="keymap-cell"><span>ழ</span><kbd>o</kbd></div>
-            <div class="keymap-cell"><span>வ</span><kbd>t</kbd></div>
-            <div class="keymap-cell"><span>ண</span><kbd>z</kbd></div>
-            <div class="keymap-cell"><span>் (Pulli)</span><kbd>;</kbd></div>
-            <div class="keymap-cell"><span>ா</span><kbd>h</kbd></div>
-            <div class="keymap-cell"><span>ி / ீ</span><kbd>p / P</kbd></div>
-            <div class="keymap-cell"><span>ெ / ே</span><kbd>n / N</kbd></div>
-            <div class="keymap-cell"><span>ை</span><kbd>i</kbd></div>
-            <div class="keymap-cell"><span>தமிழ்</span><kbd>jkpo;</kbd></div>
-          </div>
+        <details id="keymap-details" class="keymap-details">
+          <summary id="keymap-summary">Quick Key Guide (Phonetic)</summary>
+          <div id="keymap-grid" class="keymap-grid"></div>
         </details>
       </div>
 
-      <details class="tool-drawer">
-        <summary data-i18n="composerTitle">Optional Scratchpad Composer</summary>
+      <details class="tool-drawer" open>
+        <summary data-i18n="composerTitle">Tamil Typing Composer</summary>
         <div class="drawer-body">
           <div class="field">
-            <textarea id="type-raw-input" rows="2" spellcheck="false" autocomplete="off" placeholder="Optional: test Bamini keys here (Ctrl+Enter to insert)..."></textarea>
+            <textarea id="translit-input" rows="2" spellcheck="false" autocomplete="off" placeholder="e.g. vaNakkam thamizh (Ctrl+Enter to insert)..."></textarea>
           </div>
-          <div id="type-live-output" class="live-output-box" style="min-height: 46px; font-size: 14px;"><span class="live-output-empty">Live Unicode Tamil preview...</span></div>
-          <label class="check-row"><input id="opt-type-clear" type="checkbox" checked /> Clear after insert</label>
+          <div id="translit-candidates" class="candidate-bar" hidden></div>
+          <div id="translit-output" class="live-output-box" style="min-height: 46px; font-size: 14px;"><span class="live-output-empty">Live Tamil preview...</span></div>
+          <label class="check-row"><input id="opt-composer-clear" type="checkbox" checked /> Clear after insert</label>
           <div class="btn-row">
-            <button id="btn-type-insert" data-action class="btn btn-primary" data-i18n="btnInsertWord">Insert into Word</button>
-            <button id="btn-type-copy" data-action class="btn" data-i18n="btnCopy">Copy</button>
+            <button id="btn-translit-insert" data-action class="btn btn-primary" data-i18n="btnInsertWord">Insert into Word</button>
+            <button id="btn-translit-copy" data-action class="btn" data-i18n="btnCopy">Copy</button>
           </div>
         </div>
       </details>
 
       <details class="tool-drawer">
-        <summary>Transliteration &amp; Tamil99 Composer</summary>
+        <summary>Scholarly Transliteration (ISO 15919 · Lexicon · ITRANS · HK)</summary>
         <div class="drawer-body">
           <div class="row-2" style="margin-bottom: 8px;">
             <div class="field" style="margin-bottom: 0;">
-              <label for="translit-scheme">Scheme</label>
-              <select id="translit-scheme">
-                <option value="anjal-phonetic" selected>Anjal Phonetic</option>
-                <option value="tamil99">Tamil99</option>
-                <option value="phonetic-v1">Phonetic (Tanglish)</option>
-                <option value="suratha-bamini">Suratha Bamini</option>
-                <option value="iso-15919">ISO 15919</option>
+              <label for="scholarly-scheme">Scheme</label>
+              <select id="scholarly-scheme">
+                <option value="iso-15919" selected>ISO 15919</option>
                 <option value="madras-lexicon">Madras Lexicon</option>
                 <option value="itrans">ITRANS</option>
                 <option value="harvard-kyoto">Harvard-Kyoto</option>
               </select>
             </div>
             <div class="field" style="margin-bottom: 0;">
-              <label for="translit-direction">Direction</label>
-              <select id="translit-direction">
+              <label for="scholarly-direction">Direction</label>
+              <select id="scholarly-direction">
                 <option value="to_tamil" selected>Latin → Tamil</option>
                 <option value="to_latin">Tamil → Latin</option>
               </select>
             </div>
           </div>
           <div class="field">
-            <textarea id="translit-input" rows="2" spellcheck="false" autocomplete="off" placeholder="Type phonetic/Tamil99/ISO text (Ctrl+Enter to insert)..."></textarea>
+            <textarea id="scholarly-input" rows="2" spellcheck="false" autocomplete="off" placeholder="e.g. tamiḻ moḻi (Ctrl+Enter to insert)..."></textarea>
           </div>
-          <div id="translit-candidates" class="candidate-bar" hidden></div>
-          <div id="translit-output" class="live-output-box" style="min-height: 46px; font-size: 14px;"><span class="live-output-empty">Live transliteration preview...</span></div>
+          <div id="scholarly-output" class="live-output-box" style="min-height: 46px; font-size: 14px;"><span class="live-output-empty">Live scholarly transliteration preview...</span></div>
           <div class="btn-row">
-            <button id="btn-translit-insert" data-action class="btn btn-primary">Insert into Word</button>
-            <button id="btn-translit-copy" data-action class="btn">Copy</button>
+            <button id="btn-scholarly-insert" data-action class="btn btn-primary">Insert into Word</button>
+            <button id="btn-scholarly-copy" data-action class="btn">Copy</button>
           </div>
         </div>
       </details>
     </section>
 
-    <!-- 2. PREPARE: 1-Click Pipeline + Find/Replace + Sort + Hyphen + Inspect -->
+    <!-- 2. PREPARE: Live Document Inspector + 1-Click Pipeline + Find/Replace + Sort + Hyphen + Export -->
     <section id="panel-prepare" class="tab-panel" role="tabpanel" hidden>
+      <div class="section inspector-card">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="inspectTitle">Document Inspector</h2>
+          <span id="inspect-scope-badge" class="section-hint">Auto</span>
+        </div>
+        <div id="inspect-results" class="helper-text">Open Prepare or select text to analyze Tamil graphemes, syllables, and NFC health.</div>
+        <div class="btn-row" style="margin-top: 8px;">
+          <button id="btn-inspect-sel" data-action class="btn">Inspect Selection</button>
+          <button id="btn-inspect-doc" data-action class="btn btn-primary">Inspect Document</button>
+        </div>
+      </div>
+
       <div class="section">
         <div class="section-header">
           <h2 class="section-title" data-i18n="prepareTitle">1-Click Prepare Document</h2>
@@ -187,10 +176,10 @@
           <div class="field" style="margin-bottom: 0;">
             <label for="unicode-font-family">Unicode Font</label>
             <select id="unicode-font-family">
+              <option value="" selected>Document / Selected Font</option>
               <option value="Nirmala UI">Nirmala UI</option>
               <option value="Noto Sans Tamil">Noto Sans Tamil</option>
               <option value="Latha">Latha</option>
-              <option value="">Keep Existing</option>
             </select>
           </div>
         </div>
@@ -203,7 +192,7 @@
         </button>
       </div>
 
-      <details class="tool-drawer">
+      <details class="tool-drawer" open>
         <summary data-i18n="findReplaceTitle">Tamil-Aware Find &amp; Replace</summary>
         <div class="drawer-body">
           <div class="field">
@@ -300,17 +289,6 @@
               <button id="btn-unicode-to-legacy" data-action class="btn" style="width: 100%;">Encode Legacy</button>
             </div>
           </div>
-        </div>
-      </details>
-
-      <details class="tool-drawer">
-        <summary data-i18n="inspectTitle">Document Inspector</summary>
-        <div class="drawer-body">
-          <div class="btn-row" style="margin-bottom: 8px;">
-            <button id="btn-inspect-sel" data-action class="btn btn-primary">Inspect Selection</button>
-            <button id="btn-inspect-doc" data-action class="btn">Inspect Body</button>
-          </div>
-          <div id="inspect-results" class="helper-text">Click Inspect to analyze Tamil graphemes, syllables, and invisible codepoints.</div>
         </div>
       </details>
     </section>

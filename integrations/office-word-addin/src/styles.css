@@ -587,14 +587,28 @@ input[type="radio"] {
 
 .candidate-bar {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 5px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 3px;
+  margin-top: 4px;
   margin-bottom: 8px;
   padding: 6px 8px;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   background: var(--input-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+}
+
+.inspector-card .stat-grid {
+  margin-bottom: 6px;
+}
+
+.inspector-card .stat-card {
+  padding: 6px 8px;
+}
+
+.inspector-card .stat-card strong {
+  font-size: 15px;
 }
 
 .candidate-bar[hidden] {
@@ -602,16 +616,19 @@ input[type="radio"] {
 }
 
 .candidate-chip {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
   border: 1px solid var(--border-strong);
   background: var(--surface);
   color: var(--text);
   border-radius: var(--radius);
-  padding: 3px 7px;
+  padding: 5px 9px;
   font-family: "Nirmala UI", "Noto Sans Tamil", var(--font-ui);
   font-size: 12.5px;
+  text-align: left;
   cursor: pointer;
 }
 
@@ -628,6 +645,7 @@ input[type="radio"] {
 }
 
 .candidate-num {
+  min-width: 14px;
   font-family: ui-monospace, Consolas, monospace;
   font-size: 10px;
   opacity: 0.8;
