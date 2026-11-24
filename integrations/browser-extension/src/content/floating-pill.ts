@@ -95,22 +95,28 @@ const PILL_STYLES = `
 .preview-out { color: var(--accent); font-weight: 600; font-size: 13px; }
 .cand-list {
   display: none;
-  flex-wrap: wrap;
-  gap: 4px;
-  align-items: center;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  min-width: 160px;
+  align-items: stretch;
 }
 .cand-list.show { display: flex; }
 .cand-chip {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
   border: 1px solid var(--border);
   background: var(--bg-muted);
   color: var(--fg);
   border-radius: 6px;
-  padding: 2px 7px;
+  padding: 4px 8px;
   font-size: 12.5px;
   font-family: inherit;
+  text-align: left;
   cursor: pointer;
   line-height: 1.3;
 }
@@ -122,6 +128,7 @@ const PILL_STYLES = `
   font-weight: 600;
 }
 .cand-num {
+  min-width: 14px;
   font-size: 10px;
   opacity: 0.78;
   font-family: ui-monospace, monospace;
@@ -243,6 +250,15 @@ export class FloatingPill {
 
   constructor(callbacks: FloatingPillCallbacks) {
     this.callbacks = callbacks;
+  }
+
+  ownsEvent(ev: Event): boolean {
+    if (!this.host) return false;
+    if (ev.target === this.host) return true;
+    if (typeof ev.composedPath === "function") {
+      return ev.composedPath().includes(this.host);
+    }
+    return false;
   }
 
   mount(): void {
@@ -454,11 +470,12 @@ export class FloatingPill {
       }
       if (caretRect && typeof window !== "undefined") {
         this.previewChip.classList.remove("anchored-fallback");
+        const maxCandLen = list.reduce((m, c) => Math.max(m, c.length), activeText.length);
         const estWidth = Math.min(
           window.innerWidth - 16,
-          Math.max(140, (raw.length + activeText.length) * 10 + (showMulti ? list.length * 84 : 44))
+          Math.max(184, Math.max(raw.length + activeText.length + 6, maxCandLen + 6) * 10 + 36)
         );
-        const estHeight = showMulti ? 72 : 36;
+        const estHeight = showMulti ? 40 + list.length * 28 + 18 : 36;
         const left = Math.max(8, Math.min(caretRect.left, window.innerWidth - estWidth - 8));
         const spaceBelow = window.innerHeight - caretRect.bottom;
         const top = spaceBelow >= estHeight + 12 ? caretRect.bottom + 6 : Math.max(8, caretRect.top - estHeight - 6);

@@ -5,11 +5,29 @@ import {
   getCaretViewportRect,
   getEditorFullText,
   getTextBeforeCaret,
+  hasNonCollapsedSelection,
   replaceCharsBeforeCaret,
   replaceEditorOrSelectionText,
+  resolveEditableRoot,
 } from "./editor-adapter.js";
 import { FloatingPill } from "./floating-pill.js";
 import { HybridTypingEngine, LATIN_WORD_RE } from "./live-typing.js";
+
+const RESET_MODIFIER_KEYS = new Set([
+  "a",
+  "x",
+  "v",
+  "z",
+  "y",
+  "backspace",
+  "delete",
+  "arrowleft",
+  "arrowright",
+  "arrowup",
+  "arrowdown",
+  "home",
+  "end",
+]);
 
 const api = getBrowserApi();
 
@@ -119,26 +137,32 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
     onScratchpadTransliterate: (raw) => transliterateViaBackground(raw, layout),
     onScratchpadInsert: (text) => {
       if (activeEl) {
-        replaceCharsBeforeCaret(activeEl, 0, text);
+        void replaceCharsBeforeCaret(activeEl, 0, text);
       }
     },
     onSelectCandidate: (index) => {
       if (!activeEl) return;
-      const beforeCaret = getTextBeforeCaret(activeEl);
+      const el = activeEl;
+      const beforeCaret = getTextBeforeCaret(el);
       const result = typingEngine.commitCandidateAt(index, beforeCaret);
       if (result.handled && result.insertText !== undefined) {
-        replaceCharsBeforeCaret(activeEl, result.deleteBeforeCaret ?? 0, result.insertText);
-        scheduleMicroCounterUpdate(activeEl);
+        void replaceCharsBeforeCaret(el, result.deleteBeforeCaret ?? 0, result.insertText).then(
+          (replaced) => {
+            if (replaced) {
+              scheduleMicroCounterUpdate(el);
+            }
+          }
+        );
       }
       pill.setPreview(
         result.rawBuffer,
         result.previewText,
-        getCaretViewportRect(activeEl),
+        getCaretViewportRect(el),
         result.candidates,
         result.selectedIndex ?? 0
       );
-      if (activeEl instanceof HTMLElement) {
-        activeEl.focus();
+      if (el instanceof HTMLElement) {
+        el.focus();
       }
     },
   });
@@ -175,7 +199,8 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
 
   addDocListener("focusin", (e) => {
     if (disposed) return;
-    const target = e.target instanceof Element ? e.target : document.activeElement;
+    const rawTarget = e.target instanceof Element ? e.target : document.activeElement;
+    const target = resolveEditableRoot(rawTarget) ?? rawTarget;
     const kind = detectEditorKind(target);
     if (kind !== "none") {
       activeEl = target;
@@ -203,6 +228,13 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
     }, 60);
   });
 
+  addDocListener("mousedown", (e) => {
+    if (!disposed && enabled && !pill.ownsEvent(e)) {
+      typingEngine.resetWord();
+      pill.setPreview("", "");
+    }
+  });
+
   addDocListener("keydown", (e) => {
     if (disposed) return;
     // In-page shortcut fallback (Alt+Shift+L or Alt+Shift+T) when content script is attached
@@ -215,15 +247,40 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
       if (!enabled) return;
 
       // Always resolve live target from the event/document so Side Panel or pill focus never leaves activeEl stale
+      const eventTarget =
+        e.target instanceof Element ? (resolveEditableRoot(e.target) ?? e.target) : null;
+      const docTarget = resolveEditableRoot(document.activeElement) ?? document.activeElement;
       const targetEl =
-        (e.target instanceof Element && detectEditorKind(e.target) !== "none" ? e.target : null) ??
-        (detectEditorKind(document.activeElement) !== "none" ? document.activeElement : null) ??
+        (eventTarget && detectEditorKind(eventTarget) !== "none" ? eventTarget : null) ??
+        (detectEditorKind(docTarget) !== "none" ? docTarget : null) ??
         activeEl;
       const kind = detectEditorKind(targetEl);
       if (!targetEl || (kind !== "native-input" && kind !== "contenteditable")) return;
       activeEl = targetEl;
       activeEditorKind = kind;
       pill.setFocused(true, kind);
+
+      if ((e.ctrlKey || e.metaKey || e.altKey) && RESET_MODIFIER_KEYS.has(e.key.toLowerCase())) {
+        typingEngine.resetWord();
+        pill.setPreview("", "");
+        return;
+      }
+
+      if (
+        e.key === "Delete" ||
+        (e.shiftKey && /^(ArrowLeft|ArrowRight|ArrowUp|ArrowDown|Home|End)$/.test(e.key))
+      ) {
+        typingEngine.resetWord();
+        pill.setPreview("", "");
+        return;
+      }
+
+      const hasSelection = hasNonCollapsedSelection(targetEl);
+      if (hasSelection && e.key === "Backspace") {
+        typingEngine.resetWord();
+        pill.setPreview("", "");
+        return;
+      }
 
       const beforeCaret = getTextBeforeCaret(targetEl);
       const stateSnapshot = typingEngine.getState();
@@ -268,6 +325,30 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
       }
 
       let preventedBoundaryKey: string | null = null;
+      let preventedBackspace = false;
+      let canRollbackInstantBuffer = false;
+
+      if (
+        stateSnapshot.commitMode === "instant-keystroke" &&
+        !e.ctrlKey &&
+        !e.metaKey &&
+        !e.altKey
+      ) {
+        if (e.key === "Backspace") {
+          canRollbackInstantBuffer =
+            !hasSelection &&
+            stateSnapshot.rawBuffer.length > 0 &&
+            (stateSnapshot.previewText.length === 0 ||
+              beforeCaret.endsWith(stateSnapshot.previewText));
+          if (!canRollbackInstantBuffer) {
+            typingEngine.resetWord();
+            pill.setPreview("", "");
+            return;
+          }
+        } else if (e.key.length === 1 && !/\s/.test(e.key) && hasSelection) {
+          typingEngine.resetWord();
+        }
+      }
 
       if (
         isCycleKey ||
@@ -277,19 +358,24 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
           !e.ctrlKey &&
           !e.metaKey &&
           !e.altKey &&
-          ((e.key.length === 1 && !/\s/.test(e.key)) ||
-            (e.key === "Backspace" && stateSnapshot.rawBuffer.length > 0)))
+          ((e.key.length === 1 && !/\s/.test(e.key)) || canRollbackInstantBuffer))
       ) {
         e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
         if (isNumberPickKey) {
           preventedBoundaryKey = e.key;
+        } else if (e.key === "Backspace" && canRollbackInstantBuffer) {
+          preventedBackspace = true;
         }
       } else if (
         hasActiveWord &&
         (e.key === " " || e.key === "Enter" || /^[.,!?;:)\]}]$/.test(e.key))
       ) {
         e.preventDefault();
-        preventedBoundaryKey = e.key === "Enter" ? "\n" : e.key === "Tab" ? "\t" : e.key;
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        preventedBoundaryKey = e.key === "Enter" ? "" : e.key === "Tab" ? "\t" : e.key;
       }
 
       const key = e.key;
@@ -299,10 +385,27 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
           const freshBeforeCaret = targetEl ? getTextBeforeCaret(targetEl) : beforeCaret;
           const result = await typingEngine.handleKeyDown(key, mods, freshBeforeCaret);
           if (result.handled && result.insertText !== undefined && targetEl) {
-            replaceCharsBeforeCaret(targetEl, result.deleteBeforeCaret ?? 0, result.insertText);
-            scheduleMicroCounterUpdate(targetEl);
-          } else if (!result.handled && preventedBoundaryKey !== null && targetEl) {
-            replaceCharsBeforeCaret(targetEl, 0, preventedBoundaryKey);
+            const replaced = await replaceCharsBeforeCaret(
+              targetEl,
+              result.deleteBeforeCaret ?? 0,
+              result.insertText
+            );
+            if (replaced) {
+              scheduleMicroCounterUpdate(targetEl);
+            } else {
+              typingEngine.escapeCurrentWord();
+              if (preventedBackspace) {
+                await replaceCharsBeforeCaret(targetEl, 1, "");
+              } else if (preventedBoundaryKey !== null && preventedBoundaryKey.length > 0) {
+                await replaceCharsBeforeCaret(targetEl, 0, preventedBoundaryKey);
+              }
+              pill.setPreview("", "");
+              return;
+            }
+          } else if (!result.handled && preventedBackspace && targetEl) {
+            await replaceCharsBeforeCaret(targetEl, 1, "");
+          } else if (!result.handled && preventedBoundaryKey !== null && preventedBoundaryKey.length > 0 && targetEl) {
+            await replaceCharsBeforeCaret(targetEl, 0, preventedBoundaryKey);
           }
           pill.setPreview(
             result.rawBuffer,
@@ -313,17 +416,22 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
           );
         })
         .catch(() => {
-          if (preventedBoundaryKey !== null && targetEl) {
-            replaceCharsBeforeCaret(targetEl, 0, preventedBoundaryKey);
+          if (preventedBackspace && targetEl) {
+            void replaceCharsBeforeCaret(targetEl, 1, "");
+          } else if (preventedBoundaryKey !== null && preventedBoundaryKey.length > 0 && targetEl) {
+            void replaceCharsBeforeCaret(targetEl, 0, preventedBoundaryKey);
           }
         });
   });
 
   addDocListener("input", (e) => {
     if (disposed) return;
+    const eventTarget =
+      e.target instanceof Element ? (resolveEditableRoot(e.target) ?? e.target) : null;
+    const docTarget = resolveEditableRoot(document.activeElement) ?? document.activeElement;
     const target =
-      (e.target instanceof Element && detectEditorKind(e.target) !== "none" ? e.target : null) ??
-      (detectEditorKind(document.activeElement) !== "none" ? document.activeElement : null) ??
+      (eventTarget && detectEditorKind(eventTarget) !== "none" ? eventTarget : null) ??
+      (detectEditorKind(docTarget) !== "none" ? docTarget : null) ??
       activeEl;
     const kind = detectEditorKind(target);
     if (!target || (kind !== "native-input" && kind !== "contenteditable")) return;
@@ -431,13 +539,18 @@ if (!(globalThis as Record<string, unknown>).__TAMIL_TOOLKIT_CONTENT_INIT__) {
 
     if (msg?.type === "TAB_INSERT_TEXT") {
       const target = activeEl ?? document.activeElement;
-      const inserted = target ? replaceCharsBeforeCaret(target, 0, String(msg.text ?? "")) : false;
-      if (inserted) {
-        typingEngine.resetWord();
-        scheduleMicroCounterUpdate(target);
+      if (!target) {
+        sendResponse({ ok: true, inserted: false });
+        return false;
       }
-      sendResponse({ ok: true, inserted });
-      return false;
+      void replaceCharsBeforeCaret(target, 0, String(msg.text ?? "")).then((inserted) => {
+        if (inserted) {
+          typingEngine.resetWord();
+          scheduleMicroCounterUpdate(target);
+        }
+        sendResponse({ ok: true, inserted });
+      });
+      return true;
     }
 
     return false;

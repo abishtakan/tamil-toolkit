@@ -25,10 +25,26 @@ export interface KeyActionResult {
 }
 
 const WORD_BOUNDARY_KEYS = new Set([" ", "Enter", "Tab", ".", ",", "!", "?", ";", ":", ")", "]", "}"]);
+const RESET_MODIFIER_KEYS = new Set([
+  "a",
+  "x",
+  "v",
+  "z",
+  "y",
+  "backspace",
+  "delete",
+  "arrowleft",
+  "arrowright",
+  "arrowup",
+  "arrowdown",
+  "home",
+  "end",
+]);
 export const LATIN_WORD_RE = /([A-Za-z][A-Za-z_-]*)$/;
 
 export class HybridTypingEngine {
   private state: CompositionState;
+  private generation = 0;
   private readonly transliterate: TransliterateFn;
   private readonly suggest: SuggestFn;
 
@@ -63,12 +79,20 @@ export class HybridTypingEngine {
   }
 
   resetWord(): void {
+    this.generation += 1;
     this.state.rawBuffer = "";
     this.state.committedRenderedLength = 0;
     this.state.previewText = "";
     this.state.candidates = [];
     this.state.selectedIndex = 0;
     this.state.escapedCurrentWord = false;
+  }
+
+  escapeCurrentWord(): void {
+    this.state.escapedCurrentWord = true;
+    this.state.previewText = "";
+    this.state.candidates = [];
+    this.state.selectedIndex = 0;
   }
 
   async updateWordPreviewFromTextBeforeCaret(textBeforeCaret: string): Promise<CompositionState> {
@@ -88,7 +112,11 @@ export class HybridTypingEngine {
     }
     const word = match[1];
     this.state.rawBuffer = word;
+    const gen = this.generation;
     const candidates = await this.suggest(word, this.state.layout);
+    if (gen !== this.generation) {
+      return this.state;
+    }
     if (this.state.escapedCurrentWord) {
       this.state.previewText = "";
       this.state.candidates = [];
@@ -101,6 +129,9 @@ export class HybridTypingEngine {
       this.state.previewText = candidates[0];
     } else {
       const primary = await this.transliterate(word, this.state.layout);
+      if (gen !== this.generation) {
+        return this.state;
+      }
       this.state.candidates = primary ? [primary] : [];
       this.state.selectedIndex = 0;
       this.state.previewText = primary;
@@ -148,7 +179,7 @@ export class HybridTypingEngine {
     textBeforeCaret: string
   ): Promise<KeyActionResult> {
     if (modifiers.ctrlKey || modifiers.metaKey || modifiers.altKey) {
-      if (key === "z" || key === "Z" || key === "y" || key === "Y") {
+      if (RESET_MODIFIER_KEYS.has(key.toLowerCase())) {
         this.resetWord();
       }
       return {
@@ -174,6 +205,11 @@ export class HybridTypingEngine {
           rawBuffer: this.state.rawBuffer,
         };
       }
+      return { handled: false, previewText: "", candidates: [], selectedIndex: 0, rawBuffer: "" };
+    }
+
+    if (key === "Delete") {
+      this.resetWord();
       return { handled: false, previewText: "", candidates: [], selectedIndex: 0, rawBuffer: "" };
     }
 
@@ -237,7 +273,6 @@ export class HybridTypingEngine {
         const match = textBeforeCaret.match(LATIN_WORD_RE);
         const word = match?.[1] ?? "";
         const wasEscaped = this.state.escapedCurrentWord;
-        const wasCycled = this.state.selectedIndex > 0;
         const activeCandidate =
           word && this.state.rawBuffer === word
             ? this.state.candidates[this.state.selectedIndex]
@@ -246,11 +281,21 @@ export class HybridTypingEngine {
         if (!word || wasEscaped) {
           return { handled: false, previewText: "", candidates: [], selectedIndex: 0, rawBuffer: "" };
         }
+        const gen = this.generation;
         const tamil = activeCandidate ?? (await this.transliterate(word, this.state.layout));
+        if (gen !== this.generation) {
+          return {
+            handled: false,
+            previewText: this.state.previewText,
+            candidates: [...this.state.candidates],
+            selectedIndex: this.state.selectedIndex,
+            rawBuffer: this.state.rawBuffer,
+          };
+        }
         if (!tamil || tamil === word) {
           return { handled: false, previewText: "", candidates: [], selectedIndex: 0, rawBuffer: "" };
         }
-        const suffix = key === "Enter" ? (wasCycled ? "" : "\n") : key === "Tab" ? "\t" : key;
+        const suffix = key === "Enter" ? "" : key === "Tab" ? "\t" : key;
         return {
           handled: true,
           deleteBeforeCaret: word.length,
@@ -288,11 +333,15 @@ export class HybridTypingEngine {
     // in Bamini and Tamil99, so only whitespace resets the rolling keystroke buffer.
     if (key === "Backspace") {
       if (this.state.rawBuffer.length > 0) {
+        if (this.state.previewText.length > 0 && !textBeforeCaret.endsWith(this.state.previewText)) {
+          this.resetWord();
+          return { handled: false, previewText: "", candidates: [], selectedIndex: 0, rawBuffer: "" };
+        }
+        const gen = this.generation;
         const prevLen = this.state.committedRenderedLength;
-        this.state.rawBuffer = this.state.rawBuffer.slice(0, -1);
-        if (this.state.rawBuffer.length === 0) {
-          this.state.committedRenderedLength = 0;
-          this.state.previewText = "";
+        const nextRaw = this.state.rawBuffer.slice(0, -1);
+        if (nextRaw.length === 0) {
+          this.resetWord();
           return {
             handled: true,
             deleteBeforeCaret: prevLen,
@@ -303,7 +352,17 @@ export class HybridTypingEngine {
             rawBuffer: "",
           };
         }
-        const nextTamil = await this.transliterate(this.state.rawBuffer, this.state.layout);
+        const nextTamil = await this.transliterate(nextRaw, this.state.layout);
+        if (gen !== this.generation) {
+          return {
+            handled: false,
+            previewText: this.state.previewText,
+            candidates: [...this.state.candidates],
+            selectedIndex: this.state.selectedIndex,
+            rawBuffer: this.state.rawBuffer,
+          };
+        }
+        this.state.rawBuffer = nextRaw;
         this.state.committedRenderedLength = nextTamil.length;
         this.state.previewText = nextTamil;
         return {
@@ -325,9 +384,19 @@ export class HybridTypingEngine {
     }
 
     if (key.length === 1 && !/\s/.test(key)) {
+      const gen = this.generation;
       const prevLen = this.state.committedRenderedLength;
       const nextRaw = this.state.rawBuffer + key;
       const nextTamil = await this.transliterate(nextRaw, this.state.layout);
+      if (gen !== this.generation) {
+        return {
+          handled: false,
+          previewText: this.state.previewText,
+          candidates: [...this.state.candidates],
+          selectedIndex: this.state.selectedIndex,
+          rawBuffer: this.state.rawBuffer,
+        };
+      }
       this.state.rawBuffer = nextRaw;
       this.state.committedRenderedLength = nextTamil.length;
       this.state.previewText = nextTamil;
