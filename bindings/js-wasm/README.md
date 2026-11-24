@@ -6,7 +6,7 @@
 
 **Zero-dependency WebAssembly · Bamini / TSCII / TAB / TAM / Vanavil font conversion · Grapheme segmentation · Agara varisai sorting · Currency & Numerals · 100% offline & private**
 
-[![npm alpha version](https://img.shields.io/npm/v/tamil-toolkit/alpha?style=flat-square&logo=npm&label=npm%20alpha)](https://www.npmjs.com/package/tamil-toolkit)
+[![npm version](https://img.shields.io/npm/v/tamil-toolkit?style=flat-square&logo=npm&label=npm)](https://www.npmjs.com/package/tamil-toolkit)
 [![npm monthly downloads](https://img.shields.io/npm/dm/tamil-toolkit?style=flat-square&label=monthly)](https://www.npmjs.com/package/tamil-toolkit)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
 [![Apache-2.0 license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
@@ -40,21 +40,21 @@ Runs **100% client-side** with zero network tracking, zero external dependencies
 
 ## Install
 
-Node.js 22+ is supported. Install alpha 10 from npm’s `alpha` dist-tag:
+Node.js 22+ is supported. Install 0.1.0 from npm’s `latest` dist-tag:
 
 ```sh
-npm install tamil-toolkit@alpha
+npm install tamil-toolkit@latest
 ```
 
 Or using pnpm / yarn:
 
 ```sh
-pnpm add tamil-toolkit@alpha
+pnpm add tamil-toolkit
 # or
-yarn add tamil-toolkit@alpha
+yarn add tamil-toolkit
 ```
 
-The `alpha` tag points to `0.1.0-alpha.10`; npm’s `latest` tag still points to `0.1.0-alpha.1`. The version badge above tracks the `alpha` tag.
+The `latest` tag points to `0.1.0`; see the release record for published checksums and scope.
 
 ---
 
@@ -176,9 +176,9 @@ function convertClipboard(pastedText: string): string {
 
 ---
 
-## Alpha 10 scope
+## 0.1.0 scope
 
-The npm `0.1.0-alpha.10` package includes the capabilities listed above. The
+The npm `0.1.0` package includes the capabilities listed above. The
 shared `execute` API exposes `lt_tm_codes_to_unicode`, `lt_tm_text_to_unicode`,
 `unicode_to_lt_tm_codes`, and `unicode_to_lt_tm_text`. LT-TM conversion handles
 selected 16-bit code sequences; it does not parse PDFs, select font runs, or
@@ -210,7 +210,7 @@ const text = tamil.execute({ op: "lt_tm_codes_to_unicode", input: { codes } });
 - [Unicode/core contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/core-v0.1.md)
 - [Collation contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md)
 - [Numerals, fractions, and dates](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.2.md)
-- [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/alpha-10.md#compatibility-and-scope)
+- [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.1.0.md#compatibility-and-scope)
 - [LT-TM CID profile contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md)
 - [Third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md)
 

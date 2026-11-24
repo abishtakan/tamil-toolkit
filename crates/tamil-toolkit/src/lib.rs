@@ -15,6 +15,7 @@ pub use tamil_core as core;
 pub use tamil_hyphen as hyphen;
 pub use tamil_norm as norm;
 pub use tamil_numerals as numerals;
+pub use tamil_translit as translit;
 
 use serde_json::{json, Value};
 

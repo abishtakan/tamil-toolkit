@@ -28,7 +28,7 @@ CRATE_RANKS = {
     "tamil-codec": 1,
     "tamil-numerals": 1,
     "tamil-yaappu": 1,
-    # Rank 2: Contextual Engines, Sandhi, Typography, Transliteration, Phonetics, Tokenization
+    # Rank 2: Contextual Engines, Sandhi, Typography, Transliteration, Phonetics, Tokenization, Lexicon Reader
     "tamil-calendar": 2,
     "tamil-collate": 2,
     "tamil-hyphen": 2,
@@ -36,7 +36,8 @@ CRATE_RANKS = {
     "tamil-translit": 2,
     "tamil-phonetics": 2,
     "tamil-tokenize": 2,
-    # Rank 3: Morphological Analyzer & Lexicon
+    "tamil-lexicon": 2,
+    # Rank 3: Morphological Analyzer & Inflection
     "tamil-morph": 3,
     # Rank 4: High-Level Linguistic Applications & Isolated Database Extension
     "tamil-dialect": 4,
@@ -51,6 +52,7 @@ CRATE_RANKS = {
 }
 
 UNSCAFFOLDED_PLANNED_CRATES = frozenset({
+    "tamil-lexicon",
     "tamil-phonetics",
     "tamil-tokenize",
     "tamil-spell",

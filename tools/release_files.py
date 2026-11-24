@@ -295,7 +295,7 @@ def sync_root_readme(text, policy):
     text = re.sub(r'(\| \*\*Node\.js 22\+ / browsers\*\* \| `npm install tamil-toolkit@)[^`]+(` \|)', rf'\g<1>{tag}\g<2>', text)
     text = re.sub(r'(\| SDK \| Install )[^\|]+( \| Version \| Downloads \|)', rf'\g<1>{lbl}\g<2>', text)
     text = re.sub(r'(npm[’\']s `)[^`]+(` tag points to )[^;]+(;)', rf'\g<1>{tag}\g<2>{lbl}\g<3>', text)
-    text = re.sub(r'(All six Rust crates are published at `)[^`]+(`:)', rf'\g<1>{v}\g<2>', text)
+    text = re.sub(r'(All (?:six|nine) Rust crates are published at `)[^`]+(`:)', rf'\g<1>{v}\g<2>', text)
     text = re.sub(r'https://docs\.rs/tamil-toolkit/[^/]+/tamil_toolkit/', f'https://docs.rs/tamil-toolkit/{v}/tamil_toolkit/', text)
     text = re.sub(r'\[[^\]]+ compatibility details\]\(docs/releases/[^)]+\.md#compatibility-and-scope\)',
                   f'[{lbl} compatibility details](docs/releases/{rec}.md#compatibility-and-scope)', text)

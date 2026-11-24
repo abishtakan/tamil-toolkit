@@ -11,7 +11,7 @@
 [![crates.io total downloads][crates-downloads]][crates]
 [![PyPI version][pypi-version]][pypi]
 [![PyPI monthly downloads][pypi-downloads]][pypistats]
-[![npm alpha version][npm-version]][npm]
+[![npm version][npm-version]][npm]
 [![npm monthly downloads][npm-downloads]][npm]
 [![Apache-2.0 license][license-badge]][license]
 [![Zero Unsafe](https://img.shields.io/badge/unsafe-zero-success?style=flat-square&logo=rust)](crates/tamil-core)
@@ -25,7 +25,7 @@
 
 **tamil-toolkit** is an all-in-one, memory-safe Tamil linguistic engine written in Rust (`#![forbid(unsafe_code)]`) and compiled to native libraries and WebAssembly for **Rust (crates.io)**, **Python (PyPI abi3 wheels)**, **JavaScript / TypeScript (npm ESM/WASM for Node.js & Browsers)**, **Dart/Flutter**, and **Microsoft Word**.
 
-One canonical Rust core powers every runtime with verified golden-vector parity (**40,160 active vectors** in the source checkout; **36,161–36,205 vectors** per isolated consumer in `0.1.0-alpha.8`). Try it immediately in the [live WebAssembly Playground](https://tamil-toolkit-playground.vercel.app/) or read the machine-readable index in [llms.txt](llms.txt).
+One canonical Rust core powers every runtime with verified golden-vector parity (**40,211 active vectors** across Rust, Python, Node/Browser WASM, and Dart). Try it immediately in the [live WebAssembly Playground](https://tamil-toolkit-playground.vercel.app/) or read the machine-readable index in [llms.txt](llms.txt).
 
 ---
 
@@ -37,11 +37,11 @@ One canonical Rust core powers every runtime with verified golden-vector parity 
 | 🎵 **Phonology & Mora Metrics** | Tholkappiyam-grounded phonological analysis: exact mora (*Maathirai*) duration (`KURIL = 1.0`, `NEDIL = 2.0`, `MEI = 0.5`, `AYTHAM = 0.5`), quantity classification (`is_kuril`, `is_nedil`, `is_mei`, `is_aytham`), homorganic cognates (*Ina Ezhuthu*), and borrowed syllable nuclei (*Olippasai*). |
 | 🔠 **Agara Varisai Sorting** | Lexicographical Tamil alphabetical collation following traditional Mei-first dictionary order (`agara-v1`) and school Uyirmei-first order (`uyirmei-first-v1`), with versioned sort keys and canonical search keys. |
 | 📐 **DTP Syllabic Hyphenation** | Coda-binding syllabic hyphenation (`\u{00AD}`) that never strands a pulli consonant (ஒற்று), responsive line wrapping, Hunspell `.dic` export, LibreOffice `.oxt`, and a [Microsoft Word Add-in](https://tamil-toolkit-word.vercel.app/support.html). |
-| ⌨️ **Transliteration & Offline Input** *(source checkout)* | Lossless bidirectional scholarly romanization (`iso-15919`, `madras-lexicon`, `itrans`, `harvard-kyoto`), bidirectional Tanglish (`phonetic-v1`), and deterministic keyboard input (`tamil99`, `anjal-phonetic`, `suratha-bamini`). |
-| 🔢 **Numerals, Currencies & ITN** | Bounded Tamil Nadu (`TN`) and Sri Lanka (`SL`) number-to-words (`-999,999,999..=999,999,999`), exact currency formatting (`INR`/`LKR` in alpha-8; plus `SGD`, `MYR`, `USD`, `EUR`, `GBP`, `CAD`, colloquial mixed fractions, and formal `words_to_number` ITN in source checkout), traditional numerals (`௰`, `௱`, `௲`), and 72 Unicode Tamil symbols. |
-| 🔄 **Legacy Codecs & Bharathi Braille** | Bidirectional conversion between Tamil Unicode and bounded legacy profiles: **Bamini**, **TSCII**, **TAB**, **TAM**, **Anjal**, **Vanavil Avvaiyar**, **LT-TM** (plus **Senthamil**, **Shree-Tam**, **Softview**, **TBO**, and **Bharathi Tamil Braille Grade 1** in source checkout; client-side PDF text-layer import in the Playground). |
-| 📅 **Solar Calendar & Panchangam** | Bounded **Thirukanitham** (Drik) and 1962 **Vākyakaraṇa** solar-lunar calendar engines: Gregorian ↔ Tamil solar dates, 60-year Jovian cycle, five limbs (*Tithi*, *Nakshatram*, *Yogam*, *Karanam*, *Vāram*), Rahu Kalam / Yamagandam / Kuligai, and TN/SL holiday snapshots. |
-| ⚡ **Multi-Package-Manager Parity** | Single Rust engine shipped across `crates.io`, `PyPI`, and `npm` (ESM + WebAssembly), plus Dart FFI and Microsoft Word. Processes text locally in browser/server runtimes without external API calls. |
+| ⌨️ **Transliteration & Offline Input** | Lossless bidirectional scholarly romanization (`iso-15919`, `madras-lexicon`, `itrans`, `harvard-kyoto`), bidirectional Tanglish (`phonetic-v1`), deterministic keyboard input (`tamil99`, `anjal-phonetic`, `suratha-bamini`), and phonotactically constrained Mayangoli suggestions (`transliterate_suggest`). |
+| 🔢 **Numerals, Currencies & ITN** | Bounded Tamil Nadu (`TN`) and Sri Lanka (`SL`) number-to-words (`-999,999,999..=999,999,999`), exact currency formatting (`INR`, `LKR`, `SGD`, `MYR`, `USD`, `EUR`, `GBP`, `CAD`), colloquial mixed fractions, formal `words_to_number` ITN, traditional numerals (`௰`, `௱`, `௲`), and 72 Unicode Tamil symbols. |
+| 🔄 **Legacy Codecs & Bharathi Braille** | Bidirectional conversion between Tamil Unicode and bounded legacy profiles: **Bamini**, **TSCII**, **TAB**, **TAM**, **Anjal**, **Vanavil Avvaiyar**, **LT-TM**, **Senthamil**, **Shree-Tam**, **Softview**, **TBO**, and **Bharathi Tamil Braille Grade 1** (plus client-side PDF text-layer import in the Playground). |
+| 📅 **Solar Calendar & Panchangam** | Active civil profiles (60-year Jovian cycle, Thiruvalluvar year, TN/SL official holiday snapshots, Tamil date display) plus experimental bounded **Thirukanitham** (Drik) and 1962 **Vākyakaraṇa** solar-lunar engines and five limbs (*Tithi*, *Nakshatram*, *Yogam*, *Karanam*, *Vāram*). |
+| ⚡ **Multi-Package-Manager Parity** | Single Rust engine shipped across `crates.io`, `PyPI`, and `npm` (ESM + WebAssembly), plus Dart FFI, Microsoft Word, and Chrome/Edge/Firefox MV3 extensions. Processes text locally without external API calls. |
 
 ---
 
@@ -69,19 +69,19 @@ just playground-dev
 
 Choose the SDK for your technology stack:
 
-| SDK | Install alpha 10 | Version | Downloads |
+| SDK | Install 0.1.0 | Version | Downloads |
 | --- | --- | --- | --- |
-| **Rust 1.85+** | `cargo add tamil-toolkit@=0.1.0-alpha.10` | [![crates.io][crates-version]][crates] | [![crates.io total downloads][crates-downloads]][crates] |
-| **Python 3.11+** | `python -m pip install tamil-toolkit==0.1.0a10` | [![PyPI][pypi-version]][pypi] | [![PyPI monthly downloads][pypi-downloads]][pypistats] |
-| **Node.js 22+ / browsers** | `npm install tamil-toolkit@alpha` | [![npm alpha][npm-version]][npm] | [![npm monthly downloads][npm-downloads]][npm] |
+| **Rust 1.85+** | `cargo add tamil-toolkit@=0.1.0` | [![crates.io][crates-version]][crates] | [![crates.io total downloads][crates-downloads]][crates] |
+| **Python 3.11+** | `python -m pip install tamil-toolkit==0.1.0` | [![PyPI][pypi-version]][pypi] | [![PyPI monthly downloads][pypi-downloads]][pypistats] |
+| **Node.js 22+ / browsers** | `npm install tamil-toolkit@latest` | [![npm][npm-version]][npm] | [![npm monthly downloads][npm-downloads]][npm] |
 
-**Public alpha:** APIs may change. npm’s `alpha` tag points to alpha 10; `latest` still points to alpha 1. See the [release notes](CHANGELOG.md) and [alpha 10 compatibility details](docs/releases/alpha-10.md#compatibility-and-scope).
+**Release scope:** npm’s `latest` tag points to 0.1.0; see the [release notes](CHANGELOG.md) and [0.1.0 compatibility details](docs/releases/v0.1.0.md#compatibility-and-scope).
 
 Download badges track the umbrella package in each registry: total downloads on crates.io and monthly downloads on PyPI and npm.
 
-All six Rust crates are published at `0.1.0-alpha.10`: [`tamil-core`](https://crates.io/crates/tamil-core), [`tamil-norm`](https://crates.io/crates/tamil-norm), [`tamil-collate`](https://crates.io/crates/tamil-collate), [`tamil-numerals`](https://crates.io/crates/tamil-numerals), [`tamil-codec`](https://crates.io/crates/tamil-codec), and [`tamil-toolkit`](https://crates.io/crates/tamil-toolkit).
+All nine Rust crates are published at `0.1.0`: [`tamil-core`](https://crates.io/crates/tamil-core), [`tamil-norm`](https://crates.io/crates/tamil-norm), [`tamil-collate`](https://crates.io/crates/tamil-collate), [`tamil-numerals`](https://crates.io/crates/tamil-numerals), [`tamil-calendar`](https://crates.io/crates/tamil-calendar), [`tamil-codec`](https://crates.io/crates/tamil-codec), [`tamil-hyphen`](https://crates.io/crates/tamil-hyphen), [`tamil-translit`](https://crates.io/crates/tamil-translit), and [`tamil-toolkit`](https://crates.io/crates/tamil-toolkit).
 
-**Alpha boundaries:** Bamini, TSCII, TAB, TAM, Anjal, LT-TM, and Vanavil conversions use declared bounded profiles. LT-TM and Vanavil handle selected 16-bit CID/code sequences; they do not parse PDFs or detect fonts automatically. These profiles do not claim complete historical-font coverage. Other planned linguistic modules and a Dart/Pub distribution are outside the published alpha. See the [LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), and [alpha 10 compatibility details](docs/releases/alpha-10.md#compatibility-and-scope).
+**Contract boundaries:** Legacy font profiles (Bamini, TSCII, TAB, TAM, Anjal, LT-TM, Vanavil, Senthamil, Shree-Tam, Softview, TBO) and Bharathi Braille use declared bounded profiles; they do not claim complete historical-font coverage. Four civil calendar suites are active while 13 Thirukanitham/Vakya ephemeris and observance suites remain experimental (`planned` pending independent witness review). Planned NLP modules (Phases 9–17) and Dart/Pub or PostgreSQL distributions remain outside the public release. See the [LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), [calendar scope](docs/releases/numerals-calendar-candidate.md), and [0.1.0 compatibility details](docs/releases/v0.1.0.md#compatibility-and-scope).
 
 ---
 
@@ -293,11 +293,11 @@ Every API in `tamil-toolkit` is governed by a formal capability specification:
 | Bounded Thirukanitham date conversion, panchangam, phases, arithmetic, daylight periods and cycle titles | [Profile contract](docs/specs/calendar-thirukanitham-v1.md) · [phase contract](docs/specs/calendar-lunar-phases-v1.md) · [arithmetic contract](docs/specs/calendar-solar-arithmetic-v1.md) · [cycle-title contract](docs/specs/calendar-year-cycle-v1.md) · [daylight-period contract](docs/specs/calendar-daylight-periods-v1.md) · [source research](docs/specs/numerals-calendar-source-research.md) |
 | Authority-published holiday schedule snapshots | [Official schedule contract](docs/specs/calendar-official-holidays-v1.md) · [source research](docs/specs/numerals-calendar-source-research.md) |
 | Bounded classical Vakiya civil, five-limb, arithmetic profile | [1962 edition contract](docs/specs/calendar-vakya-civil-v1.md) · [solar arithmetic contract](docs/specs/calendar-solar-arithmetic-v1.md) · [completion matrix](docs/specs/numerals-completion-plan.md) |
-| Bamini, bounded byte profiles, and LT-TM / Vanavil CID conversion | [Codec contract](docs/specs/codec-v0.1.md) · [LT-TM profile](docs/specs/codec-lt-tm.md) · [Vanavil profile](docs/specs/codec-vanavil.md) · [alpha 10 scope](docs/releases/alpha-10.md#compatibility-and-scope) |
+| Bamini, bounded byte profiles, and LT-TM / Vanavil CID conversion | [Codec contract](docs/specs/codec-v0.1.md) · [LT-TM profile](docs/specs/codec-lt-tm.md) · [Vanavil profile](docs/specs/codec-vanavil.md) · [0.1.0 scope](docs/releases/v0.1.0.md#compatibility-and-scope) |
 | Syllable and orthographic boundary hyphenation | [Hyphenation specification](specs/009-tamil-hyphen/spec.md) · [DTP dictionary spec](specs/011-tamil-hyphen-dic/spec.md) · [Word & Google Docs roadmap](docs/integrations/word-googledocs-roadmap.md) |
-| Rust API reference | [docs.rs/tamil-toolkit](https://docs.rs/tamil-toolkit/0.1.0-alpha.10/tamil_toolkit/) |
+| Rust API reference | [docs.rs/tamil-toolkit](https://docs.rs/tamil-toolkit/0.1.0/tamil_toolkit/) |
 | Python and JavaScript/WASM SDK guides | [Python](bindings/python/README.md) · [JavaScript/WASM](bindings/js-wasm/README.md) |
-| Published package list and release record | [Release policy](docs/releases/policy.md#what-can-ship) · [alpha 10](docs/releases/alpha-10.md) |
+| Published package list and release record | [Release policy](docs/releases/policy.md#what-can-ship) · [0.1.0](docs/releases/v0.1.0.md) |
 | Contributing, development, roadmap, and status | [Contributing](CONTRIBUTING.md) · [development guide](docs/development.md) · [project status](docs/status.md) · [roadmap](ROADMAP.md) |
 
 The repository checks shared golden fixtures through Rust, Python, Node/browser WASM, and a host Dart adapter. No Dart/Pub package is published. The contracts describe bounded supported behavior; they do not claim complete linguistic coverage.
@@ -331,7 +331,7 @@ Original code is [Apache-2.0 licensed][license] (see [NOTICE](NOTICE) for attrib
 [pypi-downloads]: https://img.shields.io/pypi/dm/tamil-toolkit?style=flat-square&label=monthly
 [pypi]: https://pypi.org/project/tamil-toolkit/
 [pypistats]: https://pypistats.org/packages/tamil-toolkit
-[npm-version]: https://img.shields.io/npm/v/tamil-toolkit/alpha?style=flat-square&logo=npm&label=npm%20alpha
+[npm-version]: https://img.shields.io/npm/v/tamil-toolkit?style=flat-square&logo=npm&label=npm
 [npm-downloads]: https://img.shields.io/npm/dm/tamil-toolkit?style=flat-square&label=monthly
 [npm]: https://www.npmjs.com/package/tamil-toolkit
 

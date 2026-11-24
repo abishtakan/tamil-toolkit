@@ -46,41 +46,43 @@ flowchart TD
         PG["extensions/pg_tamil (Isolated PG Adapter)"]
     end
 
-    subgraph R3["Rank 3: Morphological Analyzer & Lexicon"]
+    subgraph R3["Rank 3: Morphological Analyzer & Inflection"]
         MORPH["tamil-morph (Planned)"]
     end
 
-    subgraph R2["Rank 2: Contextual Engines, Sandhi, Typography & Conversion"]
+    subgraph R2["Rank 2: Contextual Engines, Sandhi, Typography, Conversion & Lexicon Reader"]
         PUNARCHI["tamil-punarchi (Planned)"]
-        HYPHEN["tamil-hyphen (Implemented)"]
-        COLLATE["tamil-collate (Implemented)"]
-        CALENDAR["tamil-calendar (Bounded/Review)"]
-        TRANSLIT["tamil-translit (New Planned)"]
+        HYPHEN["tamil-hyphen (Published)"]
+        COLLATE["tamil-collate (Published)"]
+        CALENDAR["tamil-calendar (Published/Review)"]
+        TRANSLIT["tamil-translit (Published)"]
+        LEXICON["tamil-lexicon (Unscaffolded, Extract < Ph 11)"]
         PHONETICS["tamil-phonetics (New Planned)"]
         TOKENIZE["tamil-tokenize (New Planned)"]
     end
 
     subgraph R1["Rank 1: Normalization, Codecs, Numerals & Classical Prosody"]
-        NORM["tamil-norm (Facade -> Full Norm)"]
-        CODEC["tamil-codec + codec::braille (Implemented)"]
-        NUMERALS["tamil-numerals + ITN parse (Implemented)"]
+        NORM["tamil-norm (Published)"]
+        CODEC["tamil-codec + codec::braille (Published)"]
+        NUMERALS["tamil-numerals + ITN parse (Published)"]
         YAAPPU["tamil-yaappu (Planned)"]
     end
 
     subgraph R0["Rank 0: Foundational Orthography & Phonological Primitives"]
-        CORE["tamil-core (Implemented + Phase 1 Primitives)"]
+        CORE["tamil-core (Published)"]
     end
 
     R6 --> TK
-    TK --> SPELL & DIALECT & MORPH & PUNARCHI & HYPHEN & COLLATE & CALENDAR & TRANSLIT & PHONETICS & TOKENIZE & NORM & CODEC & NUMERALS & YAAPPU & CORE
-    SPELL --> MORPH & PUNARCHI & TOKENIZE & NORM & CORE
-    DIALECT --> MORPH & TOKENIZE & NORM & CORE
-    PG --> MORPH & TOKENIZE & COLLATE & NORM
-    MORPH --> PUNARCHI & NORM & CORE
+    TK --> SPELL & DIALECT & MORPH & PUNARCHI & HYPHEN & COLLATE & CALENDAR & TRANSLIT & LEXICON & PHONETICS & TOKENIZE & NORM & CODEC & NUMERALS & YAAPPU & CORE
+    SPELL --> MORPH & PUNARCHI & TOKENIZE & LEXICON & NORM & CORE
+    DIALECT --> MORPH & TOKENIZE & LEXICON & NORM & CORE
+    PG --> MORPH & TOKENIZE & LEXICON & COLLATE & NORM
+    MORPH --> PUNARCHI & LEXICON & NORM & CORE
     PUNARCHI --> NORM & CORE
     HYPHEN --> NORM & CORE
     COLLATE --> NORM & CORE
     TRANSLIT --> NORM & CORE
+    LEXICON --> NORM & CORE
     PHONETICS --> NORM & CORE
     TOKENIZE --> NORM & CORE
     CALENDAR --> NUMERALS & CORE
@@ -103,14 +105,15 @@ flowchart TD
 | **2** | [`tamil-collate`](../../crates/tamil-collate/Cargo.toml) | `published` (`agara-v1` & `uyirmei-first-v1` active); Phase 5 extensions `completed` | `tamil-core`, `tamil-norm` | Deterministic Mei-first *Agara Varisai* (`agara-v1`) `sort_key`/`search_key`/`compare`, modern school dictionary profile `uyirmei-first-v1`, and versioned `folded_search_key` (consuming `tamil-norm` search folding). |
 | **2** | [`tamil-hyphen`](../../crates/tamil-hyphen/Cargo.toml) | `implemented` (Spec 015 parity complete; pending `release-policy.toml` & manifest promotion) | `tamil-core`, `tamil-norm` | Canonical 5-step Tamil *Asai* + `left_min = 3, right_min = 3` (`MIN_WORD_LETTERS = 6`) typographic hyphenation, soft-hyphen (`\u{00AD}`) injection, Frank Liang `.dic` synthesis, LibreOffice `.oxt` packager, OpenXML `.docx` processor, and optional morphological boundary hints API. |
 | **2** | [`tamil-punarchi`](../../crates/tamil-punarchi/Cargo.toml) | `planned` (scaffold in workspace; source notes in `docs/specs/punarchi-v0.1.md`) | `tamil-core`, `tamil-norm` | Sourced *Nannool Ezhuthathikaram* (Sutras 151–257) Sandhi engine: (1) Forward synthesis (`Thonral`, `Thirithal`, `Keduthal`, `Iyalbu`) with explicit grammatical context (*Vetrumai* vs *Alvazhi*), and (2) Bounded inverse-rule candidate generation returning rule IDs, reconstructed forms, and surface spans. Never depends on `tamil-morph`. |
-| **2** | `tamil-translit` | `unscaffolded` (New Planned Crate — create in Phase 8) | `tamil-core`, `tamil-norm` | Bidirectional orthographic transliteration: Phase 8 reversible scholarly schemes (ISO 15919, Madras University Tamil Lexicon, ITRANS, Harvard-Kyoto); Phase 17 historical/epigraphic scripts (Tamil-Brahmi `U+11000`, Grantha `U+11300`, Vatteluttu), cross-script (Sinhala-Tamil, Malayalam-Tamil), and noisy phonetic Roman/Tanglish input. |
+| **2** | [`tamil-translit`](../../crates/tamil-translit/Cargo.toml) | `published` (v0.1.0-alpha.10; Phase 8 active) | `tamil-core`, `tamil-norm` | Bidirectional orthographic transliteration & deterministic offline input: reversible scholarly schemes (ISO 15919, Madras University Tamil Lexicon, ITRANS, Harvard-Kyoto), Tamil99, Anjal, Suratha Bamini, Phonetic v1, and `transliterate_suggest`. Phase 17 historical/epigraphic scripts (Tamil-Brahmi `U+11000`, Grantha `U+11300`, Vatteluttu) and cross-script (Sinhala-Tamil, Malayalam-Tamil) are opt-in Cargo features; statistical/lexicon-ranked Tanglish stays out of Rank 2 and is orchestrated in Rank 5 `tamil-toolkit`. |
+| **2** | `tamil-lexicon` | `unscaffolded` (New Planned Crate — extract from `tamil-toolkit` before Phase 11) | `tamil-core`, `tamil-norm` | Pure **Apache-2.0** runtime `.tlpack` reader/validator, `CompiledPackView::parse`, FST `lookup_in_views`, and `LexiconStore` trait so Rank 3–4 crates (`tamil-morph`, `tamil-dialect`, `tamil-spell`, `pg_tamil`) can query packs without violating the DAG. Zero `build.rs`, zero `csv`, zero `source_records`, and zero bundled `CC-BY-SA-4.0` pack bytes; pack compilation stays on the host/tooling path and optional compile-time `lexicon-*` embedding stays in Rank 5 `tamil-toolkit`. |
 | **2** | `tamil-phonetics` | `unscaffolded` (New Planned Crate — create in Phase 14) | `tamil-core`, `tamil-norm` | Profile-specific Grapheme-to-Phoneme (G2P) and IPA transcription: contextual allophonic voicing and intervocalic lenition of `க, ச, ட, த, ப`, post-nasal homorganic voicing, geminate invariance, and vowel reduction rules. |
 | **2** | `tamil-tokenize` | `unscaffolded` (New Planned Crate — create in Phase 9) | `tamil-core`, `tamil-norm` | Surface sentence and word tokenization with byte/letter span preservation, sourced Tamil abbreviation disambiguation (`திரு.`, `பி.ப.`, `மு.க.`, `எ.கா.`, `ரூ.`), and stratified stopword lexicons. |
-| **3** | [`tamil-morph`](../../crates/tamil-morph/Cargo.toml) | `planned` (scaffold in workspace) | `tamil-core`, `tamil-norm`, `tamil-punarchi` | Finite-State Transducer (FST) / chart morphological analyzer, lemmatizer, and stemmer: noun declension across 8 *Vetrumai* cases + *Cariyai* increments + plural `-கள்`, verb 6-part *Pagu-padham* conjugation (`பகுதி, விகுதி, இடைநிலை, சந்தி, சாரியை, விகாரம்`), clitic detachment (`-உம், -ஏ, -ஓ, -தான்`), and lexical validation/ranking of `tamil-punarchi` compound split candidates. |
-| **4** | [`tamil-dialect`](../../crates/tamil-dialect/Cargo.toml) | `planned` (scaffold in workspace) | `tamil-core`, `tamil-norm`, `tamil-tokenize`, `tamil-morph` | Sourced pluricentric regional lexical & spoken-to-literary (*Senthamizh*) mapping across `ta-IN` (Central, Madurai, Kongu, Nellai, Madras) and `ta-LK` (Jaffna, Batticaloa, Vanni, Up-Country), plus `ta-SG`/`ta-MY`. |
-| **4** | `tamil-spell` | `unscaffolded` (New Planned Crate — create in Phase 16) | `tamil-core`, `tamil-norm`, `tamil-tokenize`, `tamil-punarchi`, `tamil-morph` | Orthographic & morpho-syntactic linter: (1) *Mayangoli* (`ல/ள/ழ`, `ன/ண`, `ர/ற`) confusion-set detection & grapheme-weighted edit distance, and (2) *Valimigum / Valimigaa Idangal* (வல்லினம் மிகும்/மிகா இடங்கள்) fortis stop doubling diagnostics using `tamil-morph` POS/case tags and `tamil-punarchi` rules. |
-| **4** | [`extensions/pg_tamil`](../../extensions/pg_tamil/Cargo.toml) | `scaffold` (isolated outside workspace) | `tamil-norm`, `tamil-collate`, `tamil-tokenize`, `tamil-morph` (staged) | PostgreSQL `pgrx` extension: Stage 1 SQL normalization, orthographic repair, and `agara-v1` / folded collation keys (`tamil-norm` + `tamil-collate`); Stage 2 Tamil Full-Text Search (FTS) parser, stopword filter, and morphological stemmer dictionary (`tamil-tokenize` + `tamil-morph`). |
-| **5** | [`tamil-toolkit`](../../crates/tamil-toolkit/Cargo.toml) | `published` (v0.1.0-alpha.6) | All active `Rank 0`–`Rank 4` library crates (never `pg_tamil`) | Unified Rust facade, JSON dispatcher (`execute` / `execute_json`), cross-crate pipeline orchestrator (e.g., passing `tamil-morph` compound boundaries into `tamil-hyphen`), `tamil-oracle`, and `tamil-toolkit` CLI. |
+| **3** | [`tamil-morph`](../../crates/tamil-morph/Cargo.toml) | `planned` (scaffold in workspace) | `tamil-core`, `tamil-norm`, `tamil-punarchi`, `tamil-lexicon` | Single-crate FST / chart morphological analyzer, stemmer/lemmatizer (always-on for `pg_tamil` FTS), noun declension across 8 *Vetrumai* cases + *Cariyai* increments + plural `-கள்`, verb 6-part *Pagu-padham* conjugation (`பகுதி, விகுதி, இடைநிலை, சந்தி, சாரியை, விகாரம்`), clitic detachment (`-உம், -ஏ, -ஓ, -தான்`), and lexical validation/ranking of `tamil-punarchi` compound split candidates consuming `tamil-lexicon`. Coarse additive features: `default = ["analyze", "compound"]`, optional `generate`. |
+| **4** | [`tamil-dialect`](../../crates/tamil-dialect/Cargo.toml) | `planned` (scaffold in workspace) | `tamil-core`, `tamil-norm`, `tamil-tokenize`, `tamil-lexicon`, `tamil-morph` | Sourced pluricentric regional lexical (via `tamil-lexicon`) & spoken-to-literary (*Senthamizh*) mapping across `ta-IN` (Central, Madurai, Kongu, Nellai, Madras) and `ta-LK` (Jaffna, Batticaloa, Vanni, Up-Country), plus `ta-SG`/`ta-MY`. |
+| **4** | `tamil-spell` | `unscaffolded` (New Planned Crate — create in Phase 16) | `tamil-core`, `tamil-norm`, `tamil-tokenize`, `tamil-punarchi`, `tamil-lexicon`, `tamil-morph` | Single crate with `spelling` (*Mayangoli* `ல/ள/ழ`, `ன/ண`, `ர/ற` confusion-set detection & grapheme-weighted edit distance) and `valimigum` (*Valimigum / Valimigaa Idangal* fortis stop doubling diagnostics using `tamil-morph` POS/case tags, `tamil-punarchi` rules, and `tamil-lexicon`). Defer any separate `tamil-grammar` crate unless reusable syntax parsing expands beyond spelling. |
+| **4** | [`extensions/pg_tamil`](../../extensions/pg_tamil/Cargo.toml) | `scaffold` (isolated outside workspace) | `tamil-norm`, `tamil-collate`, `tamil-tokenize`, `tamil-lexicon`, `tamil-morph` (staged) | PostgreSQL `pgrx` extension: Stage 1 SQL normalization, orthographic repair, and `agara-v1` / folded collation keys (`tamil-norm` + `tamil-collate`); Stage 2 Tamil Full-Text Search (FTS) parser, stopword filter, and morphological stemmer dictionary (`tamil-tokenize` + `tamil-lexicon` + `tamil-morph`). |
+| **5** | [`tamil-toolkit`](../../crates/tamil-toolkit/Cargo.toml) | `published` (v0.1.0-alpha.10) | All active `Rank 0`–`Rank 4` library crates (never `pg_tamil`) | Unified Rust facade, modular JSON dispatcher (`execute` / `execute_json`), cross-crate pipeline orchestrator (compound hyphenation, morph-assisted phonetics, Phase 17 lexicon-ranked Tanglish), optional source-checkout `lexicon-*` pack embedding, `tamil-oracle`, and `tamil-toolkit` CLI (gate `csv` behind an optional feature for `source-records`). |
 | **6** | `bindings/*`, `playground/`, `integrations/*` | `published` / `live` | `tamil-toolkit` | Thin runtime adapters (`bindings/python`, `bindings/js-wasm`, `bindings/dart-flutter/rust`), PWA Playground, and Microsoft Word Office.js Add-in consuming the single shared Rust/WASM implementation. |
 
 ---
@@ -241,13 +244,14 @@ The [lexicon curation specification](../../specs/021-lexicon-curation/spec.md) t
 - **FR-003 (Punarchi vs. Morph Unidirectional Boundary)**: `tamil-punarchi` (`Rank 2`) MUST depend only on `tamil-core` and `tamil-norm`, owning forward Sandhi synthesis (with explicit grammatical context) and bounded inverse-rule candidate generation (returning rule IDs, reconstructed forms, and surface spans). `tamil-morph` (`Rank 3`) MUST depend on `tamil-punarchi` to validate stems and rank compound split candidates. `tamil-punarchi` MUST NEVER depend on `tamil-morph`.
 - **FR-004 (Three Distinct Normalization Contracts)**: `tamil-norm` (`Rank 1`) MUST separate (a) lossless canonical normalization (`normalize_nfc`, `normalize_nfd`), (b) explicit opt-in orthographic repair (`repair_tamil_text` with diagnostic provenance and preservation of `ZWJ`/`ZWNJ` unless stripping is explicitly requested), and (c) explicit versioned lossy search-folding profiles (`fold_for_search` for *Mayangoli* and Grantha).
 - **FR-005 (Collation Key Stability)**: `tamil-collate` (`Rank 2`) MUST preserve the exact byte/integer output of `sort_key` and `search_key` under `agara-v1` (`docs/specs/collate-v0.1.md`) and introduce folded search keys or Uyirmei-first ordering only via distinct versioned profiles/functions.
-- **FR-006 (No Premature Empty Crate Scaffolding)**: The four existing planned crate directories (`tamil-punarchi`, `tamil-morph`, `tamil-yaappu`, `tamil-dialect`) are retained as workspace scaffolds, but the four newly identified standalone crates (`tamil-translit`, `tamil-phonetics`, `tamil-tokenize`, `tamil-spell`) MUST NOT be created as empty placeholder directories in `crates/` until their respective specification phase (`Phase 8`, `Phase 14`, `Phase 9`, `Phase 16`) begins.
+- **FR-006 (No Premature Empty Crate Scaffolding)**: The four existing planned crate directories (`tamil-punarchi`, `tamil-morph`, `tamil-yaappu`, `tamil-dialect`) are retained as workspace scaffolds, while unscaffolded planned crates (`tamil-lexicon`, `tamil-phonetics`, `tamil-tokenize`, `tamil-spell`) MUST NOT be created as empty placeholder directories in `crates/` until their respective extraction or specification phase (`pre-Phase 11`, `Phase 14`, `Phase 9`, `Phase 16`) begins. Do not reserve or create a separate `tamil-ime` crate; Phase 17 lexicon-backed Tanglish disambiguation starts as Rank 5 orchestration in `tamil-toolkit`.
 - **FR-007 (Module vs. Crate Assignment for Braille & ITN)**: Bharathi / Unicode Braille (`U+2800..U+28FF`) MUST be scheduled initially as `tamil-codec::braille` (`Rank 1`), and reverse word-to-number parsing (ITN) MUST be scheduled inside `tamil-numerals` (`Rank 1`), preventing unnecessary micro-crate proliferation.
-- **FR-008 (Facade Orchestration & Margin Precedence for Cross-Branch Integrations)**: Integrations that combine sibling branches—such as morphology-aware compound hyphenation (`tamil-morph` + `tamil-hyphen`) or morphology-assisted pronunciation (`tamil-morph` + `tamil-phonetics`)—MUST be orchestrated in `tamil-toolkit` (`Rank 5`) or via lightweight boundary hints passed by the caller, without adding direct Cargo dependencies between `tamil-hyphen`/`tamil-phonetics` and `tamil-morph`. In compound-aware hyphenation, typographic margin constraints (`left_min` and `right_min`, default `3/3`) MUST strictly govern first; morphological compound boundaries are preferred only when both resulting segments satisfy the active margin settings.
+- **FR-008 (Facade Orchestration & Margin Precedence for Cross-Branch Integrations)**: Integrations that combine sibling branches—such as morphology-aware compound hyphenation (`tamil-morph` + `tamil-hyphen`), morphology-assisted pronunciation (`tamil-morph` + `tamil-phonetics`), or Phase 17 statistical/lexicon-ranked Tanglish disambiguation (`tamil-translit` + `tamil-lexicon` + `tamil-morph` + `tamil-spell` + `tamil-dialect`)—MUST be orchestrated in `tamil-toolkit` (`Rank 5`) or via lightweight boundary hints passed by the caller, without adding direct Cargo dependencies between sibling crates. In compound-aware hyphenation, typographic margin constraints (`left_min` and `right_min`, default `3/3`) MUST strictly govern first; morphological compound boundaries are preferred only when both resulting segments satisfy the active margin settings.
 - **FR-009 (Publication Dependency Closure & Hyphen Closeout)**: No crate may be added to `public_crates` in [`release-policy.toml`](../../release-policy.toml) unless its entire Cargo dependency closure is also in `public_crates`. Phase 3 MUST promote `tamil-hyphen` to `public_crates`, activate `hyphen_syllable.jsonl` in [`tests/golden/manifest.json`](../../tests/golden/manifest.json), and remove the temporary `tamil-hyphen` exemption from [`tools/release_policy.py`](../../tools/release_policy.py#L109).
 - **FR-010 (Standardized Milestone Acceptance Gate)**: Every roadmap phase (`Phase 1` through `Phase 17`) MUST follow the 6-step repository gate before mark-complete: (1) source-backed specification in `docs/specs/` and `specs/`, (2) escaped golden vectors in `tests/golden/`, (3) `#![forbid(unsafe_code)]` Rust implementation, (4) shared-dispatcher exposure in `tamil-toolkit` + CLI + Python/WASM/Dart adapters, (5) multi-runtime parity verification, and (6) explicit suite activation & release-policy review.
 
 - **FR-011 (Lexicon Data Acceptance & Consumer Boundaries)**: Feature 021 L0–L4 tracks intake, contract, pilot, accounted packs, and verified consumers. Phase 6 follows L2 structural/accounting acceptance even with zero release-eligible content; Phases 11/15/16 require approved relevant L3 lexical subsets. Phase 14 lexical exceptions/evaluation require reviewed evidence without blocking independent sourced G2P rules. Canonical data MUST preserve source/reuse evidence, stable identities, reversible decisions, and complete record accounting. Lookup MUST retain every eligible homograph. Data-only approval MUST NOT imply runtime activation, Cargo edges, or publication; public operations retain FR-010 gates.
+- **FR-012 (`tamil-lexicon` Reader Isolation & Narrow *Mayangoli* Sharing)**: `tamil-lexicon` (`Rank 2`, extracted before Phase 11) MUST ship strictly as a pure `Apache-2.0` runtime `.tlpack` reader/validator and `LexiconStore` trait with zero `build.rs`, zero `csv`, zero `source_records`, and zero bundled `CC-BY-SA-4.0` data. Pack compilation stays on the host/tooling path and optional compile-time `lexicon-*` embedding stays in `tamil-toolkit` (`Rank 5`). When Phase 16 specifies shared *Mayangoli* rules, lift only pure confusion sets and phonotactic lock predicates into `tamil-norm::mayangoli` (`Rank 1`), keeping IME preview ranking/caps in `tamil-translit` and dictionary-weighted edits in `tamil-spell`.
 
 ### Key Entities
 

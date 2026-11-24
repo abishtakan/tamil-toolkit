@@ -3,6 +3,18 @@
 
 ## Unreleased
 
+## 0.1.0 / Python 0.1.0 - 2026-11-24
+
+- **First Public Stable `0.1.0` Release (crates.io, PyPI, npm):**
+  - Graduated all 9 slim `Apache-2.0` Rust crates (`tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`, `tamil-calendar`, `tamil-codec`, `tamil-hyphen`, `tamil-translit`, `tamil-toolkit`), Python (`abi3` wheels), and npm (`latest` dist-tag, Node + Browser WASM) from alpha to `0.1.0` backed by `40,211` active golden vectors.
+  - Added the missing `pub use tamil_translit as translit;` re-export on the `tamil-toolkit` Rust facade (`crates/tamil-toolkit/src/lib.rs`).
+  - Documented `tamil-calendar`'s 4 active civil suites alongside its 13 bounded/experimental ephemeris & observance suites (which remain `planned` pending witness review).
+- **Word Add-in v2.5.0 & Browser Extension Live Typing Improvements:**
+  - Added multi-layout direct live Tamil typing in `integrations/office-word-addin/` (v2.5.0).
+  - Stabilized Lexical editor live typing and selection resets in `integrations/browser-extension/`.
+- **Future Crate Architecture & DAG Policy (`ROADMAP.md`, `docs/specs/architecture-roadmap.md`, `tools/release_policy.py`):**
+  - Finalized the Rank 0–6 future crate plan: registered `tamil-lexicon` at Rank 2 (pure `Apache-2.0` runtime `.tlpack` reader to be extracted before Phase 11, kept unscaffolded until then) and added `FR-012` codifying reader isolation and narrow `tamil-norm::mayangoli` sharing.
+
 ## 0.1.0-alpha.10 / Python 0.1.0a10 - 2026-11-23
 
 - **Mayangoli Preview Candidates & Google/Microsoft IME Cycling (`tamil-translit`, Browser Extension & Word Add-in):**
