@@ -1,16 +1,15 @@
 # Project handoff
 
-## Release `0.1.0` Prepared & Locally Verified (2026-11-24, pending commit/push/publish)
+## Release `0.1.0` Published (2026-11-24)
 
-- **Scope:** Prepared first stable `0.1.0` release across all 9 slim `Apache-2.0` public crates (`tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`, `tamil-calendar`, `tamil-codec`, `tamil-hyphen`, `tamil-translit`, `tamil-toolkit`), Python (`0.1.0`), and npm (`0.1.0`, `npm_tag = "latest"`, `channel = "stable"`).
-  - Added missing `pub use tamil_translit as translit;` on `crates/tamil-toolkit/src/lib.rs`.
-  - Updated `ROADMAP.md`, `docs/specs/architecture-roadmap.md`, and `tools/release_policy.py` with the finalized Rank 0–6 future crate plan (`tamil-lexicon` registered at Rank 2 as unscaffolded; `FR-012` added).
-  - Cleaned up `README.md`, `bindings/js-wasm/README.md`, `CHANGELOG.md`, `tools/release_files.py`, and scaffolded `docs/releases/v0.1.0.md` with explicit bounded/experimental `tamil-calendar` scope notes.
-- **Verification (all green):**
-  - `just check-release-policy` + `just check-unicode`: passed (`40,211` active vectors, `151` release copies verified).
-  - `just agent-pre-stop-gate` + `just test-dart`: passed (`fmt`, Clippy `-D warnings`, Rust + 10k properties, doctests, full harness, Python + Node/browser WASM parity, Dart `40,231/40,231`).
-  - Isolated `0.1.0` default-profile archives: all 9 `.crate` archives (`40,167/40,167`), npm `tamil-toolkit-0.1.0.tgz` (TypeScript strict + Node & browser WASM `40,167/40,167`), and Python wheel `tamil_toolkit-0.1.0-cp311-abi3-win_amd64.whl` (`40,167/40,167`) passed. *(Note: `tools/release.py python` local `verify_python_sdist` still expects legacy vendored `crates/tamil-toolkit/lexicon/dictionary/packs.toml`, which is intentionally excluded from slim `crates/tamil-toolkit/Cargo.toml`; CI `alpha-artifacts.yml` uses `stage-python` + `maturin build --sdist` + `verify-wheel`, which passed locally.)*
-- **Next:** Commit & push `master`, dispatch `alpha-artifacts.yml` on the reviewed commit SHA, review artifacts, and publish via `publish-release.yml` (then run `just release-record <artifact_run_id>` and tag `v0.1.0`).
+- **Published registries (`v0.1.0`, source commit `fbed514303a80bd2f9d6a9819113f4afbd32597b`, artifact run [`45338097329`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45338097329) — 14/14 jobs green):**
+  - **crates.io** ([run `45338626800`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45338626800)): all 9 slim `Apache-2.0` crates (`tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`, `tamil-calendar`, `tamil-codec`, `tamil-hyphen`, `tamil-translit`, `tamil-toolkit`) published at `0.1.0`.
+  - **npm** ([run `45338629795`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45338629795)): `tamil-toolkit@0.1.0` published via OIDC (`latest` dist-tag pointing to `0.1.0`).
+  - **PyPI** ([run `45338632488`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45338632488)): `tamil-toolkit 0.1.0` published via OIDC (Linux, Windows, macOS abi3 wheels + sdist recorded in `docs/releases/v0.1.0.md`).
+- **Release highlights:**
+  - Added `pub use tamil_translit as translit;` on `crates/tamil-toolkit/src/lib.rs`, cleaned up READMEs/changelog, and recorded bounded/experimental `tamil-calendar` scope in `docs/releases/v0.1.0.md`.
+  - Finalized Rank 0–6 future crate plan in `ROADMAP.md`, `docs/specs/architecture-roadmap.md` (`FR-012`), and `tools/release_policy.py` (`tamil-lexicon` registered at Rank 2 as unscaffolded).
+- **Next:** Phase 9 (`tamil-tokenize`), or external store/deployment follow-ups (Redeploy Playground & Word Add-in v2.5.0 to Vercel, Chrome Web Store / Firefox AMO extension submission, Word AppSource review).
 
 ## Release `0.1.0-alpha.10` / Python `0.1.0a10` Published (2026-11-22)
 
