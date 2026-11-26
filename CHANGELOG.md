@@ -3,6 +3,8 @@
 
 ## Unreleased
 
+## 0.2.0 / Python 0.2.0 - 2026-11-26
+
 - **Phase 9 (`tamil-tokenize` v0.1):**
   - Implemented and integrated `tamil-tokenize` (Rank 2, `Apache-2.0`, `#![forbid(unsafe_code)]`) for offline, source-preserving Tamil word and sentence segmentation with zero-based UTF-8 byte and written-unit coordinates, six attested Tamil abbreviations (`திரு.`, `மு.க.`, `பி.ப.`, `மு.ப.`, `எ.கா.`, `ரூ.`), and opt-in stopword profiles (`none`, `conservative`, `broad`).
   - Activated all 54 golden vectors in `tests/golden/tokenize_v01.jsonl` (`40,265` active vectors total) and exposed `tokenize_words` / `segment_sentences` across `tamil-toolkit` (`pub use tamil_tokenize as tokenize;`), Python, TypeScript/WASM (Node & browser), and Dart bindings.

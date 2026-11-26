@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "tamil-toolkit"
-version = "0.1.0"
+version = "0.2.0"
 requires-python = ">=3.11"
 description = "All-in-one Rust-powered Tamil linguistic engine for Python: Unicode rules, Agara Varisai sorting, numerals, hyphenation, Panchangam, and Bamini/TSCII codecs."
 readme = "README.md"
