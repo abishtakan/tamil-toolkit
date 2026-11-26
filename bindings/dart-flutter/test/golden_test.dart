@@ -27,6 +27,29 @@ void main() {
   final prefix = Platform.isWindows ? '' : 'lib';
   final tamil =
       TamilToolkit('$root/target/debug/${prefix}tamil_toolkit_ffi.$extension');
+  test('tokenizer convenience methods preserve exact source spans', () {
+    final fixture = File('$root/tests/golden/tokenize_v01.jsonl')
+        .readAsLinesSync()
+        .map((line) => jsonDecode(line) as Map<String, dynamic>)
+        .firstWhere((row) => row['id'] == 'tokenize_decomposed_mixed');
+    final text = fixture['input']['text'] as String;
+    final bytes = utf8.encode(text);
+    final token = tamil.tokenizeWords(text)[1];
+    expect(token.text, utf8.decode(bytes.sublist(2, 11)));
+    expect((token.startByte, token.endByte), (2, 11));
+    expect((token.startUnit, token.endUnit), (2, 3));
+    expect(token.kind, TokenKind.word);
+    final span = tamil.segmentSentences(text).first;
+    expect(span.text, utf8.decode(bytes.sublist(span.startByte, span.endByte)));
+    expect(
+      () => tamil.tokenizeWords(text, stopwordProfile: 'unknown'),
+      throwsA(isA<ArgumentError>().having(
+        (error) => error.message,
+        'message',
+        'unsupported stopword profile',
+      )),
+    );
+  });
   final compiledProfile = inferCompiledProfile(tamil.lexiconPacks());
   final envProfile = Platform.environment['TAMIL_LEXICON_PROFILE'];
   if (envProfile != null) {
@@ -356,7 +379,8 @@ void main() {
         tamil.mixedFractionToWords(
             negative: false, whole: 1, numerator: 1, denominator: 2),
         '\u0b92\u0ba9\u0bcd\u0bb1\u0bb0\u0bc8');
-    expect(tamil.wordsToNumber(tamil.toWords(100001, locale: 'SL'), locale: 'SL'),
+    expect(
+        tamil.wordsToNumber(tamil.toWords(100001, locale: 'SL'), locale: 'SL'),
         100001);
     expect(tamil.formatCurrency(10000021, 'SGD'), 'SGD 100,000.21');
     final traditional = tamil.formatTraditionalInteger(1234567);

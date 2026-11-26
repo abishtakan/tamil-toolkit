@@ -737,6 +737,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "tamil-tokenize"
+version = "0.1.0"
+dependencies = [
+ "proptest",
+ "serde",
+ "serde_json",
+ "tamil-core",
+ "tamil-norm",
+ "toml",
+ "unicode-normalization",
+ "unicode-segmentation",
+]
+
+[[package]]
 name = "tamil-toolkit"
 version = "0.1.0"
 dependencies = [
@@ -753,6 +767,7 @@ dependencies = [
  "tamil-hyphen",
  "tamil-norm",
  "tamil-numerals",
+ "tamil-tokenize",
  "tamil-translit",
  "toml",
 ]

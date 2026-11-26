@@ -84,6 +84,22 @@ def test_golden():
             assert tamil.execute(vector_request(case)) == case["expected"], case["id"]
 
 
+def test_tokenizer_convenience_api():
+    from tamil_toolkit import segment_sentences, tokenize_words
+
+    rows = (_REPO_ROOT / "tests/golden/tokenize_v01.jsonl").read_text(encoding="utf-8").splitlines()
+    fixture = next(row for row in map(json.loads, rows) if row["id"] == "tokenize_decomposed_mixed")
+    text = fixture["input"]["text"]
+    token = tokenize_words(text)[1]
+    assert token["text"] == text.encode()[2:11].decode()
+    assert (token["start_byte"], token["end_byte"]) == (2, 11)
+    assert (token["start_unit"], token["end_unit"]) == (2, 3)
+    first = segment_sentences(text)[0]
+    assert first["text"] == text.encode()[first["start_byte"]:first["end_byte"]].decode()
+    with pytest.raises(ValueError, match="^unsupported stopword profile$"):
+        tokenize_words(text, stopword_profile="unknown")
+
+
 def test_phonology_and_olippasai_convenience_api():
     assert tamil.classify_quantity("\u0b85") == "kuril"
     assert tamil.classify_quantity("\u0b86") == "nedil"

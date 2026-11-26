@@ -23,6 +23,7 @@ tamil-morph = { path = "crates/tamil-morph", version = "=0.1.0" }
 tamil-dialect = { path = "crates/tamil-dialect", version = "=0.1.0" }
 tamil-hyphen = { path = "crates/tamil-hyphen", version = "=0.1.0" }
 tamil-translit = { path = "crates/tamil-translit", version = "=0.1.0" }
+tamil-tokenize = { path = "crates/tamil-tokenize", version = "=0.1.0" }
 tamil-yaappu = { path = "crates/tamil-yaappu", version = "=0.1.0" }
 tamil-toolkit = { path = "crates/tamil-toolkit", version = "=0.1.0" }
 serde = { version = "1", features = ["derive"] }

@@ -30,6 +30,7 @@ Runs **100% client-side** with zero network tracking, zero external dependencies
 | Domain | Capabilities in JS / TS / WASM |
 |---|---|
 | 🔤 **Unicode & Letters** | NFC/NFD normalization, tailored Tamil grapheme segmentation (`get_letters`), Mei/Uyir splitting, and scalar inspection. Handles complex ligatures like `க்ஷ` and `ஸ்ரீ`. |
+| 🧩 **Word & Sentence Tokenization** | Offline, source-preserving word and sentence spans (`tokenize_words`, `segment_sentences`) with exact UTF-8 byte & written-unit offsets, attested Tamil abbreviations (`திரு.`, `மு.க.`, `பி.ப.`, `மு.ப.`, `எ.கா.`, `ரூ.`), and opt-in stopword profiles (`none`, `conservative`, `broad`). |
 | 🔄 **Legacy Font Transcoder** | Universal bidirectional transcoding between Unicode and legacy Tamil encoding formats: **Bamini**, **TSCII**, **TAB**, **TAM**, **Anjal**, **Vanavil Avvaiyar**, and **LT-TM / IndoWord**. |
 | 🔠 **Agara Varisai Collation** | Traditional Tamil dictionary alphabetical sorting with stable Mei-first collation order (`sort_words`, `compare`). |
 | 🔢 **Numerals & Currency** | Bounded Tamil Nadu (`ta-IN`) and Sri Lankan (`ta-LK`) number-to-words conversion, exact financial currency formatting (INR/LKR) with zero floating-point drift, and Gregorian civil dates. |
@@ -174,6 +175,17 @@ function convertClipboard(pastedText: string): string {
 }
 ```
 
+### 3. Source-Preserving Word & Sentence Tokenization
+
+```typescript
+import { tokenize_words, segment_sentences } from "tamil-toolkit";
+
+const text = "திரு. குமார் மற்றும் ரூ.100 வந்தது.";
+const words = tokenize_words(text, "conservative");
+const sentences = segment_sentences(text);
+console.log(words, sentences);
+```
+
 ---
 
 ## 0.1.0 scope
@@ -208,6 +220,7 @@ const text = tamil.execute({ op: "lt_tm_codes_to_unicode", input: { codes } });
 - [API and feature overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
 - [JavaScript/WASM API declarations](https://github.com/abishtakan/tamil-toolkit/tree/master/bindings/js-wasm)
 - [Unicode/core contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/core-v0.1.md)
+- [Tokenizer contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/tokenize-v0.1.md)
 - [Collation contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md)
 - [Numerals, fractions, and dates](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.2.md)
 - [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.1.0.md#compatibility-and-scope)

@@ -157,7 +157,7 @@ def test_expected_dictionary_mapping_count_and_no_dev_only_assets(
     assert schema_targets == [
         f"crates/tamil-toolkit/schemas/lexicon/{name}" for name in EXPECTED_SCHEMA_FILES
     ]
-    assert len(expected) == 87 + (20 * 3) + 4
+    assert len(expected) == 93 + (20 * 3) + 4
 
     all_rel = [p.relative_to(ROOT).as_posix() for p in expected]
     assert all("cldf" not in rel for rel in all_rel)

@@ -67,6 +67,8 @@ export function OverviewHub({
         return "அ → ஆ → க → ன";
       case "letter":
         return "தமிழ் = த + மி + ழ்";
+      case "tokenizer":
+        return "திரு. குமார் · சொற்கள் · தொடர்கள்";
       case "normalizer":
         return "NFC · NFD · மயங்கொலி";
       case "hyphenator":

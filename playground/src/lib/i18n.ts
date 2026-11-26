@@ -127,6 +127,28 @@ export interface Translations {
       inputPlaceholder: string;
       outputPlaceholder: string;
     };
+    tokenizer: {
+      title: string;
+      desc: string;
+      inputLabel: string;
+      inputPlaceholder: string;
+      tabWords: string;
+      tabSentences: string;
+      stopwordLabel: string;
+      kindWord: string;
+      kindAbbreviation: string;
+      kindNumber: string;
+      kindOther: string;
+      filteredOut: string;
+      tokenSpansHeading: string;
+      sentenceSpansHeading: string;
+      colText: string;
+      colKind: string;
+      colBytes: string;
+      colUnits: string;
+      copyJson: string;
+      emptyResult: string;
+    };
     numeral: {
       title: string;
       desc: string;
@@ -345,6 +367,7 @@ export interface Translations {
       tabHyphenator: string;
       tabNormalizer: string;
       tabSorter: string;
+      tabTokenizer: string;
     };
     batch: {
       title: string;
@@ -716,6 +739,28 @@ export const translations: Record<Language, Translations> = {
         inputPlaceholder: "ஒலிபெயர்க்க வேண்டிய உரையை இங்கே தட்டச்சு செய்க...",
         outputPlaceholder: "மாற்றப்பட்ட உரை இங்கே தோன்றும்..."
       },
+      tokenizer: {
+        title: "சொல் & தொடர் பிரிப்பு",
+        desc: "தமிழ் சுருக்கங்களைக் காத்து (திரு., மு.க., பி.ப., ரூ.) மூல UTF-8 பைட் மற்றும் எழுத்து அலகு நிலைகளுடன் சொற்களையும் தொடர்களையும் பிரித்து, நிறுத்தற்சொல் வடிகட்டலைப் பயன்படுத்துக.",
+        inputLabel: "உள்ளீட்டு உரை",
+        inputPlaceholder: "சொற்கள் மற்றும் தொடர்களாகப் பிரிக்க வேண்டிய தமிழ் உரையை இங்கே உள்ளிடுக...",
+        tabWords: "சொற்கள்",
+        tabSentences: "தொடர்கள்",
+        stopwordLabel: "நிறுத்தற்சொல் வடிப்பி",
+        kindWord: "சொல்",
+        kindAbbreviation: "சுருக்கம்",
+        kindNumber: "எண்",
+        kindOther: "பிற",
+        filteredOut: "வடிகட்டப்பட்டவை",
+        tokenSpansHeading: "சொல் பிரிவுகள் (மூல நிலைகளுடன்)",
+        sentenceSpansHeading: "தொடர் பிரிவுகள்",
+        colText: "உரை",
+        colKind: "வகை",
+        colBytes: "UTF-8 பைட்டுகள்",
+        colUnits: "எழுத்து அலகுகள்",
+        copyJson: "JSON நகலெடு",
+        emptyResult: "வெற்று உரை அல்லது இடைவெளி மட்டுமே உள்ளது."
+      },
       numeral: {
         title: "எண் - சொல் & காசோலை வடிவம்",
         desc: "எண்களையும் காசோலைத் தொகைகளையும் அதிகாரப்பூர்வ தமிழ் சொற்களாகவும் பாரம்பரிய தமிழ் எண்களாகவும் மாற்றுக.",
@@ -933,7 +978,8 @@ export const translations: Record<Language, Translations> = {
         tabLexicon: "அகராதி",
         tabHyphenator: "அசை பிரிப்பு",
         tabNormalizer: "சீரமைப்பி",
-        tabSorter: "அகரவரிசை"
+        tabSorter: "அகரவரிசை",
+        tabTokenizer: "சொற்பிரிப்பு"
       },
       batch: {
         title: "கோப்புத் தொகுதி மாற்றி",
@@ -1303,6 +1349,28 @@ export const translations: Record<Language, Translations> = {
         inputPlaceholder: "Type or paste text to transliterate...",
         outputPlaceholder: "Transliterated output appears here..."
       },
+      tokenizer: {
+        title: "Word & Sentence Tokenizer",
+        desc: "Split Tamil text into source-preserving word and sentence spans with exact UTF-8 byte & written-unit offsets, attested abbreviations (திரு., மு.க., பி.ப., ரூ.), and opt-in stopword filtering.",
+        inputLabel: "Source Text",
+        inputPlaceholder: "Paste or type Tamil text to tokenize into words and sentences...",
+        tabWords: "Words",
+        tabSentences: "Sentences",
+        stopwordLabel: "Stopword Profile",
+        kindWord: "Word",
+        kindAbbreviation: "Abbreviation",
+        kindNumber: "Number",
+        kindOther: "Other",
+        filteredOut: "Filtered out",
+        tokenSpansHeading: "Token Spans (Original Offsets)",
+        sentenceSpansHeading: "Sentence Spans",
+        colText: "Text",
+        colKind: "Kind",
+        colBytes: "UTF-8 Bytes",
+        colUnits: "Written Units",
+        copyJson: "Copy JSON",
+        emptyResult: "Empty or whitespace-only input produces no spans."
+      },
       numeral: {
         title: "Numbers & Cheques",
         desc: "Write numbers, Indian/Sri Lankan rupee amounts, fractions, percentages, ordinals, and Tamil dates in words and traditional numerals.",
@@ -1520,7 +1588,8 @@ export const translations: Record<Language, Translations> = {
         tabLexicon: "Dictionary",
         tabHyphenator: "Hyphenator",
         tabNormalizer: "Normalizer",
-        tabSorter: "Sorter"
+        tabSorter: "Sorter",
+        tabTokenizer: "Tokenizer"
       },
       batch: {
         title: "Batch File Converter",

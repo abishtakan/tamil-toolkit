@@ -15,6 +15,7 @@ pub use tamil_core as core;
 pub use tamil_hyphen as hyphen;
 pub use tamil_norm as norm;
 pub use tamil_numerals as numerals;
+pub use tamil_tokenize as tokenize;
 pub use tamil_translit as translit;
 
 use serde_json::{json, Value};
@@ -890,6 +891,8 @@ pub const OPERATIONS: &[&str] = &[
     "parse_mixed_fraction",
     "mixed_fraction_to_words",
     "words_to_number",
+    "tokenize_words",
+    "segment_sentences",
     "transliterate",
     "transliterate_schemes",
     "transliterate_suggest",
@@ -945,6 +948,11 @@ fn string(value: &Value) -> Result<&str, String> {
     value
         .as_str()
         .ok_or_else(|| "expected a string input".to_owned())
+}
+
+fn tokenizer_text(input: &Value) -> Result<&str, String> {
+    let object = input.as_object().ok_or("expected tokenizer input object")?;
+    string(object.get("text").unwrap_or(&Value::Null))
 }
 
 fn integer(value: &Value, maximum: i64) -> Result<i64, String> {
@@ -1726,6 +1734,18 @@ pub fn execute(request: &Value) -> Result<Value, String> {
             let loc = locale(input)?;
             numerals::words_to_number(text, loc).map(|value| json!(value))
         }
+        "tokenize_words" => {
+            let text = tokenizer_text(input)?;
+            let profile = match input.get("stopword_profile") {
+                Some(profile) => profile
+                    .as_str()
+                    .ok_or("expected stopword_profile to be a string")?
+                    .parse()?,
+                None => tokenize::StopwordProfile::None,
+            };
+            Ok(json!(tokenize::tokenize_words(text, profile)))
+        }
+        "segment_sentences" => Ok(json!(tokenize::segment_sentences(tokenizer_text(input)?))),
         "transliterate" => {
             let text = string(&input["text"])?;
             let scheme = tamil_translit::Scheme::parse(

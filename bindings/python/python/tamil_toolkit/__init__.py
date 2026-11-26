@@ -1,7 +1,7 @@
 """Thin adapters: all linguistic behavior executes in the Rust extension."""
 
 import json
-from typing import Any
+from typing import Any, Literal, TypedDict
 
 from . import _native
 
@@ -38,6 +38,32 @@ __all__ += [
 
 def execute(request: dict[str, Any]) -> Any:
     return json.loads(_native.execute(json.dumps(request, ensure_ascii=True)))
+
+
+__all__ += ["tokenize_words", "segment_sentences", "TokenizationSpan", "WordToken", "StopwordProfile"]
+
+
+StopwordProfile = Literal["none", "conservative", "broad"]
+
+
+class TokenizationSpan(TypedDict):
+    text: str
+    start_byte: int
+    end_byte: int
+    start_unit: int
+    end_unit: int
+
+
+class WordToken(TokenizationSpan):
+    kind: Literal["abbreviation", "word", "number", "other"]
+
+
+def tokenize_words(text: str, *, stopword_profile: StopwordProfile = "none") -> list[WordToken]:
+    return execute({"op": "tokenize_words", "input": {"text": text, "stopword_profile": stopword_profile}})
+
+
+def segment_sentences(text: str) -> list[TokenizationSpan]:
+    return execute({"op": "segment_sentences", "input": {"text": text}})
 
 
 def get_letters(text: str) -> list[str]:

@@ -120,6 +120,33 @@ const PRESETS = [
     ),
   },
   {
+    name: "Tokenize Words",
+    payload: JSON.stringify(
+      {
+        op: "tokenize_words",
+        input: {
+          text: "திரு. குமார் மற்றும் ரூ.100",
+          stopword_profile: "conservative",
+        },
+      },
+      null,
+      2
+    ),
+  },
+  {
+    name: "Segment Sentences",
+    payload: JSON.stringify(
+      {
+        op: "segment_sentences",
+        input: {
+          text: "திரு. குமார் வந்தார். பி.ப. 3.30 மணிக்கு கூட்டம்.",
+        },
+      },
+      null,
+      2
+    ),
+  },
+  {
     name: "Hyphenate Word",
     payload: JSON.stringify(
       {

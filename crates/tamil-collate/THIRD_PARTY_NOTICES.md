@@ -19,6 +19,10 @@ Bharathi Tamil Braille Grade 1 reference: World Braille Usage / NIEPVD
 Transliteration and keyboard layout references: ISO 15919, University of Madras
 Tamil Lexicon, ITRANS, Harvard-Kyoto, TamilNet'99 (ELCOT), Anjal Phonetic, and
 Suratha Bamini (docs/specs/translit-v0.1.md).
+Tokenizer stopword pool reference: Apache Lucene 9.8.0 Tamil stopwords
+(Apache-2.0, attributed to TamilNLP by AshokR); abbreviation usage witnesses
+and provenance are recorded in lexicon/tokenize-v0.1.toml and
+docs/specs/tokenize-v0.1.md.
 Tamil calendar display labels are extracted as short factual name lists from
 Tamil Virtual Academy's educational page; its reuse terms were not stated, so
 no license or permission is asserted and no prose or page/table image is copied.

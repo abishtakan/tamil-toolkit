@@ -40,6 +40,9 @@ const HyphenatorTool = lazy(() =>
 const LexiconExplorer = lazy(() =>
   import("./components/public-tools/LexiconExplorer").then((m) => ({ default: m.LexiconExplorer }))
 );
+const TokenizerTool = lazy(() =>
+  import("./components/public-tools/TokenizerTool").then((m) => ({ default: m.TokenizerTool }))
+);
 const ScalarInspector = lazy(() =>
   import("./components/developer-tools/ScalarInspector").then((m) => ({ default: m.ScalarInspector }))
 );
@@ -81,6 +84,7 @@ import {
   Files,
   Loader2,
   AlignLeft,
+  ScanText,
 } from "lucide-react";
 
 function BrandMark({ className }: { className?: string }) {
@@ -107,6 +111,8 @@ export function ToolIcon({ icon, className }: { icon: ToolIconKey; className?: s
       return <ArrowDownAZ className={className} />;
     case "letter-a":
       return <AlignLeft className={className} />;
+    case "scan-text":
+      return <ScanText className={className} />;
     case "type":
       return <Type className={className} />;
     case "languages":
@@ -334,7 +340,7 @@ export function App() {
               {t.siteTitle}
             </span>
             <span className="text-[10px] text-[var(--color-muted)] font-mono-tamil block">
-              v0.1.0-alpha.9
+              v0.1.0
             </span>
           </div>
         </button>
@@ -607,6 +613,7 @@ export function App() {
               <CodecConverter engineReady={engineReady} initialProfile={initialCodecProfile} />
             )}
             {activeTool === "translit" && <TranslitTool engineReady={engineReady} />}
+            {activeTool === "tokenizer" && <TokenizerTool engineReady={engineReady} />}
             {activeTool === "numeral" && <NumeralFormatter engineReady={engineReady} />}
             {activeTool === "calendar" && <CalendarExplorer engineReady={engineReady} />}
             {activeTool === "sorter" && <TextSorter engineReady={engineReady} />}

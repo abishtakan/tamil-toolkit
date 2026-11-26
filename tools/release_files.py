@@ -116,6 +116,7 @@ INPUTS = {
         "braille.toml",
     ),
     "tamil-translit": ("translit.toml",),
+    "tamil-tokenize": ("tokenize-unicode-v17.toml", "tokenize-v0.1.toml"),
 }
 SUMMARIES = {
     "tamil-core": "Tailored UAX #29 letter segmentation, Mei/Uyir splitting, Tholkappiyam phonology (mora/Maathirai, cognates/Ina Ezhuthu), zero-allocation syllable nuclei (Olippasai), and Unicode inspection.",
@@ -126,7 +127,8 @@ SUMMARIES = {
     "tamil-codec": "Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles.",
     "tamil-hyphen": "Syllable breakdown, prosodic Asai segmentation, soft hyphenation, and publication-grade line wrapping.",
     "tamil-translit": "Lossless Tamil orthographic romanization (ISO 15919, Madras Lexicon, ITRANS, Harvard-Kyoto) and deterministic offline input (Tamil99, Anjal phonetic, Suratha Bamini, Phonetic v1).",
-    "tamil-toolkit": "Unified high-performance Rust entry point for Tamil text, Agara ordering, bounded exact numerals, Tholkappiyam phonology, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, and legacy conversion APIs.",
+    "tamil-tokenize": "Offline, source-preserving Tamil word and sentence segmentation with exact UTF-8 byte and written-unit offsets, attested abbreviation handling, and opt-in stopword profiles.",
+    "tamil-toolkit": "Unified high-performance Rust entry point for Tamil text, Agara ordering, bounded exact numerals, Tholkappiyam phonology, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, source-preserving tokenization, and legacy conversion APIs.",
 }
 FEATURE_TABLES = {
     "tamil-core": """| Area | Capabilities |
@@ -166,6 +168,7 @@ FEATURE_TABLES = {
     "tamil-toolkit": """| Area | Capabilities |
 | --- | --- |
 | **Text & Phonology** | Unicode letter operations, normalization, inspection, Tholkappiyam mora (`Maathirai`), homorganic cognates (`Ina Ezhuthu`), and zero-allocation syllable nuclei (`Olippasai`). |
+| **Tokenization** | Offline, source-preserving word and sentence segmentation (`tokenize_words`, `segment_sentences`) with UTF-8 byte & written-unit offsets, attested Tamil abbreviations, and opt-in stopword profiles. |
 | **Ordering and numbers** | Agara sorting, Tamil number words, bounded exact numeric strings and currency amounts, symbol metadata, fractions, and Gregorian civil arithmetic. |
 | **Tamil calendar** | Bounded Thirukanitham Drik conversion and panchangam reports, a named Nava Panchangam/Tamil-rule TN subset for solar festivals and Amavasya/Pournami Aparahna selection with sunrise fallback, and selected authority-published TN/SL annual holiday schedules; Vakiya and Sri Lanka observances are unsupported and calendar fixture suites remain planned. |
 | **Historical calendar kernels** | Unreleased source-pinned 1962 Vakiya solar and lunar calculations; full Vakiya date/location/five-limb coverage is not implemented. |
@@ -180,6 +183,11 @@ FEATURE_TABLES = {
 | --- | --- |
 | **Scholarly Romanization** | Lossless bidirectional ISO 15919, Madras Lexicon, ITRANS, and Harvard-Kyoto transliteration (`transliterate`). |
 | **Offline Input** | Deterministic Tamil99, Anjal phonetic, Suratha Bamini, and rule-based Phonetic/Tanglish v1 input (`transliterate`). |""",
+    "tamil-tokenize": """| Area | Capabilities |
+| --- | --- |
+| **Word Tokenization** | Source-preserving UAX #29 tailored word segmentation with zero-based UTF-8 byte and written-unit offsets (`tokenize_words`). |
+| **Sentence Segmentation** | Sentence boundaries honoring attested Tamil abbreviations (`திரு.`, `மு.க.`, `பி.ப.`, `மு.ப.`, `எ.கா.`, `ரூ.`) and hard separators (`segment_sentences`). |
+| **Stopwords** | Opt-in `none`, `conservative`, and `broad` profiles preserving original token coordinates (`StopwordProfile`). |""",
 }
 CONTRACTS = {
     "tamil-core": "docs/specs/core-v0.1.md",
@@ -190,6 +198,7 @@ CONTRACTS = {
     "tamil-codec": "docs/specs/codec-lt-tm.md",
     "tamil-hyphen": "docs/specs/hyphen-v0.1.md",
     "tamil-translit": "docs/specs/translit-v0.1.md",
+    "tamil-tokenize": "docs/specs/tokenize-v0.1.md",
     "tamil-toolkit": "README.md#capability-contracts",
 }
 UNRELEASED_NOTES = {
@@ -269,6 +278,14 @@ fn main() -> Result<(), String> {
     println!("{roman} -> {back}");
     Ok(())
 }''',
+    "tamil-tokenize": '''use tamil_tokenize::{segment_sentences, tokenize_words, StopwordProfile};
+
+fn main() {
+    let text = "திரு. குமார் வந்தார்.";
+    let words = tokenize_words(text, StopwordProfile::None);
+    let sentences = segment_sentences(text);
+    println!("{} words, {} sentences", words.len(), sentences.len());
+}''',
     "tamil-toolkit": '''use tamil_toolkit::{codec, core, numerals};
 
 fn main() -> Result<(), String> {
@@ -295,7 +312,7 @@ def sync_root_readme(text, policy):
     text = re.sub(r'(\| \*\*Node\.js 22\+ / browsers\*\* \| `npm install tamil-toolkit@)[^`]+(` \|)', rf'\g<1>{tag}\g<2>', text)
     text = re.sub(r'(\| SDK \| Install )[^\|]+( \| Version \| Downloads \|)', rf'\g<1>{lbl}\g<2>', text)
     text = re.sub(r'(npm[’\']s `)[^`]+(` tag points to )[^;]+(;)', rf'\g<1>{tag}\g<2>{lbl}\g<3>', text)
-    text = re.sub(r'(All (?:six|nine) Rust crates are published at `)[^`]+(`:)', rf'\g<1>{v}\g<2>', text)
+    text = re.sub(r'(All (?:six|nine|ten) Rust crates are published at `)[^`]+(`:)', rf'\g<1>{v}\g<2>', text)
     text = re.sub(r'https://docs\.rs/tamil-toolkit/[^/]+/tamil_toolkit/', f'https://docs.rs/tamil-toolkit/{v}/tamil_toolkit/', text)
     text = re.sub(r'\[[^\]]+ compatibility details\]\(docs/releases/[^)]+\.md#compatibility-and-scope\)',
                   f'[{lbl} compatibility details](docs/releases/{rec}.md#compatibility-and-scope)', text)
@@ -525,7 +542,8 @@ def artifact_license_spdx(artifact: str, *, profiles=()) -> str:
     """Return the exact SPDX license expression for a packaged artifact profile."""
     normalized = _validate_profiles(profiles)
     if artifact in ("tamil-core", "tamil-norm", "tamil-collate", "tamil-numerals",
-                    "tamil-calendar", "tamil-codec", "tamil-hyphen", "tamil-translit"):
+                    "tamil-calendar", "tamil-codec", "tamil-hyphen", "tamil-translit",
+                    "tamil-tokenize"):
         if normalized:
             raise ValueError(f"Lower crate {artifact} cannot enable dictionary pack profiles: {normalized}")
         return "Apache-2.0"
@@ -668,6 +686,10 @@ Bharathi Tamil Braille Grade 1 reference: World Braille Usage / NIEPVD
 Transliteration and keyboard layout references: ISO 15919, University of Madras
 Tamil Lexicon, ITRANS, Harvard-Kyoto, TamilNet'99 (ELCOT), Anjal Phonetic, and
 Suratha Bamini (docs/specs/translit-v0.1.md).
+Tokenizer stopword pool reference: Apache Lucene 9.8.0 Tamil stopwords
+(Apache-2.0, attributed to TamilNLP by AshokR); abbreviation usage witnesses
+and provenance are recorded in lexicon/tokenize-v0.1.toml and
+docs/specs/tokenize-v0.1.md.
 Tamil calendar display labels are extracted as short factual name lists from
 Tamil Virtual Academy's educational page; its reuse terms were not stated, so
 no license or permission is asserted and no prose or page/table image is copied.

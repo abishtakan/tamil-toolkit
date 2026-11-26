@@ -704,6 +704,18 @@ def stage_python(destination):
     for name in stage_crates:
         shutil.copytree(ROOT / "crates" / name, destination / "crates" / name,
                         ignore=shutil.ignore_patterns("tests", "target"))
+    # Include canonical CC-BY-SA-4.0 dictionary packs and row schemas in the staged
+    # python-sdist workspace so data-enabled wheels can build from the sdist while
+    # the published crates.io tamil-toolkit crate stays slim and Apache-2.0 only.
+    staged_umbrella_manifest = destination / "crates/tamil-toolkit/Cargo.toml"
+    umbrella_text = staged_umbrella_manifest.read_text(encoding="utf-8")
+    if '"lexicon/*.toml",' in umbrella_text and '"lexicon/dictionary/**"' not in umbrella_text:
+        umbrella_text = umbrella_text.replace(
+            '"lexicon/*.toml",',
+            '"lexicon/*.toml",\n  "lexicon/dictionary/**",\n  "lexicon/packs/**",\n  "schemas/lexicon/**",',
+            1,
+        )
+        staged_umbrella_manifest.write_text(umbrella_text, encoding="utf-8")
     shutil.copytree(ROOT / "bindings/python", destination / "bindings/python",
                     ignore=shutil.ignore_patterns("tests", "__pycache__", "*.pyd", "*.so", "*.pdb", "*.egg-info"))
     manifest = (ROOT / "Cargo.toml").read_text(encoding="utf-8")

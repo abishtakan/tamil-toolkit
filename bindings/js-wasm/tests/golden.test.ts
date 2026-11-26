@@ -693,3 +693,21 @@ function vectorRequest(row: Request): Request {
   for (const key of ["id", "expected", "expected_error", "dialect", "tags", "source", "unicode_exceptions"]) delete request[key];
   return request;
 }
+
+test("tokenizer convenience exports preserve source in Node and browser-target WASM", () => {
+  const rows = readFileSync(join(root, "tokenize_v01.jsonl"), "utf8").trim().split(/\r?\n/);
+  const fixture = rows.map((row) => JSON.parse(row)).find((row) => row.id === "tokenize_decomposed_mixed");
+  const text: string = fixture.input.text;
+  const bytes = Buffer.from(text);
+  for (const api of [nodeApi, webApi]) {
+    const word = api.tokenize_words(text)[1];
+    expect(word).toEqual({
+      text: bytes.subarray(2, 11).toString(), start_byte: 2, end_byte: 11,
+      start_unit: 2, end_unit: 3, kind: "word",
+    });
+    const span = api.segment_sentences(text)[0];
+    expect(span.text).toBe(bytes.subarray(span.start_byte, span.end_byte).toString());
+    expect(() => Reflect.apply(api.tokenize_words, undefined, [text, "unknown"]))
+      .toThrow("unsupported stopword profile");
+  }
+});

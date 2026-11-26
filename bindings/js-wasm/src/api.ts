@@ -30,6 +30,17 @@ export interface RepairOptions {
   strip_joiners?: boolean;
 }
 export type FoldingProfile = "mayangoli" | "grantha" | "comprehensive";
+export type StopwordProfile = "none" | "conservative" | "broad";
+export interface TokenizationSpan {
+  text: string;
+  start_byte: number;
+  end_byte: number;
+  start_unit: number;
+  end_unit: number;
+}
+export interface WordToken extends TokenizationSpan {
+  kind: "abbreviation" | "word" | "number" | "other";
+}
 export interface Request { op: string; input: unknown }
 export interface EncodingCandidate { encoding: string; confidence: number }
 export type LexiconPackId = "core" | "terminology" | "names_taxa" | "regional";
@@ -385,6 +396,10 @@ export function createApi(nativeExecute: (request: string) => string) {
   const thirukanithamDefinition = calendarDefinitions.thirukanitham;
   return {
     execute,
+    tokenize_words: (text: string, stopwordProfile?: StopwordProfile) =>
+      execute({ op: "tokenize_words", input: { text, stopword_profile: stopwordProfile } }) as WordToken[],
+    segment_sentences: (text: string) =>
+      execute({ op: "segment_sentences", input: { text } }) as TokenizationSpan[],
     get_letters: (text: string) => execute({ op: "get_letters", input: text }) as string[],
     normalize_nfc: (text: string) => execute({ op: "normalize_nfc", input: text }) as string,
     normalize_nfd: (text: string) => execute({ op: "normalize_nfd", input: text }) as string,

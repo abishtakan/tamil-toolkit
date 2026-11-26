@@ -12,10 +12,10 @@ import {
 } from "../lib/tools";
 
 describe("Playground Navigation & Tool Registry", () => {
-  it("registers all 14 unique tools under valid navigation groups", () => {
-    expect(TOOLS).toHaveLength(14);
+  it("registers all 15 unique tools under valid navigation groups", () => {
+    expect(TOOLS).toHaveLength(15);
     const ids = TOOLS.map((tool) => tool.id);
-    expect(new Set(ids).size).toBe(14);
+    expect(new Set(ids).size).toBe(15);
 
     const validGroups = new Set(TOOL_GROUPS.map((g) => g.id));
     for (const tool of TOOLS) {
@@ -40,16 +40,24 @@ describe("Playground Navigation & Tool Registry", () => {
     expect(resolveToolFromLocation("/tools/agara-varisai-sorter/", "")).toBe("sorter");
     expect(resolveToolFromLocation("/tools/tamil-hyphenation/", "")).toBe("hyphenator");
     expect(resolveToolFromLocation("/tools/tamil-panchangam/", "")).toBe("calendar");
+    expect(resolveToolFromLocation("/tools/tamil-tokenizer/", "")).toBe("tokenizer");
     expect(resolveToolFromLocation("/", "?tool=normalizer")).toBe("normalizer");
 
     expect(getToolHref("home")).toBe("/");
     expect(getToolHref("codec")).toBe("/tools/bamini-to-unicode/");
     expect(getToolHref("translit")).toBe("/tools/tamil99-keyboard/");
+    expect(getToolHref("tokenizer")).toBe("/tools/tamil-tokenizer/");
     expect(getToolHref("lexicon")).toBe("/?tool=lexicon");
   });
 
   it("filters tools by English and Tamil titles and keywords", () => {
-    expect(filterToolsByQuery("", translations.en)).toHaveLength(14);
+    expect(filterToolsByQuery("", translations.en)).toHaveLength(15);
+
+    const tokenizerHits = filterToolsByQuery("tokenizer", translations.en);
+    expect(tokenizerHits.some((t) => t.id === "tokenizer")).toBe(true);
+
+    const tokenizerHitsTa = filterToolsByQuery("சொற்பிரிப்பு", translations.ta);
+    expect(tokenizerHitsTa.some((t) => t.id === "tokenizer")).toBe(true);
 
     const baminiHits = filterToolsByQuery("bamini", translations.en);
     expect(baminiHits.some((t) => t.id === "codec")).toBe(true);

@@ -30,6 +30,7 @@ Pre-built binary wheels using the stable CPython `abi3` interface are provided f
 | Domain | Python Capabilities |
 |---|---|
 | 🔤 **Unicode & Letters** | NFC/NFD normalization, tailored Tamil letter segmentation (`get_letters`), Mei/Uyir splitting, and scalar inspection. Correctly handles ligatures like `க்ஷ` and `ஸ்ரீ`. |
+| 🧩 **Word & Sentence Tokenization** | Offline, source-preserving word and sentence spans (`tokenize_words`, `segment_sentences`) with exact UTF-8 byte & written-unit offsets, attested Tamil abbreviations (`திரு.`, `மு.க.`, `பி.ப.`, `மு.ப.`, `எ.கா.`, `ரூ.`), and opt-in stopword profiles (`none`, `conservative`, `broad`). |
 | 🎵 **Phonology & Prosody** | Tholkappiyam-grounded phonology: exact mora (*Maathirai*) duration calculation, letter quantity classification (`is_kuril`, `is_nedil`, `is_mei`, `is_otru`, `is_aytham`), stop-nasal cognates (*Ina Ezhuthu* via `get_cognate`, `are_cognates`), and zero-allocation syllable nuclei (*Olippasai*). |
 | 🔄 **Legacy Font Transcoder** | Universal bidirectional transcoding between Unicode and legacy Tamil encoding formats: **Bamini**, **TSCII**, **TAB**, **TAM**, **Anjal**, **Vanavil Avvaiyar**, and **LT-TM / IndoWord**. |
 | 🔠 **Agara Varisai Collation** | Traditional Tamil dictionary alphabetical sorting (*Agara Varisai*) with stable Mei-first collation order and versioned sort/search keys. |
@@ -168,6 +169,19 @@ assert tamil.get_cognate("தூ") == "நூ"
 assert tamil.are_cognates("ட்", "ண்") == True
 ```
 
+### 6. Source-Preserving Word & Sentence Tokenization
+
+Split Tamil text into words and sentences while preserving exact UTF-8 byte and written-unit offsets and keeping attested abbreviations intact:
+
+```python
+import tamil_toolkit as tamil
+
+text = "திரு. குமார் மற்றும் ரூ.100 வந்தது."
+words = tamil.tokenize_words(text, stopword_profile="conservative")
+sentences = tamil.segment_sentences(text)
+print(len(words), len(sentences))
+```
+
 ---
 
 ## 0.1.0 scope
@@ -201,6 +215,7 @@ text = tamil.execute({"op": "lt_tm_codes_to_unicode", "input": {"codes": codes}}
 
 - [API and feature overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
 - [Unicode/core contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/core-v0.1.md)
+- [Tokenizer contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/tokenize-v0.1.md)
 - [Collation contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md)
 - [Numerals, fractions, and dates](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.2.md)
 - [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.1.0.md#compatibility-and-scope)

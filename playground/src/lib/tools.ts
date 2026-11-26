@@ -17,6 +17,7 @@ export type ToolId =
   | "lexicon"
   | "sorter"
   | "letter"
+  | "tokenizer"
   | "codec"
   | "translit"
   | "normalizer"
@@ -35,6 +36,7 @@ export type ToolIconKey =
   | "book-marked"
   | "arrow-down-az"
   | "letter-a"
+  | "scan-text"
   | "type"
   | "languages"
   | "shield-check"
@@ -118,6 +120,26 @@ export const TOOLS: readonly ToolMeta[] = [
       "உயிர்",
       "மெய்",
       "உயிர்மெய்"
+    ]
+  },
+  {
+    id: "tokenizer",
+    group: "words",
+    icon: "scan-text",
+    keywords: [
+      "tokenize",
+      "tokenizer",
+      "word",
+      "sentence",
+      "segment",
+      "abbreviation",
+      "stopword",
+      "offset",
+      "span",
+      "nlp",
+      "சொற்பிரிப்பு",
+      "தொடர்",
+      "சுருக்கம்"
     ]
   },
 

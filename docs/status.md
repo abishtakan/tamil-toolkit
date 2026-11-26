@@ -1,5 +1,18 @@
 # Project handoff
 
+## Phase 9 (`tamil-tokenize`) activated and integrated (2026-11-26)
+
+- **Scope (`crates/tamil-tokenize/`, `crates/tamil-toolkit/`, `bindings/{python,js-wasm,dart-flutter}/`, `lexicon/tokenize-{v0.1,unicode-v17}.toml`, `tests/golden/tokenize_v01.jsonl`, `release-policy.toml`, `tools/release_{files,policy}.py`, `tools/release.py`, `.github/workflows/publish-crate.yml`, `docs/specs/tokenize-v0.1.md`):**
+  - Owner approved activating all 54 fixtures in `tests/golden/tokenize_v01.jsonl` and adding `tamil-tokenize` (Rank 2, `Apache-2.0`, `#![forbid(unsafe_code)]`) to the public allowlist in `release-policy.toml` before `tamil-toolkit`.
+  - Exposed `pub use tamil_tokenize as tokenize;`, `tokenize_words`, and `segment_sentences` through the shared Rust dispatcher and typed Python, TypeScript/WASM (Node + browser), and Dart convenience APIs, preserving exact UTF-8 byte and written-unit offsets (`[start_byte, end_byte)`, `[start_unit, end_unit)`), six attested Tamil abbreviations (`திரு.`, `மு.க.`, `பி.ப.`, `மு.ப.`, `எ.கா.`, `ரூ.`), and opt-in stopword profiles (`none`, `conservative`, `broad`).
+  - Updated `stage_python()` in `tools/release.py` so the staged `python-sdist` workspace includes canonical dictionary packs/schemas while keeping the published crates.io `tamil-toolkit` crate slim (`99,995` bytes) and `Apache-2.0` only.
+- **Checks:**
+  - `just check-unicode`: passed (`40,265` active vectors = `40,211` + `54`; `157` synced release files verified).
+  - `just agent-pre-stop-gate`: `cargo fmt --check`, `cargo clippy --workspace --all-targets -- -D warnings`, `245` Rust workspace/property tests (including Unicode 17 Word/Sentence reference suites and 10,000-case properties), `524` harness tests, Rust active parity (`40,265` vectors), Python (`32/32`), and Node/browser-target WASM (`40,291/40,291`) all passed.
+  - `just test-dart` (`40,286/40,286`, clean `dart analyze`) and quickstart Python wrapper check passed.
+  - Isolated `default`-profile archives passed across Rust (`tamil-tokenize-0.1.0.crate` `29,133` bytes; `tamil-toolkit-0.1.0.crate` `99,995` bytes; `40,221` golden rows), Python (sdist + win_amd64 wheel, `40,221` golden rows), npm (Node + browser-target WASM + strict `tsc`, `40,221` golden rows), and Dart (`archive_sha256` `1fa2e0dc6409f349c2a3dc43b58fc23a6649da96d5766a3c7c22601221ac361e`, `40,221` golden rows). Note: `just release-check`'s `core`/`full` Rust `.crate` consumer step stops on the slim `tamil-toolkit` `.crate` by design (bulk `CC-BY-SA-4.0` dictionary CSVs are excluded from crates.io archives).
+- **Next:** Optional cleanup of the temporary `../tamil-toolkit-phase9-candidate` worktree, version bump / manual release when ready to publish `tamil-tokenize`, or next roadmap phase.
+
 ## Release `0.1.0` Published (2026-11-24)
 
 - **Published registries (`v0.1.0`, source commit `fbed514303a80bd2f9d6a9819113f4afbd32597b`, artifact run [`45338097329`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45338097329) — 14/14 jobs green):**

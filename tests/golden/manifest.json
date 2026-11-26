@@ -523,6 +523,15 @@
         "lexicon_source_bucket",
         "lexicon_source_lookup"
       ]
+    },
+    {
+      "file": "tokenize_v01.jsonl",
+      "status": "active",
+      "reason": "Activated by owner on 2026-11-26 after fixture review and real Rust/Python/Node/browser WASM/Dart preactivation parity.",
+      "operations": [
+        "tokenize_words",
+        "segment_sentences"
+      ]
     }
   ]
 }

@@ -6,6 +6,31 @@ typedef ExactDecimal = Map<String, Object?>;
 typedef NumericRangeEndpoint = Map<String, Object?>;
 typedef GregorianDate = Map<String, int>;
 
+class TokenizationSpan {
+  final String text;
+  final int startByte;
+  final int endByte;
+  final int startUnit;
+  final int endUnit;
+
+  TokenizationSpan.fromJson(Map<String, dynamic> json)
+      : text = json['text'] as String,
+        startByte = json['start_byte'] as int,
+        endByte = json['end_byte'] as int,
+        startUnit = json['start_unit'] as int,
+        endUnit = json['end_unit'] as int;
+}
+
+enum TokenKind { abbreviation, word, number, other }
+
+class WordToken extends TokenizationSpan {
+  final TokenKind kind;
+
+  WordToken.fromJson(super.json)
+      : kind = TokenKind.values.byName(json['kind'] as String),
+        super.fromJson();
+}
+
 class EncodingCandidate {
   final String encoding;
   final double confidence;
@@ -272,6 +297,24 @@ class TamilToolkit {
       malloc.free(input);
     }
   }
+
+  List<WordToken> tokenizeWords(String text, {String? stopwordProfile}) =>
+      (execute({
+        'op': 'tokenize_words',
+        'input': {
+          'text': text,
+          if (stopwordProfile != null) 'stopword_profile': stopwordProfile,
+        },
+      }) as List)
+          .map((row) => WordToken.fromJson(row as Map<String, dynamic>))
+          .toList();
+
+  List<TokenizationSpan> segmentSentences(String text) => (execute({
+        'op': 'segment_sentences',
+        'input': {'text': text},
+      }) as List)
+          .map((row) => TokenizationSpan.fromJson(row as Map<String, dynamic>))
+          .toList();
 
   List<String> getLetters(String text) =>
       (execute({'op': 'get_letters', 'input': text}) as List).cast<String>();

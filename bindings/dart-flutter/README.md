@@ -80,6 +80,17 @@ final tamDecoded = toolkit.tamBytesToUnicode(tamBytes);
 final anjalDecoded = toolkit.anjalBytesToUnicode(anjalBytes);
 ```
 
+### 3. Source-Preserving Word & Sentence Tokenization
+
+Split Tamil prose into exact UTF-8 byte and written-unit spans without breaking attested abbreviations:
+
+```dart
+final text = 'திரு. குமார் மற்றும் ரூ.100 வந்தது.';
+final words = toolkit.tokenizeWords(text, stopwordProfile: 'conservative');
+final sentences = toolkit.segmentSentences(text);
+print('${words.length} words, ${sentences.length} sentence(s)');
+```
+
 ---
 
 ## Testing

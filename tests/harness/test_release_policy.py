@@ -421,10 +421,10 @@ def test_dag_rejects_reverse_and_peer_dependencies(repository, manifest_rel, sec
 
 
 def test_dag_rejects_premature_empty_scaffold_for_planned_crates(repository):
-    planned_dir = repository / "crates/tamil-tokenize"
+    planned_dir = repository / "crates/tamil-phonetics"
     (planned_dir / "src").mkdir(parents=True)
     (planned_dir / "Cargo.toml").write_text(
-        '[package]\nname = "tamil-tokenize"\nversion.workspace = true\npublish.workspace = true\n'
+        '[package]\nname = "tamil-phonetics"\nversion.workspace = true\npublish.workspace = true\n'
         'license.workspace = true\nrepository.workspace = true\n',
         encoding="utf-8",
     )

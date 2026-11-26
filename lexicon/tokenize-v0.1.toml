@@ -1,0 +1,90 @@
+version = "0.1"
+
+stopword_source = "https://raw.githubusercontent.com/apache/lucene/releases/lucene/9.8.0/lucene/analysis/common/src/resources/org/apache/lucene/analysis/ta/stopwords.txt"
+
+stopword_sha256 = "5e1e208151aa6c94d50488f61e32c86ddab42b2ef097b6962b4a29e48d8df1f0"
+
+stopword_license = "Apache-2.0"
+
+stopword_attribution = "TamilNLP by AshokR, via Apache Lucene 9.8.0"
+
+[[abbreviation]]
+form = "திரு."
+use = "honorific"
+following = "tamil"
+min_spaces = 0
+punctuation = ""
+region = "SL"
+source = "https://tamil.ciaboc.gov.lk/about"
+locator = "Institutional history, judges and commissioners in the member lists"
+rights = "Usage witness only. Source passages are not redistributed."
+
+[[abbreviation]]
+form = "மு.க."
+use = "initials"
+following = "tamil"
+min_spaces = 0
+punctuation = ""
+region = "TN"
+source = "https://rcs.tn.gov.in/public/uploads/policy/Policy%20Note%202025-26%20Tamil.pdf"
+locator = "Policy Note 2025–26, page 1 chief minister's name"
+rights = "Usage witness only. Source passages are not redistributed."
+
+[[abbreviation]]
+form = "பி.ப."
+use = "afternoon"
+following = "decimal"
+min_spaces = 1
+punctuation = ""
+region = "SL"
+source = "https://doa.gov.lk/naicc-services-tv-programs-ta/"
+locator = "Tamil TV schedules, weekend transmission times"
+rights = "Usage witness only. Source passages are not redistributed."
+
+[[abbreviation]]
+form = "மு.ப."
+use = "morning"
+following = "decimal"
+min_spaces = 1
+punctuation = ""
+region = "SL"
+source = "https://rgd.gov.lk/web/index.php/ta/services/document-land-registration/title/transactions"
+locator = "Transaction office hours, opening times"
+rights = "Usage witness only. Source passages are not redistributed."
+
+[[abbreviation]]
+form = "எ.கா."
+use = "example"
+following = "tamil"
+min_spaces = 1
+punctuation = ":"
+region = "TN"
+source = "https://www.tamilvu.org/sites/default/files/notice/Thamizhai_Pizhaiyinri_Ezhuthuvom.pdf"
+locator = "Tamil writing guide, printed page 42 examples"
+rights = "Usage witness only. Source passages are not redistributed."
+
+[[abbreviation]]
+form = "ரூ."
+use = "currency"
+following = "decimal"
+min_spaces = 0
+punctuation = ""
+region = "TN"
+source = "https://vptax.tnrd.tn.gov.in/faq/"
+locator = "Drinking-water connection question 6"
+rights = "Usage witness only. Source passages are not redistributed."
+
+[[stopword]]
+word = "மற்றும்"
+tier = "conservative"
+rationale = "Coordinating conjunction used to conjoin clauses or terms."
+
+[[stopword]]
+word = "அல்லது"
+tier = "conservative"
+rationale = "Disjunctive conjunction used to introduce an alternative."
+
+[[stopword]]
+word = "போன்ற"
+tier = "broad"
+rationale = "Comparison marker that can still be relevant for precise queries."

@@ -13,7 +13,8 @@ type SnippetCategory =
   | "lexicon"
   | "hyphenator"
   | "normalizer"
-  | "sorter";
+  | "sorter"
+  | "tokenizer";
 
 const SNIPPETS: Record<
   LangKey,
@@ -65,6 +66,11 @@ console.log(repaired.text, folded);`,
 
 const sorted = sort_words(["பாரதி", "அகத்தியர்", "கம்பர்"], "agara-v1");
 console.log(sorted, compare("அகத்தியர்", "கம்பர்", "agara-v1"));`,
+      tokenizer: `import { tokenize_words, segment_sentences } from "tamil-toolkit";
+
+const text = "திரு. குமார் மற்றும் ரூ.100 வந்தது.";
+console.log(tokenize_words(text, "conservative"));
+console.log(segment_sentences(text));`,
     },
   },
   python: {
@@ -111,6 +117,11 @@ print(repaired["text"], folded)`,
 
 words = sort_words(["பாரதி", "அகத்தியர்", "கம்பர்"], profile="agara-v1")
 print(words, compare("அகத்தியர்", "கம்பர்", profile="agara-v1"))`,
+      tokenizer: `from tamil_toolkit import tokenize_words, segment_sentences
+
+text = "திரு. குமார் மற்றும் ரூ.100 வந்தது."
+print(tokenize_words(text, stopword_profile="conservative"))
+print(segment_sentences(text))`,
     },
   },
   rust: {
@@ -158,6 +169,13 @@ fn main() {
 fn main() {
     let req = r#"{"op":"sort_words","input":{"words":["பாரதி","அகத்தியர்","கம்பர்"],"profile":"agara-v1"}}"#;
     println!("{}", execute_json(req).unwrap());
+}`,
+      tokenizer: `use tamil_toolkit::tokenize::{segment_sentences, tokenize_words, StopwordProfile};
+
+fn main() {
+    let text = "திரு. குமார் மற்றும் ரூ.100 வந்தது.";
+    println!("{:?}", tokenize_words(text, StopwordProfile::Conservative));
+    println!("{:?}", segment_sentences(text));
 }`,
     },
   },
@@ -226,6 +244,14 @@ void main() {
   final sorted = toolkit.sortWords(["பாரதி", "அகத்தியர்", "கம்பர்"]);
   print(sorted);
 }`,
+      tokenizer: `import 'package:tamil_toolkit/tamil_toolkit.dart';
+
+void main() {
+  final toolkit = TamilToolkit();
+  final text = "திரு. குமார் மற்றும் ரூ.100 வந்தது.";
+  print(toolkit.tokenizeWords(text, stopwordProfile: 'conservative'));
+  print(toolkit.segmentSentences(text));
+}`,
     },
   },
 };
@@ -247,6 +273,7 @@ export function CodeGenerator() {
     { id: "hyphenator", label: t.tools.codegen.tabHyphenator },
     { id: "normalizer", label: t.tools.codegen.tabNormalizer },
     { id: "sorter", label: t.tools.codegen.tabSorter },
+    { id: "tokenizer", label: t.tools.codegen.tabTokenizer },
   ];
 
   return (

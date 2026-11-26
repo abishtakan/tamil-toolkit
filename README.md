@@ -4,7 +4,7 @@
 
 ### The High-Performance Tamil NLP, Unicode & Linguistic Toolkit for Rust, Python, and JavaScript/WASM
 
-**Universal Tamil text processing · Grapheme & Syllable segmentation · Agara varisai sorting · Legacy font conversion · Currency & Numerals · Panchangam calendar · DTP Hyphenation**
+**Universal Tamil text processing · Grapheme, Word & Sentence segmentation · Agara varisai sorting · Legacy font conversion · Currency & Numerals · Panchangam calendar · DTP Hyphenation**
 
 [![Rust CI][ci-badge]][ci]
 [![crates.io version][crates-version]][crates]
@@ -25,7 +25,7 @@
 
 **tamil-toolkit** is an all-in-one, memory-safe Tamil linguistic engine written in Rust (`#![forbid(unsafe_code)]`) and compiled to native libraries and WebAssembly for **Rust (crates.io)**, **Python (PyPI abi3 wheels)**, **JavaScript / TypeScript (npm ESM/WASM for Node.js & Browsers)**, **Dart/Flutter**, and **Microsoft Word**.
 
-One canonical Rust core powers every runtime with verified golden-vector parity (**40,211 active vectors** across Rust, Python, Node/Browser WASM, and Dart). Try it immediately in the [live WebAssembly Playground](https://tamil-toolkit-playground.vercel.app/) or read the machine-readable index in [llms.txt](llms.txt).
+One canonical Rust core powers every runtime with verified golden-vector parity (**40,265 active vectors** across Rust, Python, Node/Browser WASM, and Dart). Try it immediately in the [live WebAssembly Playground](https://tamil-toolkit-playground.vercel.app/) or read the machine-readable index in [llms.txt](llms.txt).
 
 ---
 
@@ -34,6 +34,7 @@ One canonical Rust core powers every runtime with verified golden-vector parity 
 | Capability | What It Delivers |
 |---|---|
 | 🔤 **Unicode & Segmentation** | Tailored UAX #29 grapheme cluster segmentation treating `க்ஷ` and `ஸ்ரீ` as atomic letters, Mei/Uyirmei decomposition & composition, canonical NFC/NFD normalization preserving ZWJ/ZWNJ joiners, orthographic repair, Mayangoli search folding, and scalar inspection. |
+| 🧩 **Word & Sentence Tokenization** | Offline, source-preserving word and sentence spans (`tokenize_words`, `segment_sentences`) with exact zero-based UTF-8 byte & written-unit offsets, attested Tamil abbreviation handling (`திரு.`, `மு.க.`, `பி.ப.`, `மு.ப.`, `எ.கா.`, `ரூ.`), and opt-in stopword profiles (`none`, `conservative`, `broad`). |
 | 🎵 **Phonology & Mora Metrics** | Tholkappiyam-grounded phonological analysis: exact mora (*Maathirai*) duration (`KURIL = 1.0`, `NEDIL = 2.0`, `MEI = 0.5`, `AYTHAM = 0.5`), quantity classification (`is_kuril`, `is_nedil`, `is_mei`, `is_aytham`), homorganic cognates (*Ina Ezhuthu*), and borrowed syllable nuclei (*Olippasai*). |
 | 🔠 **Agara Varisai Sorting** | Lexicographical Tamil alphabetical collation following traditional Mei-first dictionary order (`agara-v1`) and school Uyirmei-first order (`uyirmei-first-v1`), with versioned sort keys and canonical search keys. |
 | 📐 **DTP Syllabic Hyphenation** | Coda-binding syllabic hyphenation (`\u{00AD}`) that never strands a pulli consonant (ஒற்று), responsive line wrapping, Hunspell `.dic` export, LibreOffice `.oxt`, and a [Microsoft Word Add-in](https://tamil-toolkit-word.vercel.app/support.html). |
@@ -50,6 +51,7 @@ One canonical Rust core powers every runtime with verified golden-vector parity 
 Try all tools live in your browser at **[tamil-toolkit-playground.vercel.app](https://tamil-toolkit-playground.vercel.app/)** (processes text locally via WebAssembly):
 
 - [Agara Varisai Tamil Sorter](https://tamil-toolkit-playground.vercel.app/tools/agara-varisai-sorter/) — Mei-first & Uyirmei-first alphabetical sorting
+- [Tamil Word & Sentence Tokenizer](https://tamil-toolkit-playground.vercel.app/tools/tamil-tokenizer/) — Source-preserving word/sentence spans, attested abbreviations & stopword filtering
 - [Tamil99 Keyboard & Transliteration](https://tamil-toolkit-playground.vercel.app/tools/tamil99-keyboard/) — ISO 15919, Madras Lexicon, ITRANS, Harvard-Kyoto, Tanglish, Tamil99, Anjal, Suratha Bamini
 - [Tamil Number to Words & Cheque Formatter](https://tamil-toolkit-playground.vercel.app/tools/tamil-number-to-words/) — TN/SL spellout, 8 currencies, ITN, mixed fractions & traditional numerals
 - [Tamil Syllabic Hyphenator](https://tamil-toolkit-playground.vercel.app/tools/tamil-hyphenation/) — Coda-binding soft hyphens, `.dic` & LibreOffice `.oxt`
@@ -81,7 +83,7 @@ Download badges track the umbrella package in each registry: total downloads on 
 
 All nine Rust crates are published at `0.1.0`: [`tamil-core`](https://crates.io/crates/tamil-core), [`tamil-norm`](https://crates.io/crates/tamil-norm), [`tamil-collate`](https://crates.io/crates/tamil-collate), [`tamil-numerals`](https://crates.io/crates/tamil-numerals), [`tamil-calendar`](https://crates.io/crates/tamil-calendar), [`tamil-codec`](https://crates.io/crates/tamil-codec), [`tamil-hyphen`](https://crates.io/crates/tamil-hyphen), [`tamil-translit`](https://crates.io/crates/tamil-translit), and [`tamil-toolkit`](https://crates.io/crates/tamil-toolkit).
 
-**Contract boundaries:** Legacy font profiles (Bamini, TSCII, TAB, TAM, Anjal, LT-TM, Vanavil, Senthamil, Shree-Tam, Softview, TBO) and Bharathi Braille use declared bounded profiles; they do not claim complete historical-font coverage. Four civil calendar suites are active while 13 Thirukanitham/Vakya ephemeris and observance suites remain experimental (`planned` pending independent witness review). Planned NLP modules (Phases 9–17) and Dart/Pub or PostgreSQL distributions remain outside the public release. See the [LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), [calendar scope](docs/releases/numerals-calendar-candidate.md), and [0.1.0 compatibility details](docs/releases/v0.1.0.md#compatibility-and-scope).
+**Contract boundaries:** Legacy font profiles (Bamini, TSCII, TAB, TAM, Anjal, LT-TM, Vanavil, Senthamil, Shree-Tam, Softview, TBO) and Bharathi Braille use declared bounded profiles; they do not claim complete historical-font coverage. Four civil calendar suites are active while 13 Thirukanitham/Vakya ephemeris and observance suites remain experimental (`planned` pending independent witness review). `tamil-tokenize` (Phase 9) is active in source and release policy ahead of the next release; planned NLP modules (Phases 10–17) and Dart/Pub or PostgreSQL distributions remain outside the public release. See the [LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), [tokenizer contract](docs/specs/tokenize-v0.1.md), [calendar scope](docs/releases/numerals-calendar-candidate.md), and [0.1.0 compatibility details](docs/releases/v0.1.0.md#compatibility-and-scope).
 
 ---
 
@@ -261,6 +263,17 @@ for line in wrapped.lines {
 }
 ```
 
+### 4. Source-Preserving Word & Sentence Tokenization
+Split Tamil prose into exact UTF-8 byte and written-unit spans without breaking attested abbreviations (`திரு.`, `மு.க.`, `பி.ப.`, `மு.ப.`, `எ.கா.`, `ரூ.`):
+
+```python
+import tamil_toolkit as tamil
+
+text = "திரு. குமார் மற்றும் ரூ.100 வந்தது."
+words = tamil.tokenize_words(text, stopword_profile="conservative")
+sentences = tamil.segment_sentences(text)
+```
+
 ---
 
 ## Performance & Benchmarks
@@ -276,7 +289,7 @@ for line in wrapped.lines {
 | **Client-Side Web (Browser / WASM)** | ✅ Native WASM package (100% offline) | ❌ Requires server/Pyodide | ⚠️ Fragile regex rules |
 | **Currency & Legal Cheque Spellout** | ✅ Exact decimal (INR & LKR) without float drift | ⚠️ Basic numbers only | ❌ None |
 | **Desktop Publishing / Hyphenation** | ✅ Soft-hyphen injection + LibreOffice `.oxt` | ❌ None | ❌ None |
-| **Test Verification Suite** | ✅ **35,000+ golden vectors** verified across runtimes | ~200 unit tests | None |
+| **Test Verification Suite** | ✅ **40,265 active golden vectors** verified across runtimes | ~200 unit tests | None |
 
 ---
 
@@ -295,6 +308,7 @@ Every API in `tamil-toolkit` is governed by a formal capability specification:
 | Bounded classical Vakiya civil, five-limb, arithmetic profile | [1962 edition contract](docs/specs/calendar-vakya-civil-v1.md) · [solar arithmetic contract](docs/specs/calendar-solar-arithmetic-v1.md) · [completion matrix](docs/specs/numerals-completion-plan.md) |
 | Bamini, bounded byte profiles, and LT-TM / Vanavil CID conversion | [Codec contract](docs/specs/codec-v0.1.md) · [LT-TM profile](docs/specs/codec-lt-tm.md) · [Vanavil profile](docs/specs/codec-vanavil.md) · [0.1.0 scope](docs/releases/v0.1.0.md#compatibility-and-scope) |
 | Syllable and orthographic boundary hyphenation | [Hyphenation specification](specs/009-tamil-hyphen/spec.md) · [DTP dictionary spec](specs/011-tamil-hyphen-dic/spec.md) · [Word & Google Docs roadmap](docs/integrations/word-googledocs-roadmap.md) |
+| Word & sentence tokenization, abbreviations, and stopwords | [Tokenizer contract](docs/specs/tokenize-v0.1.md) · [Phase 9 spec](specs/024-tamil-tokenize/spec.md) |
 | Rust API reference | [docs.rs/tamil-toolkit](https://docs.rs/tamil-toolkit/0.1.0/tamil_toolkit/) |
 | Python and JavaScript/WASM SDK guides | [Python](bindings/python/README.md) · [JavaScript/WASM](bindings/js-wasm/README.md) |
 | Published package list and release record | [Release policy](docs/releases/policy.md#what-can-ship) · [0.1.0](docs/releases/v0.1.0.md) |

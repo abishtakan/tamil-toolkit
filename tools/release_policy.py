@@ -54,7 +54,6 @@ CRATE_RANKS = {
 UNSCAFFOLDED_PLANNED_CRATES = frozenset({
     "tamil-lexicon",
     "tamil-phonetics",
-    "tamil-tokenize",
     "tamil-spell",
 })
 

@@ -2,7 +2,7 @@ export const PLAYGROUND_ORIGIN = "https://tamil-toolkit-playground.vercel.app";
 
 export interface SeoToolPage {
   slug: string;
-  toolId: "codec" | "numeral" | "translit" | "sorter" | "hyphenator" | "calendar";
+  toolId: "codec" | "numeral" | "translit" | "sorter" | "hyphenator" | "calendar" | "tokenizer";
   defaultCodecProfile?: string;
   title: string;
   description: string;
@@ -104,6 +104,19 @@ export const SEO_TOOL_PAGES: readonly SeoToolPage[] = [
     example: "Gregorian 2026-04-14 → சித்திரை 1 (Tamil New Year / Puthandu)",
     limits:
       "Calendar profiles cover documented bounded date and TN/SL location ranges; see docs/specs/calendar-thirukanitham-v1.md and calendar-vakya-civil-v1.md.",
+  },
+  {
+    slug: "tamil-tokenizer",
+    toolId: "tokenizer",
+    title: "Tamil Word & Sentence Tokenizer (Source Offsets & Stopwords) | Tamil Toolkit",
+    description:
+      "Tokenize Tamil text into words and sentences with exact UTF-8 byte and written-unit offsets, attested Tamil abbreviation handling (திரு., மு.க., பி.ப., ரூ.), and opt-in stopword filtering.",
+    h1: "Tamil Word & Sentence Tokenizer",
+    summary:
+      "Offline, source-preserving UAX #29 tailored Tamil word and sentence segmentation keeping written units and attested TN/SL abbreviations intact, with none, conservative, and broad stopword profiles.",
+    example: "திரு. குமார் வந்தார். → 1 sentence; [திரு., குமார், வந்தார், .]",
+    limits:
+      "Provides linguistic source spans and opt-in stopword filtering; model-specific subword token IDs and chunk budgeting are separate layers.",
   },
 ];
 

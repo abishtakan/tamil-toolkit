@@ -10,13 +10,14 @@
 - [Tamil99 Keyboard & Transliteration](https://tamil-toolkit-playground.vercel.app/tools/tamil99-keyboard/): ISO 15919, Madras Lexicon, ITRANS, Harvard-Kyoto, Phonetic (Tanglish), Tamil99, Anjal Phonetic, and Suratha Bamini.
 - [Tamil Number & Cheque Words](https://tamil-toolkit-playground.vercel.app/tools/tamil-number-to-words/): TN/SL number-to-words, 8-currency cheque spellout (`INR`, `LKR`, `SGD`, `MYR`, `USD`, `EUR`, `GBP`, `CAD`), words-to-number (ITN), mixed fractions, and traditional numerals.
 - [Agara Varisai Tamil Sorter](https://tamil-toolkit-playground.vercel.app/tools/agara-varisai-sorter/): Mei-first Agara Varisai and Uyirmei-first alphabetical sorting.
+- [Tamil Word & Sentence Tokenizer](https://tamil-toolkit-playground.vercel.app/tools/tamil-tokenizer/): Source-preserving word and sentence spans with exact UTF-8 byte & written-unit offsets, attested Tamil abbreviations, and opt-in stopword filtering.
 - [Tamil Syllabic Hyphenator](https://tamil-toolkit-playground.vercel.app/tools/tamil-hyphenation/): Coda-binding soft hyphens, line wrapping, `.dic`, and LibreOffice `.oxt` downloads.
 - [Tamil Solar Calendar & Panchangam](https://tamil-toolkit-playground.vercel.app/tools/tamil-panchangam/): Bounded Thirukanitham (Drik) and 1962 Vakya solar dates, five limbs, and TN/SL holiday snapshots.
 
 ## Source & SDKs
 
 - [GitHub Repository](https://github.com/abishtakan/tamil-toolkit): Source code, specs, and golden test vectors.
-- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.1.0-alpha.9`
-- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.1.0a9`
-- [npm ESM/WASM](https://www.npmjs.com/package/tamil-toolkit): `npm install tamil-toolkit@alpha`
+- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.1.0`
+- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.1.0`
+- [npm ESM/WASM](https://www.npmjs.com/package/tamil-toolkit): `npm install tamil-toolkit@latest`
 - [Microsoft Word Add-in Support](https://tamil-toolkit-word.vercel.app/support.html): Local-processing Word add-in guide and installation.

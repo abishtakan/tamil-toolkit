@@ -2,7 +2,7 @@
 
 # tamil-toolkit
 
-**Unified high-performance Rust entry point for Tamil text, Agara ordering, bounded exact numerals, Tholkappiyam phonology, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, and legacy conversion APIs.**
+**Unified high-performance Rust entry point for Tamil text, Agara ordering, bounded exact numerals, Tholkappiyam phonology, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, source-preserving tokenization, and legacy conversion APIs.**
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-toolkit?style=flat-square)](https://crates.io/crates/tamil-toolkit)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-toolkit?style=flat-square&label=downloads)](https://crates.io/crates/tamil-toolkit)
@@ -19,6 +19,7 @@
 | Area | Capabilities |
 | --- | --- |
 | **Text & Phonology** | Unicode letter operations, normalization, inspection, Tholkappiyam mora (`Maathirai`), homorganic cognates (`Ina Ezhuthu`), and zero-allocation syllable nuclei (`Olippasai`). |
+| **Tokenization** | Offline, source-preserving word and sentence segmentation (`tokenize_words`, `segment_sentences`) with UTF-8 byte & written-unit offsets, attested Tamil abbreviations, and opt-in stopword profiles. |
 | **Ordering and numbers** | Agara sorting, Tamil number words, bounded exact numeric strings and currency amounts, symbol metadata, fractions, and Gregorian civil arithmetic. |
 | **Tamil calendar** | Bounded Thirukanitham Drik conversion and panchangam reports, a named Nava Panchangam/Tamil-rule TN subset for solar festivals and Amavasya/Pournami Aparahna selection with sunrise fallback, and selected authority-published TN/SL annual holiday schedules; Vakiya and Sri Lanka observances are unsupported and calendar fixture suites remain planned. |
 | **Historical calendar kernels** | Unreleased source-pinned 1962 Vakiya solar and lunar calculations; full Vakiya date/location/five-limb coverage is not implemented. |

@@ -28,6 +28,45 @@
       "upstream_sha256": "e7a93b009565cfce55919a381437ac4db883e9da2126fa28b91d12732bc53d96",
       "sha256": "e7a93b009565cfce55919a381437ac4db883e9da2126fa28b91d12732bc53d96",
       "selection": null
+    },
+    {
+      "file": "WordBreakTest.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/auxiliary/WordBreakTest.txt",
+      "upstream_sha256": "1de23a75f37904abc7d206239ee8d34f8fdf0fb4ab32a7174dfbabbde25419b2",
+      "sha256": "1de23a75f37904abc7d206239ee8d34f8fdf0fb4ab32a7174dfbabbde25419b2",
+      "selection": null
+    },
+    {
+      "file": "SentenceBreakTest.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/auxiliary/SentenceBreakTest.txt",
+      "upstream_sha256": "12cb47d028ded0c1cb8a28558f95479cbcd24559c46977015c82f3b50a1cc6e4",
+      "sha256": "12cb47d028ded0c1cb8a28558f95479cbcd24559c46977015c82f3b50a1cc6e4",
+      "selection": null
+    },
+    {
+      "file": "DerivedGeneralCategory.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/extracted/DerivedGeneralCategory.txt",
+      "upstream_sha256": "d62e5bab70ca74f099343f71224fa051cb1fdd61a1ab45c0488c44cfc0b6102e",
+      "sha256": "d62e5bab70ca74f099343f71224fa051cb1fdd61a1ab45c0488c44cfc0b6102e",
+      "selection": null
+    },
+    {
+      "file": "PropList.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/PropList.txt",
+      "upstream_sha256": "130dcddcaadaf071008bdfce1e7743e04fdfbc910886f017d9f9ac931d8c64dd",
+      "sha256": "130dcddcaadaf071008bdfce1e7743e04fdfbc910886f017d9f9ac931d8c64dd",
+      "selection": null
+    },
+    {
+      "file": "SentenceBreakProperty.txt",
+      "url": "https://www.unicode.org/Public/17.0.0/ucd/auxiliary/SentenceBreakProperty.txt",
+      "upstream_sha256": "871c0c985ad95125e25b302414065a10839d068970bceb383ecec138f22a0a18",
+      "sha256": "871c0c985ad95125e25b302414065a10839d068970bceb383ecec138f22a0a18",
+      "selection": null
     }
-  ]
+  ],
+  "tokenizer_projection": {
+    "path": "lexicon/tokenize-unicode-v17.toml",
+    "sha256": "df730c7c8a9f968cffc3858b507cc885b9a187f82aad0a5c0bc564280038d08c"
+  }
 }

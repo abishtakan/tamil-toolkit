@@ -208,6 +208,23 @@ class TamilSolarDate(TypedDict):
     month: int
     day: int
 
+StopwordProfile = Literal["none", "conservative", "broad"]
+
+
+class TokenizationSpan(TypedDict):
+    text: str
+    start_byte: int
+    end_byte: int
+    start_unit: int
+    end_unit: int
+
+
+class WordToken(TokenizationSpan):
+    kind: Literal["abbreviation", "word", "number", "other"]
+
+
+def tokenize_words(text: str, *, stopword_profile: StopwordProfile = "none") -> list[WordToken]: ...
+def segment_sentences(text: str) -> list[TokenizationSpan]: ...
 def execute(request: dict[str, Any]) -> Any: ...
 def get_letters(text: str) -> list[str]: ...
 def normalize_nfc(text: str) -> str: ...
