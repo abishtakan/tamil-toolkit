@@ -311,7 +311,12 @@
     {
       "file": "punarchi_nannool.jsonl",
       "status": "planned",
-      "reason": "The Nannool root-text profile needs inspected edition-pinned rules and expert-reviewed merger fixtures; Tolkappiyam comparisons remain separate, and a future splitter needs licensed lexicon provenance."
+      "reason": "The Nannool root-text profile needs inspected edition-pinned rules and expert-reviewed merger fixtures; Tolkappiyam comparisons remain separate, and a future splitter needs licensed lexicon provenance.",
+      "operations": [
+        "punarchi_join",
+        "punarchi_split_candidates",
+        "punarchi_rules"
+      ]
     },
     {
       "file": "codec_tscii_bytes.jsonl",

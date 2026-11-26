@@ -867,6 +867,28 @@ void main() {
       throw StateError('Unsupported TAMIL_LEXICON_PROFILE=$profile');
     }
   });
+
+  test('punarchi convenience APIs', () {
+    expect(
+      tamil.punarchiJoin(
+        'மரம்',
+        'ஐ',
+        context: {'relation': 'vetrumai', 'subtype': 'case_2'},
+      )['surface'],
+      'மரத்தை',
+    );
+    final candidates = tamil.punarchiSplitCandidates('கல்லடி');
+    expect(
+      candidates.any((c) =>
+          c['first'] == 'கல்' &&
+          c['second'] == 'அடி' &&
+          c['sutra'] == 205 &&
+          c['split_byte'] == 9 &&
+          c['split_unit'] == 2),
+      isTrue,
+    );
+    expect(tamil.punarchiRules().length, 117);
+  });
 }
 
 String _packDirPath(String root, String packId) {

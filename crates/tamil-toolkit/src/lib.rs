@@ -15,6 +15,7 @@ pub use tamil_core as core;
 pub use tamil_hyphen as hyphen;
 pub use tamil_norm as norm;
 pub use tamil_numerals as numerals;
+pub use tamil_punarchi as punarchi;
 pub use tamil_tokenize as tokenize;
 pub use tamil_translit as translit;
 
@@ -2235,8 +2236,153 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         "lexicon_packs" => lexicon::execute_packs(request, input),
         "lexicon_source_bucket" => source_records::execute_bucket(input),
         "lexicon_source_lookup" => source_records::execute_lookup(input),
+        "punarchi_join" => execute_punarchi_join(input),
+        "punarchi_split_candidates" => execute_punarchi_split_candidates(input),
+        "punarchi_rules" => execute_punarchi_rules(input),
         op => Err(format!("unsupported operation: {op}")),
     }
+}
+
+fn punarchi_profile_opt(
+    obj: &serde_json::Map<String, Value>,
+) -> Result<punarchi::PunarchiProfile, String> {
+    match obj.get("profile") {
+        None | Some(Value::Null) => Ok(punarchi::PunarchiProfile::NannoolV1),
+        Some(v) => {
+            let s = v
+                .as_str()
+                .ok_or_else(|| punarchi::PunarchiError::ExpectedProfileString.to_string())?;
+            punarchi::PunarchiProfile::parse(s).map_err(|e| e.to_string())
+        }
+    }
+}
+
+fn punarchi_context_opt(
+    obj: &serde_json::Map<String, Value>,
+) -> Result<punarchi::PunarchiContext, String> {
+    let Some(raw) = obj.get("context") else {
+        return Ok(punarchi::PunarchiContext::default());
+    };
+    if raw.is_null() {
+        return Ok(punarchi::PunarchiContext::default());
+    }
+    let ctx_obj = raw
+        .as_object()
+        .ok_or_else(|| punarchi::PunarchiError::ExpectedContextObject.to_string())?;
+
+    let relation = match ctx_obj.get("relation") {
+        None | Some(Value::Null) => punarchi::GrammaticalRelation::Unspecified,
+        Some(v) => {
+            let s = v
+                .as_str()
+                .ok_or_else(|| punarchi::PunarchiError::UnsupportedRelation.to_string())?;
+            punarchi::GrammaticalRelation::parse(s).map_err(|e| e.to_string())?
+        }
+    };
+
+    let subtype = match ctx_obj.get("subtype") {
+        None | Some(Value::Null) => None,
+        Some(v) => {
+            let s = v.as_str().ok_or_else(|| {
+                punarchi::PunarchiError::UnsupportedOrIncompatibleSubtype.to_string()
+            })?;
+            Some(punarchi::ContextSubtype::parse(s).map_err(|e| e.to_string())?)
+        }
+    };
+
+    let lexical_class = match ctx_obj.get("lexical_class") {
+        None | Some(Value::Null) => None,
+        Some(v) => {
+            let s = v
+                .as_str()
+                .ok_or_else(|| punarchi::PunarchiError::UnsupportedLexicalClass.to_string())?;
+            Some(punarchi::LexicalClass::parse(s).map_err(|e| e.to_string())?)
+        }
+    };
+
+    let poetic = match ctx_obj.get("poetic") {
+        None | Some(Value::Null) => false,
+        Some(v) => v
+            .as_bool()
+            .ok_or_else(|| punarchi::PunarchiError::ExpectedPoeticBoolean.to_string())?,
+    };
+
+    let ctx = punarchi::PunarchiContext {
+        relation,
+        subtype,
+        lexical_class,
+        poetic,
+    };
+    ctx.validate().map_err(|e| e.to_string())?;
+    Ok(ctx)
+}
+
+fn execute_punarchi_join(input: &Value) -> Result<Value, String> {
+    let obj = input
+        .as_object()
+        .ok_or_else(|| punarchi::PunarchiError::ExpectedInputObject.to_string())?;
+    let first = obj
+        .get("first")
+        .and_then(Value::as_str)
+        .ok_or_else(|| punarchi::PunarchiError::ExpectedStringInput.to_string())?;
+    let second = obj
+        .get("second")
+        .and_then(Value::as_str)
+        .ok_or_else(|| punarchi::PunarchiError::ExpectedStringInput.to_string())?;
+    let profile = punarchi_profile_opt(obj)?;
+    let context = punarchi_context_opt(obj)?;
+    let res =
+        punarchi::punarchi_join(first, second, &context, profile).map_err(|e| e.to_string())?;
+    serde_json::to_value(&res).map_err(|e| e.to_string())
+}
+
+fn execute_punarchi_split_candidates(input: &Value) -> Result<Value, String> {
+    let obj = input
+        .as_object()
+        .ok_or_else(|| punarchi::PunarchiError::ExpectedInputObject.to_string())?;
+    let surface = obj
+        .get("surface")
+        .and_then(Value::as_str)
+        .ok_or_else(|| punarchi::PunarchiError::ExpectedStringInput.to_string())?;
+    let profile = punarchi_profile_opt(obj)?;
+    let poetic = match obj.get("poetic") {
+        None | Some(Value::Null) => false,
+        Some(v) => v
+            .as_bool()
+            .ok_or_else(|| punarchi::PunarchiError::ExpectedPoeticBoolean.to_string())?,
+    };
+    let cands =
+        punarchi::punarchi_split_candidates(surface, profile, poetic).map_err(|e| e.to_string())?;
+    serde_json::to_value(&cands).map_err(|e| e.to_string())
+}
+
+fn execute_punarchi_rules(input: &Value) -> Result<Value, String> {
+    let obj = input
+        .as_object()
+        .ok_or_else(|| punarchi::PunarchiError::ExpectedInputObject.to_string())?;
+    let profile = punarchi_profile_opt(obj)?;
+    let chapter = match obj.get("chapter") {
+        None | Some(Value::Null) => None,
+        Some(v) => {
+            let s = v
+                .as_str()
+                .ok_or_else(|| punarchi::PunarchiError::UnsupportedChapter.to_string())?;
+            Some(punarchi::PunarchiChapter::parse(s).map_err(|e| e.to_string())?)
+        }
+    };
+    let sutra = match obj.get("sutra") {
+        None | Some(Value::Null) => None,
+        Some(v) => {
+            let num = v
+                .as_u64()
+                .and_then(|n| u16::try_from(n).ok())
+                .ok_or_else(|| punarchi::PunarchiError::SutraOutOfRange.to_string())?;
+            Some(num)
+        }
+    };
+    let rules =
+        punarchi::punarchi_rules_filtered(profile, chapter, sutra).map_err(|e| e.to_string())?;
+    serde_json::to_value(&rules).map_err(|e| e.to_string())
 }
 
 pub fn execute_json(request: &str) -> Result<String, String> {

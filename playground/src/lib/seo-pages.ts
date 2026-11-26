@@ -2,7 +2,15 @@ export const PLAYGROUND_ORIGIN = "https://tamil-toolkit-playground.vercel.app";
 
 export interface SeoToolPage {
   slug: string;
-  toolId: "codec" | "numeral" | "translit" | "sorter" | "hyphenator" | "calendar" | "tokenizer";
+  toolId:
+    | "codec"
+    | "numeral"
+    | "translit"
+    | "sorter"
+    | "hyphenator"
+    | "calendar"
+    | "tokenizer"
+    | "punarchi";
   defaultCodecProfile?: string;
   title: string;
   description: string;
@@ -117,6 +125,19 @@ export const SEO_TOOL_PAGES: readonly SeoToolPage[] = [
     example: "திரு. குமார் வந்தார். → 1 sentence; [திரு., குமார், வந்தார், .]",
     limits:
       "Provides linguistic source spans and opt-in stopword filtering; model-specific subword token IDs and chunk budgeting are separate layers.",
+  },
+  {
+    slug: "tamil-punarchi",
+    toolId: "punarchi",
+    title: "Tamil Punarchi (Sandhi) Engine — Complete 117-Sutra Nannool Workbench | Tamil Toolkit",
+    description:
+      "Join and split Tamil words with full Nannool Ezhuttatikaram 117-sutra derivation traces, two-level Vetrumai/Alvazhi context, multi-segment Chariyai folding, and interactive sutra explorer.",
+    h1: "Tamil Punarchi (Sandhi) Workbench — Nannool Ezhuttatikaram",
+    summary:
+      "Offline deterministic Tamil Sandhi engine implementing all 117 Nannool Ezhuttatikaram sutras (93–94, 102–108, 136, 151–257) with step-by-step rule traces, dictionary-free forward-verified split candidates, and interactive sutra logic review.",
+    example: "மரம் + ஐ (Vetrumai) → மரத்தை · செம்மை + தாமரை → செந்தாமரை",
+    limits:
+      "Pure morphophonemic engine (dictionary-free reverse split candidates up to 256 UTF-8 bytes); dictionary-backed lexical ranking belongs to Phase 11.",
   },
 ];
 

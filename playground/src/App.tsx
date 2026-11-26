@@ -43,6 +43,9 @@ const LexiconExplorer = lazy(() =>
 const TokenizerTool = lazy(() =>
   import("./components/public-tools/TokenizerTool").then((m) => ({ default: m.TokenizerTool }))
 );
+const PunarchiTool = lazy(() =>
+  import("./components/public-tools/PunarchiTool").then((m) => ({ default: m.PunarchiTool }))
+);
 const ScalarInspector = lazy(() =>
   import("./components/developer-tools/ScalarInspector").then((m) => ({ default: m.ScalarInspector }))
 );
@@ -85,6 +88,7 @@ import {
   Loader2,
   AlignLeft,
   ScanText,
+  GitMerge,
 } from "lucide-react";
 
 function BrandMark({ className }: { className?: string }) {
@@ -113,6 +117,8 @@ export function ToolIcon({ icon, className }: { icon: ToolIconKey; className?: s
       return <AlignLeft className={className} />;
     case "scan-text":
       return <ScanText className={className} />;
+    case "git-merge":
+      return <GitMerge className={className} />;
     case "type":
       return <Type className={className} />;
     case "languages":
@@ -614,6 +620,7 @@ export function App() {
             )}
             {activeTool === "translit" && <TranslitTool engineReady={engineReady} />}
             {activeTool === "tokenizer" && <TokenizerTool engineReady={engineReady} />}
+            {activeTool === "punarchi" && <PunarchiTool engineReady={engineReady} />}
             {activeTool === "numeral" && <NumeralFormatter engineReady={engineReady} />}
             {activeTool === "calendar" && <CalendarExplorer engineReady={engineReady} />}
             {activeTool === "sorter" && <TextSorter engineReady={engineReady} />}

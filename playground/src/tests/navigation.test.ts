@@ -12,10 +12,10 @@ import {
 } from "../lib/tools";
 
 describe("Playground Navigation & Tool Registry", () => {
-  it("registers all 15 unique tools under valid navigation groups", () => {
-    expect(TOOLS).toHaveLength(15);
+  it("registers all 16 unique tools under valid navigation groups", () => {
+    expect(TOOLS).toHaveLength(16);
     const ids = TOOLS.map((tool) => tool.id);
-    expect(new Set(ids).size).toBe(15);
+    expect(new Set(ids).size).toBe(16);
 
     const validGroups = new Set(TOOL_GROUPS.map((g) => g.id));
     for (const tool of TOOLS) {
@@ -41,17 +41,25 @@ describe("Playground Navigation & Tool Registry", () => {
     expect(resolveToolFromLocation("/tools/tamil-hyphenation/", "")).toBe("hyphenator");
     expect(resolveToolFromLocation("/tools/tamil-panchangam/", "")).toBe("calendar");
     expect(resolveToolFromLocation("/tools/tamil-tokenizer/", "")).toBe("tokenizer");
+    expect(resolveToolFromLocation("/tools/tamil-punarchi/", "")).toBe("punarchi");
     expect(resolveToolFromLocation("/", "?tool=normalizer")).toBe("normalizer");
 
     expect(getToolHref("home")).toBe("/");
     expect(getToolHref("codec")).toBe("/tools/bamini-to-unicode/");
     expect(getToolHref("translit")).toBe("/tools/tamil99-keyboard/");
     expect(getToolHref("tokenizer")).toBe("/tools/tamil-tokenizer/");
+    expect(getToolHref("punarchi")).toBe("/tools/tamil-punarchi/");
     expect(getToolHref("lexicon")).toBe("/?tool=lexicon");
   });
 
   it("filters tools by English and Tamil titles and keywords", () => {
-    expect(filterToolsByQuery("", translations.en)).toHaveLength(15);
+    expect(filterToolsByQuery("", translations.en)).toHaveLength(16);
+
+    const punarchiHits = filterToolsByQuery("punarchi", translations.en);
+    expect(punarchiHits.some((t) => t.id === "punarchi")).toBe(true);
+
+    const punarchiHitsTa = filterToolsByQuery("புணர்ச்சி", translations.ta);
+    expect(punarchiHitsTa.some((t) => t.id === "punarchi")).toBe(true);
 
     const tokenizerHits = filterToolsByQuery("tokenizer", translations.en);
     expect(tokenizerHits.some((t) => t.id === "tokenizer")).toBe(true);

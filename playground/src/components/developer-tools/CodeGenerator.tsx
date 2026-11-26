@@ -14,7 +14,8 @@ type SnippetCategory =
   | "hyphenator"
   | "normalizer"
   | "sorter"
-  | "tokenizer";
+  | "tokenizer"
+  | "punarchi";
 
 const SNIPPETS: Record<
   LangKey,
@@ -71,6 +72,13 @@ console.log(sorted, compare("அகத்தியர்", "கம்பர்",
 const text = "திரு. குமார் மற்றும் ரூ.100 வந்தது.";
 console.log(tokenize_words(text, "conservative"));
 console.log(segment_sentences(text));`,
+      punarchi: `import { punarchi_join, punarchi_split_candidates } from "tamil-toolkit";
+
+const joined = punarchi_join("மரம்", "ஐ", {
+  context: { relation: "vetrumai", subtype: "case_2" },
+});
+console.log(joined.surface, joined.steps.map((s) => s.sutra)); // "மரத்தை", [219, 244, 252, 164, 204]
+console.log(punarchi_split_candidates("செந்தாமரை"));`,
     },
   },
   python: {
@@ -122,6 +130,11 @@ print(words, compare("அகத்தியர்", "கம்பர்", profil
 text = "திரு. குமார் மற்றும் ரூ.100 வந்தது."
 print(tokenize_words(text, stopword_profile="conservative"))
 print(segment_sentences(text))`,
+      punarchi: `from tamil_toolkit import punarchi_join, punarchi_split_candidates
+
+res = punarchi_join("மரம்", "ஐ", context={"relation": "vetrumai", "subtype": "case_2"})
+print(res["surface"], [s["sutra"] for s in res["steps"]])  # மரத்தை
+print(punarchi_split_candidates("செந்தாமரை"))`,
     },
   },
   rust: {
@@ -176,6 +189,21 @@ fn main() {
     let text = "திரு. குமார் மற்றும் ரூ.100 வந்தது.";
     println!("{:?}", tokenize_words(text, StopwordProfile::Conservative));
     println!("{:?}", segment_sentences(text));
+}`,
+      punarchi: `use tamil_toolkit::punarchi::{
+    punarchi_join, punarchi_split_candidates, ContextSubtype, GrammaticalRelation,
+    PunarchiContext, PunarchiProfile,
+};
+
+fn main() {
+    let ctx = PunarchiContext {
+        relation: GrammaticalRelation::Vetrumai,
+        subtype: Some(ContextSubtype::Case2),
+        ..Default::default()
+    };
+    let res = punarchi_join("மரம்", "ஐ", &ctx, PunarchiProfile::NannoolV1).unwrap();
+    println!("{} {:?}", res.surface, res.steps);
+    println!("{:?}", punarchi_split_candidates("செந்தாமரை", PunarchiProfile::NannoolV1, false));
 }`,
     },
   },
@@ -252,6 +280,18 @@ void main() {
   print(toolkit.tokenizeWords(text, stopwordProfile: 'conservative'));
   print(toolkit.segmentSentences(text));
 }`,
+      punarchi: `import 'package:tamil_toolkit/tamil_toolkit.dart';
+
+void main() {
+  final toolkit = TamilToolkit();
+  final joined = toolkit.punarchiJoin(
+    "மரம்",
+    "ஐ",
+    context: {'relation': 'vetrumai', 'subtype': 'case_2'},
+  );
+  print(joined['surface']); // மரத்தை
+  print(toolkit.punarchiSplitCandidates("செந்தாமரை"));
+}`,
     },
   },
 };
@@ -274,6 +314,7 @@ export function CodeGenerator() {
     { id: "normalizer", label: t.tools.codegen.tabNormalizer },
     { id: "sorter", label: t.tools.codegen.tabSorter },
     { id: "tokenizer", label: t.tools.codegen.tabTokenizer },
+    { id: "punarchi", label: t.tools.codegen.tabPunarchi },
   ];
 
   return (

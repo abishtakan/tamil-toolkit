@@ -178,6 +178,90 @@ def build_artifacts():
     return catalog_data, browse_data
 
 
+def build_punarchi_review_data() -> dict:
+    """Compile declarative Nannool Punarchi TOML rules, closed classes, and golden witnesses for Playground review."""
+    rules_toml = tomllib.loads((ROOT / 'lexicon/punarchi-nannool.toml').read_text(encoding='utf-8'))
+    golden_rows = []
+    golden_path = ROOT / 'tests/golden/punarchi_nannool.jsonl'
+    if golden_path.exists():
+        for raw_line in golden_path.read_text(encoding='utf-8').splitlines():
+            line = raw_line.strip()
+            if not line:
+                continue
+            golden_rows.append(json.loads(line))
+
+    rules = [
+        {
+            'id': r['id'],
+            'sutra': int(r['sutra']),
+            'chapter': r['chapter'],
+            'stage': int(r['stage']),
+            'substage': str(r.get('substage', '')),
+            'priority': int(r.get('priority', 50)),
+            'transform': r['transform'],
+            'relation': r.get('relation', 'unspecified'),
+            'left_match': r.get('left_match', ''),
+            'right_match': r.get('right_match', ''),
+            'action': r.get('action', ''),
+            'optional': bool(r.get('optional', False)),
+            'poetic': bool(r.get('poetic', False)),
+            'reversible': bool(r.get('reversible', True)),
+            'evidence_layer': r.get('evidence_layer', 'root_sutra'),
+        }
+        for r in rules_toml.get('rule', [])
+    ]
+
+    closed_classes = [
+        {
+            'id': cc['class_id'],
+            'sutra': int(cc['sutra']),
+            'stems': list(cc.get('stems', [])),
+            'oblique_map': dict(cc.get('oblique_map', {})),
+            'notes': cc.get('notes', ''),
+        }
+        for cc in rules_toml.get('closed_class', [])
+    ]
+
+    chariyais = [
+        {
+            'id': c['id'],
+            'form': c['form'],
+            'sutra': int(c.get('sutra', 244)),
+            'attach_classes': list(c.get('attach_classes', [])),
+            'post_um': bool(c.get('post_um', False)),
+            'suppress_205': bool(c.get('suppress_205', False)),
+        }
+        for c in rules_toml.get('chariyai', [])
+    ]
+
+    case_suffixes = [
+        {
+            'case_number': int(c['case_number']),
+            'form': c['form'],
+            'sutra': int(c.get('sutra', 242)),
+            'force_165': bool(c.get('force_165', False)),
+        }
+        for c in rules_toml.get('case_suffix', [])
+    ]
+
+    crosswalk_path = ROOT / 'tests/reference/punarchi-nannool/vellaivaranar-crosswalk.json'
+    crosswalk = json.loads(crosswalk_path.read_text(encoding='utf-8')) if crosswalk_path.exists() else {}
+
+    return {
+        'profile': 'nannool-v1',
+        'rule_count': len(rules),
+        'closed_class_count': len(closed_classes),
+        'golden_count': len(golden_rows),
+        'wikisource_page_base': crosswalk.get('wikisource_page_base', ''),
+        'sutra_notes': crosswalk.get('sutras', {}),
+        'rules': rules,
+        'closed_classes': closed_classes,
+        'chariyais': chariyais,
+        'case_suffixes': case_suffixes,
+        'golden_vectors': golden_rows,
+    }
+
+
 def catalog():
     return build_artifacts()[0]
 
@@ -190,20 +274,27 @@ def main():
     args = parser.parse_args()
     public_beta = args.public_beta or os.environ.get('TAMIL_PLAYGROUND_PUBLIC_BETA', '').strip().lower() in ('1', 'true', 'yes')
     catalog_data, browse_data = build_artifacts()
+    punarchi_data = build_punarchi_review_data()
     path = ROOT/'playground/src/generated/lexicon-catalog.json'
+    punarchi_path = ROOT/'playground/src/generated/punarchi-review-data.json'
     browse_path = ROOT/'playground/public/lexicon-browse-index.json'
     content = json.dumps(catalog_data, ensure_ascii=True, indent=2)+'\n'
+    punarchi_content = json.dumps(punarchi_data, ensure_ascii=True, separators=(',', ':'))+'\n'
     browse_content = json.dumps(browse_data, ensure_ascii=True, separators=(',', ':'))+'\n'
     if args.check:
         if not path.exists() or path.read_text(encoding='utf-8') != content:
             raise SystemExit('Playground catalog is stale; run tools/prepare_playground.py --catalog-only')
+        if not punarchi_path.exists() or punarchi_path.read_text(encoding='utf-8') != punarchi_content:
+            raise SystemExit('Playground punarchi review data is stale; run tools/prepare_playground.py --catalog-only')
         if not browse_path.exists() or browse_path.read_text(encoding='utf-8') != browse_content:
             raise SystemExit('Playground browse index is stale; run tools/prepare_playground.py --catalog-only')
-        print('Playground catalog and browse index verified.')
+        print('Playground catalog, punarchi review data, and browse index verified.')
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     if not path.exists() or path.read_text(encoding='utf-8') != content:
         path.write_text(content, encoding='utf-8', newline='\n')
+    if not punarchi_path.exists() or punarchi_path.read_text(encoding='utf-8') != punarchi_content:
+        punarchi_path.write_text(punarchi_content, encoding='utf-8', newline='\n')
     browse_path.parent.mkdir(parents=True, exist_ok=True)
     if not browse_path.exists() or browse_path.read_text(encoding='utf-8') != browse_content:
         browse_path.write_text(browse_content, encoding='utf-8', newline='\n')

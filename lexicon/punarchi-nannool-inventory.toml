@@ -1,0 +1,1192 @@
+[metadata]
+profile = "nannool-v1"
+version = "0.1"
+primary_edition = "A. Thamodaran (1999) Critical Edition / Sankara Namasivayar Viruttiyurai (TVA bookid=6, auth_pub_id=17)"
+kandigai_edition = "Arumuka Navalar Kandigaiyurai (TVA bookid=6, auth_pub_id=15)"
+cross_check_edition = "Project Madurai Etext #147 (1926 Vavilla Edition, pmuni0147.html)"
+cross_check_sha256 = "b970b4ee13b4b4e96dfd641b1e37d1c87bdfdc0b83fce1fcb24c664841671955"
+
+[[sutra]]
+sutra = 93
+chapter = "ezhuttiyal"
+tier = "phonological"
+executable = true
+tva_page = 166
+kandigai_sutra = 93
+pm_ref = "pmuni0147#93"
+summary = "Defines 37 Kurriyaligaram instances: 36 Kurriyalugaram finals mutating to இ before ய and particle மியா."
+
+[[sutra]]
+sutra = 94
+chapter = "ezhuttiyal"
+tier = "phonological"
+executable = true
+tva_page = 166
+kandigai_sutra = 94
+pm_ref = "pmuni0147#94"
+summary = "Defines the 6 Kurriyalugaram classes (Nedil, Aytham, Uyir, Van, Men, Idai) vs Mutriyalugaram on கு/சு/டு/து/பு/று finals."
+
+[[sutra]]
+sutra = 102
+chapter = "ezhuttiyal"
+tier = "phonological"
+executable = true
+tva_page = 175
+kandigai_sutra = 102
+pm_ref = "pmuni0147#102"
+summary = "Enumerates legal native word-initials: all 12 vowels and 10 consonant series (க, ச, த, ந, ப, ம, வ, ய, ஞ, ங)."
+
+[[sutra]]
+sutra = 103
+chapter = "ezhuttiyal"
+tier = "phonological"
+executable = true
+tva_page = 175
+kandigai_sutra = 103
+pm_ref = "pmuni0147#103"
+summary = "Restricts வ-initial words to 8 vowels (அ, ஆ, இ, ஈ, எ, ஏ, ஐ, ஔ), barring வு, வூ, வொ, வோ."
+
+[[sutra]]
+sutra = 104
+chapter = "ezhuttiyal"
+tier = "phonological"
+executable = true
+tva_page = 175
+kandigai_sutra = 104
+pm_ref = "pmuni0147#104"
+summary = "Restricts ய-initial words to 6 vowels (அ, ஆ, உ, ஊ, ஓ, ஔ), barring யி, யீ, யெ, யே, யை, யொ."
+edition_note = "TVA Kandigaiyurai portal pno=104 displays a mis-indexed page (Sutra 103 text); TVA 1999 Viruttiyurai (pno=175..176) and pmuni0147.html carry the authoritative text."
+
+[[sutra]]
+sutra = 105
+chapter = "ezhuttiyal"
+tier = "phonological"
+executable = true
+tva_page = 176
+kandigai_sutra = 105
+pm_ref = "pmuni0147#105"
+summary = "Restricts ஞ-initial words to 4 vowels (அ, ஆ, எ, ஒ): ஞ, ஞா, ஞெ, ஞொ."
+edition_note = "TVA Kandigaiyurai portal pno=105 displays a mis-indexed page (Sutra 103 text); TVA 1999 Viruttiyurai (pno=176) and pmuni0147.html carry the authoritative text."
+
+[[sutra]]
+sutra = 106
+chapter = "ezhuttiyal"
+tier = "phonological"
+executable = true
+tva_page = 176
+kandigai_sutra = 106
+pm_ref = "pmuni0147#106"
+summary = "Permits ங-initial only in bound ஙனம் after demonstrative (அ, இ, உ) or interrogative (யா, எ) clitics."
+edition_note = "TVA Kandigaiyurai portal pno=106 displays a mis-indexed page (Sutra 93 text); TVA 1999 Viruttiyurai (pno=176..177) and pmuni0147.html carry the authoritative text."
+
+[[sutra]]
+sutra = 107
+chapter = "ezhuttiyal"
+tier = "phonological"
+executable = true
+tva_page = 177
+kandigai_sutra = 107
+pm_ref = "pmuni0147#107"
+summary = "Enumerates 24 legal native word-finals: 12 vowels, 11 pure consonants (ஞ்..ள், excluding ங் and vallinam), and Kurriyalugaram."
+
+[[sutra]]
+sutra = 108
+chapter = "ezhuttiyal"
+tier = "phonological"
+executable = true
+tva_page = 178
+kandigai_sutra = 108
+pm_ref = "pmuni0147#108"
+summary = "Constrains vowel finals: short vowels end words in alapedai; எ takes no consonant; ஒ takes only நொ; ஔ takes only கௌ/வௌ."
+
+[[sutra]]
+sutra = 136
+chapter = "padaviyal"
+tier = "closed_class"
+executable = true
+tva_page = 198
+kandigai_sutra = 136
+pm_ref = "pmuni0147#136"
+summary = "Defines the 8 Panpuppeyar (-மை) stem sandhi operations: -மை drop, உ->இ, initial lengthening, அ->ஐ, gemination, consonant mutation, nasal insertion."
+
+[[sutra]]
+sutra = 151
+chapter = "uyireeru"
+tier = "definition_or_scope"
+executable = false
+tva_page = 218
+kandigai_sutra = 151
+pm_ref = "pmuni0147#151"
+summary = "Defines Punarchi as joining two words in Alvazhi or Vetrumai via Iyalbu (natural) or Vikaram (modified)."
+
+[[sutra]]
+sutra = 152
+chapter = "uyireeru"
+tier = "definition_or_scope"
+executable = false
+tva_page = 219
+kandigai_sutra = 152
+pm_ref = "pmuni0147#152"
+summary = "Enumerates 6 Vetrumai cases (2..7) and 14 Alvazhi subtypes (5 Thogainilai compounds + 9 Thogaanilai phrases), plus Tazhuvutodar."
+
+[[sutra]]
+sutra = 153
+chapter = "uyireeru"
+tier = "definition_or_scope"
+executable = false
+tva_page = 221
+kandigai_sutra = 153
+pm_ref = "pmuni0147#153"
+summary = "Defines Iyalbu (natural join) as direct concatenation of standing and coming words without Vikaram."
+
+[[sutra]]
+sutra = 154
+chapter = "uyireeru"
+tier = "definition_or_scope"
+executable = false
+tva_page = 222
+kandigai_sutra = 154
+pm_ref = "pmuni0147#154"
+summary = "Defines 3 Vikaram operations (Thonral insertion, Thirithal mutation, Keduthal deletion) across initial, medial, final, and boundary loci."
+
+[[sutra]]
+sutra = 155
+chapter = "uyireeru"
+tier = "definition_or_scope"
+executable = false
+tva_page = 223
+kandigai_sutra = 155
+pm_ref = "pmuni0147#155"
+summary = "Defines 6 poetic Vikaram licenses (hardening, softening, lengthening, shortening, insertion, elision) gated to verse."
+
+[[sutra]]
+sutra = 156
+chapter = "uyireeru"
+tier = "definition_or_scope"
+executable = false
+tva_page = 224
+kandigai_sutra = 156
+pm_ref = "pmuni0147#156"
+summary = "Defines 3 poetic word-clipping licenses (initial, medial, final truncation) gated to verse."
+
+[[sutra]]
+sutra = 157
+chapter = "uyireeru"
+tier = "definition_or_scope"
+executable = false
+tva_page = 225
+kandigai_sutra = 157
+pm_ref = "pmuni0147#157"
+summary = "Permits 1, 2, or 3 Vikaram operations to co-occur within a single Punarchi join."
+
+[[sutra]]
+sutra = 158
+chapter = "uyireeru"
+tier = "phonological"
+executable = true
+tva_page = 225
+kandigai_sutra = 158
+pm_ref = "pmuni0147#158"
+summary = "All 24 finals stay natural before ஞ, ந, ம, ய, வ; short-vowel+ய், monosyllabic ஐ, நொ, து double nasals (and ய/வ for நொ, து); ண/ள/ன/ல mutate ந."
+
+[[sutra]]
+sutra = 159
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 226
+kandigai_sutra = 159
+pm_ref = "pmuni0147#159"
+summary = "Common and rational nouns ending in consonant stay natural before vallinam; those ending in vowel/ய்/ர் do not double vallinam."
+
+[[sutra]]
+sutra = 160
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 228
+kandigai_sutra = 160
+pm_ref = "pmuni0147#160"
+summary = "Final interrogative clitics ஆ, ஏ, ஓ remain natural without vallinam doubling before க, ச, த, ப."
+
+[[sutra]]
+sutra = 161
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 228
+kandigai_sutra = 161
+pm_ref = "pmuni0147#161"
+summary = "Second-person finite verbs remain natural before vallinam (except specific imperatives)."
+
+[[sutra]]
+sutra = 162
+chapter = "uyireeru"
+tier = "phonological"
+executable = true
+tva_page = 229
+kandigai_sutra = 162
+pm_ref = "pmuni0147#162"
+summary = "Inserts Udambadumei glides before vowels: ய் after இ, ஈ, ஐ; வ் after other vowels; both ய் and வ் after ஏ."
+
+[[sutra]]
+sutra = 163
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 230
+kandigai_sutra = 163
+pm_ref = "pmuni0147#163"
+summary = "Interrogative எ and deictics அ, இ, உ double following consonants, take வ்+வ் before vowels, and optionally lengthen in verse."
+
+[[sutra]]
+sutra = 164
+chapter = "uyireeru"
+tier = "phonological"
+executable = true
+tva_page = 231
+kandigai_sutra = 164
+pm_ref = "pmuni0147#164"
+summary = "Elides final உ of Kurriyalugaram before vowels (and rarely Mutriyalugaram), and mutates Kurriyalugaram உ to இ before ய."
+
+[[sutra]]
+sutra = 165
+chapter = "uyireeru"
+tier = "phonological"
+executable = true
+tva_page = 233
+kandigai_sutra = 165
+pm_ref = "pmuni0147#165"
+summary = "General rule doubling initial vallinam (க், ச், த், ப்) after natural or derived vowel finals, plus நொ and து."
+
+[[sutra]]
+sutra = 166
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 234
+kandigai_sutra = 166
+pm_ref = "pmuni0147#166"
+summary = "Vowel-final tree names in Vetrumai insert homorganic nasal (ங், ஞ், ந், ம்) before க, ச, த, ப (e.g. மாங்காய்)."
+
+[[sutra]]
+sutra = 167
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 234
+kandigai_sutra = 167
+pm_ref = "pmuni0147#167"
+summary = "Blocks vallinam doubling after அ-finals in 6 contexts: non-rational plural verbs, சில/பல, அத்தனை/இத்தனை, உம்மைத்தொகை, வியங்கோள், அம்ம/ஆ."
+
+[[sutra]]
+sutra = 168
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 236
+kandigai_sutra = 168
+pm_ref = "pmuni0147#168"
+summary = "Viyankol verb வாழிய optionally drops final ய to வாழி without vallinam doubling before க, ச, த, ப."
+
+[[sutra]]
+sutra = 169
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 237
+kandigai_sutra = 169
+pm_ref = "pmuni0147#169"
+summary = "Adverbial participle சாவ optionally drops final வ to சா without vallinam doubling."
+
+[[sutra]]
+sutra = 170
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 237
+kandigai_sutra = 170
+pm_ref = "pmuni0147#170"
+summary = "பல and சில in Alvazhi self-compounds yield பலபல, பலப்பல, பற்பல, பல்பல; before other words optionally drop அ (ல்->ற் before த)."
+
+[[sutra]]
+sutra = 171
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 238
+kandigai_sutra = 171
+pm_ref = "pmuni0147#171"
+summary = "Blocks vallinam doubling in Alvazhi after ஆ-final negative plural verbs, விளி, பெயரெச்சம், ஏவல்/வியங்கோள், and உம்மைத்தொகை."
+
+[[sutra]]
+sutra = 172
+chapter = "uyireeru"
+tier = "poetic_closed"
+executable = true
+tva_page = 239
+kandigai_sutra = 172
+pm_ref = "pmuni0147#172"
+summary = "Short-syllable ஆ-final nouns (நிலா, சுறா, கனா) optionally shorten to அ in verse and take வ்+உ in prose (நிலவு)."
+
+[[sutra]]
+sutra = 173
+chapter = "uyireeru"
+tier = "poetic_closed"
+executable = true
+tva_page = 240
+kandigai_sutra = 173
+pm_ref = "pmuni0147#173"
+summary = "In verse, அன்றி and இன்றி optionally mutate final இ to உ (அன்று, இன்று) without vallinam doubling."
+
+[[sutra]]
+sutra = 174
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 241
+kandigai_sutra = 174
+pm_ref = "pmuni0147#174"
+summary = "Measure word நாழி + உரி yields நாடுரி (ழி drops, ட் inserts); உரி takes அ (உரிய) before measures without doubling."
+
+[[sutra]]
+sutra = 175
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 241
+kandigai_sutra = 175
+pm_ref = "pmuni0147#175"
+summary = "Taste-sense புளி optionally inserts homorganic nasal (புளிங்கறி) alongside vallinam doubling (புளிக்கறி) before க, ச, த, ப."
+
+[[sutra]]
+sutra = 176
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 242
+kandigai_sutra = 176
+pm_ref = "pmuni0147#176"
+summary = "Non-rational nouns ending in இ or ஐ in Alvazhi generally do not double following vallinam (except panputhogai/uvamai cases)."
+
+[[sutra]]
+sutra = 177
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 243
+kandigai_sutra = 177
+pm_ref = "pmuni0147#177"
+summary = "ஆ + பீ shortens to ஆப்பி before following words, staying natural in Alvazhi and doubling vallinam in Vetrumai."
+
+[[sutra]]
+sutra = 178
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 244
+kandigai_sutra = 178
+pm_ref = "pmuni0147#178"
+summary = "பீ, நீ, மீ stay natural before vallinam in Alvazhi; மீ also allows lexicalized vallinam doubling or nasal insertion."
+
+[[sutra]]
+sutra = 179
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 245
+kandigai_sutra = 179
+pm_ref = "pmuni0147#179"
+summary = "Mutriyalugaram in Case-3 -ஒடு, Case-6 -அது, numerals, vinaiththogai verbs, and அது/இது/உது stays natural before vallinam."
+edition_note = "Viruttiyurai fn. 180 notes Mayilainathar merges Sutras 179 and 180 into one sutra; TVA 1999, Kandigaiyurai, and pmuni0147.html keep them separate."
+
+[[sutra]]
+sutra = 180
+chapter = "uyireeru"
+tier = "poetic_closed"
+executable = true
+tva_page = 246
+kandigai_sutra = 180
+pm_ref = "pmuni0147#180"
+summary = "In verse, அது + அன்று optionally yields அதான்று (உ elides and அ lengthens to ஆ)."
+edition_note = "Merged with Sutra 179 by Mayilainathar per Viruttiyurai fn. 180; kept separate in TVA 1999, Kandigaiyurai, and pmuni0147.html."
+
+[[sutra]]
+sutra = 181
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 246
+kandigai_sutra = 181
+pm_ref = "pmuni0147#181"
+summary = "Non-Vanthodar Kurriyalugaram classes do not double vallinam in Alvazhi (except locative menthodar particles அங்கு..யாண்டு)."
+
+[[sutra]]
+sutra = 182
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 246
+kandigai_sutra = 182
+pm_ref = "pmuni0147#182"
+summary = "Idaithodar, Aaydathodar, and non-doubling Nedil/Uyirthodar Kurriyalugaram do not double vallinam in Vetrumai."
+
+[[sutra]]
+sutra = 183
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 247
+kandigai_sutra = 183
+pm_ref = "pmuni0147#183"
+summary = "Nedilthodar and Uyirthodar ending in டு/று geminate ட்/ற் (டு->ட்டு, று->ற்று) mostly in Vetrumai, triggering vallinam doubling."
+
+[[sutra]]
+sutra = 184
+chapter = "uyireeru"
+tier = "context_dependent"
+executable = true
+tva_page = 248
+kandigai_sutra = 184
+pm_ref = "pmuni0147#184"
+summary = "Lexicon-gated Menthodar Kurriyalugaram stems (மருந்து, கரும்பு, கன்று, etc.) convert penultimate nasal to homorganic stop in Vetrumai."
+
+[[sutra]]
+sutra = 185
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 249
+kandigai_sutra = 185
+pm_ref = "pmuni0147#185"
+summary = "Kurriyalugaram stems பண்டு, இன்று, அன்று, நேற்று take -ஐ increment (பண்டை, இற்றை, அற்றை, நேற்றை) and derived -ஆட்டை forms."
+
+[[sutra]]
+sutra = 186
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 249
+kandigai_sutra = 186
+pm_ref = "pmuni0147#186"
+summary = "Direction words (வடக்கு, தெற்கு, மேற்கு, கிழக்கு, குடக்கு, குணக்கு) drop க்கு and mutate ற்->ன்/ல் (வட, தென், மேல், கீழ்) in compounds."
+
+[[sutra]]
+sutra = 187
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 250
+kandigai_sutra = 187
+pm_ref = "pmuni0147#187"
+summary = "தெங்கு + காய் lengthens தெ->தே and drops கு, yielding தேங்காய்."
+
+[[sutra]]
+sutra = 188
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 250
+kandigai_sutra = 188
+pm_ref = "pmuni0147#188"
+summary = "Base rule for numerals 1..8 (ஒன்று..எட்டு) before numbers, weights, measures, and general nouns: drops final உயிர்மெய் (except ஏழு)."
+
+[[sutra]]
+sutra = 189
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 252
+kandigai_sutra = 189
+pm_ref = "pmuni0147#189"
+summary = "Numeral stems 1 (ஒன்று->ஒரு/ஓர்) and 2 (இரண்டு->இரு/ஈர்) select short form before consonants and long form before vowels."
+
+[[sutra]]
+sutra = 190
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 252
+kandigai_sutra = 190
+pm_ref = "pmuni0147#190"
+summary = "Numeral 3 (மூன்று) becomes மூ before vowels and மு + doubled initial consonant before consonants."
+
+[[sutra]]
+sutra = 191
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 252
+kandigai_sutra = 191
+pm_ref = "pmuni0147#191"
+summary = "Numeral 4 (நான்கு) becomes நால் before vowels/idaiyinam, நாற் before vallinam, and நான் before mellinam."
+
+[[sutra]]
+sutra = 192
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 253
+kandigai_sutra = 192
+pm_ref = "pmuni0147#192"
+summary = "Numeral 5 (ஐந்து) becomes ஐ before vowels/ய/வ, homorganic nasal before vallinam, and doubles ம/ஞ before mellinam."
+
+[[sutra]]
+sutra = 193
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 253
+kandigai_sutra = 193
+pm_ref = "pmuni0147#193"
+summary = "Numeral 8 (எட்டு) converts penultimate ட் to ண் (எண்) before numbers, weights, measures, and general nouns."
+
+[[sutra]]
+sutra = 194
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 254
+kandigai_sutra = 194
+pm_ref = "pmuni0147#194"
+summary = "ஒன்பது + பத்து -> தொண்ணூறு and ஒன்பது + நூறு -> தொள்ளாயிரம் via suppletive numeral sandhi."
+
+[[sutra]]
+sutra = 195
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 256
+kandigai_sutra = 195
+pm_ref = "pmuni0147#195"
+summary = "Numerals 1..8 + பத்து yield decade forms ஒருபது/ஒருபஃது through எண்பது/எண்பஃது (dropping த் in பத்து)."
+edition_note = "TVA 1999 reads முதலிறு நான்காம் whereas pmuni0147.html and Kandigaiyurai read முதல் இரு நான்காம் (both denote numerals 1..8)."
+
+[[sutra]]
+sutra = 196
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 256
+kandigai_sutra = 196
+pm_ref = "pmuni0147#196"
+summary = "Decades 10..80 (ஒருபது..எண்பது) + 1..9 insert இன் chariyai (eliding உ and ஃ before இன்)."
+
+[[sutra]]
+sutra = 197
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 257
+kandigai_sutra = 197
+pm_ref = "pmuni0147#197"
+summary = "பத்து and ஒன்பது take இன் chariyai before 1..10, ஆயிரம், கோடி, weights, measures; பத்து also takes இற்று (பதிற்று)."
+
+[[sutra]]
+sutra = 198
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 258
+kandigai_sutra = 198
+pm_ref = "pmuni0147#198"
+summary = "பத்து + இரண்டு in additive ummaiththogai drops து and mutates த் to ன், yielding பன்னிரண்டு (12)."
+
+[[sutra]]
+sutra = 199
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 259
+kandigai_sutra = 199
+pm_ref = "pmuni0147#199"
+summary = "Distributive reduplication of 1..8 and 10 (excluding 9) drops final உயிர்மெய் and doubles consonant or inserts வ் before vowels (ஒவ்வொன்று)."
+
+[[sutra]]
+sutra = 200
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 260
+kandigai_sutra = 200
+pm_ref = "pmuni0147#200"
+summary = "பூ optionally inserts homorganic nasal (பூங்கொடி) alongside vallinam doubling (பூக்கொடி) before க, ச, த, ப."
+
+[[sutra]]
+sutra = 201
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 260
+kandigai_sutra = 201
+pm_ref = "pmuni0147#201"
+summary = "Clitic particles ஏ and ஓ stay natural without vallinam doubling before க, ச, த, ப."
+
+[[sutra]]
+sutra = 202
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 261
+kandigai_sutra = 202
+pm_ref = "pmuni0147#202"
+summary = "Lexical ஐ-final stems take அம் chariyai in Vetrumai (retaining ஐ as புன்னையம் or eliding ஐ as தாழம்)."
+
+[[sutra]]
+sutra = 203
+chapter = "uyireeru"
+tier = "closed_class"
+executable = true
+tva_page = 262
+kandigai_sutra = 203
+pm_ref = "pmuni0147#203"
+summary = "பனை in Vetrumai doubles க் before கொடி, takes அம் (பனம்) before காய், and takes அட்டு (பனாட்டு) before திரள்."
+
+[[sutra]]
+sutra = 204
+chapter = "meyyeeru"
+tier = "phonological"
+executable = true
+tva_page = 263
+kandigai_sutra = 204
+pm_ref = "pmuni0147#204"
+summary = "Udalmel Uyir: final consonant and initial vowel naturally fuse into an uyirmei syllabogram."
+
+[[sutra]]
+sutra = 205
+chapter = "meyyeeru"
+tier = "phonological"
+executable = true
+tva_page = 263
+kandigai_sutra = 205
+pm_ref = "pmuni0147#205"
+summary = "Thanikkuril Otru: single consonant after a single short vowel doubles before a vowel."
+
+[[sutra]]
+sutra = 206
+chapter = "meyyeeru"
+tier = "phonological"
+executable = true
+tva_page = 264
+kandigai_sutra = 206
+pm_ref = "pmuni0147#206"
+summary = "Minority optional rule inserting இ chariyai after non-ய் consonants before ய (e.g. மண்ணியாது)."
+edition_note = "Minority/contested reading (ilivu-sirappummai) alongside primary Sutra 158 Iyalbu; encoded as optional = true alternative."
+
+[[sutra]]
+sutra = 207
+chapter = "meyyeeru"
+tier = "context_dependent"
+executable = true
+tva_page = 264
+kandigai_sutra = 207
+pm_ref = "pmuni0147#207"
+summary = "Root verbal nouns and imperatives ending in ஞ, ண, ந, ம, ல, வ, ள, ன take உ chariyai before non-ய consonants (optional for ண/ன/ல/ள imperatives)."
+
+[[sutra]]
+sutra = 208
+chapter = "meyyeeru"
+tier = "context_dependent"
+executable = true
+tva_page = 265
+kandigai_sutra = 208
+pm_ref = "pmuni0147#208"
+summary = "ந-final root verbal nouns also take அ chariyai in Vetrumai (பொருநக்கடுமை)."
+
+[[sutra]]
+sutra = 209
+chapter = "meyyeeru"
+tier = "context_dependent"
+executable = true
+tva_page = 266
+kandigai_sutra = 209
+pm_ref = "pmuni0147#209"
+summary = "ண் and ன் mutate to ட் and ற் before vallinam in Vetrumai, and remain natural otherwise in Vetrumai and Alvazhi."
+
+[[sutra]]
+sutra = 210
+chapter = "meyyeeru"
+tier = "phonological"
+executable = true
+tva_page = 266
+kandigai_sutra = 210
+pm_ref = "pmuni0147#210"
+summary = "Non-Thanikkuril ண் and ன் delete when following ந mutates to ண or ன (e.g. தூணன்று, அரசனல்லன்)."
+
+[[sutra]]
+sutra = 211
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 267
+kandigai_sutra = 211
+pm_ref = "pmuni0147#211"
+summary = "ண்-final caste/group names, பரண், கவண் stay natural in Vetrumai; edible எண் and சாண் optionally mutate ண்->ட் in Alvazhi."
+
+[[sutra]]
+sutra = 212
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 268
+kandigai_sutra = 212
+pm_ref = "pmuni0147#212"
+summary = "ன்-final clan names (கிளைப்பெயர், e.g. எயின்) stay natural or take அ chariyai in Vetrumai."
+
+[[sutra]]
+sutra = 213
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 268
+kandigai_sutra = 213
+pm_ref = "pmuni0147#213"
+summary = "மீன் optionally alternates between natural ன் and mutated ற் before vallinam in Vetrumai (மீன்கண் / மீற்கண்)."
+
+[[sutra]]
+sutra = 214
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 269
+kandigai_sutra = 214
+pm_ref = "pmuni0147#214"
+summary = "தேன் stays natural before consonants, optionally drops ன் before mellinam, and drops ன் with vallinam/mellinam insertion before vallinam."
+
+[[sutra]]
+sutra = 215
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 270
+kandigai_sutra = 215
+pm_ref = "pmuni0147#215"
+summary = "Non-tree எகின் (swan) stays natural in Vetrumai or takes அ chariyai with vallinam/mellinam insertion."
+
+[[sutra]]
+sutra = 216
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 270
+kandigai_sutra = 216
+pm_ref = "pmuni0147#216"
+summary = "குயின் and ஊன் stay natural before vallinam even in Vetrumai."
+
+[[sutra]]
+sutra = 217
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 270
+kandigai_sutra = 217
+pm_ref = "pmuni0147#217"
+summary = "மின், பின், பன், கன் take உ chariyai like Sutra 207; கன் also optionally takes அ with vallinam or mellinam insertion."
+
+[[sutra]]
+sutra = 218
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 271
+kandigai_sutra = 218
+pm_ref = "pmuni0147#218"
+summary = "தன் and என் optionally alternate ன்/ற் before vallinam in Vetrumai; நின் stays natural; residual ன்-stems stay natural or mutate."
+
+[[sutra]]
+sutra = 219
+chapter = "meyyeeru"
+tier = "phonological"
+executable = true
+tva_page = 272
+kandigai_sutra = 219
+pm_ref = "pmuni0147#219"
+summary = "ம்-finals delete ம் before vallinam (doubling stop), delete ம் before mellinam, and stay natural or take அத்து before idaiyinam/Alvazhi."
+
+[[sutra]]
+sutra = 220
+chapter = "meyyeeru"
+tier = "context_dependent"
+executable = true
+tva_page = 272
+kandigai_sutra = 220
+pm_ref = "pmuni0147#220"
+summary = "Some ம்-final stems in Vetrumai before vallinam insert homorganic nasal after ம் deletion (நிலங்கடந்தான்) or assimilate ம்."
+
+[[sutra]]
+sutra = 221
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 272
+kandigai_sutra = 221
+pm_ref = "pmuni0147#221"
+summary = "நும், தம், எம், நம் assimilate final ம் to ஞ்/ந் before ஞ/ந; நும்/தம்/எம் also take அ/உ before ஞ/ந."
+
+[[sutra]]
+sutra = 222
+chapter = "meyyeeru"
+tier = "poetic_closed"
+executable = true
+tva_page = 273
+kandigai_sutra = 222
+pm_ref = "pmuni0147#222"
+summary = "அகம் + செவி/கை/சிறை optionally drops க and assimilates ம் (அஞ்செவி, அங்கை, poetic அஞ்சிறை)."
+
+[[sutra]]
+sutra = 223
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 274
+kandigai_sutra = 223
+pm_ref = "pmuni0147#223"
+summary = "ஈம், கம், உரும் take உ chariyai like Sutra 207; கம் also takes அ before vallinam."
+
+[[sutra]]
+sutra = 224
+chapter = "meyyeeru"
+tier = "context_dependent"
+executable = true
+tva_page = 274
+kandigai_sutra = 224
+pm_ref = "pmuni0147#224"
+summary = "ய், ர், ழ் finals stay natural or double vallinam in Alvazhi, double vallinam in Vetrumai, and drop non-Thanikkuril ய் before ய."
+
+[[sutra]]
+sutra = 225
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 275
+kandigai_sutra = 225
+pm_ref = "pmuni0147#225"
+summary = "தமிழ் takes அ chariyai before all 4 classes in Vetrumai (தமிழப்பிள்ளை); தாழ் takes அ before கோல் (தாழக்கோல்)."
+edition_note = "TVA Kandigaiyurai prints typo தழிழவ் for தமிழவ் in the root line."
+
+[[sutra]]
+sutra = 226
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 275
+kandigai_sutra = 226
+pm_ref = "pmuni0147#226"
+summary = "கீழ் optionally stays natural or doubles following vallinam (கீழ்க்குலம் / கீழ்குலம்)."
+
+[[sutra]]
+sutra = 227
+chapter = "meyyeeru"
+tier = "context_dependent"
+executable = true
+tva_page = 276
+kandigai_sutra = 227
+pm_ref = "pmuni0147#227"
+summary = "ல் and ள் mutate to ற்/ட் before vallinam in Vetrumai, to ன்/ண் before mellinam, and stay natural in Alvazhi and before idaiyinam."
+
+[[sutra]]
+sutra = 228
+chapter = "meyyeeru"
+tier = "phonological"
+executable = true
+tva_page = 277
+kandigai_sutra = 228
+pm_ref = "pmuni0147#228"
+summary = "Thanikkuril ல் and ள் before த in Alvazhi mutate to ஆய்தம் (ஃ) alongside த->ற/ட (e.g. கஃறீது, முஃடீது)."
+
+[[sutra]]
+sutra = 229
+chapter = "meyyeeru"
+tier = "phonological"
+executable = true
+tva_page = 277
+kandigai_sutra = 229
+pm_ref = "pmuni0147#229"
+summary = "Non-Thanikkuril ல் and ள் delete when following த or ந mutates (e.g. வேறீது, வேணல்லன்)."
+
+[[sutra]]
+sutra = 230
+chapter = "meyyeeru"
+tier = "context_dependent"
+executable = true
+tva_page = 278
+kandigai_sutra = 230
+pm_ref = "pmuni0147#230"
+summary = "Suffixed ல்-final verbal nouns and stem-mutated ள்-final verbal nouns stay natural before vallinam (exempt from Sutra 207)."
+
+[[sutra]]
+sutra = 231
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 279
+kandigai_sutra = 231
+pm_ref = "pmuni0147#231"
+summary = "வல் (dice/gaming board) takes உ chariyai like Sutra 207, and also optionally takes அ or follows general ல் rules."
+
+[[sutra]]
+sutra = 232
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 279
+kandigai_sutra = 232
+pm_ref = "pmuni0147#232"
+summary = "நெல், செல் (cloud), கொல் (smith), சொல் mutate ல்->ற் before vallinam even in Alvazhi (e.g. நெற்கடிது)."
+
+[[sutra]]
+sutra = 233
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 280
+kandigai_sutra = 233
+pm_ref = "pmuni0147#233"
+summary = "Negation stem இல் in Panputhogai drops ல், lengthens இ->ஈ (இல்லா->ஈ), or doubles இல்லு/இல் before following words."
+
+[[sutra]]
+sutra = 234
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 281
+kandigai_sutra = 234
+pm_ref = "pmuni0147#234"
+summary = "புள் and வள் optionally take உ chariyai before non-ய consonants (புள்ளுக்கடிது, வள்ளுக்கடிது) alongside Sutra 227."
+
+[[sutra]]
+sutra = 235
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 282
+kandigai_sutra = 235
+pm_ref = "pmuni0147#235"
+summary = "Demonstratives அவ், இவ், உவ் in Alvazhi mutate வ்->ஃ before vallinam, assimilate வ் before mellinam, and stay natural before idaiyinam."
+
+[[sutra]]
+sutra = 236
+chapter = "meyyeeru"
+tier = "closed_class"
+executable = true
+tva_page = 282
+kandigai_sutra = 236
+pm_ref = "pmuni0147#236"
+summary = "தெவ் (enmity) takes உ chariyai like Sutra 207 (தெவ்வுக்கடிது), and drops வ் before மீ (தெம்மி)."
+
+[[sutra]]
+sutra = 237
+chapter = "meyyeeru"
+tier = "phonological"
+executable = true
+tva_page = 283
+kandigai_sutra = 237
+pm_ref = "pmuni0147#237"
+summary = "Post-sandhi co-mutation: initial த/ந become ற/ன after ன்/ல், and ட/ண after ண்/ள்."
+
+[[sutra]]
+sutra = 238
+chapter = "meyyeeru"
+tier = "context_dependent"
+executable = true
+tva_page = 283
+kandigai_sutra = 238
+pm_ref = "pmuni0147#238"
+summary = "Delegates Vetrumai content-word compounds of pronouns/quantifiers/special stems to their Urupu Punariyal stem rules (Sutras 245..251)."
+
+[[sutra]]
+sutra = 239
+chapter = "meyyeeru"
+tier = "definition_or_scope"
+executable = false
+tva_page = 284
+kandigai_sutra = 239
+pm_ref = "pmuni0147#239"
+summary = "Catch-all scope rule acknowledging attested Idaichol, Urichol, and Vadasol deviations established by classical usage."
+
+[[sutra]]
+sutra = 240
+chapter = "urupu"
+tier = "definition_or_scope"
+executable = false
+tva_page = 286
+kandigai_sutra = 240
+pm_ref = "pmuni0147#240"
+summary = "Defines the 5 x 8 = 40 inflectional case-form matrix across 5 pal classes and 8 Vetrumai cases."
+
+[[sutra]]
+sutra = 241
+chapter = "urupu"
+tier = "definition_or_scope"
+executable = false
+tva_page = 286
+kandigai_sutra = 241
+pm_ref = "pmuni0147#241"
+summary = "Establishes post-positional ordering: case markers (urupu) attach after the noun stem to convey case meaning."
+edition_note = "Project Madurai pmuni0147.html erroneously prints duplicate number 242 for Sutra 241; TVA 1999 (pno=286) and Kandigaiyurai confirm 241."
+
+[[sutra]]
+sutra = 242
+chapter = "urupu"
+tier = "context_dependent"
+executable = true
+tva_page = 287
+kandigai_sutra = 242
+pm_ref = "pmuni0147#242"
+summary = "Bridges noun + urupu + varumozhi sandhi to Uyireeru/Meyyeeru Vetrumai rules, with Case-4 கு doubling exception."
+edition_note = "TVA 1999 Viruttiyurai reads புணர்பே whereas Kandigaiyurai (புணர்ப்பே) and pmuni0147.html (புணர்ப்பு ஏ) double ப்."
+
+[[sutra]]
+sutra = 243
+chapter = "urupu"
+tier = "closed_class"
+executable = true
+tva_page = 288
+kandigai_sutra = 243
+pm_ref = "pmuni0147#243"
+summary = "Establishes single or multi-segment chariyai insertion, omission, and optionality across vikuti, padam, and urupu joins."
+
+[[sutra]]
+sutra = 244
+chapter = "urupu"
+tier = "closed_class"
+executable = true
+tva_page = 289
+kandigai_sutra = 244
+pm_ref = "pmuni0147#244"
+summary = "Enumerates the 17 general chariyais: அன், ஆன், இன், அல், அற்று, இற்று, அத்து, அம், தம், நம், நும், ஏ, அ, உ, ஐ, கு, ன (ன்)."
+edition_note = "Root text across all three witnesses ends in ன (ஐகுன), while Kandigaiyurai gloss identifies it as pure consonant ன் (ஆன்)."
+
+[[sutra]]
+sutra = 245
+chapter = "urupu"
+tier = "closed_class"
+executable = true
+tva_page = 290
+kandigai_sutra = 245
+pm_ref = "pmuni0147#245"
+summary = "எல்லாம் drops ம் and takes அற்று (+ optional இன்) in non-rational or நம் in rational before urupu, with உம் post-positioned."
+edition_note = "Kandigaiyurai 245 prints typo என்ய for என்ப and எல்லாவற்றனையும் vs Viruttiyurai எல்லாவற்றினையும்."
+
+[[sutra]]
+sutra = 246
+chapter = "urupu"
+tier = "closed_class"
+executable = true
+tva_page = 291
+kandigai_sutra = 246
+pm_ref = "pmuni0147#246"
+summary = "எல்லாரும் and எல்லீரும் strip உம், optionally insert தம்/நும் before urupu, and re-attach உம் after urupu."
+
+[[sutra]]
+sutra = 247
+chapter = "urupu"
+tier = "closed_class"
+executable = true
+tva_page = 291
+kandigai_sutra = 247
+pm_ref = "pmuni0147#247"
+summary = "Pronoun oblique stems (தான்->தன், தாம்->தம், நாம்->நம், யான்->என், யாம்->எம், நீ->நின்/உன், நீர்->நும்/உம்); Case-4 takes அ without doubling."
+edition_note = "நான் does not appear in root Sutra 247 (தான்/தாம்/நாம்/யான்/யாம்/நீ/நீர் only; நீ->உன்/நீர்->உம் enter via பிற); நான்->என் is supported as extended usage."
+
+[[sutra]]
+sutra = 248
+chapter = "urupu"
+tier = "closed_class"
+executable = true
+tva_page = 292
+kandigai_sutra = 248
+pm_ref = "pmuni0147#248"
+summary = "ஆ, மா, கோ (and ஆமா) optionally take ன் chariyai (plus வ்/இன்/உ paths) before case markers and in standalone forms."
+
+[[sutra]]
+sutra = 249
+chapter = "urupu"
+tier = "closed_class"
+executable = true
+tva_page = 293
+kandigai_sutra = 249
+pm_ref = "pmuni0147#249"
+summary = "Decade numerals 10..80 and ஒன்பது before ஆன் chariyai truncate பது/பஃது to ப் (e.g. ஒருபானை, ஒன்பானை)."
+
+[[sutra]]
+sutra = 250
+chapter = "urupu"
+tier = "closed_class"
+executable = true
+tva_page = 293
+kandigai_sutra = 250
+pm_ref = "pmuni0147#250"
+summary = "வ்-final demonstratives அவ், இவ், உவ் take அற்று (+ optional இன்) before urupu without geminating வ் (அவற்றை)."
+edition_note = "Kandigaiyurai 250 prints கற்றுறதல் whereas TVA 1999 Viruttiyurai and pmuni0147.html read கற்றுறல்."
+
+[[sutra]]
+sutra = 251
+chapter = "urupu"
+tier = "closed_class"
+executable = true
+tva_page = 294
+kandigai_sutra = 251
+pm_ref = "pmuni0147#251"
+summary = "அஃது, இஃது, உஃது delete ஆய்தம் (ஃ) when அன் chariyai intervenes before urupu (அதனை); அது, இது, உது also take அன்."
+
+[[sutra]]
+sutra = 252
+chapter = "urupu"
+tier = "closed_class"
+executable = true
+tva_page = 294
+kandigai_sutra = 252
+pm_ref = "pmuni0147#252"
+summary = "அத்து chariyai deletes its initial அ after natural or derived அ-final stems (e.g. மரம்->மர + அத்து -> மரத்து)."
+
+[[sutra]]
+sutra = 253
+chapter = "urupu"
+tier = "definition_or_scope"
+executable = false
+tva_page = 295
+kandigai_sutra = 253
+pm_ref = "pmuni0147#253"
+summary = "Scope principle stating that exhaustive chariyai-to-stem enumeration is unbounded and relies on attested grammatical usage."
+
+[[sutra]]
+sutra = 254
+chapter = "urupu"
+tier = "context_dependent"
+executable = true
+tva_page = 295
+kandigai_sutra = 254
+pm_ref = "pmuni0147#254"
+summary = "Constraint filter enforcing compatibility across vikuti, padam, chariyai, and urupu (e.g. blocking இன் chariyai before Case-5 இன்)."
+
+[[sutra]]
+sutra = 255
+chapter = "urupu"
+tier = "context_dependent"
+executable = true
+tva_page = 297
+kandigai_sutra = 255
+pm_ref = "pmuni0147#255"
+summary = "Case-2 (ஐ) elision compounds (thokai) allow cross-state Iyalbu/Vikaram patterns matching overt expanded forms."
+edition_note = "pmuni0147.html prints விரிந்து உம் நின்று உம் whereas TVA 1999 Viruttiyurai and Kandigaiyurai read விரிந்து நின்றும்."
+
+[[sutra]]
+sutra = 256
+chapter = "urupu"
+tier = "context_dependent"
+executable = true
+tva_page = 299
+kandigai_sutra = 256
+pm_ref = "pmuni0147#256"
+summary = "Case-3 (ஆல்) agentive nouns in passive-action compounds take அத்து or இன் chariyai or stay natural depending on stem."
+
+[[sutra]]
+sutra = 257
+chapter = "urupu"
+tier = "context_dependent"
+executable = true
+tva_page = 300
+kandigai_sutra = 257
+pm_ref = "pmuni0147#257"
+summary = "Closing Ezhuttatikaram extension rule: derives unenumerated forms (such as எவ்->எவற்றை) by analogy with stated rules."

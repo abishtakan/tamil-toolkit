@@ -580,3 +580,24 @@ def test_lexicon_profile_and_convenience_api():
             tamil.lexicon_lookup("\u0b85\u0bb1\u0bbf\u0b95\u0bcd\u0b95\u0bc8", register="written")
     else:
         pytest.fail(f"Unsupported TAMIL_LEXICON_PROFILE={profile!r}")
+
+
+def test_punarchi_convenience_api():
+    joined = tamil.punarchi_join(
+        "மரம்",
+        "ஐ",
+        context={"relation": "vetrumai", "subtype": "case_2"},
+    )
+    assert joined["surface"] == "மரத்தை"
+
+    candidates = tamil.punarchi_split_candidates("கல்லடி")
+    assert any(
+        (c["first"], c["second"], c["sutra"], c["split_byte"], c["split_unit"])
+        == ("கல்", "அடி", 205, 9, 2)
+        for c in candidates
+    )
+
+    assert len(tamil.punarchi_rules()) == 117
+
+    with pytest.raises(ValueError, match="^unsupported punarchi profile$"):
+        tamil.punarchi_rules(profile="tolkappiyam-v1")

@@ -37,6 +37,7 @@ tamil-numerals.workspace = true
 tamil-calendar.workspace = true
 tamil-codec.workspace = true
 tamil-hyphen.workspace = true
+tamil-punarchi.workspace = true
 tamil-translit.workspace = true
 tamil-tokenize.workspace = true
 serde.workspace = true

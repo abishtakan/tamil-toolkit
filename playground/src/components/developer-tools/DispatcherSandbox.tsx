@@ -191,6 +191,51 @@ const PRESETS = [
     ),
   },
   {
+    name: "Punarchi Join (Nannool)",
+    payload: JSON.stringify(
+      {
+        op: "punarchi_join",
+        input: {
+          first: "மரம்",
+          second: "ஐ",
+          profile: "nannool-v1",
+          context: { relation: "vetrumai", subtype: "case_2" },
+        },
+      },
+      null,
+      2
+    ),
+  },
+  {
+    name: "Punarchi Split Candidates",
+    payload: JSON.stringify(
+      {
+        op: "punarchi_split_candidates",
+        input: {
+          surface: "செந்தாமரை",
+          profile: "nannool-v1",
+          poetic: false,
+        },
+      },
+      null,
+      2
+    ),
+  },
+  {
+    name: "Punarchi Rules (Sutra 252)",
+    payload: JSON.stringify(
+      {
+        op: "punarchi_rules",
+        input: {
+          profile: "nannool-v1",
+          sutra: 252,
+        },
+      },
+      null,
+      2
+    ),
+  },
+  {
     name: "Inspect String",
     payload: JSON.stringify(
       {

@@ -1,6 +1,26 @@
-# Punarchi v0.1 source and scope contract
+# Punarchi v0.1 source and scope contract (Superseded)
 
-Status: deferred by user direction on 2026-11-01. This document does not
+> **Status: Superseded (2026-11-26).** This deferred Nov 2026 draft has been
+> replaced by the Phase 10 feature specification at
+> [specs/025-tamil-punarchi/spec.md](../../specs/025-tamil-punarchi/spec.md).
+>
+> **What changed:** The superseded draft blocked all fixtures and rules on
+> obtaining physical/scanned print copies of both *Nannūl* and *Tolkāppiyam* and
+> conflated dictionary-backed lexical splitting with `tamil-punarchi`. Under
+> [specs/025-tamil-punarchi/spec.md](../../specs/025-tamil-punarchi/spec.md) and
+> the Spec 016 architecture ([ROADMAP.md](../../ROADMAP.md)), `tamil-punarchi`
+> (`Rank 2`) delivers complete 117-sūtra *Nannūl Eḻuttatikāram* (`93–94, 102–108, 136, 151–257`)
+> compositional forward joining and dictionary-free reverse split candidate
+> generation, while lexical ranking is cleanly separated into Phase 11
+> (`tamil-morph` + `tamil-lexicon`).
+>
+> The source register below and the page-indexed TVA locator digest in
+> [docs/specs/punarchi-source-notes.md](punarchi-source-notes.md) remain
+> retained as reference research material.
+
+---
+
+Status (historical — 2026-11-01): deferred by user direction on 2026-11-01. This document does not
 specify an executable rule set, and the planned golden suite remains inactive.
 The first profile is Nannūl Eḻuttatikāram-root-text-scoped; its merger rules
 remain blocked on a full rule inventory, printed-page/variant review, and

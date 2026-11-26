@@ -499,3 +499,83 @@ def lexicon_lookup(
     register: str | None = None,
 ) -> LexiconLookupResponse: ...
 def lexicon_packs() -> list[LexiconPackInfo]: ...
+
+PunarchiProfile = Literal["nannool-v1"]
+PunarchiChapter = Literal["ezhuttiyal", "padaviyal", "uyireeru", "meyyeeru", "urupu"]
+GrammaticalRelation = Literal["unspecified", "vetrumai", "alvazhi"]
+
+class PunarchiContext(TypedDict, total=False):
+    relation: GrammaticalRelation
+    subtype: str | None
+    lexical_class: str | None
+    poetic: bool
+
+class DerivationStep(TypedDict):
+    sutra: int
+    rule_id: str
+    stage: int
+    transform: Literal["iyalbu", "thonral", "thirithal", "keduthal"]
+    before: str
+    after: str
+
+class JoinAlternative(TypedDict):
+    surface: str
+    transform: Literal["iyalbu", "thonral", "thirithal", "keduthal"]
+    steps: list[DerivationStep]
+    required_context: str | None
+    optional_variant: bool
+    poetic: bool
+
+class PunarchiJoinResult(TypedDict):
+    profile: PunarchiProfile
+    surface: str
+    transform: Literal["iyalbu", "thonral", "thirithal", "keduthal"]
+    steps: list[DerivationStep]
+    alternatives: list[JoinAlternative]
+
+class SplitCandidate(TypedDict):
+    first: str
+    second: str
+    sutra: int
+    rule_id: str
+    transform: Literal["iyalbu", "thonral", "thirithal", "keduthal"]
+    steps: list[DerivationStep]
+    split_byte: int
+    split_unit: int
+
+class SutraInventoryEntry(TypedDict):
+    sutra: int
+    chapter: PunarchiChapter
+    tier: Literal[
+        "phonological",
+        "closed_class",
+        "context_dependent",
+        "poetic_closed",
+        "definition_or_scope",
+    ]
+    executable: bool
+    tva_page: int
+    kandigai_sutra: int
+    pm_ref: str
+    summary: str
+    edition_note: str | None
+
+def punarchi_join(
+    first: str,
+    second: str,
+    *,
+    profile: PunarchiProfile = "nannool-v1",
+    context: PunarchiContext | None = None,
+) -> PunarchiJoinResult: ...
+def punarchi_split_candidates(
+    surface: str,
+    *,
+    profile: PunarchiProfile = "nannool-v1",
+    poetic: bool = False,
+) -> list[SplitCandidate]: ...
+def punarchi_rules(
+    *,
+    profile: PunarchiProfile = "nannool-v1",
+    chapter: PunarchiChapter | None = None,
+    sutra: int | None = None,
+) -> list[SutraInventoryEntry]: ...

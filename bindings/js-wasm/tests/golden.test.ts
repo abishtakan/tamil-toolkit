@@ -711,3 +711,22 @@ test("tokenizer convenience exports preserve source in Node and browser-target W
       .toThrow("unsupported stopword profile");
   }
 });
+
+
+test("punarchi convenience APIs on both WASM targets", () => {
+  for (const api of [nodeApi, webApi]) {
+    expect(api.punarchi_join("மரம்", "ஐ", { context: { relation: "vetrumai", subtype: "case_2" } }).surface).toBe("மரத்தை");
+    expect(api.punarchi_split_candidates("கல்லடி")).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          first: "கல்",
+          second: "அடி",
+          sutra: 205,
+          split_byte: 9,
+          split_unit: 2,
+        }),
+      ]),
+    );
+    expect(api.punarchi_rules()).toHaveLength(117);
+  }
+});

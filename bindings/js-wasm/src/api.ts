@@ -389,6 +389,60 @@ export interface Inspection {
   ezhuthu_count: number; grapheme_count: number;
   letters: { text: string; classification: string }[];
 }
+export type PunarchiProfile = "nannool-v1";
+export type PunarchiChapter = "ezhuttiyal" | "padaviyal" | "uyireeru" | "meyyeeru" | "urupu";
+export type PunarchiRelation = "unspecified" | "vetrumai" | "alvazhi";
+export type PunarchiAlterationKind = "iyalbu" | "thonral" | "thirithal" | "keduthal";
+export interface PunarchiContext {
+  relation?: PunarchiRelation;
+  subtype?: string;
+  lexical_class?: string;
+  poetic?: boolean;
+}
+export interface PunarchiDerivationStep {
+  sutra: number;
+  rule_id: string;
+  stage: number;
+  transform: PunarchiAlterationKind;
+  before: string;
+  after: string;
+}
+export interface PunarchiJoinAlternative {
+  surface: string;
+  transform: PunarchiAlterationKind;
+  steps: PunarchiDerivationStep[];
+  required_context: string | null;
+  optional_variant: boolean;
+  poetic: boolean;
+}
+export interface PunarchiJoinResult {
+  profile: PunarchiProfile;
+  surface: string;
+  transform: PunarchiAlterationKind;
+  steps: PunarchiDerivationStep[];
+  alternatives: PunarchiJoinAlternative[];
+}
+export interface PunarchiSplitCandidate {
+  first: string;
+  second: string;
+  sutra: number;
+  rule_id: string;
+  transform: PunarchiAlterationKind;
+  steps: PunarchiDerivationStep[];
+  split_byte: number;
+  split_unit: number;
+}
+export interface PunarchiSutraInventoryEntry {
+  sutra: number;
+  chapter: PunarchiChapter;
+  tier: string;
+  executable: boolean;
+  tva_page: number;
+  kandigai_sutra: number;
+  pm_ref: string;
+  summary: string;
+  edition_note: string | null;
+}
 
 /** Serialization only. The Rust dispatcher owns every operation. */
 export function createApi(nativeExecute: (request: string) => string) {
@@ -616,6 +670,34 @@ export function createApi(nativeExecute: (request: string) => string) {
       return execute(request as unknown as Request) as LexiconLookupResponse;
     },
     lexicon_packs: () => execute({ op: "lexicon_packs", input: null }) as LexiconPackInfo[],
+    punarchi_join: (first: string, second: string, options?: { profile?: PunarchiProfile; context?: PunarchiContext }) =>
+      execute({
+        op: "punarchi_join",
+        input: {
+          first,
+          second,
+          ...(options?.profile !== undefined ? { profile: options.profile } : {}),
+          ...(options?.context !== undefined ? { context: options.context } : {}),
+        },
+      }) as PunarchiJoinResult,
+    punarchi_split_candidates: (surface: string, options?: { profile?: PunarchiProfile; poetic?: boolean }) =>
+      execute({
+        op: "punarchi_split_candidates",
+        input: {
+          surface,
+          ...(options?.profile !== undefined ? { profile: options.profile } : {}),
+          ...(options?.poetic !== undefined ? { poetic: options.poetic } : {}),
+        },
+      }) as PunarchiSplitCandidate[],
+    punarchi_rules: (options?: { profile?: PunarchiProfile; chapter?: PunarchiChapter; sutra?: number }) =>
+      execute({
+        op: "punarchi_rules",
+        input: {
+          ...(options?.profile !== undefined ? { profile: options.profile } : {}),
+          ...(options?.chapter !== undefined ? { chapter: options.chapter } : {}),
+          ...(options?.sutra !== undefined ? { sutra: options.sutra } : {}),
+        },
+      }) as PunarchiSutraInventoryEntry[],
     calendar: {
       profileInfo: (definition_id: string = thirukanithamDefinition) => execute({ op: "calendar_profile_info", input: { definition_id } }) as CalendarProfileInfo,
       gregorianToTamilDate: (date: GregorianDate, context: CalendarContextInput, definition_id: string = thirukanithamDefinition) => execute({ op: "gregorian_to_tamil_date", input: { definition_id, date, context } }) as CalendarDateConversion,

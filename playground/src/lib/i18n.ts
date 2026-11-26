@@ -149,6 +149,31 @@ export interface Translations {
       copyJson: string;
       emptyResult: string;
     };
+    punarchi: {
+      title: string;
+      desc: string;
+      tabJoin: string;
+      tabSplit: string;
+      tabSutras: string;
+      tabNotes: string;
+      presetsLabel: string;
+      resetContext: string;
+      firstLabel: string;
+      secondLabel: string;
+      relationLabel: string;
+      subtypeLabel: string;
+      lexicalClassLabel: string;
+      poeticLabel: string;
+      primaryOutput: string;
+      sendToSplit: string;
+      derivationSteps: string;
+      alternativesHeading: string;
+      splitPresetsLabel: string;
+      splitInputLabel: string;
+      candidatesHeading: string;
+      noCandidates: string;
+      verifyInJoin: string;
+    };
     numeral: {
       title: string;
       desc: string;
@@ -368,6 +393,7 @@ export interface Translations {
       tabNormalizer: string;
       tabSorter: string;
       tabTokenizer: string;
+      tabPunarchi: string;
     };
     batch: {
       title: string;
@@ -761,6 +787,31 @@ export const translations: Record<Language, Translations> = {
         copyJson: "JSON நகலெடு",
         emptyResult: "வெற்று உரை அல்லது இடைவெளி மட்டுமே உள்ளது."
       },
+      punarchi: {
+        title: "தமிழ் புணர்ச்சி (நன்னூல்)",
+        desc: "இரண்டு தமிழ் சொற்களை நன்னூல் இலக்கணப்படி எளிதாக இணைக்கவும், புணர்ந்த சொற்களைப் பிரித்துப் பார்க்கவும், ஒவ்வொரு மாற்றத்திற்கான நூற்பா விளக்கத்தையும் அறியவும்.",
+        tabJoin: "சொல் இணைப்பு",
+        tabSplit: "சொல் பிரிப்பு",
+        tabSutras: "நன்னூல் நூற்பா",
+        tabNotes: "எளிய விளக்கம்",
+        presetsLabel: "எடுத்துக்காட்டுகளைத் தொட்டுப் பாருங்கள்:",
+        resetContext: "மீட்டமை",
+        firstLabel: "முதல் சொல் (நிலைமொழி)",
+        secondLabel: "இரண்டாம் சொல் (வருமொழி)",
+        relationLabel: "பொருள் வகை",
+        subtypeLabel: "இலக்கண உட்பிரிவு (தொகை / வேற்றுமை)",
+        lexicalClassLabel: "சிறப்புச் சொல்வகை (திணை / பெயர்)",
+        poeticLabel: "செய்யுள்",
+        primaryOutput: "புணர்ந்த சொல்",
+        sendToSplit: "பிரித்துப் பார்",
+        derivationSteps: "எப்படி மாறியது? (படிநிலை விளக்கம்)",
+        alternativesHeading: "பிற சரியான வடிவங்கள்",
+        splitPresetsLabel: "எடுத்துக்காட்டு சொற்கள்:",
+        splitInputLabel: "பிரிக்க வேண்டிய தமிழ் சொல்",
+        candidatesHeading: "பிரித்துப் பார்க்கக்கூடிய வடிவங்கள்",
+        noCandidates: "இந்தச் சொல்லுக்குப் பொருந்தும் புணர்ச்சிப் பிரிப்பு இல்லை.",
+        verifyInJoin: "இணைத்துப் பார்"
+      },
       numeral: {
         title: "எண் - சொல் & காசோலை வடிவம்",
         desc: "எண்களையும் காசோலைத் தொகைகளையும் அதிகாரப்பூர்வ தமிழ் சொற்களாகவும் பாரம்பரிய தமிழ் எண்களாகவும் மாற்றுக.",
@@ -979,7 +1030,8 @@ export const translations: Record<Language, Translations> = {
         tabHyphenator: "அசை பிரிப்பு",
         tabNormalizer: "சீரமைப்பி",
         tabSorter: "அகரவரிசை",
-        tabTokenizer: "சொற்பிரிப்பு"
+        tabTokenizer: "சொற்பிரிப்பு",
+        tabPunarchi: "புணர்ச்சி"
       },
       batch: {
         title: "கோப்புத் தொகுதி மாற்றி",
@@ -1371,6 +1423,31 @@ export const translations: Record<Language, Translations> = {
         copyJson: "Copy JSON",
         emptyResult: "Empty or whitespace-only input produces no spans."
       },
+      punarchi: {
+        title: "Tamil Punarchi (Word Joining & Splitting)",
+        desc: "Join two Tamil words naturally under Nannūl grammar, split compound words into parts, and see clear step-by-step explanations for every sound change.",
+        tabJoin: "Join Words",
+        tabSplit: "Split Word",
+        tabSutras: "Nannūl Rules (117)",
+        tabNotes: "Simple Guide & Tests",
+        presetsLabel: "Try an everyday example:",
+        resetContext: "Reset",
+        firstLabel: "First Word (நிலைமொழி)",
+        secondLabel: "Second Word (வருமொழி)",
+        relationLabel: "Meaning",
+        subtypeLabel: "Grammar Subtype (Case / Compound)",
+        lexicalClassLabel: "Word Category (optional)",
+        poeticLabel: "Poetry",
+        primaryOutput: "Joined Word",
+        sendToSplit: "Try Splitting",
+        derivationSteps: "How it changed (Step by Step)",
+        alternativesHeading: "Other Valid Forms",
+        splitPresetsLabel: "Try a compound word:",
+        splitInputLabel: "Tamil Word to Split",
+        candidatesHeading: "Possible Word Splits",
+        noCandidates: "No standard Punarchi split found for this word.",
+        verifyInJoin: "Try Joining"
+      },
       numeral: {
         title: "Numbers & Cheques",
         desc: "Write numbers, Indian/Sri Lankan rupee amounts, fractions, percentages, ordinals, and Tamil dates in words and traditional numerals.",
@@ -1589,7 +1666,8 @@ export const translations: Record<Language, Translations> = {
         tabHyphenator: "Hyphenator",
         tabNormalizer: "Normalizer",
         tabSorter: "Sorter",
-        tabTokenizer: "Tokenizer"
+        tabTokenizer: "Tokenizer",
+        tabPunarchi: "Punarchi"
       },
       batch: {
         title: "Batch File Converter",

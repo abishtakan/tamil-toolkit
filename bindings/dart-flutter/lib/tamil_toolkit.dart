@@ -1295,6 +1295,54 @@ class TamilToolkit {
       (execute({'op': 'lexicon_packs', 'input': null}) as List)
           .map((item) => Map<String, dynamic>.from(item as Map))
           .toList();
+
+  Map<String, dynamic> punarchiJoin(
+    String first,
+    String second, {
+    String profile = 'nannool-v1',
+    Map<String, Object?>? context,
+  }) =>
+      execute({
+        'op': 'punarchi_join',
+        'input': {
+          'first': first,
+          'second': second,
+          'profile': profile,
+          if (context != null) 'context': context,
+        },
+      }) as Map<String, dynamic>;
+
+  List<Map<String, dynamic>> punarchiSplitCandidates(
+    String surface, {
+    String profile = 'nannool-v1',
+    bool poetic = false,
+  }) =>
+      (execute({
+        'op': 'punarchi_split_candidates',
+        'input': {
+          'surface': surface,
+          'profile': profile,
+          'poetic': poetic,
+        },
+      }) as List<dynamic>)
+          .map((e) => Map<String, dynamic>.from(e as Map))
+          .toList();
+
+  List<Map<String, dynamic>> punarchiRules({
+    String profile = 'nannool-v1',
+    String? chapter,
+    int? sutra,
+  }) =>
+      (execute({
+        'op': 'punarchi_rules',
+        'input': {
+          'profile': profile,
+          if (chapter != null) 'chapter': chapter,
+          if (sutra != null) 'sutra': sutra,
+        },
+      }) as List<dynamic>)
+          .map((e) => Map<String, dynamic>.from(e as Map))
+          .toList();
 }
 
 class TamilCalendar {

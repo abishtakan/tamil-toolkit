@@ -1,0 +1,76 @@
+{
+  "profile": "nannool-v1",
+  "scope": "Nannul Ezhuttatikaram Punariyal (sutras 151-257) plus mandatory Ezhuttiyal/Padaviyal prerequisites (sutras 93-94, 102-108, 136)",
+  "recorded_at": "2026-11-26",
+  "copyright_policy": "Link TVA commentary viewer pages and extract only factual rule conditions and factual A + B -> C word-pair examples; never copy modern commentary prose into repository files. Project Madurai pmuni0147.html permits redistribution only with its header intact; this manifest pins its URL and verified SHA-256 digest.",
+  "sources": [
+    {
+      "id": "tva-thamodaran-1999-viruttiyurai",
+      "role": "primary_critical_edition",
+      "title": "Nannul Moolamum Sankara Namasivayar Viruttiyuraiyum (Sivagnana Munivar corrections)",
+      "editor": "A. Thamodaran",
+      "publisher": "International Institute of Tamil Studies (Publication 330), 1999",
+      "url_template": "https://www.tamilvu.org/slet/l0100/l0100pd1.jsp?auth_pub_id=17&bookid=6&pno={pno}",
+      "title_page_url": "https://www.tamilvu.org/ta/library-l0902-html-l0902P01-118241",
+      "viewer_pages": {
+        "ezhuttiyal_prerequisites": "164-184",
+        "padaviyal_sutra_136": "196-200",
+        "uyireeru_151_203": "218-262",
+        "meyyeeru_204_239": "263-285",
+        "urupu_240_257": "286-303"
+      },
+      "redistribution": "link_only_no_commentary_prose_copy"
+    },
+    {
+      "id": "project-madurai-pmuni0147",
+      "role": "root_text_cross_check",
+      "title": "Nannul (Root Text, 1926 Vavilla Edition)",
+      "publisher": "Project Madurai (Etext #147)",
+      "url": "https://www.projectmadurai.org/pm_etexts/utf8/pmuni0147.html",
+      "bytes": 137243,
+      "sha256": "b970b4ee13b4b4e96dfd641b1e37d1c87bdfdc0b83fce1fcb24c664841671955",
+      "redistribution": "free_noncommercial_with_verbatim_header"
+    },
+    {
+      "id": "tva-arumuka-navalar-kandigaiyurai",
+      "role": "cross_check_commentary_tn_sl",
+      "title": "Nannul Kandigaiyurai",
+      "author": "Arumuka Navalar (Jaffna, Sri Lanka)",
+      "contents_url": "https://www.tamilvu.org/library/l0900/html/l0900cnt.htm",
+      "url_template": "https://www.tamilvu.org/slet/l0100/l0100pd1.jsp?bookid=6&auth_pub_id=15&pno={sutra}&y={sutra}",
+      "sutra_ranges": {
+        "ezhuttiyal": "56-127",
+        "padaviyal": "128-150",
+        "uyireeru": "151-203",
+        "meyyeeru": "204-239",
+        "urupu": "240-257"
+      },
+      "redistribution": "link_only_no_commentary_prose_copy"
+    },
+    {
+      "id": "wikisource-vellaivaranar-2001-tolkappiyam-nannool",
+      "role": "secondary_cc0_comparative_source",
+      "title": "Tolkappiyam - Nannul Ezhuttatikaram (Comparative Study)",
+      "author": "Prof. K. Vellaivaranar",
+      "publisher": "Meyyappan Tamizhaivagam, Chidambaram (Pub. 32, Dec 2001)",
+      "license": "CC0-1.0 (Tamil Nadu Government Nationalized Book via 2015 Wikimedia Tamil - TVA project)",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "index_url": "https://ta.wikisource.org/wiki/%E0%AE%85%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%B5%E0%AE%A3%E0%AF%88:%E0%AE%A4%E0%AF%8A%E0%AE%B2%E0%AF%8D%E0%AE%95%E0%AE%BE%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%BF%E0%AE%AF%E0%AE%AE%E0%AF%8D_%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%A9%E0%AF%82%E0%AE%B2%E0%AF%8D-%E0%AE%8E%E0%AE%B4%E0%AF%81%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AE%A4%E0%AE%BF%E0%AE%95%E0%AE%BE%E0%AE%B0%E0%AE%AE%E0%AF%8D.pdf",
+      "page_url_template": "https://ta.wikisource.org/wiki/%E0%AE%AA%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%AE%E0%AF%8D:%E0%AE%A4%E0%AF%8A%E0%AE%B2%E0%AF%8D%E0%AE%95%E0%AE%BE%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%BF%E0%AE%AF%E0%AE%AE%E0%AF%8D_%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%A9%E0%AF%82%E0%AE%B2%E0%AF%8D-%E0%AE%8E%E0%AE%B4%E0%AF%81%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AE%A4%E0%AE%BF%E0%AE%95%E0%AE%BE%E0%AE%B0%E0%AE%AE%E0%AF%8D.pdf/{pno}",
+      "commons_pdf_url": "https://upload.wikimedia.org/wikipedia/commons/a/af/%E0%AE%A4%E0%AF%8A%E0%AE%B2%E0%AF%8D%E0%AE%95%E0%AE%BE%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%BF%E0%AE%AF%E0%AE%AE%E0%AF%8D_%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%A9%E0%AF%82%E0%AE%B2%E0%AF%8D-%E0%AE%8E%E0%AE%B4%E0%AF%81%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AE%A4%E0%AE%BF%E0%AE%95%E0%AE%BE%E0%AE%B0%E0%AE%AE%E0%AF%8D.pdf",
+      "page_count": 283,
+      "pdf_pages": {
+        "nool_marapu": "29-65",
+        "mozhi_marapu": "66-97",
+        "pirappiyal": "98-109",
+        "punariyal": "110-139",
+        "thokai_marapu": "140-157",
+        "urupiyal": "158-171",
+        "uyirmayangiyal": "172-197",
+        "pullimayangiyal": "198-228",
+        "kurriyalugarap_punariyal": "229-263"
+      },
+      "redistribution": "cc0_public_domain_verify_ocr_against_scans_and_primary_nannool_editions"
+    }
+  ]
+}

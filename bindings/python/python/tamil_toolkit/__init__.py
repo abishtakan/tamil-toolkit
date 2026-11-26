@@ -33,6 +33,9 @@ __all__ += [
     "get_olippasai",
     "lexicon_lookup",
     "lexicon_packs",
+    "punarchi_join",
+    "punarchi_split_candidates",
+    "punarchi_rules",
 ]
 
 
@@ -866,6 +869,59 @@ def lexicon_lookup(
 def lexicon_packs() -> list[dict[str, Any]]:
     """Return metadata for compiled lexicon packs available in this build."""
     return execute({"op": "lexicon_packs", "input": None})
+
+
+def punarchi_join(
+    first: str,
+    second: str,
+    *,
+    profile: str = "nannool-v1",
+    context: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Join two Tamil morphemes or words under the named Punarchi profile."""
+    return execute({
+        "op": "punarchi_join",
+        "input": {
+            "first": first,
+            "second": second,
+            "profile": profile,
+            **({} if context is None else {"context": context}),
+        },
+    })
+
+
+def punarchi_split_candidates(
+    surface: str,
+    *,
+    profile: str = "nannool-v1",
+    poetic: bool = False,
+) -> list[dict[str, Any]]:
+    """Return dual-pruned single-boundary Punarchi split candidates for a surface form."""
+    return execute({
+        "op": "punarchi_split_candidates",
+        "input": {
+            "surface": surface,
+            "profile": profile,
+            "poetic": poetic,
+        },
+    })
+
+
+def punarchi_rules(
+    *,
+    profile: str = "nannool-v1",
+    chapter: str | None = None,
+    sutra: int | None = None,
+) -> list[dict[str, Any]]:
+    """Return Nannool sutra inventory entries matching optional chapter/sutra filters."""
+    return execute({
+        "op": "punarchi_rules",
+        "input": {
+            "profile": profile,
+            **({} if chapter is None else {"chapter": chapter}),
+            **({} if sutra is None else {"sutra": sutra}),
+        },
+    })
 
 
 from . import calendar

@@ -19,6 +19,12 @@ the root text, commentary, and Munivar's corrections are distinguished.
 - [Editorial preface, TVA viewer page 72](https://www.tamilvu.org/slet/l0100/l0100pd1.jsp?auth_pub_id=17&bookid=6&pno=72)
 - [Representative root text and commentary, TVA viewer page 263](https://www.tamilvu.org/slet/l0100/l0100pd1.jsp?auth_pub_id=17&bookid=6&pno=263)
 
+### Secondary CC0 comparative source (Tolkāppiyam ↔ Nannūl)
+
+- **Prof. K. Vellaivaranar, *Tolkāppiyam – Nannūl Eḻuttatikāram*** (Meyyappan Tamizhaivagam, Pub. 32, Dec 2001; 283 scanned pages on Tamil Wikisource, `CC0-1.0` Tamil Nadu Government nationalized book via the 2015 Wikimedia Tamil–TVA project):
+  - [Wikisource Index](https://ta.wikisource.org/wiki/%E0%AE%85%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%B5%E0%AE%A3%E0%AF%88:%E0%AE%A4%E0%AF%8A%E0%AE%B2%E0%AF%8D%E0%AE%95%E0%AE%BE%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%BF%E0%AE%AF%E0%AE%AE%E0%AF%8D_%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%A9%E0%AF%82%E0%AE%B2%E0%AF%8D-%E0%AE%8E%E0%AE%B4%E0%AF%81%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AE%A4%E0%AE%BF%E0%AE%95%E0%AE%BE%E0%AE%B0%E0%AE%AE%E0%AF%8D.pdf) · [Wikimedia Commons PDF (CC0)](https://upload.wikimedia.org/wikipedia/commons/a/af/%E0%AE%A4%E0%AF%8A%E0%AE%B2%E0%AF%8D%E0%AE%95%E0%AE%BE%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%BF%E0%AE%AF%E0%AE%AE%E0%AF%8D_%E0%AE%A8%E0%AE%A9%E0%AF%8D%E0%AE%A9%E0%AF%82%E0%AE%B2%E0%AF%8D-%E0%AE%8E%E0%AE%B4%E0%AF%81%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AE%A4%E0%AE%BF%E0%AE%95%E0%AE%BE%E0%AE%B0%E0%AE%AE%E0%AF%8D.pdf)
+  - Organized around *Tolkāppiyam*'s 9 chapters (`நூன்மரபு` p. 29, `மொழிமரபு` p. 66, `பிறப்பியல்` p. 98, `புணரியல்` p. 110, `தொகைமரபு` p. 140, `உருபியல்` p. 158, `உயிர்மயங்கியல்` p. 172, `புள்ளிமயங்கியல்` p. 198, `குற்றியலுகரப்புணரியல்` p. 229). Used as a secondary CC0 source for *Tolkāppiyam ↔ Nannūl* cross-references, scan verification, and plain Tamil explanations in the Playground; never used raw from Level-3 OCR without cross-checking against TVA 1999 *Viruttiyurai*, *Kandigaiyurai*, and Project Madurai `pmuni0147.html`.
+
 TVA exposes formatted, searchable HTML text for the cited edition pages. The
 inspected page HTML contains no scan image, so this digest records paraphrased
 content and page anchors instead of reproducing the commentary. Page numbers

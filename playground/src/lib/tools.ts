@@ -18,6 +18,7 @@ export type ToolId =
   | "sorter"
   | "letter"
   | "tokenizer"
+  | "punarchi"
   | "codec"
   | "translit"
   | "normalizer"
@@ -37,6 +38,7 @@ export type ToolIconKey =
   | "arrow-down-az"
   | "letter-a"
   | "scan-text"
+  | "git-merge"
   | "type"
   | "languages"
   | "shield-check"
@@ -140,6 +142,32 @@ export const TOOLS: readonly ToolMeta[] = [
       "சொற்பிரிப்பு",
       "தொடர்",
       "சுருக்கம்"
+    ]
+  },
+  {
+    id: "punarchi",
+    group: "words",
+    icon: "git-merge",
+    keywords: [
+      "punarchi",
+      "sandhi",
+      "nannool",
+      "nannul",
+      "sutra",
+      "join",
+      "split",
+      "chariyai",
+      "panpuppeyar",
+      "uyireeru",
+      "meyyeeru",
+      "urupu",
+      "புணர்ச்சி",
+      "நன்னூல்",
+      "நூற்பா",
+      "சாரியை",
+      "பண்புப்பெயர்",
+      "வேற்றுமை",
+      "அல்வழி"
     ]
   },
 
