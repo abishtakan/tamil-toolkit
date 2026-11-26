@@ -1,5 +1,15 @@
 # Project handoff
 
+## Release `0.2.0` Published (2026-11-26)
+
+- **Published registries (`v0.2.0`, feature source commit `babc5840bae618e5981995c24b0183304340c30a`, release commit `4af1cc32b5d9d31b52aefc0729e1c8f7d8c73e3f`, artifact run [`45789325971`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45789325971) — 14/14 jobs green):**
+  - **crates.io** ([run `45790043541`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45790043541)): all 10 slim `Apache-2.0` crates (`tamil-core`, `tamil-norm`, `tamil-collate`, `tamil-numerals`, `tamil-calendar`, `tamil-codec`, `tamil-hyphen`, `tamil-translit`, `tamil-tokenize`, `tamil-toolkit`) published at `0.2.0`.
+  - **npm** ([run `45790267117`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45790267117)): `tamil-toolkit@0.2.0` published via OIDC (`latest` dist-tag pointing to `0.2.0`; SHA-256 `e9d924ddc4bef6f914e50b7957574606eadb0b2af502742dda7609fd4e95b53c`).
+  - **PyPI** ([run `45790379993`](https://github.com/abishtakan/tamil-toolkit/actions/runs/45790379993)): `tamil-toolkit 0.2.0` published via OIDC (Linux, Windows, macOS abi3 wheels + sdist recorded in [`docs/releases/v0.2.0.md`](releases/v0.2.0.md)).
+- **Release highlights:**
+  - First public release of `tamil-tokenize` (`0.2.0`, Rank 2, `Apache-2.0`, `#![forbid(unsafe_code)]`) with `tokenize_words` / `segment_sentences` across Rust, Python, TypeScript/WASM, and Dart, 54 active golden vectors (`40,265` active vectors total), and the Playground Tokenizer tool.
+  - Full pre-release verification (`just agent-pre-stop-gate`, `just test-dart`, `default`-profile Rust/Python/npm/Dart archives) passed on `babc584`; see [`docs/releases/v0.2.0.md`](releases/v0.2.0.md).
+
 ## Phase 9 (`tamil-tokenize`) activated and integrated (2026-11-26)
 
 - **Scope (`crates/tamil-tokenize/`, `crates/tamil-toolkit/`, `bindings/{python,js-wasm,dart-flutter}/`, `lexicon/tokenize-{v0.1,unicode-v17}.toml`, `tests/golden/tokenize_v01.jsonl`, `release-policy.toml`, `tools/release_{files,policy}.py`, `tools/release.py`, `.github/workflows/publish-crate.yml`, `docs/specs/tokenize-v0.1.md`):**
