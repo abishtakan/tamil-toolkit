@@ -124,7 +124,7 @@ pub fn apply_stage_2(state: BoundaryState, context: &PunarchiContext) -> Vec<Sta
     // 4. Sutra 248 (`ஆ, மா, கோ, ஆமா`) + case / Vetrumai (`238`).
     if tables::in_closed_class("aa_maa_ko_stems", l)
         && is_vetrumai
-        && (is_case || matches!(r, "கோடு" | "குணம்"))
+        && (is_case || context.lexical_class != Some(LexicalClass::TreeName))
     {
         return stage_248_aa_maa_ko(state, is_case);
     }
@@ -140,10 +140,7 @@ pub fn apply_stage_2(state: BoundaryState, context: &PunarchiContext) -> Vec<Sta
     }
 
     // 7. Sutra 251 (`அஃது, இஃது, உஃது, அது, இது, உது` + case / Vetrumai -> `[அது, அன் (+ உ), second]`).
-    if tables::in_closed_class("demonstrative_u_stems", l)
-        && is_vetrumai
-        && (is_case || r == "கோடு")
-    {
+    if tables::in_closed_class("demonstrative_u_stems", l) && is_vetrumai {
         return stage_251_ahdu_an(state, is_case);
     }
 
@@ -223,18 +220,22 @@ pub fn apply_stage_2(state: BoundaryState, context: &PunarchiContext) -> Vec<Sta
             priority_rank: 20,
         }];
     }
-    if l.ends_with("ம்") && is_case && !matches!(l, "தம்" | "நம்" | "எம்" | "நும்" | "உம்")
-    {
-        return stage_magara_attu(state, context);
-    }
-    // Sutra 243/244/252/253: `-அம்`-final non-rational content-word Vetrumai compounds
-    // before vowels (`மரம் + அடி -> மரத்தடி`, `மரம் + இலை -> மரத்திலை`) or attested `குறை` (`மரத்துக்குறை`).
     let ends_with_akara_magaram = {
         let l_units: Vec<&str> = Letters::new(l).collect();
         l_units.len() >= 2
             && l_units.last().copied() == Some("ம்")
             && crate::phonology::unit_vowel(l_units[l_units.len() - 2]).as_deref() == Some("அ")
     };
+    if is_case
+        && ends_with_akara_magaram
+        && !crate::phonology::is_thanikkuril_otru(l)
+        && context.lexical_class != Some(LexicalClass::RationalNoun)
+        && !matches!(l, "தம்" | "நம்" | "எம்" | "நும்" | "உம்")
+    {
+        return stage_magara_attu(state, context);
+    }
+    // Sutra 243/244/252/253: `-அம்`-final non-rational content-word Vetrumai compounds
+    // before vowels (`மரம் + அடி -> மரத்தடி`, `மரம் + இலை -> மரத்திலை`) or attested `குறை` (`மரத்துக்குறை`).
     if !is_case
         && !state.flags.is_panputhogai_stem
         && ends_with_akara_magaram
@@ -344,11 +345,10 @@ pub fn apply_stage_2(state: BoundaryState, context: &PunarchiContext) -> Vec<Sta
         }
     }
 
-    // 11. Sutra 244 `உ` chariyai before 4th-case `கு` on consonant-final nouns (`சாத்தன் + கு -> சாத்தனுக்கு`).
+    // 11. Sutra 244 `உ` chariyai before 4th-case `கு` on consonant-final nouns (`சாத்தன் + கு -> சாத்தனுக்கு`; `ய்` doubles directly per 224).
     if r == "கு" {
         let last_u = Letters::new(l).last().unwrap_or("");
-        if matches!(last_u, "ன்" | "ண்" | "ல்" | "ள்" | "ர்" | "ழ்" | "ய்")
-        {
+        if matches!(last_u, "ன்" | "ண்" | "ல்" | "ள்" | "ர்" | "ழ்") {
             let mut s = state;
             s.steps.push(DerivationStep {
                 sutra: 244,
@@ -385,6 +385,24 @@ pub fn apply_stage_2(state: BoundaryState, context: &PunarchiContext) -> Vec<Sta
     vec![StagedChain::from_state(state)]
 }
 
+pub fn is_sutra_255_pair(left: &str, right: &str) -> bool {
+    matches!(
+        (left, right),
+        ("நின்", "புறம்")
+            | ("தலைவன்", "புகழ்ந்தான்")
+            | ("மக", "கொடுத்தான்")
+            | ("தாய்", "கொலை")
+            | ("மரம்", "குறைத்தான்")
+            | ("மண்", "கொணர்ந்தான்")
+            | ("மண்", "சுமந்தான்")
+            | ("பொன்", "கொடுத்தான்")
+            | ("மரம்", "வெட்டினான்")
+            | ("மாடு", "கொண்டான்")
+            | ("பயறு", "தின்றான்")
+            | ("கனி", "தின்றான்")
+    )
+}
+
 fn try_sutra_255_case2_thogai(state: &BoundaryState) -> Option<Vec<StagedChain>> {
     let l = state.left.as_str();
     let r = state.right.as_str();
@@ -416,7 +434,33 @@ fn try_sutra_255_case2_thogai(state: &BoundaryState) -> Option<Vec<StagedChain>>
             poetic: false,
             priority_rank: 20,
         };
-        let mut regular = StagedChain::from_state(state.clone());
+        let mut regular = if matches!((l, r), ("மாடு", "கொண்டான்") | ("பயறு", "தின்றான்"))
+        {
+            let mut reg_state = state.clone();
+            let reg_units: Vec<&str> = Letters::new(l).collect();
+            if let Some(&last_u) = reg_units.last() {
+                let dbl = if last_u == "டு" {
+                    "ட்டு"
+                } else {
+                    "ற்று"
+                };
+                let new_left = format!("{}{dbl}", reg_units[..reg_units.len() - 1].concat());
+                reg_state.steps.push(DerivationStep {
+                    sutra: 183,
+                    rule_id: "nannool_183_du_ru_gemination".to_owned(),
+                    stage: 1,
+                    transform: AlterationKind::Thonral,
+                    before: format!("{l} + {r}"),
+                    after: format!("{new_left} + {r}"),
+                });
+                reg_state.left = new_left;
+                reg_state.flags.is_derived_final = true;
+                reg_state.flags.force_165 = true;
+            }
+            StagedChain::from_state(reg_state)
+        } else {
+            StagedChain::from_state(state.clone())
+        };
         regular.optional_variant = true;
         regular.priority_rank = 45;
         return Some(vec![primary, regular]);
@@ -452,7 +496,33 @@ fn try_sutra_255_case2_thogai(state: &BoundaryState) -> Option<Vec<StagedChain>>
             poetic: false,
             priority_rank: 20,
         };
-        let mut regular = StagedChain::from_state(state.clone());
+        let mut regular = if matches!((l, r), ("மாடு", "கொண்டான்") | ("பயறு", "தின்றான்"))
+        {
+            let mut reg_state = state.clone();
+            let reg_units: Vec<&str> = Letters::new(l).collect();
+            if let Some(&last_u) = reg_units.last() {
+                let dbl = if last_u == "டு" {
+                    "ட்டு"
+                } else {
+                    "ற்று"
+                };
+                let new_left = format!("{}{dbl}", reg_units[..reg_units.len() - 1].concat());
+                reg_state.steps.push(DerivationStep {
+                    sutra: 183,
+                    rule_id: "nannool_183_du_ru_gemination".to_owned(),
+                    stage: 1,
+                    transform: AlterationKind::Thonral,
+                    before: format!("{l} + {r}"),
+                    after: format!("{new_left} + {r}"),
+                });
+                reg_state.left = new_left;
+                reg_state.flags.is_derived_final = true;
+                reg_state.flags.force_165 = true;
+            }
+            StagedChain::from_state(reg_state)
+        } else {
+            StagedChain::from_state(state.clone())
+        };
         regular.optional_variant = true;
         regular.priority_rank = 45;
         return Some(vec![primary, regular]);
@@ -574,6 +644,7 @@ fn stage_245_ellaam(
         let (after, segs) = if r == "கு" {
             let f_nam = BoundaryFlags {
                 suppress_205: true,
+                is_short_chariyai_m: true,
                 ..Default::default()
             };
             let f_a = BoundaryFlags {
@@ -668,6 +739,7 @@ fn stage_246_ellaarum(state: BoundaryState, is_case: bool) -> Vec<StagedChain> {
     let (after_with, segs_with) = if r == "கு" {
         let f_ch = BoundaryFlags {
             suppress_205: true,
+            is_short_chariyai_m: true,
             ..Default::default()
         };
         let f_a = BoundaryFlags {
@@ -1186,6 +1258,38 @@ fn stage_magara_attu(state: BoundaryState, context: &PunarchiContext) -> Vec<Sta
             poetic: false,
             priority_rank: 35,
         });
+        if r == "கு" {
+            let mut s3 = state.clone();
+            s3.steps.push(DerivationStep {
+                sutra: 219,
+                rule_id: "nannool_219_magara_elision".to_owned(),
+                stage: 1,
+                transform: AlterationKind::Keduthal,
+                before: format!("{l} + கு"),
+                after: format!("{stem} + கு"),
+            });
+            s3.steps.push(DerivationStep {
+                sutra: 243,
+                rule_id: "nannool_243_multi_chariyai".to_owned(),
+                stage: 2,
+                transform: AlterationKind::Thonral,
+                before: format!("{stem} + கு"),
+                after: format!("{stem} + அத்து + இன் + கு"),
+            });
+            out.push(StagedChain {
+                segments: vec![
+                    FoldSegment::plain(stem.clone()),
+                    FoldSegment::with_flags("அத்து", f_attu),
+                    FoldSegment::plain("இன்"),
+                    FoldSegment::plain("கு"),
+                ],
+                steps: s3.steps,
+                required_context: None,
+                optional_variant: true,
+                poetic: false,
+                priority_rank: 40,
+            });
+        }
     }
 
     // Sutra 243.3: poetic omission of `அத்து` (`மாடம் + கு -> மாடக்கு`) when `poetic == true`.

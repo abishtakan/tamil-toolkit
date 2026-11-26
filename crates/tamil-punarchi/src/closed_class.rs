@@ -79,12 +79,15 @@ fn apply_stage_1a_panpuppeyar(
             || context.subtype == Some(ContextSubtype::Panputhogai)
             || tables::in_closed_class("panpuppeyar_mai_stems", &state.left));
 
+    let is_non_panputhogai_relation = context.relation == GrammaticalRelation::Vetrumai
+        || matches!(context.subtype, Some(st) if st != ContextSubtype::Panputhogai);
+
     let is_pure_case = matches!(
         state.right.as_str(),
         "ஐ" | "ஆல்" | "ஆன்" | "ஒடு" | "ஓடு" | "கு" | "இன்" | "ஆது"
     ) || (context.relation == GrammaticalRelation::Vetrumai
         && tables::is_overt_case_suffix(&state.right));
-    if !is_panpu_stem || is_pure_case {
+    if !is_panpu_stem || is_pure_case || is_non_panputhogai_relation {
         return vec![Stage1Output::pending(state)];
     }
 
@@ -857,16 +860,41 @@ fn try_numerals_inner(
             });
             s.left = new_stem.to_owned();
             if new_stem == "நாற்" {
-                s.left = format!("{new_stem}{r}");
-                if let Some(last) = s.steps.last_mut() {
-                    last.after = s.left.clone();
+                let final_right = if r_mei.as_deref() == Some("த்") {
+                    if let Ok(parts) = tamil_core::split_uyirmei(r_first) {
+                        if let Ok(ra_unit) = tamil_core::compose_uyirmei("ற்", &parts.uyir) {
+                            let tail: String = Letters::new(r).skip(1).collect();
+                            let mutated_r = format!("{ra_unit}{tail}");
+                            s.steps.push(DerivationStep {
+                                sutra: 237,
+                                rule_id: "nannool_237_ta_na_mutation".to_owned(),
+                                stage: 3,
+                                transform: AlterationKind::Thirithal,
+                                before: format!("{new_stem} + {r}"),
+                                after: format!("{new_stem}{mutated_r}"),
+                            });
+                            mutated_r
+                        } else {
+                            r.to_owned()
+                        }
+                    } else {
+                        r.to_owned()
+                    }
+                } else {
+                    r.to_owned()
+                };
+                s.left = format!("{new_stem}{final_right}");
+                if r_mei.as_deref() != Some("த்") {
+                    if let Some(last) = s.steps.last_mut() {
+                        last.after = s.left.clone();
+                    }
                 }
                 return Some(vec![Stage1Output::done(s)]);
             }
             return Some(vec![Stage1Output::pending(s)]);
         }
         "ஐந்து" => {
-            if r_vowel {
+            if r_vowel || matches!(r_mei.as_deref(), Some("ய்" | "வ்")) {
                 let mut s = state.clone();
                 s.steps.push(DerivationStep {
                     sutra: 192,
@@ -877,12 +905,13 @@ fn try_numerals_inner(
                     after: format!("ஐ + {r}"),
                 });
                 s.left = "ஐ".to_owned();
+                s.flags.block_165 = true;
                 return Some(vec![Stage1Output::pending(s)]);
             }
             if let Some(rm) = r_mei.as_deref() {
                 let coda = if let Some(n) = homorganic_nasal(rm) {
                     n
-                } else if matches!(rm, "ஞ்" | "ந்" | "ம்" | "வ்") {
+                } else if matches!(rm, "ஞ்" | "ந்" | "ம்") {
                     rm
                 } else {
                     "ந்"
@@ -1618,11 +1647,15 @@ fn try_named_stems_stage_1b(
 fn apply_stage_1c_all(state: BoundaryState, context: &PunarchiContext) -> Vec<BoundaryState> {
     let rel = context.effective_relation();
 
-    // Sutra 184: Lexicon-gated Menthodar -> Vanthodar (`மருந்து->மருத்து`, `சுரும்பு->சுருப்பு`, etc.).
-    let class_184 = match rel {
-        GrammaticalRelation::Vetrumai => Some("menthodar_vanthodar_vetrumai"),
-        GrammaticalRelation::Alvazhi => Some("menthodar_vanthodar_alvazhi"),
-        GrammaticalRelation::Unspecified => None,
+    // Sutra 184: Lexicon-gated Menthodar -> Vanthodar compound hardening (`மருந்து->மருத்து`, not overt case inflections).
+    let class_184 = if tables::is_overt_case_suffix(&state.right) {
+        None
+    } else {
+        match rel {
+            GrammaticalRelation::Vetrumai => Some("menthodar_vanthodar_vetrumai"),
+            GrammaticalRelation::Alvazhi => Some("menthodar_vanthodar_alvazhi"),
+            GrammaticalRelation::Unspecified => None,
+        }
     };
     if let Some(cid) = class_184 {
         if let Some(forms) = tables::oblique_forms(cid, &state.left) {

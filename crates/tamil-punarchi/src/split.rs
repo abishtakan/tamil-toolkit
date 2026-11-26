@@ -1392,7 +1392,7 @@ fn propose_chariyai_and_closed_class(
                     }
                 }
             }
-            // Content-word delegation after `அதன்/இதன்/உதன்` & `ஆன்/மான்/கோன்`:
+            // Content-word delegation after `அதன்/இதன்/உதன்` & `ஆன்/மான்/கோன்` (+ vowel-fused `கோனடி` & 237 `கோன்றீது`/`கோனன்று`):
             for &(n_stem, orig_stem) in &[
                 ("அதன்", "அது"),
                 ("அதன்", "அஃது"),
@@ -1407,6 +1407,50 @@ fn propose_chariyai_and_closed_class(
                 if let Some(after_n) = surface.strip_prefix(n_stem) {
                     if !after_n.is_empty() {
                         push_plain(proposals, orig_stem.to_owned(), after_n.to_owned(), sb, su);
+                        let mut rem_units = Letters::new(after_n);
+                        if let Some(first_u) = rem_units.next() {
+                            if let Ok(parts) = split_uyirmei(first_u) {
+                                if parts.mei == "ற்" {
+                                    if let Ok(t_u) = compose_uyirmei("த்", &parts.uyir) {
+                                        let tail: String = rem_units.collect();
+                                        push_plain(
+                                            proposals,
+                                            orig_stem.to_owned(),
+                                            format!("{t_u}{tail}"),
+                                            sb,
+                                            su,
+                                        );
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if let Some(pre_no_n) = n_stem.strip_suffix("ன்") {
+                    let pre_units = Letters::new(pre_no_n).count();
+                    if n > pre_units && slice_units(spans, 0, pre_units) == pre_no_n {
+                        if let Ok(parts) = split_uyirmei(spans[pre_units].text) {
+                            let tail = slice_units(spans, pre_units + 1, n);
+                            let sb_n = spans[pre_units].byte_start;
+                            if parts.mei == "ன்" {
+                                push_plain(
+                                    proposals,
+                                    orig_stem.to_owned(),
+                                    format!("{}{tail}", parts.uyir),
+                                    sb_n,
+                                    pre_units,
+                                );
+                                if let Ok(n_u) = compose_uyirmei("ந்", &parts.uyir) {
+                                    push_plain(
+                                        proposals,
+                                        orig_stem.to_owned(),
+                                        format!("{n_u}{tail}"),
+                                        sb_n,
+                                        pre_units,
+                                    );
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -1431,17 +1475,33 @@ fn propose_chariyai_and_closed_class(
             }
         }
     }
-    // Kurriyalugaram + `இன்` + `கண்` (`254` `நாட்டின்கண்`), consonant + `உ` + `கு` (`சாத்தனுக்கு`):
+    // Kurriyalugaram + `இன்` + `கண்` (`254` `நாட்டின்கண்`, `ஆற்றின்கண்`, `மருந்தின்கண்`), consonant + `உ` + `கு` (`சாத்தனுக்கு`):
     if let Some(pre) = surface.strip_suffix("ின்கண்") {
+        let su = (n - 2).max(1);
+        let sb = spans[su].byte_start;
         if let Some(stem) = pre.strip_suffix("ட்ட") {
-            let su = (n - 2).max(1);
-            push_plain(
-                proposals,
-                format!("{stem}டு"),
-                "கண்".to_owned(),
-                spans[su].byte_start,
-                su,
-            );
+            push_plain(proposals, format!("{stem}டு"), "கண்".to_owned(), sb, su);
+        } else if let Some(stem) = pre.strip_suffix("ற்ற") {
+            push_plain(proposals, format!("{stem}று"), "கண்".to_owned(), sb, su);
+        } else {
+            for (tail_base, u_unit) in [
+                ("க", "கு"),
+                ("ச", "சு"),
+                ("ட", "டு"),
+                ("த", "து"),
+                ("ப", "பு"),
+                ("ற", "று"),
+            ] {
+                if let Some(stem) = pre.strip_suffix(tail_base) {
+                    push_plain(
+                        proposals,
+                        format!("{stem}{u_unit}"),
+                        "கண்".to_owned(),
+                        sb,
+                        su,
+                    );
+                }
+            }
         }
     }
     if surface.ends_with("க்கு") {
@@ -1614,6 +1674,36 @@ fn propose_chariyai_and_closed_class(
         ("இன்று", "இன்றி"),
         ("ஒருபத்த", "ஒருபஃது"),
         ("ஒருபத்த", "ஒருபது"),
+        ("இருபத்த", "இருபஃது"),
+        ("இருபத்த", "இருபது"),
+        ("முப்பத்த", "முப்பஃது"),
+        ("முப்பத்த", "முப்பது"),
+        ("நாற்பத்த", "நாற்பஃது"),
+        ("நாற்பத்த", "நாற்பது"),
+        ("ஐம்பத்த", "ஐம்பஃது"),
+        ("ஐம்பத்த", "ஐம்பது"),
+        ("அறுபத்த", "அறுபஃது"),
+        ("அறுபத்த", "அறுபது"),
+        ("எழுபத்த", "எழுபஃது"),
+        ("எழுபத்த", "எழுபது"),
+        ("எண்பத்த", "எண்பஃது"),
+        ("எண்பத்த", "எண்பது"),
+        ("ஒருபத்து", "ஒருபஃது"),
+        ("ஒருபத்து", "ஒருபது"),
+        ("இருபத்து", "இருபஃது"),
+        ("இருபத்து", "இருபது"),
+        ("முப்பத்து", "முப்பஃது"),
+        ("முப்பத்து", "முப்பது"),
+        ("நாற்பத்து", "நாற்பஃது"),
+        ("நாற்பத்து", "நாற்பது"),
+        ("ஐம்பத்து", "ஐம்பஃது"),
+        ("ஐம்பத்து", "ஐம்பது"),
+        ("அறுபத்து", "அறுபஃது"),
+        ("அறுபத்து", "அறுபது"),
+        ("எழுபத்து", "எழுபஃது"),
+        ("எழுபத்து", "எழுபது"),
+        ("எண்பத்து", "எண்பஃது"),
+        ("எண்பத்து", "எண்பது"),
         ("பதின்", "பத்து"),
         ("பதிற்ற", "பத்து"),
         ("பதின", "பத்து"),
@@ -1650,8 +1740,20 @@ fn propose_chariyai_and_closed_class(
                         }
                     }
                 }
-                // Handle fused vowel right after `பதின்`/`ஒருபத்த`/`பதிற்ற` (`பதினொன்று`, `ஒருபத்தொன்று`, `பதிற்றொன்று`).
-                if matches!(pfx, "ஒருபத்த" | "பதிற்ற" | "பதின") {
+                // Handle fused vowel right after `பதின்`/`ஒருபத்த`..`எண்பத்த`/`பதிற்ற` (`பதினொன்று`, `இருபத்தொன்று`, `முப்பத்தைந்து`).
+                if matches!(
+                    pfx,
+                    "ஒருபத்த"
+                        | "இருபத்த"
+                        | "முப்பத்த"
+                        | "நாற்பத்த"
+                        | "ஐம்பத்த"
+                        | "அறுபத்த"
+                        | "எழுபத்த"
+                        | "எண்பத்த"
+                        | "பதிற்ற"
+                        | "பதின"
+                ) {
                     for num_u in [
                         "ஒன்று",
                         "இரண்டு",

@@ -175,6 +175,11 @@ const SUTRA_183_ALVAZHI_DOUBLERS: &[(&str, &str)] = &[
 ///
 /// Must execute before Stage 3 (`164` elision and `165` Valimigal) and unlocks `force_165 = true` per Sutra 182.
 pub fn apply_stage_1c(state: BoundaryState, context: &PunarchiContext) -> Vec<BoundaryState> {
+    if context.subtype == Some(ContextSubtype::Case2)
+        && crate::urupu::is_sutra_255_pair(&state.left, &state.right)
+    {
+        return vec![state];
+    }
     let ugaram = classify_ugaram(&state.left);
     if !matches!(ugaram, UgaramClass::NedilThodar | UgaramClass::UyirThodar) {
         return vec![state];
@@ -613,7 +618,16 @@ fn apply_vowel_plus_vallinam(
         && ((left_vowel.as_deref() == Some("அ")
             && (matches!(
                 context.subtype,
-                Some(ContextSubtype::Viyankol | ContextSubtype::Ummaithogai)
+                Some(
+                    ContextSubtype::Viyankol
+                        | ContextSubtype::Ummaithogai
+                        | ContextSubtype::VinaiMutru
+                        | ContextSubtype::KurippuVinaiMutru
+                        | ContextSubtype::Peyarecham
+                        | ContextSubtype::Ezhuvai
+                        | ContextSubtype::Vili
+                        | ContextSubtype::Vinaithogai
+                )
             ) || is_seyyiya_vinaiyecham
                 || matches!(
                     context.lexical_class,
@@ -644,6 +658,10 @@ fn apply_vowel_plus_vallinam(
                         | ContextSubtype::Imperative
                         | ContextSubtype::Viyankol
                         | ContextSubtype::Ummaithogai
+                        | ContextSubtype::VinaiMutru
+                        | ContextSubtype::KurippuVinaiMutru
+                        | ContextSubtype::Ezhuvai
+                        | ContextSubtype::Vinaithogai
                 )
             ))
     {
@@ -688,6 +706,46 @@ fn apply_vowel_plus_vallinam(
             state,
             179,
             "nannool_179_mutriyalugaram_iyalbu",
+            None,
+            25,
+        )];
+    }
+
+    // Sutra 176 & Valimigaa Alvazhi subtypes: finite verbs, participles, subject/vocative/coordinated compounds stay natural.
+    if !state.flags.force_165
+        && rel == GrammaticalRelation::Alvazhi
+        && matches!(
+            context.subtype,
+            Some(
+                ContextSubtype::Ezhuvai
+                    | ContextSubtype::Vili
+                    | ContextSubtype::Peyarecham
+                    | ContextSubtype::VinaiMutru
+                    | ContextSubtype::KurippuVinaiMutru
+                    | ContextSubtype::Ummaithogai
+                    | ContextSubtype::Vinaithogai
+            )
+        )
+    {
+        let (sutra, rid) = if matches!(left_vowel.as_deref(), Some("இ" | "ஐ")) {
+            (176, "nannool_176_ikara_aikara_alvazhi_iyalbu")
+        } else {
+            (153, "nannool_153_iyalbu_passthrough")
+        };
+        return vec![emit_kurriyal_iyalbu(state, sutra, rid, None, 25)];
+    }
+
+    // Sutra 255: Case-2 Vetrumaithogai (`உண்மை + கண்டான்`) stays natural without Sutra 165 doubling
+    // on underived vowel stems when no overt `ஐ` is present (allowing `219`-elided `மர -> மரக்குறைத்தான்`).
+    if !state.flags.force_165
+        && !state.flags.is_derived_final
+        && context.subtype == Some(ContextSubtype::Case2)
+        && !tables::is_overt_case_suffix(&state.right)
+    {
+        return vec![emit_kurriyal_iyalbu(
+            state,
+            255,
+            "nannool_255_case2_thogai_equivalence",
             None,
             25,
         )];

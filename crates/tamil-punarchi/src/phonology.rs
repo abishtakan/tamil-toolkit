@@ -38,8 +38,8 @@ const YA_MUTHAL_VOWELS: &[&str] = &["அ", "ஆ", "உ", "ஊ", "ஓ", "ஔ"];
 /// Sutra 105: 4 vowels allowed with initial `ஞ`.
 const NJA_MUTHAL_VOWELS: &[&str] = &["அ", "ஆ", "எ", "ஒ"];
 
-/// Sutra 106: clitics licensing bound `ஙனம்`.
-pub const NGANAM_TRIGGERS: &[&str] = &["அ", "இ", "உ", "யா", "எ"];
+/// Sutra 106: clitics licensing bound `ஙனம்` (short/long demonstratives and interrogative `யா/எ`).
+pub const NGANAM_TRIGGERS: &[&str] = &["அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "யா", "எ"];
 
 /// Six Kurriyalugaram classes vs Mutriyalugaram vs NonU (Nannool Sutra 94).
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -112,12 +112,22 @@ pub fn is_idaiyinam_mei(mei: &str) -> bool {
     IDAIYINAM_MEI.contains(&mei)
 }
 
-/// Extract the final vowel of a written unit (standalone vowel or Uyirmei's vowel).
+/// Extract the final vowel of a written unit (standalone vowel, Uyirmei's vowel, or conjunct ligature tail like `ஸ்ரீ`/`க்ஷ`).
 pub fn unit_vowel(unit: &str) -> Option<String> {
     if is_independent_uyir(unit) {
         return Some(unit.to_owned());
     }
-    split_uyirmei(unit).ok().map(|parts| parts.uyir)
+    if let Ok(parts) = split_uyirmei(unit) {
+        return Some(parts.uyir);
+    }
+    if !unit.ends_with('\u{0BCD}') {
+        if let Some((_, tail)) = unit.rsplit_once('\u{0BCD}') {
+            if !tail.is_empty() {
+                return split_uyirmei(tail).ok().map(|parts| parts.uyir);
+            }
+        }
+    }
+    None
 }
 
 /// Extract the base pure consonant (`Mei` with pulli) of a pure consonant or Uyirmei unit.

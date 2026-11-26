@@ -125,6 +125,19 @@ pub fn apply_stage_3d(mut state: BoundaryState) -> BoundaryState {
     state
 }
 
+fn restore_237_t_right(right: &str) -> String {
+    let units: Vec<&str> = Letters::new(right).collect();
+    if let Some(&first_r) = units.first() {
+        if let Ok(parts) = split_uyirmei(first_r) {
+            if let Ok(t_unit) = compose_uyirmei("த்", &parts.uyir) {
+                let tail: String = units[1..].concat();
+                return format!("{t_unit}{tail}");
+            }
+        }
+    }
+    right.to_owned()
+}
+
 fn replace_last_unit(units: &[&str], replacement: &str) -> String {
     let prefix: String = units[..units.len() - 1].concat();
     format!("{prefix}{replacement}")
@@ -171,6 +184,58 @@ fn apply_nna_na(
 
     let is_stop =
         is_vallinam_initial_unit(first_r) || matches!(state.flags.triggered_237, Some((_, 'த')));
+
+    // Sutra 218: `நின்` natural in Vetrumai; `தன்`/`என்` optional (`தன்பகை`/`தற்பகை`, `என்பகை`/`எற்பகை`).
+    // Evaluated before `block_209_stop` so `தான்`/`யான்` pronouns retain Sutra 218 alternation.
+    if is_stop
+        && context.effective_relation() == GrammaticalRelation::Vetrumai
+        && matches!(state.left.as_str(), "நின்" | "தன்" | "என்")
+        && state.right != "கு"
+    {
+        if state.left == "நின்" {
+            let mut s = state;
+            let before = format!("{} + {}", s.left, s.right);
+            let after = format!("{}{}", s.left, s.right);
+            s.steps.push(DerivationStep {
+                sutra: 218,
+                rule_id: "nannool_218_than_en_nin".to_owned(),
+                stage: 3,
+                transform: AlterationKind::Iyalbu,
+                before,
+                after,
+            });
+            return vec![s];
+        }
+        let mut s_nat = state.clone();
+        let before = format!("{} + {}", s_nat.left, s_nat.right);
+        let after = format!("{}{}", s_nat.left, s_nat.right);
+        s_nat.steps.push(DerivationStep {
+            sutra: 218,
+            rule_id: "nannool_218_than_en_nin".to_owned(),
+            stage: 3,
+            transform: AlterationKind::Iyalbu,
+            before,
+            after,
+        });
+        s_nat.priority_rank = 25;
+
+        let mut s_mut = state;
+        let new_left = replace_last_unit(left_units, "ற்");
+        let before = format!("{} + {}", s_mut.left, s_mut.right);
+        let after = format!("{new_left} + {}", s_mut.right);
+        s_mut.steps.push(DerivationStep {
+            sutra: 218,
+            rule_id: "nannool_218_than_en_nin".to_owned(),
+            stage: 3,
+            transform: AlterationKind::Thirithal,
+            before,
+            after,
+        });
+        s_mut.left = new_left;
+        s_mut.optional_variant = true;
+        s_mut.priority_rank = 40;
+        return vec![s_nat, s_mut];
+    }
 
     if state.flags.block_209_stop {
         if state.steps.iter().any(|st| st.sutra == 193) {
@@ -337,23 +402,23 @@ fn apply_nna_na(
         }
     }
 
-    // Sutra 214: `தேன்` special optionality (natural / `ன்`-drop before Mellinam / `ன்`-drop + stop or nasal before Vallinam).
+    // Sutra 214: `தேன்` special optionality (natural / `ன்`-drop before Mellinam / stop + nasal before Vallinam, plus `209` `தேற்றுளி`).
     if state.left == "தேன்" {
-        let rm = unit_mei(first_r).unwrap_or_default();
-        let mut s_nat = state.clone();
-        let before = format!("தேன் + {}", s_nat.right);
-        let after = format!("தேன்{}", s_nat.right);
-        s_nat.steps.push(DerivationStep {
-            sutra: 214,
-            rule_id: "nannool_214_then_special".to_owned(),
-            stage: 3,
-            transform: AlterationKind::Iyalbu,
-            before,
-            after,
-        });
-        s_nat.priority_rank = 25;
-        let mut out = vec![s_nat];
-        if matches!(rm.as_str(), "ஞ்" | "ம்") {
+        let rm_cur = unit_mei(first_r).unwrap_or_default();
+        let is_mutated_t = matches!(state.flags.triggered_237, Some((_, 'த')));
+        if matches!(rm_cur.as_str(), "ஞ்" | "ம்") {
+            let mut s_nat = state.clone();
+            let before = format!("தேன் + {}", s_nat.right);
+            let after = format!("தேன்{}", s_nat.right);
+            s_nat.steps.push(DerivationStep {
+                sutra: 214,
+                rule_id: "nannool_214_then_special".to_owned(),
+                stage: 3,
+                transform: AlterationKind::Iyalbu,
+                before,
+                after,
+            });
+            s_nat.priority_rank = 25;
             let mut s_drop = state;
             s_drop.steps.push(DerivationStep {
                 sutra: 214,
@@ -366,18 +431,58 @@ fn apply_nna_na(
             s_drop.left = "தே".to_owned();
             s_drop.optional_variant = true;
             s_drop.priority_rank = 40;
-            out.push(s_drop);
-            return out;
+            return vec![s_nat, s_drop];
         }
-        if is_vallinam_initial_unit(first_r) {
+        if is_stop {
+            let mut out = Vec::new();
+            let vetrumai_237 =
+                is_mutated_t && context.effective_relation() == GrammaticalRelation::Vetrumai;
+            if vetrumai_237 {
+                let mut s_209 = state.clone();
+                let new_left = replace_last_unit(left_units, "ற்");
+                let before = format!("{} + {}", s_209.left, s_209.right);
+                let after = format!("{new_left} + {}", s_209.right);
+                s_209.steps.push(DerivationStep {
+                    sutra: 209,
+                    rule_id: "nannool_209_nna_na_vetrumai_stop".to_owned(),
+                    stage: 3,
+                    transform: AlterationKind::Thirithal,
+                    before,
+                    after,
+                });
+                s_209.left = new_left;
+                s_209.priority_rank = 20;
+                out.push(s_209);
+            }
+            let mut s_nat = state.clone();
+            let before = format!("தேன் + {}", s_nat.right);
+            let after = format!("தேன்{}", s_nat.right);
+            s_nat.steps.push(DerivationStep {
+                sutra: 214,
+                rule_id: "nannool_214_then_special".to_owned(),
+                stage: 3,
+                transform: AlterationKind::Iyalbu,
+                before,
+                after,
+            });
+            s_nat.optional_variant = vetrumai_237;
+            s_nat.priority_rank = if vetrumai_237 { 35 } else { 25 };
+            out.push(s_nat);
+
+            let (orig_right, rm) = if is_mutated_t {
+                (restore_237_t_right(&state.right), "த்".to_owned())
+            } else {
+                (state.right.clone(), rm_cur)
+            };
             let mut s_stop = state.clone();
+            s_stop.right = orig_right.clone();
             s_stop.steps.push(DerivationStep {
                 sutra: 214,
                 rule_id: "nannool_214_then_special".to_owned(),
                 stage: 3,
                 transform: AlterationKind::Thirithal,
-                before: format!("தேன் + {}", s_stop.right),
-                after: format!("தே{rm} + {}", s_stop.right),
+                before: format!("தேன் + {orig_right}"),
+                after: format!("தே{rm} + {orig_right}"),
             });
             s_stop.left = format!("தே{rm}");
             s_stop.optional_variant = true;
@@ -385,13 +490,14 @@ fn apply_nna_na(
             out.push(s_stop);
             if let Some(nasal) = homorganic_nasal(&rm) {
                 let mut s_nas = state;
+                s_nas.right = orig_right.clone();
                 s_nas.steps.push(DerivationStep {
                     sutra: 214,
                     rule_id: "nannool_214_then_special".to_owned(),
                     stage: 3,
                     transform: AlterationKind::Thirithal,
-                    before: format!("தேன் + {}", s_nas.right),
-                    after: format!("தே{nasal} + {}", s_nas.right),
+                    before: format!("தேன் + {orig_right}"),
+                    after: format!("தே{nasal} + {orig_right}"),
                 });
                 s_nas.left = format!("தே{nasal}");
                 s_nas.optional_variant = true;
@@ -402,10 +508,9 @@ fn apply_nna_na(
         }
     }
 
-    // Sutra 215: `எகின்` (SwanEkin) stays natural or takes `+ அ` + stop/nasal.
+    // Sutra 215: `எகின்` (SwanEkin) stays natural or takes `+ அ` + stop/nasal (restoring 237-mutated `த` after `அ`).
     if state.left == "எகின்" && context.lexical_class == Some(LexicalClass::SwanEkin) && is_stop
     {
-        let rm = unit_mei(first_r).unwrap_or_default();
         let mut s_nat = state.clone();
         s_nat.steps.push(DerivationStep {
             sutra: 215,
@@ -416,14 +521,21 @@ fn apply_nna_na(
             after: format!("எகின்{}", s_nat.right),
         });
         s_nat.priority_rank = 25;
+
+        let (orig_right, rm) = if matches!(state.flags.triggered_237, Some((_, 'த'))) {
+            (restore_237_t_right(&state.right), "த்".to_owned())
+        } else {
+            (state.right.clone(), unit_mei(first_r).unwrap_or_default())
+        };
         let mut s_stop = state.clone();
+        s_stop.right = orig_right.clone();
         s_stop.steps.push(DerivationStep {
             sutra: 215,
             rule_id: "nannool_215_ekin_swan".to_owned(),
             stage: 3,
             transform: AlterationKind::Thonral,
-            before: format!("எகின் + {}", s_stop.right),
-            after: format!("எகின{rm} + {}", s_stop.right),
+            before: format!("எகின் + {orig_right}"),
+            after: format!("எகின{rm} + {orig_right}"),
         });
         s_stop.left = format!("எகின{rm}");
         s_stop.optional_variant = true;
@@ -431,13 +543,14 @@ fn apply_nna_na(
         let mut out = vec![s_nat, s_stop];
         if let Some(nasal) = homorganic_nasal(&rm) {
             let mut s_nas = state;
+            s_nas.right = orig_right.clone();
             s_nas.steps.push(DerivationStep {
                 sutra: 215,
                 rule_id: "nannool_215_ekin_swan".to_owned(),
                 stage: 3,
                 transform: AlterationKind::Thonral,
-                before: format!("எகின் + {}", s_nas.right),
-                after: format!("எகின{nasal} + {}", s_nas.right),
+                before: format!("எகின் + {orig_right}"),
+                after: format!("எகின{nasal} + {orig_right}"),
             });
             s_nas.left = format!("எகின{nasal}");
             s_nas.optional_variant = true;
@@ -568,6 +681,9 @@ fn apply_magaram(
     );
     let is_vowel = is_independent_uyir(first_r);
     let right_mei = unit_mei(first_r);
+    let ends_akara_m = left_units.len() >= 2
+        && left_units.last().copied() == Some("ம்")
+        && crate::phonology::unit_vowel(left_units[left_units.len() - 2]).as_deref() == Some("அ");
 
     let make_elision_chain = |mut s: BoundaryState, req_ctx: Option<String>, rank: u32| {
         let new_left = drop_last_unit(left_units);
@@ -747,20 +863,33 @@ fn apply_magaram(
     }
 
     // Case 3: Before Vowel or Idaiyinam (`ய, ர, ல, வ, ழ, ள`).
-    // Appended short-vowel `ம்`-final Chariyais (`எல்லாநம்`, `எல்லார்தம்`, `எல்லீர்நும்`) retain `ம்` before vowels so Stage 3D `205` doubles `ம்`.
-    if is_vowel && (is_thanikkuril_otru(&state.left) || state.flags.is_short_chariyai_m) {
+    // Sutra 219 `ம்`-elision applies only to multisyllabic `-அம்` stems (`மரம்`), never `ஈம்`/`உரும்`/`ராம்`/`கம்` or short Chariyai `ம்`.
+    if is_vowel
+        && (!ends_akara_m || is_thanikkuril_otru(&state.left) || state.flags.is_short_chariyai_m)
+    {
         return vec![state];
     }
     match rel {
-        GrammaticalRelation::Vetrumai => make_elision_chain(state, None, 35),
-        GrammaticalRelation::Alvazhi if is_compound_alvazhi => make_elision_chain(state, None, 35),
+        GrammaticalRelation::Vetrumai => {
+            if ends_akara_m && !is_thanikkuril_otru(&state.left) {
+                make_elision_chain(state, None, 35)
+            } else {
+                vec![state]
+            }
+        }
+        GrammaticalRelation::Alvazhi if is_compound_alvazhi => {
+            if ends_akara_m && !is_thanikkuril_otru(&state.left) {
+                make_elision_chain(state, None, 35)
+            } else {
+                vec![state]
+            }
+        }
         GrammaticalRelation::Alvazhi => vec![make_220_iyalbu(state, None, 30)],
         GrammaticalRelation::Unspecified => {
-            let ends_akara_m = left_units.len() >= 2
-                && left_units.last().copied() == Some("ம்")
-                && crate::phonology::unit_vowel(left_units[left_units.len() - 2]).as_deref()
-                    == Some("அ");
-            let mut out = if is_vowel && ends_akara_m && !is_thanikkuril_otru(&state.left) {
+            if !ends_akara_m || is_thanikkuril_otru(&state.left) {
+                return vec![make_220_iyalbu(state, None, 30)];
+            }
+            let mut out = if is_vowel {
                 make_elision_chain(state.clone(), Some("vetrumai".to_owned()), 45)
             } else {
                 make_elision_chain(state.clone(), None, 35)
@@ -971,22 +1100,6 @@ fn apply_la_lla(
         context.effective_relation()
     };
 
-    // Sutra 230: Derived `ல்`/`ள்`-final verbal nouns (`ஆடல் + கடிது -> ஆடல்கடிது`) stay natural before Vallinam.
-    if context.lexical_class == Some(LexicalClass::VerbalNounDerived) {
-        let mut s = state;
-        let before = format!("{} + {}", s.left, s.right);
-        let after = format!("{}{}", s.left, s.right);
-        s.steps.push(DerivationStep {
-            sutra: 230,
-            rule_id: "nannool_230_derived_verbal_noun_iyalbu".to_owned(),
-            stage: 3,
-            transform: AlterationKind::Iyalbu,
-            before,
-            after,
-        });
-        return vec![s];
-    }
-
     // Case 1: 237-mutated `ந` -> non-Thanikkuril deletes (229), Thanikkuril becomes nasal `ன்`/`ண்` (227).
     if matches!(state.flags.triggered_237, Some((_, 'ந'))) {
         if !thanikkuril && !state.flags.block_229 {
@@ -1042,6 +1155,23 @@ fn apply_la_lla(
 
     // Case 3: `{க, ச, ப}` stops.
     if matches!(rm.as_str(), "க்" | "ச்" | "ப்") {
+        // Sutra 230: Derived `ல்`/`ள்`-final verbal nouns (`ஆடல் + கடிது -> ஆடல்கடிது`) stay natural before `{க, ச, ப}` in Alvazhi.
+        if rel == GrammaticalRelation::Alvazhi
+            && context.lexical_class == Some(LexicalClass::VerbalNounDerived)
+        {
+            let mut s = state;
+            let before = format!("{} + {}", s.left, s.right);
+            let after = format!("{}{}", s.left, s.right);
+            s.steps.push(DerivationStep {
+                sutra: 230,
+                rule_id: "nannool_230_derived_verbal_noun_iyalbu".to_owned(),
+                stage: 3,
+                transform: AlterationKind::Iyalbu,
+                before,
+                after,
+            });
+            return vec![s];
+        }
         // Sutra 232: `நெல், செல், கொல், சொல்` in Alvazhi obligatorily mutate `ல் -> ற்` (`நெற்கடிது`).
         if rel == GrammaticalRelation::Alvazhi
             && tables::in_closed_class("nel_sel_kol_sol_stems", &state.left)

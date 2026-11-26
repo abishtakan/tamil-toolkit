@@ -1,6 +1,6 @@
 use tamil_punarchi::{
-    punarchi_join, punarchi_split_candidates, ContextSubtype, GrammaticalRelation, LexicalClass,
-    PunarchiContext, PunarchiProfile,
+    is_valid_mozhi_muthal, punarchi_join, punarchi_split_candidates, ContextSubtype,
+    GrammaticalRelation, LexicalClass, PunarchiContext, PunarchiProfile,
 };
 
 fn join_surf(first: &str, second: &str, ctx: &PunarchiContext) -> (String, Vec<String>) {
@@ -241,4 +241,131 @@ fn edge_case_group_7_reverse_split_regressions() {
             "spurious (surface, உ) split returned for {surf}: {cands:?}"
         );
     }
+
+    assert!(has_split("தாய்க்கு", "தாய்", "கு"));
+    assert!(has_split("நாய்க்கு", "நாய்", "கு"));
+    assert!(has_split("ஆங்ஙனம்", "ஆ", "ஙனம்"));
+    assert!(has_split("ஆற்றின்கண்", "ஆறு", "கண்"));
+    assert!(has_split("இருபத்தொன்று", "இருபது", "ஒன்று"));
+    assert!(has_split("முப்பத்தைந்து", "முப்பது", "ஐந்து"));
+    assert!(has_split("மரத்திற்கு", "மரம்", "கு"));
+}
+
+#[test]
+fn edge_case_group_8_confirmed_nannool_rule_audit_fixes() {
+    let unspec = PunarchiContext::default();
+    let vetrumai = PunarchiContext {
+        relation: GrammaticalRelation::Vetrumai,
+        ..Default::default()
+    };
+    let vet_rational = PunarchiContext {
+        relation: GrammaticalRelation::Vetrumai,
+        lexical_class: Some(LexicalClass::RationalNoun),
+        ..Default::default()
+    };
+    let ezhuvai = PunarchiContext {
+        relation: GrammaticalRelation::Alvazhi,
+        subtype: Some(ContextSubtype::Ezhuvai),
+        ..Default::default()
+    };
+    let case2 = PunarchiContext {
+        relation: GrammaticalRelation::Vetrumai,
+        subtype: Some(ContextSubtype::Case2),
+        ..Default::default()
+    };
+    let vnd = PunarchiContext {
+        relation: GrammaticalRelation::Alvazhi,
+        lexical_class: Some(LexicalClass::VerbalNounDerived),
+        ..Default::default()
+    };
+    let swan = PunarchiContext {
+        relation: GrammaticalRelation::Vetrumai,
+        lexical_class: Some(LexicalClass::SwanEkin),
+        ..Default::default()
+    };
+    let vinai_mutru = PunarchiContext {
+        relation: GrammaticalRelation::Alvazhi,
+        subtype: Some(ContextSubtype::VinaiMutru),
+        ..Default::default()
+    };
+    let kurippu_vm = PunarchiContext {
+        relation: GrammaticalRelation::Alvazhi,
+        subtype: Some(ContextSubtype::KurippuVinaiMutru),
+        ..Default::default()
+    };
+    let peyarecham = PunarchiContext {
+        relation: GrammaticalRelation::Alvazhi,
+        subtype: Some(ContextSubtype::Peyarecham),
+        ..Default::default()
+    };
+
+    // Quantifiers + கு (245/246 + 219/205):
+    assert_eq!(join_surf("எல்லாம்", "கு", &vet_rational).0, "எல்லாநமக்கும்");
+    let (el_p, el_alts) = join_surf("எல்லாரும்", "கு", &vetrumai);
+    assert_eq!(el_p, "எல்லார்தமக்கும்");
+    assert!(el_alts.contains(&"எல்லார்க்கும்".to_owned()));
+    let (el2_p, el2_alts) = join_surf("எல்லீரும்", "கு", &vetrumai);
+    assert_eq!(el2_p, "எல்லீர்நுமக்கும்");
+    assert!(el2_alts.contains(&"எல்லீர்க்கும்".to_owned()));
+
+    // Numerals 191 + 237 & 192 + வ்:
+    assert_eq!(join_surf("நான்கு", "திசை", &unspec).0, "நாற்றிசை");
+    assert_eq!(join_surf("நான்கு", "தமிழ்", &unspec).0, "நாற்றமிழ்");
+    assert_eq!(join_surf("ஐந்து", "வகை", &unspec).0, "ஐவகை");
+
+    // Sutra 184 must not corrupt overt case inflections:
+    assert_eq!(join_surf("மருந்து", "ஐ", &unspec).0, "மருந்தை");
+    assert_eq!(join_surf("கரும்பு", "ஐ", &unspec).0, "கரும்பை");
+    assert_eq!(join_surf("கன்று", "கு", &unspec).0, "கன்றுக்கு");
+
+    // Sutra 244 அத்து only applies to multisyllabic -அம் stems, and ய் + கு doubles directly:
+    assert_eq!(join_surf("ஈம்", "ஐ", &unspec).0, "ஈமை");
+    assert_eq!(join_surf("உரும்", "ஐ", &unspec).0, "உருமை");
+    assert_eq!(join_surf("கம்", "ஐ", &unspec).0, "கம்மை");
+    assert_eq!(join_surf("ராம்", "ஐ", &unspec).0, "ராமை");
+    assert_eq!(join_surf("தாய்", "கு", &vetrumai).0, "தாய்க்கு");
+    assert_eq!(join_surf("நாய்", "கு", &vetrumai).0, "நாய்க்கு");
+
+    // Sutra 136 குறுமை & syntactic Ezhuvai/Case2 preservation:
+    assert_eq!(join_surf("குறுமை", "எழுத்து", &unspec).0, "குற்றெழுத்து");
+    assert_eq!(join_surf("குறுமை", "தொகை", &unspec).0, "குறுந்தொகை");
+    assert_eq!(join_surf("இளமை", "கழிந்தது", &ezhuvai).0, "இளமைகழிந்தது");
+    assert_eq!(join_surf("உண்மை", "கண்டான்", &case2).0, "உண்மைகண்டான்");
+
+    // Sutra 230 VerbalNounDerived vs 237/229/227:
+    assert_eq!(join_surf("ஆடல்", "கடிது", &vnd).0, "ஆடல்கடிது");
+    assert_eq!(join_surf("ஆடல்", "தீது", &vnd).0, "ஆடறீது");
+    assert_eq!(join_surf("ஆடல்", "நன்று", &vnd).0, "ஆடனன்று");
+    assert_eq!(join_surf("ஆடல்", "மணி", &vnd).0, "ஆடன்மணி");
+
+    // Sutras 215 (எகின் + தாள்) and 214 (தேன் + துளி) after Stage 3B 237:
+    let (ek_p, ek_alts) = join_surf("எகின்", "தாள்", &swan);
+    assert_eq!(ek_p, "எகின்றாள்");
+    assert!(ek_alts.contains(&"எகினத்தாள்".to_owned()));
+    assert!(ek_alts.contains(&"எகினந்தாள்".to_owned()));
+    let (th_p, th_alts) = join_surf("தேன்", "துளி", &vetrumai);
+    assert_eq!(th_p, "தேற்றுளி");
+    assert!(th_alts.contains(&"தேன்றுளி".to_owned()));
+    assert!(th_alts.contains(&"தேத்துளி".to_owned()));
+    assert!(th_alts.contains(&"தேந்துளி".to_owned()));
+
+    // Sutra 167/171 Valimigaa syntactic subtypes:
+    assert_eq!(join_surf("பறந்தன", "பறவைகள்", &vinai_mutru).0, "பறந்தனபறவைகள்");
+    assert_eq!(join_surf("சிறியன", "கற்கள்", &kurippu_vm).0, "சிறியனகற்கள்");
+    assert_eq!(join_surf("செய்த", "செயல்", &peyarecham).0, "செய்தசெயல்");
+
+    // Sutra 218 தான்/யான் + பகை, Sutra 251 அது/அஃது + பொருள், Sutra 255 பயறு + தின்றான்:
+    let (thp, thp_alts) = join_surf("தான்", "பகை", &vetrumai);
+    assert_eq!(thp, "தன்பகை");
+    assert!(thp_alts.contains(&"தற்பகை".to_owned()));
+    let (yp, yp_alts) = join_surf("யான்", "பகை", &vetrumai);
+    assert_eq!(yp, "என்பகை");
+    assert!(yp_alts.contains(&"எற்பகை".to_owned()));
+    assert_eq!(join_surf("அது", "பொருள்", &vetrumai).0, "அதன்பொருள்");
+    assert_eq!(join_surf("அஃது", "பொருள்", &vetrumai).0, "அதன்பொருள்");
+    assert_eq!(join_surf("பயறு", "தின்றான்", &case2).0, "பயறுதின்றான்");
+
+    // Sutra 162 conjunct ligature ஸ்ரீ & Sutra 106 ஆ + ஙனம்:
+    assert_eq!(join_surf("ஸ்ரீ", "அம்பாள்", &unspec).0, "ஸ்ரீயம்பாள்");
+    assert!(is_valid_mozhi_muthal("ஙனம்", Some("ஆ")));
 }

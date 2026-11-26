@@ -256,7 +256,7 @@ flowchart TD
 | `mutriyalugaram_elision_stems` | 164 | கதவு, அது, இது, உது, செலவு | Sutra 164: attested mutriyalugaram stems allowing optional final u elision before vowels |
 | `sutra_183_alvazhi_doublers` | 183 | காடு, களிறு, ஏறு, வரடு, குருடு, வெளிறு | Sutra 183: attested alvazhi stems undergoing du/ru gemination |
 | `sutra_183_vetrumai_non_doublers` | 183 | நாடு, காடு, மிடறு | Sutra 183: stems with attested vetrumai non-doubling pair exceptions (நாடுகிழவோன், காடகம், மிடறணியல்) |
-| `panpuppeyar_mai_stems` | 136 | செம்மை, பசுமை, சிறுமை, கருமை, பெருமை, நன்மை, வன்மை, வெறுமை, நெடுமை, வெண்மை, முதுமை, புதுமை, பழமை, தீமை, வெம்மை, மென்மை, மேன்மை, திண்மை, உண்மை, நுண்மை, பொன்மை, அணிமை, தண்மை, கீழ்மை, நொய்மை, இன்மை, பருமை | Sutra 136: Panpuppeyar (-மை) stems undergoing 8-way stem sandhi |
+| `panpuppeyar_mai_stems` | 136 | செம்மை, பசுமை, சிறுமை, கருமை, பெருமை, நன்மை, வன்மை, வெறுமை, நெடுமை, வெண்மை, முதுமை, புதுமை, பழமை, குறுமை, தீமை, வெம்மை, மென்மை, மேன்மை, திண்மை, உண்மை, நுண்மை, பொன்மை, அணிமை, தண்மை, கீழ்மை, நொய்மை, இன்மை, பருமை, இளமை, அருமை, கடுமை, கொடுமை, சேய்மை | Sutra 136: Panpuppeyar (-மை) stems undergoing 8-way stem sandhi |
 | `deictic_interrogative_clitics` | 163 | அ, இ, உ, எ | Sutra 163: demonstrative (அ, இ, உ) and interrogative (எ) clitics |
 | `direction_stems` | 186 | வடக்கு, தெற்கு, மேற்கு, கிழக்கு, குடக்கு, குணக்கு *(oblique: வடக்கு→வட; குடக்கு→குட; குணக்கு→குண; தெற்கு→தென்; மேற்கு→மேல்/மேற்/மேலை; கிழக்கு→கீழ்/கீழை)* | Sutra 186: direction stems and their attested compound oblique allomorphs |
 | `cardinal_numerals_1_to_10` | 188 | ஒன்று, இரண்டு, மூன்று, நான்கு, ஐந்து, ஆறு, ஏழு, எட்டு, ஒன்பது, பத்து | Sutra 188: base cardinal numerals 1..10 |
@@ -287,5 +287,15 @@ flowchart TD
 ## 7. Scope Boundaries & Phase 11 Handoff
 
 - `tamil-punarchi` is a **pure morphophonemic engine** (dictionary-free reverse split candidate generation over 28 inverse pattern families, forward-verified via `punarchi_join`).
-- Dictionary-backed lexical ranking, POS tagging, and morphosyntactic disambiguation belong cleanly in **Phase 11 (`tamil-morph` + `tamil-lexicon`)**.
+- Dictionary-backed lexical ranking, POS tagging, recursive multi-word chain splitting, and morphosyntactic disambiguation belong cleanly in **Phase 11 (`tamil-morph` + `tamil-lexicon`)** and **Phase 16 (*Valimigum*/*Valimigaa* syntactic linter)**.
+- **Known Lexicon-Dependent Handoff Items (Pending Phase 11 / Phase 16 — Intentionally Unimplemented Without Dictionary/POS):**
+  Under `PunarchiContext::default()` (`Unspecified`), these pairs produce a valid Nannūl output, but choosing the exact intended form automatically requires dictionary lookup, POS tagging, or semantic-sense disambiguation:
+  1. `நாடு + இல்` (`Unspecified` → `நாடில்` vs locative `நாட்டில்` under `vetrumai`): requires POS/case disambiguation because `இல்` is both a 7th-case marker and the free noun "house".
+  2. `ஆறு + ஆயிரம்` (`Unspecified` → `ஆறாயிரம்` "6000" vs `ஆற்றாயிரம்` under `vetrumai`): requires lexical sense separation between numeral `ஆறு` ("six") and noun `ஆறு` ("river").
+  3. `கொல் + படை` / `செல் + காலம்` (Sūtra 232 `SmithKol` blacksmith vs verb root `கொல்`; `CloudSel` cloud vs verb root `செல்`): requires POS/sense tagging when `PunarchiContext` omits `lexical_class` / `subtype`.
+  4. `நீ + கண்டாய்` / `எத்தனை + பேர்` / `பீ + கொடிது` (`Unspecified` → defaults to Sūtra 165 doubling without POS tags for pronoun/quantifier/`Alvazhi`).
+  5. `நன்மை + அது` (`நல்லது` vs `நன்மையது`) / `நன்மை + கண்` (`நற்கண்` vs `நன்மையின்கண்`): `அது` and `கண்` are ambiguous between case markers and free nouns without syntactic analysis.
+  6. `மரம் + கால்` / `குளம் + கரை` (`Unspecified` → Sūtra 219 *Alvazhi* nasal assimilation `மரங்கால்`/`குளங்கரை` vs *Vetrumai* `மரக்கால்`/`குளக்கரை`): requires relation disambiguation.
+  7. `கயிறு + கண்` (`கயிறின்கண்` vs `கயிற்றின்கண்`) / `கல் + சிலை` (`கல்சிலை` vs `கற்சிலை`): requires *Alvazhi* vs *Vetrumai* relation tagging (`183`/`227`).
+  8. `புளி + கறி` (`TastePuli`), `எண் + கடிது` (`FoodSesame`), `வல் + கடுமை` (`DiceVal`), `கீழ் + குலம்` (direction-derived vs Sūtra 226 lexical `கீழ்`): require word-sense disambiguation.
 - Interactive review workbench is available in the Playground under **Words → Punarchi (Sandhi)** (`?tool=punarchi` / `/tools/tamil-punarchi/`).
