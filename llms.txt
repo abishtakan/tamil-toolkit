@@ -2,7 +2,7 @@
 
 > Memory-safe Rust Tamil linguistic library (`#![forbid(unsafe_code)]`) with Python (PyO3), TypeScript/WebAssembly (Node.js & Browser), and Dart/Flutter bindings, an offline browser Playground, and a Microsoft Word Add-in. Apache-2.0 licensed, created by Abishtakan Sivachandrathevan and tamil-toolkit contributors.
 
-Source checkout verification: 40,265 active golden vectors across core, normalization, collation, numerals, codec, hyphenation, transliteration, and tokenization. Published `0.1.0` release evidence: see `docs/releases/v0.1.0.md`.
+Source checkout verification: 40,550 active golden vectors across core, normalization, collation, numerals, codec, hyphenation, punarchi, transliteration, tokenization, and lexicon. Published `0.3.0` release evidence: see `docs/releases/v0.3.0.md`.
 
 ## Live Tools (Browser Playground)
 
@@ -16,17 +16,19 @@ Source checkout verification: 40,265 active golden vectors across core, normaliz
 - [Tamil Syllabic Hyphenator](https://tamil-toolkit-playground.vercel.app/tools/tamil-hyphenation/): Coda-binding soft hyphens (`\u00AD`), line wrapping, Hunspell `.dic`, and LibreOffice `.oxt`.
 - [Tamil Solar Calendar & Panchangam](https://tamil-toolkit-playground.vercel.app/tools/tamil-panchangam/): Bounded Thirukanitham (Drik) and 1962 Vakya civil solar dates, five Panchangam limbs, and TN/SL holiday snapshots.
 
-## Installation (Current 0.1.0 Release)
+## Installation (Current 0.3.0 Release)
 
-- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.1.0`
-- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.1.0`
+- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.3.0`
+- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.3.0`
 - [npm ESM/WASM](https://www.npmjs.com/package/tamil-toolkit): `npm install tamil-toolkit@latest`
 - [Microsoft Word Add-in](https://tamil-toolkit-word.vercel.app/support.html): Local-processing Fluent 2 Office.js add-in for Word (Windows, macOS, Web).
 
 ## Specifications & Release Evidence
 
 - [README & Recipes](https://github.com/abishtakan/tamil-toolkit/blob/master/README.md): Overview, copy-paste recipes, and capability contracts.
-- [0.1.0 Release Evidence](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.1.0.md): Isolated consumer verification and package inventory.
+- [0.3.0 Release Evidence](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.3.0.md): Published package inventory and lexicon pack release links.
+- [Punarchi Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/punarchi-v0.1.md): Sourced Nannool (Sutras 151–257) sandhi joining and inverse splitting.
+- [Lexicon Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/lexicon-v0.2.md): `TMLPACK2` binary pack reader, reverse English search, facets, and relations.
 - [Core & Normalization Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/core-v0.1.md): Tailored UAX #29 segmentation, Uyirmei composition, NFC/NFD normalization, and Tholkappiyam phonology.
 - [Collation Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md): `agara-v1` and `uyirmei-first-v1` ordering rules.
 - [Legacy Codec & Braille Specs](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-phase7-legacy.md): Bounded legacy font profiles and [Bharathi Braille Grade 1](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-braille.md).

@@ -1,23 +1,39 @@
-# Tamil Toolkit Playground (தமிழ் கருவிப் பட்டறை)
+# tamil-toolkit
 
-> Browser-based Tamil language workbench powered by Rust and WebAssembly. Processes text locally in your browser. Apache-2.0 open source, created by Abishtakan Sivachandrathevan and tamil-toolkit contributors.
+> Memory-safe Rust Tamil linguistic library (`#![forbid(unsafe_code)]`) with Python (PyO3), TypeScript/WebAssembly (Node.js & Browser), and Dart/Flutter bindings, an offline browser Playground, and a Microsoft Word Add-in. Apache-2.0 licensed, created by Abishtakan Sivachandrathevan and tamil-toolkit contributors.
 
-## Canonical Tool Pages
+Source checkout verification: 40,550 active golden vectors across core, normalization, collation, numerals, codec, hyphenation, punarchi, transliteration, tokenization, and lexicon. Published `0.3.0` release evidence: see `docs/releases/v0.3.0.md`.
 
-- [Playground Home](https://tamil-toolkit-playground.vercel.app/): Overview and quick Tamil dictionary lookup.
-- [Bamini & Legacy Tamil Font Converter](https://tamil-toolkit-playground.vercel.app/tools/bamini-to-unicode/): Convert Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM, Senthamil, Shree-Tam, Softview, and TBO to Unicode, plus client-side PDF text-layer import.
-- [Tamil Braille Converter](https://tamil-toolkit-playground.vercel.app/tools/tamil-braille-converter/): Bharathi Tamil Braille Grade 1 (`U+2800..U+28FF`) bidirectional converter.
+## Live Tools (Browser Playground)
+
+- [Tamil Toolkit Playground](https://tamil-toolkit-playground.vercel.app/): Browser-based Tamil workbench processing text locally via WebAssembly.
+- [Bamini & Legacy Tamil Font Converter](https://tamil-toolkit-playground.vercel.app/tools/bamini-to-unicode/): Bidirectional conversion for Bamini, TSCII, TAB, TAM, Anjal, Vanavil, LT-TM, Senthamil, Shree-Tam, Softview, and TBO, plus client-side PDF text-layer import in the Playground.
+- [Tamil Braille Converter (Bharathi Grade 1)](https://tamil-toolkit-playground.vercel.app/tools/tamil-braille-converter/): Bidirectional Unicode Tamil to Bharathi Tamil Braille Grade 1 (`U+2800..U+28FF`).
 - [Tamil99 Keyboard & Transliteration](https://tamil-toolkit-playground.vercel.app/tools/tamil99-keyboard/): ISO 15919, Madras Lexicon, ITRANS, Harvard-Kyoto, Phonetic (Tanglish), Tamil99, Anjal Phonetic, and Suratha Bamini.
-- [Tamil Number & Cheque Words](https://tamil-toolkit-playground.vercel.app/tools/tamil-number-to-words/): TN/SL number-to-words, 8-currency cheque spellout (`INR`, `LKR`, `SGD`, `MYR`, `USD`, `EUR`, `GBP`, `CAD`), words-to-number (ITN), mixed fractions, and traditional numerals.
-- [Agara Varisai Tamil Sorter](https://tamil-toolkit-playground.vercel.app/tools/agara-varisai-sorter/): Mei-first Agara Varisai and Uyirmei-first alphabetical sorting.
-- [Tamil Word & Sentence Tokenizer](https://tamil-toolkit-playground.vercel.app/tools/tamil-tokenizer/): Source-preserving word and sentence spans with exact UTF-8 byte & written-unit offsets, attested Tamil abbreviations, and opt-in stopword filtering.
-- [Tamil Syllabic Hyphenator](https://tamil-toolkit-playground.vercel.app/tools/tamil-hyphenation/): Coda-binding soft hyphens, line wrapping, `.dic`, and LibreOffice `.oxt` downloads.
-- [Tamil Solar Calendar & Panchangam](https://tamil-toolkit-playground.vercel.app/tools/tamil-panchangam/): Bounded Thirukanitham (Drik) and 1962 Vakya solar dates, five limbs, and TN/SL holiday snapshots.
+- [Tamil Number & Cheque Words](https://tamil-toolkit-playground.vercel.app/tools/tamil-number-to-words/): Tamil Nadu (`TN`) and Sri Lanka (`SL`) number-to-words, currency spellout (`INR`, `LKR`, `SGD`, `MYR`, `USD`, `EUR`, `GBP`, `CAD`), formal words-to-number (ITN), mixed fractions, and traditional numerals.
+- [Agara Varisai Tamil Sorter](https://tamil-toolkit-playground.vercel.app/tools/agara-varisai-sorter/): Mei-first `agara-v1` and school `uyirmei-first-v1` alphabetical sorting and sort keys.
+- [Tamil Word & Sentence Tokenizer](https://tamil-toolkit-playground.vercel.app/tools/tamil-tokenizer/): Source-preserving UAX #29 tailored word and sentence spans with UTF-8 byte & written-unit offsets, attested abbreviations (`திரு.`, `மு.க.`, `பி.ப.`, `மு.ப.`, `எ.கா.`, `ரூ.`), and opt-in stopword profiles (`none`, `conservative`, `broad`).
+- [Tamil Syllabic Hyphenator](https://tamil-toolkit-playground.vercel.app/tools/tamil-hyphenation/): Coda-binding soft hyphens (`\u00AD`), line wrapping, Hunspell `.dic`, and LibreOffice `.oxt`.
+- [Tamil Solar Calendar & Panchangam](https://tamil-toolkit-playground.vercel.app/tools/tamil-panchangam/): Bounded Thirukanitham (Drik) and 1962 Vakya civil solar dates, five Panchangam limbs, and TN/SL holiday snapshots.
 
-## Source & SDKs
+## Installation (Current 0.3.0 Release)
 
-- [GitHub Repository](https://github.com/abishtakan/tamil-toolkit): Source code, specs, and golden test vectors.
-- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.1.0`
-- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.1.0`
+- [Rust crates.io](https://crates.io/crates/tamil-toolkit): `cargo add tamil-toolkit@=0.3.0`
+- [Python PyPI](https://pypi.org/project/tamil-toolkit/): `python -m pip install tamil-toolkit==0.3.0`
 - [npm ESM/WASM](https://www.npmjs.com/package/tamil-toolkit): `npm install tamil-toolkit@latest`
-- [Microsoft Word Add-in Support](https://tamil-toolkit-word.vercel.app/support.html): Local-processing Word add-in guide and installation.
+- [Microsoft Word Add-in](https://tamil-toolkit-word.vercel.app/support.html): Local-processing Fluent 2 Office.js add-in for Word (Windows, macOS, Web).
+
+## Specifications & Release Evidence
+
+- [README & Recipes](https://github.com/abishtakan/tamil-toolkit/blob/master/README.md): Overview, copy-paste recipes, and capability contracts.
+- [0.3.0 Release Evidence](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.3.0.md): Published package inventory and lexicon pack release links.
+- [Punarchi Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/punarchi-v0.1.md): Sourced Nannool (Sutras 151–257) sandhi joining and inverse splitting.
+- [Lexicon Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/lexicon-v0.2.md): `TMLPACK2` binary pack reader, reverse English search, facets, and relations.
+- [Core & Normalization Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/core-v0.1.md): Tailored UAX #29 segmentation, Uyirmei composition, NFC/NFD normalization, and Tholkappiyam phonology.
+- [Collation Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md): `agara-v1` and `uyirmei-first-v1` ordering rules.
+- [Legacy Codec & Braille Specs](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-phase7-legacy.md): Bounded legacy font profiles and [Bharathi Braille Grade 1](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-braille.md).
+- [Numerals Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.4.md): Bounded TN/SL number words, diaspora currencies, mixed fractions, and formal ITN.
+- [Transliteration Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/translit-v0.1.md): Scholarly romanization and offline keyboard input profiles.
+- [Tokenization Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/tokenize-v0.1.md): Source-preserving word/sentence spans, attested Tamil abbreviations, and opt-in stopword profiles.
+- [Hyphenation Spec](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/hyphen-v0.1.md): Coda-binding syllabic hyphenation and DTP exports.
+- [License & Third-Party Notices](https://github.com/abishtakan/tamil-toolkit/blob/master/NOTICE): Apache-2.0 for original code; optional Wiktionary dictionary packs are CC-BY-SA-4.0.

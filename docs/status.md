@@ -1,5 +1,16 @@
 # Project handoff
 
+## Release `0.3.0` Published & Playground Deployed (2026-11-28)
+
+- **Published registries (`0.3.0`, source commit `f2462d821e2ade27c0295e6d122c04a93bbc4348`, artifact run [`46068603212`](https://github.com/abishtakan/tamil-toolkit/actions/runs/46068603212), Core Rust CI [`46068599068`](https://github.com/abishtakan/tamil-toolkit/actions/runs/46068599068)):**
+  - **crates.io** ([run `46069422767`](https://github.com/abishtakan/tamil-toolkit/actions/runs/46069422767)): all 12 slim `Apache-2.0` crates published at `0.3.0` (first public release for `tamil-punarchi` and `tamil-lexicon`).
+  - **npm** ([run `46069425626`](https://github.com/abishtakan/tamil-toolkit/actions/runs/46069425626)): `tamil-toolkit@0.3.0` published (`latest` dist-tag).
+  - **PyPI** ([run `46069428290`](https://github.com/abishtakan/tamil-toolkit/actions/runs/46069428290)): `tamil-toolkit 0.3.0` published (Linux, Windows, macOS abi3 wheels + sdist).
+  - **GitHub Releases (`.tlpack` v2 packs):** [`lexicon-packs-0.2.0`](https://github.com/abishtakan/tamil-toolkit/releases/tag/lexicon-packs-0.2.0) (`open` channel, [run `46067199227`](https://github.com/abishtakan/tamil-toolkit/actions/runs/46067199227)) and [`lexicon-packs-0.3.0`](https://github.com/abishtakan/tamil-toolkit/releases/tag/lexicon-packs-0.3.0) (`full` channel, all 12 packs / `274,100` entries, [run `46068599426`](https://github.com/abishtakan/tamil-toolkit/actions/runs/46068599426)).
+  - **Playground:** Deployed `0.3.0` (`full` channel, all 12 `.tlpack` v2 packs) to [`https://tamil-toolkit-playground.vercel.app`](https://tamil-toolkit-playground.vercel.app) (`dpl_56k7Fk8REc9QK6kGK5AXgH7gvjXs`).
+- **Release-policy & Unicode cleanup (`40,550` active golden vectors):**
+  - Activated `punarchi_nannool.jsonl` (`268` vectors) and added `tamil-punarchi` to `release-policy.toml`, `tools/release_files.py`, and `.github/workflows/publish-crate.yml`; replaced escaped `\u200C` literals in `playground/src/tests/punarchi-tool.test.ts:39-40` with `String.fromCodePoint(0x200c)`.
+
 ## Lexicon Platform Master Rollout: Deep Data Cleaning, Reverse English Index, Pack Distribution & Platform Integrations (2026-11-28)
 
 - **Scope (Wave 1A/1B + Wave 2A/2B/2C — `tools/lexicon_organize.py`, `tools/lexicon_quality_gate.py`, `crates/tamil-lexicon/`, `crates/tamil-toolkit/`, `tests/golden/{lexicon_v02_runtime.jsonl,manifest.json}`, `release-policy.toml`, `tools/release_files.py`, `.github/workflows/{publish-crate,publish-lexicon-packs}.yml`, `bindings/{python,js-wasm,dart-flutter}/`, `playground/`, `tools/prepare_playground.py`, `integrations/{browser-extension,office-word-addin}/`, `extensions/pg_tamil/`):**
