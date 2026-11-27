@@ -2164,8 +2164,7 @@ fn default_manifest_url() -> String {
             return trimmed.to_owned();
         }
     }
-    "https://github.com/abishtakan/tamil-toolkit/releases/latest/download/MANIFEST.json"
-        .to_owned()
+    "https://github.com/abishtakan/tamil-toolkit/releases/latest/download/MANIFEST.json".to_owned()
 }
 
 fn sha256_hex(bytes: &[u8]) -> String {

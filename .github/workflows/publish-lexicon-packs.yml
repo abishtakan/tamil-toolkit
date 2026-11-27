@@ -52,6 +52,14 @@ jobs:
       - name: Install Python dependencies
         run: uv sync --locked --python 3.13
 
+      - name: Fetch and extract pinned ta.wiktionary dump
+        run: |
+          mkdir -p data/sources/tawiktionary-tamil
+          curl -fSL \
+            https://dumps.wikimedia.org/tawiktionary/20261101/tawiktionary-20261101-pages-articles.xml.bz2 \
+            -o data/sources/tawiktionary-tamil/tawiktionary-latest-pages-articles.xml.bz2
+          uv run --locked python tools/lexicon_tawiktionary_bulk.py
+
       - name: Organize lexicon datasets
         run: uv run --locked python tools/lexicon_organize.py --out target/lexicon/organized
 
