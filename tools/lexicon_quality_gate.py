@@ -150,7 +150,7 @@ def _check_cleaning_audit(
     audit = json.loads(audit_path.read_text(encoding="utf-8"))
     local_audit = audit.get("local")
     if not isinstance(local_audit, dict):
-        if audit.get("track") == "open" and not (organized_dir / "local").exists():
+        if not (organized_dir / "local").exists():
             return failures, {"historical_accounted_rows": 0}
         failures.append({
             "pack": "<audit>",
