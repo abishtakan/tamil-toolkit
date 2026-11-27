@@ -61,7 +61,14 @@ jobs:
           uv run --locked python tools/lexicon_tawiktionary_bulk.py
 
       - name: Organize lexicon datasets
-        run: uv run --locked python tools/lexicon_organize.py --out target/lexicon/organized
+        env:
+          CHANNEL: ${{ inputs.channel || 'open' }}
+        run: |
+          TRACK="open"
+          if [ "$CHANNEL" = "full" ]; then
+            TRACK="all"
+          fi
+          uv run --locked python tools/lexicon_organize.py --track "$TRACK" --out target/lexicon/organized
 
       - name: Build TMLPACK2 bundles
         run: |
@@ -113,7 +120,7 @@ jobs:
               MANIFEST.json open local
           fi
 
-          (cd dist/release-assets && sha256sum * > SHA256SUMS.txt)
+          (cd dist/release-assets && sha256sum ./* > SHA256SUMS.txt)
           ls -lh dist/release-assets
 
       - name: Create or update GitHub Release

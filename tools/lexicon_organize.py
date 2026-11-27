@@ -692,13 +692,21 @@ def verify_historical_sources(
         if not fpath.is_file():
             raise ValueError(f"Missing frozen historical file: {fpath}")
         actual_size = fpath.stat().st_size
-        if actual_size != item["bytes"]:
-            raise ValueError(
-                f"Frozen historical file size mismatch for {item['file']}: "
-                f"expected {item['bytes']}, got {actual_size}"
-            )
         actual_sha = _sha256_file(fpath)
-        if actual_sha != item["sha256"]:
+        if actual_size != item["bytes"] or actual_sha != item["sha256"]:
+            # Git on Linux checks out LF while the frozen pin recorded CRLF CSV sizes.
+            if fpath.suffix.lower() == ".csv":
+                raw = fpath.read_bytes()
+                if b"\r\n" not in raw:
+                    crlf = raw.replace(b"\n", b"\r\n")
+                    crlf_sha = hashlib.sha256(crlf).hexdigest()
+                    if len(crlf) == item["bytes"] and crlf_sha == item["sha256"]:
+                        continue
+            if actual_size != item["bytes"]:
+                raise ValueError(
+                    f"Frozen historical file size mismatch for {item['file']}: "
+                    f"expected {item['bytes']}, got {actual_size}"
+                )
             raise ValueError(
                 f"Frozen historical file SHA-256 mismatch for {item['file']}: "
                 f"expected {item['sha256']}, got {actual_sha}"
