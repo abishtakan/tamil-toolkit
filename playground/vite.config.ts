@@ -9,6 +9,7 @@ import { PLAYGROUND_ORIGIN, SEO_TOOL_PAGES } from "./src/lib/seo-pages";
 
 const isPublicBeta =
   process.env.VITE_PUBLIC_BETA === "1" || process.env.VITE_PUBLIC_BETA === "true";
+const lexiconChannel = (process.env.VITE_LEXICON_CHANNEL || "full").trim().toLowerCase();
 
 function escapeHtml(text: string): string {
   return text
@@ -92,10 +93,46 @@ export default defineConfig({
           fs.copyFileSync(vercelCfg, path.join(distDir, "vercel.json"));
         }
         prerenderSeoToolPages(distDir);
-        if (!isPublicBeta) return;
-        const historicalDist = path.join(distDir, "historical-lexicon");
-        if (fs.existsSync(historicalDist)) {
-          fs.rmSync(historicalDist, { recursive: true, force: true });
+        if (isPublicBeta) {
+          const historicalDist = path.join(distDir, "historical-lexicon");
+          if (fs.existsSync(historicalDist)) {
+            fs.rmSync(historicalDist, { recursive: true, force: true });
+          }
+        }
+        if (lexiconChannel !== "open") return;
+        const localPacksDist = path.join(distDir, "lexicon-packs", "local");
+        if (fs.existsSync(localPacksDist)) {
+          fs.rmSync(localPacksDist, { recursive: true, force: true });
+        }
+        const manifestDist = path.join(distDir, "lexicon-packs", "MANIFEST.json");
+        if (fs.existsSync(manifestDist)) {
+          try {
+            const parsed = JSON.parse(fs.readFileSync(manifestDist, "utf-8")) as {
+              schema_version?: number;
+              packs?: Array<{ file?: string; summary?: { pack_tier?: string; pack_id?: string } }>;
+            };
+            const openPacks = (parsed.packs ?? []).filter(
+              (p) =>
+                p.summary?.pack_tier === "verified_open" &&
+                !(p.file ?? "").replace(/\\/g, "/").startsWith("local/") &&
+                !(p.summary?.pack_id ?? "").startsWith("local_")
+            );
+            fs.writeFileSync(
+              manifestDist,
+              JSON.stringify(
+                {
+                  schema_version: parsed.schema_version ?? 2,
+                  pack_count: openPacks.length,
+                  packs: openPacks,
+                },
+                null,
+                2
+              ) + "\n",
+              "utf-8"
+            );
+          } catch {
+            // Keep build resilient if manifest is absent or malformed
+          }
         }
       },
     },
@@ -107,6 +144,7 @@ export default defineConfig({
           if (
             url.includes(".wasm") ||
             url.startsWith("/lexicon-extended/") ||
+            url.startsWith("/lexicon-packs/") ||
             url.startsWith("/historical-lexicon/") ||
             url === "/lexicon-browse-index.json"
           ) {

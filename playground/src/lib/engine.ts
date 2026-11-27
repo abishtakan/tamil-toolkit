@@ -1182,22 +1182,294 @@ export function wrapText(
 // 5. Thin Rust Lexicon Engine Wrappers (No Second Linguistic Logic)
 // ---------------------------------------------------------------------------
 
+const EMBEDDED_V1_PACK_IDS = new Set(["core", "names_taxa", "regional"]);
+
+export interface LexiconV2Stats extends tt.LexiconStatsResult {
+  category_counts?: Record<string, number>;
+  pos_counts?: Record<string, number>;
+  domain_counts?: Record<string, number>;
+  region_counts?: Record<string, number>;
+  register_counts?: Record<string, number>;
+  has_english_index?: boolean;
+}
+
+export type V2Stats = LexiconV2Stats;
+
+export interface LexiconV2QueryScope {
+  packs?: readonly string[];
+  tier?: tt.LexiconTierFilter;
+  category?: tt.LexiconCategory | "all" | string;
+  pos?: string;
+  domain?: string;
+  region?: string;
+  register?: string;
+  folded?: boolean;
+}
+
+export interface LexiconV2SearchOptions extends LexiconV2QueryScope {
+  limit?: number;
+  after_key?: string;
+}
+
+function cleanLexiconSearchOptions(
+  options?: LexiconV2SearchOptions
+): tt.LexiconSearchOptions | undefined {
+  if (!options) return undefined;
+  const cleaned: tt.LexiconSearchOptions = {};
+  if (options.packs && options.packs.length > 0) {
+    cleaned.packs = [...options.packs];
+  }
+  if (options.tier && options.tier !== "all") {
+    cleaned.tier = options.tier;
+  }
+  if (
+    options.category &&
+    options.category.trim() &&
+    options.category !== "all" &&
+    options.category !== "ALL"
+  ) {
+    cleaned.category = options.category.trim();
+  }
+  if (options.pos && options.pos.trim() && options.pos !== "ALL") {
+    cleaned.pos = options.pos.trim();
+  }
+  if (options.domain && options.domain.trim() && options.domain !== "ALL") {
+    cleaned.domain = options.domain.trim();
+  }
+  if (options.region && options.region.trim() && options.region !== "ALL") {
+    cleaned.region = options.region.trim();
+  }
+  if (options.register && options.register.trim() && options.register !== "ALL") {
+    cleaned.register = options.register.trim();
+  }
+  if (options.folded !== undefined) {
+    cleaned.folded = options.folded;
+  }
+  if (options.limit !== undefined) {
+    cleaned.limit = options.limit;
+  }
+  if (options.after_key !== undefined && options.after_key !== "") {
+    cleaned.after_key = options.after_key;
+  }
+  return Object.keys(cleaned).length > 0 ? cleaned : undefined;
+}
+
 /**
  * Returns compiled lexicon pack metadata directly from the Rust WASM engine.
+ * Returns `[]` safely when built in slim default mode (zero embedded v1 bytes).
  */
 export function getLexiconPacks(): tt.LexiconPackInfo[] {
-  return tt.lexicon_packs();
+  try {
+    const packs = tt.lexicon_packs();
+    return Array.isArray(packs) ? packs : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Returns true if the active WASM build includes embedded v1 dictionary packs.
+ */
+export function hasEmbeddedLexiconPacks(): boolean {
+  return getLexiconPacks().length > 0;
 }
 
 /**
  * Performs an exact Rust-dispatched lexicon lookup, preserving query text
  * (including whitespace, joiners, and NFD sequences) and explicit options verbatim.
+ * In slim default WASM builds with no embedded v1 packs, requests targeting
+ * default/embedded packs return an empty `not_found` response instead of throwing.
  */
 export function lookupLexicon(
   query: string,
   options?: tt.LexiconLookupOptions
 ): tt.LexiconLookupResponse {
+  if (!hasEmbeddedLexiconPacks()) {
+    const requestedPacks = options?.packs;
+    const targetsEmbeddedOnly =
+      requestedPacks === undefined ||
+      (Array.isArray(requestedPacks) &&
+        requestedPacks.length > 0 &&
+        requestedPacks.every((id) => EMBEDDED_V1_PACK_IDS.has(id)));
+    if (targetsEmbeddedOnly) {
+      return {
+        schema_version: 1,
+        status: "not_found",
+        canonical_query: normalizeNfc(query),
+        packs: [],
+        entries: [],
+      };
+    }
+  }
   return tt.lexicon_lookup(query, options);
+}
+
+export type LexiconUnloadResult =
+  | { pack_id: string; removed: boolean }
+  | { cleared: boolean };
+
+/**
+ * Mounts a compiled `.tlpack` v1 or v2 binary image into the Rust WASM runtime registry.
+ */
+export function loadLexiconPackBytes(
+  bytes: Uint8Array
+): tt.LexiconCompactPackSummary {
+  return tt.lexicon_load_pack_bytes(bytes);
+}
+
+/**
+ * Unmounts one runtime pack by ID, or clears all runtime packs when `packId` is null/omitted.
+ */
+export function unloadLexiconPack(
+  packId?: string | null
+): LexiconUnloadResult {
+  return tt.lexicon_unload_pack(packId);
+}
+
+/**
+ * Returns aggregate statistics and facet counts for all `.tlpack` packs currently mounted in Rust.
+ */
+export function getLexiconStats(): LexiconV2Stats {
+  return tt.lexicon_stats() as LexiconV2Stats;
+}
+
+export type {
+  LexiconCategory,
+  LexiconFuzzySearchHit,
+  LexiconFuzzySearchOptions,
+  LexiconFuzzySearchResult,
+  LexiconLongestPrefixResult,
+  LexiconProfile,
+  LexiconQueryOptions,
+  LexiconSearchOptions,
+  LexiconWordDefinition,
+  LexiconWordMeaning,
+  LexiconWordRelationsGroup,
+  LexiconWordSourceRef,
+} from "tamil-toolkit/web";
+
+/**
+ * Returns a unified, deduplicated, provenance-preserving word definition across mounted `.tlpack` packs.
+ */
+export async function defineLexiconV2(
+  word: string,
+  options?: tt.LexiconQueryOptions
+): Promise<tt.LexiconWordDefinition> {
+  return tt.lexicon_define(word, options);
+}
+
+/**
+ * Performs exact NFC (or opt-in Mayangoli-folded) lookup across mounted `.tlpack` v2/v1 packs.
+ */
+export function queryLexiconV2(
+  text: string,
+  options?: tt.LexiconQueryOptions
+): tt.LexiconCompactLookupResult {
+  return tt.lexicon_query(text, options);
+}
+
+/**
+ * Performs FST prefix search / autocomplete across mounted `.tlpack` packs in Rust.
+ */
+export function searchLexiconV2(
+  prefix: string,
+  options?: tt.LexiconSearchOptions
+): tt.LexiconPrefixSearchResult {
+  return tt.lexicon_search(prefix, options);
+}
+
+/**
+ * Performs reverse English-to-Tamil gloss/definition lookup across mounted `.tlpack` v2 packs.
+ * Calls `wasm.lexiconSearchEnglish` / `lexicon_search_english` if exported, or falls back to
+ * the shared `execute` JSON dispatcher (`op: "lexicon_search_english"`).
+ */
+export function searchLexiconEnglishV2(
+  query: string,
+  options?: LexiconV2SearchOptions
+): tt.LexiconPrefixSearchResult {
+  const cleaned = cleanLexiconSearchOptions(options);
+  const ttAny = tt as Record<string, unknown>;
+  if (typeof ttAny.lexiconSearchEnglish === "function") {
+    return (
+      ttAny.lexiconSearchEnglish as (
+        q: string,
+        opts?: tt.LexiconSearchOptions
+      ) => tt.LexiconPrefixSearchResult
+    )(query, cleaned);
+  }
+  if (typeof ttAny.lexicon_search_english === "function") {
+    return (
+      ttAny.lexicon_search_english as (
+        q: string,
+        opts?: tt.LexiconSearchOptions
+      ) => tt.LexiconPrefixSearchResult
+    )(query, cleaned);
+  }
+  const req: tt.Request & Record<string, unknown> = cleaned
+    ? { ...cleaned, op: "lexicon_search_english", input: query }
+    : { op: "lexicon_search_english", input: query };
+  return tt.execute(req) as tt.LexiconPrefixSearchResult;
+}
+
+/**
+ * Returns deterministic Tanglish-to-Tamil phonetic suggestions (including Mayangoli variants).
+ */
+export function transliterateSuggest(
+  text: string,
+  scheme: string = "phonetic-v1",
+  limit: number = 5
+): string[] {
+  if (!text.trim()) return [];
+  try {
+    const ttAny = tt as Record<string, unknown>;
+    if (typeof ttAny.transliterate_suggest === "function") {
+      const res = (
+        ttAny.transliterate_suggest as (
+          input: string,
+          s: string,
+          lim: number
+        ) => unknown
+      )(text, scheme, limit);
+      if (Array.isArray(res)) return res.filter((x): x is string => typeof x === "string");
+    }
+    const res = tt.execute({
+      op: "transliterate_suggest",
+      input: { text, scheme, limit },
+    });
+    return Array.isArray(res) ? res.filter((x): x is string => typeof x === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Performs Levenshtein edit-distance fuzzy search across mounted `.tlpack` packs in Rust.
+ */
+export function fuzzySearchLexiconV2(
+  word: string,
+  options?: tt.LexiconFuzzySearchOptions
+): tt.LexiconFuzzySearchResult {
+  return tt.lexicon_fuzzy_search(word, options);
+}
+
+/**
+ * Returns all mounted lexicon headwords that are prefixes of `word` (longest first).
+ */
+export function getLexiconLongestPrefixes(
+  word: string,
+  options?: Pick<tt.LexiconQueryOptions, "packs" | "tier" | "category">
+): tt.LexiconLongestPrefixResult {
+  return tt.lexicon_longest_prefix(word, options);
+}
+
+/**
+ * Queries indexed semantic relations (`SYNONYM`, `ANTONYM`, `RELATED`, `HYPERNYM`) in Rust.
+ */
+export function getLexiconRelations(
+  text: string,
+  options?: Pick<tt.LexiconQueryOptions, "packs" | "tier" | "category">
+): tt.LexiconRelationsResult {
+  return tt.lexicon_relations(text, options);
 }
 
 // ---------------------------------------------------------------------------

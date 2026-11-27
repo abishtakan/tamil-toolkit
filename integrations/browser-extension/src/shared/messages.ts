@@ -1,6 +1,7 @@
 export type TypingLayout = "phonetic-v1" | "tamil99" | "anjal-phonetic" | "suratha-bamini";
 export type CommitMode = "word-boundary" | "instant-keystroke";
-export type PanelTab = "inspect" | "live" | "fix" | "tools";
+export type PanelTab = "inspect" | "live" | "fix" | "dictionary" | "tools";
+export type LexiconMountProfile = "open-lite" | "open" | "full";
 export type NumeralLocale = "TN" | "SL";
 export type SupportedCurrency = "INR" | "LKR";
 export type SortProfile = "agara-v1" | "uyirmei-first-v1";

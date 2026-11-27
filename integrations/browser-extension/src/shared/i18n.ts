@@ -5,6 +5,7 @@ export interface UiStrings {
   tabInspect: string;
   tabLive: string;
   tabFix: string;
+  tabDictionary: string;
   tabTools: string;
   settingsTitle: string;
   microCounterLabel: string;
@@ -73,6 +74,27 @@ export interface UiStrings {
   localeSL: string;
   noCurrency: string;
   unsupportedYear: string;
+  // Dictionary
+  dictSearchPlaceholder: string;
+  dictLookupSelection: string;
+  dictSearchHint: string;
+  dictNoPacksMounted: string;
+  dictNoResults: string;
+  dictMeaningsEn: string;
+  dictMeaningsTa: string;
+  dictPureTamil: string;
+  dictRegions: string;
+  dictPackSettings: string;
+  dictManifestUrlLabel: string;
+  dictProfileLabel: string;
+  dictMountProfile: string;
+  dictMounting: string;
+  dictLoadLocalFiles: string;
+  dictClearPacks: string;
+  dictStatsSummary: (packs: number, words: number) => string;
+  dictMatchesHeading: string;
+  dictSynonyms: string;
+  dictExamples: string;
 }
 
 const EN: UiStrings = {
@@ -80,6 +102,7 @@ const EN: UiStrings = {
   tabInspect: "Inspect",
   tabLive: "Live Type",
   tabFix: "Fix Text",
+  tabDictionary: "Dictionary",
   tabTools: "Tools",
   settingsTitle: "Settings",
   microCounterLabel: "Live letter & word counter",
@@ -144,6 +167,26 @@ const EN: UiStrings = {
   localeSL: "Sri Lanka (SL)",
   noCurrency: "Number only",
   unsupportedYear: "Official holiday data is not available for this year.",
+  dictSearchPlaceholder: "Search Tamil, Mayangoli typo, or English gloss...",
+  dictLookupSelection: "Lookup page selection",
+  dictSearchHint: "Supports exact Tamil, Mayangoli-folded spelling, and English-to-Tamil glosses.",
+  dictNoPacksMounted: "No .tlpack dictionary packs mounted yet. Open Pack Settings below to mount open-lite (~2.9 MB) or load local .tlpack files.",
+  dictNoResults: "No matching dictionary entries found.",
+  dictMeaningsEn: "English Meanings",
+  dictMeaningsTa: "Tamil Meanings",
+  dictPureTamil: "Pure Tamil",
+  dictRegions: "Regions",
+  dictPackSettings: "Pack Settings",
+  dictManifestUrlLabel: "Manifest URL",
+  dictProfileLabel: "Pack Profile",
+  dictMountProfile: "Mount Packs",
+  dictMounting: "Mounting...",
+  dictLoadLocalFiles: "Load local .tlpack files (Offline)",
+  dictClearPacks: "Unload all",
+  dictStatsSummary: (packs, words) => `${packs} pack${packs === 1 ? "" : "s"} \u00B7 ${words.toLocaleString()} words`,
+  dictMatchesHeading: "Matching Entries",
+  dictSynonyms: "Synonyms",
+  dictExamples: "Examples",
 };
 
 const TA: UiStrings = {
@@ -151,6 +194,7 @@ const TA: UiStrings = {
   tabInspect: "\u0B86\u0BAF\u0BCD\u0BB5\u0BC1",
   tabLive: "\u0BA8\u0BC7\u0BB0\u0B9F\u0BBF",
   tabFix: "\u0B9A\u0BC0\u0BB0\u0BAE\u0BC8",
+  tabDictionary: "\u0B85\u0B95\u0BB0\u0BBE\u0BA4\u0BBF",
   tabTools: "\u0B95\u0BB0\u0BC1\u0BB5\u0BBF\u0B95\u0BB3\u0BCD",
   settingsTitle: "\u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD",
   microCounterLabel: "\u0BA8\u0BC7\u0BB0\u0B9F\u0BBF \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1/\u0B9A\u0BCA\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BC8",
@@ -215,6 +259,26 @@ const TA: UiStrings = {
   localeSL: "\u0B87\u0BB2\u0B99\u0BCD\u0B95\u0BC8 (SL)",
   noCurrency: "\u0B8E\u0BA3\u0BCD \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD",
   unsupportedYear: "\u0B87\u0BA8\u0BCD\u0BA4 \u0B86\u0BA3\u0BCD\u0B9F\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0BA9 \u0B85\u0BB0\u0B9A\u0BC1 \u0BB5\u0BBF\u0B9F\u0BC1\u0BAE\u0BC1\u0BB1\u0BC8\u0BA4\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8.",
+  dictSearchPlaceholder: "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD, \u0BAE\u0BAF\u0B99\u0BCD\u0B95\u0BCA\u0BB2\u0BBF \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B86\u0B99\u0BCD\u0B95\u0BBF\u0BB2\u0B9A\u0BCD \u0B9A\u0BCA\u0BB2\u0BCD \u0BA4\u0BC7\u0B9F\u0BC1\u0B95...",
+  dictLookupSelection: "\u0BA4\u0BC7\u0BB0\u0BCD\u0BB5\u0BC1 \u0B9A\u0BCA\u0BB2\u0BCD \u0BAA\u0BCA\u0BB0\u0BC1\u0BB3\u0BCD",
+  dictSearchHint: "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD, \u0BAE\u0BAF\u0B99\u0BCD\u0B95\u0BCA\u0BB2\u0BBF \u0BAA\u0BBF\u0BB4\u0BC8, \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B86\u0B99\u0BCD\u0B95\u0BBF\u0BB2-\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD \u0BA4\u0BC7\u0B9F\u0BB2\u0BC8 \u0B86\u0BA4\u0BB0\u0BBF\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD.",
+  dictNoPacksMounted: "\u0B85\u0B95\u0BB0\u0BBE\u0BA4\u0BBF\u0BA4\u0BCD \u0BA4\u0BCA\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD (.tlpack) \u0B8F\u0BB1\u0BCD\u0BB1\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8. \u0B95\u0BC0\u0BB4\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BA4\u0BCA\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BBF\u0BB2\u0BCD \u0B8F\u0BB1\u0BCD\u0BB1\u0BB5\u0BC1\u0BAE\u0BCD.",
+  dictNoResults: "\u0BAA\u0BCA\u0BB0\u0BC1\u0BA4\u0BCD\u0BA4\u0BAE\u0BBE\u0BA9 \u0B85\u0B95\u0BB0\u0BBE\u0BA4\u0BBF\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BC8.",
+  dictMeaningsEn: "\u0B86\u0B99\u0BCD\u0B95\u0BBF\u0BB2\u0BAA\u0BCD \u0BAA\u0BCA\u0BB0\u0BC1\u0BB3\u0BCD",
+  dictMeaningsTa: "\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD\u0BAA\u0BCD \u0BAA\u0BCA\u0BB0\u0BC1\u0BB3\u0BCD",
+  dictPureTamil: "\u0BA4\u0BA9\u0BBF\u0BA4\u0BCD\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD",
+  dictRegions: "\u0BB5\u0B9F\u0BCD\u0B9F\u0BBE\u0BB0\u0BAE\u0BCD",
+  dictPackSettings: "\u0BA4\u0BCA\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD",
+  dictManifestUrlLabel: "Manifest URL",
+  dictProfileLabel: "\u0BA4\u0BCA\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BB2\u0BC8",
+  dictMountProfile: "\u0BA4\u0BCA\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B8F\u0BB1\u0BCD\u0BB1\u0BC1",
+  dictMounting: "\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1...",
+  dictLoadLocalFiles: "\u0B89\u0BB3\u0BCD\u0BB3\u0BC2\u0BB0\u0BCD .tlpack \u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD (\u0B87\u0BA3\u0BC8\u0BAF\u0BAE\u0BBF\u0BA9\u0BCD\u0BB1\u0BBF)",
+  dictClearPacks: "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1",
+  dictStatsSummary: (packs, words) => `${packs} \u0BA4\u0BCA\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u00B7 ${words.toLocaleString()} \u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0BCD`,
+  dictMatchesHeading: "\u0BAA\u0BCA\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0BCD",
+  dictSynonyms: "\u0B92\u0BA4\u0BCD\u0BA4 \u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0BCD",
+  dictExamples: "\u0B8E\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1\u0B95\u0BB3\u0BCD",
 };
 
 export function stringsFor(lang: UiLang): UiStrings {

@@ -1,88 +1,219 @@
-//! Exact compiled-lexicon runtime lookup and pack metadata introspection.
-//!
-//! Reads deterministically compiled `.tlpack` artifacts via [`crate::lexicon_pack`]
-//! without duplicating binary decoding or Tamil normalization logic. Query
-//! normalization uses [`tamil_norm::normalize_nfc`] (allocating a canonical
-//! `String` when needed), and matching entries are deserialized on demand from
-//! verified little-endian payload slices.
+//! Exact compiled-lexicon runtime lookup, dynamic `TMLPACK1`/`TMLPACK2` pack registry,
+//! FST prefix/folded search, and lexical relations backed by Rank 2 [`tamil_lexicon`].
 
-use std::collections::{BTreeMap, BTreeSet};
+use std::path::Path;
+use std::sync::{OnceLock, RwLock};
 
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
+use serde_json::{json, Value};
 
-pub use crate::lexicon_pack::{
-    available_packs, open_available_pack, CompiledAcceptance as Acceptance,
-    CompiledAnnotation as Annotation, CompiledCoverage as Coverage, CompiledEndpoint as Endpoint,
-    CompiledEntry as Entry, CompiledField as Field, CompiledForm as Form,
-    CompiledLabelField as LabelField, CompiledPackMeta, CompiledPackView,
-    CompiledProvenance as Provenance, CompiledRelation as Relation, CompiledScope as Scope,
-    CompiledSense as Sense, CompiledText as Text, KNOWN_PACK_IDS,
+pub use crate::lexicon_pack::{available_packs, open_available_pack};
+pub use tamil_lexicon::lookup_v1::{
+    lookup_in_views, pack_info_from_meta, validate_request_inputs, Acceptance, Annotation,
+    CompiledPackMeta, CompiledPackView, Coverage, Endpoint, Entry, Field, Form, LabelField,
+    LookupRequest, LookupResponse, LookupStatus, PackInfo, Provenance, Relation, Scope, Sense,
+    Text, DEFAULT_PACKS, KNOWN_PACK_IDS, MAX_INPUT_BYTES, SCHEMA_VERSION,
+};
+pub use tamil_lexicon::store::{
+    auto_discover_pack_dir, entry_matches_filter, pack_category, AnnotatedEntry,
+    CompactLookupResult, CompactPackSummary, FuzzySearchHit, FuzzySearchResult, LexiconCategory,
+    LexiconPrefixSearchResult, LexiconProfile, LexiconSearchOptions, LexiconStore,
+    LexiconStoreStats, LoadedPack, PackRegistry, PrefixSearchHit, PrefixSearchOptions,
+    PrefixSearchResult, QueryScope, RelationsResult, TierFilter, WordDefinition, WordMeaning,
+    WordRelationsGroup, WordSourceRef, MAX_SEARCH_LIMIT,
+};
+pub use tamil_lexicon::v2::{
+    build_compact_pack, extract_english_tokens, split_facet_tokens, CompactEntry, CompactForm,
+    CompactPackHeader, CompactPackInput, CompactPackMeta, CompactPackView, CompactRelation,
+    CompactSense, PackTier, V2_FLAG_HAS_ENGLISH_INDEX,
 };
 
-/// Lookup response contract version matching `lookup-response.schema.json`.
-pub const SCHEMA_VERSION: u32 = crate::lexicon_pack::SCHEMA_VERSION;
-
-/// Maximum accepted UTF-8 input length in bytes (no silent truncation).
-pub const MAX_INPUT_BYTES: usize = 65_536;
-
-/// Default selected pack IDs when `"packs"` is omitted by a caller.
-pub const DEFAULT_PACKS: &[&str] = &["core"];
-
-/// Lookup match outcome discriminant.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum LookupStatus {
-    Matched,
-    NotFound,
+fn runtime_registry_lock() -> &'static RwLock<PackRegistry> {
+    static REGISTRY: OnceLock<RwLock<PackRegistry>> = OnceLock::new();
+    REGISTRY.get_or_init(|| RwLock::new(PackRegistry::new()))
 }
 
-/// Typed lookup request matching the `lexicon_lookup` dispatcher contract.
-#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct LookupRequest {
-    pub input: String,
-    #[serde(default)]
-    pub packs: Option<Vec<String>>,
-    #[serde(default)]
-    pub region: Option<String>,
-    #[serde(default)]
-    pub register: Option<String>,
+/// Mounts a `.tlpack` v1 or v2 binary image into the process runtime registry.
+pub fn load_pack_bytes(bytes: Vec<u8>) -> Result<CompactPackSummary, String> {
+    let mut guard = runtime_registry_lock()
+        .write()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.load_pack_bytes(bytes)
 }
 
-/// Public pack metadata returned by `lexicon_packs` and embedded in `LookupResponse`.
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct PackInfo {
-    pub id: String,
-    pub dataset_version: String,
-    pub schema_version: u32,
-    pub index_format_version: u32,
-    pub manifest_sha256: String,
-    pub available: bool,
-    pub coverage: Coverage,
+/// Mounts a `.tlpack` v1 or v2 binary image and returns its summary as JSON (for FFI/WASM).
+pub fn load_pack_bytes_json(bytes: &[u8]) -> Result<String, String> {
+    let summary = load_pack_bytes(bytes.to_vec())?;
+    serde_json::to_string(&summary).map_err(|err| format!("lexicon: serialize error: {err}"))
 }
 
-/// Closed lookup response matching `specs/021-lexicon-curation/contracts/lookup-response.schema.json`.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct LookupResponse {
-    pub schema_version: u32,
-    pub status: LookupStatus,
-    pub canonical_query: String,
-    pub packs: Vec<PackInfo>,
-    pub entries: Vec<Entry>,
+/// Loads and mounts one `.tlpack` v1 or v2 file from disk into the runtime registry.
+pub fn load_pack_file(path: &Path) -> Result<CompactPackSummary, String> {
+    let mut guard = runtime_registry_lock()
+        .write()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.load_pack_file(path)
 }
 
-struct OpenedPack<'a> {
-    id: String,
-    meta: &'a CompiledPackMeta,
-    view: &'a CompiledPackView<'a>,
+/// Recursively loads all `*.tlpack` files from `dir` into the runtime registry.
+pub fn load_pack_dir(dir: &Path) -> Result<Vec<CompactPackSummary>, String> {
+    let mut guard = runtime_registry_lock()
+        .write()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.load_pack_dir(dir)
 }
 
-/// Returns metadata for every approved pack embedded in this build, sorted by pack ID.
+/// Loads `.tlpack` files matching `profile` from `dir` into the runtime registry.
+pub fn load_profile_from_dir(
+    dir: &Path,
+    profile: LexiconProfile,
+) -> Result<Vec<CompactPackSummary>, String> {
+    let mut guard = runtime_registry_lock()
+        .write()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.load_profile_from_dir(dir, profile)
+}
+
+/// Initializes the runtime registry with `profile` from `dir` (or auto-discovered pack directory).
 ///
-/// Validates each embedded `.tlpack` artifact cleanly rather than exposing unverified headers.
+/// When `replace` is `true`, clears previously mounted packs first so the registry reflects
+/// exactly the requested profile.
+pub fn init_runtime(
+    profile: LexiconProfile,
+    dir: Option<&Path>,
+    replace: bool,
+) -> Result<(std::path::PathBuf, Vec<CompactPackSummary>), String> {
+    let resolved = match dir {
+        Some(path) => path.to_path_buf(),
+        None => auto_discover_pack_dir().ok_or_else(|| {
+            "lexicon: no pack directory found (set TAMIL_LEXICON_DIR or run `just lexicon-build`)"
+                .to_owned()
+        })?,
+    };
+    let mut guard = runtime_registry_lock()
+        .write()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    if replace {
+        guard.clear();
+    }
+    let loaded = guard.load_profile_from_dir(&resolved, profile)?;
+    if loaded.is_empty() {
+        return Err(format!(
+            "lexicon: no packs matching profile '{}' in '{}'",
+            profile.as_str(),
+            resolved.display()
+        ));
+    }
+    Ok((resolved, loaded))
+}
+
+/// Unmounts one runtime pack by `pack_id`.
+pub fn unload_pack(pack_id: &str) -> Result<bool, String> {
+    let mut guard = runtime_registry_lock()
+        .write()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    Ok(guard.unload_pack(pack_id))
+}
+
+/// Clears all dynamically mounted runtime packs.
+pub fn clear_runtime_packs() -> Result<(), String> {
+    let mut guard = runtime_registry_lock()
+        .write()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.clear();
+    Ok(())
+}
+
+/// Lists all packs currently mounted in the dynamic runtime registry.
+pub fn runtime_packs() -> Result<Vec<CompactPackSummary>, String> {
+    let guard = runtime_registry_lock()
+        .read()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    Ok(guard.list_packs())
+}
+
+/// Queries the runtime registry for compact entries matching `word` and `scope`.
+pub fn query_runtime(word: &str, scope: &QueryScope) -> Result<CompactLookupResult, String> {
+    let guard = runtime_registry_lock()
+        .read()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.lookup_compact(word, scope)
+}
+
+/// Runs FST prefix search across the runtime registry.
+pub fn search_runtime(
+    prefix: &str,
+    options: &PrefixSearchOptions,
+) -> Result<PrefixSearchResult, String> {
+    let guard = runtime_registry_lock()
+        .read()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.prefix_search(prefix, options)
+}
+
+/// Runs reverse English-to-Tamil gloss/definition search across the runtime registry.
+pub fn search_english_runtime(
+    query: &str,
+    options: &PrefixSearchOptions,
+) -> Result<PrefixSearchResult, String> {
+    let guard = runtime_registry_lock()
+        .read()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.search_english(query, options)
+}
+
+/// Returns aggregated statistics and facet counts across all mounted runtime packs.
+pub fn stats_runtime() -> Result<LexiconStoreStats, String> {
+    let guard = runtime_registry_lock()
+        .read()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    Ok(guard.stats())
+}
+
+/// Queries indexed lexical relations across the runtime registry.
+pub fn relations_runtime(word: &str, scope: &QueryScope) -> Result<RelationsResult, String> {
+    let guard = runtime_registry_lock()
+        .read()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.lookup_relations(word, scope)
+}
+
+/// Builds a unified, deduplicated word definition across all mounted packs in the runtime registry.
+pub fn define_runtime(word: &str, scope: &QueryScope) -> Result<WordDefinition, String> {
+    let guard = runtime_registry_lock()
+        .read()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.define(word, scope)
+}
+
+/// Runs bounded Damerau-Levenshtein fuzzy search across the runtime registry.
+pub fn fuzzy_search_runtime(
+    word: &str,
+    max_distance: u32,
+    options: &PrefixSearchOptions,
+) -> Result<FuzzySearchResult, String> {
+    let guard = runtime_registry_lock()
+        .read()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.fuzzy_search(word, max_distance, options)
+}
+
+/// Returns exact FST keys that are char-boundary prefixes of `word`, longest-first.
+pub fn longest_prefix_runtime(word: &str, scope: &QueryScope) -> Result<Vec<String>, String> {
+    let guard = runtime_registry_lock()
+        .read()
+        .map_err(|_| "lexicon: runtime registry lock poisoned".to_owned())?;
+    guard.longest_prefix_matches(word, scope)
+}
+
+/// Fast existence check across the runtime registry.
+pub fn contains_word_runtime(word: &str, scope: &QueryScope) -> bool {
+    runtime_registry_lock()
+        .read()
+        .map(|guard| guard.contains_word(word, scope))
+        .unwrap_or(false)
+}
+
+/// Returns metadata for every approved `TMLPACK1` pack embedded in this build, sorted by pack ID.
 pub fn packs() -> Result<Vec<PackInfo>, String> {
     let mut items = Vec::new();
     for artifact in available_packs() {
@@ -94,10 +225,7 @@ pub fn packs() -> Result<Vec<PackInfo>, String> {
     Ok(items)
 }
 
-/// Performs an exact NFC-normalized lookup over approved embedded lexicon packs.
-///
-/// Allocates `canonical_query` via `tamil_norm::normalize_nfc` and deserialized
-/// matching entries/pack metadata from embedded binary slices.
+/// Performs an exact NFC-normalized lookup over approved embedded `TMLPACK1` lexicon packs.
 pub fn lookup(request: &LookupRequest) -> Result<LookupResponse, String> {
     let selected = validate_request_inputs(
         &request.input,
@@ -113,7 +241,7 @@ pub fn lookup(request: &LookupRequest) -> Result<LookupResponse, String> {
     let refs: Vec<(&str, &CompiledPackView<'_>)> =
         views.iter().map(|(id, view)| (*id, view)).collect();
 
-    lookup_with_validated_packs(
+    tamil_lexicon::lookup_v1::lookup_with_validated_packs(
         &request.input,
         &selected,
         request.region.as_deref(),
@@ -136,36 +264,6 @@ pub fn lookup_str(
         register: register.map(str::to_owned),
     };
     lookup(&req)
-}
-
-/// Runs exact lookup validation, compatibility checks, filtering, and sorting
-/// over caller-supplied compiled pack views.
-pub fn lookup_in_views<'a>(
-    request: &LookupRequest,
-    available: &[(&str, &'a CompiledPackView<'a>)],
-) -> Result<LookupResponse, String> {
-    let selected = validate_request_inputs(
-        &request.input,
-        request.packs.as_deref(),
-        request.region.as_deref(),
-        request.register.as_deref(),
-    )?;
-
-    let mut opened_pairs = Vec::with_capacity(selected.len());
-    for pack_id in &selected {
-        let Some((_, view)) = available.iter().find(|(id, _)| *id == pack_id) else {
-            return Err(format!("lexicon: pack unavailable '{pack_id}'"));
-        };
-        opened_pairs.push((pack_id.as_str(), *view));
-    }
-
-    lookup_with_validated_packs(
-        &request.input,
-        &selected,
-        request.region.as_deref(),
-        request.register.as_deref(),
-        &opened_pairs,
-    )
 }
 
 /// Shared JSON dispatcher entrypoint for `op = "lexicon_packs"`.
@@ -217,6 +315,302 @@ pub fn execute_lookup(request: &Value, input: &Value) -> Result<Value, String> {
     serde_json::to_value(response).map_err(|err| format!("lexicon: serialize error: {err}"))
 }
 
+/// Shared JSON dispatcher entrypoint for `op = "lexicon_load_pack"`.
+///
+/// Accepts `input` as an object containing either:
+/// - `{"path": "<file_or_dir>"}` (native host filesystem load)
+/// - `{"bytes": [u8, ...]}` (byte array, works in WASM and FFI)
+pub fn execute_load_pack(input: &Value) -> Result<Value, String> {
+    let obj = input
+        .as_object()
+        .ok_or_else(|| "lexicon: load_pack input must be an object".to_owned())?;
+    if let Some(path_val) = obj.get("path") {
+        let path_str = path_val
+            .as_str()
+            .filter(|s| !s.is_empty())
+            .ok_or_else(|| "lexicon: path must be a nonempty string".to_owned())?;
+        let p = Path::new(path_str);
+        if p.is_dir() {
+            let summaries = load_pack_dir(p)?;
+            return serde_json::to_value(json!({ "loaded": summaries }))
+                .map_err(|err| format!("lexicon: serialize error: {err}"));
+        }
+        let summary = load_pack_file(p)?;
+        return serde_json::to_value(json!({ "loaded": [summary] }))
+            .map_err(|err| format!("lexicon: serialize error: {err}"));
+    }
+    if let Some(bytes_val) = obj.get("bytes") {
+        let arr = bytes_val
+            .as_array()
+            .ok_or_else(|| "lexicon: bytes must be an array of u8".to_owned())?;
+        let mut raw = Vec::with_capacity(arr.len());
+        for item in arr {
+            let n = item
+                .as_u64()
+                .and_then(|v| u8::try_from(v).ok())
+                .ok_or_else(|| "lexicon: bytes array must contain integers 0..=255".to_owned())?;
+            raw.push(n);
+        }
+        let summary = load_pack_bytes(raw)?;
+        return serde_json::to_value(json!({ "loaded": [summary] }))
+            .map_err(|err| format!("lexicon: serialize error: {err}"));
+    }
+    Err("lexicon: load_pack requires 'path' or 'bytes'".to_owned())
+}
+
+/// Shared JSON dispatcher entrypoint for `op = "lexicon_unload_pack"`.
+pub fn execute_unload_pack(input: &Value) -> Result<Value, String> {
+    if input.is_null() {
+        clear_runtime_packs()?;
+        return Ok(json!({ "cleared": true }));
+    }
+    let pack_id = input
+        .as_str()
+        .filter(|s| !s.is_empty())
+        .ok_or_else(|| "lexicon: pack_id must be a nonempty string or null".to_owned())?;
+    let removed = unload_pack(pack_id)?;
+    Ok(json!({ "pack_id": pack_id, "removed": removed }))
+}
+
+/// Shared JSON dispatcher entrypoint for `op = "lexicon_stats"`.
+pub fn execute_stats(request: &Value, input: &Value) -> Result<Value, String> {
+    let obj = request
+        .as_object()
+        .ok_or_else(|| "lexicon: invalid options".to_owned())?;
+    if obj.keys().any(|k| k != "op" && k != "input") || !input.is_null() {
+        return Err("lexicon: invalid options".to_owned());
+    }
+    let stats = stats_runtime()?;
+    serde_json::to_value(stats).map_err(|err| format!("lexicon: serialize error: {err}"))
+}
+
+/// Shared JSON dispatcher entrypoint for `op = "lexicon_query"`.
+pub fn execute_query(request: &Value, input: &Value) -> Result<Value, String> {
+    let text = input
+        .as_str()
+        .ok_or_else(|| "lexicon: input must be a string".to_owned())?;
+    let scope = parse_query_scope(request, false)?;
+    let res = query_runtime(text, &scope)?;
+    serde_json::to_value(res).map_err(|err| format!("lexicon: serialize error: {err}"))
+}
+
+/// Shared JSON dispatcher entrypoint for `op = "lexicon_search"`.
+pub fn execute_search(request: &Value, input: &Value) -> Result<Value, String> {
+    let prefix = input
+        .as_str()
+        .ok_or_else(|| "lexicon: input must be a string".to_owned())?;
+    let scope = parse_query_scope(request, true)?;
+    let obj = request
+        .as_object()
+        .ok_or_else(|| "lexicon: invalid options".to_owned())?;
+    let limit = match obj.get("limit") {
+        None | Some(Value::Null) => 25usize,
+        Some(v) => {
+            let n = v
+                .as_u64()
+                .ok_or_else(|| "lexicon: limit must be an integer".to_owned())?;
+            usize::try_from(n).map_err(|_| "lexicon: invalid limit".to_owned())?
+        }
+    };
+    let after_key = parse_optional_filter_option(obj.get("after_key"))?;
+    let res = search_runtime(
+        prefix,
+        &PrefixSearchOptions {
+            limit,
+            after_key,
+            scope,
+        },
+    )?;
+    serde_json::to_value(res).map_err(|err| format!("lexicon: serialize error: {err}"))
+}
+
+/// Shared JSON dispatcher entrypoint for `op = "lexicon_fuzzy_search"`.
+pub fn execute_fuzzy_search(request: &Value, input: &Value) -> Result<Value, String> {
+    let word = input
+        .as_str()
+        .ok_or_else(|| "lexicon: input must be a string".to_owned())?;
+    let scope = parse_query_scope(request, true)?;
+    let obj = request
+        .as_object()
+        .ok_or_else(|| "lexicon: invalid options".to_owned())?;
+    let limit = match obj.get("limit") {
+        None | Some(Value::Null) => 10usize,
+        Some(v) => {
+            let n = v
+                .as_u64()
+                .ok_or_else(|| "lexicon: limit must be an integer".to_owned())?;
+            usize::try_from(n).map_err(|_| "lexicon: invalid limit".to_owned())?
+        }
+    };
+    let max_distance = match obj.get("max_distance") {
+        None | Some(Value::Null) => 1u32,
+        Some(v) => {
+            let n = v
+                .as_u64()
+                .ok_or_else(|| "lexicon: max_distance must be an integer (1 or 2)".to_owned())?;
+            u32::try_from(n).map_err(|_| "lexicon: invalid max_distance".to_owned())?
+        }
+    };
+    let res = fuzzy_search_runtime(
+        word,
+        max_distance,
+        &PrefixSearchOptions {
+            limit,
+            after_key: None,
+            scope,
+        },
+    )?;
+    serde_json::to_value(res).map_err(|err| format!("lexicon: serialize error: {err}"))
+}
+
+/// Shared JSON dispatcher entrypoint for `op = "lexicon_longest_prefix"`.
+pub fn execute_longest_prefix(request: &Value, input: &Value) -> Result<Value, String> {
+    let word = input
+        .as_str()
+        .ok_or_else(|| "lexicon: input must be a string".to_owned())?;
+    let scope = parse_query_scope(request, false)?;
+    let prefixes = longest_prefix_runtime(word, &scope)?;
+    Ok(json!({
+        "query": word,
+        "prefixes": prefixes,
+    }))
+}
+
+/// Shared JSON dispatcher entrypoint for `op = "lexicon_relations"`.
+pub fn execute_relations(request: &Value, input: &Value) -> Result<Value, String> {
+    let text = input
+        .as_str()
+        .ok_or_else(|| "lexicon: input must be a string".to_owned())?;
+    let scope = parse_query_scope(request, false)?;
+    let res = relations_runtime(text, &scope)?;
+    serde_json::to_value(res).map_err(|err| format!("lexicon: serialize error: {err}"))
+}
+
+/// Shared JSON dispatcher entrypoint for `op = "lexicon_define"`.
+pub fn execute_define(request: &Value, input: &Value) -> Result<Value, String> {
+    let text = input
+        .as_str()
+        .ok_or_else(|| "lexicon: input must be a string".to_owned())?;
+    let scope = parse_query_scope(request, false)?;
+    let res = define_runtime(text, &scope)?;
+    serde_json::to_value(res).map_err(|err| format!("lexicon: serialize error: {err}"))
+}
+
+/// Shared JSON dispatcher entrypoint for `op = "lexicon_init"`.
+///
+/// Accepts `input` as:
+/// - `null` (loads `"full"` profile from auto-discovered pack directory)
+/// - a profile string (`"open-lite"`, `"open"`, `"local"`, `"full"`)
+/// - an object `{ "profile"?: string, "path"?: string, "replace"?: bool }`
+pub fn execute_init(input: &Value) -> Result<Value, String> {
+    let (profile, path_opt, replace) = if input.is_null() {
+        (LexiconProfile::Full, None, true)
+    } else if let Some(profile_str) = input.as_str() {
+        let profile = LexiconProfile::parse(profile_str)
+            .ok_or_else(|| format!("lexicon: unknown profile '{profile_str}'"))?;
+        (profile, None, true)
+    } else if let Some(obj) = input.as_object() {
+        for key in obj.keys() {
+            if !matches!(key.as_str(), "profile" | "path" | "replace") {
+                return Err("lexicon: invalid options".to_owned());
+            }
+        }
+        let profile = match obj.get("profile") {
+            None | Some(Value::Null) => LexiconProfile::Full,
+            Some(Value::String(s)) => {
+                LexiconProfile::parse(s).ok_or_else(|| format!("lexicon: unknown profile '{s}'"))?
+            }
+            _ => return Err("lexicon: invalid options".to_owned()),
+        };
+        let path_opt = match obj.get("path") {
+            None | Some(Value::Null) => None,
+            Some(Value::String(s)) if !s.trim().is_empty() => Some(s.clone()),
+            _ => return Err("lexicon: path must be a nonempty string".to_owned()),
+        };
+        let replace = match obj.get("replace") {
+            None | Some(Value::Null) => true,
+            Some(Value::Bool(b)) => *b,
+            _ => return Err("lexicon: invalid options".to_owned()),
+        };
+        (profile, path_opt, replace)
+    } else {
+        return Err("lexicon: init input must be null, a profile string, or an object".to_owned());
+    };
+
+    let (dir, loaded) = init_runtime(profile, path_opt.as_deref().map(Path::new), replace)?;
+    let total_entries: u64 = loaded.iter().map(|p| u64::from(p.entry_count)).sum();
+    let total_senses: u64 = loaded.iter().map(|p| u64::from(p.sense_count)).sum();
+    let total_relations: u64 = loaded.iter().map(|p| u64::from(p.relation_count)).sum();
+    let total_bytes: usize = loaded.iter().map(|p| p.byte_len).sum();
+    Ok(json!({
+        "directory": dir.to_string_lossy(),
+        "profile": profile.as_str(),
+        "pack_count": loaded.len(),
+        "total_entries": total_entries,
+        "total_senses": total_senses,
+        "total_relations": total_relations,
+        "total_bytes": total_bytes,
+        "loaded": loaded,
+    }))
+}
+
+pub(crate) fn parse_query_scope(request: &Value, allow_limit: bool) -> Result<QueryScope, String> {
+    let obj = request
+        .as_object()
+        .ok_or_else(|| "lexicon: invalid options".to_owned())?;
+    for key in obj.keys() {
+        let ok = matches!(
+            key.as_str(),
+            "op" | "input"
+                | "packs"
+                | "tier"
+                | "category"
+                | "pos"
+                | "domain"
+                | "region"
+                | "register"
+                | "folded"
+        ) || (allow_limit
+            && matches!(key.as_str(), "limit" | "after_key" | "max_distance"));
+        if !ok {
+            return Err("lexicon: invalid options".to_owned());
+        }
+    }
+    let packs = match obj.get("packs") {
+        None | Some(Value::Null) => None,
+        Some(raw) => Some(parse_packs_option(raw)?),
+    };
+    let tier = match obj.get("tier") {
+        None | Some(Value::Null) => TierFilter::All,
+        Some(Value::String(s)) => {
+            TierFilter::parse(s).ok_or_else(|| format!("lexicon: unknown tier '{s}'"))?
+        }
+        _ => return Err("lexicon: invalid options".to_owned()),
+    };
+    let category = match obj.get("category") {
+        None | Some(Value::Null) => None,
+        Some(Value::String(s)) => Some(
+            LexiconCategory::parse(s).ok_or_else(|| format!("lexicon: unknown category '{s}'"))?,
+        ),
+        _ => return Err("lexicon: invalid options".to_owned()),
+    };
+    let folded = match obj.get("folded") {
+        None | Some(Value::Null) => false,
+        Some(Value::Bool(b)) => *b,
+        _ => return Err("lexicon: invalid options".to_owned()),
+    };
+    Ok(QueryScope {
+        packs,
+        tier,
+        category,
+        pos: parse_optional_filter_option(obj.get("pos"))?,
+        domain: parse_optional_filter_option(obj.get("domain"))?,
+        region: parse_optional_filter_option(obj.get("region"))?,
+        register: parse_optional_filter_option(obj.get("register"))?,
+        folded,
+    })
+}
+
 fn parse_optional_filter_option(value: Option<&Value>) -> Result<Option<String>, String> {
     match value {
         None | Some(Value::Null) => Ok(None),
@@ -241,318 +635,4 @@ fn parse_packs_option(value: &Value) -> Result<Vec<String>, String> {
         out.push(s.to_owned());
     }
     Ok(out)
-}
-
-fn validate_request_inputs(
-    input: &str,
-    packs: Option<&[String]>,
-    region: Option<&str>,
-    register: Option<&str>,
-) -> Result<Vec<String>, String> {
-    if input.len() > MAX_INPUT_BYTES {
-        return Err("lexicon: input exceeds 65536 UTF-8 bytes".to_owned());
-    }
-    if matches!(region, Some("")) || matches!(register, Some("")) {
-        return Err("lexicon: invalid options".to_owned());
-    }
-
-    let mut selected = match packs {
-        None => DEFAULT_PACKS.iter().map(|s| (*s).to_owned()).collect(),
-        Some(slice) => {
-            if slice.is_empty() || slice.iter().any(String::is_empty) {
-                return Err("lexicon: packs must be a nonempty string array".to_owned());
-            }
-            slice.to_vec()
-        }
-    };
-    selected.sort_unstable();
-    selected.dedup();
-
-    // Check every requested pack name against KNOWN_PACK_IDS before checking pack availability.
-    for pack_id in &selected {
-        if !KNOWN_PACK_IDS.contains(&pack_id.as_str()) {
-            return Err(format!("lexicon: unknown pack '{pack_id}'"));
-        }
-    }
-
-    Ok(selected)
-}
-
-fn lookup_with_validated_packs<'a>(
-    input: &str,
-    selected: &[String],
-    region_filter: Option<&str>,
-    register_filter: Option<&str>,
-    views: &[(&str, &'a CompiledPackView<'a>)],
-) -> Result<LookupResponse, String> {
-    let mut opened = Vec::with_capacity(selected.len());
-    for (pack_id, view) in views {
-        let meta = view.metadata_ref()?;
-        if meta.pack_id != *pack_id {
-            return Err("lexicon: incompatible pack versions".to_owned());
-        }
-        opened.push(OpenedPack {
-            id: (*pack_id).to_owned(),
-            meta,
-            view,
-        });
-    }
-
-    let region_parents = validate_pack_compatibility(&opened)?;
-    validate_filter_codes(&opened, &region_parents, region_filter, register_filter)?;
-
-    let canonical_query = tamil_norm::normalize_nfc(input);
-    let mut by_entry_id: BTreeMap<String, Entry> = BTreeMap::new();
-
-    for pack in &opened {
-        let fst = pack.view.fst_map()?;
-        let Some(key_ord) = fst.get(canonical_query.as_bytes()) else {
-            continue;
-        };
-        let range = pack.view.posting_range(key_ord)?;
-        let indices = pack.view.posting_entry_indices(range)?;
-        for entry_ord in indices {
-            let mut entry = pack.view.entry(entry_ord)?;
-            if let Some(existing) = by_entry_id.get(&entry.entry_id) {
-                if existing.revision != entry.revision {
-                    return Err("lexicon: incompatible pack versions".to_owned());
-                }
-                continue;
-            }
-            if project_and_filter_entry(&mut entry, region_filter, register_filter, &region_parents)
-            {
-                by_entry_id.insert(entry.entry_id.clone(), entry);
-            }
-        }
-    }
-
-    let entries: Vec<Entry> = by_entry_id.into_values().collect();
-    let status = if entries.is_empty() {
-        LookupStatus::NotFound
-    } else {
-        LookupStatus::Matched
-    };
-    let pack_infos: Vec<PackInfo> = opened
-        .iter()
-        .map(|pack| pack_info_from_meta(&pack.id, pack.meta))
-        .collect();
-
-    Ok(LookupResponse {
-        schema_version: SCHEMA_VERSION,
-        status,
-        canonical_query,
-        packs: pack_infos,
-        entries,
-    })
-}
-
-fn dataset_version_compat_key(version: &str) -> Result<&str, String> {
-    let trimmed = version.trim();
-    if trimmed.is_empty() {
-        return Err("lexicon: incompatible pack versions".to_owned());
-    }
-    match trimmed.split_once('+') {
-        Some((base, build)) if !base.is_empty() && !build.is_empty() => Ok(base),
-        Some(_) => Err("lexicon: incompatible pack versions".to_owned()),
-        None => Ok(trimmed),
-    }
-}
-
-fn validate_pack_compatibility<'a>(
-    opened: &'a [OpenedPack<'a>],
-) -> Result<BTreeMap<String, Option<String>>, String> {
-    let first = opened
-        .first()
-        .ok_or_else(|| "lexicon: packs must be a nonempty string array".to_owned())?;
-    let expected_schema = first.meta.schema_version;
-    let expected_index = first.meta.index_format_version;
-    let expected_dataset_base = dataset_version_compat_key(&first.meta.dataset_version)?;
-    let expected_vocab = &first.meta.vocabularies.vocabulary_version;
-
-    if expected_schema != SCHEMA_VERSION
-        || expected_index != crate::lexicon_pack::INDEX_FORMAT_VERSION
-    {
-        return Err("lexicon: incompatible pack versions".to_owned());
-    }
-
-    let mut seen_revisions: BTreeMap<&str, &str> = BTreeMap::new();
-    let mut region_parents: BTreeMap<String, Option<String>> = BTreeMap::new();
-
-    for pack in opened {
-        let hdr = pack.view.header();
-        let pack_dataset_base = dataset_version_compat_key(&pack.meta.dataset_version)?;
-        if hdr.schema_version != expected_schema
-            || hdr.index_format_version != expected_index
-            || pack.meta.schema_version != expected_schema
-            || pack.meta.index_format_version != expected_index
-            || pack_dataset_base != expected_dataset_base
-            || &pack.meta.vocabularies.vocabulary_version != expected_vocab
-        {
-            return Err("lexicon: incompatible pack versions".to_owned());
-        }
-
-        if opened.len() > 1 {
-            for (entry_id, rev) in &pack.meta.entry_revisions {
-                if let Some(prev) = seen_revisions.insert(entry_id.as_str(), rev.as_str()) {
-                    if prev != rev.as_str() {
-                        return Err("lexicon: incompatible pack versions".to_owned());
-                    }
-                }
-            }
-        }
-
-        for reg in &pack.meta.vocabularies.regions {
-            if let Some(prev_parent) =
-                region_parents.insert(reg.code.clone(), reg.parent_code.clone())
-            {
-                if prev_parent != reg.parent_code {
-                    return Err("lexicon: incompatible pack versions".to_owned());
-                }
-            }
-        }
-
-        for label in &pack.meta.labels {
-            if label.category == "region" {
-                if let Some(prev_parent) =
-                    region_parents.insert(label.code.clone(), label.parent_code.clone())
-                {
-                    if prev_parent != label.parent_code {
-                        return Err("lexicon: incompatible pack versions".to_owned());
-                    }
-                }
-            }
-        }
-    }
-
-    Ok(region_parents)
-}
-
-fn validate_filter_codes(
-    opened: &[OpenedPack<'_>],
-    region_parents: &BTreeMap<String, Option<String>>,
-    region_filter: Option<&str>,
-    register_filter: Option<&str>,
-) -> Result<(), String> {
-    if let Some(region) = region_filter {
-        if !region_parents.contains_key(region) {
-            return Err(format!("lexicon: unknown region '{region}'"));
-        }
-    }
-
-    if let Some(register) = register_filter {
-        let mut known_registers: BTreeSet<&str> = BTreeSet::new();
-        for pack in opened {
-            for r in &pack.meta.vocabularies.registers {
-                known_registers.insert(r.as_str());
-            }
-            for label in &pack.meta.labels {
-                if label.category == "register" {
-                    known_registers.insert(label.code.as_str());
-                }
-            }
-        }
-        if !known_registers.contains(register) {
-            return Err(format!("lexicon: unknown register '{register}'"));
-        }
-    }
-
-    Ok(())
-}
-
-fn project_and_filter_entry(
-    entry: &mut Entry,
-    region_filter: Option<&str>,
-    register_filter: Option<&str>,
-    region_parents: &BTreeMap<String, Option<String>>,
-) -> bool {
-    entry.senses.retain(|sense| {
-        let region_ok = match region_filter {
-            None => true,
-            Some(target) => matches_region(&sense.region, target, region_parents),
-        };
-        let register_ok = match register_filter {
-            None => true,
-            Some(target) => matches_register(&sense.register, target),
-        };
-        region_ok && register_ok
-    });
-
-    if entry.senses.is_empty() {
-        return false;
-    }
-
-    for sense in &mut entry.senses {
-        for rel in &mut sense.relations {
-            if rel.directionality == "undirected" {
-                rel.directionality = "symmetric".to_owned();
-            }
-        }
-        sense
-            .relations
-            .sort_by(|a, b| a.relation_id.cmp(&b.relation_id));
-        sense.components.sort_by(|a, b| a.text_id.cmp(&b.text_id));
-        sense.examples.sort_by(|a, b| a.text_id.cmp(&b.text_id));
-        sense
-            .annotations
-            .sort_by(|a, b| a.property.cmp(&b.property));
-    }
-
-    entry.forms.sort_by(|a, b| a.form_id.cmp(&b.form_id));
-    entry
-        .annotations
-        .sort_by(|a, b| a.property.cmp(&b.property));
-    entry
-        .senses
-        .sort_by(|a, b| (a.display_order, &a.sense_id).cmp(&(b.display_order, &b.sense_id)));
-    true
-}
-
-fn matches_region(
-    scope: &Scope,
-    requested_region: &str,
-    region_parents: &BTreeMap<String, Option<String>>,
-) -> bool {
-    match scope.state.as_str() {
-        "unrestricted" => true,
-        "attested" => scope
-            .codes
-            .iter()
-            .any(|code| is_same_or_child_region(code, requested_region, region_parents)),
-        _ => false,
-    }
-}
-
-fn is_same_or_child_region(
-    attested_code: &str,
-    requested_region: &str,
-    region_parents: &BTreeMap<String, Option<String>>,
-) -> bool {
-    let mut cur = Some(attested_code);
-    let max_hops = region_parents.len().saturating_add(1);
-    for _ in 0..max_hops {
-        let Some(code) = cur else {
-            return false;
-        };
-        if code == requested_region {
-            return true;
-        }
-        cur = region_parents.get(code).and_then(|p| p.as_deref());
-    }
-    false
-}
-
-fn matches_register(field: &LabelField, requested_register: &str) -> bool {
-    field.availability == "available" && field.value.as_deref() == Some(requested_register)
-}
-
-fn pack_info_from_meta(pack_id: &str, meta: &CompiledPackMeta) -> PackInfo {
-    PackInfo {
-        id: pack_id.to_owned(),
-        dataset_version: meta.dataset_version.clone(),
-        schema_version: meta.schema_version,
-        index_format_version: meta.index_format_version,
-        manifest_sha256: meta.manifest_sha256.clone(),
-        available: true,
-        coverage: meta.coverage.clone(),
-    }
 }

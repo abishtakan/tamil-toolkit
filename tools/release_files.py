@@ -115,6 +115,7 @@ INPUTS = {
         "tbo.toml",
         "braille.toml",
     ),
+    "tamil-punarchi": ("punarchi-nannool-inventory.toml", "punarchi-nannool.toml"),
     "tamil-translit": ("translit.toml",),
     "tamil-tokenize": ("tokenize-unicode-v17.toml", "tokenize-v0.1.toml"),
 }
@@ -126,8 +127,10 @@ SUMMARIES = {
     "tamil-calendar": "Tamil calendar systems, Thirukanitham, Vakiya, panchangam, and observances.",
     "tamil-codec": "Bamini conversion plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles.",
     "tamil-hyphen": "Syllable breakdown, prosodic Asai segmentation, soft hyphenation, and publication-grade line wrapping.",
+    "tamil-punarchi": "Sourced Nannool (Sutras 151–257) sandhi joining (Thonral, Thirithal, Keduthal, Iyalbu) and dictionary-free reverse split candidate generation.",
     "tamil-translit": "Lossless Tamil orthographic romanization (ISO 15919, Madras Lexicon, ITRANS, Harvard-Kyoto) and deterministic offline input (Tamil99, Anjal phonetic, Suratha Bamini, Phonetic v1).",
     "tamil-tokenize": "Offline, source-preserving Tamil word and sentence segmentation with exact UTF-8 byte and written-unit offsets, attested abbreviation handling, and opt-in stopword profiles.",
+    "tamil-lexicon": "Pure-Rust, zero-unsafe TMLPACK1/TMLPACK2 binary lexicon reader, pack registry, FST prefix/fuzzy/stem search, Mayangoli folding, reverse English gloss index, and lexical relations engine.",
     "tamil-toolkit": "Unified high-performance Rust entry point for Tamil text, Agara ordering, bounded exact numerals, Tholkappiyam phonology, Thirukanitham and classical Vākyakaraṇa profiles, selected TN observance rules, official annual holiday schedules, source-preserving tokenization, and legacy conversion APIs.",
 }
 FEATURE_TABLES = {
@@ -179,6 +182,11 @@ FEATURE_TABLES = {
 | **Text Hyphenation** | Full paragraph soft hyphenation preserving punctuation, whitespace, and non-Tamil runs (`hyphenate_text`). |
 | **Line Wrapping** | Publication-grade line wrapping with customizable margins and delimiters (`wrap_text`). |
 | **OpenXML & Dictionaries** | Batch OOXML Word document processing (`process_docx_file`), Frank Liang dictionary export (`export_dic_file`), and LibreOffice extension bundling (`package_oxt`). |""",
+    "tamil-punarchi": """| Area | Capabilities |
+| --- | --- |
+| **Forward Sandhi (`join`)** | Deterministic *Nannool* (Sutras 151–257) joining across *Uyireeru*, *Meyyeeru*, and *Urupu* with *Vetrumai*/*Alvazhi* context and sutra-by-sutra derivation steps. |
+| **Inverse Splitting (`split_candidates`)** | Dictionary-free bounded reverse-rule candidate generator returning `(first, second)` pairs, rule IDs, and surface spans. |
+| **Rule Inspection (`rules`)** | Queryable sutra inventory and edition notes across *Ezhuttiyal*, *Padaviyal*, *Uyireeru*, *Meyyeeru*, and *Urupu*. |""",
     "tamil-translit": """| Area | Capabilities |
 | --- | --- |
 | **Scholarly Romanization** | Lossless bidirectional ISO 15919, Madras Lexicon, ITRANS, and Harvard-Kyoto transliteration (`transliterate`). |
@@ -188,6 +196,11 @@ FEATURE_TABLES = {
 | **Word Tokenization** | Source-preserving UAX #29 tailored word segmentation with zero-based UTF-8 byte and written-unit offsets (`tokenize_words`). |
 | **Sentence Segmentation** | Sentence boundaries honoring attested Tamil abbreviations (`திரு.`, `மு.க.`, `பி.ப.`, `மு.ப.`, `எ.கா.`, `ரூ.`) and hard separators (`segment_sentences`). |
 | **Stopwords** | Opt-in `none`, `conservative`, and `broad` profiles preserving original token coordinates (`StopwordProfile`). |""",
+    "tamil-lexicon": """| Area | Capabilities |
+| --- | --- |
+| **Binary Packs (`TMLPACK2`)** | Deterministic SHA-256-verified block-compressed `.tlpack` reader/builder (`CompactPack`, `PackRegistry`) with zero embedded dictionary bytes and `#![forbid(unsafe_code)]`. |
+| **Search & Lookup** | O(key) exact/prefix FST lookup (`define`, `prefix_search`), *Mayangoli*-folded search, reverse English-to-Tamil gloss search (`search_english`), bounded Damerau-Levenshtein `fuzzy_search`, and `longest_prefix_matches` for stem/morphology splitting. |
+| **Facets & Relations** | Atomic domain/region/register filtering, precomputed facet counts (`LexiconStoreStats`), cursor pagination, and indexed symmetric relations (`SYNONYM`, `ANTONYM`, `RELATED`, `HYPERNYM`). |""",
 }
 CONTRACTS = {
     "tamil-core": "docs/specs/core-v0.1.md",
@@ -197,8 +210,10 @@ CONTRACTS = {
     "tamil-calendar": "docs/specs/calendar-year-cycle-v1.md",
     "tamil-codec": "docs/specs/codec-lt-tm.md",
     "tamil-hyphen": "docs/specs/hyphen-v0.1.md",
+    "tamil-punarchi": "docs/specs/punarchi-v0.1.md",
     "tamil-translit": "docs/specs/translit-v0.1.md",
     "tamil-tokenize": "docs/specs/tokenize-v0.1.md",
+    "tamil-lexicon": "docs/specs/lexicon-v0.2.md",
     "tamil-toolkit": "README.md#capability-contracts",
 }
 UNRELEASED_NOTES = {
@@ -270,6 +285,13 @@ fn main() -> Result<(), String> {
     println!("{} -> {}", result.original, result.hyphenated);
     Ok(())
 }''',
+    "tamil-punarchi": '''use tamil_punarchi::{join, JoinOptions};
+
+fn main() -> Result<(), String> {
+    let result = join("மரம்", "அடி", &JoinOptions::default())?;
+    println!("{} ({:?})", result.surface, result.transform);
+    Ok(())
+}''',
     "tamil-translit": '''use tamil_translit::{transliterate, Direction, Scheme};
 
 fn main() -> Result<(), String> {
@@ -285,6 +307,15 @@ fn main() {
     let words = tokenize_words(text, StopwordProfile::None);
     let sentences = segment_sentences(text);
     println!("{} words, {} sentences", words.len(), sentences.len());
+}''',
+    "tamil-lexicon": '''use tamil_lexicon::{LexiconProfile, LexiconSearchOptions, LexiconStore, PackRegistry};
+
+fn main() -> Result<(), String> {
+    let mut registry = PackRegistry::new();
+    registry.load_auto(LexiconProfile::Open)?;
+    let hits = registry.search_english("gratitude", &LexiconSearchOptions::default())?;
+    println!("{} matches", hits.hits.len());
+    Ok(())
 }''',
     "tamil-toolkit": '''use tamil_toolkit::{codec, core, numerals};
 
@@ -542,8 +573,8 @@ def artifact_license_spdx(artifact: str, *, profiles=()) -> str:
     """Return the exact SPDX license expression for a packaged artifact profile."""
     normalized = _validate_profiles(profiles)
     if artifact in ("tamil-core", "tamil-norm", "tamil-collate", "tamil-numerals",
-                    "tamil-calendar", "tamil-codec", "tamil-hyphen", "tamil-translit",
-                    "tamil-tokenize"):
+                    "tamil-calendar", "tamil-codec", "tamil-hyphen", "tamil-punarchi",
+                    "tamil-translit", "tamil-tokenize", "tamil-lexicon"):
         if normalized:
             raise ValueError(f"Lower crate {artifact} cannot enable dictionary pack profiles: {normalized}")
         return "Apache-2.0"

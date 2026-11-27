@@ -8,6 +8,10 @@ pub mod lexicon;
 pub mod lexicon_pack;
 pub mod source_records;
 
+pub use lexicon::{
+    extract_english_tokens, split_facet_tokens, LexiconPrefixSearchResult, LexiconSearchOptions,
+    LexiconStoreStats, V2_FLAG_HAS_ENGLISH_INDEX,
+};
 pub use tamil_calendar as calendar;
 pub use tamil_codec as codec;
 pub use tamil_collate as collate;
@@ -941,6 +945,17 @@ pub const OPERATIONS: &[&str] = &[
     "process_docx",
     "lexicon_lookup",
     "lexicon_packs",
+    "lexicon_init",
+    "lexicon_load_pack",
+    "lexicon_unload_pack",
+    "lexicon_stats",
+    "lexicon_define",
+    "lexicon_query",
+    "lexicon_search",
+    "lexicon_search_english",
+    "lexicon_fuzzy_search",
+    "lexicon_longest_prefix",
+    "lexicon_relations",
     "lexicon_source_bucket",
     "lexicon_source_lookup",
 ];
@@ -1473,6 +1488,50 @@ fn unified_detect_string(text: &str) -> codec::DetectionResult {
 
 /// Shared dispatcher used by every binding and the oracle CLI.
 pub fn execute(request: &Value) -> Result<Value, String> {
+    let cleaned_request;
+    let request = if let Some(obj) = request.as_object() {
+        let is_lexicon_v2_op = obj.get("op").and_then(Value::as_str).is_some_and(|op| {
+            matches!(
+                op,
+                "lexicon_init"
+                    | "lexicon_load_pack"
+                    | "lexicon_unload_pack"
+                    | "lexicon_stats"
+                    | "lexicon_define"
+                    | "lexicon_query"
+                    | "lexicon_search"
+                    | "lexicon_search_english"
+                    | "lexicon_fuzzy_search"
+                    | "lexicon_longest_prefix"
+                    | "lexicon_relations"
+            )
+        });
+        let has_golden_envelope = is_lexicon_v2_op
+            && obj.contains_key("id")
+            && obj.contains_key("dialect")
+            && obj.contains_key("tags")
+            && obj.contains_key("source");
+        if has_golden_envelope {
+            let mut stripped = obj.clone();
+            for key in [
+                "id",
+                "expected",
+                "expected_error",
+                "dialect",
+                "tags",
+                "source",
+                "unicode_exceptions",
+            ] {
+                stripped.remove(key);
+            }
+            cleaned_request = Value::Object(stripped);
+            &cleaned_request
+        } else {
+            request
+        }
+    } else {
+        request
+    };
     let input = request.get("input").ok_or("missing input")?;
     match request
         .get("op")
@@ -2234,6 +2293,17 @@ pub fn execute(request: &Value) -> Result<Value, String> {
         }
         "lexicon_lookup" => lexicon::execute_lookup(request, input),
         "lexicon_packs" => lexicon::execute_packs(request, input),
+        "lexicon_init" => lexicon::execute_init(input),
+        "lexicon_load_pack" => lexicon::execute_load_pack(input),
+        "lexicon_unload_pack" => lexicon::execute_unload_pack(input),
+        "lexicon_stats" => lexicon::execute_stats(request, input),
+        "lexicon_define" => lexicon::execute_define(request, input),
+        "lexicon_query" => lexicon::execute_query(request, input),
+        "lexicon_search" => lexicon::execute_search(request, input),
+        "lexicon_search_english" => execute_lexicon_search_english(request, input),
+        "lexicon_fuzzy_search" => lexicon::execute_fuzzy_search(request, input),
+        "lexicon_longest_prefix" => lexicon::execute_longest_prefix(request, input),
+        "lexicon_relations" => lexicon::execute_relations(request, input),
         "lexicon_source_bucket" => source_records::execute_bucket(input),
         "lexicon_source_lookup" => source_records::execute_lookup(input),
         "punarchi_join" => execute_punarchi_join(input),
@@ -2383,6 +2453,81 @@ fn execute_punarchi_rules(input: &Value) -> Result<Value, String> {
     let rules =
         punarchi::punarchi_rules_filtered(profile, chapter, sutra).map_err(|e| e.to_string())?;
     serde_json::to_value(&rules).map_err(|e| e.to_string())
+}
+
+/// Searches the reverse English-to-Tamil gloss/definition index using either a `{ "query": ... }`
+/// object or a `{ "op": "lexicon_search_english", "input": ... }` dispatcher request.
+pub fn lexicon_search_english(request: &Value) -> Result<Value, String> {
+    if let Some(input) = request.get("input") {
+        execute_lexicon_search_english(request, input)
+    } else {
+        execute_lexicon_search_english(&json!({}), request)
+    }
+}
+
+fn execute_lexicon_search_english(request: &Value, input: &Value) -> Result<Value, String> {
+    let req_obj = request
+        .as_object()
+        .ok_or_else(|| "lexicon: invalid options".to_owned())?;
+
+    let (query, merged_request) = if let Some(q) = input.as_str() {
+        (q.to_owned(), request.clone())
+    } else if let Some(in_obj) = input.as_object() {
+        for key in in_obj.keys() {
+            let ok = matches!(
+                key.as_str(),
+                "query"
+                    | "packs"
+                    | "tier"
+                    | "category"
+                    | "pos"
+                    | "domain"
+                    | "region"
+                    | "register"
+                    | "limit"
+            );
+            if !ok {
+                return Err("lexicon: invalid options".to_owned());
+            }
+        }
+        let q = in_obj
+            .get("query")
+            .and_then(Value::as_str)
+            .ok_or_else(|| "lexicon: query must be a string".to_owned())?
+            .to_owned();
+        let mut merged = req_obj.clone();
+        for (k, v) in in_obj {
+            if k != "query" {
+                merged.insert(k.clone(), v.clone());
+            }
+        }
+        (q, Value::Object(merged))
+    } else {
+        return Err("lexicon: input must be a string".to_owned());
+    };
+
+    let scope = lexicon::parse_query_scope(&merged_request, true)?;
+    let merged_obj = merged_request
+        .as_object()
+        .ok_or_else(|| "lexicon: invalid options".to_owned())?;
+    let limit = match merged_obj.get("limit") {
+        None | Some(Value::Null) => 25usize,
+        Some(v) => {
+            let n = v
+                .as_u64()
+                .ok_or_else(|| "lexicon: limit must be an integer".to_owned())?;
+            usize::try_from(n).map_err(|_| "lexicon: invalid limit".to_owned())?
+        }
+    };
+    let res = lexicon::search_english_runtime(
+        &query,
+        &lexicon::PrefixSearchOptions {
+            limit,
+            after_key: None,
+            scope,
+        },
+    )?;
+    serde_json::to_value(res).map_err(|err| format!("lexicon: serialize error: {err}"))
 }
 
 pub fn execute_json(request: &str) -> Result<String, String> {

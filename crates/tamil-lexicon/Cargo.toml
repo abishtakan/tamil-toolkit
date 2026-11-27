@@ -1,0 +1,33 @@
+[package]
+name = "tamil-lexicon"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = ["crates-io"]
+license.workspace = true
+repository.workspace = true
+readme = "README.md"
+documentation = "https://docs.rs/tamil-lexicon/0.2.0"
+include = ["src/**", "README.md", "LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+description = "Pure Apache-2.0 Tamil lexicon .tlpack v1/v2 reader, FST lookup/prefix search, and LexiconStore runtime registry"
+keywords = ["tamil", "lexicon", "dictionary", "fst", "nlp"]
+categories = ["text-processing", "internationalization"]
+
+[features]
+default = ["std-fs"]
+std-fs = []
+
+[dependencies]
+flate2.workspace = true
+fst.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+tamil-core.workspace = true
+tamil-norm.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true
+
+[lints]
+workspace = true

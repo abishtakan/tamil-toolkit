@@ -88,6 +88,20 @@ release version *flags:
 npm-sync-tags *version:
     uv run --locked python tools/release_npm_tags.py {{version}}
 
+# Build cleaned/organized .tlpack v2 bundles into dist/lexicon-packs/
+lexicon-build:
+    uv run --locked python tools/lexicon_organize.py --out target/lexicon/organized
+    cargo run --release -p tamil-toolkit --bin tamil-toolkit -- lexicon compile-all target/lexicon/organized --out dist/lexicon-packs
+    uv run --locked python tools/lexicon_quality_gate.py --organized-dir target/lexicon/organized --manifest dist/lexicon-packs/MANIFEST.json
+
+# Validate organized lexicon JSONL packs, cleaning audit accounting, and optional compiled MANIFEST.json.
+lexicon-quality-gate:
+    uv run --locked python tools/lexicon_quality_gate.py --organized-dir target/lexicon/organized --manifest dist/lexicon-packs/MANIFEST.json
+
+# Inspect discovered local .tlpack v2 bundles, profiles, and categories
+lexicon-doctor:
+    cargo run -p tamil-toolkit --bin tamil-toolkit -- lexicon doctor
+
 # Launch the interactive Tamil Toolkit Playground locally.
 playground-dev:
     pnpm --filter tamil-toolkit-playground dev

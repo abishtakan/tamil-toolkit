@@ -1,5 +1,6 @@
 import { getBrowserApi, getUiLanguage } from "./browser-api.js";
 import type {
+  LexiconMountProfile,
   NumeralLocale,
   PanelTab,
   SelectionHandoffPayload,
@@ -9,6 +10,9 @@ import type {
   UiLang,
 } from "./messages.js";
 
+export const DEFAULT_LEXICON_MANIFEST_URL =
+  "https://github.com/abishtakan/tamil-toolkit/releases/latest/download/MANIFEST.json";
+
 export interface UserPreferences {
   uiLang: UiLang;
   layout: TypingLayout;
@@ -17,6 +21,8 @@ export interface UserPreferences {
   currency: SupportedCurrency;
   sortProfile: SortProfile;
   showMicroCounter: boolean;
+  lexiconManifestUrl: string;
+  lexiconProfile: LexiconMountProfile;
 }
 
 export interface PerSitePermissionRecord {
@@ -37,9 +43,26 @@ const VALID_LAYOUTS = new Set<TypingLayout>([
   "anjal-phonetic",
   "suratha-bamini",
 ]);
-const VALID_TABS = new Set<PanelTab>(["inspect", "live", "fix", "tools"]);
+const VALID_TABS = new Set<PanelTab>(["inspect", "live", "fix", "dictionary", "tools"]);
 const VALID_SORT = new Set<SortProfile>(["agara-v1", "uyirmei-first-v1"]);
+const VALID_LEXICON_PROFILES = new Set<LexiconMountProfile>(["open-lite", "open", "full"]);
 const ORIGIN_RE = /^https?:\/\/[^/*]+\/\*$/;
+
+function sanitizeManifestUrl(raw: unknown): string {
+  if (typeof raw !== "string") return DEFAULT_LEXICON_MANIFEST_URL;
+  const trimmed = raw.trim();
+  if (!trimmed) return DEFAULT_LEXICON_MANIFEST_URL;
+  try {
+    const parsed = new URL(trimmed);
+    if (parsed.protocol === "https:" || parsed.protocol === "http:") {
+      return parsed.toString();
+    }
+  } catch {
+    // Allow relative paths if explicitly configured
+    if (trimmed.startsWith("/")) return trimmed;
+  }
+  return DEFAULT_LEXICON_MANIFEST_URL;
+}
 
 export function defaultPreferences(): UserPreferences {
   return {
@@ -50,6 +73,8 @@ export function defaultPreferences(): UserPreferences {
     currency: "INR",
     sortProfile: "agara-v1",
     showMicroCounter: true,
+    lexiconManifestUrl: DEFAULT_LEXICON_MANIFEST_URL,
+    lexiconProfile: "open-lite",
   };
 }
 
@@ -64,6 +89,11 @@ function sanitizePrefs(raw: Partial<UserPreferences> | undefined): UserPreferenc
     currency: raw.currency === "LKR" ? "LKR" : "INR",
     sortProfile: raw.sortProfile && VALID_SORT.has(raw.sortProfile) ? raw.sortProfile : base.sortProfile,
     showMicroCounter: typeof raw.showMicroCounter === "boolean" ? raw.showMicroCounter : base.showMicroCounter,
+    lexiconManifestUrl: sanitizeManifestUrl(raw.lexiconManifestUrl),
+    lexiconProfile:
+      raw.lexiconProfile && VALID_LEXICON_PROFILES.has(raw.lexiconProfile)
+        ? raw.lexiconProfile
+        : base.lexiconProfile,
   };
 }
 

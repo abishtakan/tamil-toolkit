@@ -161,7 +161,11 @@ export function App() {
   const [pendingLexiconQuery, setPendingLexiconQuery] = useState<{
     query: string;
     nonce: number;
-  } | null>(null);
+  } | null>(() => {
+    if (typeof window === "undefined") return null;
+    const q = new URLSearchParams(window.location.search).get("q")?.trim();
+    return q ? { query: q, nonce: 1 } : null;
+  });
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toolFilterQuery, setToolFilterQuery] = useState("");
@@ -199,6 +203,10 @@ export function App() {
     if (typeof window === "undefined") return;
     const handlePopState = () => {
       setActiveTool(resolveToolFromLocation(window.location.pathname, window.location.search));
+      const q = new URLSearchParams(window.location.search).get("q")?.trim();
+      if (q) {
+        setPendingLexiconQuery((prev) => ({ query: q, nonce: (prev?.nonce ?? 0) + 1 }));
+      }
     };
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);

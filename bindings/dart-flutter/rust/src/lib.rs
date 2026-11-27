@@ -29,6 +29,35 @@ pub unsafe extern "C" fn tamil_toolkit_call(request: *const c_char) -> *mut c_ch
         .into_raw()
 }
 
+/// Load a `.tlpack` v1 or v2 binary image into the runtime registry.
+/// Always release a non-null result with `tamil_toolkit_free`.
+///
+/// # Safety
+/// If `len > 0`, `bytes` must point to `len` readable bytes for the duration of the call.
+#[no_mangle]
+pub unsafe extern "C" fn tamil_toolkit_load_lexicon_pack(
+    bytes: *const u8,
+    len: usize,
+) -> *mut c_char {
+    let response = std::panic::catch_unwind(|| {
+        let result = if len == 0 || bytes.is_null() {
+            Err("lexicon: pack bytes cannot be empty".to_owned())
+        } else {
+            // SAFETY: caller guarantees `bytes` points to `len` live readable bytes.
+            let slice = unsafe { std::slice::from_raw_parts(bytes, len) };
+            tamil_toolkit::lexicon::load_pack_bytes_json(slice)
+        };
+        match result {
+            Ok(json) => format!("{{\"ok\":{json}}}"),
+            Err(error) => serde_json::json!({"error": error}).to_string(),
+        }
+    })
+    .unwrap_or_else(|_| "{\"error\":\"Rust panic caught at FFI boundary\"}".to_owned());
+    CString::new(response)
+        .expect("JSON contains no literal NUL")
+        .into_raw()
+}
+
 /// Release exactly one result previously returned by tamil_toolkit_call.
 ///
 /// # Safety

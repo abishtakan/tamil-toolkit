@@ -310,8 +310,7 @@
     },
     {
       "file": "punarchi_nannool.jsonl",
-      "status": "planned",
-      "reason": "The Nannool root-text profile needs inspected edition-pinned rules and expert-reviewed merger fixtures; Tolkappiyam comparisons remain separate, and a future splitter needs licensed lexicon provenance.",
+      "status": "active",
       "operations": [
         "punarchi_join",
         "punarchi_split_candidates",
@@ -527,6 +526,24 @@
       "operations": [
         "lexicon_source_bucket",
         "lexicon_source_lookup"
+      ]
+    },
+    {
+      "file": "lexicon_v02_runtime.jsonl",
+      "status": "active",
+      "reason": "Activated Rank 2 tamil-lexicon v0.2 runtime registry, TMLPACK2 loader, search, English reverse search, facet stats, relations, and contract vectors.",
+      "operations": [
+        "lexicon_init",
+        "lexicon_load_pack",
+        "lexicon_unload_pack",
+        "lexicon_stats",
+        "lexicon_define",
+        "lexicon_query",
+        "lexicon_search",
+        "lexicon_search_english",
+        "lexicon_fuzzy_search",
+        "lexicon_longest_prefix",
+        "lexicon_relations"
       ]
     },
     {

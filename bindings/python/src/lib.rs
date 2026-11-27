@@ -252,6 +252,11 @@ fn execute(request: &str) -> PyResult<String> {
 }
 
 #[pyfunction]
+fn load_lexicon_pack_bytes(bytes: &[u8]) -> PyResult<String> {
+    tamil_toolkit::lexicon::load_pack_bytes_json(bytes).map_err(PyValueError::new_err)
+}
+
+#[pyfunction]
 fn batch_audit_tamil_texts(texts: &Bound<'_, PyAny>) -> PyResult<Vec<TextAuditPyItem>> {
     let mut out = Vec::new();
     for item in texts.try_iter()? {
@@ -332,6 +337,7 @@ fn batch_data_json<'py>(
 fn _native(module: &Bound<'_, PyModule>) -> PyResult<()> {
     module.add("HOST_BATCH_OPTIMIZED", !cfg!(debug_assertions))?;
     module.add_function(wrap_pyfunction!(execute, module)?)?;
+    module.add_function(wrap_pyfunction!(load_lexicon_pack_bytes, module)?)?;
     module.add_function(wrap_pyfunction!(batch_audit_tamil_texts, module)?)?;
     module.add_function(wrap_pyfunction!(batch_check_no_surrogates, module)?)?;
     module.add_function(wrap_pyfunction!(batch_canonical_json_sha256, module)?)?;

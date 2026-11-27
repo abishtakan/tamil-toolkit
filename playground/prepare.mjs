@@ -6,6 +6,13 @@ const isPublicBeta = process.env.VITE_PUBLIC_BETA === '1' || process.env.VITE_PU
 if (isPublicBeta && !extraArgs.includes('--public-beta')) {
   extraArgs.push('--public-beta');
 }
+const lexiconChannel = process.env.VITE_LEXICON_CHANNEL?.trim().toLowerCase();
+const hasChannelArg = extraArgs.some(
+  (arg) => arg === '--lexicon-channel' || arg.startsWith('--lexicon-channel=')
+);
+if (lexiconChannel && !hasChannelArg) {
+  extraArgs.push('--lexicon-channel', lexiconChannel);
+}
 const result = spawnSync('uv', ['run', '--locked', 'python', 'tools/prepare_playground.py', ...extraArgs], { cwd: root, stdio: 'inherit' });
 if (result.error) { console.error(result.error.message); process.exit(1); }
 process.exit(result.status ?? 1);

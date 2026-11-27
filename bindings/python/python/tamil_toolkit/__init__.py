@@ -1,7 +1,12 @@
 """Thin adapters: all linguistic behavior executes in the Rust extension."""
 
+import hashlib
 import json
+import os
+from pathlib import Path
 from typing import Any, Literal, TypedDict
+import urllib.parse
+import urllib.request
 
 from . import _native
 
@@ -33,6 +38,21 @@ __all__ += [
     "get_olippasai",
     "lexicon_lookup",
     "lexicon_packs",
+    "lexicon_init",
+    "lexicon_download",
+    "lexicon_load_pack_bytes",
+    "lexicon_load_pack",
+    "lexicon_unload_pack",
+    "lexicon_stats",
+    "lexicon_define",
+    "lexicon_query",
+    "lexicon_search",
+    "lexicon_search_english",
+    "lexicon_fuzzy_search",
+    "lexicon_longest_prefix",
+    "lexicon_relations",
+    "lexicon_source_bucket",
+    "lexicon_source_lookup",
     "punarchi_join",
     "punarchi_split_candidates",
     "punarchi_rules",
@@ -869,6 +889,490 @@ def lexicon_lookup(
 def lexicon_packs() -> list[dict[str, Any]]:
     """Return metadata for compiled lexicon packs available in this build."""
     return execute({"op": "lexicon_packs", "input": None})
+
+
+def _lexicon_scope_request(
+    op: str,
+    text: str,
+    *,
+    packs: list[str] | None = None,
+    tier: str | None = None,
+    category: str | None = None,
+    pos: str | None = None,
+    domain: str | None = None,
+    region: str | None = None,
+    register: str | None = None,
+    folded: bool | None = None,
+    limit: int | None = None,
+    after_key: str | None = None,
+    max_distance: int | None = None,
+) -> dict[str, Any]:
+    request: dict[str, Any] = {"op": op, "input": text}
+    if limit is not None:
+        request["limit"] = limit
+    if after_key is not None:
+        request["after_key"] = after_key
+    if max_distance is not None:
+        request["max_distance"] = max_distance
+    if packs is not None:
+        request["packs"] = packs
+    if tier is not None:
+        request["tier"] = tier
+    if category is not None:
+        request["category"] = category
+    if pos is not None:
+        request["pos"] = pos
+    if domain is not None:
+        request["domain"] = domain
+    if region is not None:
+        request["region"] = region
+    if register is not None:
+        request["register"] = register
+    if folded is not None:
+        request["folded"] = folded
+    return request
+
+
+DEFAULT_LEXICON_MANIFEST_URL = (
+    "https://github.com/abishtakan/tamil-toolkit/releases/latest/download/MANIFEST.json"
+)
+_OPEN_LITE_PACK_IDS = frozenset({"core", "names_taxa", "regional"})
+
+
+def _default_lexicon_dir() -> Path:
+    env_dir = os.environ.get("TAMIL_LEXICON_DIR", "").strip()
+    if env_dir:
+        return Path(env_dir)
+    return Path.home() / ".tamil-toolkit" / "lexicon-packs"
+
+
+def _default_lexicon_manifest_url() -> str:
+    env_url = os.environ.get("TAMIL_LEXICON_MANIFEST_URL", "").strip()
+    return env_url or DEFAULT_LEXICON_MANIFEST_URL
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        while chunk := handle.read(65536):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _validate_manifest_relpath(rel_file: str) -> Path:
+    normalized = rel_file.replace("\\", "/").lstrip("/")
+    rel_path = Path(normalized)
+    if not normalized or rel_path.is_absolute() or ".." in rel_path.parts:
+        raise ValueError(f"lexicon: invalid manifest pack file path '{rel_file}'")
+    return rel_path
+
+
+def _select_manifest_packs(
+    manifest_packs: list[dict[str, Any]],
+    profile: str,
+    packs: list[str] | None,
+) -> list[dict[str, Any]]:
+    if packs is not None:
+        by_id = {
+            str(entry["summary"]["pack_id"]): entry
+            for entry in manifest_packs
+            if isinstance(entry, dict) and isinstance(entry.get("summary"), dict)
+        }
+        selected: list[dict[str, Any]] = []
+        seen: set[str] = set()
+        for pack_id in packs:
+            if pack_id in seen:
+                continue
+            seen.add(pack_id)
+            if pack_id not in by_id:
+                raise ValueError(f"lexicon: unknown pack '{pack_id}'")
+            selected.append(by_id[pack_id])
+        return selected
+
+    norm = profile.strip().lower().replace("_", "-")
+    if norm in ("open-lite", "lite"):
+        return [e for e in manifest_packs if e["summary"].get("pack_id") in _OPEN_LITE_PACK_IDS]
+    if norm in ("open", "verified", "verified-open"):
+        return [e for e in manifest_packs if e["summary"].get("pack_tier") == "verified_open"]
+    if norm in ("local", "local-historical"):
+        return [e for e in manifest_packs if e["summary"].get("pack_tier") == "local_historical"]
+    if norm in ("full", "all"):
+        return list(manifest_packs)
+    raise ValueError(f"lexicon: unknown profile '{profile}'")
+
+
+def _fetch_bytes(url: str) -> bytes:
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme not in ("http", "https", "file"):
+        raise ValueError(f"lexicon: unsupported URL scheme '{parsed.scheme}'")
+    req = urllib.request.Request(url, headers={"User-Agent": "tamil-toolkit-python"})
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        return resp.read()
+
+
+def lexicon_download(
+    profile: str = "open",
+    *,
+    packs: list[str] | None = None,
+    dest: str | os.PathLike[str] | None = None,
+    manifest_url: str | None = None,
+    force: bool = False,
+) -> dict[str, Any]:
+    """Download and SHA-256-verify `.tlpack` bundles from an official or custom manifest."""
+    dest_path = Path(os.fspath(dest)) if dest is not None else _default_lexicon_dir()
+    resolved_manifest_url = manifest_url or _default_lexicon_manifest_url()
+    manifest_bytes = _fetch_bytes(resolved_manifest_url)
+    manifest = json.loads(manifest_bytes.decode("utf-8"))
+    manifest_packs = manifest.get("packs")
+    if not isinstance(manifest_packs, list):
+        raise ValueError("lexicon: manifest missing 'packs' list")
+
+    selected = _select_manifest_packs(manifest_packs, profile, packs)
+    dest_path.mkdir(parents=True, exist_ok=True)
+
+    downloaded: list[str] = []
+    skipped: list[str] = []
+    for entry in selected:
+        summary = entry["summary"]
+        pack_id = str(summary["pack_id"])
+        expected_sha = str(summary["checksum_sha256"]).lower()
+        if not expected_sha:
+            raise ValueError(f"lexicon: manifest entry '{pack_id}' missing checksum_sha256")
+        rel_path = _validate_manifest_relpath(str(entry["file"]))
+        target_path = dest_path / rel_path
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+
+        if not force and target_path.is_file():
+            if _sha256_file(target_path).lower() == expected_sha:
+                skipped.append(pack_id)
+                continue
+
+        pack_url = entry.get("url") or urllib.parse.urljoin(
+            resolved_manifest_url, rel_path.as_posix()
+        )
+        parsed = urllib.parse.urlparse(pack_url)
+        if parsed.scheme not in ("http", "https", "file"):
+            raise ValueError(f"lexicon: unsupported URL scheme '{parsed.scheme}'")
+
+        tmp_path = target_path.with_name(f"{target_path.name}.tmp")
+        digest = hashlib.sha256()
+        try:
+            req = urllib.request.Request(pack_url, headers={"User-Agent": "tamil-toolkit-python"})
+            with urllib.request.urlopen(req, timeout=120) as resp, tmp_path.open("wb") as out:
+                while chunk := resp.read(65536):
+                    digest.update(chunk)
+                    out.write(chunk)
+            actual_sha = digest.hexdigest().lower()
+            if actual_sha != expected_sha:
+                raise ValueError(
+                    f"lexicon: SHA-256 mismatch for '{pack_id}': "
+                    f"expected {expected_sha}, got {actual_sha}"
+                )
+            os.replace(tmp_path, target_path)
+        except Exception:
+            tmp_path.unlink(missing_ok=True)
+            raise
+        downloaded.append(pack_id)
+
+    manifest_tmp = dest_path / "MANIFEST.json.tmp"
+    manifest_target = dest_path / "MANIFEST.json"
+    try:
+        manifest_tmp.write_bytes(manifest_bytes)
+        os.replace(manifest_tmp, manifest_target)
+    except Exception:
+        manifest_tmp.unlink(missing_ok=True)
+        raise
+
+    return {
+        "dest": str(dest_path),
+        "downloaded": downloaded,
+        "skipped": skipped,
+        "manifest_url": resolved_manifest_url,
+    }
+
+
+def lexicon_init(
+    profile: str = "full",
+    *,
+    path: str | os.PathLike[str] | None = None,
+    replace: bool = True,
+    auto_download: bool = False,
+    manifest_url: str | None = None,
+) -> dict[str, Any]:
+    """Initialize the runtime lexicon registry from a named profile and pack directory."""
+    payload: dict[str, Any] = {"profile": profile, "replace": replace}
+    if path is not None:
+        resolved_path = os.fspath(path)
+        if auto_download and Path(resolved_path).is_file():
+            raise ValueError(f"lexicon: pack directory not found: '{resolved_path}'")
+        payload["path"] = resolved_path
+
+    try:
+        return execute({"op": "lexicon_init", "input": payload})
+    except ValueError as err:
+        if not auto_download:
+            raise
+        msg = str(err)
+        recoverable = (
+            "no pack directory found" in msg
+            or "pack directory not found" in msg
+            or "no packs matching profile" in msg
+        )
+        if not recoverable:
+            raise
+        dl = lexicon_download(
+            profile=profile or "open",
+            dest=path,
+            manifest_url=manifest_url,
+        )
+        payload["path"] = dl["dest"]
+        return execute({"op": "lexicon_init", "input": payload})
+
+
+def lexicon_load_pack_bytes(data: bytes | bytearray) -> dict[str, Any]:
+    """Load a `.tlpack` v1 or v2 binary image from bytes into the runtime registry."""
+    if isinstance(data, bytearray):
+        raw = bytes(data)
+    elif isinstance(data, bytes):
+        raw = data
+    else:
+        raise TypeError("data must be bytes or bytearray")
+    return json.loads(_native.load_lexicon_pack_bytes(raw))
+
+
+def lexicon_load_pack(path: str | os.PathLike[str]) -> dict[str, Any]:
+    """Load a `.tlpack` file or directory of packs into the runtime registry."""
+    resolved = os.fspath(path) if isinstance(path, os.PathLike) else path
+    if not isinstance(resolved, str):
+        raise TypeError("path must be a str or os.PathLike[str]")
+    return execute({"op": "lexicon_load_pack", "input": {"path": resolved}})
+
+
+def lexicon_unload_pack(pack_id: str | None = None) -> dict[str, Any]:
+    """Unmount one runtime pack by pack_id, or clear all runtime packs when None."""
+    return execute({"op": "lexicon_unload_pack", "input": pack_id})
+
+
+def lexicon_stats() -> dict[str, Any]:
+    """Return runtime pack counts, entry/sense/relation totals, and loaded pack summaries."""
+    return execute({"op": "lexicon_stats", "input": None})
+
+
+def lexicon_define(
+    text: str,
+    *,
+    packs: list[str] | None = None,
+    tier: str | None = None,
+    category: str | None = None,
+    pos: str | None = None,
+    domain: str | None = None,
+    region: str | None = None,
+    register: str | None = None,
+    folded: bool = False,
+) -> dict[str, Any]:
+    """Build a unified, deduplicated word definition across mounted runtime lexicon packs."""
+    return execute(
+        _lexicon_scope_request(
+            "lexicon_define",
+            text,
+            packs=packs,
+            tier=tier,
+            category=category,
+            pos=pos,
+            domain=domain,
+            region=region,
+            register=register,
+            folded=folded,
+        )
+    )
+
+
+def lexicon_query(
+    text: str,
+    *,
+    packs: list[str] | None = None,
+    tier: str | None = None,
+    category: str | None = None,
+    pos: str | None = None,
+    domain: str | None = None,
+    region: str | None = None,
+    register: str | None = None,
+    folded: bool = False,
+) -> dict[str, Any]:
+    """Query compact runtime lexicon entries with optional scope filters and Mayangoli folding."""
+    return execute(
+        _lexicon_scope_request(
+            "lexicon_query",
+            text,
+            packs=packs,
+            tier=tier,
+            category=category,
+            pos=pos,
+            domain=domain,
+            region=region,
+            register=register,
+            folded=folded,
+        )
+    )
+
+
+def lexicon_search(
+    prefix: str,
+    *,
+    limit: int = 25,
+    after_key: str | None = None,
+    packs: list[str] | None = None,
+    tier: str | None = None,
+    category: str | None = None,
+    pos: str | None = None,
+    domain: str | None = None,
+    region: str | None = None,
+    register: str | None = None,
+    folded: bool = False,
+) -> dict[str, Any]:
+    """Run FST prefix search across mounted runtime lexicon packs."""
+    return execute(
+        _lexicon_scope_request(
+            "lexicon_search",
+            prefix,
+            limit=limit,
+            after_key=after_key,
+            packs=packs,
+            tier=tier,
+            category=category,
+            pos=pos,
+            domain=domain,
+            region=region,
+            register=register,
+            folded=folded,
+        )
+    )
+
+
+def lexicon_search_english(
+    query: str,
+    *,
+    packs: list[str] | None = None,
+    tier: str | None = None,
+    category: str | None = None,
+    pos: str | None = None,
+    domain: str | None = None,
+    region: str | None = None,
+    register: str | None = None,
+    limit: int = 25,
+) -> dict[str, Any]:
+    """Search mounted runtime lexicon packs by English gloss/definition keywords."""
+    input_payload: dict[str, Any] = {"query": query, "limit": limit}
+    if packs is not None:
+        input_payload["packs"] = packs
+    if tier is not None:
+        input_payload["tier"] = tier
+    if category is not None:
+        input_payload["category"] = category
+    if pos is not None:
+        input_payload["pos"] = pos
+    if domain is not None:
+        input_payload["domain"] = domain
+    if region is not None:
+        input_payload["region"] = region
+    if register is not None:
+        input_payload["register"] = register
+    return execute({"op": "lexicon_search_english", "input": input_payload})
+
+
+def lexicon_fuzzy_search(
+    text: str,
+    *,
+    max_distance: int = 1,
+    limit: int = 10,
+    packs: list[str] | None = None,
+    tier: str | None = None,
+    category: str | None = None,
+    pos: str | None = None,
+    domain: str | None = None,
+    region: str | None = None,
+    register: str | None = None,
+) -> dict[str, Any]:
+    """Run bounded Damerau-Levenshtein fuzzy search across mounted runtime lexicon packs."""
+    return execute(
+        _lexicon_scope_request(
+            "lexicon_fuzzy_search",
+            text,
+            max_distance=max_distance,
+            limit=limit,
+            packs=packs,
+            tier=tier,
+            category=category,
+            pos=pos,
+            domain=domain,
+            region=region,
+            register=register,
+        )
+    )
+
+
+def lexicon_longest_prefix(
+    text: str,
+    *,
+    packs: list[str] | None = None,
+    tier: str | None = None,
+    category: str | None = None,
+) -> dict[str, Any]:
+    """Return exact FST keys that are char-boundary prefixes of text, longest-first."""
+    return execute(
+        _lexicon_scope_request(
+            "lexicon_longest_prefix",
+            text,
+            packs=packs,
+            tier=tier,
+            category=category,
+        )
+    )
+
+
+def lexicon_relations(
+    text: str,
+    *,
+    packs: list[str] | None = None,
+    tier: str | None = None,
+    category: str | None = None,
+    folded: bool = False,
+) -> dict[str, Any]:
+    """Query indexed lexical relations for a Tamil headword across mounted packs."""
+    return execute(
+        _lexicon_scope_request(
+            "lexicon_relations",
+            text,
+            packs=packs,
+            tier=tier,
+            category=category,
+            folded=folded,
+        )
+    )
+
+
+def lexicon_source_bucket(query: str) -> dict[str, Any]:
+    """Compute the normalized SHA-256 bucket key for an owner-supplied source record query."""
+    return execute({"op": "lexicon_source_bucket", "input": query})
+
+
+def lexicon_source_lookup(
+    query: str,
+    bucket: dict[str, Any],
+    *,
+    offset: int = 0,
+    limit: int = 25,
+) -> dict[str, Any]:
+    """Look up paginated owner-supplied historical source records within a validated bucket."""
+    return execute({
+        "op": "lexicon_source_lookup",
+        "input": {
+            "query": query,
+            "bucket": bucket,
+            "offset": offset,
+            "limit": limit,
+        },
+    })
 
 
 def punarchi_join(

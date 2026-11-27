@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'dart:typed_data';
 import 'package:ffi/ffi.dart';
+
+export 'src/lexicon_pack_manager.dart';
 
 typedef ExactDecimal = Map<String, Object?>;
 typedef NumericRangeEndpoint = Map<String, Object?>;
@@ -261,12 +264,150 @@ class PanchangamDay {
       required this.transitions});
 }
 
+class LexiconCompactPackSummary {
+  final String packId;
+  final String category;
+  final int indexFormatVersion;
+  final int schemaVersion;
+  final String packTier;
+  final String rightsStatus;
+  final String license;
+  final String datasetVersion;
+  final String description;
+  final int entryCount;
+  final int senseCount;
+  final int relationCount;
+  final int distinctHeadwords;
+  final int byteLen;
+  final String checksumSha256;
+  final bool hasFoldedIndex;
+  final bool hasRelations;
+  final bool hasEnglishIndex;
+  final List<String> sourceIds;
+  final String attributionNotice;
+  final List<String> domains;
+  final List<String> regions;
+  final List<String> registers;
+
+  const LexiconCompactPackSummary({
+    required this.packId,
+    required this.category,
+    required this.indexFormatVersion,
+    required this.schemaVersion,
+    required this.packTier,
+    required this.rightsStatus,
+    required this.license,
+    required this.datasetVersion,
+    required this.description,
+    required this.entryCount,
+    required this.senseCount,
+    required this.relationCount,
+    required this.distinctHeadwords,
+    required this.byteLen,
+    required this.checksumSha256,
+    required this.hasFoldedIndex,
+    required this.hasRelations,
+    required this.hasEnglishIndex,
+    required this.sourceIds,
+    required this.attributionNotice,
+    required this.domains,
+    required this.regions,
+    required this.registers,
+  });
+
+  factory LexiconCompactPackSummary.fromJson(Map<String, dynamic> json) =>
+      LexiconCompactPackSummary(
+        packId: json['pack_id'] as String,
+        category: json['category'] as String,
+        indexFormatVersion: json['index_format_version'] as int,
+        schemaVersion: json['schema_version'] as int,
+        packTier: json['pack_tier'] as String,
+        rightsStatus: json['rights_status'] as String,
+        license: json['license'] as String,
+        datasetVersion: json['dataset_version'] as String,
+        description: json['description'] as String,
+        entryCount: json['entry_count'] as int,
+        senseCount: json['sense_count'] as int,
+        relationCount: json['relation_count'] as int,
+        distinctHeadwords: json['distinct_headwords'] as int,
+        byteLen: json['byte_len'] as int,
+        checksumSha256: json['checksum_sha256'] as String,
+        hasFoldedIndex: json['has_folded_index'] as bool? ?? false,
+        hasRelations: json['has_relations'] as bool? ?? false,
+        hasEnglishIndex: json['has_english_index'] as bool? ?? false,
+        sourceIds: ((json['source_ids'] as List?) ?? const []).cast<String>(),
+        attributionNotice: json['attribution_notice'] as String? ?? '',
+        domains: ((json['domains'] as List?) ?? const []).cast<String>(),
+        regions: ((json['regions'] as List?) ?? const []).cast<String>(),
+        registers: ((json['registers'] as List?) ?? const []).cast<String>(),
+      );
+}
+
+class LexiconStoreStats {
+  final int packCount;
+  final int totalEntries;
+  final int totalSenses;
+  final int totalRelations;
+  final int totalBytes;
+  final List<LexiconCompactPackSummary> packs;
+  final Map<String, int> categoryCounts;
+  final Map<String, int> posCounts;
+  final Map<String, int> domainCounts;
+  final Map<String, int> regionCounts;
+  final Map<String, int> registerCounts;
+  final bool hasEnglishIndex;
+
+  const LexiconStoreStats({
+    required this.packCount,
+    required this.totalEntries,
+    required this.totalSenses,
+    required this.totalRelations,
+    required this.totalBytes,
+    required this.packs,
+    required this.categoryCounts,
+    required this.posCounts,
+    required this.domainCounts,
+    required this.regionCounts,
+    required this.registerCounts,
+    required this.hasEnglishIndex,
+  });
+
+  static Map<String, int> _intMap(Object? raw) {
+    if (raw is! Map) return const {};
+    return {
+      for (final entry in raw.entries)
+        entry.key.toString(): (entry.value as num).toInt(),
+    };
+  }
+
+  factory LexiconStoreStats.fromJson(Map<String, dynamic> json) =>
+      LexiconStoreStats(
+        packCount: (json['pack_count'] as num).toInt(),
+        totalEntries: (json['total_entries'] as num).toInt(),
+        totalSenses: (json['total_senses'] as num).toInt(),
+        totalRelations: (json['total_relations'] as num).toInt(),
+        totalBytes: (json['total_bytes'] as num).toInt(),
+        packs: ((json['packs'] as List?) ?? const [])
+            .map((e) => LexiconCompactPackSummary.fromJson(
+                Map<String, dynamic>.from(e as Map)))
+            .toList(),
+        categoryCounts: _intMap(json['category_counts']),
+        posCounts: _intMap(json['pos_counts']),
+        domainCounts: _intMap(json['domain_counts']),
+        regionCounts: _intMap(json['region_counts']),
+        registerCounts: _intMap(json['register_counts']),
+        hasEnglishIndex: json['has_english_index'] as bool? ?? false,
+      );
+}
+
 typedef _NativeCall = Pointer<Utf8> Function(Pointer<Utf8>);
+typedef _NativeLoadLexiconPack = Pointer<Utf8> Function(Pointer<Uint8>, Size);
 typedef _NativeFree = Void Function(Pointer<Utf8>);
 
 /// Thin JSON marshalling around the Rust C ABI. Supply the built library path.
 class TamilToolkit {
   final Pointer<Utf8> Function(Pointer<Utf8>) _call;
+  final Pointer<Utf8> Function(Pointer<Uint8>, int) _loadLexiconPack;
   final void Function(Pointer<Utf8>) _free;
 
   TamilToolkit(String libraryPath) : this._(DynamicLibrary.open(libraryPath));
@@ -274,25 +415,31 @@ class TamilToolkit {
   TamilToolkit._(DynamicLibrary library)
       : _call = library.lookupFunction<_NativeCall,
             Pointer<Utf8> Function(Pointer<Utf8>)>('tamil_toolkit_call'),
+        _loadLexiconPack = library.lookupFunction<_NativeLoadLexiconPack,
+            Pointer<Utf8> Function(Pointer<Uint8>, int)>(
+            'tamil_toolkit_load_lexicon_pack'),
         _free =
             library.lookupFunction<_NativeFree, void Function(Pointer<Utf8>)>(
                 'tamil_toolkit_free');
 
   late final TamilCalendar calendar = TamilCalendar(this);
 
+  Object? _decodeNativeResponse(Pointer<Utf8> output) {
+    if (output == nullptr) throw StateError('Rust returned a null response');
+    try {
+      final result =
+          jsonDecode(output.toDartString()) as Map<String, dynamic>;
+      if (result.containsKey('error')) throw ArgumentError(result['error']);
+      return result['ok'];
+    } finally {
+      _free(output);
+    }
+  }
+
   Object? execute(Map<String, Object?> request) {
     final input = jsonEncode(request).toNativeUtf8();
     try {
-      final output = _call(input);
-      if (output == nullptr) throw StateError('Rust returned a null response');
-      try {
-        final result =
-            jsonDecode(output.toDartString()) as Map<String, dynamic>;
-        if (result.containsKey('error')) throw ArgumentError(result['error']);
-        return result['ok'];
-      } finally {
-        _free(output);
-      }
+      return _decodeNativeResponse(_call(input));
     } finally {
       malloc.free(input);
     }
@@ -1295,6 +1442,305 @@ class TamilToolkit {
       (execute({'op': 'lexicon_packs', 'input': null}) as List)
           .map((item) => Map<String, dynamic>.from(item as Map))
           .toList();
+
+  Map<String, Object?> _buildLexiconScopeRequest(
+    String op,
+    String text, {
+    int? limit,
+    String? afterKey,
+    int? maxDistance,
+    List<String>? packs,
+    String? tier,
+    String? category,
+    String? pos,
+    String? domain,
+    String? region,
+    String? register,
+    bool? folded,
+  }) =>
+      {
+        'op': op,
+        'input': text,
+        if (limit != null) 'limit': limit,
+        if (afterKey != null) 'after_key': afterKey,
+        if (maxDistance != null) 'max_distance': maxDistance,
+        if (packs != null) 'packs': packs,
+        if (tier != null) 'tier': tier,
+        if (category != null) 'category': category,
+        if (pos != null) 'pos': pos,
+        if (domain != null) 'domain': domain,
+        if (region != null) 'region': region,
+        if (register != null) 'register': register,
+        if (folded != null) 'folded': folded,
+      };
+
+  /// Initialize the runtime lexicon registry using a named [profile]
+  /// (`'open-lite'`, `'open'`, `'local'`, `'full'`) from [path] (or
+  /// auto-discovered pack directory when [path] is null).
+  Map<String, dynamic> lexiconInit({
+    String profile = 'full',
+    String? path,
+    bool replace = true,
+  }) =>
+      Map<String, dynamic>.from(
+        execute({
+          'op': 'lexicon_init',
+          'input': {
+            'profile': profile,
+            'replace': replace,
+            if (path != null) 'path': path,
+          },
+        }) as Map,
+      );
+
+  /// Load a `.tlpack` v1 or v2 binary image from bytes into the runtime registry.
+  Map<String, dynamic> lexiconLoadPackBytes(Uint8List bytes) {
+    if (bytes.isEmpty) {
+      return Map<String, dynamic>.from(
+        _decodeNativeResponse(_loadLexiconPack(nullptr, 0)) as Map,
+      );
+    }
+    final buffer = malloc<Uint8>(bytes.length);
+    try {
+      buffer.asTypedList(bytes.length).setAll(0, bytes);
+      return Map<String, dynamic>.from(
+        _decodeNativeResponse(_loadLexiconPack(buffer, bytes.length)) as Map,
+      );
+    } finally {
+      malloc.free(buffer);
+    }
+  }
+
+  /// Load a `.tlpack` file or directory of packs into the runtime registry.
+  Map<String, dynamic> lexiconLoadPack(String path) =>
+      Map<String, dynamic>.from(
+        execute({
+          'op': 'lexicon_load_pack',
+          'input': {'path': path},
+        }) as Map,
+      );
+
+  /// Unmount one runtime pack by [packId], or clear all runtime packs if null.
+  Map<String, dynamic> lexiconUnloadPack([String? packId]) =>
+      Map<String, dynamic>.from(
+        execute({
+          'op': 'lexicon_unload_pack',
+          'input': packId,
+        }) as Map,
+      );
+
+  /// Return runtime pack counts, totals, and loaded pack summaries.
+  Map<String, dynamic> lexiconStats() => Map<String, dynamic>.from(
+        execute({'op': 'lexicon_stats', 'input': null}) as Map,
+      );
+
+  /// Return typed runtime pack statistics including facet counts and English index status.
+  LexiconStoreStats lexiconStatsModel() =>
+      LexiconStoreStats.fromJson(lexiconStats());
+
+  /// Build a unified, deduplicated word definition across mounted runtime packs.
+  Map<String, dynamic> lexiconDefine(
+    String text, {
+    List<String>? packs,
+    String? tier,
+    String? category,
+    String? pos,
+    String? domain,
+    String? region,
+    String? register,
+    bool folded = false,
+  }) =>
+      Map<String, dynamic>.from(
+        execute(_buildLexiconScopeRequest(
+          'lexicon_define',
+          text,
+          packs: packs,
+          tier: tier,
+          category: category,
+          pos: pos,
+          domain: domain,
+          region: region,
+          register: register,
+          folded: folded,
+        )) as Map,
+      );
+
+  /// Query compact runtime lexicon entries with optional scope filters.
+  Map<String, dynamic> lexiconQuery(
+    String text, {
+    List<String>? packs,
+    String? tier,
+    String? category,
+    String? pos,
+    String? domain,
+    String? region,
+    String? register,
+    bool folded = false,
+  }) =>
+      Map<String, dynamic>.from(
+        execute(_buildLexiconScopeRequest(
+          'lexicon_query',
+          text,
+          packs: packs,
+          tier: tier,
+          category: category,
+          pos: pos,
+          domain: domain,
+          region: region,
+          register: register,
+          folded: folded,
+        )) as Map,
+      );
+
+  /// Run FST prefix search across mounted runtime lexicon packs.
+  Map<String, dynamic> lexiconSearch(
+    String prefix, {
+    int limit = 25,
+    String? afterKey,
+    List<String>? packs,
+    String? tier,
+    String? category,
+    String? pos,
+    String? domain,
+    String? region,
+    String? register,
+    bool folded = false,
+  }) =>
+      Map<String, dynamic>.from(
+        execute(_buildLexiconScopeRequest(
+          'lexicon_search',
+          prefix,
+          limit: limit,
+          afterKey: afterKey,
+          packs: packs,
+          tier: tier,
+          category: category,
+          pos: pos,
+          domain: domain,
+          region: region,
+          register: register,
+          folded: folded,
+        )) as Map,
+      );
+
+  /// Search mounted runtime lexicon packs by English gloss/definition keywords.
+  Map<String, dynamic> lexiconSearchEnglish(
+    String query, {
+    int limit = 25,
+    List<String>? packs,
+    String? tier,
+    String? category,
+    String? pos,
+    String? domain,
+    String? region,
+    String? register,
+  }) =>
+      Map<String, dynamic>.from(
+        execute({
+          'op': 'lexicon_search_english',
+          'input': {
+            'query': query,
+            'limit': limit,
+            if (packs != null) 'packs': packs,
+            if (tier != null) 'tier': tier,
+            if (category != null) 'category': category,
+            if (pos != null) 'pos': pos,
+            if (domain != null) 'domain': domain,
+            if (region != null) 'region': region,
+            if (register != null) 'register': register,
+          },
+        }) as Map,
+      );
+
+  /// Run bounded Damerau-Levenshtein fuzzy search across mounted runtime lexicon packs.
+  Map<String, dynamic> lexiconFuzzySearch(
+    String text, {
+    int maxDistance = 1,
+    int limit = 10,
+    List<String>? packs,
+    String? tier,
+    String? category,
+    String? pos,
+    String? domain,
+    String? region,
+    String? register,
+  }) =>
+      Map<String, dynamic>.from(
+        execute(_buildLexiconScopeRequest(
+          'lexicon_fuzzy_search',
+          text,
+          maxDistance: maxDistance,
+          limit: limit,
+          packs: packs,
+          tier: tier,
+          category: category,
+          pos: pos,
+          domain: domain,
+          region: region,
+          register: register,
+        )) as Map,
+      );
+
+  /// Return exact FST keys that are char-boundary prefixes of [text], longest-first.
+  Map<String, dynamic> lexiconLongestPrefix(
+    String text, {
+    List<String>? packs,
+    String? tier,
+    String? category,
+  }) =>
+      Map<String, dynamic>.from(
+        execute(_buildLexiconScopeRequest(
+          'lexicon_longest_prefix',
+          text,
+          packs: packs,
+          tier: tier,
+          category: category,
+        )) as Map,
+      );
+
+  /// Query indexed lexical relations for [text] across mounted packs.
+  Map<String, dynamic> lexiconRelations(
+    String text, {
+    List<String>? packs,
+    String? tier,
+    String? category,
+    bool folded = false,
+  }) =>
+      Map<String, dynamic>.from(
+        execute(_buildLexiconScopeRequest(
+          'lexicon_relations',
+          text,
+          packs: packs,
+          tier: tier,
+          category: category,
+          folded: folded,
+        )) as Map,
+      );
+
+  /// Compute the normalized SHA-256 bucket key for an owner-supplied source query.
+  Map<String, dynamic> lexiconSourceBucket(String query) =>
+      Map<String, dynamic>.from(
+        execute({'op': 'lexicon_source_bucket', 'input': query}) as Map,
+      );
+
+  /// Look up paginated owner-supplied historical source records in [bucket].
+  Map<String, dynamic> lexiconSourceLookup(
+    String query,
+    Map<String, Object?> bucket, {
+    int offset = 0,
+    int limit = 25,
+  }) =>
+      Map<String, dynamic>.from(
+        execute({
+          'op': 'lexicon_source_lookup',
+          'input': {
+            'query': query,
+            'bucket': bucket,
+            'offset': offset,
+            'limit': limit,
+          },
+        }) as Map,
+      );
 
   Map<String, dynamic> punarchiJoin(
     String first,

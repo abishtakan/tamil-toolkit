@@ -1,3 +1,4 @@
+import os
 from typing import Any, Literal, TypedDict
 
 class Uyirmei(TypedDict):
@@ -499,6 +500,405 @@ def lexicon_lookup(
     register: str | None = None,
 ) -> LexiconLookupResponse: ...
 def lexicon_packs() -> list[LexiconPackInfo]: ...
+
+LexiconPackTier = Literal["verified_open", "local_historical"]
+LexiconTierFilter = Literal["all", "open", "local"]
+LexiconProfile = Literal["open-lite", "open", "local", "full"]
+LexiconCategory = Literal[
+    "dictionary",
+    "terminology",
+    "phrases",
+    "regional",
+    "names_taxa",
+    "heritage",
+    "relations",
+]
+
+class LexiconCompactForm(TypedDict):
+    role: str
+    text: str
+
+class LexiconCompactSense(TypedDict, total=False):
+    gloss_ta: str
+    gloss_en: str
+    definition_ta: str
+    definition_en: str
+    examples: list[str]
+    domain: str
+    region: str
+    register: str
+
+class _LexiconCompactEntryRequired(TypedDict):
+    entry_id: str
+    headword: str
+    source_id: str
+    source_locator: str
+    rights_status: str
+
+class LexiconCompactEntry(_LexiconCompactEntryRequired, total=False):
+    pos: str
+    forms: list[LexiconCompactForm]
+    senses: list[LexiconCompactSense]
+    domain: str
+    region: str
+    register: str
+    origin_language: str
+    pure_tamil_equivalent: str
+    standard_equivalent: str
+    scientific_name: str
+    literary_source: str
+    verb_class: str
+    transitivity: str
+    root_word: str
+    etymology_type: str
+    dedr_id: str
+    sandhi_behavior: str
+    animacy_gender: str
+    frequency_tier: str
+    permalink: str
+
+class LexiconCompactRelation(TypedDict):
+    source_headword: str
+    target_headword: str
+    relation_code: str
+    directionality: str
+    source_id: str
+    source_locator: str
+
+class LexiconCompactPackSummary(TypedDict):
+    pack_id: str
+    category: LexiconCategory
+    index_format_version: int
+    schema_version: int
+    pack_tier: LexiconPackTier
+    rights_status: str
+    license: str
+    dataset_version: str
+    description: str
+    entry_count: int
+    sense_count: int
+    relation_count: int
+    distinct_headwords: int
+    byte_len: int
+    checksum_sha256: str
+    has_folded_index: bool
+    has_relations: bool
+    has_english_index: bool
+    source_ids: list[str]
+    attribution_notice: str
+    domains: list[str]
+    regions: list[str]
+    registers: list[str]
+
+class LexiconAnnotatedEntry(TypedDict):
+    pack_id: str
+    pack_tier: LexiconPackTier
+    entry: LexiconCompactEntry
+
+class LexiconCompactLookupResult(TypedDict):
+    status: LexiconLookupStatus
+    query: str
+    canonical_query: str
+    folded: bool
+    searched_packs: list[str]
+    total_entries: int
+    entries: list[LexiconAnnotatedEntry]
+
+class _LexiconPrefixSearchHitRequired(TypedDict):
+    headword: str
+    matched_key: str
+    packs: list[str]
+    pack_tiers: list[LexiconPackTier]
+    pos: list[str]
+    entry_count: int
+
+class LexiconPrefixSearchHit(_LexiconPrefixSearchHitRequired, total=False):
+    preview_gloss: str
+    domain: str
+    region: str
+
+class _LexiconPrefixSearchResultRequired(TypedDict):
+    prefix: str
+    canonical_prefix: str
+    folded: bool
+    searched_packs: list[str]
+    hits: list[LexiconPrefixSearchHit]
+
+class LexiconPrefixSearchResult(_LexiconPrefixSearchResultRequired, total=False):
+    next_cursor: str
+    has_more: bool
+
+class _LexiconFuzzySearchHitRequired(TypedDict):
+    headword: str
+    distance: int
+    packs: list[str]
+    pack_tiers: list[LexiconPackTier]
+    pos: list[str]
+
+class LexiconFuzzySearchHit(_LexiconFuzzySearchHitRequired, total=False):
+    preview_gloss: str
+
+class LexiconFuzzySearchResult(TypedDict):
+    query: str
+    canonical_query: str
+    max_distance: int
+    searched_packs: list[str]
+    hits: list[LexiconFuzzySearchHit]
+
+class LexiconLongestPrefixResult(TypedDict):
+    query: str
+    prefixes: list[str]
+
+class LexiconRelationsResult(TypedDict):
+    status: LexiconLookupStatus
+    query: str
+    canonical_query: str
+    searched_packs: list[str]
+    relations: list[LexiconCompactRelation]
+
+class LexiconStatsResult(TypedDict):
+    pack_count: int
+    total_entries: int
+    total_senses: int
+    total_relations: int
+    total_bytes: int
+    packs: list[LexiconCompactPackSummary]
+    category_counts: dict[str, int]
+    pos_counts: dict[str, int]
+    domain_counts: dict[str, int]
+    region_counts: dict[str, int]
+    register_counts: dict[str, int]
+    has_english_index: bool
+
+class LexiconDownloadResult(TypedDict):
+    dest: str
+    downloaded: list[str]
+    skipped: list[str]
+    manifest_url: str
+
+class LexiconLoadPackResult(TypedDict):
+    loaded: list[LexiconCompactPackSummary]
+
+class LexiconUnloadPackResult(TypedDict, total=False):
+    pack_id: str
+    removed: bool
+    cleared: bool
+
+class _LexiconWordMeaningRequired(TypedDict):
+    text: str
+    language: str
+    pack_id: str
+    category: LexiconCategory
+    pack_tier: LexiconPackTier
+    rights_status: str
+
+class LexiconWordMeaning(_LexiconWordMeaningRequired, total=False):
+    pos: str
+    domain: str
+    region: str
+    register: str
+
+class LexiconWordRelationsGroup(TypedDict):
+    synonyms: list[str]
+    antonyms: list[str]
+    related: list[str]
+    hypernyms: list[str]
+
+class _LexiconWordSourceRefRequired(TypedDict):
+    pack_id: str
+    category: LexiconCategory
+    pack_tier: LexiconPackTier
+    rights_status: str
+    source_id: str
+    source_locator: str
+
+class LexiconWordSourceRef(_LexiconWordSourceRefRequired, total=False):
+    permalink: str
+
+class _LexiconWordDefinitionRequired(TypedDict):
+    status: LexiconLookupStatus
+    query: str
+    canonical_query: str
+    headword: str
+    folded: bool
+    searched_packs: list[str]
+    categories: list[LexiconCategory]
+    pos: list[str]
+    meanings_en: list[LexiconWordMeaning]
+    meanings_ta: list[LexiconWordMeaning]
+    examples: list[str]
+    variants: list[str]
+    domains: list[str]
+    regions: list[str]
+    registers: list[str]
+    standard_equivalents: list[str]
+    pure_tamil_equivalents: list[str]
+    origin_languages: list[str]
+    scientific_names: list[str]
+    literary_sources: list[str]
+    relations: LexiconWordRelationsGroup
+    has_verified_open: bool
+    has_local_historical: bool
+    entry_count: int
+    sources: list[LexiconWordSourceRef]
+
+class LexiconWordDefinition(_LexiconWordDefinitionRequired, total=False):
+    matched_headwords: list[str]
+    ipa: list[str]
+    verb_classes: list[str]
+    transitivity: list[str]
+    root_words: list[str]
+    etymology_types: list[str]
+    dedr_ids: list[str]
+    sandhi_behaviors: list[str]
+    animacy_genders: list[str]
+    frequency_tiers: list[str]
+
+class LexiconInitResult(TypedDict):
+    directory: str
+    profile: LexiconProfile
+    pack_count: int
+    total_entries: int
+    total_senses: int
+    total_relations: int
+    total_bytes: int
+    loaded: list[LexiconCompactPackSummary]
+
+class LexiconSourceBucketResult(TypedDict):
+    query: str
+    normalized_query: str
+    bucket: str
+
+class LexiconSourceRecord(TypedDict):
+    source_file: str
+    source_row: int
+    lookup_key: str
+    fields: dict[str, str]
+
+class LexiconSourceBucketPayload(TypedDict):
+    schema_version: int
+    bucket: str
+    records: list[LexiconSourceRecord]
+
+class LexiconSourceLookupResult(TypedDict):
+    query: str
+    normalized_query: str
+    status: LexiconLookupStatus
+    data_status: str
+    rights_status: str
+    total: int
+    offset: int
+    limit: int
+    records: list[LexiconSourceRecord]
+
+DEFAULT_LEXICON_MANIFEST_URL: str
+
+def lexicon_download(
+    profile: LexiconProfile | str = ...,
+    *,
+    packs: list[str] | None = ...,
+    dest: str | os.PathLike[str] | None = ...,
+    manifest_url: str | None = ...,
+    force: bool = ...,
+) -> LexiconDownloadResult: ...
+def lexicon_init(
+    profile: LexiconProfile | str = ...,
+    *,
+    path: str | os.PathLike[str] | None = ...,
+    replace: bool = ...,
+    auto_download: bool = ...,
+    manifest_url: str | None = ...,
+) -> LexiconInitResult: ...
+def lexicon_load_pack_bytes(data: bytes | bytearray) -> LexiconCompactPackSummary: ...
+def lexicon_load_pack(path: str | os.PathLike[str]) -> LexiconLoadPackResult: ...
+def lexicon_unload_pack(pack_id: str | None = ...) -> LexiconUnloadPackResult: ...
+def lexicon_stats() -> LexiconStatsResult: ...
+def lexicon_define(
+    text: str,
+    *,
+    packs: list[str] | None = ...,
+    tier: LexiconTierFilter | str | None = ...,
+    category: LexiconCategory | str | None = ...,
+    pos: str | None = ...,
+    domain: str | None = ...,
+    region: str | None = ...,
+    register: str | None = ...,
+    folded: bool = ...,
+) -> LexiconWordDefinition: ...
+def lexicon_query(
+    text: str,
+    *,
+    packs: list[str] | None = ...,
+    tier: LexiconTierFilter | str | None = ...,
+    category: LexiconCategory | str | None = ...,
+    pos: str | None = ...,
+    domain: str | None = ...,
+    region: str | None = ...,
+    register: str | None = ...,
+    folded: bool = ...,
+) -> LexiconCompactLookupResult: ...
+def lexicon_search(
+    prefix: str,
+    *,
+    limit: int = ...,
+    after_key: str | None = ...,
+    packs: list[str] | None = ...,
+    tier: LexiconTierFilter | str | None = ...,
+    category: LexiconCategory | str | None = ...,
+    pos: str | None = ...,
+    domain: str | None = ...,
+    region: str | None = ...,
+    register: str | None = ...,
+    folded: bool = ...,
+) -> LexiconPrefixSearchResult: ...
+def lexicon_search_english(
+    query: str,
+    *,
+    packs: list[str] | None = ...,
+    tier: LexiconTierFilter | str | None = ...,
+    category: LexiconCategory | str | None = ...,
+    pos: str | None = ...,
+    domain: str | None = ...,
+    region: str | None = ...,
+    register: str | None = ...,
+    limit: int = ...,
+) -> LexiconPrefixSearchResult: ...
+def lexicon_fuzzy_search(
+    text: str,
+    *,
+    max_distance: int = ...,
+    limit: int = ...,
+    packs: list[str] | None = ...,
+    tier: LexiconTierFilter | str | None = ...,
+    category: LexiconCategory | str | None = ...,
+    pos: str | None = ...,
+    domain: str | None = ...,
+    region: str | None = ...,
+    register: str | None = ...,
+) -> LexiconFuzzySearchResult: ...
+def lexicon_longest_prefix(
+    text: str,
+    *,
+    packs: list[str] | None = ...,
+    tier: LexiconTierFilter | str | None = ...,
+    category: LexiconCategory | str | None = ...,
+) -> LexiconLongestPrefixResult: ...
+def lexicon_relations(
+    text: str,
+    *,
+    packs: list[str] | None = ...,
+    tier: LexiconTierFilter | str | None = ...,
+    category: LexiconCategory | str | None = ...,
+    folded: bool = ...,
+) -> LexiconRelationsResult: ...
+def lexicon_source_bucket(query: str) -> LexiconSourceBucketResult: ...
+def lexicon_source_lookup(
+    query: str,
+    bucket: LexiconSourceBucketPayload | dict[str, Any],
+    *,
+    offset: int = ...,
+    limit: int = ...,
+) -> LexiconSourceLookupResult: ...
 
 PunarchiProfile = Literal["nannool-v1"]
 PunarchiChapter = Literal["ezhuttiyal", "padaviyal", "uyireeru", "meyyeeru", "urupu"]

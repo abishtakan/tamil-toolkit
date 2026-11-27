@@ -17,6 +17,7 @@
       <button type="button" class="tab-btn active" role="tab" aria-selected="true" tabindex="0" data-tab="type" data-i18n="tabType">Type</button>
       <button type="button" class="tab-btn" role="tab" aria-selected="false" tabindex="-1" data-tab="prepare" data-i18n="tabPrepare">Prepare</button>
       <button type="button" class="tab-btn" role="tab" aria-selected="false" tabindex="-1" data-tab="insert" data-i18n="tabInsert">Insert</button>
+      <button type="button" class="tab-btn" role="tab" aria-selected="false" tabindex="-1" data-tab="dictionary" data-i18n="tabDictionary">Dictionary</button>
     </nav>
     <button type="button" id="btn-lang-toggle" class="lang-toggle" title="Switch UI Language (தமிழ் / English)">தமிழ்</button>
   </header>
@@ -396,6 +397,54 @@
             </select>
           </div>
           <div id="symbol-palette" class="symbol-grid"></div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 4. DICTIONARY: Tamil, Mayangoli & English-to-Tamil Lookup -->
+    <section id="panel-dictionary" class="tab-panel" role="tabpanel" hidden>
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="dictTitle">Dictionary &amp; Terminology Lookup</h2>
+          <span id="dict-stats-badge" class="section-hint">0 packs</span>
+        </div>
+        <div class="dict-search-row">
+          <input id="dict-search-input" type="text" placeholder="Search Tamil, Mayangoli, or English..." />
+          <button id="btn-dict-search" data-action class="btn btn-primary" type="button">Search</button>
+        </div>
+        <button id="btn-dict-lookup-sel" data-action class="btn" style="width: 100%; margin-top: 6px;" data-i18n="dictLookupSel" type="button">
+          Lookup Selected Word
+        </button>
+      </div>
+
+      <div id="dict-results" class="dict-results">
+        <div class="helper-text">Mount a .tlpack dictionary pack below or load local .tlpack files to search offline.</div>
+      </div>
+
+      <details id="dict-pack-drawer" class="tool-drawer">
+        <summary data-i18n="dictPackSettings">Pack Settings (.tlpack)</summary>
+        <div class="drawer-body">
+          <div class="field">
+            <label for="dict-profile">Profile</label>
+            <select id="dict-profile">
+              <option value="open-lite" selected>open-lite (~2.9 MB · core, names, regional)</option>
+              <option value="open">open (~15.3 MB · + ta_wiktionary)</option>
+              <option value="full">full (~45.6 MB · + local historical)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="dict-manifest-url">Manifest URL</label>
+            <input id="dict-manifest-url" type="text" />
+          </div>
+          <div class="btn-row" style="margin-bottom: 8px;">
+            <button id="btn-dict-mount" data-action class="btn btn-primary" type="button">Mount Packs</button>
+            <button id="btn-dict-clear" data-action class="btn" type="button">Unload All</button>
+          </div>
+          <div class="field">
+            <label for="dict-local-files">Load local .tlpack files (100% offline)</label>
+            <input id="dict-local-files" type="file" accept=".tlpack" multiple style="font-size: 11px; width: 100%;" />
+          </div>
+          <div id="dict-pack-list" class="dict-pack-list"></div>
         </div>
       </details>
     </section>

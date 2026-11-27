@@ -1,0 +1,2978 @@
+[metadata]
+profile = "nannool-v1"
+version = "0.1"
+primary_edition = "A. Thamodaran (1999) Critical Edition / Sankara Namasivayar Viruttiyurai (TVA bookid=6, auth_pub_id=17)"
+kandigai_edition = "Arumuka Navalar Kandigaiyurai (TVA bookid=6, auth_pub_id=15)"
+cross_check_edition = "Project Madurai Etext #147 (1926 Vavilla Edition, pmuni0147.html)"
+cross_check_sha256 = "b970b4ee13b4b4e96dfd641b1e37d1c87bdfdc0b83fce1fcb24c664841671955"
+
+# =============================================================================
+# 17 General Chariyais (Nannool Sutra 244)
+# =============================================================================
+
+[[chariyai]]
+id = "chariyai_an"
+form = "அன்"
+sutra = 244
+attach_classes = ["demonstrative_u", "kurriyalugaram", "numeral"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_aan"
+form = "ஆன்"
+sutra = 244
+attach_classes = ["decade_numeral"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_in"
+form = "இன்"
+sutra = 244
+attach_classes = ["common_noun", "kurriyalugaram", "long_vowel_stem"]
+case_filter = ["case_2", "case_3", "case_4", "case_6", "case_7"]
+stack_after = ["chariyai_attu", "chariyai_arru"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_al"
+form = "அல்"
+sutra = 244
+attach_classes = ["verbal_noun", "derived_noun"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_arru"
+form = "அற்று"
+sutra = 244
+attach_classes = ["demonstrative_v", "interrogative_v", "ellaam_ahrinai", "pala_sila"]
+post_um = true
+suppress_205 = true
+
+[[chariyai]]
+id = "chariyai_irru"
+form = "இற்று"
+sutra = 244
+attach_classes = ["decade_numeral", "patthu_onpathu"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_attu"
+form = "அத்து"
+sutra = 244
+attach_classes = ["m_final_ahrinai", "natural_a_stem"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_am"
+form = "அம்"
+sutra = 244
+attach_classes = ["tree_name", "puli_taste", "ai_final_compound"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_tam"
+form = "தம்"
+sutra = 244
+attach_classes = ["ellaarum"]
+post_um = true
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_nam"
+form = "நம்"
+sutra = 244
+attach_classes = ["ellaam_uyartinai"]
+post_um = true
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_num"
+form = "நும்"
+sutra = 244
+attach_classes = ["elleerum"]
+post_um = true
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_ee"
+form = "ஏ"
+sutra = 244
+attach_classes = ["measure_word", "emphasis_clitic"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_a"
+form = "அ"
+sutra = 244
+attach_classes = ["oblique_pronoun", "named_consonant_stem"]
+case_filter = ["case_4"]
+post_um = false
+suppress_205 = true
+
+[[chariyai]]
+id = "chariyai_u"
+form = "உ"
+sutra = 244
+attach_classes = ["oblique_case_4_stem", "consonant_final_stem"]
+case_filter = ["case_4"]
+stack_after = ["chariyai_attu", "chariyai_in", "chariyai_an"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_ai"
+form = "ஐ"
+sutra = 244
+attach_classes = ["poetic_noun"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_ku"
+form = "கு"
+sutra = 244
+attach_classes = ["verbal_future_stem"]
+post_um = false
+suppress_205 = false
+
+[[chariyai]]
+id = "chariyai_n"
+form = "ன்"
+sutra = 244
+attach_classes = ["aa_maa_ko"]
+post_um = false
+suppress_205 = false
+
+# =============================================================================
+# 6 Oblique Case Suffixes + Attested Allomorphs (Nannool Sutras 240-242)
+# =============================================================================
+
+[[case_suffix]]
+case_number = 2
+form = "ஐ"
+sutra = 242
+force_165 = false
+
+[[case_suffix]]
+case_number = 3
+form = "ஆல்"
+sutra = 242
+force_165 = false
+
+[[case_suffix]]
+case_number = 3
+form = "ஒடு"
+sutra = 242
+force_165 = false
+
+[[case_suffix]]
+case_number = 4
+form = "கு"
+sutra = 242
+force_165 = true
+
+[[case_suffix]]
+case_number = 5
+form = "இன்"
+sutra = 242
+force_165 = false
+
+[[case_suffix]]
+case_number = 5
+form = "இல்"
+sutra = 242
+force_165 = false
+
+[[case_suffix]]
+case_number = 6
+form = "அது"
+sutra = 242
+force_165 = false
+
+[[case_suffix]]
+case_number = 6
+form = "ஆது"
+sutra = 242
+force_165 = false
+
+[[case_suffix]]
+case_number = 6
+form = "அ"
+sutra = 242
+force_165 = false
+
+[[case_suffix]]
+case_number = 7
+form = "கண்"
+sutra = 242
+force_165 = false
+
+[[case_suffix]]
+case_number = 7
+form = "இல்"
+sutra = 242
+force_165 = false
+
+# =============================================================================
+# Foundational Phonology Closed Classes (Sutras 93, 106, 108)
+# =============================================================================
+
+[[closed_class]]
+class_id = "kurriyaligaram_particle"
+sutra = 93
+stems = ["மியா"]
+notes = "Sutra 93: expletive particle miya containing lexical kurriyaligaram i"
+
+[[closed_class]]
+class_id = "bound_nganam_triggers"
+sutra = 106
+stems = ["அ", "இ", "உ", "யா", "எ"]
+notes = "Sutra 106: demonstrative and interrogative triggers before bound nganam"
+
+[[closed_class]]
+class_id = "bound_nganam_target"
+sutra = 106
+stems = ["ஙனம்"]
+notes = "Sutra 106: bound constituent starting with nga after demonstrative/interrogative triggers"
+
+[[closed_class]]
+class_id = "mozhi_eetru_o_allowed"
+sutra = 108
+stems = ["நொ"]
+notes = "Sutra 108: only uyirmei with short o allowed as native word-final"
+
+[[closed_class]]
+class_id = "mozhi_eetru_au_allowed"
+sutra = 108
+stems = ["கௌ", "வௌ"]
+notes = "Sutra 108: only uyirmei with au allowed as native word-final"
+
+# =============================================================================
+# Foundational Prerequisite & Passthrough Rules (Sutras 93-94, 102-108, 153)
+# =============================================================================
+
+[[rule]]
+id = "nannool_093_kurriyaligaram"
+sutra = 93
+chapter = "ezhuttiyal"
+stage = 3
+substage = "3c"
+priority = 10
+transform = "thirithal"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "kurriyalugaram"
+right_match = "y_initial"
+action = "mutate_final_u_to_kurriyaligaram_i"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_094_kurriyalugaram_classify"
+sutra = 94
+chapter = "ezhuttiyal"
+stage = 1
+substage = "1c"
+priority = 10
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "vallinam_u_final"
+right_match = "any"
+action = "classify_6_kurriyalugaram_vs_mutriyalugaram"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_102_mozhi_muthal_general"
+sutra = 102
+chapter = "ezhuttiyal"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "any"
+right_match = "vowel_or_10_consonants"
+action = "validate_mozhi_muthal_general"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_103_mozhi_muthal_va"
+sutra = 103
+chapter = "ezhuttiyal"
+stage = 1
+substage = "1b"
+priority = 11
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "any"
+right_match = "va_series"
+action = "allow_va_only_with_8_vowels"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_104_mozhi_muthal_ya"
+sutra = 104
+chapter = "ezhuttiyal"
+stage = 1
+substage = "1b"
+priority = 12
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "any"
+right_match = "ya_series"
+action = "allow_ya_only_with_6_vowels"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_105_mozhi_muthal_nya"
+sutra = 105
+chapter = "ezhuttiyal"
+stage = 1
+substage = "1b"
+priority = 13
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "any"
+right_match = "nya_series"
+action = "allow_nya_only_with_4_vowels"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_106_mozhi_muthal_nga_bound"
+sutra = 106
+chapter = "ezhuttiyal"
+stage = 3
+substage = "3a"
+priority = 10
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "bound_nganam_triggers"
+right_match = "bound_nganam_target"
+action = "allow_bound_nganam_with_ng_gemination"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_107_mozhi_eetru_general"
+sutra = 107
+chapter = "ezhuttiyal"
+stage = 1
+substage = "1b"
+priority = 14
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "24_legal_finals"
+right_match = "any"
+action = "validate_mozhi_eetru_24_finals"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_108_mozhi_eetru_special"
+sutra = 108
+chapter = "ezhuttiyal"
+stage = 1
+substage = "1b"
+priority = 15
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "e_o_au_uyirmei_or_alapedai"
+right_match = "any"
+action = "restrict_c_e_c_o_c_au_finals"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_153_iyalbu_passthrough"
+sutra = 153
+chapter = "uyireeru"
+stage = 4
+substage = "4"
+priority = 999
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "any"
+right_match = "any"
+action = "iyalbu_passthrough"
+evidence_layer = "root_sutra"
+
+# =============================================================================
+# Core Phonological Closed Classes (US1: Sutras 164, 183)
+# =============================================================================
+
+[[closed_class]]
+class_id = "mutriyalugaram_elision_stems"
+sutra = 164
+stems = ["கதவு", "அது", "இது", "உது", "செலவு"]
+notes = "Sutra 164: attested mutriyalugaram stems allowing optional final u elision before vowels"
+
+[[closed_class]]
+class_id = "sutra_183_alvazhi_doublers"
+sutra = 183
+stems = ["காடு", "களிறு", "ஏறு", "வரடு", "குருடு", "வெளிறு"]
+notes = "Sutra 183: attested alvazhi stems undergoing du/ru gemination"
+
+[[closed_class]]
+class_id = "sutra_183_vetrumai_non_doublers"
+sutra = 183
+stems = ["நாடு", "காடு", "மிடறு"]
+notes = "Sutra 183: stems with attested vetrumai non-doubling pair exceptions (நாடுகிழவோன், காடகம், மிடறணியல்)"
+
+# =============================================================================
+# Core Phonological Uyireeru Rules (Sutras 158, 162, 164, 165, 181, 182, 183)
+# =============================================================================
+
+[[rule]]
+id = "nannool_158_nasal_approximant_iyalbu"
+sutra = 158
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 50
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "vowel_final"
+right_match = "nasal_or_approximant_initial"
+action = "iyalbu_join"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_158_kuril_y_ai_no_tu_nasal_double"
+sutra = 158
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "short_monosyllable_or_y_ai_no_tu"
+right_match = "nasal_ng_ny_n_m_initial"
+action = "double_initial_nasal"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_162_udambadumei_y"
+sutra = 162
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 40
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "i_ii_ai_ee_final"
+right_match = "vowel_initial"
+action = "insert_udambadumei_y"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_162_udambadumei_v"
+sutra = 162
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 40
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "non_i_ii_ai_vowel_final"
+right_match = "vowel_initial"
+action = "insert_udambadumei_v"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_164_kurriyalugaram_elision"
+sutra = 164
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 15
+transform = "keduthal"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "kurriyalugaram"
+right_match = "vowel_initial"
+action = "elide_final_u"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_164_mutriyalugaram_elision"
+sutra = 164
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 60
+transform = "keduthal"
+relation = "unspecified"
+poetic = false
+optional = true
+reversible = true
+left_match = "mutriyalugaram_elision_stems"
+right_match = "vowel_initial"
+action = "elide_final_mutriyalugaram_u"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_164_mutriyalugaram_y_igaram"
+sutra = 164
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 60
+transform = "thirithal"
+relation = "unspecified"
+poetic = false
+optional = true
+reversible = true
+left_match = "mutriyalugaram"
+right_match = "y_initial"
+action = "mutate_mutriyalugaram_u_to_i_before_y"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_165_valimigal"
+sutra = 165
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 50
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "vowel_final_unblocked"
+right_match = "vallinam_k_c_t_p_initial"
+action = "double_initial_vallinam"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_165_no_tu_valimigal"
+sutra = 165
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "thonral"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "no_tu_imperative"
+right_match = "vallinam_k_c_t_p_initial"
+action = "force_double_initial_vallinam"
+flags = ["force_165"]
+evidence_layer = "commentary_gloss"
+
+[[rule]]
+id = "nannool_181_kurriyalugaram_alvazhi_iyalbu"
+sutra = 181
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "kurriyalugaram"
+right_match = "vallinam_k_c_t_p_initial"
+action = "block_valimigal_kurriyalugaram_alvazhi"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_182_kurriyalugaram_vetrumai_iyalbu"
+sutra = 182
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "kurriyalugaram_non_du_ru_doubled"
+right_match = "vallinam_k_c_t_p_initial"
+action = "block_valimigal_kurriyalugaram_vetrumai"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_183_du_ru_gemination"
+sutra = 183
+chapter = "uyireeru"
+stage = 1
+substage = "1c"
+priority = 10
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "nedil_or_uyir_thodar_du_ru"
+right_match = "any"
+action = "geminate_du_ru_and_force_165"
+flags = ["is_derived_final", "force_165"]
+evidence_layer = "root_sutra"
+
+# =============================================================================
+# Core Phonological Meyyeeru Rules (Sutras 204, 205, 209, 210, 219, 220, 224, 227, 228, 229, 237)
+# =============================================================================
+
+[[rule]]
+id = "nannool_204_udalmel_uyir"
+sutra = 204
+chapter = "meyyeeru"
+stage = 4
+substage = "4"
+priority = 10
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "consonant_final"
+right_match = "vowel_initial"
+action = "compose_uyirmei_udalmel_uyir"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_205_thanikkuril_otru"
+sutra = 205
+chapter = "meyyeeru"
+stage = 3
+substage = "3d"
+priority = 10
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "thanikkuril_single_otru"
+right_match = "vowel_initial"
+action = "double_final_otru_unless_suppress_205"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_209_nna_na_vetrumai_stop"
+sutra = 209
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 40
+transform = "thirithal"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "nna_or_na_final"
+right_match = "vallinam_k_c_t_p_initial"
+action = "mutate_nna_to_tta_na_to_rra"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_209_nna_na_iyalbu"
+sutra = 209
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 50
+transform = "iyalbu"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "nna_or_na_final"
+right_match = "vallinam_or_non_mutating_initial"
+action = "iyalbu_join"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_210_nna_na_elision_before_mutated_na"
+sutra = 210
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "keduthal"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "non_thanikkuril_nna_or_na_final"
+right_match = "mutated_na_from_237"
+action = "elide_final_nna_or_na"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_219_magara_elision"
+sutra = 219
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 35
+transform = "keduthal"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "ma_final"
+right_match = "vallinam_or_non_assimilation_initial"
+action = "elide_final_ma"
+flags = ["is_derived_final"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_219_magara_nasal_assimilation"
+sutra = 219
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 40
+transform = "thirithal"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "ma_final"
+right_match = "vallinam_k_c_t_p_initial"
+action = "assimilate_ma_to_homorganic_nasal"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_220_magara_vetrumai_nasal"
+sutra = 220
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 45
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "ma_final"
+right_match = "vallinam_k_c_t_p_initial"
+action = "elide_ma_and_insert_homorganic_nasal"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_220_magara_alvazhi_iyalbu"
+sutra = 220
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 30
+transform = "iyalbu"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "ma_final"
+right_match = "nasal_or_approximant_initial"
+action = "iyalbu_join"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_224_ya_ra_zha_iyalbu"
+sutra = 224
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 40
+transform = "iyalbu"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "ya_ra_zha_final"
+right_match = "consonant_initial"
+action = "iyalbu_join"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_224_ya_ra_zha_valimigal"
+sutra = 224
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 35
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "ya_ra_zha_final"
+right_match = "vallinam_k_c_t_p_initial"
+action = "double_initial_vallinam"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_224_ya_ra_zha_nasal"
+sutra = 224
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 45
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "ya_ra_zha_final"
+right_match = "nasal_initial"
+action = "double_initial_nasal"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_224_ya_elision_before_ya"
+sutra = 224
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "keduthal"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "non_thanikkuril_ya_final"
+right_match = "ya_initial"
+action = "elide_final_ya_before_ya"
+evidence_layer = "commentary_gloss"
+
+[[rule]]
+id = "nannool_227_la_lla_stop_mutation"
+sutra = 227
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 35
+transform = "thirithal"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "la_or_lla_final"
+right_match = "vallinam_k_c_p_or_mutated_t_initial"
+action = "mutate_la_to_rra_lla_to_tta"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_227_la_lla_nasal_mutation"
+sutra = 227
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 35
+transform = "thirithal"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "la_or_lla_final"
+right_match = "nasal_ny_m_or_mutated_n_initial"
+action = "mutate_la_to_na_lla_to_nna"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_227_la_lla_iyalbu"
+sutra = 227
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 45
+transform = "iyalbu"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "la_or_lla_final"
+right_match = "vallinam_k_c_p_or_approximant_initial"
+action = "iyalbu_join"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_228_la_lla_aytham"
+sutra = 228
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 30
+transform = "thirithal"
+relation = "alvazhi"
+poetic = false
+optional = true
+reversible = true
+left_match = "thanikkuril_la_or_lla_final"
+right_match = "mutated_t_from_237"
+action = "mutate_la_or_lla_to_aytham"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_229_la_lla_elision"
+sutra = 229
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "keduthal"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "non_thanikkuril_la_or_lla_final"
+right_match = "mutated_t_or_n_from_237"
+action = "elide_final_la_or_lla"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_237_ta_na_mutation"
+sutra = 237
+chapter = "meyyeeru"
+stage = 3
+substage = "3b"
+priority = 10
+transform = "thirithal"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "na_nna_la_lla_final"
+right_match = "ta_or_na_initial"
+action = "mutate_right_ta_na_and_set_triggered_237"
+evidence_layer = "root_sutra"
+
+# =============================================================================
+# US2 Closed-Class Stem Sets & Oblique Maps
+# =============================================================================
+
+[[closed_class]]
+class_id = "panpuppeyar_mai_stems"
+sutra = 136
+stems = ["செம்மை", "பசுமை", "சிறுமை", "கருமை", "பெருமை", "நன்மை", "வன்மை", "வெறுமை", "நெடுமை", "வெண்மை", "முதுமை", "புதுமை", "பழமை", "குறுமை", "தீமை", "வெம்மை", "மென்மை", "மேன்மை", "திண்மை", "உண்மை", "நுண்மை", "பொன்மை", "அணிமை", "தண்மை", "கீழ்மை", "நொய்மை", "இன்மை", "பருமை", "இளமை", "அருமை", "கடுமை", "கொடுமை", "சேய்மை"]
+notes = "Sutra 136: Panpuppeyar (-மை) stems undergoing 8-way stem sandhi"
+
+[[closed_class]]
+class_id = "deictic_interrogative_clitics"
+sutra = 163
+stems = ["அ", "இ", "உ", "எ"]
+notes = "Sutra 163: demonstrative (அ, இ, உ) and interrogative (எ) clitics"
+
+[[closed_class]]
+class_id = "direction_stems"
+sutra = 186
+stems = ["வடக்கு", "தெற்கு", "மேற்கு", "கிழக்கு", "குடக்கு", "குணக்கு"]
+oblique_map = { "வடக்கு" = ["வட"], "குடக்கு" = ["குட"], "குணக்கு" = ["குண"], "தெற்கு" = ["தென்"], "மேற்கு" = ["மேல்", "மேற்", "மேலை"], "கிழக்கு" = ["கீழ்", "கீழை"] }
+notes = "Sutra 186: direction stems and their attested compound oblique allomorphs"
+
+[[closed_class]]
+class_id = "cardinal_numerals_1_to_10"
+sutra = 188
+stems = ["ஒன்று", "இரண்டு", "மூன்று", "நான்கு", "ஐந்து", "ஆறு", "ஏழு", "எட்டு", "ஒன்பது", "பத்து"]
+notes = "Sutra 188: base cardinal numerals 1..10"
+
+[[closed_class]]
+class_id = "decade_numerals"
+sutra = 195
+stems = ["ஒருபது", "ஒருபஃது", "இருபது", "இருபஃது", "முப்பது", "முப்பஃது", "நாற்பது", "நாற்பஃது", "ஐம்பது", "ஐம்பஃது", "அறுபது", "அறுபஃது", "எழுபது", "எழுபஃது", "எண்பது", "எண்பஃது"]
+notes = "Sutra 195: decade numerals 10..80 in both பது and பஃது forms"
+
+[[closed_class]]
+class_id = "pronoun_oblique_stems"
+sutra = 247
+stems = ["தான்", "தாம்", "நாம்", "யான்", "யாம்", "நீ", "நீர்", "நான்"]
+oblique_map = { "தான்" = ["தன்"], "தாம்" = ["தம்"], "நாம்" = ["நம்"], "யான்" = ["என்"], "யாம்" = ["எம்"], "நீ" = ["நின்", "உன்"], "நீர்" = ["நும்", "உம்"], "நான்" = ["என்"] }
+notes = "Sutra 247: personal pronoun oblique stems (including extended usage நான் -> என்)"
+
+[[closed_class]]
+class_id = "quantifier_ellam_stems"
+sutra = 245
+stems = ["எல்லாம்", "எல்லாரும்", "எல்லீரும்"]
+notes = "Sutras 245-246: universal quantifier stems with post-positioned உம்"
+
+[[closed_class]]
+class_id = "aa_maa_ko_stems"
+sutra = 248
+stems = ["ஆ", "மா", "கோ", "ஆமா"]
+notes = "Sutra 248: long-vowel stems taking ன் chariyai"
+
+[[closed_class]]
+class_id = "demonstrative_v_stems"
+sutra = 250
+stems = ["அவ்", "இவ்", "உவ்", "எவ்"]
+notes = "Sutras 250 and 257: வ்-final demonstrative and interrogative stems taking அற்று"
+
+[[closed_class]]
+class_id = "demonstrative_u_stems"
+sutra = 251
+stems = ["அஃது", "இஃது", "உஃது", "அது", "இது", "உது"]
+notes = "Sutra 251: demonstrative pronouns taking அன் chariyai before case suffixes"
+
+[[closed_class]]
+class_id = "menthodar_vanthodar_vetrumai"
+sutra = 184
+stems = ["மருந்து", "சுரும்பு", "கரும்பு", "கன்று"]
+oblique_map = { "மருந்து" = ["மருத்து"], "சுரும்பு" = ["சுருப்பு"], "கரும்பு" = ["கருப்பு"], "கன்று" = ["கற்று"] }
+notes = "Sutra 184: lexicon-gated Menthodar stems hardening to Vanthodar in Vetrumai"
+
+[[closed_class]]
+class_id = "menthodar_vanthodar_alvazhi"
+sutra = 184
+stems = ["என்பு", "அன்பு", "குரங்கு"]
+oblique_map = { "என்பு" = ["எற்பு"], "அன்பு" = ["அற்பு"], "குரங்கு" = ["குரக்கு"] }
+notes = "Sutra 184: attested Menthodar stems hardening in Alvazhi compounds"
+
+[[closed_class]]
+class_id = "kurriyalugaram_ai_stems"
+sutra = 185
+stems = ["பண்டு", "இன்று", "அன்று", "நேற்று"]
+oblique_map = { "பண்டு" = ["பண்டை"], "இன்று" = ["இற்றை"], "அன்று" = ["அற்றை"], "நேற்று" = ["நேற்றை"] }
+notes = "Sutra 185: temporal Kurriyalugaram stems taking -ஐ increment"
+
+[[closed_class]]
+class_id = "ai_retain_am_stems"
+sutra = 202
+stems = ["புன்னை", "கொல்லை", "கொன்றை", "முல்லை"]
+notes = "Sutra 202: ஐ-final stems retaining ஐ before அம் chariyai in Vetrumai"
+
+[[closed_class]]
+class_id = "ai_drop_am_stems"
+sutra = 202
+stems = ["வழுதுணை", "ஆவிரை", "தாழை"]
+notes = "Sutra 202: ஐ-final stems dropping ஐ before அம் chariyai in Vetrumai"
+
+[[closed_class]]
+class_id = "uri_eligible_commodities"
+sutra = 174
+stems = ["உப்பு", "பயிறு", "பயறு", "மிளகு", "வரகு", "நெய்"]
+notes = "Sutra 174: attested commodity stems after measure word உரி (உரிய)"
+
+[[closed_class]]
+class_id = "min_pin_pan_kan_stems"
+sutra = 217
+stems = ["மின்", "பின்", "பன்", "கன்"]
+notes = "Sutra 217: ன்-final closed class taking உ chariyai (and கன் optional அ)"
+
+[[closed_class]]
+class_id = "num_tham_em_nam_stems"
+sutra = 221
+stems = ["நும்", "தம்", "எம்", "நம்"]
+notes = "Sutra 221: pronoun ம்-final stems assimilating before ஞ/ந"
+
+[[closed_class]]
+class_id = "eem_kam_urum_stems"
+sutra = 223
+stems = ["ஈம்", "கம்", "உரும்"]
+notes = "Sutra 223: ம்-final closed class taking உ chariyai (and கம் optional அ)"
+
+[[closed_class]]
+class_id = "nel_sel_kol_sol_stems"
+sutra = 232
+stems = ["நெல்", "செல்", "கொல்", "சொல்"]
+notes = "Sutra 232: ல்-final stems mutating ல் -> ற் before vallinam even in Alvazhi"
+
+[[closed_class]]
+class_id = "pul_val_stems"
+sutra = 234
+stems = ["புள்", "வள்"]
+notes = "Sutra 234: ள்-final stems optionally taking உ chariyai before non-ய consonants"
+
+[[closed_class]]
+class_id = "kuyin_oon_stems"
+sutra = 216
+stems = ["குயின்", "ஊன்"]
+notes = "Sutra 216: ன்-final stems staying natural before vallinam even in Vetrumai"
+
+# =============================================================================
+# US2 Closed-Class & Chariyai/Urupu Rules (Padaviyal, Uyireeru, Meyyeeru, Urupu)
+# =============================================================================
+
+[[rule]]
+id = "nannool_136_panpuppeyar_eeru_pothal"
+sutra = 136
+chapter = "padaviyal"
+stage = 1
+substage = "1a"
+priority = 10
+transform = "keduthal"
+relation = "unspecified"
+lexical_class = "panpuppeyar_mai_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "panpuppeyar_mai_stems"
+right_match = "any"
+action = "drop_final_mai_suffix"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_136_panpuppeyar_idai_ugaram_i"
+sutra = 136
+chapter = "padaviyal"
+stage = 1
+substage = "1a"
+priority = 11
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "panpuppeyar_mai_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "panpuppeyar_mai_stems"
+right_match = "any"
+action = "mutate_medial_ugaram_to_igaram"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_136_panpuppeyar_aathi_needal"
+sutra = 136
+chapter = "padaviyal"
+stage = 1
+substage = "1a"
+priority = 12
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "panpuppeyar_mai_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "panpuppeyar_mai_stems"
+right_match = "any"
+action = "lengthen_initial_short_vowel"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_136_panpuppeyar_adi_agaram_ai"
+sutra = 136
+chapter = "padaviyal"
+stage = 1
+substage = "1a"
+priority = 13
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "panpuppeyar_mai_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "panpuppeyar_mai_stems"
+right_match = "any"
+action = "mutate_initial_agaram_to_ai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_136_panpuppeyar_thannotru_irattal"
+sutra = 136
+chapter = "padaviyal"
+stage = 1
+substage = "1a"
+priority = 14
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "panpuppeyar_mai_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "panpuppeyar_mai_stems"
+right_match = "any"
+action = "double_stem_consonant"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_136_panpuppeyar_mey_thirithal"
+sutra = 136
+chapter = "padaviyal"
+stage = 1
+substage = "1a"
+priority = 15
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "panpuppeyar_mai_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "panpuppeyar_mai_stems"
+right_match = "consonant_initial"
+action = "mutate_stem_final_consonant"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_136_panpuppeyar_inamigal"
+sutra = 136
+chapter = "padaviyal"
+stage = 1
+substage = "1a"
+priority = 16
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "panpuppeyar_mai_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "panpuppeyar_mai_stems"
+right_match = "vallinam_k_c_t_p_initial"
+action = "insert_homorganic_nasal"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_163_deictic_v"
+sutra = 163
+chapter = "uyireeru"
+stage = 3
+substage = "3a"
+priority = 10
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "deictic_interrogative_clitics"
+poetic = false
+optional = false
+reversible = true
+left_match = "deictic_interrogative_clitics"
+right_match = "vowel_initial"
+action = "insert_geminated_v_glide"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_163_deictic_geminate"
+sutra = 163
+chapter = "uyireeru"
+stage = 3
+substage = "3a"
+priority = 11
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "deictic_interrogative_clitics"
+poetic = false
+optional = false
+reversible = true
+left_match = "deictic_interrogative_clitics"
+right_match = "consonant_initial"
+action = "double_following_initial_consonant"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_163_non_udambadumei_v"
+sutra = 163
+chapter = "uyireeru"
+stage = 3
+substage = "3a"
+priority = 12
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "deictic_interrogative_clitics"
+poetic = false
+optional = false
+reversible = true
+left_match = "deictic_interrogative_clitics"
+right_match = "y_or_vowel_initial"
+action = "insert_v_instead_of_udambadumei_y"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_168_vaazhiya"
+sutra = 168
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "keduthal"
+relation = "alvazhi"
+poetic = false
+optional = true
+reversible = true
+left_match = "vaazhiya_viyankol"
+right_match = "vallinam_k_c_t_p_initial"
+action = "drop_final_ya_and_block_165"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_169_saava"
+sutra = 169
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "keduthal"
+relation = "alvazhi"
+poetic = false
+optional = true
+reversible = true
+left_match = "saava_echam"
+right_match = "vallinam_k_c_t_p_initial"
+action = "drop_final_va_and_block_165"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_170_pala_sila"
+sutra = 170
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "keduthal"
+relation = "alvazhi"
+poetic = false
+optional = true
+reversible = true
+left_match = "pala_or_sila"
+right_match = "any"
+action = "apply_pala_sila_self_and_general_sandhi"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_174_naazhi_uri"
+sutra = 174
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "thirithal"
+relation = "alvazhi"
+lexical_class = "uri_eligible_commodities"
+poetic = false
+optional = false
+reversible = true
+left_match = "naazhi_or_uri"
+right_match = "uri_or_commodity"
+action = "form_naaduri_or_uriya_commodity"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_175_suvai_puli"
+sutra = 175
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = true
+reversible = true
+left_match = "puli_taste_stem"
+right_match = "vallinam_k_c_t_p_initial"
+action = "insert_homorganic_nasal_or_double_vallinam"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_177_aa_pee"
+sutra = 177
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "thirithal"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "aa_pee_stem"
+right_match = "any"
+action = "shorten_aa_pee_to_aappi"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_178_pee_nee_mee"
+sutra = 178
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "iyalbu"
+relation = "alvazhi"
+poetic = false
+optional = true
+reversible = true
+left_match = "pee_nee_mee_stems"
+right_match = "vallinam_k_c_t_p_initial"
+action = "keep_iyalbu_or_lexicalized_mee_sandhi"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_184_menthodar_to_vanthodar"
+sutra = 184
+chapter = "uyireeru"
+stage = 1
+substage = "1c"
+priority = 10
+transform = "thirithal"
+relation = "vetrumai"
+lexical_class = "menthodar_vanthodar_vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "menthodar_vanthodar_vetrumai"
+right_match = "any"
+action = "harden_penultimate_nasal_to_stop"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_185_kurriyalugaram_ai"
+sutra = 185
+chapter = "uyireeru"
+stage = 1
+substage = "1c"
+priority = 10
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "kurriyalugaram_ai_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "kurriyalugaram_ai_stems"
+right_match = "any"
+action = "apply_ai_oblique_stem"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_186_direction_stem"
+sutra = 186
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "direction_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "direction_stems"
+right_match = "any"
+action = "apply_direction_oblique_stem"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_187_thengu_kaai"
+sutra = 187
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "thirithal"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "thengu_stem"
+right_match = "kaai_stem"
+action = "form_thengaai_from_thengu_kaai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_188_numeral_base"
+sutra = 188
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "keduthal"
+relation = "unspecified"
+lexical_class = "cardinal_numerals_1_to_10"
+poetic = false
+optional = false
+reversible = true
+left_match = "cardinal_numerals_1_to_8"
+right_match = "numeral_measure_weight_or_noun"
+action = "drop_final_uyirmei_of_numeral_1_to_8"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_189_one_two"
+sutra = 189
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 11
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "cardinal_numerals_1_to_10"
+poetic = false
+optional = false
+reversible = true
+left_match = "onru_or_irandu"
+right_match = "any"
+action = "select_oru_oor_or_iru_eer"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_190_three"
+sutra = 190
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 11
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "cardinal_numerals_1_to_10"
+poetic = false
+optional = false
+reversible = true
+left_match = "moonru"
+right_match = "any"
+action = "select_moo_or_mu_plus_doubled_consonant"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_191_four"
+sutra = 191
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 11
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "cardinal_numerals_1_to_10"
+poetic = false
+optional = false
+reversible = true
+left_match = "naanku"
+right_match = "any"
+action = "select_naal_naarr_or_naan"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_192_five"
+sutra = 192
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 11
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "cardinal_numerals_1_to_10"
+poetic = false
+optional = false
+reversible = true
+left_match = "ainthu"
+right_match = "any"
+action = "select_ai_homorganic_nasal_or_doubled_m_ny"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_193_eight"
+sutra = 193
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 11
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "cardinal_numerals_1_to_10"
+poetic = false
+optional = false
+reversible = true
+left_match = "ettu"
+right_match = "numeral_measure_weight_or_noun"
+action = "mutate_ettu_to_enn"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_194_onpathu_ten_hundred"
+sutra = 194
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "cardinal_numerals_1_to_10"
+poetic = false
+optional = false
+reversible = true
+left_match = "onpathu"
+right_match = "paththu_or_nooru"
+action = "form_thonnooru_or_thollaayiram"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_195_decade_paththu"
+sutra = 195
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "keduthal"
+relation = "unspecified"
+lexical_class = "decade_numerals"
+poetic = false
+optional = false
+reversible = true
+left_match = "numeral_1_to_8"
+right_match = "paththu"
+action = "drop_t_in_paththu_forming_decade"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_196_decade_plus_unit"
+sutra = 196
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 12
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "decade_numerals"
+poetic = false
+optional = false
+reversible = true
+left_match = "decade_numerals"
+right_match = "numeral_1_to_9"
+action = "insert_in_chariyai_between_decade_and_unit"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_197_paththu_onpathu_in_irru"
+sutra = 197
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 12
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "cardinal_numerals_1_to_10"
+poetic = false
+optional = false
+reversible = true
+left_match = "paththu_or_onpathu"
+right_match = "numeral_or_measure"
+action = "insert_in_or_irru_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_198_paththu_irandu"
+sutra = 198
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "thirithal"
+relation = "alvazhi"
+lexical_class = "cardinal_numerals_1_to_10"
+poetic = false
+optional = false
+reversible = true
+left_match = "paththu"
+right_match = "irandu"
+action = "form_pannirandu"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_199_distributive_numeral"
+sutra = 199
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 12
+transform = "thonral"
+relation = "alvazhi"
+lexical_class = "cardinal_numerals_1_to_10"
+poetic = false
+optional = false
+reversible = true
+left_match = "numeral_1_to_8_or_10"
+right_match = "identical_numeral"
+action = "form_distributive_reduplication"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_200_poo_nasal"
+sutra = 200
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = true
+reversible = true
+left_match = "poo_stem"
+right_match = "vallinam_k_c_t_p_initial"
+action = "insert_homorganic_nasal_or_double_vallinam"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_202_ai_am_chariyai"
+sutra = 202
+chapter = "uyireeru"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "vetrumai"
+lexical_class = "ai_retain_am_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "ai_retain_or_drop_am_stems"
+right_match = "any"
+action = "insert_am_chariyai_with_or_without_ai_elision"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_203_panai_vetrumai"
+sutra = 203
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "panai_stem"
+right_match = "kodi_kaai_or_thiral"
+action = "form_panaikkodi_panangaai_or_panaattu"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_213_meen_vetrumai"
+sutra = 213
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "thirithal"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "meen_stem"
+right_match = "vallinam_k_c_t_p_initial"
+action = "keep_na_or_mutate_to_rra"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_214_then_special"
+sutra = 214
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "keduthal"
+relation = "unspecified"
+poetic = false
+optional = true
+reversible = true
+left_match = "then_stem"
+right_match = "consonant_initial"
+action = "apply_then_sandhi_iyalbu_elision_or_nasal_stop"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_215_ekin_swan"
+sutra = 215
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "ekin_swan_stem"
+right_match = "any"
+action = "keep_iyalbu_or_insert_a_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_216_kuyin_oon_iyalbu"
+sutra = 216
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "iyalbu"
+relation = "vetrumai"
+lexical_class = "kuyin_oon_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "kuyin_oon_stems"
+right_match = "vallinam_k_c_t_p_initial"
+action = "iyalbu_join"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_217_min_pin_pan_kan"
+sutra = 217
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "min_pin_pan_kan_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "min_pin_pan_kan_stems"
+right_match = "non_y_consonant_or_vallinam"
+action = "insert_u_or_a_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_218_than_en_nin"
+sutra = 218
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "thirithal"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "than_en_nin_or_residual_na"
+right_match = "vallinam_k_c_t_p_initial"
+action = "alternate_na_rra_or_keep_nin_iyalbu"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_221_num_tham_em_nam"
+sutra = 221
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "num_tham_em_nam_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "num_tham_em_nam_stems"
+right_match = "nya_or_na_initial"
+action = "assimilate_ma_to_ny_or_n_or_insert_a_u"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_222_agam_sevi_kai"
+sutra = 222
+chapter = "meyyeeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "keduthal"
+relation = "unspecified"
+poetic = false
+optional = true
+reversible = true
+left_match = "agam_stem"
+right_match = "sevi_kai_or_sirai"
+action = "drop_ka_and_assimilate_ma"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_223_eem_kam_urum"
+sutra = 223
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "eem_kam_urum_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "eem_kam_urum_stems"
+right_match = "non_y_consonant_or_vallinam"
+action = "insert_u_or_a_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_225_tamil_thaazh"
+sutra = 225
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "tamil_or_thaazh"
+right_match = "any_or_kol"
+action = "insert_a_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_226_keezh_vikalpam"
+sutra = 226
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = true
+reversible = true
+left_match = "keezh_stem"
+right_match = "vallinam_k_c_t_p_initial"
+action = "optionally_double_following_vallinam"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_231_val_dice"
+sutra = 231
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = true
+reversible = true
+left_match = "val_dice_stem"
+right_match = "non_y_consonant_or_vallinam"
+action = "insert_u_or_a_chariyai_or_general_la"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_232_nel_sel_kol_sol"
+sutra = 232
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "thirithal"
+relation = "alvazhi"
+lexical_class = "nel_sel_kol_sol_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "nel_sel_kol_sol_stems"
+right_match = "vallinam_k_c_t_p_initial"
+action = "mutate_la_to_rra"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_233_il_negation"
+sutra = 233
+chapter = "meyyeeru"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "keduthal"
+relation = "alvazhi"
+poetic = false
+optional = true
+reversible = true
+left_match = "il_negation_stem"
+right_match = "panputhogai_varumozhi"
+action = "form_ee_illu_or_il_compound"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_234_pul_val"
+sutra = 234
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "pul_val_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "pul_val_stems"
+right_match = "non_y_consonant_initial"
+action = "insert_u_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_235_suttu_v_alvazhi"
+sutra = 235
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 20
+transform = "thirithal"
+relation = "alvazhi"
+lexical_class = "demonstrative_v_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "av_iv_uv_stems"
+right_match = "consonant_initial"
+action = "mutate_v_to_aytham_or_assimilate"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_236_thev"
+sutra = 236
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "thev_stem"
+right_match = "consonant_or_mee"
+action = "insert_u_chariyai_or_form_themmi"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_238_vetrumai_porul_delegation"
+sutra = 238
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 50
+transform = "iyalbu"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "pronoun_quantifier_or_demonstrative_stem"
+right_match = "content_word"
+action = "delegate_to_urupu_stem_rules_245_to_251"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_242_urupu_ku_force_165"
+sutra = 242
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 15
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "case_4_ku_suffix"
+right_match = "vallinam_k_c_t_p_initial"
+action = "force_double_initial_vallinam_after_ku"
+flags = ["force_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_243_multi_chariyai"
+sutra = 243
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 30
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "vikuti_padam_or_urupu_stem"
+right_match = "urupu_or_suffix"
+action = "allow_single_or_stacked_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_244_chariyai_attu"
+sutra = 244
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "m_final_ahrinai_or_natural_a_stem"
+right_match = "case_suffix"
+action = "insert_attu_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_244_chariyai_arru"
+sutra = 244
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "demonstrative_v_ellaam_pala_sila"
+right_match = "case_suffix"
+action = "insert_arru_chariyai"
+flags = ["suppress_205"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_244_chariyai_in"
+sutra = 244
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 25
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "common_noun_or_kurriyalugaram"
+right_match = "case_suffix"
+action = "insert_in_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_244_chariyai_an"
+sutra = 244
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "demonstrative_u_or_kurriyalugaram"
+right_match = "case_suffix"
+action = "insert_an_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_244_chariyai_u"
+sutra = 244
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 25
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "oblique_case_4_stem"
+right_match = "case_4_ku"
+action = "insert_u_chariyai_before_ku"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_244_chariyai_a"
+sutra = 244
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "oblique_pronoun_or_named_consonant"
+right_match = "case_4_ku"
+action = "insert_a_chariyai_before_ku"
+flags = ["suppress_205"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_244_chariyai_n"
+sutra = 244
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 25
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "aa_maa_ko_stems"
+right_match = "case_suffix"
+action = "insert_n_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_244_chariyai_aan"
+sutra = 244
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 20
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "decade_numerals"
+right_match = "case_suffix"
+action = "insert_aan_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_245_ellaam_arru_um"
+sutra = 245
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 15
+transform = "thonral"
+relation = "vetrumai"
+lexical_class = "quantifier_ellam_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "ellaam_ahrinai"
+right_match = "case_suffix"
+action = "insert_arru_and_postpose_um"
+flags = ["suppress_205"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_245_ellaam_nam_um"
+sutra = 245
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 15
+transform = "thonral"
+relation = "vetrumai"
+lexical_class = "quantifier_ellam_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "ellaam_uyartinai"
+right_match = "case_suffix"
+action = "insert_nam_and_postpose_um"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_246_ellaarum_ellaeerum_um"
+sutra = 246
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 15
+transform = "thonral"
+relation = "vetrumai"
+lexical_class = "quantifier_ellam_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "ellaarum_or_ellaeerum"
+right_match = "case_suffix"
+action = "insert_tham_or_num_and_postpose_um"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_247_pronoun_oblique"
+sutra = 247
+chapter = "urupu"
+stage = 1
+substage = "1b"
+priority = 10
+transform = "thirithal"
+relation = "vetrumai"
+lexical_class = "pronoun_oblique_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "pronoun_oblique_stems"
+right_match = "case_suffix_or_content"
+action = "map_pronoun_to_oblique_stem"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_247_pronoun_naan_extended"
+sutra = 247
+chapter = "urupu"
+stage = 1
+substage = "1b"
+priority = 11
+transform = "thirithal"
+relation = "vetrumai"
+lexical_class = "pronoun_oblique_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "naan_pronoun"
+right_match = "case_suffix_or_content"
+action = "map_naan_to_en_oblique"
+evidence_layer = "extended_usage"
+
+[[rule]]
+id = "nannool_247_pronoun_ku_a"
+sutra = 247
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 15
+transform = "thonral"
+relation = "vetrumai"
+lexical_class = "pronoun_oblique_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "oblique_pronoun_stem"
+right_match = "case_4_ku"
+action = "insert_a_chariyai_without_gemination"
+flags = ["suppress_205"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_248_aa_maa_ko"
+sutra = 248
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 15
+transform = "thonral"
+relation = "vetrumai"
+lexical_class = "aa_maa_ko_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "aa_maa_ko_stems"
+right_match = "case_suffix"
+action = "insert_n_chariyai_or_v_in_u"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_249_decade_aan"
+sutra = 249
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 15
+transform = "keduthal"
+relation = "vetrumai"
+lexical_class = "decade_numerals"
+poetic = false
+optional = false
+reversible = true
+left_match = "decade_numerals_or_onpathu"
+right_match = "chariyai_aan"
+action = "truncate_paththu_to_p_before_aan"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_250_av_iv_uv_arru"
+sutra = 250
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 15
+transform = "thonral"
+relation = "vetrumai"
+lexical_class = "demonstrative_v_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "av_iv_uv_stems"
+right_match = "case_suffix"
+action = "insert_arru_without_v_gemination"
+flags = ["suppress_205"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_251_ahdu_an"
+sutra = 251
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 15
+transform = "keduthal"
+relation = "vetrumai"
+lexical_class = "demonstrative_u_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "demonstrative_u_stems"
+right_match = "case_suffix"
+action = "delete_aytham_and_insert_an_chariyai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_252_attin_akaram"
+sutra = 252
+chapter = "urupu"
+stage = 3
+substage = "3a"
+priority = 15
+transform = "keduthal"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "a_final_stem"
+right_match = "chariyai_attu"
+action = "elide_initial_a_of_attu"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_254_in_filter"
+sutra = 254
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 10
+transform = "iyalbu"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "chariyai_in"
+right_match = "case_5_in"
+action = "block_in_chariyai_before_case_5_in"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_257_ev_arru"
+sutra = 257
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 15
+transform = "thonral"
+relation = "vetrumai"
+lexical_class = "demonstrative_v_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "ev_stem"
+right_match = "case_suffix"
+action = "extend_250_arru_to_ev"
+flags = ["suppress_205"]
+evidence_layer = "root_sutra"
+
+# =============================================================================
+# T033: Remaining Tier C/D Closed Classes & Rules + Poetic Variants
+# =============================================================================
+
+[[closed_class]]
+class_id = "short_aa_172_stems"
+sutra = 172
+stems = ["நிலா", "சுறா", "கனா", "இரா", "புறா", "விழா"]
+notes = "Sutra 172: short-syllable aa-final nouns taking vu in prose and shortening to a in verse"
+
+[[closed_class]]
+class_id = "locative_particles_181"
+sutra = 181
+stems = ["அங்கு", "இங்கு", "உங்கு", "எங்கு", "யாண்டு"]
+notes = "Sutra 181: locative menthodar kurriyalugaram particles that double following vallinam"
+
+[[closed_class]]
+class_id = "temporal_particles_181"
+sutra = 181
+stems = ["அன்று", "இன்று", "என்று", "பண்டு", "முந்து"]
+notes = "Sutra 181: temporal menthodar kurriyalugaram particles that stay natural in alvazhi"
+
+[[closed_class]]
+class_id = "paran_kavan_211_stems"
+sutra = 211
+stems = ["பரண்", "கவண்"]
+notes = "Sutra 211: nna-final stems paran and kavan that stay natural in vetrumai"
+
+[[closed_class]]
+class_id = "tree_names_166"
+sutra = 166
+stems = ["மா", "விளா", "நாரத்தை", "வாழை"]
+notes = "Sutra 166: vowel-final tree names inserting homorganic nasal before vallinam in vetrumai"
+
+[[rule]]
+id = "nannool_159_uyartinai_poduppeyar_iyalbu"
+sutra = 159
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "common_or_rational_noun_final"
+right_match = "vallinam_k_c_t_p_initial"
+action = "block_valimigal_common_and_rational_nouns"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_160_interrogative_clitic_iyalbu"
+sutra = 160
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "interrogative_clitic_aa_ee_oo"
+right_match = "vallinam_k_c_t_p_initial"
+action = "block_valimigal_interrogative_clitics"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_161_second_person_verb_iyalbu"
+sutra = 161
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "second_person_finite_verb"
+right_match = "vallinam_k_c_t_p_initial"
+action = "block_valimigal_second_person_finite_verb"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_163_poetic_aa_y"
+sutra = 163
+chapter = "uyireeru"
+stage = 3
+substage = "3a"
+priority = 55
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "deictic_interrogative_clitics"
+poetic = true
+optional = true
+reversible = true
+left_match = "lengthened_deictic_aa"
+right_match = "vowel_initial"
+action = "insert_udambadumei_y_after_lengthened_aa"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_166_tree_name_nasal"
+sutra = 166
+chapter = "uyireeru"
+stage = 3
+substage = "3d"
+priority = 25
+transform = "thonral"
+relation = "vetrumai"
+lexical_class = "tree_names_166"
+poetic = false
+optional = false
+reversible = true
+left_match = "tree_names_166"
+right_match = "vallinam_k_c_t_p_initial"
+action = "insert_homorganic_nasal_before_vallinam"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_167_akara_alvazhi_iyalbu"
+sutra = 167
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "akara_alvazhi_six_contexts"
+right_match = "vallinam_k_c_t_p_initial"
+action = "block_valimigal_akara_alvazhi_six_contexts"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_171_aakara_alvazhi_iyalbu"
+sutra = 171
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "aakara_alvazhi_five_contexts"
+right_match = "vallinam_k_c_t_p_initial"
+action = "block_valimigal_aakara_alvazhi"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_172_short_aa_prose_vu"
+sutra = 172
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 35
+transform = "thonral"
+relation = "unspecified"
+lexical_class = "short_aa_172_stems"
+poetic = false
+optional = true
+reversible = true
+left_match = "short_aa_172_stems"
+right_match = "any_or_none"
+action = "append_vu_glide_in_prose"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_172_poetic_short_aa"
+sutra = 172
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 55
+transform = "thirithal"
+relation = "unspecified"
+lexical_class = "short_aa_172_stems"
+poetic = true
+optional = true
+reversible = true
+left_match = "short_aa_172_stems"
+right_match = "any_or_none"
+action = "shorten_final_aa_to_a_in_verse"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_173_poetic_anri_inri"
+sutra = 173
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 55
+transform = "thirithal"
+relation = "alvazhi"
+poetic = true
+optional = true
+reversible = true
+left_match = "anri_or_inri_stem"
+right_match = "any_initial"
+action = "mutate_final_i_to_u_in_verse_without_doubling"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_176_ikara_aikara_alvazhi_iyalbu"
+sutra = 176
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "alvazhi"
+poetic = false
+optional = false
+reversible = true
+left_match = "ahrinai_i_or_ai_final_alvazhi"
+right_match = "vallinam_k_c_t_p_initial"
+action = "block_valimigal_ahrinai_i_ai_alvazhi"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_179_mutriyalugaram_iyalbu"
+sutra = 179
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "mutriyalugaram_athu_odu_numeral_vinaiththogai"
+right_match = "vallinam_k_c_t_p_initial"
+action = "block_valimigal_mutriyalugaram_contexts"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_180_poetic_athu_anru"
+sutra = 180
+chapter = "uyireeru"
+stage = 1
+substage = "1b"
+priority = 55
+transform = "thirithal"
+relation = "alvazhi"
+poetic = true
+optional = true
+reversible = true
+left_match = "athu_stem"
+right_match = "anru_word"
+action = "elide_u_and_lengthen_a_to_aa_in_verse"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_181_locative_particle_valimigal"
+sutra = 181
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 22
+transform = "thonral"
+relation = "alvazhi"
+lexical_class = "locative_particles_181"
+poetic = false
+optional = false
+reversible = true
+left_match = "locative_particles_181"
+right_match = "vallinam_k_c_t_p_initial"
+action = "force_valimigal_locative_menthodar_particles"
+flags = ["force_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_201_ee_oo_clitic_iyalbu"
+sutra = 201
+chapter = "uyireeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "ee_oo_clitic_final"
+right_match = "vallinam_k_c_t_p_initial"
+action = "block_valimigal_ee_oo_clitics"
+flags = ["block_165"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_206_minority_i_before_ya"
+sutra = 206
+chapter = "meyyeeru"
+stage = 3
+substage = "3a"
+priority = 50
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = true
+reversible = true
+left_match = "non_y_consonant_final"
+right_match = "ya_initial"
+action = "insert_minority_i_chariyai_before_ya"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_207_verbal_noun_root_u"
+sutra = 207
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 25
+transform = "thonral"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "root_verbal_noun_or_imperative_nasal_lateral_v"
+right_match = "non_ya_consonant_initial"
+action = "insert_u_chariyai_after_root_verbal_noun"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_208_na_verbal_noun_a"
+sutra = 208
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 25
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = false
+reversible = true
+left_match = "na_final_root_verbal_noun"
+right_match = "consonant_initial"
+action = "insert_a_chariyai_after_na_verbal_noun"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_211_nna_branch_and_measure"
+sutra = 211
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "vetrumai"
+lexical_class = "paran_kavan_211_stems"
+poetic = false
+optional = false
+reversible = true
+left_match = "nna_caste_group_or_paran_kavan"
+right_match = "vallinam_or_any_initial"
+action = "preserve_nna_natural_in_vetrumai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_212_na_branch_name"
+sutra = 212
+chapter = "meyyeeru"
+stage = 2
+substage = "2"
+priority = 35
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "na_final_clan_name_kilai"
+right_match = "vallinam_or_case_initial"
+action = "preserve_natural_or_insert_a_chariyai_in_vetrumai"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_222_poetic_agam_sirai"
+sutra = 222
+chapter = "meyyeeru"
+stage = 1
+substage = "1b"
+priority = 55
+transform = "thirithal"
+relation = "unspecified"
+poetic = true
+optional = true
+reversible = true
+left_match = "agam_stem"
+right_match = "sirai_word"
+action = "drop_ka_and_assimilate_ma_to_nja_in_verse"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_230_derived_verbal_noun_iyalbu"
+sutra = 230
+chapter = "meyyeeru"
+stage = 3
+substage = "3c"
+priority = 25
+transform = "iyalbu"
+relation = "unspecified"
+poetic = false
+optional = false
+reversible = true
+left_match = "derived_l_or_ll_verbal_noun"
+right_match = "vallinam_or_consonant_initial"
+action = "exempt_derived_verbal_noun_from_207_u_chariyai"
+flags = ["is_derived_final"]
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_243_poetic_attu_omission"
+sutra = 243
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 60
+transform = "keduthal"
+relation = "vetrumai"
+poetic = true
+optional = true
+reversible = true
+left_match = "m_final_ahrinai_stem"
+right_match = "case_4_ku"
+action = "omit_attu_chariyai_in_verse"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_255_case2_thogai_equivalence"
+sutra = 255
+chapter = "urupu"
+stage = 3
+substage = "3b"
+priority = 30
+transform = "thirithal"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "case2_thogai_first_word"
+right_match = "case2_thogai_second_word"
+action = "allow_overt_case2_equivalent_sandhi_pattern"
+evidence_layer = "root_sutra"
+
+[[rule]]
+id = "nannool_256_case3_passive_agent"
+sutra = 256
+chapter = "urupu"
+stage = 2
+substage = "2"
+priority = 30
+transform = "thonral"
+relation = "vetrumai"
+poetic = false
+optional = true
+reversible = true
+left_match = "case3_passive_agent_noun"
+right_match = "passive_action_verb"
+action = "insert_attu_or_in_or_preserve_natural_for_case3_agent"
+evidence_layer = "root_sutra"

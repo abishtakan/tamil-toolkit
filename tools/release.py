@@ -29,7 +29,7 @@ try:
         copy_profile_notices,
         sync,
     )
-    from release_policy import archive_paths, check, load
+    from release_policy import archive_paths, check, check_dependency_dag, load
     from tasks import (
         LexiconProfile,
         load_pack_manifest,
@@ -51,7 +51,7 @@ except ModuleNotFoundError:
         copy_profile_notices,
         sync,
     )
-    from tools.release_policy import archive_paths, check, load
+    from tools.release_policy import archive_paths, check, check_dependency_dag, load
     from tools.tasks import (
         LexiconProfile,
         load_pack_manifest,
@@ -980,7 +980,10 @@ def main():
     task = args.task
     if args.lexicon_profile is not None:
         resolve_lexicon_profile(args.lexicon_profile)
-    check()
+    if task == "licenses":
+        check_dependency_dag()
+    else:
+        check()
     if task == "verify-wheel":
         if args.wheel is None:
             parser.error("verify-wheel requires --wheel")

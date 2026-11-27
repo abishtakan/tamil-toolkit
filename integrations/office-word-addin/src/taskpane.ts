@@ -8,6 +8,16 @@ import {
   toggleLiveTyping,
 } from "./lib/live-typing.js";
 import {
+  DEFAULT_LEXICON_MANIFEST_URL,
+  LexiconMountProfile,
+  LexiconStatsResult,
+  LexiconWordDefinition,
+  UnifiedSearchResult,
+  getSavedLexiconPrefs,
+  lexiconClient,
+  saveLexiconPrefs,
+} from "./lib/lexicon-client.js";
+import {
   CalendarProfile,
   CollationProfile,
   KeyboardLayout,
@@ -1241,6 +1251,353 @@ function wireInsertTab(): void {
   });
 }
 
+function escapeHtml(raw: string): string {
+  return raw
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function wireDictionaryTab(): () => void {
+  const searchInput = $("dict-search-input") as HTMLInputElement;
+  const resultsEl = $("dict-results");
+  const statsBadge = $("dict-stats-badge");
+  const profileSel = $("dict-profile") as HTMLSelectElement;
+  const manifestInput = $("dict-manifest-url") as HTMLInputElement;
+  const localFileInput = $("dict-local-files") as HTMLInputElement;
+  const packListEl = $("dict-pack-list");
+
+  const saved = getSavedLexiconPrefs();
+  profileSel.value = saved.profile;
+  manifestInput.value = saved.manifestUrl;
+
+  let lastResult: UnifiedSearchResult | null = null;
+  let searchTimer: number | null = null;
+
+  const insertOrCopyTerm = async (term: string): Promise<void> => {
+    const unicodeFont = ($("type-font") as HTMLSelectElement | null)?.value || undefined;
+    if (isWordHost()) {
+      await insertAtCursor(term, true, unicodeFont);
+      setStatus(`Inserted "${term}" into Word.`, "success");
+    } else {
+      await navigator.clipboard?.writeText(term).catch(() => {});
+      setStatus(`Copied "${term}".`, "info");
+    }
+  };
+
+  const renderPackStats = (): LexiconStatsResult | null => {
+    if (!isTamilEngineReady()) return null;
+    try {
+      const stats = lexiconClient.getStats();
+      const totalWords = stats.packs.reduce((sum, p) => sum + p.distinct_headwords, 0);
+      statsBadge.textContent = `${stats.pack_count} pack${stats.pack_count === 1 ? "" : "s"} · ${totalWords.toLocaleString()} words`;
+      packListEl.innerHTML = stats.packs
+        .map(
+          (p) => `
+            <div class="dict-pack-item">
+              <span><strong>${escapeHtml(p.pack_id)}</strong> (${p.distinct_headwords.toLocaleString()})</span>
+              <button class="btn dict-unload-pack" data-pack="${escapeHtml(p.pack_id)}" type="button" style="padding:2px 7px;font-size:10.5px;">Unload</button>
+            </div>`
+        )
+        .join("");
+      packListEl.querySelectorAll<HTMLButtonElement>(".dict-unload-pack").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const packId = btn.dataset.pack;
+          if (!packId) return;
+          lexiconClient.unloadPack(packId);
+          renderPackStats();
+          if (searchInput.value.trim()) {
+            void runSearch();
+          }
+        });
+      });
+      return stats;
+    } catch {
+      statsBadge.textContent = "WASM update needed";
+      return null;
+    }
+  };
+
+  const renderDefinitionCard = (def: LexiconWordDefinition): string => {
+    const posBadges = def.pos.map((p) => `<span class="dict-badge pos">${escapeHtml(p)}</span>`).join("");
+    const domainBadges = def.domains.slice(0, 4).map((d) => `<span class="dict-badge">${escapeHtml(d)}</span>`).join("");
+    const regionBadges = def.regions.slice(0, 4).map((r) => `<span class="dict-badge">${escapeHtml(r)}</span>`).join("");
+    const packBadges = Array.from(new Set(def.sources.map((s) => s.pack_id)))
+      .slice(0, 3)
+      .map((pid) => `<span class="dict-badge pack">${escapeHtml(pid)}</span>`)
+      .join("");
+    const ipaLine =
+      def.ipa && def.ipa.length > 0
+        ? `<div class="dict-ipa">/${escapeHtml(def.ipa.slice(0, 2).join(", /"))}/</div>`
+        : "";
+    const preferredInsertTerm = def.pure_tamil_equivalents[0] ?? def.headword;
+
+    return `
+      <div class="dict-card">
+        <div class="dict-card-header">
+          <div>
+            <div class="dict-headword">${escapeHtml(def.headword)}</div>
+            ${ipaLine}
+          </div>
+          <button class="btn btn-primary dict-insert-btn" data-term="${escapeHtml(preferredInsertTerm)}" type="button" style="font-size:11px;padding:4px 8px;">
+            Insert Tamil Term
+          </button>
+        </div>
+
+        ${posBadges || domainBadges || regionBadges || packBadges ? `<div class="dict-badges">${posBadges}${domainBadges}${regionBadges}${packBadges}</div>` : ""}
+
+        ${
+          def.meanings_en.length > 0
+            ? `<div class="meta-line"><strong>English</strong></div>
+               <ol class="dict-meanings">
+                 ${def.meanings_en.slice(0, 5).map((m) => `<li>${escapeHtml(m.text)} <span class="section-hint">(${escapeHtml(m.pack_id)})</span></li>`).join("")}
+               </ol>`
+            : ""
+        }
+
+        ${
+          def.meanings_ta.length > 0
+            ? `<div class="meta-line"><strong>தமிழ்</strong></div>
+               <ol class="dict-meanings">
+                 ${def.meanings_ta.slice(0, 4).map((m) => `<li>${escapeHtml(m.text)} <span class="section-hint">(${escapeHtml(m.pack_id)})</span></li>`).join("")}
+               </ol>`
+            : ""
+        }
+
+        ${
+          def.pure_tamil_equivalents.length > 0
+            ? `<div class="dict-pure-row">
+                <span class="meta-line" style="margin-top:0;">Pure Tamil:</span>
+                ${def.pure_tamil_equivalents
+                  .slice(0, 4)
+                  .map(
+                    (term) =>
+                      `<button class="btn dict-insert-btn" data-term="${escapeHtml(term)}" type="button" style="font-size:11px;padding:2px 7px;">${escapeHtml(term)}</button>`
+                  )
+                  .join("")}
+              </div>`
+            : ""
+        }
+      </div>
+    `;
+  };
+
+  const renderResults = (): void => {
+    const stats = renderPackStats();
+    const raw = searchInput.value.trim();
+
+    if (stats && stats.pack_count === 0 && !lastResult?.definition) {
+      resultsEl.innerHTML =
+        '<div class="helper-text">No .tlpack packs mounted yet. Open Pack Settings below to mount open-lite (~2.9 MB) or load local .tlpack files.</div>';
+      return;
+    }
+
+    if (!raw || !lastResult) {
+      resultsEl.innerHTML =
+        '<div class="helper-text">Enter a Tamil word, Mayangoli typo, or English gloss, or click Lookup Selected Word.</div>';
+      return;
+    }
+
+    const parts: string[] = [];
+    if (lastResult.definition) {
+      parts.push(renderDefinitionCard(lastResult.definition));
+    }
+
+    const hits =
+      lastResult.mode === "english"
+        ? lastResult.englishHits
+        : lastResult.prefixHits.length > 0
+          ? lastResult.prefixHits
+          : lastResult.fuzzyHits;
+    const filteredHits = hits
+      .filter((h) => h.headword !== lastResult?.definition?.headword)
+      .slice(0, 10);
+
+    if (filteredHits.length > 0) {
+      parts.push(`
+        <div class="dict-card">
+          <div class="meta-line" style="margin-top:0;margin-bottom:6px;"><strong>Matching Terms</strong></div>
+          <div class="btn-stack">
+            ${filteredHits
+              .map((h) => {
+                const domain = "domain" in h && h.domain ? h.domain : "";
+                const meta = [h.pos.slice(0, 2).join(", "), domain, h.packs.slice(0, 2).join(", ")]
+                  .filter(Boolean)
+                  .join(" · ");
+                return `
+                  <div class="dict-hit-btn">
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
+                      <button class="btn dict-pick-btn" data-word="${escapeHtml(h.headword)}" type="button" style="border:none;padding:0;background:transparent;text-align:left;font-size:13px;">
+                        ${escapeHtml(h.headword)}
+                      </button>
+                      <button class="btn dict-insert-btn" data-term="${escapeHtml(h.headword)}" type="button" style="font-size:10.5px;padding:2px 7px;">Insert Tamil Term</button>
+                    </div>
+                    ${meta ? `<div class="section-hint">${escapeHtml(meta)}</div>` : ""}
+                    ${h.preview_gloss ? `<div class="meta-line" style="margin-top:1px;">${escapeHtml(h.preview_gloss)}</div>` : ""}
+                  </div>
+                `;
+              })
+              .join("")}
+          </div>
+        </div>
+      `);
+    }
+
+    if (parts.length === 0) {
+      resultsEl.innerHTML = '<div class="helper-text">No matching dictionary entries found.</div>';
+      return;
+    }
+
+    resultsEl.innerHTML = parts.join("");
+
+    resultsEl.querySelectorAll<HTMLButtonElement>(".dict-insert-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const term = btn.dataset.term;
+        if (!term) return;
+        void runGuarded(() => insertOrCopyTerm(term));
+      });
+    });
+
+    resultsEl.querySelectorAll<HTMLButtonElement>(".dict-pick-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const word = btn.dataset.word;
+        if (!word) return;
+        searchInput.value = word;
+        void runSearch();
+      });
+    });
+  };
+
+  const runSearch = async (): Promise<void> => {
+    const raw = searchInput.value.trim();
+    if (!raw) {
+      lastResult = null;
+      renderResults();
+      return;
+    }
+    await runGuarded(async () => {
+      lastResult = lexiconClient.searchUnified(raw, 12);
+      renderResults();
+    });
+  };
+
+  profileSel.addEventListener("change", () => {
+    saveLexiconPrefs({ profile: profileSel.value as LexiconMountProfile });
+  });
+
+  manifestInput.addEventListener("change", () => {
+    const clean = manifestInput.value.trim() || DEFAULT_LEXICON_MANIFEST_URL;
+    manifestInput.value = clean;
+    saveLexiconPrefs({ manifestUrl: clean });
+  });
+
+  searchInput.addEventListener("input", () => {
+    if (searchTimer !== null) window.clearTimeout(searchTimer);
+    searchTimer = window.setTimeout(() => {
+      if (isTamilEngineReady()) {
+        try {
+          lastResult = searchInput.value.trim()
+            ? lexiconClient.searchUnified(searchInput.value, 12)
+            : null;
+          renderResults();
+        } catch {
+          // Ignore transient search errors during typing
+        }
+      }
+    }, 180);
+  });
+
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (searchTimer !== null) window.clearTimeout(searchTimer);
+      void runSearch();
+    }
+  });
+
+  $("btn-dict-search").addEventListener("click", () => {
+    void runSearch();
+  });
+
+  $("btn-dict-lookup-sel").addEventListener("click", () => {
+    void runGuarded(async () => {
+      if (!isWordHost()) {
+        setStatus("Open inside Microsoft Word to lookup selected text.", "info");
+        return;
+      }
+      const selected = (await readTargetText("selection")).trim();
+      const targetWord = selected || (await readWordAtCursorOrSelection()).trim();
+      if (!targetWord) {
+        setStatus("Select a word or place cursor next to a word in Word.", "info");
+        return;
+      }
+      searchInput.value = targetWord.split(/\s+/)[0] ?? targetWord;
+      lastResult = lexiconClient.searchUnified(searchInput.value, 12);
+      renderResults();
+      setStatus(`Looked up "${searchInput.value}".`, "success");
+    });
+  });
+
+  $("btn-dict-mount").addEventListener("click", () => {
+    void runGuarded(async () => {
+      const profile = profileSel.value as LexiconMountProfile;
+      const manifestUrl = manifestInput.value.trim() || DEFAULT_LEXICON_MANIFEST_URL;
+      saveLexiconPrefs({ profile, manifestUrl });
+      setStatus(`Mounting ${profile} lexicon packs...`, "info");
+      const mounted = await lexiconClient.mountProfile(profile, manifestUrl, {
+        onProgress: (p) => {
+          setStatus(
+            p.done
+              ? `Mounted ${p.loadedPacks} lexicon pack(s).`
+              : `Mounting ${p.profile}: ${p.loadedPacks}/${p.totalPacks}${p.lastPackId ? ` (${p.lastPackId})` : ""}...`,
+            p.done ? "success" : "info"
+          );
+        },
+      });
+      renderPackStats();
+      if (searchInput.value.trim()) {
+        lastResult = lexiconClient.searchUnified(searchInput.value, 12);
+      }
+      renderResults();
+      if (mounted.length === 0) {
+        setStatus("No packs found in manifest for selected profile.", "info");
+      }
+    });
+  });
+
+  $("btn-dict-clear").addEventListener("click", () => {
+    void runGuarded(async () => {
+      lexiconClient.clearAllPacks();
+      lastResult = null;
+      renderResults();
+      setStatus("Unloaded all lexicon packs.", "info");
+    });
+  });
+
+  localFileInput.addEventListener("change", () => {
+    const files = localFileInput.files;
+    if (!files || files.length === 0) return;
+    void runGuarded(async () => {
+      const batch = await lexiconClient.mountLocalFiles(files);
+      if (batch.errors.length > 0) {
+        setStatus(batch.errors.map((e) => `${e.fileName}: ${e.message}`).join("; "), "error");
+      } else {
+        setStatus(`Mounted ${batch.mounted.length} local .tlpack file(s).`, "success");
+      }
+      if (searchInput.value.trim()) {
+        lastResult = lexiconClient.searchUnified(searchInput.value, 12);
+      }
+      renderResults();
+    });
+  });
+
+  return () => {
+    renderResults();
+  };
+}
+
 function bootstrap(): void {
   syncWordTheme();
 
@@ -1254,9 +1611,13 @@ function bootstrap(): void {
   const syncLayoutCopy = wireTypeTab();
   const refreshInspect = wirePrepareTab();
   wireInsertTab();
+  const refreshDictionary = wireDictionaryTab();
   initTabs((tab) => {
     if (tab === "prepare") {
       void refreshInspect(true);
+    }
+    if (tab === "dictionary") {
+      refreshDictionary();
     }
   });
 
@@ -1276,6 +1637,7 @@ function bootstrap(): void {
   void initTamilEngine()
     .then(() => {
       setStatus("Ready · 100% local Rust/WASM", "success");
+      refreshDictionary();
       if (!isWordHost() || !$("panel-prepare").hidden) {
         void refreshInspect(true);
       }

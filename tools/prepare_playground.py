@@ -2,9 +2,11 @@
 from __future__ import annotations
 import argparse
 import csv
+import filecmp
 import json
 import os
 from pathlib import Path
+import shutil
 import sys
 import tomllib
 
@@ -266,13 +268,117 @@ def catalog():
     return build_artifacts()[0]
 
 
+def resolve_lexicon_channel(cli_channel: str | None = None) -> str:
+    """Resolve the playground `.tlpack` channel (`full` default, or `open`)."""
+    raw = (
+        cli_channel
+        if cli_channel is not None
+        else os.environ.get('TAMIL_LEXICON_CHANNEL') or os.environ.get('VITE_LEXICON_CHANNEL') or 'full'
+    )
+    normalized = raw.strip().lower() or 'full'
+    if normalized not in ('full', 'open'):
+        raise ValueError(f"Unsupported lexicon channel: {raw!r} (expected 'full' or 'open')")
+    return normalized
+
+
+def sync_lexicon_packs(
+    public_beta: bool = False,
+    lexicon_channel: str | None = None,
+) -> dict | None:
+    """Copy compiled `.tlpack` v2 packs and a MANIFEST.json into `playground/public/lexicon-packs/`.
+
+    When `lexicon_channel == 'open'`, `local/` packs are excluded (and any stale `local/`
+    directory in `playground/public/lexicon-packs/` is removed) so open-only deployments
+    ship strictly `verified_open` (`CC-BY-SA-4.0`) packs. When `lexicon_channel == 'full'`
+    (the default), all 12 packs are synced with each pack's exact `pack_tier`, `rights_status`,
+    `license`, and `source_ids` preserved verbatim. `--public-beta` alone does not strip `local/`.
+    """
+    channel = resolve_lexicon_channel(lexicon_channel)
+    strip_local = channel == 'open'
+    src_dir = ROOT / 'dist/lexicon-packs'
+    src_manifest = src_dir / 'MANIFEST.json'
+    if not src_manifest.is_file():
+        return None
+
+    manifest = json.loads(src_manifest.read_text(encoding='utf-8'))
+    dest_dir = ROOT / 'playground/public/lexicon-packs'
+    dest_dir.mkdir(parents=True, exist_ok=True)
+
+    if strip_local:
+        local_dest = dest_dir / 'local'
+        if local_dest.exists():
+            shutil.rmtree(local_dest)
+
+    kept_packs = []
+    expected_rel_paths: set[str] = set()
+    for entry in manifest.get('packs', []):
+        rel_file = str(entry.get('file', '')).replace('\\', '/').lstrip('/')
+        if not rel_file:
+            continue
+        summary = entry.get('summary', {})
+        is_local = rel_file.startswith('local/') or '/local/' in rel_file or summary.get('pack_tier') == 'local_historical'
+        if strip_local and is_local:
+            continue
+        src_file = src_dir / rel_file
+        if not src_file.is_file():
+            continue
+        dst_file = dest_dir / rel_file
+        dst_file.parent.mkdir(parents=True, exist_ok=True)
+        if not dst_file.exists() or dst_file.stat().st_size != src_file.stat().st_size or not filecmp.cmp(src_file, dst_file, shallow=False):
+            shutil.copy2(src_file, dst_file)
+        kept_packs.append({**entry, 'file': rel_file})
+        expected_rel_paths.add(rel_file)
+
+    for existing_pack in dest_dir.rglob('*.tlpack'):
+        rel = existing_pack.relative_to(dest_dir).as_posix()
+        if rel not in expected_rel_paths:
+            existing_pack.unlink()
+
+    filtered_manifest = {
+        **({'schema_version': manifest['schema_version']} if 'schema_version' in manifest else {}),
+        'pack_count': len(kept_packs),
+        'packs': kept_packs,
+    }
+    manifest_content = json.dumps(filtered_manifest, ensure_ascii=True, indent=2) + '\n'
+    dest_manifest = dest_dir / 'MANIFEST.json'
+    if not dest_manifest.exists() or dest_manifest.read_text(encoding='utf-8') != manifest_content:
+        dest_manifest.write_text(manifest_content, encoding='utf-8', newline='\n')
+
+    return {
+        'public_beta': public_beta,
+        'lexicon_channel': channel,
+        'pack_count': len(kept_packs),
+        'pack_ids': [p.get('summary', {}).get('pack_id') for p in kept_packs],
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--catalog-only', action='store_true')
     parser.add_argument('--check', action='store_true')
     parser.add_argument('--public-beta', action='store_true')
+    parser.add_argument(
+        '--lexicon-channel',
+        choices=('full', 'open'),
+        default=None,
+        help="Select '.tlpack' channel: 'full' (all 12 packs, default) or 'open' (verified_open only).",
+    )
+    parser.add_argument(
+        '--wasm-profile',
+        choices=('default', 'core', 'full'),
+        default=None,
+        help="WASM Cargo profile ('default' = slim ~4 MiB Apache-2.0 with .tlpack v2 streaming; 'full' = includes legacy v1 embedded packs).",
+    )
     args = parser.parse_args()
     public_beta = args.public_beta or os.environ.get('TAMIL_PLAYGROUND_PUBLIC_BETA', '').strip().lower() in ('1', 'true', 'yes')
+    lexicon_channel = resolve_lexicon_channel(args.lexicon_channel)
+    wasm_profile = (
+        args.wasm_profile
+        or os.environ.get('TAMIL_PLAYGROUND_WASM_PROFILE', '').strip().lower()
+        or 'full'
+    )
+    if wasm_profile not in ('default', 'core', 'full'):
+        wasm_profile = 'full'
     catalog_data, browse_data = build_artifacts()
     punarchi_data = build_punarchi_review_data()
     path = ROOT/'playground/src/generated/lexicon-catalog.json'
@@ -313,10 +419,13 @@ def main():
         sys.path.insert(0, str(ROOT))
         from tools.prepare_extended_lexicon import prepare_extended
         print(json.dumps(prepare_extended(), sort_keys=True))
+        tlpack_sync = sync_lexicon_packs(public_beta=public_beta, lexicon_channel=lexicon_channel)
+        if tlpack_sync is not None:
+            print(json.dumps(tlpack_sync, sort_keys=True))
         if not public_beta:
             from tools.prepare_historical_lexicon import prepare
             print(json.dumps(prepare(), sort_keys=True))
         from tools.tasks import sync_bindings
-        sync_bindings(profile='full', targets=('wasm-web',), release=True)
+        sync_bindings(profile=wasm_profile, targets=('wasm-web',), release=True)
 
 if __name__ == '__main__': main()

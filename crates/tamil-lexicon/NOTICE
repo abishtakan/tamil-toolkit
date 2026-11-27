@@ -1,0 +1,42 @@
+tamil-toolkit
+Copyright 2026 Abishtakan Sivachandrathevan and tamil-toolkit contributors
+
+This product includes software originally created by Abishtakan Sivachandrathevan
+and developed with tamil-toolkit contributors:
+https://github.com/abishtakan/tamil-toolkit
+
+Licensed under the Apache License, Version 2.0 (the "License").
+You may obtain a copy of the License in the LICENSE file or at:
+http://www.apache.org/licenses/LICENSE-2.0
+
+---
+
+Third-Party Attributions and Upstream Notices
+
+Original tamil-toolkit code is licensed under Apache-2.0. Upstream datasets,
+standards, and reference mappings retain their original licenses and terms as
+recorded in THIRD_PARTY_NOTICES.md:
+
+- Unicode 17.0.0 and CLDR 49 data: Unicode, Inc. (Unicode License V3)
+  https://www.unicode.org/ and https://cldr.unicode.org/
+- Dictionary data packs (when bundled): English and Tamil Wiktionary contributors
+  (CC-BY-SA-4.0; see lexicon/dictionary/ and lexicon/packs/ notices)
+- Bamini mapping references:
+  - ag-sanjjeev/app-tamil-fonts-unicode-converter (MIT)
+  - Pakeetharan/unicode-bamini-converter (MIT)
+- TSCII mapping reference: mayooresan/Android-TamilUtil (MIT)
+- Thirukanitham Drik astronomical calculations: `astro` 2.0.0 by Saurav
+  Sachidanand (MIT)
+- City coordinates: GeoNames (CC BY 4.0)
+- Legacy 16-bit CID font mapping references (LT-TM, Vanavil, Senthamil,
+  Shree-Tam, Softview, TBO): Azhagi+ Portable reference configurations
+  (see docs/specs/codec-*.md for digests and scope)
+- Bharathi Tamil Braille Grade 1 reference: World Braille Usage / NIEPVD
+  (see docs/specs/codec-braille.md)
+- Transliteration and keyboard layout references: ISO 15919, University of
+  Madras Tamil Lexicon, ITRANS, Harvard-Kyoto, TamilNet'99 (ELCOT), Anjal
+  Phonetic, and Suratha Bamini (see docs/specs/translit-v0.1.md)
+- Weekday Latin transliterations: Vidya Mohan and Rajiv Ranjan, Basic Tamil
+  (2024), chapter 6.1 (CC BY-NC 4.0)
+- Historical Vakyakarana mathematical tables: Vakyakarana with Sundararaja's
+  Laghuprakashika, eds. T. S. Kuppanna Sastri and K. V. Sarma (1962)

@@ -700,6 +700,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "tamil-lexicon"
+version = "0.2.0"
+dependencies = [
+ "flate2",
+ "fst",
+ "proptest",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tamil-core",
+ "tamil-norm",
+]
+
+[[package]]
 name = "tamil-morph"
 version = "0.2.0"
 
@@ -774,6 +788,7 @@ dependencies = [
  "tamil-collate",
  "tamil-core",
  "tamil-hyphen",
+ "tamil-lexicon",
  "tamil-norm",
  "tamil-numerals",
  "tamil-punarchi",

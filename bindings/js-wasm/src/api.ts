@@ -174,6 +174,289 @@ export interface LexiconLookupResponse {
   packs: LexiconPackInfo[];
   entries: LexiconEntry[];
 }
+export type LexiconPackTier = "verified_open" | "local_historical";
+export type LexiconTierFilter = "all" | "open" | "local";
+export type LexiconProfile = "open-lite" | "open" | "local" | "full";
+export type LexiconCategory =
+  | "dictionary"
+  | "terminology"
+  | "phrases"
+  | "regional"
+  | "names_taxa"
+  | "heritage"
+  | "relations";
+export interface LexiconCompactForm {
+  role: string;
+  text: string;
+}
+export interface LexiconCompactSense {
+  gloss_ta?: string;
+  gloss_en?: string;
+  definition_ta?: string;
+  definition_en?: string;
+  examples?: string[];
+  domain?: string;
+  region?: string;
+  register?: string;
+}
+export interface LexiconCompactEntry {
+  entry_id: string;
+  headword: string;
+  pos?: string;
+  forms?: LexiconCompactForm[];
+  senses?: LexiconCompactSense[];
+  domain?: string;
+  region?: string;
+  register?: string;
+  origin_language?: string;
+  pure_tamil_equivalent?: string;
+  standard_equivalent?: string;
+  scientific_name?: string;
+  literary_source?: string;
+  verb_class?: string;
+  transitivity?: string;
+  root_word?: string;
+  etymology_type?: string;
+  dedr_id?: string;
+  sandhi_behavior?: string;
+  animacy_gender?: string;
+  frequency_tier?: string;
+  source_id: string;
+  source_locator: string;
+  rights_status: string;
+  permalink?: string;
+}
+export interface LexiconCompactRelation {
+  source_headword: string;
+  target_headword: string;
+  relation_code: string;
+  directionality: string;
+  source_id: string;
+  source_locator: string;
+}
+export interface LexiconCompactPackSummary {
+  pack_id: string;
+  category: LexiconCategory;
+  index_format_version: number;
+  schema_version: number;
+  pack_tier: LexiconPackTier;
+  rights_status: string;
+  license: string;
+  dataset_version: string;
+  description: string;
+  entry_count: number;
+  sense_count: number;
+  relation_count: number;
+  distinct_headwords: number;
+  byte_len: number;
+  checksum_sha256: string;
+  has_folded_index: boolean;
+  has_relations: boolean;
+  has_english_index?: boolean;
+  source_ids: string[];
+  attribution_notice: string;
+  domains: string[];
+  regions: string[];
+  registers: string[];
+}
+export interface LexiconAnnotatedEntry {
+  pack_id: string;
+  pack_tier: LexiconPackTier;
+  entry: LexiconCompactEntry;
+}
+export interface LexiconQueryOptions {
+  packs?: string[];
+  tier?: LexiconTierFilter;
+  category?: LexiconCategory | string;
+  pos?: string;
+  domain?: string;
+  region?: string;
+  register?: string;
+  folded?: boolean;
+}
+export interface LexiconSearchOptions extends LexiconQueryOptions {
+  limit?: number;
+  after_key?: string;
+}
+export interface LexiconFuzzySearchOptions extends Omit<LexiconQueryOptions, "folded"> {
+  max_distance?: 1 | 2;
+  limit?: number;
+}
+export interface LexiconCompactLookupResult {
+  status: LexiconLookupStatus;
+  query: string;
+  canonical_query: string;
+  folded: boolean;
+  searched_packs: string[];
+  total_entries: number;
+  entries: LexiconAnnotatedEntry[];
+}
+export interface LexiconPrefixSearchHit {
+  headword: string;
+  matched_key: string;
+  packs: string[];
+  pack_tiers: LexiconPackTier[];
+  pos: string[];
+  preview_gloss?: string;
+  domain?: string;
+  region?: string;
+  entry_count: number;
+}
+export interface LexiconPrefixSearchResult {
+  prefix: string;
+  canonical_prefix: string;
+  folded: boolean;
+  searched_packs: string[];
+  hits: LexiconPrefixSearchHit[];
+  next_cursor?: string;
+  has_more?: boolean;
+}
+export interface LexiconFuzzySearchHit {
+  headword: string;
+  distance: number;
+  packs: string[];
+  pack_tiers: LexiconPackTier[];
+  pos: string[];
+  preview_gloss?: string;
+}
+export interface LexiconFuzzySearchResult {
+  query: string;
+  canonical_query: string;
+  max_distance: number;
+  searched_packs: string[];
+  hits: LexiconFuzzySearchHit[];
+}
+export interface LexiconLongestPrefixResult {
+  query: string;
+  prefixes: string[];
+}
+export interface LexiconRelationsResult {
+  status: LexiconLookupStatus;
+  query: string;
+  canonical_query: string;
+  searched_packs: string[];
+  relations: LexiconCompactRelation[];
+}
+export interface LexiconStatsResult {
+  pack_count: number;
+  total_entries: number;
+  total_senses: number;
+  total_relations: number;
+  total_bytes: number;
+  packs: LexiconCompactPackSummary[];
+  category_counts?: Record<string, number>;
+  pos_counts?: Record<string, number>;
+  domain_counts?: Record<string, number>;
+  region_counts?: Record<string, number>;
+  register_counts?: Record<string, number>;
+  has_english_index?: boolean;
+}
+export interface LexiconWordMeaning {
+  text: string;
+  language: string;
+  pos?: string;
+  domain?: string;
+  region?: string;
+  register?: string;
+  pack_id: string;
+  category: LexiconCategory;
+  pack_tier: LexiconPackTier;
+  rights_status: string;
+}
+export interface LexiconWordRelationsGroup {
+  synonyms: string[];
+  antonyms: string[];
+  related: string[];
+  hypernyms: string[];
+}
+export interface LexiconWordSourceRef {
+  pack_id: string;
+  category: LexiconCategory;
+  pack_tier: LexiconPackTier;
+  rights_status: string;
+  source_id: string;
+  source_locator: string;
+  permalink?: string;
+}
+export interface LexiconWordDefinition {
+  status: LexiconLookupStatus;
+  query: string;
+  canonical_query: string;
+  headword: string;
+  folded: boolean;
+  searched_packs: string[];
+  categories: LexiconCategory[];
+  pos: string[];
+  meanings_en: LexiconWordMeaning[];
+  meanings_ta: LexiconWordMeaning[];
+  examples: string[];
+  variants: string[];
+  domains: string[];
+  regions: string[];
+  registers: string[];
+  standard_equivalents: string[];
+  pure_tamil_equivalents: string[];
+  origin_languages: string[];
+  scientific_names: string[];
+  literary_sources: string[];
+  matched_headwords?: string[];
+  ipa?: string[];
+  verb_classes?: string[];
+  transitivity?: string[];
+  root_words?: string[];
+  etymology_types?: string[];
+  dedr_ids?: string[];
+  sandhi_behaviors?: string[];
+  animacy_genders?: string[];
+  frequency_tiers?: string[];
+  relations: LexiconWordRelationsGroup;
+  has_verified_open: boolean;
+  has_local_historical: boolean;
+  entry_count: number;
+  sources: LexiconWordSourceRef[];
+}
+export interface LexiconInitOptions {
+  profile?: LexiconProfile | string;
+  path?: string;
+  replace?: boolean;
+}
+export interface LexiconInitResult {
+  directory: string;
+  profile: LexiconProfile;
+  pack_count: number;
+  total_entries: number;
+  total_senses: number;
+  total_relations: number;
+  total_bytes: number;
+  loaded: LexiconCompactPackSummary[];
+}
+export interface LexiconSourceBucketResult {
+  query: string;
+  normalized_query: string;
+  bucket: string;
+}
+export interface LexiconSourceRecord {
+  source_file: string;
+  source_row: number;
+  lookup_key: string;
+  fields: Record<string, string>;
+}
+export interface LexiconSourceBucketPayload {
+  schema_version: number;
+  bucket: string;
+  records: LexiconSourceRecord[];
+}
+export interface LexiconSourceLookupResult {
+  query: string;
+  normalized_query: string;
+  status: LexiconLookupStatus;
+  data_status: string;
+  rights_status: string;
+  total: number;
+  offset: number;
+  limit: number;
+  records: LexiconSourceRecord[];
+}
 export interface DetectionResult {
   status: "detected" | "uncertain";
   encoding: string | null;
@@ -445,8 +728,20 @@ export interface PunarchiSutraInventoryEntry {
 }
 
 /** Serialization only. The Rust dispatcher owns every operation. */
-export function createApi(nativeExecute: (request: string) => string) {
+export function createApi(
+  nativeExecute: (request: string) => string,
+  nativeLoadPackBytes?: (bytes: Uint8Array) => string,
+) {
   const execute = (request: Request): unknown => JSON.parse(nativeExecute(JSON.stringify(request)));
+  const buildScopedLexiconRequest = (op: string, input: string, options?: object): Request => {
+    if (options === undefined) {
+      return { op, input };
+    }
+    if (options !== null && typeof options === "object" && !Array.isArray(options)) {
+      return { ...options, op, input } as Request;
+    }
+    return { options, op, input } as unknown as Request;
+  };
   const thirukanithamDefinition = calendarDefinitions.thirukanitham;
   return {
     execute,
@@ -670,6 +965,76 @@ export function createApi(nativeExecute: (request: string) => string) {
       return execute(request as unknown as Request) as LexiconLookupResponse;
     },
     lexicon_packs: () => execute({ op: "lexicon_packs", input: null }) as LexiconPackInfo[],
+    lexicon_init: (options?: LexiconProfile | LexiconInitOptions) =>
+      execute({ op: "lexicon_init", input: options ?? null }) as LexiconInitResult,
+    lexicon_load_pack_bytes: (bytes: Uint8Array): LexiconCompactPackSummary => {
+      if (nativeLoadPackBytes) {
+        return JSON.parse(nativeLoadPackBytes(bytes)) as LexiconCompactPackSummary;
+      }
+      const result = execute({
+        op: "lexicon_load_pack",
+        input: { bytes: Array.from(bytes) },
+      }) as { loaded: LexiconCompactPackSummary[] };
+      return result.loaded[0];
+    },
+    lexicon_load_pack: (path: string) =>
+      execute({ op: "lexicon_load_pack", input: { path } }) as { loaded: LexiconCompactPackSummary[] },
+    lexicon_unload_pack: (packId: string | null = null) =>
+      execute({ op: "lexicon_unload_pack", input: packId ?? null }) as
+        | { pack_id: string; removed: boolean }
+        | { cleared: boolean },
+    lexicon_stats: () => execute({ op: "lexicon_stats", input: null }) as LexiconStatsResult,
+    lexicon_define: (text: string, options?: LexiconQueryOptions) =>
+      execute(buildScopedLexiconRequest("lexicon_define", text, options)) as LexiconWordDefinition,
+    lexicon_query: (text: string, options?: LexiconQueryOptions) =>
+      execute(buildScopedLexiconRequest("lexicon_query", text, options)) as LexiconCompactLookupResult,
+    lexicon_search: (prefix: string, options?: LexiconSearchOptions) =>
+      execute(buildScopedLexiconRequest("lexicon_search", prefix, options)) as LexiconPrefixSearchResult,
+    lexicon_search_english: (query: string, options?: LexiconSearchOptions) => {
+      const input: Record<string, unknown> = { query };
+      if (options !== undefined && options !== null && typeof options === "object" && !Array.isArray(options)) {
+        for (const key of ["packs", "tier", "category", "pos", "domain", "region", "register", "limit"] as const) {
+          const val = options[key];
+          if (val !== undefined) {
+            input[key] = val;
+          }
+        }
+      }
+      return execute({ op: "lexicon_search_english", input }) as LexiconPrefixSearchResult;
+    },
+    lexiconSearchEnglish: (query: string, options?: LexiconSearchOptions) => {
+      const input: Record<string, unknown> = { query };
+      if (options !== undefined && options !== null && typeof options === "object" && !Array.isArray(options)) {
+        for (const key of ["packs", "tier", "category", "pos", "domain", "region", "register", "limit"] as const) {
+          const val = options[key];
+          if (val !== undefined) {
+            input[key] = val;
+          }
+        }
+      }
+      return execute({ op: "lexicon_search_english", input }) as LexiconPrefixSearchResult;
+    },
+    lexicon_fuzzy_search: (text: string, options?: LexiconFuzzySearchOptions) =>
+      execute(buildScopedLexiconRequest("lexicon_fuzzy_search", text, options)) as LexiconFuzzySearchResult,
+    lexicon_longest_prefix: (
+      text: string,
+      options?: Pick<LexiconQueryOptions, "packs" | "tier" | "category">,
+    ) =>
+      execute(buildScopedLexiconRequest("lexicon_longest_prefix", text, options)) as LexiconLongestPrefixResult,
+    lexicon_relations: (text: string, options?: Pick<LexiconQueryOptions, "packs" | "tier" | "category" | "folded">) =>
+      execute(buildScopedLexiconRequest("lexicon_relations", text, options)) as LexiconRelationsResult,
+    lexicon_source_bucket: (query: string) =>
+      execute({ op: "lexicon_source_bucket", input: query }) as LexiconSourceBucketResult,
+    lexicon_source_lookup: (
+      query: string,
+      bucket: LexiconSourceBucketPayload | Record<string, unknown>,
+      offset: number = 0,
+      limit: number = 25,
+    ) =>
+      execute({
+        op: "lexicon_source_lookup",
+        input: { query, bucket, offset, limit },
+      }) as LexiconSourceLookupResult,
     punarchi_join: (first: string, second: string, options?: { profile?: PunarchiProfile; context?: PunarchiContext }) =>
       execute({
         op: "punarchi_join",

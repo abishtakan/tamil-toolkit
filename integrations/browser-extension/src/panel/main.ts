@@ -8,6 +8,7 @@ import {
   getSiteRules,
   updatePreferences,
 } from "../shared/storage.js";
+import { mountDictionaryTab } from "./tabs/dictionary-tab.js";
 import { mountFixTab } from "./tabs/fix-tab.js";
 import { mountInspectTab } from "./tabs/inspect-tab.js";
 import { mountLiveTab } from "./tabs/live-tab.js";
@@ -54,6 +55,7 @@ async function bootstrap(): Promise<void> {
   const inspectView = document.getElementById("view-inspect")!;
   const liveView = document.getElementById("view-live")!;
   const fixView = document.getElementById("view-fix")!;
+  const dictionaryView = document.getElementById("view-dictionary")!;
   const toolsView = document.getElementById("view-tools")!;
   const drawerEl = document.getElementById("settings-drawer")!;
 
@@ -69,6 +71,10 @@ async function bootstrap(): Promise<void> {
     strings: getStrings,
     getActiveTabId: async () => (await getActiveTab())?.id,
   });
+  const dictionaryTab = mountDictionaryTab(dictionaryView, {
+    strings: getStrings,
+    getActiveTabId: async () => (await getActiveTab())?.id,
+  });
   const toolsTab = mountToolsTab(toolsView, {
     strings: getStrings,
     getActiveTab,
@@ -81,6 +87,7 @@ async function bootstrap(): Promise<void> {
     document.getElementById("tab-inspect")!.textContent = s.tabInspect;
     document.getElementById("tab-live")!.textContent = s.tabLive;
     document.getElementById("tab-fix")!.textContent = s.tabFix;
+    document.getElementById("tab-dictionary")!.textContent = s.tabDictionary;
     document.getElementById("tab-tools")!.textContent = s.tabTools;
   }
 
@@ -169,10 +176,12 @@ async function bootstrap(): Promise<void> {
     inspectView.style.display = tab === "inspect" ? "flex" : "none";
     liveView.style.display = tab === "live" ? "flex" : "none";
     fixView.style.display = tab === "fix" ? "flex" : "none";
+    dictionaryView.style.display = tab === "dictionary" ? "flex" : "none";
     toolsView.style.display = tab === "tools" ? "flex" : "none";
 
     if (tab === "inspect") await inspectTab.refresh();
     if (tab === "live") await liveTab.refresh();
+    if (tab === "dictionary") await dictionaryTab.refresh();
     if (tab === "tools") await toolsTab.refresh();
   }
 
@@ -190,6 +199,7 @@ async function bootstrap(): Promise<void> {
     inspectTab.rerenderLabels();
     liveTab.rerenderLabels();
     fixTab.rerenderLabels();
+    dictionaryTab.rerenderLabels();
     toolsTab.rerenderLabels();
     if (drawerEl.classList.contains("open")) {
       await renderSettingsDrawer();

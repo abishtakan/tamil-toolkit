@@ -36,8 +36,9 @@ describe("Phase 10: PunarchiTool & tamil-punarchi WASM workbench", () => {
     expect(naaduIn.surface).toBe("நாட்டின்");
     expect(naaduIn.alternatives.some((a) => a.surface.includes("இனின்"))).toBe(false);
 
-    const zwnj = tt.punarchi_join("கல்", "\u200Cதீது");
-    expect(zwnj.surface).toBe("கல்\u200Cதீது");
+    const zwnjChar = String.fromCodePoint(0x200c);
+    const zwnj = tt.punarchi_join("கல்", `${zwnjChar}தீது`);
+    expect(zwnj.surface).toBe(`கல்${zwnjChar}தீது`);
     expect(zwnj.steps[0].sutra).toBe(153);
 
     expect(tt.punarchi_join("பத்து", "ஒன்பது").surface).toBe("பத்தொன்பது");

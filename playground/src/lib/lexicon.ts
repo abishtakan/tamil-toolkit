@@ -992,6 +992,7 @@ export const POS_HUMAN_LABELS: Record<string, { en: string; ta: string }> = {
   ADP: { en: "Postposition", ta: "வேற்றுமை உருபு" },
   CONJ: { en: "Conjunction", ta: "இணைப்புச்சொல்" },
   DET: { en: "Determiner", ta: "சுட்டுச்சொல்" },
+  PHRASE: { en: "Phrase", ta: "சொற்றொடர்" },
 };
 
 export function parseBrowseIndex(raw: RawBrowseIndexPayload): BrowseIndexData {

@@ -1,0 +1,146 @@
+name: Publish Lexicon Packs (.tlpack v2)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dataset_version:
+        description: Dataset version tag (e.g. 0.2.0)
+        required: true
+        type: string
+        default: '0.2.0'
+      channel:
+        description: Pack channel to publish (open = CC-BY-SA-4.0 verified_open only; full = open + local)
+        required: true
+        type: choice
+        options: ['open', 'full']
+        default: 'open'
+      publish_r2:
+        description: Also upload release assets to Cloudflare R2 via cf CLI
+        required: true
+        type: boolean
+        default: false
+  push:
+    tags:
+      - 'lexicon-packs-*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-lexicon-packs
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.95.0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.11.26'
+          enable-cache: true
+
+      - name: Install Python dependencies
+        run: uv sync --locked --python 3.13
+
+      - name: Organize lexicon datasets
+        run: uv run --locked python tools/lexicon_organize.py --out target/lexicon/organized
+
+      - name: Build TMLPACK2 bundles
+        run: |
+          cargo run --release --locked -p tamil-toolkit --bin tamil-toolkit -- \
+            lexicon compile-all target/lexicon/organized --out dist/lexicon-packs
+
+      - name: Run lexicon quality gate
+        run: |
+          uv run --locked python tools/lexicon_quality_gate.py \
+            --organized-dir target/lexicon/organized \
+            --manifest dist/lexicon-packs/MANIFEST.json
+
+      - name: Prepare release assets, SHA256SUMS.txt, and profile tarballs
+        env:
+          CHANNEL: ${{ inputs.channel || 'open' }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist/release-assets
+          if [ "$CHANNEL" != "full" ]; then
+            rm -rf dist/lexicon-packs/local
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest_path = Path("dist/lexicon-packs/MANIFEST.json")
+          data = json.loads(manifest_path.read_text(encoding="utf-8"))
+          data["packs"] = [
+              p for p in data["packs"]
+              if p.get("summary", {}).get("pack_tier") == "verified_open"
+          ]
+          data["pack_count"] = len(data["packs"])
+          manifest_path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+          PY
+          fi
+
+          # Verify built packs with CLI verifier
+          cargo run --release --locked -p tamil-toolkit --bin tamil-toolkit -- \
+            lexicon verify --dir dist/lexicon-packs
+
+          cp dist/lexicon-packs/MANIFEST.json dist/release-assets/MANIFEST.json
+          find dist/lexicon-packs -name '*.tlpack' -exec cp {} dist/release-assets/ \;
+
+          # Build profile tarballs
+          tar -C dist/lexicon-packs -czf dist/release-assets/tamil-lexicon-packs-open-lite.tar.gz \
+            MANIFEST.json open/core.tlpack open/names_taxa.tlpack open/regional.tlpack
+          tar -C dist/lexicon-packs -czf dist/release-assets/tamil-lexicon-packs-open.tar.gz \
+            MANIFEST.json open
+          if [ "$CHANNEL" = "full" ] && [ -d dist/lexicon-packs/local ]; then
+            tar -C dist/lexicon-packs -czf dist/release-assets/tamil-lexicon-packs-full.tar.gz \
+              MANIFEST.json open local
+          fi
+
+          (cd dist/release-assets && sha256sum * > SHA256SUMS.txt)
+          ls -lh dist/release-assets
+
+      - name: Create or update GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('lexicon-packs-{0}', inputs.dataset_version || '0.2.0') }}
+          CHANNEL: ${{ inputs.channel || 'open' }}
+        run: |
+          set -euo pipefail
+          if gh release view "$TAG_NAME" >/dev/null 2>&1; then
+            gh release upload "$TAG_NAME" dist/release-assets/* --clobber
+          else
+            gh release create "$TAG_NAME" dist/release-assets/* \
+              --title "Tamil Toolkit Lexicon Packs ($TAG_NAME, $CHANNEL)" \
+              --notes "Compiled TMLPACK2 lexicon packs ($CHANNEL channel) with MANIFEST.json and SHA256SUMS.txt."
+          fi
+
+      - name: Upload to Cloudflare R2 (optional)
+        if: ${{ inputs.publish_r2 == true }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_R2_BUCKET: ${{ vars.CLOUDFLARE_R2_BUCKET || 'tamil-toolkit-lexicon-packs' }}
+          DATASET_VERSION: ${{ inputs.dataset_version || '0.2.0' }}
+        run: |
+          set -euo pipefail
+          if [ -z "${CLOUDFLARE_API_TOKEN:-}" ]; then
+            echo "CLOUDFLARE_API_TOKEN not set; skipping R2 upload."
+            exit 0
+          fi
+          if ! command -v cf >/dev/null 2>&1; then
+            echo "cf CLI not installed; skipping R2 upload." >&2
+            exit 1
+          fi
+          for asset in dist/release-assets/*; do
+            name="$(basename "$asset")"
+            cf r2 object put "${CLOUDFLARE_R2_BUCKET}/v${DATASET_VERSION}/${name}" --file "$asset"
+            cf r2 object put "${CLOUDFLARE_R2_BUCKET}/latest/${name}" --file "$asset"
+          done
