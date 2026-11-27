@@ -6,7 +6,7 @@
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-tokenize?style=flat-square)](https://crates.io/crates/tamil-tokenize)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-tokenize?style=flat-square&label=downloads)](https://crates.io/crates/tamil-tokenize)
-[![docs.rs](https://docs.rs/tamil-tokenize/badge.svg)](https://docs.rs/tamil-tokenize/0.2.0)
+[![docs.rs](https://docs.rs/tamil-tokenize/badge.svg)](https://docs.rs/tamil-tokenize/0.3.0)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
 [![Apache-2.0 license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 
@@ -22,20 +22,20 @@
 | **Sentence Segmentation** | Sentence boundaries honoring attested Tamil abbreviations (`திரு.`, `மு.க.`, `பி.ப.`, `மு.ப.`, `எ.கா.`, `ரூ.`) and hard separators (`segment_sentences`). |
 | **Stopwords** | Opt-in `none`, `conservative`, and `broad` profiles preserving original token coordinates (`StopwordProfile`). |
 
-Release `0.2.0`. Public APIs follow semantic versioning. This package provides bounded APIs and does not
+Release `0.3.0`. Public APIs follow semantic versioning. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage.
 
 ## Install
 
 ```sh
-cargo add tamil-tokenize@=0.2.0
+cargo add tamil-tokenize@=0.3.0
 ```
 
 Or add the exact alpha dependency to `Cargo.toml`:
 
 ```toml
 [dependencies]
-tamil-tokenize = "=0.2.0"
+tamil-tokenize = "=0.3.0"
 ```
 
 ## Example
@@ -53,10 +53,10 @@ fn main() {
 
 ## Documentation
 
-- [API reference on docs.rs](https://docs.rs/tamil-tokenize/0.2.0)
+- [API reference on docs.rs](https://docs.rs/tamil-tokenize/0.3.0)
 - [Feature contract and examples](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/tokenize-v0.1.md)
 - [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Stable release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.2.0.md)
+- [Stable release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.3.0.md)
 
 ## License
 

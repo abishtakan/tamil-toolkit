@@ -41,7 +41,7 @@ Runs **100% client-side** with zero network tracking, zero external dependencies
 
 ## Install
 
-Node.js 22+ is supported. Install 0.2.0 from npm’s `latest` dist-tag:
+Node.js 22+ is supported. Install 0.3.0 from npm’s `latest` dist-tag:
 
 ```sh
 npm install tamil-toolkit@latest
@@ -55,7 +55,7 @@ pnpm add tamil-toolkit
 yarn add tamil-toolkit
 ```
 
-The `latest` tag points to `0.2.0`; see the release record for published checksums and scope.
+The `latest` tag points to `0.3.0`; see the release record for published checksums and scope.
 
 ---
 
@@ -188,9 +188,9 @@ console.log(words, sentences);
 
 ---
 
-## 0.2.0 scope
+## 0.3.0 scope
 
-The npm `0.2.0` package includes the capabilities listed above. The
+The npm `0.3.0` package includes the capabilities listed above. The
 shared `execute` API exposes `lt_tm_codes_to_unicode`, `lt_tm_text_to_unicode`,
 `unicode_to_lt_tm_codes`, and `unicode_to_lt_tm_text`. LT-TM conversion handles
 selected 16-bit code sequences; it does not parse PDFs, select font runs, or
@@ -223,7 +223,7 @@ const text = tamil.execute({ op: "lt_tm_codes_to_unicode", input: { codes } });
 - [Tokenizer contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/tokenize-v0.1.md)
 - [Collation contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/collate-v0.1.md)
 - [Numerals, fractions, and dates](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/numerals-v0.2.md)
-- [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.2.0.md#compatibility-and-scope)
+- [Codec contract and alpha 3 limits](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.3.0.md#compatibility-and-scope)
 - [LT-TM CID profile contract](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/specs/codec-lt-tm.md)
 - [Third-party notices](https://github.com/abishtakan/tamil-toolkit/blob/master/THIRD_PARTY_NOTICES.md)
 

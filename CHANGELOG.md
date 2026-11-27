@@ -3,6 +3,8 @@
 
 ## Unreleased
 
+## 0.3.0 / Python 0.3.0 - 2026-11-28
+
 - **Lexicon Deep Cleaning, Reverse English Search, Pack Distribution & Platform Rollout:**
   - Deep-cleaned all 12 `.tlpack` v2 packs (`274,100` entries, `376,308` senses, `30,858` relations, `0` quality-gate failures): fixed `1,886` Tamil-in-domain rows in `local_core` (`1,816 -> 66` clean domains), atomically split & normalized all comma-joined domains/registers, mapped WordNet lexnames (`local_phrases`: `96 -> 74`), resolved the remaining 3 `local_terminology` mojibake rows, and added `tools/lexicon_quality_gate.py` (`just lexicon-quality-gate`).
   - Added backward-compatible reverse English-to-Tamil gloss indexing (`V2_FLAG_HAS_ENGLISH_INDEX`, `lexicon_search_english`) and precomputed facet counts (`category_counts`, `pos_counts`, `domain_counts`, `region_counts`, `register_counts`) in `crates/tamil-lexicon` and `crates/tamil-toolkit`.

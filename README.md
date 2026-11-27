@@ -71,19 +71,19 @@ just playground-dev
 
 Choose the SDK for your technology stack:
 
-| SDK | Install 0.2.0 | Version | Downloads |
+| SDK | Install 0.3.0 | Version | Downloads |
 | --- | --- | --- | --- |
-| **Rust 1.85+** | `cargo add tamil-toolkit@=0.2.0` | [![crates.io][crates-version]][crates] | [![crates.io total downloads][crates-downloads]][crates] |
-| **Python 3.11+** | `python -m pip install tamil-toolkit==0.2.0` | [![PyPI][pypi-version]][pypi] | [![PyPI monthly downloads][pypi-downloads]][pypistats] |
+| **Rust 1.85+** | `cargo add tamil-toolkit@=0.3.0` | [![crates.io][crates-version]][crates] | [![crates.io total downloads][crates-downloads]][crates] |
+| **Python 3.11+** | `python -m pip install tamil-toolkit==0.3.0` | [![PyPI][pypi-version]][pypi] | [![PyPI monthly downloads][pypi-downloads]][pypistats] |
 | **Node.js 22+ / browsers** | `npm install tamil-toolkit@latest` | [![npm][npm-version]][npm] | [![npm monthly downloads][npm-downloads]][npm] |
 
-**Release scope:** npm’s `latest` tag points to 0.2.0; see the [release notes](CHANGELOG.md) and [0.2.0 compatibility details](docs/releases/v0.2.0.md#compatibility-and-scope).
+**Release scope:** npm’s `latest` tag points to 0.3.0; see the [release notes](CHANGELOG.md) and [0.3.0 compatibility details](docs/releases/v0.3.0.md#compatibility-and-scope).
 
 Download badges track the umbrella package in each registry: total downloads on crates.io and monthly downloads on PyPI and npm.
 
-All nine Rust crates are published at `0.2.0`: [`tamil-core`](https://crates.io/crates/tamil-core), [`tamil-norm`](https://crates.io/crates/tamil-norm), [`tamil-collate`](https://crates.io/crates/tamil-collate), [`tamil-numerals`](https://crates.io/crates/tamil-numerals), [`tamil-calendar`](https://crates.io/crates/tamil-calendar), [`tamil-codec`](https://crates.io/crates/tamil-codec), [`tamil-hyphen`](https://crates.io/crates/tamil-hyphen), [`tamil-translit`](https://crates.io/crates/tamil-translit), and [`tamil-toolkit`](https://crates.io/crates/tamil-toolkit).
+All nine Rust crates are published at `0.3.0`: [`tamil-core`](https://crates.io/crates/tamil-core), [`tamil-norm`](https://crates.io/crates/tamil-norm), [`tamil-collate`](https://crates.io/crates/tamil-collate), [`tamil-numerals`](https://crates.io/crates/tamil-numerals), [`tamil-calendar`](https://crates.io/crates/tamil-calendar), [`tamil-codec`](https://crates.io/crates/tamil-codec), [`tamil-hyphen`](https://crates.io/crates/tamil-hyphen), [`tamil-translit`](https://crates.io/crates/tamil-translit), and [`tamil-toolkit`](https://crates.io/crates/tamil-toolkit).
 
-**Contract boundaries:** Legacy font profiles (Bamini, TSCII, TAB, TAM, Anjal, LT-TM, Vanavil, Senthamil, Shree-Tam, Softview, TBO) and Bharathi Braille use declared bounded profiles; they do not claim complete historical-font coverage. Four civil calendar suites are active while 13 Thirukanitham/Vakya ephemeris and observance suites remain experimental (`planned` pending independent witness review). `tamil-tokenize` (Phase 9) is active in source and release policy ahead of the next release; planned NLP modules (Phases 10–17) and Dart/Pub or PostgreSQL distributions remain outside the public release. See the [LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), [tokenizer contract](docs/specs/tokenize-v0.1.md), [calendar scope](docs/releases/numerals-calendar-candidate.md), and [0.2.0 compatibility details](docs/releases/v0.2.0.md#compatibility-and-scope).
+**Contract boundaries:** Legacy font profiles (Bamini, TSCII, TAB, TAM, Anjal, LT-TM, Vanavil, Senthamil, Shree-Tam, Softview, TBO) and Bharathi Braille use declared bounded profiles; they do not claim complete historical-font coverage. Four civil calendar suites are active while 13 Thirukanitham/Vakya ephemeris and observance suites remain experimental (`planned` pending independent witness review). `tamil-tokenize` (Phase 9) is active in source and release policy ahead of the next release; planned NLP modules (Phases 10–17) and Dart/Pub or PostgreSQL distributions remain outside the public release. See the [LT-TM contract](docs/specs/codec-lt-tm.md), [Vanavil contract](docs/specs/codec-vanavil.md), [tokenizer contract](docs/specs/tokenize-v0.1.md), [calendar scope](docs/releases/numerals-calendar-candidate.md), and [0.3.0 compatibility details](docs/releases/v0.3.0.md#compatibility-and-scope).
 
 ---
 
@@ -306,12 +306,12 @@ Every API in `tamil-toolkit` is governed by a formal capability specification:
 | Bounded Thirukanitham date conversion, panchangam, phases, arithmetic, daylight periods and cycle titles | [Profile contract](docs/specs/calendar-thirukanitham-v1.md) · [phase contract](docs/specs/calendar-lunar-phases-v1.md) · [arithmetic contract](docs/specs/calendar-solar-arithmetic-v1.md) · [cycle-title contract](docs/specs/calendar-year-cycle-v1.md) · [daylight-period contract](docs/specs/calendar-daylight-periods-v1.md) · [source research](docs/specs/numerals-calendar-source-research.md) |
 | Authority-published holiday schedule snapshots | [Official schedule contract](docs/specs/calendar-official-holidays-v1.md) · [source research](docs/specs/numerals-calendar-source-research.md) |
 | Bounded classical Vakiya civil, five-limb, arithmetic profile | [1962 edition contract](docs/specs/calendar-vakya-civil-v1.md) · [solar arithmetic contract](docs/specs/calendar-solar-arithmetic-v1.md) · [completion matrix](docs/specs/numerals-completion-plan.md) |
-| Bamini, bounded byte profiles, and LT-TM / Vanavil CID conversion | [Codec contract](docs/specs/codec-v0.1.md) · [LT-TM profile](docs/specs/codec-lt-tm.md) · [Vanavil profile](docs/specs/codec-vanavil.md) · [0.2.0 scope](docs/releases/v0.2.0.md#compatibility-and-scope) |
+| Bamini, bounded byte profiles, and LT-TM / Vanavil CID conversion | [Codec contract](docs/specs/codec-v0.1.md) · [LT-TM profile](docs/specs/codec-lt-tm.md) · [Vanavil profile](docs/specs/codec-vanavil.md) · [0.3.0 scope](docs/releases/v0.3.0.md#compatibility-and-scope) |
 | Syllable and orthographic boundary hyphenation | [Hyphenation specification](specs/009-tamil-hyphen/spec.md) · [DTP dictionary spec](specs/011-tamil-hyphen-dic/spec.md) · [Word & Google Docs roadmap](docs/integrations/word-googledocs-roadmap.md) |
 | Word & sentence tokenization, abbreviations, and stopwords | [Tokenizer contract](docs/specs/tokenize-v0.1.md) · [Phase 9 spec](specs/024-tamil-tokenize/spec.md) |
-| Rust API reference | [docs.rs/tamil-toolkit](https://docs.rs/tamil-toolkit/0.2.0/tamil_toolkit/) |
+| Rust API reference | [docs.rs/tamil-toolkit](https://docs.rs/tamil-toolkit/0.3.0/tamil_toolkit/) |
 | Python and JavaScript/WASM SDK guides | [Python](bindings/python/README.md) · [JavaScript/WASM](bindings/js-wasm/README.md) |
-| Published package list and release record | [Release policy](docs/releases/policy.md#what-can-ship) · [0.2.0](docs/releases/v0.2.0.md) |
+| Published package list and release record | [Release policy](docs/releases/policy.md#what-can-ship) · [0.3.0](docs/releases/v0.3.0.md) |
 | Contributing, development, roadmap, and status | [Contributing](CONTRIBUTING.md) · [development guide](docs/development.md) · [project status](docs/status.md) · [roadmap](ROADMAP.md) |
 
 The repository checks shared golden fixtures through Rust, Python, Node/browser WASM, and a host Dart adapter. No Dart/Pub package is published. The contracts describe bounded supported behavior; they do not claim complete linguistic coverage.

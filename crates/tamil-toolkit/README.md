@@ -6,7 +6,7 @@
 
 [![crates.io version](https://img.shields.io/crates/v/tamil-toolkit?style=flat-square)](https://crates.io/crates/tamil-toolkit)
 [![crates.io downloads](https://img.shields.io/crates/d/tamil-toolkit?style=flat-square&label=downloads)](https://crates.io/crates/tamil-toolkit)
-[![docs.rs](https://docs.rs/tamil-toolkit/badge.svg)](https://docs.rs/tamil-toolkit/0.2.0)
+[![docs.rs](https://docs.rs/tamil-toolkit/badge.svg)](https://docs.rs/tamil-toolkit/0.3.0)
 [![CI](https://img.shields.io/github/actions/workflow/status/abishtakan/tamil-toolkit/ci.yml?branch=master&style=flat-square&label=CI)](https://github.com/abishtakan/tamil-toolkit/actions/workflows/ci.yml)
 [![Apache-2.0 license](https://img.shields.io/github/license/abishtakan/tamil-toolkit?style=flat-square)](https://github.com/abishtakan/tamil-toolkit/blob/master/LICENSE)
 
@@ -25,20 +25,20 @@
 | **Historical calendar kernels** | Unreleased source-pinned 1962 Vakiya solar and lunar calculations; full Vakiya date/location/five-limb coverage is not implemented. |
 | **Legacy conversion** | Bamini plus bounded TSCII, TAB, TAM, Anjal, LT-TM / IndoWord, and Vanavil profiles. |
 
-Release `0.2.0`. Public APIs follow semantic versioning. This package provides bounded APIs and does not
+Release `0.3.0`. Public APIs follow semantic versioning. This package provides bounded APIs and does not
 attempt complete Tamil linguistic coverage. This candidate includes owner-approved numerals v0.3 and experimental, bounded calendar APIs. Calendar acceptance suites remain planned and their selected review runs are separate from active numeral parity. Thirukanitham, Ujjain mean-sunrise Vakiya, named TN observances and annual holiday snapshots have explicit coverage. Arbitrary-location Vakiya daylight, official era reconciliation and Krishna Jayanthi remain deferred. See docs/releases/numerals-calendar-candidate.md for scope and limitations.
 
 ## Install
 
 ```sh
-cargo add tamil-toolkit@=0.2.0
+cargo add tamil-toolkit@=0.3.0
 ```
 
 Or add the exact alpha dependency to `Cargo.toml`:
 
 ```toml
 [dependencies]
-tamil-toolkit = "=0.2.0"
+tamil-toolkit = "=0.3.0"
 ```
 
 ## Example
@@ -60,10 +60,10 @@ fn main() -> Result<(), String> {
 
 ## Documentation
 
-- [API reference on docs.rs](https://docs.rs/tamil-toolkit/0.2.0)
+- [API reference on docs.rs](https://docs.rs/tamil-toolkit/0.3.0)
 - [Feature contract and examples](https://github.com/abishtakan/tamil-toolkit/blob/master/README.md#capability-contracts)
 - [Project overview](https://github.com/abishtakan/tamil-toolkit#capability-contracts)
-- [Stable release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.2.0.md)
+- [Stable release record](https://github.com/abishtakan/tamil-toolkit/blob/master/docs/releases/v0.3.0.md)
 
 ## License
 
